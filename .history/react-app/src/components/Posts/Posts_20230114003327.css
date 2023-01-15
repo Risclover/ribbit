@@ -1,0 +1,25 @@
+.posts-container {
+  margin: 0 auto;
+  width: max-content;
+  display: flex;
+}
+
+.posts-right-col {
+  width: 312px;
+  margin-left: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.posts-home-box {
+  border-radius: 4px;
+  background: white;
+  border: 1px solid red;
+  width: 100%;
+}
+
+@media (max-width: 960px) {
+  .posts-right-col {
+    display: none;
+  }
+}

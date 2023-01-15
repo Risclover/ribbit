@@ -1,0 +1,9 @@
+nav {
+  display: flex;
+  position: fixed;
+  top: 0;
+}
+
+nav ul {
+  display: flex;
+}

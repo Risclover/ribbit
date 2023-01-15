@@ -1,0 +1,28 @@
+form {
+  display: flex;
+  flex-direction: column;
+  width: 740px;
+}
+
+.create-post-content {
+  background: white;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+.create-post-content input,
+.create-post-content textarea {
+  width: 100%;
+}
+
+.create-post-input {
+  height: 39px;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  color: #1c1c1c;
+  padding: 8px 68px 8px 16px;
+  line-height: 21px;
+  overflow: hidden;
+  border: 1px solid #edeff1;
+  resize: none;
+}

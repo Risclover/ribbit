@@ -1,0 +1,40 @@
+.posts-container {
+  margin: 0 auto;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.posts-left-col {
+  max-width: 640px;
+  width: 100%;
+}
+
+.posts-right-col {
+  width: 312px;
+  margin-left: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.posts-home-box {
+  border-radius: 4px;
+  background: white;
+  border: 1px solid red;
+}
+
+@media (max-width: 960px) {
+  .posts-right-col {
+    display: none;
+  }
+
+  .posts-left-col {
+    width: 100%;
+  }
+
+  .posts-container {
+    padding: 20px 24px;
+    width: 100%;
+  }
+}

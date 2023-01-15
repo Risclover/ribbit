@@ -1,0 +1,16 @@
+form {
+  display: flex;
+  flex-direction: column;
+  width: 740px;
+}
+
+.create-post-content {
+  background: white;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.create-post-content input,
+.create-post-content textarea {
+  width: 100%;
+}

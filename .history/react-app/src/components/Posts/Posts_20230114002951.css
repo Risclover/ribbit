@@ -1,0 +1,11 @@
+.posts-container {
+  margin: 0 auto;
+  width: max-content;
+}
+
+.posts-right-col {
+  width: 312px;
+  margin-left: 24px;
+  border: 1px solid red;
+  background: white;
+}

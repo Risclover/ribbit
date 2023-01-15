@@ -1,0 +1,16 @@
+.modal-container {
+  width: 446px;
+}
+
+.modal-content {
+  padding: 16px;
+  margin: 10px 0;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.modal-buttons {
+  padding: 16px;
+  background: #edeff1;
+}

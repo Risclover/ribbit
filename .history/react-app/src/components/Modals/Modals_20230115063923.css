@@ -1,0 +1,39 @@
+.modal-container {
+  width: 446px;
+}
+
+.modal-content {
+  padding: 16px 16px;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.modal-buttons {
+  padding: 16px;
+  background: #edeff1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-buttons button {
+  border-radius: 100px;
+  height: 32px;
+  padding: 4px 16px;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  outline: none;
+  border: 1px solid #0079d3;
+}
+
+.modal-buttons-left {
+  background: inherit;
+  color: #0079d3;
+  margin-right: 10px;
+}
+
+.modal-buttons-right {
+  background: #0079d3;
+  color: white;
+}
