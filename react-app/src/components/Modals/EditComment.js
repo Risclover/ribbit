@@ -33,16 +33,21 @@ export default function EditComment({
     <>
       {showEditCommentModal && (
         <div className="modal-container">
-          <div className="modal-content">
             <form onSubmit={handleEdit}>
+            <div className="modal-content">
               <textarea
-                className="edit-comment-input"
+                className="modal-content-input"
                 onChange={(e) => setContent(e.target.value)}
                 value={content}
+                maxlength={10000}
               ></textarea>
-              <button type="submit">Submit</button>
+              </div>
+              <div className="modal-buttons">
+                <button className="modal-buttons-left">Cancel</button>
+              <button className="modal-buttons-right" type="submit">Submit</button>
+              </div>
+
             </form>
-          </div>
         </div>
       )}
     </>

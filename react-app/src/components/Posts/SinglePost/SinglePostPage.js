@@ -5,17 +5,22 @@ import { useDispatch, useSelector } from "react-redux";
 import Comments from "../../Comments/Comments";
 import { getComments } from "../../../store/comments";
 import { getPosts } from "../../../store/posts";
+import { getSinglePost } from '../../../store/one_post'
 
 export default function SinglePostPage() {
   const { postId } = useParams();
   const [isPage, setIsPage] = useState(true);
   const dispatch = useDispatch();
+  const post = useSelector(state => state.posts[postId]);
+
+  console.log('POSST AUTHOR', post.postAuthor?.username)
 
   const comments = useSelector((state) => Object.values(state.comments));
 
   useEffect(() => {
     dispatch(getComments(postId));
     dispatch(getPosts());
+    dispatch(getSinglePost(+postId))
   }, [dispatch, postId]);
 
   // comments.sort((a, b) => {

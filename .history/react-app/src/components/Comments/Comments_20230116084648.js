@@ -25,9 +25,9 @@ export default function Comments({ postId }) {
           <Comment key={comment.id} commentId={comment.id} postId={+postId} />
         ))}
       {comments.length === 0 && (
-        <div className="no-comments-msg">
+        <div className="no-comments">
           <i className="fa-solid fa-comments"></i>
-          <h1 className="no-comments-yet">No Comments Yet</h1>
+          <h2>No Comments Yet</h2>
           <p>Be the first to share what you think!</p>
         </div>
       )}

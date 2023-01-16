@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getSingleComment } from "../../store/one_comment";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { Modal } from "../../context/Modal";
 import moment from "moment";
 import DeleteConfirmation from "../Modals/DeleteConfirmation";
 import EditComment from "../Modals/EditComment";
 import { getComments } from "../../store/comments";
 import "./Comments.css";
-import { getSinglePost } from '../../store/one_post';
 
 export default function Comment({ commentId, postId }) {
   const dispatch = useDispatch();
@@ -16,13 +14,9 @@ export default function Comment({ commentId, postId }) {
   const [showEditCommentModal, setShowEditCommentModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const user = useSelector((state) => state.session.user);
-  const post = useSelector((state) => state.posts[postId]);
 
-  console.log('COMMENT AUTHOR', comment.commentAuthor.username)
-  console.log('POST AUTHOR', post.postAuthor?.username)
   useEffect(() => {
     dispatch(getSingleComment(commentId));
-    dispatch(getSinglePost(+postId))
     dispatch(getComments(postId));
   }, [dispatch, commentId, postId]);
 
@@ -59,7 +53,7 @@ export default function Comment({ commentId, postId }) {
           <div className="post-karma-number">0</div>
           <button className="post-karma-downvote">🡇</button>
           {comment.commentAuthor?.id === user?.id && (
-            <>
+            <div className="comment-author-btns">
               <button
                 onClick={() => {
                   console.log(comment.id);
@@ -69,7 +63,7 @@ export default function Comment({ commentId, postId }) {
                 Edit
               </button>
               {showEditCommentModal && (
-                <Modal onClose={() => setShowEditCommentModal(false)} title="Edit comment">
+                <Modal onClose={() => setShowEditCommentModal(false)}>
                   <EditComment
                     commentId={comment.id}
                     postId={postId}
@@ -93,7 +87,7 @@ export default function Comment({ commentId, postId }) {
                   />
                 </Modal>
               )}
-            </>
+            </div>
           )}
         </div>
       </div>

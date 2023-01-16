@@ -91,7 +91,7 @@
   /* max-width: 640px; */
   border-radius: 4px;
   z-index: 100;
-  /* border: 1px solid #ccc; */
+  border: 1px solid #ccc;
   /* background-color: #fff; */
   cursor: pointer;
   margin: 0 auto;
@@ -206,7 +206,6 @@
 .single-post-left-col {
   max-width: 740px;
   width: 100%;
-  border-radius: 4px;
   height: 100%;
   background: white;
 }

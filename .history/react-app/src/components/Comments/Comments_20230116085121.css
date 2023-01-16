@@ -1,0 +1,328 @@
+.comments-sort-bar {
+  position: relative;
+  width: 640px;
+  margin: 0 auto;
+  border-bottom: 1px solid #edeff1;
+  margin-top: 30px;
+  padding-bottom: 10px;
+  margin-bottom: 4px;
+}
+
+.comments-container {
+  background: white;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.comments-main {
+  margin-right: 32px;
+  padding-left: 10px;
+  padding-top: 8px;
+  margin-top: 16px;
+}
+
+.the-actual-comment {
+  display: flex;
+  padding-left: 8px;
+}
+
+.comment-left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-user-img {
+  width: 35px;
+  max-height: 35px;
+  height: 100%;
+  border-radius: 100px;
+  background-position: center;
+  background-size: cover;
+}
+
+.comment-right-col {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-threadline {
+  border-right: 2px solid #edeff1;
+  height: 90%;
+  margin-top: 10px;
+  width: 5px;
+}
+
+.comment-right-username {
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-family: "Noto Sans", sans-serif;
+  color: #7c7c7c;
+  padding: 0;
+}
+
+.comment-right-username a {
+  font-size: 12px;
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #1a1a1b;
+  text-decoration: none;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+.comment-right-content {
+  font-size: 14px;
+  font-family: "Noto Sans", sans-serif;
+  line-height: 21px;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.comment-right-username .single-post-topbar-dot {
+  margin-left: 2px;
+}
+
+.comment-owner-btns {
+  display: flex;
+  align-items: center;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.comment-owner-btns button {
+  background: none;
+  border: none;
+  padding: 6px 4px;
+  margin-right: 4px;
+  cursor: pointer;
+  color: #878a8c;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  height: 33px;
+  font-size: 12px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.comment-owner-btns button:hover {
+  background: rgba(26, 26, 27, 0.1);
+}
+
+.comment-owner-btns .post-karma-upvote,
+.comment-owner-btns .post-karma-downvote {
+  font-size: 24px;
+  padding: 0;
+  padding-right: 2px;
+  margin: 0;
+}
+
+.comment-owner-btns .post-karma-downvote {
+  margin-right: 4px;
+  padding-left: 2px;
+}
+
+.comment-owner-btns .post-karma-number {
+  padding: 0;
+  margin: 4px;
+  width: auto;
+}
+
+.reply-icon {
+  font-size: 19px;
+  margin-right: 7px;
+  margin-top: 2px;
+}
+
+.no-comments-msg {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 340px;
+  color: #7c7c7c;
+  opacity: 0.6;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.no-comments-msg svg {
+  opacity: 0.6;
+  color: #0079d3;
+}
+
+.no-comments-yet {
+  font-size: 18px;
+  font-family: "IBM Plex Sans", sans-serif;
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+
+.no-comments-msg p {
+  font-size: 14px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.op-sign {
+  color: #0079d3;
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: 2px;
+  margin-right: 2px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.insert-link-modal {
+  position: absolute;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border: 1px solid #c7c7c7;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.link-modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.insert-link-button {
+  width: 100px;
+  border-radius: 100px;
+  padding: 10px;
+  border: 0;
+  bottom: 0;
+  font-size: 14px;
+}
+
+.comment-form-container {
+  margin: 0 auto;
+  width: 650px;
+}
+
+.post-comment-textarea {
+  border: 1px solid #edeff1;
+  border-bottom: none;
+  min-height: 138px;
+  width: 100%;
+  max-width: 650px;
+  padding: 8px 16px;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  border-radius: 4px 4px 0 0;
+  font-weight: 400;
+  line-height: 21px;
+  outline: none;
+  resize: vertical;
+}
+
+.post-comment-textarea:focus {
+  border: 1px solid #1a1a1b;
+}
+
+.comment-form label {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-bottom: 4px;
+}
+
+.comment-form label a {
+  text-decoration: none;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #0079d3;
+}
+
+.comment-form label a:hover {
+  text-decoration: underline;
+}
+
+.comment-submit {
+  padding: 4px 20px;
+  margin: 4px 8px;
+  background-color: #0079d3;
+  border: none;
+  border-radius: 50px;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 700;
+  line-height: 16px;
+  font-size: 12px;
+  height: 24px;
+  min-width: 24px;
+  width: auto;
+  cursor: pointer;
+  color: white;
+}
+
+.comment-submit:hover {
+  opacity: 0.9;
+}
+
+.comment-submit:disabled {
+  background: #3293db;
+  filter: grayscale(1);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+}
+
+.comment-form-button-container {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #f6f7f8;
+  width: 100%;
+  padding: 4px;
+  max-width: 650px;
+  border-radius: 0 0 4px 4px;
+}
+
+.comments-sort-btn-container button {
+  color: #0079d3;
+  background: white;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  border: none;
+  outline: none;
+}
+
+.comments-sort-btn-container button {
+  cursor: pointer;
+}
+
+.comments-sort-btn-container svg {
+  margin-left: 5px;
+}
+
+.comments-sort-btn-container {
+  width: max-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

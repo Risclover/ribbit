@@ -45,7 +45,7 @@ export default function DeleteConfirmation({
               className="modal-buttons-right"
               onClick={item === "post" ? handleDeletePost : handleDeleteComment}
             >
-              Delete {item}
+              Delete
             </button>
           </div>
         </div>

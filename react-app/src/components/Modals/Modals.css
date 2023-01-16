@@ -8,6 +8,8 @@
   font-family: "Noto Sans", sans-serif;
   font-size: 14px;
   font-weight: 400;
+  max-width: 450px;
+  width: 100%;
 }
 
 .modal-buttons {
@@ -48,4 +50,25 @@
 
 .modal-buttons-right:hover {
   opacity: 0.9;
+}
+
+
+.modal-content form {
+  width: 100%;
+}
+
+.modal-content textarea {
+  padding: 10px;
+  outline: none;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  min-height: 122px;
+  font-family: 'Noto Sans', sans-serif;
+  width: 100%;
+  resize: vertical;
+  max-height: 80vh;
+}
+
+.modal-content textarea:focus {
+  border: 1px solid #1c1c1c;
 }

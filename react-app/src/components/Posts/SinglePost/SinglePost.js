@@ -18,6 +18,7 @@ export default function SinglePost({ id, isPage }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
+  console.log('POST AUTHOORR', post.postAuthor.username)
   useEffect(() => {
     dispatch(getSinglePost(id));
     dispatch(getComments(id));

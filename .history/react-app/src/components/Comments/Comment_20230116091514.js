@@ -8,7 +8,6 @@ import DeleteConfirmation from "../Modals/DeleteConfirmation";
 import EditComment from "../Modals/EditComment";
 import { getComments } from "../../store/comments";
 import "./Comments.css";
-import { getSinglePost } from '../../store/one_post';
 
 export default function Comment({ commentId, postId }) {
   const dispatch = useDispatch();
@@ -16,13 +15,10 @@ export default function Comment({ commentId, postId }) {
   const [showEditCommentModal, setShowEditCommentModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const user = useSelector((state) => state.session.user);
-  const post = useSelector((state) => state.posts[postId]);
+  const post = useSelector((state) => state.singlePost);
 
-  console.log('COMMENT AUTHOR', comment.commentAuthor.username)
-  console.log('POST AUTHOR', post.postAuthor?.username)
   useEffect(() => {
     dispatch(getSingleComment(commentId));
-    dispatch(getSinglePost(+postId))
     dispatch(getComments(postId));
   }, [dispatch, commentId, postId]);
 
@@ -45,7 +41,7 @@ export default function Comment({ commentId, postId }) {
           <NavLink to={`/users/${comment.commentAuthor.id}`}>
             {comment.commentAuthor.username}
           </NavLink>{" "}
-          {post.postAuthor?.username === comment.commentAuthor.username ? (
+          {post.postAuthor.username === comment.commentAuthor.username ? (
             <span className="op-sign">OP</span>
           ) : (
             ""
@@ -69,7 +65,7 @@ export default function Comment({ commentId, postId }) {
                 Edit
               </button>
               {showEditCommentModal && (
-                <Modal onClose={() => setShowEditCommentModal(false)} title="Edit comment">
+                <Modal onClose={() => setShowEditCommentModal(false)}>
                   <EditComment
                     commentId={comment.id}
                     postId={postId}
