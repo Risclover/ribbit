@@ -1,0 +1,140 @@
+.modal-container {
+  width: 446px;
+}
+
+.modal-container-create-community {
+  width: 530px;
+}
+
+.modal-content {
+  padding: 26px 16px;
+  margin-top: -16px;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  max-height: 90px;
+}
+
+.modal-buttons {
+  padding: 16px;
+  background: #edeff1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-buttons button {
+  border-radius: 100px;
+  height: 32px;
+  padding: 4px 16px;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  border: 1px solid #0079d3;
+}
+
+.modal-buttons-left {
+  background: inherit;
+  color: #0079d3;
+  margin-right: 10px;
+}
+
+.modal-buttons-right {
+  background: #0079d3;
+  color: white;
+}
+
+.modal-buttons-left:hover {
+  background: rgba(0, 121, 211, 0.05);
+  border-color: rgba(135, 138, 140, 0.8);
+  color: rgba(135, 138, 140, 0.8);
+}
+
+.modal-buttons-right:hover {
+  opacity: 0.9;
+}
+
+.modal-content {
+  max-height: 90vh;
+}
+
+.modal-content form {
+  width: 100%;
+}
+
+.modal-content textarea {
+  padding: 10px;
+  outline: none;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  min-height: 122px;
+  font-family: "Noto Sans", sans-serif;
+  width: 100%;
+  resize: vertical;
+  max-height: 70vh;
+  /* max-height: 80vh; */
+}
+
+.modal-content textarea:focus {
+  border: 1px solid #1c1c1c;
+}
+
+.modal-content-input {
+  margin-bottom: 15px;
+}
+.modal-content-input h2 {
+  font-size: 16px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 500;
+  line-height: 24px;
+  margin-bottom: 4px;
+}
+
+.modal-content-input p {
+  font-size: 12px;
+  color: #7c7c7c;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 400;
+  line-height: 16px;
+  margin-bottom: 15px;
+}
+
+.create-community-input {
+  border-radius: 4px;
+  border: 1px solid #edeff1;
+  color: #1c1c1c;
+  margin-bottom: 8px;
+  padding: 4px 24px;
+  width: 100%;
+  line-height: 21px;
+  font-size: 14px;
+  font-weight: 400;
+  height: 37px;
+}
+
+.create-community-input-r {
+  font-size: 16px;
+  font-family: "IBM Plex Sans", sans-serif;
+  top: 8px;
+  left: 12px;
+  position: absolute;
+  color: #989ca0;
+}
+
+.create-community-input-box {
+  position: relative;
+}
+
+.create-community-input-charcount {
+  padding-top: 5px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #7c7c7c;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.charcount-red {
+  color: red;
+}
