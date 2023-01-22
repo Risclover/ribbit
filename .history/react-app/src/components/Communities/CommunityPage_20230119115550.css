@@ -1,0 +1,258 @@
+.community-page-container {
+  margin-top: 50px;
+  height: 100vh;
+}
+
+.community-header-info {
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px 0 24px;
+  height: 100%;
+}
+
+.community-page-header-top {
+  height: 77px;
+  width: 100%;
+  background: rgb(51, 168, 255);
+  padding: 8px 16px;
+}
+
+.community-page-header-btm {
+  width: 100%;
+  background: white;
+}
+
+.community-page-main {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  padding: 20px 24px;
+  height: 100%;
+}
+
+.community-page-left-col {
+  max-width: 640px;
+  width: 100%;
+}
+
+.community-page-left-col a:visited .single-post-main {
+  color: grey;
+}
+
+.community-page-right-col {
+  width: 100%;
+  max-width: 310px;
+}
+
+.community-page-community-info {
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-left: 24px;
+  background: white;
+  border: 1px solid #ccc;
+}
+
+.community-page-left-col .single-post-container:hover {
+  border: 1px solid #898989;
+}
+
+.community-page-left-col .single-post-container {
+  border: 1px solid #ccc;
+}
+
+.community-header-info-details {
+  display: flex;
+  margin-top: 10px;
+  /* width: calc(100% - 80px); */
+  position: relative;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1;
+  margin-top: -14px;
+  margin-bottom: 12px;
+}
+
+.community-page-box-date {
+  display: flex;
+  color: #7c7c7c;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.community-cake-icon {
+  width: 20px;
+  margin-right: 8px;
+}
+.community-page-box-content {
+  padding: 12px;
+}
+
+.community-page-box-btn {
+  border-top: 1px solid rgba(26, 26, 27, 0.07);
+  margin-top: 16px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+}
+
+.community-page-box-btn button {
+  border-radius: 100px;
+  padding: 4px 16px;
+  font-weight: 700;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 10px;
+  height: 32px;
+}
+
+.community-page-box-create-post {
+  background: #0079d3;
+  border: 1px solid #0079d3;
+  color: white;
+}
+
+.community-page-box-create-post:hover {
+  opacity: 0.9;
+}
+
+.community-page-box-edit-community {
+  border: 1px solid #0079d3;
+  background: white;
+  color: #0079d3;
+}
+
+.community-page-box-edit-community:hover {
+  background: rgba(0, 121, 211, 0.05);
+}
+
+.community-page-box-description {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  word-wrap: break-word;
+  color: #1a1a1b;
+}
+
+.community-header-info-details-left {
+  display: flex;
+  flex-direction: column;
+  margin-right: 24px;
+  margin-top: 24px;
+  padding-left: 16px;
+}
+
+.community-header-info-details-right {
+  margin-top: 24px;
+}
+
+.community-header-info-display-name h1 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 32px;
+  padding: 0 2px 4px 0;
+  /* text-overflow: ellipsis; */
+  /* overflow: hidden; */
+  word-wrap: break-word;
+
+  max-width: 750px;
+  width: 100%;
+  color: #1c1c1c;
+}
+
+.community-header-info-img {
+  font-size: 70px;
+  color: #7c7c7c;
+  border: 5px solid white;
+  border-radius: 100px;
+}
+
+.community-header-info-name h2 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #7c7c7c;
+}
+
+.community-header-info-subscribe button {
+  border-radius: 100px;
+  height: 32px;
+  font-family: "Noto Sans", sans-serif;
+  width: 96px;
+  font-weight: 700;
+  color: white;
+  background: #0079d3;
+  border: 1px solid #0079d3;
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+.community-header-info-subscribe button:hover {
+  opacity: 0.9;
+}
+
+.community-page-box-header {
+  background: #0079d3;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.community-page-box-header h3 {
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.community-no-posts {
+  width: 100%;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 60px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 25px;
+  color: #58585893;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 400;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-community-page {
+  margin-top: 100px;
+}
+
+.community-page-box-members {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 16px;
+  border-top: 1px solid rgba(26, 26, 27, 0.07);
+  margin-top: 16px;
+}
+
+.community-page-box-members h2 {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.community-page-box-members span {
+  /* color: #7c7c7c; */
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
