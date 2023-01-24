@@ -1,0 +1,19 @@
+.image-post-form {
+  background: white;
+}
+
+#post-img {
+  opacity: 0;
+}
+
+.post-img-btn {
+  cursor: pointer;
+  color: blue;
+  border-radius: 4px;
+  border: 1px solid blue;
+  padding: 4px;
+}
+
+.image-post-form img {
+  max-width: 100%;
+}

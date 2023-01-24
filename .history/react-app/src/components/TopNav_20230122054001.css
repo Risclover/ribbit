@@ -1,0 +1,10 @@
+.top-navbar {
+  position: fixed;
+  background: white;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 48px;
+  border-bottom: 1px solid #edeff1;
+  z-index: 100;
+}

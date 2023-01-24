@@ -25,6 +25,9 @@ python-dateutil = "==2.8.1"
 python-editor = "==1.0.4"
 greenlet = "==1.1.0"
 Mako = "==1.1.4"
+boto3 = "*"
+flask-socketio = "*"
+botocore = "*"
 
 [dev-packages]
 

@@ -1,0 +1,22 @@
+nav {
+  display: flex;
+  position: fixed;
+  background: white;
+  width: 300px;
+  height: 49px;
+  top: 0;
+  z-index: 200;
+  flex-direction: column;
+  height: 100%;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  width: 100%;
+  justify-content: space-between;
+}
+
+nav ul li {
+  padding: 5px;
+}

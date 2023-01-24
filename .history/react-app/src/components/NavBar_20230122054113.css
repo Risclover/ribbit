@@ -1,0 +1,25 @@
+nav {
+  display: flex;
+  background: white;
+  position: fixed;
+  width: 270px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 200;
+  margin-top: 50px;
+  border-top: 1px solid black;
+  flex-direction: column;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  width: 100%;
+  justify-content: space-between;
+}
+
+nav ul li {
+  padding: 5px;
+}
