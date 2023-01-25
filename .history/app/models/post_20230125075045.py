@@ -34,11 +34,11 @@ class Post(db.Model):
             "title": self.title,
             "content": self.content,
             "imgUrl": self.img_url,
-            "votes": len(self.users_who_liked),
+            "votes": self.votes,
             "userId": self.user_id,
             "postAuthor": self.post_author.to_dict(),
             "communityId": self.community_id,
-            "postVoters": {user.id: user.to_dict() for user in self.users_who_liked},
+            "postVoters": {user.id: user.to_dict() for user in self.post_voters},
             # "previewImgId": self.preview_img_id,
             # "postCommunity": self.post_community.to_dict(),
             # "community": {item.to_dict()["id"]: item.to_dict() for item in self.communities},
@@ -50,11 +50,8 @@ class Post(db.Model):
             "updatedAt": self.updated_at,
         }
 
-    def to_dict_likes(self):
-        return {
-            "likes": len(self.users_who_liked),
-            # "dislikes": len(self.users_who_disliked)
-        }
+    def likes_to_dict(self):
+        "likes": len()
 
     def __repr__(self):
         return f"<Post {self.id}: {self.title}"

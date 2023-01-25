@@ -23,7 +23,7 @@ class Post(db.Model):
     post_author = db.relationship('User', back_populates='user_posts')
     post_comments = db.relationship('Comment', back_populates='comment_post', cascade='all, delete')
     post_community = db.relationship('Community', back_populates="community_posts")
-    users_who_liked = db.relationship('User', back_populates="user_post_votes", secondary=post_votes, lazy="joined")
+    post_voters = db.relationship('User', back_populates="user_post_votes", secondary=post_votes, lazy="joined")
     # liked_users = db.relationship('User', back_populates='user_likes', secondary=likes, lazy='joined')
     # post_votes = db.relationship('PostVote', backref='post_votes', lazy='dynamic')
 
@@ -34,11 +34,11 @@ class Post(db.Model):
             "title": self.title,
             "content": self.content,
             "imgUrl": self.img_url,
-            "votes": len(self.users_who_liked),
+            "votes": self.votes,
             "userId": self.user_id,
             "postAuthor": self.post_author.to_dict(),
             "communityId": self.community_id,
-            "postVoters": {user.id: user.to_dict() for user in self.users_who_liked},
+            "postVoters": {user.id: user.to_dict() for user in self.post_voters},
             # "previewImgId": self.preview_img_id,
             # "postCommunity": self.post_community.to_dict(),
             # "community": {item.to_dict()["id"]: item.to_dict() for item in self.communities},
@@ -48,12 +48,6 @@ class Post(db.Model):
             # "likes": len(self.liked_users),
             "createdAt": self.created_at,
             "updatedAt": self.updated_at,
-        }
-
-    def to_dict_likes(self):
-        return {
-            "likes": len(self.users_who_liked),
-            # "dislikes": len(self.users_who_disliked)
         }
 
     def __repr__(self):

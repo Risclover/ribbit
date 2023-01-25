@@ -77,16 +77,29 @@ export default function SinglePost({ id, isPage }) {
       {post && (
         <div className="single-post-container">
           <div className="single-post-karmabar">
-            <button
-              className={
-                user?.id in post?.postVoters ? "vote-btn-red" : "vote-btn-grey"
-              }
-              onClick={
-                user?.id in post?.postVoters ? handleRemoveVote : handleAddVote
-              }
-            >
-              <i className="fa-solid fa-thumbs-up"></i>
-            </button>
+            {voteAllowed && (
+              <button
+                onClick={async (e) => {
+                  e.preventDefault();
+                  await dispatch(addPostVote(post.id));
+                  setVoteAllowed(false);
+                }}
+              >
+                <i className="fa-solid fa-thumbs-up"></i>
+              </button>
+            )}
+            {!voteAllowed && (
+              <button
+                className="single-post-karmabar-upvoted"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  await dispatch(removePostVote(post.id));
+                  setVoteAllowed(true);
+                }}
+              >
+                <i className="fa-solid fa-thumbs-up"></i>
+              </button>
+            )}
             <span className="karmabar-votes">{post.votes}</span>
           </div>
           <div className="single-post-main">

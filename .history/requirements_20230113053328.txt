@@ -20,7 +20,6 @@ itsdangerous==2.0.1
 jinja2==3.0.1
 mako==1.1.4
 markupsafe==2.0.1
-psycopg2==2.9.5
 python-dateutil==2.8.1
 python-dotenv==0.14.0
 python-editor==1.0.4

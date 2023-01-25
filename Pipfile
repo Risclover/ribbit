@@ -28,6 +28,7 @@ Mako = "==1.1.4"
 boto3 = "*"
 flask-socketio = "*"
 botocore = "*"
+psycopg2 = "==2.9.5"
 
 [dev-packages]
 

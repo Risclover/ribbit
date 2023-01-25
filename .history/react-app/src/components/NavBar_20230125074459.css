@@ -17,8 +17,6 @@ nav ul {
 
 nav ul li {
   padding: 5px;
-  display: flex;
-  align-items: center;
 }
 
 .ribbit-logo {

@@ -39,7 +39,7 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'karma': sum([post.to_dict_likes()["likes"] for post in self.user_posts]),
+            'karma': self.karma,
             'profile_img': self.profile_img
 
             # 'subscriptions': {item.to_dict()["id"]: item.to_dict() for item in self.user_subscriptions}

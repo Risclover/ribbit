@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { Modal } from "../context/Modal";
 import LoginForm from "./auth/AuthModal/LoginForm";
 import SignUpForm from "./auth/AuthModal/SignUpForm";
-import RibbitLogo from "../images/ribbit_logo_love.png";
+import RibbitLogo from "../images/ribbit_logo_laugh.png";
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
   const [showLoginForm, setShowLoginForm] = useState(false);

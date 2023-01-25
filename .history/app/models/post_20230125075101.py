@@ -50,11 +50,8 @@ class Post(db.Model):
             "updatedAt": self.updated_at,
         }
 
-    def to_dict_likes(self):
-        return {
-            "likes": len(self.users_who_liked),
-            # "dislikes": len(self.users_who_disliked)
-        }
+    def likes_to_dict(self):
+        "likes": len()
 
     def __repr__(self):
         return f"<Post {self.id}: {self.title}"

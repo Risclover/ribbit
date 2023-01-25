@@ -78,7 +78,7 @@ export default function CommunityPage() {
     setMembers(subscribers.length);
 
     for (let i = 0; i < subscribers.length; i++) {
-      if (subscribers[i].username === user?.username) {
+      if (subscribers[i].username === user.username) {
         setSubscribed(true);
         break;
       }

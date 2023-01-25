@@ -66,7 +66,7 @@ export default function Posts() {
               <div className="posts-home-box-buttons">
                 <button
                   className="posts-home-post-btn"
-                  onClick={() => history.push("/c/undefined/submit")}
+                  onClick={() => history.push("/posts/submit")}
                 >
                   Create Post
                 </button>

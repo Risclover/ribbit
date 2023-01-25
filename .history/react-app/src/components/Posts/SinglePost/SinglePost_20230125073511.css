@@ -31,7 +31,6 @@
 .image-post-img {
   margin: 0 auto;
   height: auto;
-  padding-top: 13px;
 }
 .single-post-page-topbar-content {
   max-width: 1079px;
@@ -472,13 +471,7 @@
   align-items: center;
   justify-content: center;
 }
-.vote-btn-red {
-  color: red !important;
-}
 
-.vote-btn-grey {
-  color: grey;
-}
 @keyframes mount {
   0% {
     opacity: 0;

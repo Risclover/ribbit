@@ -50,7 +50,7 @@ class Post(db.Model):
             "updatedAt": self.updated_at,
         }
 
-    def to_dict_likes(self):
+def to_dict_likes(self):
         return {
             "likes": len(self.users_who_liked),
             # "dislikes": len(self.users_who_disliked)

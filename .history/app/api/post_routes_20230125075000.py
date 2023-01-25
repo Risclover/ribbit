@@ -177,7 +177,11 @@ def unlike_post(id):
     """
     post = Post.query.get(id)
     user = User.query.get(current_user.get_id())
-    post.users_who_liked.remove(user)
+    author = User.query.get(post.user_id)
+
+    post.post_voters.remove(user)
+    post.votes -= 1
+    author.karma -= 1
     db.session.commit()
 
     return post.to_dict()

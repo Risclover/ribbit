@@ -31,7 +31,6 @@
 .image-post-img {
   margin: 0 auto;
   height: auto;
-  padding-top: 13px;
 }
 .single-post-page-topbar-content {
   max-width: 1079px;
@@ -202,7 +201,6 @@
   /* width: 100%; */
   padding: 8px;
   padding-bottom: 0;
-  padding-left: 0;
 }
 
 .single-post-community-name {
@@ -243,7 +241,7 @@
   overflow: hidden;
   padding-bottom: 1px;
   margin-bottom: -1px;
-  padding: 13px 8px 14px;
+  padding: 17px 8px 10px;
 
   -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
   mask-image: linear-gradient(180deg, #000 60%, transparent);
@@ -265,7 +263,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: center;
 }
 
 .single-post-left-col {
@@ -464,21 +462,8 @@
 .single-post-community-img img {
   width: 20px;
   border-radius: 100px;
-  margin-right: 5px;
 }
 
-.single-post-community-img {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.vote-btn-red {
-  color: red !important;
-}
-
-.vote-btn-grey {
-  color: grey;
-}
 @keyframes mount {
   0% {
     opacity: 0;
