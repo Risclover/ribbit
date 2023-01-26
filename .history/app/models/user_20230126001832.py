@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, environment
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from .joins import subscriptions, post_votes, comment_votes
