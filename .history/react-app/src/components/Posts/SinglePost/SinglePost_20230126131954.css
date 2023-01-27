@@ -485,6 +485,10 @@
     transform: translateY(50%);
   }
 
+  50% {
+    background-color: red;
+  }
+
   100% {
     opacity: 1;
     transform: translateY(0);

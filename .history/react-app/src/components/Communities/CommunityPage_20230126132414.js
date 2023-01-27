@@ -84,6 +84,12 @@ export default function CommunityPage() {
       }
       setSubscribed(false);
     }
+
+    // for (let i = 0; i < Object.values(user.subscriptions).length; i++) {
+    //   if (user.subscriptions[i]?.name === community[0]?.name) {
+    //     setSubscribed(true);
+    //   }
+    // }
   }, [subscribers, subscribed]);
 
   useEffect(() => {}, [subscribers]);
@@ -115,7 +121,7 @@ export default function CommunityPage() {
                         e.preventDefault();
                         user && setSubscribed(true);
                         !user && setShowLoginForm(true);
-                        dispatch(addToSubscriptions(community_id));
+                        await dispatch(addToSubscriptions(community_id));
                       }}
                     >
                       Join
@@ -127,7 +133,7 @@ export default function CommunityPage() {
                       onClick={async (e) => {
                         e.preventDefault();
                         setSubscribed(false);
-                        dispatch(deleteSubscription(community_id));
+                        await dispatch(deleteSubscription(community_id));
                       }}
                     >
                       Joined

@@ -84,7 +84,7 @@ export default function CommunityPage() {
       }
       setSubscribed(false);
     }
-  }, [subscribers, subscribed]);
+  }, [subscribed]);
 
   useEffect(() => {}, [subscribers]);
 
