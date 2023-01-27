@@ -1,6 +1,6 @@
 from .db import db
 import datetime
-from .joins import post_votes
+
 
 ################
 # POST MODEL:
@@ -23,7 +23,8 @@ class Post(db.Model):
     post_author = db.relationship('User', back_populates='user_posts')
     post_comments = db.relationship('Comment', back_populates='comment_post', cascade='all, delete')
     post_community = db.relationship('Community', back_populates="community_posts")
-    users_who_liked = db.relationship('User', back_populates="user_post_votes", secondary=post_votes, lazy="joined")
+    users_who_liked = db.relationship("PostVote", back_populates="user_post_vote")
+
     # liked_users = db.relationship('User', back_populates='user_likes', secondary=likes, lazy='joined')
     # post_votes = db.relationship('PostVote', backref='post_votes', lazy='dynamic')
 
@@ -38,7 +39,7 @@ class Post(db.Model):
             "userId": self.user_id,
             "postAuthor": self.post_author.to_dict(),
             "communityId": self.community_id,
-            "postVoters": {user.id: user.to_dict() for user in self.users_who_liked},
+            "postVoters": {item.to_dict()["id"]: item.to_dict() for item in self.users_who_liked},
             # "previewImgId": self.preview_img_id,
             # "postCommunity": self.post_community.to_dict(),
             # "community": {item.to_dict()["id"]: item.to_dict() for item in self.communities},
@@ -49,7 +50,6 @@ class Post(db.Model):
             "createdAt": self.created_at,
             "updatedAt": self.updated_at,
         }
-
     def to_dict_likes(self):
         return {
             "likes": len(self.users_who_liked),

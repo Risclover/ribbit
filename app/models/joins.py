@@ -8,12 +8,13 @@ subscriptions = db.Table(
     db.Column("community_id", db.Integer, db.ForeignKey("communities.id"), primary_key=True)
 )
 
-post_votes = db.Table(
-    "PostVotes",
-    db.Model.metadata,
-    db.Column("user_id", db.Integer, db.ForeignKey("users.id"), primary_key=True),
-    db.Column("post_id", db.Integer, db.ForeignKey("posts.id"), primary_key=True)
-)
+class PostVote(db.Model):
+    __tablename__ = "post_votes"
+    user_id = db.Column(db.ForeignKey("users.id"), primary_key=True)
+    post_id = db.Column(db.ForeignKey("posts.id"), primary_key=True)
+    is_upvote = db.Column(db.Boolean)
+    user_who_liked = db.relationship("User", back_populates="user_post_votes")
+    user_post_vote = db.relationship("Post", back_populates="users_who_liked")
 
 comment_votes = db.Table(
     "CommentVotes",

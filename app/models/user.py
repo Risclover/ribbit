@@ -1,7 +1,7 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from .joins import subscriptions, post_votes, comment_votes
+from .joins import subscriptions, comment_votes
 
 
 class User(db.Model, UserMixin):
@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     user_posts = db.relationship("Post", back_populates="post_author", cascade="all, delete")
     user_comments = db.relationship("Comment", back_populates="comment_author", cascade="all, delete")
     user_subscriptions = db.relationship('Community', back_populates="subscribers", secondary=subscriptions, lazy="joined")
-    user_post_votes = db.relationship('Post', back_populates='users_who_liked', secondary=post_votes, lazy="joined")
+    user_post_votes = db.relationship("PostVote", back_populates="user_who_liked")
     user_comment_votes = db.relationship("Comment", back_populates='comment_voters', secondary=comment_votes, lazy='joined')
 
     @property

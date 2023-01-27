@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import db, Post, User, Comment
+from app.models import db, Post, User, Comment, PostVote
 from .auth_routes import validation_errors_to_error_messages
 from app.forms import PostForm, PostUpdateForm, ImagePostForm
 from app.s3_helpers import (
@@ -161,9 +161,20 @@ def like_post(id):
     """
     Query to like a post
     """
+    # post = Post.query.get(id)
+    # user = User.query.get(current_user.get_id())
+    # post.users_who_liked.append(user)
+    # db.session.commit()
+    # return post.to_dict()
+
+
     post = Post.query.get(id)
     user = User.query.get(current_user.get_id())
-    post.users_who_liked.append(user)
+
+    post_vote = PostVote(is_upvote=True)
+    post_vote.user_who_liked = user
+    post.users_who_liked.append(post_vote)
+
     db.session.commit()
     return post.to_dict()
 
