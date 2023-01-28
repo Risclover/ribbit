@@ -39,7 +39,7 @@ class Post(db.Model):
             "userId": self.user_id,
             "postAuthor": self.post_author.to_dict(),
             "communityId": self.community_id,
-            "postVoters": {item.to_dict()["id"]: item.to_dict() for item in self.users_who_liked},
+            "postVoters": {item.to_dict()["userID"]: item.to_dict() for item in self.users_who_liked},
             # "previewImgId": self.preview_img_id,
             # "postCommunity": self.post_community.to_dict(),
             # "community": {item.to_dict()["id"]: item.to_dict() for item in self.communities},

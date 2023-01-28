@@ -13,11 +13,18 @@ import { getCommunityPosts, getPosts } from "../../../store/posts";
 import Bounce from "../../../images/curved-arrow.png";
 import { getSinglePost } from "../../../store/one_post";
 import { addPostVote, removePostVote } from "../../../store/posts";
+// import Upvote from "../../../images/upvote.png";
+// import Downvote from "../../../images/downvote.png";
+// import UpvoteHover from "../../../images/upvote-red.png";
+// import DownvoteHover from "../../../images/downvote-blue.png";
+// import UpvoteSelected from "../../../images/upvote-selected.png";
+// import DownvoteSelected from "../../../images/downvote-selected.png";
 
 export default function SinglePost({ id, isPage }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const post = useSelector((state) => state.posts[id]);
+  const posts = useSelector((state) => state.posts);
   const user = useSelector((state) => state.session.user);
   const community = useSelector(
     (state) => state.communities[post?.communityId]
@@ -25,7 +32,12 @@ export default function SinglePost({ id, isPage }) {
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [voteAllowed, setVoteAllowed] = useState(false);
+  const [upvoteAllowed, setUpvoteAllowed] = useState(false);
+  const [upvote, setUpvote] = useState(false);
+  const [downvote, setDownvote] = useState(false);
+  const [voteTotal, setVoteTotal] = useState(0);
+  // const [upvoteSrc, setUpvoteSrc] = useState(Upvote);
+  // const [downvoteSrc, setDownvoteSrc] = useState(Downvote);
 
   useEffect(() => {
     dispatch(getComments(id));
@@ -45,31 +57,52 @@ export default function SinglePost({ id, isPage }) {
     }
   };
 
-  const handleAddVote = async () => {
-    await dispatch(addPostVote(post.id));
+  const handleAddVote = async (e) => {
+    await dispatch(addPostVote(post.id, "upvote"));
+  };
+
+  const handleAddDownvote = async () => {
+    await dispatch(addPostVote(post.id, "downvote"));
   };
 
   const handleRemoveVote = async () => {
     await dispatch(removePostVote(post.id));
+    if (upvote) {
+      setUpvote(false);
+      setVoteTotal(voteTotal - 1);
+    }
+    if (downvote) {
+      setDownvote(false);
+      setVoteTotal(voteTotal + 1);
+    }
   };
 
   useEffect(() => {
-    if (post && post.postVoters) {
-      let postVoters = Object.values(post.postVoters);
-      if (postVoters.length === 0) {
-        setVoteAllowed(true);
-      } else {
-        for (let voter of postVoters) {
-          if (voter?.username === user?.username) {
-            setVoteAllowed(false);
-            break;
-          } else {
-            setVoteAllowed(true);
+    if (posts && Object.values(posts).length > 0) {
+      if (Object.values(post?.postVoters).length > 0) {
+        for (let voter of Object.values(post?.postVoters)) {
+          if (user?.id === voter?.userID) {
+            if (voter.isUpvote) {
+              setUpvote(true);
+              setDownvote(false);
+            } else if (!voter.isUpvote) {
+              setUpvote(false);
+              setDownvote(true);
+            }
           }
         }
+        let votes = 0;
+        for (let vote of Object.values(post?.postVoters)) {
+          if (vote.isUpvote) {
+            votes = votes + 1;
+          } else if (!vote.isUpvote) {
+            votes = votes - 1;
+          }
+        }
+        setVoteTotal(votes);
       }
     }
-  }, [voteAllowed, post?.postVoters]);
+  }, [upvote, downvote, voteTotal, post?.postVoters]);
 
   if (!post || !post.postVoters || !Object.values(post.postVoters)) return null;
   return (
@@ -77,17 +110,57 @@ export default function SinglePost({ id, isPage }) {
       {post && (
         <div className="single-post-container">
           <div className="single-post-karmabar">
-            <button
-              className={
-                user?.id in post?.postVoters ? "vote-btn-red" : "vote-btn-grey"
-              }
-              onClick={
-                user?.id in post?.postVoters ? handleRemoveVote : handleAddVote
+            <NavLink
+              to={
+                isPage === undefined
+                  ? "/"
+                  : isPage === "all"
+                  ? "/c/all"
+                  : isPage === "community"
+                  ? `/c/${post.communityId}`
+                  : isPage === "singlepage"
+                  ? `/posts/${post.id}`
+                  : ""
               }
             >
-              <i className="fa-solid fa-thumbs-up"></i>
-            </button>
-            <span className="karmabar-votes">{post.votes}</span>
+              {" "}
+              <button
+                className={upvote ? "vote-btn-red" : "upvote-btn-grey"}
+                onClick={
+                  user?.id in post?.postVoters
+                    ? handleRemoveVote
+                    : handleAddVote
+                }
+              >
+                <i className="fa-regular fa-circle-up"></i>
+              </button>
+            </NavLink>
+
+            <span className="karmabar-votes">{voteTotal}</span>
+            <NavLink
+              to={
+                isPage === undefined
+                  ? "/"
+                  : isPage === "all"
+                  ? "/c/all"
+                  : isPage === "community"
+                  ? `/c/${post.communityId}`
+                  : isPage === "singlepage"
+                  ? `/posts/${post.id}`
+                  : ""
+              }
+            >
+              <button
+                className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
+                onClick={
+                  user?.id in post?.postVoters
+                    ? handleRemoveVote
+                    : handleAddDownvote
+                }
+              >
+                <i className="fa-regular fa-circle-down"></i>
+              </button>
+            </NavLink>
           </div>
           <div className="single-post-main">
             <div className="single-post-author-bar">

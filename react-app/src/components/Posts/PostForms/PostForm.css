@@ -23,15 +23,131 @@
   padding-bottom: 15px;
 }
 
+.create-post-form-inputs {
+  padding: 16px;
+}
+
 .create-post-content {
   background: white;
   border-radius: 4px;
-  padding: 15px;
+  /* padding: 15px; */
+  overflow: hidden;
 }
 
 .create-post-content input,
 .create-post-content textarea {
   width: 100%;
+}
+
+.post-type-bar {
+  width: 100%;
+  display: flex;
+}
+
+.post-type-bar button {
+  padding: 15px 17px;
+  font-size: 14px;
+  width: 50%;
+  background: white;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #edeff1;
+  border-right: 1px solid #edeff1;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #878a8c;
+  cursor: pointer;
+  position: relative;
+}
+
+.post-type-bar button:hover {
+  background: rgba(0, 121, 211, 0.05);
+}
+
+.post-type-bar .active-type {
+  color: #0079d3;
+}
+
+.active-type:after {
+  content: " ";
+  position: absolute;
+  background-color: #0079d3;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+}
+
+.post-type-bar button svg {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.image-post-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  width: 100%;
+  flex-flow: column nowrap;
+  border-radius: 4px;
+  border: 1px dashed #edeff1;
+  margin-bottom: 16px;
+}
+
+.image-post-btn {
+  border: 1px solid #0079d3;
+  color: #0079d3;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Noto Sans", sans-serif;
+  min-height: 32px;
+  min-width: 32px;
+  background: white;
+  border-radius: 100px;
+  cursor: pointer;
+  padding: 4px 16px;
+}
+
+.image-post-btn:hover {
+  background: rgba(0, 121, 211, 0.05);
+}
+
+.image-post-preview-box .close-preview-btn {
+  visibility: 1;
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  background: none;
+  border: none;
+  z-index: 10;
+}
+
+.image-post-preview-box {
+  border: 2px solid black;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.image-preview-box {
+  cursor: pointer;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  position: relative;
+  background-size: cover;
+  background-position: ce;
+}
+
+.image-post-preview-box:hover .close-preview-btn {
+  display: block;
 }
 
 .create-post-input {

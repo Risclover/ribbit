@@ -1,8 +1,11 @@
 .form-field {
   position: relative;
   height: 50px;
-  margin-bottom: 16px;
   width: 100%;
+}
+
+.form-field-box {
+  margin-bottom: 16px;
 }
 
 .form-field label {

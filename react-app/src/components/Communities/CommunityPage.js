@@ -34,8 +34,6 @@ export default function CommunityPage() {
   const [members, setMembers] = useState(subscribers.length);
   const [subscribed, setSubscribed] = useState(false);
 
-  console.log("SUBSCRIBERS:", subscribers);
-
   const community = useSelector((state) =>
     Object.values(state.singleCommunity)
   );
@@ -45,7 +43,6 @@ export default function CommunityPage() {
   let commPosts = posts.filter((post) => post.communityId == communityId);
 
   const dispatch = useDispatch();
-  // const [loadedCommunity, setLoadedCommunity] = useState();
   const [isPage, setIsPage] = useState("community");
   const [community_id, setcommunity_id] = useState(+communityId);
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);

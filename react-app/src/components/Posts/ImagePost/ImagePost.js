@@ -5,12 +5,11 @@ import { Modal } from "../../../context/Modal";
 import { addImagePost, addPost } from "../../../store/posts";
 import ImagePostForm from "./ImagePostForm";
 
-const ImagePost = () => {
+const ImagePost = ({ img_url, setimg_url }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { communityId } = useParams();
   const [community_id, setcommunity_id] = useState(+communityId);
-  const [img_url, setimg_url] = useState("");
   const [showImgModal, setShowImgModal] = useState(false);
   const [title, setTitle] = useState("");
   const [errors, setErrors] = useState([]);
@@ -30,7 +29,7 @@ const ImagePost = () => {
   console.log("IMG URL:", img_url);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="image-post" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Title"

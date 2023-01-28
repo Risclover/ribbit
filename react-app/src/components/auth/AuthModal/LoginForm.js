@@ -67,21 +67,23 @@ const LoginForm = ({ showLoginForm, setShowLoginForm, setShowSignupForm }) => {
               <div className="or-label">OR</div>
               <div className="or-line"></div>
             </div>
-            <div className="form-field email">
-              <input
-                className={errors && errors.length > 0 ? "errors-true" : ""}
-                autoComplete="off"
-                name="email"
-                type="email"
-                placeholder=" "
-                value={email}
-                onChange={updateEmail}
-              />
-              <label htmlFor="email">Email</label>
-            </div>
-            <div className="login-form-errors">
-              {errors?.length > 0 &&
-                errors.map((error, ind) => <div key={ind}>{error}</div>)}
+            <div className="form-field-box">
+              <div className="form-field email">
+                <input
+                  className={errors && errors.length > 0 ? "errors-true" : ""}
+                  autoComplete="off"
+                  name="email"
+                  type="email"
+                  placeholder=" "
+                  value={email}
+                  onChange={updateEmail}
+                />
+                <label htmlFor="email">Email</label>
+              </div>
+              <div className="login-form-errors">
+                {errors?.length > 0 &&
+                  errors.map((error, ind) => <div key={ind}>{error}</div>)}
+              </div>
             </div>
             <div className="form-field password">
               <input

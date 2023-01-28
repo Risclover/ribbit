@@ -107,71 +107,97 @@ const SignUpForm = ({
       {showSignupForm && (
         <div className="signup-form-container">
           <form onSubmit={onSignUp} className="signup-form" autoComplete="off">
-            <div className="form-field email">
-              <input
-                type="text"
-                name="email"
-                autoComplete="off"
-                onChange={updateEmail}
-                placeholder=" "
-                value={email}
-                maxLength={255}
-              />
-              <label>Email</label>
+            <div className="form-field-box">
+              <div className="form-field email">
+                <input
+                  type="text"
+                  name="email"
+                  autoComplete="off"
+                  onChange={updateEmail}
+                  placeholder=" "
+                  value={email}
+                  maxLength={255}
+                  className={
+                    emailErrors && emailErrors.length > 0 ? "errors-true" : ""
+                  }
+                />
+                <label>Email</label>
+              </div>
+              <div className="signup-form-errors">
+                {emailErrors.map((error, ind) => (
+                  <div key={ind}>{error}</div>
+                ))}
+              </div>
             </div>
-            <div className="signup-form-errors">
-              {emailErrors.map((error, ind) => (
-                <div key={ind}>{error}</div>
-              ))}
+            <div className="form-field-box">
+              <div className="form-field username">
+                <input
+                  type="text"
+                  name="username"
+                  onChange={updateUsername}
+                  placeholder=" "
+                  autoComplete="off"
+                  value={username}
+                  maxLength={20}
+                  className={
+                    usernameErrors && usernameErrors.length > 0
+                      ? "errors-true"
+                      : ""
+                  }
+                />
+                <label>User Name</label>
+              </div>
+              <div className="signup-form-errors">
+                {usernameErrors.map((error, ind) => (
+                  <div key={ind}>{error}</div>
+                ))}
+              </div>
             </div>
-            <div className="form-field username">
-              <input
-                type="text"
-                name="username"
-                onChange={updateUsername}
-                placeholder=" "
-                autoComplete="off"
-                value={username}
-                maxLength={20}
-              />
-              <label>User Name</label>
+            <div className="form-field-box">
+              <div className="form-field password">
+                <input
+                  type="password"
+                  name="password"
+                  onChange={updatePassword}
+                  autoComplete="new-password"
+                  placeholder=" "
+                  value={password}
+                  className={
+                    passwordErrors && passwordErrors.length > 0
+                      ? "errors-true"
+                      : ""
+                  }
+                ></input>
+                <label>Password</label>
+              </div>
+              <div className="signup-form-errors">
+                {passwordErrors.map((error, ind) => (
+                  <div key={ind}>{error}</div>
+                ))}
+              </div>
             </div>
-            <div className="signup-form-errors">
-              {usernameErrors.map((error, ind) => (
-                <div key={ind}>{error}</div>
-              ))}
-            </div>
-            <div className="form-field password">
-              <input
-                type="password"
-                name="password"
-                onChange={updatePassword}
-                autoComplete="new-password"
-                placeholder=" "
-                value={password}
-              ></input>
-              <label>Password</label>
-            </div>
-            <div className="signup-form-errors">
-              {passwordErrors.map((error, ind) => (
-                <div key={ind}>{error}</div>
-              ))}
-            </div>
-            <div className="form-field repeat">
-              <input
-                type="password"
-                name="repeat_password"
-                onChange={updateRepeatPassword}
-                value={repeatPassword}
-                autoComplete="new-password"
-                placeholder=" "
-                required={true}
-              ></input>
-              <label>Repeat Password</label>
-            </div>
-            <div className="signup-form-errors">
-              {errors?.length > 0 &&
-                errors.map((error, ind) => <div key={ind}>{error}</div>)}
+            <div className="form-field-box">
+              <div className="form-field repeat">
+                <input
+                  type="password"
+                  name="repeat_password"
+                  onChange={updateRepeatPassword}
+                  value={repeatPassword}
+                  autoComplete="new-password"
+                  placeholder=" "
+                  required={true}
+                  className={
+                    passwordErrors && passwordErrors.length > 0
+                      ? "errors-true"
+                      : ""
+                  }
+                ></input>
+                <label>Repeat Password</label>
+              </div>
+              <div className="signup-form-errors">
+                {errors?.length > 0 &&
+                  errors.map((error, ind) => <div key={ind}>{error}</div>)}
+              </div>
             </div>
             <button className="signup-form-submit">Sign Up</button>
             <p className="sign-in-switch">

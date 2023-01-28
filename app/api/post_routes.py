@@ -155,9 +155,9 @@ def get_followed_posts():
 
 
 # LIKE A POST
-@post_routes.route('/<int:id>/vote', methods=["POST"])
+@post_routes.route('/<int:id>/vote/<votetype>', methods=["POST"])
 @login_required
-def like_post(id):
+def add_vote(id, votetype):
     """
     Query to like a post
     """
@@ -166,31 +166,36 @@ def like_post(id):
     # post.users_who_liked.append(user)
     # db.session.commit()
     # return post.to_dict()
-
-
     post = Post.query.get(id)
     user = User.query.get(current_user.get_id())
 
-    post_vote = PostVote(is_upvote=True)
+    if votetype == "upvote":
+        post_vote = PostVote(user_id=user.id, post_id=id, is_upvote=True)
+
+    elif votetype == "downvote":
+        post_vote = PostVote(user_id=user.id, post_id=id, is_upvote=False)
+
     post_vote.user_who_liked = user
+    post_vote.post = post
     post.users_who_liked.append(post_vote)
 
     db.session.commit()
     return post.to_dict()
 
 
-# DELETE A LIKE
+
+# DELETE VOTE
 @post_routes.route("/<int:id>/vote", methods=["DELETE"])
 @login_required
-def unlike_post(id):
+def delete_vote(id):
     """
-    Query to delete a post's like vote
+    Query to delete a post's vote
     """
     post = Post.query.get(id)
     user = User.query.get(current_user.get_id())
-    post.users_who_liked.remove(user)
+    post_vote = PostVote.query.filter_by(user_id=user.id, post_id=post.id).first()
+    db.session.delete(post_vote)
     db.session.commit()
-
     return post.to_dict()
 
 

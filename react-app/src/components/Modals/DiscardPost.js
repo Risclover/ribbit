@@ -20,7 +20,7 @@ export default function DiscardPost({ showDiscardModal, setShowDiscardModal }) {
             </button>
             <button
               className="modal-buttons-right"
-              onClick={() => history.push("/posts")}
+              onClick={() => history.push("/home")}
             >
               Discard post
             </button>

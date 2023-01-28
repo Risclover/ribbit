@@ -428,12 +428,15 @@
   background: none;
   outline: none;
   border: none;
-  font-size: 20px;
+  font-size: 22px;
   color: rgb(135, 138, 140);
   cursor: pointer;
-  margin-top: 5px;
+  /* margin-top: 5px; */
   border-radius: 4px;
   padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .single-post-karmabar button:hover {
@@ -444,6 +447,11 @@
 .single-post-karmabar .single-post-karmabar-upvoted:hover {
   color: rgb(236, 74, 74);
   background: rgb(226, 227, 228);
+}
+
+.upvote-btn,
+.downvote-btn {
+  width: 20px;
 }
 
 .single-post-karmabar .single-post-karmabar-upvoted {
@@ -472,13 +480,26 @@
   align-items: center;
   justify-content: center;
 }
+
+.upvote-btn-grey:hover {
+  color: #cc3700;
+}
+
+.downvote-btn-grey:hover {
+  color: #5a75cc;
+}
 .vote-btn-red {
-  color: red !important;
+  color: #ff4500 !important;
+}
+
+.vote-btn-blue {
+  color: #7193ff !important;
 }
 
 .vote-btn-grey {
   color: grey;
 }
+
 @keyframes mount {
   0% {
     opacity: 0;

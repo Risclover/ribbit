@@ -4,9 +4,13 @@ import { useDispatch } from "react-redux";
 import { addPost } from "../../../store/posts";
 import { useHistory, useParams } from "react-router-dom";
 
-export default function ImagePostForm({ setimg_url, setShowImgModal }) {
+export default function ImagePostForm({
+  img_url,
+  setimg_url,
+  setShowImgModal,
+}) {
   const { communityId } = useParams();
-  const [imgPreview, setImgPreview] = useState();
+  const [imgPreview, setImgPreview] = useState(img_url);
   const [community_id, setcommunity_id] = useState(communityId);
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();

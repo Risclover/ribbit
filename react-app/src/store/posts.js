@@ -224,8 +224,8 @@ export const deletePost = (postId) => async (dispatch) => {
   }
 };
 
-export const addPostVote = (postId) => async (dispatch) => {
-  const response = await fetch(`/api/posts/${postId}/vote`, {
+export const addPostVote = (postId, votetype) => async (dispatch) => {
+  const response = await fetch(`/api/posts/${postId}/vote/${votetype}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

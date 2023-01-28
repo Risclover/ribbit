@@ -8,7 +8,7 @@ class Community(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     name = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(500))
-    community_img = db.Column(db.String(255), default="https://ribbit-img-upload.s3.us-west-1.amazonaws.com/user.png")
+    community_img = db.Column(db.String(255), default="https://i.imgur.com/nfpa9x1.png")
     display_name = db.Column(db.String(100), nullable=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     community_posts = db.relationship('Post', back_populates="post_community")
