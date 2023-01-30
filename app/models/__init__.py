@@ -1,4 +1,4 @@
-from .db import db
+from .db import db, environment
 from .user import User
 from .post import Post
 from .comment import Comment
