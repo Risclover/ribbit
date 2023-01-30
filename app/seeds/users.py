@@ -1,4 +1,4 @@
-from app.models import db, User, environment
+from app.models import db, User
 
 
 # Adds a demo user, you can add other users here if you want
@@ -78,9 +78,6 @@ def seed_users():
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
 def undo_users():
-    if environment == "production":
-        db.session.execute("TRUNCATE table users RESET IDENTITY CASCADE")
-    else:
-        db.session.execute("DELETE FROM users")
+    db.session.execute("DELETE FROM users")
 
     db.session.commit()
