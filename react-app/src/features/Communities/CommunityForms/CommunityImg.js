@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-const UploadPicture = () => {
+const CommunityImg = () => {
   const history = useHistory();
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
-  const { userId } = useParams();
+  const { communityId } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,14 +14,14 @@ const UploadPicture = () => {
 
     setImageLoading(true);
 
-    const res = await fetch(`/api/users/${+userId}/img`, {
+    const res = await fetch(`/api/communities/${+communityId}/img`, {
       method: "POST",
       body: formData,
     });
     if (res.ok) {
       await res.json();
       setImageLoading(false);
-      history.push(`/users/${+userId}`);
+      history.push(`/c/${communityId}/edit`);
     } else {
       setImageLoading(false);
     }
@@ -41,4 +41,4 @@ const UploadPicture = () => {
   );
 };
 
-export default UploadPicture;
+export default CommunityImg;

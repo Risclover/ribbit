@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, render_template, request, redirect
 from flask_login import login_required, current_user
 from app.models import db, Post, User, Comment, PostVote
 from .auth_routes import validation_errors_to_error_messages
-from app.forms import PostForm, PostUpdateForm, ImagePostForm
+from app.forms import PostForm, PostUpdateForm, ImagePostForm, UpdateImagePostForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 
@@ -112,6 +112,32 @@ def update_post(id):
     print(data)
     print(validation_errors_to_error_messages(form.errors))
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+
+# UPDATE AN IMAGE POST:
+@post_routes.route("/img/<int:id>/edit", methods=["PUT"])
+@login_required
+def update_image_post(id):
+    """
+    Query to edit an image post
+    """
+    post = Post.query.get(id)
+    form = UpdateImagePostForm()
+
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        data = form.data
+
+        setattr(post, 'title', data['title'])
+        setattr(post, 'img_url', data['img_url'])
+
+        db.session.commit()
+        return post.to_dict()
+
+    print(validation_errors_to_error_messages(form.errors))
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
 
 
 

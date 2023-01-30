@@ -1,15 +1,12 @@
 import React from "react";
-import "./Modals.css";
 import { useDispatch } from "react-redux";
-import { deletePost, getPosts } from "../../store/posts";
 import { useHistory } from "react-router-dom";
-import {
-  getAllComments,
-  getComments,
-  removeComment,
-} from "../../store/comments";
-import { useEffect } from "react";
+
+import { deletePost, getPosts } from "../../store/posts";
+import { removeComment } from "../../store/comments";
 import { deleteCommunity } from "../../store/communities";
+
+import "./Modals.css";
 
 export default function DeleteConfirmation({
   setShowDeleteModal,

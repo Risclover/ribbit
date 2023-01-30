@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import LoginForm from "./components/auth/AuthModal/LoginForm";
-import SignUpForm from "./components/auth/AuthModal/SignUpForm";
-import NavBar from "./components/NavBar";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
-import UsersList from "./components/UsersList";
-import UserProfile from "./components/UserProfile/UserProfile";
+
 import { authenticate } from "./store/session";
+
+import LoginForm from "./features/auth/AuthModal/LoginForm";
+import SignUpForm from "./features/auth/AuthModal/SignUpForm";
+import ProtectedRoute from "./features/auth/ProtectedRoute";
+
+import Posts from "./features/Posts/Posts";
+import SubscribedPosts from "./features/Posts/SubscribedPosts";
+import CreatePost from "./features/Posts/PostForms/CreatePost";
+import SinglePostPage from "./features/Posts/SinglePost/SinglePostPage";
+import UpdatePost from "./features/Posts/PostForms/UpdatePost";
+
+import CommunityPage from "./features/Communities/CommunityPage";
+import EditCommunity from "./features/Communities/CommunityForms/EditCommunity";
+
+import NavBar from "./components/NavBar/NavBar";
+import UsersList from "./components/UsersList";
+
+import UserProfile from "./pages/UserProfile/UserProfile";
+
 import { Modal } from "./context/Modal";
-import Posts from "./components/Posts/Posts";
-import CreatePost from "./components/Posts/PostForms/CreatePost";
-import SinglePostPage from "./components/Posts/SinglePost/SinglePostPage";
-import UpdatePost from "./components/Posts/PostForms/UpdatePost";
-import ImagePostForm from "./components/Posts/ImagePost/ImagePostForm";
-import CommunityPage from "./components/Communities/CommunityPage";
-import EditCommunity from "./components/Communities/EditCommunity";
-import CreateCommunityPost from "./components/Communities/CommunityForms/CreateCommunityPost";
-import SubscribedPosts from "./components/Posts/SubscribedPosts";
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);

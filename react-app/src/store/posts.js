@@ -164,6 +164,26 @@ export const addPost = (payload) => async (dispatch) => {
   return { errors: "testing" };
 };
 
+export const putSinglePost = (post, postId) => async (dispatch) => {
+  const { title, content } = post;
+  const response = await fetch(`/api/posts/${postId}/edit`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      title,
+      content,
+    }),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadPost(data));
+    return data;
+  }
+  const data = await response.json();
+  return data;
+};
+
 export const addImagePost = (payload) => async (dispatch) => {
   const { title, img_url, community_id } = payload;
 
@@ -184,14 +204,14 @@ export const addImagePost = (payload) => async (dispatch) => {
   }
 };
 
-export const putSinglePost = (post, postId) => async (dispatch) => {
-  const { title, content } = post;
-  const response = await fetch(`/api/posts/${postId}/edit`, {
+export const putImagePost = (post, postId) => async (dispatch) => {
+  const { title, img_url } = post;
+  const response = await fetch(`/api/posts/img/${postId}/edit`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       title,
-      content,
+      img_url,
     }),
   });
 
