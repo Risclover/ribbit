@@ -44,9 +44,15 @@ function App() {
       />{" "}
       <div className="main">
         <Switch>
-          <Route path="/" exact={true}>
-            <SubscribedPosts />
-          </Route>
+          {user ? (
+            <Route path="/" exact={true}>
+              <SubscribedPosts />
+            </Route>
+          ) : (
+            <Route path="/" exact={true}>
+              <Posts />
+            </Route>
+          )}
           <Route path="/home" exact={true}>
             <SubscribedPosts />
           </Route>

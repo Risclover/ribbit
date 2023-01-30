@@ -75,5 +75,6 @@ def seed_communities():
     db.session.commit()
 
 def undo_communities():
+    db.session.execute("DELETE FROM subscriptions")
     db.session.execute("DELETE FROM communities")
     db.session.commit()
