@@ -13,11 +13,12 @@ export default function CreatePost({ loadedCommunity }) {
   const dispatch = useDispatch();
   const location = useLocation();
   const { communityId } = useParams();
-  console.log("LOCATION:", location.state);
   const [title, setTitle] = useState("");
   const [img_url, setimg_url] = useState("");
   const [content, setContent] = useState("");
-  const [community_id, setcommunity_id] = useState(communityId);
+  const [community_id, setcommunity_id] = useState(
+    communityId === "undefined" ? 1 : communityId
+  );
   const [disabled, setDisabled] = useState(false);
   const [imgDisabled, setImgDisabled] = useState(false);
   const [showImgModal, setShowImgModal] = useState(false);
@@ -29,13 +30,10 @@ export default function CreatePost({ loadedCommunity }) {
   const communities = useSelector((state) => Object.values(state.communities));
   const user = useSelector((state) => state.session.user);
 
-  console.log("COMMUNITY ID", community_id);
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getCommunities());
-    console.log("TITLE:", title);
-    console.log("CONTENT:", content);
-    console.log("COMMUNITY ID:", community_id);
+
     if (
       (postType === "post" && content.length === 0) ||
       (postType === "image" && img_url === undefined) ||
@@ -49,12 +47,14 @@ export default function CreatePost({ loadedCommunity }) {
     }
 
     for (let community of communities) {
-      if (community.id === communityId) {
+      if (community.id === +communityId) {
         setcommunity_id(community.id);
       }
+      console.log("COMMUNITY ID:", community.id);
     }
   }, [dispatch, title, content, community_id, img_url]);
 
+  console.log(community_id);
   const handlePostSubmit = (e) => {
     e.preventDefault();
 
@@ -74,7 +74,7 @@ export default function CreatePost({ loadedCommunity }) {
     const data = dispatch(addImagePost({ title, img_url, community_id }));
 
     console.log("DATA", data);
-    history.push(`/c/${+communityId}`);
+    history.push(`/c/${community_id}`);
   };
 
   const handlePostTypeChange = (e, type) => {

@@ -75,7 +75,6 @@ export const getCommunitySubscribers = (communityId) => async (dispatch) => {
 export const addCommunity = (payload) => async (dispatch) => {
   const { name, description } = payload;
 
-  console.log("PAYLOAD: --------->", payload);
   const response = await fetch("/api/communities", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -87,7 +86,6 @@ export const addCommunity = (payload) => async (dispatch) => {
 
   if (response.ok) {
     const community = await response.json();
-    console.log("-------------------> community", payload);
     dispatch(loadCommunity(community));
     return community;
   } else if (response.status < 500) {
@@ -129,10 +127,8 @@ export const deleteCommunity = (communityId) => async (dispatch) => {
     },
   });
 
-  console.log("RESPONSE:", response);
   if (response.ok) {
     const deleted = await response.json();
-    console.log("DELETED:", deleted);
     dispatch(removeCommunity(communityId));
     return deleted;
   }

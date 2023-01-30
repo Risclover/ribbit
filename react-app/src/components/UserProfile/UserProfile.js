@@ -12,18 +12,26 @@ import User from "../../images/user1.png";
 import { getCommunities } from "../../store/communities";
 import { getPosts } from "../../store/posts";
 import SinglePost from "../Posts/SinglePost/SinglePost";
+import UploadUserImage from "../Modals/UploadUserImage";
+import { Modal } from "../../context/Modal";
+import { getUsers } from "../../store/users";
+import UploadBannerImage from "../Modals/UploadBannerImage";
 
 function UserProfile() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [user, setUser] = useState({});
   const { userId } = useParams();
+  const user = useSelector((state) => state.users[userId]);
+  // const [user, setUser] = useState(user);
   const [image, setImage] = useState();
-  const [img_url, setimg_url] = useState("");
   const [imageLoading, setImageLoading] = useState(false);
   const [banner, setBanner] = useState();
   const [userCommunities, setUserCommunities] = useState([]);
   const [userPosts, setUserPosts] = useState([]);
+  const [img_url, setimg_url] = useState();
+
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [showBannerModal, setShowBannerModal] = useState(false);
 
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => state.posts);
@@ -32,14 +40,14 @@ function UserProfile() {
     if (!userId) {
       return;
     }
-    (async () => {
-      const response = await fetch(`/api/users/${userId}`);
-      const user = await response.json();
-      setUser(user);
-    })();
+    // (async () => {
+    //   const response = await fetch(`/api/users/${userId}`);
+    //   const user = await response.json();
+    //   setUser(user);
+    // })();
 
-    setBanner(user.bannerImg);
-  }, [userId, user.bannerImg]);
+    setBanner(user?.bannerImg);
+  }, [userId, user?.bannerImg]);
 
   useEffect(() => {
     dispatch(getCommunities());
@@ -61,21 +69,15 @@ function UserProfile() {
       }
     }
 
-    console.log(postsList);
-
     setUserPosts(postsList);
   }, []);
 
-  const currentUser = useSelector((state) => state.session.user);
+  useEffect(() => {
+    dispatch(getUsers());
+    console.log(user?.profile_img);
+  }, [user?.profile_img]);
 
-  const showPreview = (e) => {
-    e.preventDefault();
-    if (e.target.files.length > 0) {
-      const file = e.target.files[0];
-      setImage(file);
-      let src = URL.createObjectURL(file);
-    }
-  };
+  const currentUser = useSelector((state) => state.session.user);
 
   const handleBannerSubmit = async (e) => {
     e.preventDefault();
@@ -91,50 +93,12 @@ function UserProfile() {
       body: formData,
     });
     if (res.ok) {
-      const data = await res.json();
-      console.log("IMAGE DATA", data);
-      setImageLoading(false);
-      setimg_url(data.url);
-      history.push(`/users/${+userId}`);
-
-      // return data;
-    } else {
-      setImageLoading(false);
-      // a real app would probably use more advanced
-      // error handling
-      console.log("error");
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", image);
-
-    // aws uploads can be a bit slow—displaying
-    // some sort of loading message is a good idea
-    setImageLoading(true);
-
-    const res = await fetch(`/api/users/${+userId}/img/profile`, {
-      method: "POST",
-      body: formData,
-    });
-    if (res.ok) {
       await res.json();
       setImageLoading(false);
       history.push(`/users/${+userId}`);
     } else {
       setImageLoading(false);
-      // a real app would probably use more advanced
-      // error handling
-      console.log("error");
     }
-  };
-
-  const updateImage = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    handleSubmit(e);
   };
 
   if (!user) {
@@ -163,42 +127,55 @@ function UserProfile() {
       </div>
       <div className="user-profile-right-col">
         <div className="user-profile-about-box">
-          <label htmlFor="banner-upload">
-            <div className="user-profile-about-box-banner">
-              <img src={banner} className="user-profile-banner" />
-              {currentUser.id === +userId && (
-                <input
-                  id="banner-upload"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleBannerSubmit}
-                  hidden
-                />
-              )}
-              {currentUser.id === +userId && (
-                <div className="user-profile-banner-upload-btn">
-                  <img src={Camera} />
-                </div>
-              )}
-            </div>
-          </label>
+          <div className="user-profile-about-box-banner">
+            <img src={banner} className="user-profile-banner" />
+            {currentUser.id === +userId && (
+              <div
+                className="user-profile-banner-upload-btn"
+                onClick={() => setShowBannerModal(true)}
+              >
+                <img src={Camera} />
+              </div>
+            )}
+          </div>
+          {showBannerModal && (
+            <Modal
+              onClose={() => setShowBannerModal(false)}
+              title="Change Profile Banner"
+            >
+              <UploadBannerImage
+                setShowBannerModal={setShowBannerModal}
+                showBannerModal={showBannerModal}
+                img_url={user?.bannerImg}
+                userId={currentUser.id}
+              />
+            </Modal>
+          )}
           <div className="user-profile-img-box">
             {currentUser.id === +userId && (
-              <label htmlFor="profile-upload">
-                <div className="user-profile-upload-btn">
-                  <input
-                    id="profile-upload"
-                    type="file"
-                    accept="image/*"
-                    onChange={updateImage}
-                    hidden
-                  />
-                  <img src={Camera} />
-                </div>
-              </label>
+              <div
+                className="user-profile-upload-btn"
+                onClick={() => setShowUploadModal(true)}
+              >
+                <img src={Camera} />
+              </div>
             )}
-            <img src={user.profile_img} className="user-profile-img" />
+            <img src={user?.profile_img} className="user-profile-img" />
           </div>
+          {showUploadModal && (
+            <Modal
+              onClose={() => setShowUploadModal(false)}
+              title="Change User Image"
+            >
+              <UploadUserImage
+                setShowUploadModal={setShowUploadModal}
+                showUploadModal={showUploadModal}
+                setimg_url={setimg_url}
+                img_url={user?.profile_img}
+                userId={currentUser.id}
+              />
+            </Modal>
+          )}
           <div className="user-profile-about-content">
             {currentUser.id === +userId && (
               <i className="fa-solid fa-gear user-settings"></i>

@@ -24,11 +24,12 @@ export default function SubscribedPosts() {
   const history = useHistory();
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
-  //   console.log("SUBBIES:", (posts[0]?.postCommunity.subscribers)[user.id]);
+
   useEffect(() => {
     dispatch(getSubscriptions());
     dispatch(getCommunities());
     dispatch(getSubscribers(1));
+    dispatch(getPosts());
   }, []);
 
   let postList = communities.map(
@@ -47,12 +48,9 @@ export default function SubscribedPosts() {
     let postB = new Date(b.createdAt);
     return postB - postA;
   });
-  console.log(newList);
 
-  console.log("POST LIST", postList);
   if (!user || !communities) return null;
 
-  //   console.log(Object.values(communities).communityPosts);
   return (
     <div className="posts-container">
       <div className="posts-left-col">

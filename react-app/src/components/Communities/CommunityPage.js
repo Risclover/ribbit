@@ -15,7 +15,7 @@ import CommunityWelcome from "../Modals/CommunityWelcome";
 import LoginForm from "../auth/AuthModal/LoginForm";
 import SignUpForm from "../auth/AuthModal/SignUpForm";
 import ImagePostForm from "../Posts/ImagePost/ImagePostForm";
-
+import { getCommunities } from "../../store/communities";
 import {
   addToSubscriptions,
   deleteSubscription,
@@ -32,10 +32,9 @@ export default function CommunityPage() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
   let [subscribed, setSubscribed] = useState(false);
+  const [members, setMembers] = useState(0);
 
-  const subscriptions = useSelector((state) =>
-    Object.values(state.subscriptions)
-  );
+  const subscriptions = useSelector((state) => state.subscriptions);
   const community = useSelector((state) =>
     Object.values(state.singleCommunity)
   );
@@ -69,17 +68,15 @@ export default function CommunityPage() {
   useEffect(() => {
     dispatch(getSingleCommunity(+communityId));
     dispatch(getPosts());
-  }, [communityId, dispatch, subscribed]);
+    dispatch(getSubscriptions());
+  }, [communityId, dispatch]);
 
   useEffect(() => {
-    dispatch(getSubscriptions());
+    if (subscriptions[community_id]) setSubscribed(true);
 
-    for (let sub of subscriptions) {
-      if (sub.name === community[0].name) {
-        setSubscribed(true);
-      }
-    }
-  }, [subscribed]);
+    setMembers(community[0]?.members);
+    dispatch(getSingleCommunity(+communityId));
+  }, [subscribed, community[0]?.members]);
 
   if (!community[0] || !commPosts || !posts) return null;
   return (
@@ -168,8 +165,8 @@ export default function CommunityPage() {
                 )}
               </div>
               <div className="community-page-box-members">
-                <h2>{community[0].members}</h2>
-                <span>{community[0].members === 1 ? "Member" : "Members"}</span>
+                <h2>{members}</h2>
+                <span>{members === 1 ? "Member" : "Members"}</span>
               </div>
               <div className="community-page-box-btn">
                 {user && (

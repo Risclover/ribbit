@@ -6,6 +6,14 @@ from app.s3_helpers import (
 
 user_routes = Blueprint('users', __name__)
 
+@user_routes.route("/")
+def get_users():
+    """
+    Query to return all users
+    """
+    users = User.query.all()
+    return {"Users": [user.to_dict() for user in users]}
+
 
 @user_routes.route('')
 @login_required

@@ -13,7 +13,6 @@ export default function Comments({ postId, setShowLoginForm, setCommentsNum }) {
   const comments = useSelector((state) => Object.values(state.comments));
 
   useEffect(() => {
-    dispatch(getComments(postId));
     setCommentsNum(comments.length);
   }, []);
 

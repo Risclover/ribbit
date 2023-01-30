@@ -41,7 +41,6 @@ export default function ImagePostForm({
     });
     if (res.ok) {
       const data = await res.json();
-      console.log("IMAGE DATA", data);
       setImageLoading(false);
       setimg_url(data.url);
       setShowImgModal(false);

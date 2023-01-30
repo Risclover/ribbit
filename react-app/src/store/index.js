@@ -8,9 +8,11 @@ import singleCommentReducer from "./one_comment";
 import communitiesReducer from "./communities";
 import singleCommunityReducer from "./one_community";
 import allSubscriptionsReducer from "./subscriptions";
+import usersReducer from "./users";
 
 const rootReducer = combineReducers({
   session,
+  users: usersReducer,
   singlePost: singlePostReducer,
   posts: postsReducer,
   comments: commentsReducer,

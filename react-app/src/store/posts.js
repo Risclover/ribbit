@@ -105,8 +105,6 @@ export const getCommunityPosts = (communityId) => async (dispatch) => {
 export const addCommunityPost = (payload) => async (dispatch) => {
   const { title, content, community_id } = payload;
 
-  console.log("----------------------------> Community id: ", community_id);
-
   const response = await fetch(`/api/c/${community_id}/submit`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -148,8 +146,6 @@ export const addCommunityPost = (payload) => async (dispatch) => {
 export const addPost = (payload) => async (dispatch) => {
   const { title, content, community_id } = payload;
 
-  // console.log("----------------------------> Community id: ", community_id);
-
   const response = await fetch(`/api/posts/submit`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -170,7 +166,6 @@ export const addPost = (payload) => async (dispatch) => {
 
 export const addImagePost = (payload) => async (dispatch) => {
   const { title, img_url, community_id } = payload;
-  console.log("THUNK:", img_url);
 
   const response = await fetch(`/api/posts/img/submit`, {
     method: "POST",

@@ -9,6 +9,7 @@ import { getSingleCommunity } from "../../../store/one_community";
 import moment from "moment";
 import Cake from "../../../images/piece4.png";
 import { getAllComments, getComments } from "../../../store/comments";
+import { getCommunities } from "../../../store/communities";
 
 export default function SinglePostPage({ setShowLoginForm }) {
   const { postId } = useParams();
@@ -27,6 +28,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
     dispatch(getPosts());
     dispatch(getSinglePost(postId));
     dispatch(getSingleCommunity(posts[postId]?.communityId));
+    dispatch(getCommunities());
     dispatch(getComments(+postId));
   }, [dispatch, postId]);
 

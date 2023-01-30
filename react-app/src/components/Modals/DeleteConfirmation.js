@@ -24,8 +24,6 @@ export default function DeleteConfirmation({
   const history = useHistory();
   const dispatch = useDispatch();
 
-  useEffect(() => {});
-
   const handleDeletePost = async (e) => {
     e.preventDefault();
     await dispatch(deletePost(postId));

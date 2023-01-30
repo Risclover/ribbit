@@ -49,12 +49,14 @@ export default function SinglePost({
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
+
   const post = useSelector((state) => state.posts[id]);
   const posts = useSelector((state) => state.posts);
   const user = useSelector((state) => state.session.user);
   const community = useSelector(
     (state) => state.communities[post?.communityId]
   );
+
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -63,20 +65,15 @@ export default function SinglePost({
   const [downvote, setDownvote] = useState(false);
   const [voteTotal, setVoteTotal] = useState(0);
   const [commentNum, setCommentNum] = useState(0);
-  // const [upvoteSrc, setUpvoteSrc] = useState(Upvote);
-  // const [downvoteSrc, setDownvoteSrc] = useState(Downvote);
 
   useEffect(() => {
-    dispatch(getCommunities());
-    dispatch(getPosts());
-    dispatch(getSinglePost(id));
     if (showLinkCopied) {
       setTimeout(() => {
         setShowLinkCopied(false);
       }, 3000);
     }
-    setCommentNum(post.commentNum);
-  }, [dispatch, id, showLinkCopied, commentNum, post.commentNum]);
+    setCommentNum(post?.commentNum);
+  }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
 
   const displayLikes = (likes) => {
     const keys = Object.keys(likes);

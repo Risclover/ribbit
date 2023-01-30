@@ -61,12 +61,7 @@ export default function Comment({ commentId, postId }) {
   const user = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.posts[postId]);
 
-  console.log("COMMENT:", comment);
   useEffect(() => {
-    dispatch(getSingleComment(commentId));
-    dispatch(getPosts());
-    dispatch(getComments(postId));
-
     if (comment.createdAt !== comment.updatedAt) {
       setWasEdited(true);
     } else {
@@ -99,7 +94,6 @@ export default function Comment({ commentId, postId }) {
     }
   }, [commentPermission, comment.commentVoters]);
 
-  console.log(wasEdited);
   if (!post) return null;
   return (
     <div className="the-actual-comment" style={{ whiteSpace: "pre-line" }}>
@@ -172,7 +166,6 @@ export default function Comment({ commentId, postId }) {
             <>
               <button
                 onClick={() => {
-                  console.log(comment.id);
                   setShowEditCommentModal(true);
                 }}
               >

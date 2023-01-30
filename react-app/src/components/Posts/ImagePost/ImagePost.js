@@ -18,15 +18,10 @@ const ImagePost = ({ img_url, setimg_url }) => {
     e.preventDefault();
     setcommunity_id(+communityId);
 
-    console.log("RIGHT BEFORE:", img_url);
-
     const data = dispatch(addImagePost({ title, img_url, community_id }));
 
-    console.log("DATA", data);
     history.push(`/c/${+communityId}`);
   };
-
-  console.log("IMG URL:", img_url);
 
   return (
     <form className="image-post" onSubmit={handleSubmit}>

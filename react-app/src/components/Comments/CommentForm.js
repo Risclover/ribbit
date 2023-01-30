@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { createComment } from "../../store/comments";
+import { createComment, getComments } from "../../store/comments";
 // import "./CommentForm.css";
 import "./Comments.css";
 import { Modal } from "../../context/Modal";
 import LoginForm from "../auth/AuthModal/LoginForm";
 import SignUpForm from "../auth/AuthModal/SignUpForm";
+import { getPosts } from "../../store/posts";
 
 export default function CommentForm({ postId }) {
   const [content, setContent] = useState("");
@@ -29,6 +30,7 @@ export default function CommentForm({ postId }) {
       return;
     } else {
       await dispatch(createComment({ content: content.trim() }, postId));
+      await dispatch(getPosts());
       setErrors([]);
       setContent("");
     }

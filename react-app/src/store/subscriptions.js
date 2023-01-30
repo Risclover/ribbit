@@ -78,8 +78,6 @@ export const deleteSubscription = (communityId) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
   });
 
-  console.log("COMMUNITY ID:", communityId);
-
   if (response.ok) {
     const deletedMessage = await response.json();
     dispatch(removeSubscription(communityId));
