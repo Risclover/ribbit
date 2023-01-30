@@ -10,9 +10,64 @@ def seed_users():
     bobbie = User(
         username='bobbie', email='bobbie@aa.io', password='password')
 
+    user_4 = User(
+        username="Videowulff",
+        email="Videowulff@aa.io",
+        password="password"
+    )
+    user_5 = User(
+        username="pedrowyatt",
+        email="pedrowyatt@aa.io",
+        password="password"
+    )
+    user_6 = User(
+        username="lexi_the_leo",
+        email="lexi_the_leo@aa.io",
+        password="password"
+    )
+    user_7 = User(
+        username="Cheris_P",
+        email="Cheris_P@aa.io",
+        password="password"
+    )
+    user_8 = User(
+        username="lurkinislife",
+        email="lurkinislife@aa.io",
+        password="password"
+    )
+    user_9 = User(
+        username="asilvertintedrose",
+        email="asilvertintedrose@aa.io",
+        password="password"
+    )
+    user_10 = User(
+        username="Siri0usly",
+        email="Siri0usly@aa.io",
+        password="password"
+    )
+    user_11 = User(
+        username="scot816",
+        email="scot816@aa.io",
+        password="password"
+    )
+    user_12 = User(
+        username="Frigglefragglewaggit",
+        email="Frigglefragglewaggit@aa.io",
+        password="password"
+    )
+
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    db.session.add(user_4)
+    db.session.add(user_5)
+    db.session.add(user_6)
+    db.session.add(user_7)
+    db.session.add(user_8)
+    db.session.add(user_9)
+    db.session.add(user_10)
+    db.session.add(user_11)
+    db.session.add(user_12)
     db.session.commit()
 
 

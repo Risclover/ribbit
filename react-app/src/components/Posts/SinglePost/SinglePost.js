@@ -20,7 +20,33 @@ import { addPostVote, removePostVote } from "../../../store/posts";
 // import UpvoteSelected from "../../../images/upvote-selected.png";
 // import DownvoteSelected from "../../../images/downvote-selected.png";
 
-export default function SinglePost({ id, isPage }) {
+const URL_REGEX =
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+
+function Text({ content }) {
+  const words = content.split(" ");
+  return (
+    <p>
+      {words.map((word) => {
+        return word.match(URL_REGEX) ? (
+          <>
+            <a href={word}>{word}</a>{" "}
+          </>
+        ) : (
+          word + " "
+        );
+      })}
+    </p>
+  );
+}
+
+export default function SinglePost({
+  id,
+  isPage,
+  userId,
+  commentsNum,
+  setCommentsNum,
+}) {
   const history = useHistory();
   const dispatch = useDispatch();
   const post = useSelector((state) => state.posts[id]);
@@ -36,11 +62,11 @@ export default function SinglePost({ id, isPage }) {
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
   const [voteTotal, setVoteTotal] = useState(0);
+  const [commentNum, setCommentNum] = useState(0);
   // const [upvoteSrc, setUpvoteSrc] = useState(Upvote);
   // const [downvoteSrc, setDownvoteSrc] = useState(Downvote);
 
   useEffect(() => {
-    dispatch(getComments(id));
     dispatch(getCommunities());
     dispatch(getPosts());
     dispatch(getSinglePost(id));
@@ -49,7 +75,8 @@ export default function SinglePost({ id, isPage }) {
         setShowLinkCopied(false);
       }, 3000);
     }
-  }, [dispatch, id, showLinkCopied]);
+    setCommentNum(post.commentNum);
+  }, [dispatch, id, showLinkCopied, commentNum, post.commentNum]);
 
   const displayLikes = (likes) => {
     const keys = Object.keys(likes);
@@ -120,6 +147,8 @@ export default function SinglePost({ id, isPage }) {
                   ? `/c/${post.communityId}`
                   : isPage === "singlepage"
                   ? `/posts/${post.id}`
+                  : isPage === "profile"
+                  ? `/users/${userId}`
                   : ""
               }
             >
@@ -147,6 +176,8 @@ export default function SinglePost({ id, isPage }) {
                   ? `/c/${post.communityId}`
                   : isPage === "singlepage"
                   ? `/posts/${post.id}`
+                  : isPage === "profile"
+                  ? `/users/${userId}`
                   : ""
               }
             >
@@ -193,20 +224,21 @@ export default function SinglePost({ id, isPage }) {
               </div>
             ) : (
               <>
-                {isPage === "all" && (
-                  <div className="single-post-content">{post.content}</div>
+                {isPage === "singlepage" ? (
+                  <div
+                    className="single-page-content"
+                    style={{ whiteSpace: "pre-line" }}
+                  >
+                    <Text content={post.content} />
+                  </div>
+                ) : (
+                  <div
+                    className="single-post-content"
+                    style={{ whiteSpace: "pre-line" }}
+                  >
+                    <Text content={post.content} />
+                  </div>
                 )}
-                {isPage === "singlepage" && (
-                  <div className="single-page-content">{post.content}</div>
-                )}
-                {isPage === "community" && (
-                  <div className="single-post-content">{post.content}</div>
-                )}
-                {isPage !== "singlepage" &&
-                  isPage !== "all" &&
-                  isPage !== "community" && (
-                    <div className="single-post-content">{post.content}</div>
-                  )}
               </>
             )}
 
@@ -215,7 +247,7 @@ export default function SinglePost({ id, isPage }) {
                 <button className="single-post-comments-btn">
                   <i className="fa-regular fa-message"></i>{" "}
                   <span className="single-post-comments-num">
-                    {Object.values(post.postComments).length || 0}{" "}
+                    {commentNum}{" "}
                     {Object.values(post.postComments).length === 1
                       ? "Comment"
                       : "Comments"}
@@ -223,63 +255,21 @@ export default function SinglePost({ id, isPage }) {
                 </button>
               </div>
               <div className="share-btn-stuff">
-                {isPage === undefined && (
-                  <NavLink to="/">
-                    <div className="single-post-button">
-                      <button
-                        className="single-post-share-btn"
-                        onClick={() => {
-                          setShowLinkCopied(true);
-                          navigator.clipboard.writeText(
-                            `https://ribbit-app.herokuapp.com/posts/${post.id}`
-                          );
-                        }}
-                      >
-                        <img src={Bounce} className="single-post-share-icon" />
-                        Share
-                      </button>
-                    </div>
-                  </NavLink>
-                )}
-                {isPage === "all" && (
-                  <NavLink to="/c/all">
-                    <div className="single-post-button">
-                      <button
-                        className="single-post-share-btn"
-                        onClick={() => {
-                          setShowLinkCopied(true);
-                          navigator.clipboard.writeText(
-                            `https://ribbit-app.herokuapp.com/posts/${post.id}`
-                          );
-                        }}
-                      >
-                        <img src={Bounce} className="single-post-share-icon" />
-                        Share
-                      </button>
-                    </div>
-                  </NavLink>
-                )}
-                {isPage === "community" && (
-                  <NavLink to={`/c/${post.communityId}`}>
-                    <div className="single-post-button">
-                      <button
-                        className="single-post-share-btn"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setShowLinkCopied(true);
-                          navigator.clipboard.writeText(
-                            `https://ribbit-app.herokuapp.com/posts/${post.id}`
-                          );
-                        }}
-                      >
-                        <img src={Bounce} className="single-post-share-icon" />
-                        Share
-                      </button>
-                    </div>
-                  </NavLink>
-                )}
-
-                {isPage === "singlepage" && (
+                <NavLink
+                  to={
+                    isPage === undefined
+                      ? "/"
+                      : isPage === "all"
+                      ? "/c/all"
+                      : isPage === "community"
+                      ? `/c/${post.communityId}`
+                      : isPage === "singlepage"
+                      ? `/posts/${post.id}`
+                      : isPage === "profile"
+                      ? `/users/${userId}`
+                      : ""
+                  }
+                >
                   <div className="single-post-button">
                     <button
                       className="single-post-share-btn"
@@ -294,7 +284,8 @@ export default function SinglePost({ id, isPage }) {
                       Share
                     </button>
                   </div>
-                )}
+                </NavLink>
+
                 {showLinkCopied && (
                   <div
                     className={

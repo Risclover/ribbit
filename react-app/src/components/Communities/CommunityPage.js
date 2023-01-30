@@ -14,8 +14,8 @@ import { Modal } from "../../context/Modal";
 import CommunityWelcome from "../Modals/CommunityWelcome";
 import LoginForm from "../auth/AuthModal/LoginForm";
 import SignUpForm from "../auth/AuthModal/SignUpForm";
-import User from "../User";
 import ImagePostForm from "../Posts/ImagePost/ImagePostForm";
+
 import {
   addToSubscriptions,
   deleteSubscription,
@@ -31,9 +31,11 @@ export default function CommunityPage() {
   );
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
-  const [members, setMembers] = useState(subscribers.length);
-  const [subscribed, setSubscribed] = useState(false);
+  let [subscribed, setSubscribed] = useState(false);
 
+  const subscriptions = useSelector((state) =>
+    Object.values(state.subscriptions)
+  );
   const community = useSelector((state) =>
     Object.values(state.singleCommunity)
   );
@@ -67,23 +69,17 @@ export default function CommunityPage() {
   useEffect(() => {
     dispatch(getSingleCommunity(+communityId));
     dispatch(getPosts());
-    // dispatch(getSubscriptions());
-    dispatch(getSubscribers(+communityId));
-  }, [communityId, dispatch]);
+  }, [communityId, dispatch, subscribed]);
 
   useEffect(() => {
-    setMembers(subscribers.length);
+    dispatch(getSubscriptions());
 
-    for (let i = 0; i < subscribers.length; i++) {
-      if (subscribers[i].username === user?.username) {
+    for (let sub of subscriptions) {
+      if (sub.name === community[0].name) {
         setSubscribed(true);
-        break;
       }
-      setSubscribed(false);
     }
-  }, [subscribers, subscribed]);
-
-  useEffect(() => {}, [subscribers]);
+  }, [subscribed]);
 
   if (!community[0] || !commPosts || !posts) return null;
   return (
@@ -106,28 +102,28 @@ export default function CommunityPage() {
               </div>
               <div className="community-header-info-details-right">
                 <div className="community-header-info-subscribe">
-                  {!subscribed && (
-                    <button
-                      onClick={async (e) => {
-                        e.preventDefault();
-                        user && setSubscribed(true);
-                        !user && setShowLoginForm(true);
-                        dispatch(addToSubscriptions(community_id));
-                      }}
-                    >
-                      Join
-                    </button>
-                  )}
                   {user && subscribed && (
                     <button
                       className="unsubscribe-btn"
                       onClick={async (e) => {
                         e.preventDefault();
+                        await dispatch(deleteSubscription(community_id));
                         setSubscribed(false);
-                        dispatch(deleteSubscription(community_id));
                       }}
                     >
                       Joined
+                    </button>
+                  )}
+                  {!subscribed && (
+                    <button
+                      onClick={async (e) => {
+                        e.preventDefault();
+                        await dispatch(addToSubscriptions(community_id));
+                        user && setSubscribed(true);
+                        !user && setShowLoginForm(true);
+                      }}
+                    >
+                      Join
                     </button>
                   )}
                 </div>
@@ -172,8 +168,8 @@ export default function CommunityPage() {
                 )}
               </div>
               <div className="community-page-box-members">
-                <h2>{members}</h2>
-                <span>{members === 1 ? "Member" : "Members"}</span>
+                <h2>{community[0].members}</h2>
+                <span>{community[0].members === 1 ? "Member" : "Members"}</span>
               </div>
               <div className="community-page-box-btn">
                 {user && (

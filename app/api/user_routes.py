@@ -27,13 +27,10 @@ def user(id):
     return user.to_dict()
 
 
-
-image_routes = Blueprint("images", __name__)
-
-
-@user_routes.route("/<int:id>/img", methods=["POST"])
+# IMAGE ENDPOINT
+@user_routes.route("/<int:id>/img/<type>", methods=["POST"])
 @login_required
-def upload_image(id):
+def upload_image(id, type):
     if "image" not in request.files:
         return {"errors": "image required"}, 400
 
@@ -56,7 +53,11 @@ def upload_image(id):
     # flask_login allows us to get the current user from the request
     user = User.query.get(id)
 
-    setattr(user, "profile_img", url)
+    if type == "profile":
+        setattr(user, "profile_img", url)
+    elif type == "banner":
+        setattr(user, "banner_img", url)
+
     db.session.commit()
     return {"url": url}
 

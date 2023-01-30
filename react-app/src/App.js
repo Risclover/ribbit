@@ -6,7 +6,7 @@ import SignUpForm from "./components/auth/AuthModal/SignUpForm";
 import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
-import User from "./components/User";
+import UserProfile from "./components/UserProfile/UserProfile";
 import { authenticate } from "./store/session";
 import { Modal } from "./context/Modal";
 import Posts from "./components/Posts/Posts";
@@ -94,7 +94,7 @@ function App() {
             <UsersList />
           </ProtectedRoute>
           <ProtectedRoute path="/users/:userId" exact={true}>
-            <User />
+            <UserProfile />
           </ProtectedRoute>
           <Route>
             <h1>

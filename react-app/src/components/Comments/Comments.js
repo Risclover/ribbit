@@ -7,14 +7,15 @@ import { getSinglePost } from "../../store/one_post";
 import CommentForm from "./CommentForm";
 import "./Comments.css";
 
-export default function Comments({ postId, setShowLoginForm }) {
+export default function Comments({ postId, setShowLoginForm, setCommentsNum }) {
   const dispatch = useDispatch();
 
   const comments = useSelector((state) => Object.values(state.comments));
 
   useEffect(() => {
     dispatch(getComments(postId));
-  }, [dispatch, postId]);
+    setCommentsNum(comments.length);
+  }, []);
 
   return (
     <div className="comments-container">

@@ -13,6 +13,7 @@ class Community(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     community_posts = db.relationship('Post', back_populates="post_community")
     subscribers = db.relationship('User', back_populates="user_subscriptions", secondary=subscriptions, lazy="joined", cascade="all,delete")
+    community_owner = db.relationship('User', back_populates="user_communities")
 
 
     def to_dict(self):
@@ -25,7 +26,9 @@ class Community(db.Model):
             "createdAt": self.created_at,
             "communityImg": self.community_img,
             'subscribers': {item.to_dict()["id"]: item.to_dict() for item in self.subscribers},
-            'communityPosts': {item.to_dict()["id"]: item.to_dict() for item in self.community_posts}
+            'communityPosts': {item.to_dict()["id"]: item.to_dict() for item in self.community_posts},
+            'communityOwner': self.community_owner.to_dict(),
+            'members': len(self.subscribers)
 
             # "subscribers": self.subscribed_users.to_dict()
 

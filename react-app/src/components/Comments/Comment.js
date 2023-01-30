@@ -31,6 +31,26 @@ moment.updateLocale("en", {
   },
 });
 
+const URL_REGEX =
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+
+function Text({ content }) {
+  const words = content.split(" ");
+  return (
+    <p>
+      {words.map((word) => {
+        return word.match(URL_REGEX) ? (
+          <>
+            <a href={word}>{word}</a>{" "}
+          </>
+        ) : (
+          word + " "
+        );
+      })}
+    </p>
+  );
+}
+
 export default function Comment({ commentId, postId }) {
   const dispatch = useDispatch();
   const comment = useSelector((state) => state.comments[+commentId]);
@@ -82,7 +102,7 @@ export default function Comment({ commentId, postId }) {
   console.log(wasEdited);
   if (!post) return null;
   return (
-    <div className="the-actual-comment">
+    <div className="the-actual-comment" style={{ whiteSpace: "pre-line" }}>
       <div className="comment-left-side">
         <NavLink to={`/users/${comment.commentAuthor.id}`}>
           <div
@@ -119,7 +139,9 @@ export default function Comment({ commentId, postId }) {
             </span>
           )}
         </div>
-        <div className="comment-right-content">{comment.content}</div>
+        <div className="comment-right-content">
+          <Text content={comment.content} />
+        </div>
         <div className="comment-owner-btns">
           {commentPermission && (
             <button

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 const UploadPicture = () => {
   const history = useHistory(); // so that we can redirect after the image upload is successful
   const [image, setImage] = useState(null);

@@ -1,0 +1,49 @@
+.post-sorting-bar {
+  width: 100%;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  height: 60px;
+}
+
+.post-sorting-bar-btn {
+  border-radius: 20px;
+  margin-right: 8px;
+  color: #878a8c;
+  padding: 6px 8px;
+  background: none;
+  outline: none;
+  border: none;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  min-height: 34px;
+}
+
+.post-sorting-bar-btn:hover {
+  background: #1c1c1c11;
+}
+
+.post-sorting-bar-btn svg {
+  padding-right: 8px;
+  font-size: 20px;
+}
+
+.post-sorting-bar-btn.active-sort-btn {
+  color: #0079d3;
+  background: #f6f7f8;
+}
+
+.post-sorting-bar-btn:hover,
+.post-sorting-bar.active-sort-btn:hover {
+  background: #1c1c1c11;
+}

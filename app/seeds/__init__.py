@@ -3,7 +3,6 @@ from .users import seed_users, undo_users
 from .posts import seed_posts, undo_posts
 from .comments import seed_comments, undo_comments
 from .communities import seed_communities, undo_communities
-from .subscriptions import seed_subscriptions, undo_subscriptions
 
 from app.models.db import db
 
@@ -19,14 +18,12 @@ def seed():
     seed_communities()
     seed_posts()
     seed_comments()
-    seed_subscriptions()
     # Add other seed functions here
 
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_subscriptions()
     undo_comments()
     undo_posts()
     undo_communities()

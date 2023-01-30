@@ -40,6 +40,7 @@ class Post(db.Model):
             "postAuthor": self.post_author.to_dict(),
             "communityId": self.community_id,
             "postVoters": {item.to_dict()["userID"]: item.to_dict() for item in self.users_who_liked},
+            "commentNum": len(self.post_comments),
             # "previewImgId": self.preview_img_id,
             # "postCommunity": self.post_community.to_dict(),
             # "community": {item.to_dict()["id"]: item.to_dict() for item in self.communities},
@@ -50,10 +51,11 @@ class Post(db.Model):
             "createdAt": self.created_at,
             "updatedAt": self.updated_at,
         }
+
     def to_dict_likes(self):
         return {
-            "likes": len(self.users_who_liked),
-            # "dislikes": len(self.users_who_disliked)
+            "likes": len({item.to_dict()["userID"]: item.to_dict()["isUpvote"] for item in self.users_who_liked}),
+            "dislikes": len({item.to_dict()["userID"]: item.to_dict()["isDownvote"] for item in self.users_who_liked})
         }
 
     def __repr__(self):

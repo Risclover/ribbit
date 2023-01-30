@@ -14,6 +14,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
   const { postId } = useParams();
   const [isPage, setIsPage] = useState("");
   const dispatch = useDispatch();
+  const [commentsNum, setCommentsNum] = useState();
   const post = useSelector((state) => state.posts[postId]);
   const comments = useSelector((state) => Object.values(state.comments));
   const posts = useSelector((state) => state.posts);
@@ -27,7 +28,6 @@ export default function SinglePostPage({ setShowLoginForm }) {
     dispatch(getSinglePost(postId));
     dispatch(getSingleCommunity(posts[postId]?.communityId));
     dispatch(getComments(+postId));
-    dispatch(getAllComments());
   }, [dispatch, postId]);
 
   // comments.sort((a, b) => {
@@ -42,12 +42,18 @@ export default function SinglePostPage({ setShowLoginForm }) {
       <div className="single-post-left-col">
         {/* <NavLink to={`/posts/${+postId}`}> */}
         <SinglePost
+          commentsNum={commentsNum}
+          setCommentsNum={setCommentsNum}
           id={+postId}
           isPage={"singlepage"}
           postComments={Object.values(post.postComments).length}
         />
         {/* </NavLink> */}
-        <Comments postId={+postId} setShowLoginForm={setShowLoginForm} />
+        <Comments
+          setCommentsNum={setCommentsNum}
+          postId={+postId}
+          setShowLoginForm={setShowLoginForm}
+        />
       </div>
       <div className="single-post-right-col">
         <NavLink to={`/c/${community?.id}`}>

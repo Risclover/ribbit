@@ -1,7 +1,7 @@
 import React from "react";
 import "./Modals.css";
 import { useDispatch } from "react-redux";
-import { deletePost } from "../../store/posts";
+import { deletePost, getPosts } from "../../store/posts";
 import { useHistory } from "react-router-dom";
 import {
   getAllComments,
@@ -24,6 +24,8 @@ export default function DeleteConfirmation({
   const history = useHistory();
   const dispatch = useDispatch();
 
+  useEffect(() => {});
+
   const handleDeletePost = async (e) => {
     e.preventDefault();
     await dispatch(deletePost(postId));
@@ -32,9 +34,9 @@ export default function DeleteConfirmation({
 
   const handleDeleteComment = async (e) => {
     e.preventDefault();
-    history.push(`/posts/${postId}`);
-    await dispatch(removeComment(commentId));
     setShowDeleteModal(false);
+    await dispatch(removeComment(commentId));
+    dispatch(getPosts());
   };
 
   const handleDeleteCommunity = async (e) => {

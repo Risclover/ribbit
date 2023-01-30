@@ -14,6 +14,7 @@ import { getCommunities } from "../../store/communities";
 import { Modal } from "../../context/Modal";
 import CreateCommunity from "../Modals/CreateCommunity";
 import ImagePostForm from "./ImagePost/ImagePostForm";
+import SortingBar from "./SortingBar/SortingBar";
 
 export default function Posts() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ export default function Posts() {
     <div className="posts-container">
       <div className="posts-left-col">
         {user && <CreatePostBar />}
+        <SortingBar />
         {posts &&
           posts.map((post) => (
             <NavLink key={post.id} to={`/posts/${post.id}`}>
