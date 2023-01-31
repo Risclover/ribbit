@@ -33,7 +33,36 @@
   /* padding: 15px; */
   overflow: hidden;
 }
+.quill {
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 20px 0;
+  border-top: 1px solid #ccc;
+}
 
+.ql-toolbar.ql-snow {
+  background: #f6f7f8;
+}
+
+.ql-snow.ql-stroke {
+  color: #ccc;
+}
+
+.ql-editor {
+  min-height: 122px;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+
+  border-bottom: none;
+}
+
+.ql-container {
+  border: 1px solid #ccc;
+}
+
+.ql-container.ql-snow {
+  border-bottom: none;
+}
 .create-post-content input,
 .create-post-content textarea {
   width: 100%;

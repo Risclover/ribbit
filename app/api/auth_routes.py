@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, db, Community
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -65,8 +65,21 @@ def sign_up():
         user = User(
             username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password'],
         )
+
+        community_1 = Community.query.get(1)
+        community_2 = Community.query.get(2)
+        community_3 = Community.query.get(3)
+        community_4 = Community.query.get(4)
+        community_5 = Community.query.get(5)
+
+        user.user_subscriptions.append(community_1)
+        user.user_subscriptions.append(community_2)
+        user.user_subscriptions.append(community_3)
+        user.user_subscriptions.append(community_4)
+        user.user_subscriptions.append(community_5)
+
         db.session.add(user)
         db.session.commit()
         login_user(user)

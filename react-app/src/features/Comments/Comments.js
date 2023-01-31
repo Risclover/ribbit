@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import CommentForm from "./CommentForms/CommentForm";
 import Comment from "./Comment";

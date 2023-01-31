@@ -251,6 +251,15 @@
   word-break: break-word;
 }
 
+.single-page-content h1 {
+  font-family: Noto Sans, Arial, sans-serif;
+  font-weight: 400;
+  margin-bottom: 8px;
+  margin-top: 1.4em;
+  font-size: 22px;
+  line-height: 26px;
+}
+
 .single-page-content {
   font-family: "Noto Sans", sans-serif;
   font-size: 14px;
@@ -263,8 +272,6 @@
   max-width: 700px;
   margin-top: 12px;
   width: 100%;
-  display: flex;
-  align-items: center;
   /* justify-content: center; */
 }
 

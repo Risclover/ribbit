@@ -17,7 +17,7 @@ def seed_posts():
         title="Anyone want a tiger?",
         content="I'm selling my tiger for 50 gold. Reminder that you must be level 30 or higher to be able to buy it. Message me if interested.",
         user_id=3,
-        community_id=1
+        community_id=1,
     )
     post_4 = Post(
         title="This flawless yellow onion",

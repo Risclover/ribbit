@@ -32,6 +32,7 @@ function UserProfile() {
   const [img_url, setimg_url] = useState();
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showBannerModal, setShowBannerModal] = useState(false);
+  const [karma, setKarma] = useState();
 
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => state.posts);
@@ -63,8 +64,11 @@ function UserProfile() {
 
   useEffect(() => {
     dispatch(getUsers());
+
+    setKarma(user?.karma);
+    console.log("KARMA:", karma);
     console.log(user?.profile_img);
-  }, [user?.profile_img]);
+  }, [karma, user?.karma, user?.profile_img]);
 
   const currentUser = useSelector((state) => state.session.user);
 
@@ -157,9 +161,7 @@ function UserProfile() {
                 <h5>Karma</h5>
                 <div className="stats-stats">
                   <img src={Flower} className="stats-icon" />{" "}
-                  <span className="stats-label">
-                    {user.likes - user.dislikes}
-                  </span>
+                  <span className="stats-label">{karma}</span>
                 </div>
               </div>
               <div className="user-profile-stats stats-cakeday">

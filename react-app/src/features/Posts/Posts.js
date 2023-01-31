@@ -64,11 +64,18 @@ export default function Posts() {
         <div className="posts-home-box">
           <img src={RibbitBanner} alt="Ribbit banner" />
           <div className="posts-home-box-content">
-            <h1>c/all</h1>
-            <p>
-              Thee most active posts from all of Ribbit. Come here to see new
-              posts rising and be a part of the conversation.
-            </p>
+            {user ? <h1>c/all</h1> : <h1>Home</h1>}
+            {user ? (
+              <p>
+                The most active posts from all of Ribbit. Come here to see new
+                posts rising and be a part of the conversation.
+              </p>
+            ) : (
+              <p>
+                Your personal internet frontpage. Come here to check in with
+                your favorite communities.
+              </p>
+            )}
             {user && (
               <div className="posts-home-box-buttons">
                 <button

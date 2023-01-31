@@ -53,9 +53,11 @@ class Post(db.Model):
         }
 
     def to_dict_likes(self):
+        upvotes = len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]])
+        downvotes = len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]])
         return {
-            "likes": len({item.to_dict()["userID"]: item.to_dict()["isUpvote"] for item in self.users_who_liked}),
-            "dislikes": len({item.to_dict()["userID"]: item.to_dict()["isDownvote"] for item in self.users_who_liked})
+            "likes": upvotes,
+            "dislikes": downvotes
         }
 
     def __repr__(self):

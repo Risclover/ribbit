@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
+import parse from "html-react-parser";
 
 import { addPostVote, removePostVote } from "../../../store/posts";
 
@@ -11,6 +12,7 @@ import UpdatePost from "../PostForms/UpdatePost";
 import Bounce from "../../../images/misc/curved-arrow.png";
 
 import "./SinglePost.css";
+import { getUsers } from "../../../store/users";
 
 const URL_REGEX =
   /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
@@ -22,7 +24,9 @@ function Text({ content }) {
       {words.map((word) => {
         return word.match(URL_REGEX) ? (
           <>
-            <a href={word}>{word}</a>{" "}
+            <a href={word} target="_blank" rel="noreferrer">
+              {word}
+            </a>{" "}
           </>
         ) : (
           word + " "
@@ -60,12 +64,46 @@ export default function SinglePost({ id, isPage, userId }) {
     setCommentNum(post?.commentNum);
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
 
+  const handleUpvoteClick = async () => {
+    if (user?.id in post?.postVoters) {
+      if (!post?.postVoters[user?.id].isUpvote) {
+        await dispatch(removePostVote(post.id));
+        await dispatch(addPostVote(post.id, "upvote"));
+        dispatch(getUsers());
+      } else if (upvote) {
+        handleRemoveVote();
+      } else {
+        handleAddVote();
+      }
+    } else {
+      handleAddVote();
+    }
+  };
+
+  const handleDownvoteClick = async () => {
+    if (user?.id in post?.postVoters) {
+      if (post?.postVoters[user?.id].isUpvote) {
+        await dispatch(removePostVote(post.id));
+        await dispatch(addPostVote(post.id, "downvote"));
+        dispatch(getUsers());
+      } else if (downvote) {
+        handleRemoveVote();
+      }
+    } else {
+      handleAddDownvote();
+    }
+  };
+
   const handleAddVote = async (e) => {
     await dispatch(addPostVote(post.id, "upvote"));
+    setUpvote(true);
+    dispatch(getUsers());
   };
 
   const handleAddDownvote = async () => {
     await dispatch(addPostVote(post.id, "downvote"));
+    setDownvote(true);
+    dispatch(getUsers());
   };
 
   const handleRemoveVote = async () => {
@@ -73,10 +111,12 @@ export default function SinglePost({ id, isPage, userId }) {
     if (upvote) {
       setUpvote(false);
       setVoteTotal(voteTotal - 1);
+      dispatch(getUsers());
     }
     if (downvote) {
       setDownvote(false);
       setVoteTotal(voteTotal + 1);
+      dispatch(getUsers());
     }
   };
 
@@ -131,11 +171,7 @@ export default function SinglePost({ id, isPage, userId }) {
               {" "}
               <button
                 className={upvote ? "vote-btn-red" : "upvote-btn-grey"}
-                onClick={
-                  user?.id in post?.postVoters
-                    ? handleRemoveVote
-                    : handleAddVote
-                }
+                onClick={handleUpvoteClick}
               >
                 <i className="fa-regular fa-circle-up"></i>
               </button>
@@ -159,11 +195,7 @@ export default function SinglePost({ id, isPage, userId }) {
             >
               <button
                 className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
-                onClick={
-                  user?.id in post?.postVoters
-                    ? handleRemoveVote
-                    : handleAddDownvote
-                }
+                onClick={handleDownvoteClick}
               >
                 <i className="fa-regular fa-circle-down"></i>
               </button>
@@ -201,18 +233,12 @@ export default function SinglePost({ id, isPage, userId }) {
             ) : (
               <>
                 {isPage === "singlepage" ? (
-                  <div
-                    className="single-page-content"
-                    style={{ whiteSpace: "pre-line" }}
-                  >
-                    <Text content={post.content} />
+                  <div className="single-page-content">
+                    {parse(post.content)}
                   </div>
                 ) : (
-                  <div
-                    className="single-post-content"
-                    style={{ whiteSpace: "pre-line" }}
-                  >
-                    <Text content={post.content} />
+                  <div className="single-post-content">
+                    {parse(post.content)}
                   </div>
                 )}
               </>

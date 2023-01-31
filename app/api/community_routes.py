@@ -60,6 +60,9 @@ def create_community():
             user_id = current_user.get_id()
         )
 
+        user = User.query.get(current_user.get_id())
+        user.user_subscriptions.append(new_community)
+
         db.session.add(new_community)
         db.session.commit()
 

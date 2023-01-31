@@ -10,10 +10,11 @@ export default function EditComment({
   setShowEditCommentModal,
   showEditCommentModal,
 }) {
+  const dispatch = useDispatch();
+
   const comment = useSelector((state) => state.comments[commentId]);
   const [content, setContent] = useState(comment?.content);
   const [errors, setErrors] = useState([]);
-  const dispatch = useDispatch();
 
   const handleEdit = async (e) => {
     e.preventDefault();

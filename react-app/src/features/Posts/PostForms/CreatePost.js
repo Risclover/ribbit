@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import parse from "html-react-parser";
 
 import { addPost, getPosts } from "../../../store/posts";
 import { getCommunities } from "../../../store/communities";
@@ -11,6 +14,23 @@ import ImagePostForm from "../ImagePost/ImagePostForm";
 import DiscardPost from "../DiscardPost";
 
 import "./PostForm.css";
+
+const modules = {
+  toolbar: [
+    [
+      "bold",
+      "italic",
+      "link",
+      "strike",
+      "code",
+      { script: "super" },
+      { header: 1 },
+    ],
+    [{ list: "bullet" }, { list: "ordered" }],
+    ["blockquote", "code-block"],
+    ["image"],
+  ],
+};
 
 export default function CreatePost() {
   const dispatch = useDispatch();
@@ -166,13 +186,11 @@ export default function CreatePost() {
               </div>
               {postType === "post" && (
                 <div className="create-post-form-input">
-                  <textarea
-                    onChange={(e) => setContent(e.target.value)}
-                    className="create-post-input content-input"
-                    value={content}
-                    maxLength={40000}
-                    placeholder="Text"
-                  ></textarea>
+                  <ReactQuill
+                    theme="snow"
+                    modules={modules}
+                    onChange={setContent}
+                  />
                 </div>
               )}
               {postType === "image" && (

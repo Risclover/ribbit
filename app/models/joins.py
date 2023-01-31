@@ -22,8 +22,7 @@ class PostVote(db.Model):
         return {
             "userID": self.user_id,
             "postID": self.post_id,
-            "isUpvote": self.is_upvote == True,
-            "isDownvote": self.is_upvote
+            "isUpvote": self.is_upvote
         }
 
 

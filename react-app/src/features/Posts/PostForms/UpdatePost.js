@@ -26,8 +26,8 @@ export default function UpdatePost() {
 
   const handleImageSubmit = async (e) => {
     e.preventDefault();
-    dispatch(putImagePost(+postId));
     setPostType("image");
+    dispatch(putImagePost(+postId));
   };
 
   const handleSubmit = async (e) => {

@@ -116,12 +116,6 @@
   margin-bottom: 8px;
 }
 
-.single-post-content {
-  display: flex;
-  align-items: flex-start;
-  /* justify-content: center; */
-}
-
 /* .single-page-content {
   -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
   mask-image: linear-gradient(180deg, #000 60%, transparent);
