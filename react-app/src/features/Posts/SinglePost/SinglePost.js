@@ -233,11 +233,17 @@ export default function SinglePost({ id, isPage, userId }) {
             ) : (
               <>
                 {isPage === "singlepage" ? (
-                  <div className="single-page-content">
+                  <div
+                    className="single-page-content"
+                    style={{ whiteSpace: "pre-line" }}
+                  >
                     {parse(post.content)}
                   </div>
                 ) : (
-                  <div className="single-post-content">
+                  <div
+                    className="single-post-content"
+                    style={{ whiteSpace: "pre-line" }}
+                  >
                     {parse(post.content)}
                   </div>
                 )}
