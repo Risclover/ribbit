@@ -14,8 +14,8 @@ import "./Comments.css";
 
 moment.updateLocale("en", {
   relativeTime: {
-    future: (diff) => (diff == "just now" ? diff : `in ${diff}`),
-    past: (diff) => (diff == "just now" ? diff : `${diff} ago`),
+    future: (diff) => (diff === "just now" ? diff : `in ${diff}`),
+    past: (diff) => (diff === "just now" ? diff : `${diff} ago`),
     s: "just now",
     ss: "just now",
     m: "1 minute",
@@ -68,16 +68,16 @@ export default function Comment({ commentId, postId }) {
     } else {
       setWasEdited(false);
     }
-  }, [dispatch, commentId, postId]);
+  }, [dispatch, comment.createdAt, comment.updatedAt]);
 
-  useEffect(() => {
-    for (let voter of Object.values(comment.commentVoters)) {
-      if (voter?.username === user?.username) {
-        setCommentPermission(false);
-        break;
-      }
-    }
-  });
+  // useEffect(() => {
+  //   for (let voter of Object.values(comment.commentVoters)) {
+  //     if (voter?.username === user?.username) {
+  //       setCommentPermission(false);
+  //       break;
+  //     }
+  //   }
+  // }, [user?.username, comment.commentVoters]);
 
   useEffect(() => {
     if (Object.values(comment.commentVoters).length === 0) {
@@ -93,7 +93,7 @@ export default function Comment({ commentId, postId }) {
         }
       }
     }
-  }, [commentPermission, comment.commentVoters]);
+  }, [user?.username, comment.commentVoters]);
 
   if (!post) return null;
   return (

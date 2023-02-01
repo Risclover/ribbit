@@ -264,13 +264,15 @@
   margin: 24px 40px 24px 48px;
   /* max-width: 650px; */
   /* width: 100%; */
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #eee; */
+  border-radius: 4px;
+  overflow: hidden;
   /* padding-bottom: 30px; */
 }
 
 .post-comment-textarea {
-  border: 1px solid #edeff1;
-  border-bottom: none;
+  /* border: 1px solid #edeff1; */
+  border: none;
   min-height: 138px;
   width: 100%;
   max-width: 650px;
@@ -281,11 +283,17 @@
   font-weight: 400;
   line-height: 21px;
   outline: none;
-  margin-top: 7px;
+  /* margin-top: 7px; */
   resize: vertical;
 }
 
-.post-comment-textarea:focus {
+.post-comment-box {
+  margin-top: 7px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.post-comment-box:focus-within {
   border: 1px solid #1a1a1b;
 }
 
@@ -346,6 +354,9 @@
   padding: 2px;
   padding-left: 10px;
   max-width: 650px;
+  margin-top: -5px;
+  border: 1px solid #edeff1;
+  border-top: none;
   border-radius: 0 0 4px 4px;
 }
 
@@ -357,6 +368,9 @@
   font-weight: 700;
   border: none;
   outline: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .comments-sort-btn-container button {
@@ -385,4 +399,9 @@
 
 .comment-original-time {
   font-family: "Noto Sans", sans-serif;
+}
+
+.post-comment-box .quill {
+  display: flex;
+  flex-direction: column-reverse;
 }

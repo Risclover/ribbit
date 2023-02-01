@@ -16,6 +16,8 @@ import SignUpForm from "../auth/AuthModal/SignUpForm";
 import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
 import SinglePost from "../Posts/SinglePost/SinglePost";
 import Cake from "../../images/misc/piece4.png";
+import Camera from "../../images/user-profile-icons/camera.png";
+
 import CommunityWelcome from "./CommunityWelcome";
 import { Modal } from "../../context/Modal";
 
@@ -26,6 +28,7 @@ export default function CommunityPage() {
 
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
+  const [showCommunityImgModal, setShowCommunityImgModal] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const [members, setMembers] = useState(0);
 
@@ -81,9 +84,22 @@ export default function CommunityPage() {
         <div className="community-page-header-btm">
           <div className="community-header-info">
             <div className="community-header-info-details">
-              <div className="community-header-info-img">
-                <img src={community[0].communityImg} />
+              <div className="community-img-box">
+                {user?.id === community[0].userId ? (
+                  <div
+                    className="community-img-upload-btn"
+                    onClick={() => setShowCommunityImgModal(true)}
+                  >
+                    <img src={Camera} />
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className="community-header-info-img">
+                  <img src={community[0].communityImg} />
+                </div>
               </div>
+
               <div className="community-header-info-details-left">
                 <div className="community-header-info-display-name">
                   <h1>{community[0].displayName}</h1>

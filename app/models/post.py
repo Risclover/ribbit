@@ -35,7 +35,7 @@ class Post(db.Model):
             "title": self.title,
             "content": self.content,
             "imgUrl": self.img_url,
-            "votes": len(self.users_who_liked),
+            "votes": len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]]) - len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]]),
             "userId": self.user_id,
             "postAuthor": self.post_author.to_dict(),
             "communityId": self.community_id,

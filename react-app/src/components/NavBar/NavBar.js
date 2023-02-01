@@ -6,6 +6,7 @@ import { Modal } from "../../context/Modal";
 import LoginForm from "../../features/auth/AuthModal/LoginForm";
 import SignUpForm from "../../features/auth/AuthModal/SignUpForm";
 import LogoutButton from "../../features/auth/LogoutButton";
+import NavUserDropdown from "./NavUserDropdown";
 import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
 import "./NavBar.css";
 
@@ -66,12 +67,13 @@ const NavBar = () => {
             Users
           </NavLink>
         </li>
-        {user && (
+        {/* {user && (
           <li>
             <LogoutButton />
           </li>
-        )}
+        )} */}
       </ul>
+      {user && <NavUserDropdown />}
     </nav>
   );
 };

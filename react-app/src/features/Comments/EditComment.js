@@ -42,7 +42,7 @@ export default function EditComment({
                 className="modal-content-input"
                 onChange={(e) => setContent(e.target.value)}
                 value={content}
-                maxlength={10000}
+                maxLength={10000}
               ></textarea>
             </div>
             <div className="modal-buttons">

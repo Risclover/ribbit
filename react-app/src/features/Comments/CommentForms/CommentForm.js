@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 import { createComment } from "../../../store/comments";
 import { getPosts } from "../../../store/posts";
@@ -10,6 +12,22 @@ import LoginForm from "../../auth/AuthModal/LoginForm";
 import SignUpForm from "../../auth/AuthModal/SignUpForm";
 
 import "../Comments.css";
+
+const modules = {
+  toolbar: [
+    [
+      "bold",
+      "italic",
+      "link",
+      "strike",
+      "code",
+      { script: "super" },
+      { header: 1 },
+    ],
+    [{ list: "bullet" }, { list: "ordered" }],
+    ["blockquote", "code-block"],
+  ],
+};
 
 export default function CommentForm({ postId }) {
   const dispatch = useDispatch();
@@ -57,25 +75,27 @@ export default function CommentForm({ postId }) {
             Comment as{" "}
             <NavLink to={`/users/${user.id}`}>{user.username}</NavLink>
           </label>
-          <textarea
-            className="post-comment-textarea"
-            placeholder="What are your thoughts?"
-            onChange={(e) => setContent(e.target.value)}
-            value={content}
-          ></textarea>
-          <div className="comment-form-button-container">
-            <div className="comment-form-errors">
-              {errors.length > 0 && errors.map((error) => error)}
+          <div className="post-comment-box">
+            <ReactQuill
+              theme="snow"
+              modules={modules}
+              onChange={setContent}
+              placeholder="What are your thoughts?"
+            />
+            <div className="comment-form-button-container">
+              <div className="comment-form-errors">
+                {errors.length > 0 && errors.map((error) => error)}
+              </div>
+              {disabled === true ? (
+                <button type="submit" className="comment-submit" disabled>
+                  Comment
+                </button>
+              ) : (
+                <button type="submit" className="comment-submit">
+                  Comment
+                </button>
+              )}
             </div>
-            {disabled === true ? (
-              <button type="submit" className="comment-submit" disabled>
-                Comment
-              </button>
-            ) : (
-              <button type="submit" className="comment-submit">
-                Comment
-              </button>
-            )}
           </div>
         </form>
       )}

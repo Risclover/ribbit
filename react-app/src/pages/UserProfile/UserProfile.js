@@ -33,9 +33,10 @@ function UserProfile() {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showBannerModal, setShowBannerModal] = useState(false);
   const [karma, setKarma] = useState();
+  const [sortMode, setSortMode] = useState("new");
 
   const communities = useSelector((state) => state.communities);
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => Object.values(state.posts));
 
   useEffect(() => {
     setBanner(user?.bannerImg);
@@ -54,7 +55,7 @@ function UserProfile() {
     setUserCommunities(communityList);
 
     let postsList = [];
-    for (let post of Object.values(posts)) {
+    for (let post of posts) {
       if (post.postAuthor.id === +userId) {
         postsList.push(post);
       }
@@ -66,11 +67,25 @@ function UserProfile() {
     dispatch(getUsers());
 
     setKarma(user?.karma);
-    console.log("KARMA:", karma);
-    console.log(user?.profile_img);
   }, [karma, user?.karma, user?.profile_img]);
 
   const currentUser = useSelector((state) => state.session.user);
+
+  if (sortMode === "new") {
+    posts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return postB - postA;
+    });
+  }
+
+  if (sortMode === "top") {
+    posts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return b.votes - a.votes || postB - postA;
+    });
+  }
 
   if (!user) {
     return null;
@@ -79,12 +94,11 @@ function UserProfile() {
   return (
     <div className="user-profile-page">
       <div className="user-profile-left-col">
-        <SortingBar />
-        {Object.values(posts).map((post) =>
+        <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+        {posts.map((post) =>
           post.postAuthor.id === +userId ? (
-            <NavLink to={`/posts/${post.id}`}>
+            <NavLink key={post.id} to={`/posts/${post.id}`}>
               <SinglePost
-                key={post.id}
                 id={post.id}
                 isCommunity={false}
                 isPage="profile"

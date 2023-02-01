@@ -25,6 +25,7 @@ export default function Posts() {
 
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
+  const [sortMode, setSortMode] = useState("new");
 
   const posts = useSelector((state) => Object.values(state.posts));
   const user = useSelector((state) => state.session.user);
@@ -34,19 +35,28 @@ export default function Posts() {
     dispatch(getCommunities());
   }, [dispatch]);
 
-  // Sorting newer posts first
-  posts.sort((a, b) => {
-    let postA = new Date(a.createdAt).getTime();
-    let postB = new Date(b.createdAt).getTime();
-    return postB - postA;
-  });
+  if (sortMode === "new") {
+    posts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return postB - postA;
+    });
+  }
+
+  if (sortMode === "top") {
+    posts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return b.votes - a.votes || postB - postA;
+    });
+  }
 
   if (!posts) return null;
   return (
     <div className="posts-container">
       <div className="posts-left-col">
         {user && <CreatePostBar />}
-        <SortingBar />
+        <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
         {posts &&
           posts.map((post) => (
             <NavLink key={post.id} to={`/posts/${post.id}`}>

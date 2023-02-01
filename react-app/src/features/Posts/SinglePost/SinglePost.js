@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import parse from "html-react-parser";
+import { GoArrowUp, GoArrowDown } from "react-icons/go";
 
 import { addPostVote, removePostVote } from "../../../store/posts";
 
@@ -52,7 +53,7 @@ export default function SinglePost({ id, isPage, userId }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
-  const [voteTotal, setVoteTotal] = useState(0);
+  const [voteTotal, setVoteTotal] = useState(post?.votes);
   const [commentNum, setCommentNum] = useState(0);
 
   useEffect(() => {
@@ -110,14 +111,11 @@ export default function SinglePost({ id, isPage, userId }) {
     await dispatch(removePostVote(post.id));
     if (upvote) {
       setUpvote(false);
-      setVoteTotal(voteTotal - 1);
-      dispatch(getUsers());
     }
     if (downvote) {
       setDownvote(false);
-      setVoteTotal(voteTotal + 1);
-      dispatch(getUsers());
     }
+    dispatch(getUsers());
   };
 
   useEffect(() => {
@@ -134,15 +132,6 @@ export default function SinglePost({ id, isPage, userId }) {
             }
           }
         }
-        let votes = 0;
-        for (let vote of Object.values(post?.postVoters)) {
-          if (vote.isUpvote) {
-            votes = votes + 1;
-          } else if (!vote.isUpvote) {
-            votes = votes - 1;
-          }
-        }
-        setVoteTotal(votes);
       }
     }
   }, [upvote, downvote, voteTotal, post?.postVoters]);
@@ -173,11 +162,11 @@ export default function SinglePost({ id, isPage, userId }) {
                 className={upvote ? "vote-btn-red" : "upvote-btn-grey"}
                 onClick={handleUpvoteClick}
               >
-                <i className="fa-regular fa-circle-up"></i>
+                <GoArrowUp />
               </button>
             </NavLink>
 
-            <span className="karmabar-votes">{voteTotal}</span>
+            <span className="karmabar-votes">{post?.votes}</span>
             <NavLink
               to={
                 isPage === undefined
@@ -197,7 +186,7 @@ export default function SinglePost({ id, isPage, userId }) {
                 className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
                 onClick={handleDownvoteClick}
               >
-                <i className="fa-regular fa-circle-down"></i>
+                <GoArrowDown />
               </button>
             </NavLink>
           </div>

@@ -39,7 +39,7 @@ const ImagePost = ({ img_url, setimg_url }) => {
         Add Image
       </button>
       {showImgModal && (
-        <Modal onClose={() => setShowImgModal(false)}>
+        <Modal title="Upload Image" onClose={() => setShowImgModal(false)}>
           <ImagePostForm
             setShowImgModal={setShowImgModal}
             setimg_url={setimg_url}
