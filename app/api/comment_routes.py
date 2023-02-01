@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, Comment, User
+from app.models import db, Comment, User, CommentVote
 from app.forms.comment_form import CommentForm
 from .auth_routes import validation_errors_to_error_messages
 
@@ -92,39 +92,42 @@ def delete_comment(id):
     return {"message": "Successfully deleted", "status_code": 200}
 
 
-# CREATE A COMMENT VOTE
-@comment_routes.route('/<int:id>/vote', methods=['POST'])
+
+
+
+# ADD A COMMENT VOTE
+@comment_routes.route('/<int:id>/vote/<votetype>', methods=["POST"])
 @login_required
-def create_comment_vote(id):
+def add_vote(id, votetype):
     """
-    Query to add a comment vote
+    Query to add a vote to a comment
     """
     comment = Comment.query.get(id)
     user = User.query.get(current_user.get_id())
-    author = User.query.get(comment.user_id)
 
-    comment.comment_voters.append(user)
-    comment.votes += 1
-    author.karma += 1
+    if votetype == "upvote":
+        comment_vote = CommentVote(user_id=user.id, comment_id=id, is_upvote=True)
+    elif votetype == "downvote":
+        comment_vote = CommentVote(user_id=user.id, comment_id=id, is_upvote=False)
+
+    comment_vote.user_who_liked = user
+    comment_vote.comment = comment
+    comment.users_who_liked.append(comment_vote)
+
     db.session.commit()
-
     return comment.to_dict()
 
 
 # DELETE A COMMENT VOTE
 @comment_routes.route('/<int:id>/vote', methods=["DELETE"])
 @login_required
-def remove_comment_vote(id):
+def delete_vote(id):
     """
-    Query to remove a comment vote
+    Query to delete a comment's vote
     """
     comment = Comment.query.get(id)
     user = User.query.get(current_user.get_id())
-    author = User.query.get(comment.user_id)
-
-    comment.comment_voters.remove(user)
-    comment.votes -= 1
-    author.karma -= 1
+    comment_vote = CommentVote.query.filter_by(user_id=user.id, comment_id=comment.id).first()
+    db.session.delete(comment_vote)
     db.session.commit()
-
     return comment.to_dict()

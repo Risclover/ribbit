@@ -1,6 +1,4 @@
 from .db import db
-# from .joins import comment_karma
-from .joins import comment_votes
 
 ################
 # COMMENT MODEL:
@@ -18,7 +16,7 @@ class Comment(db.Model):
     # parent_comment =
     comment_author = db.relationship('User', back_populates="user_comments")
     comment_post = db.relationship('Post', back_populates='post_comments')
-    comment_voters = db.relationship('User', back_populates='user_comment_votes', secondary=comment_votes, lazy='joined')
+    users_who_liked = db.relationship("CommentVote", back_populates="user_comment_vote")
     # comment_post = db.relationship('Post', back_populates=('post_comments'))
 
     def to_dict(self):
@@ -27,12 +25,18 @@ class Comment(db.Model):
             "postId": self.post_id,
             "userId": self.user_id,
             "commentAuthor": self.comment_author.to_dict(),
-            "votes": self.votes,
+            "votes": len(self.users_who_liked),
+            "commentVoters": {item.to_dict()["userId"]: item.to_dict() for item in self.users_who_liked},
             # "commentPosts": self.comment_posts.to_dict(),
             "content": self.content,
-            "commentVoters": {item.to_dict()["id"]: item.to_dict() for item in self.comment_voters},
             "createdAt": self.created_at,
             "updatedAt": self.updated_at
+        }
+
+    def to_dict_likes(self):
+        return {
+            "likes": len({item.to_dict()["userID"]: item.to_dict()["isUpvote"] for item in self.users_who_liked}),
+            "dislikes": len({item.to_dict()["userID"]: item.to_dict()["isDownvote"] for item in self.users_who_liked})
         }
 
     def __repr__(self):
