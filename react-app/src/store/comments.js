@@ -2,8 +2,8 @@ const ADD_COMMENT = "comments/ADD";
 const LOAD_COMMENTS = "comments/LOAD";
 const DELETE_COMMENT = "comments/DELETE";
 const LOAD_ALL_COMMENTS = "comments/LOAD_ALL";
-const ADD_VOTE = "comments/ADD_VOTE";
-const REMOVE_VOTE = "comments/REMOVE_VOTE";
+const ADD_COMMENT_VOTE = "comments/ADD_VOTE";
+const REMOVE_COMMENT_VOTE = "comments/REMOVE_VOTE";
 
 export const addComment = (comment) => {
   return {
@@ -35,17 +35,18 @@ export const deleteComment = (commentId) => {
 
 export const addVote = (comment) => {
   return {
-    type: ADD_VOTE,
+    type: ADD_COMMENT_VOTE,
     comment,
   };
 };
 
 export const removeVote = (comment) => {
   return {
-    type: REMOVE_VOTE,
+    type: REMOVE_COMMENT_VOTE,
     comment,
   };
 };
+
 export const getAllComments = () => async (dispatch) => {
   const response = await fetch(`/api/comments`);
 
@@ -125,8 +126,8 @@ export const removeComment = (id) => async (dispatch) => {
   }
 };
 
-export const addCommentVote = (commentId) => async (dispatch) => {
-  const response = await fetch(`/api/comments/${commentId}/vote`, {
+export const addCommentVote = (commentId, votetype) => async (dispatch) => {
+  const response = await fetch(`/api/comments/${commentId}/vote/${votetype}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -172,9 +173,9 @@ const commentsReducer = (state = initialState, action) => {
       let removeState = { ...state };
       delete removeState[action.commentId];
       return removeState;
-    case ADD_VOTE:
+    case ADD_COMMENT_VOTE:
       return { ...state, [action.comment.id]: action.comment };
-    case REMOVE_VOTE:
+    case REMOVE_COMMENT_VOTE:
       return { ...state, [action.comment.id]: action.comment };
     default:
       return state;

@@ -14,6 +14,7 @@ class PostVote(db.Model):
     user_id = db.Column(db.ForeignKey("users.id"), primary_key=True)
     post_id = db.Column(db.ForeignKey("posts.id"), primary_key=True)
     is_upvote = db.Column(db.Boolean)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
     user_who_liked = db.relationship("User", back_populates="user_post_votes")
     user_post_vote = db.relationship("Post", back_populates="users_who_liked")
 
@@ -22,11 +23,27 @@ class PostVote(db.Model):
         return {
             "userID": self.user_id,
             "postID": self.post_id,
-            "isUpvote": self.is_upvote == True,
-            "isDownvote": self.is_upvote
+            "isUpvote": self.is_upvote,
+            "createdAt": self.created_at
         }
 
+class CommentVote(db.Model):
+    __tablename__ = "comment_votes"
 
+    user_id = db.Column(db.ForeignKey("users.id"), primary_key=True)
+    comment_id = db.Column(db.ForeignKey("comments.id"), primary_key=True)
+    is_upvote = db.Column(db.Boolean)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    user_who_liked = db.relationship("User", back_populates="user_comment_votes")
+    user_comment_vote = db.relationship("Comment", back_populates="users_who_liked")
+
+    def to_dict(self):
+        return {
+            "userId": self.user_id,
+            "commentId": self.comment_id,
+            "isUpvote": self.is_upvote,
+            "createdAt": self.created_at
+        }
 
 comment_votes = db.Table(
     "CommentVotes",
