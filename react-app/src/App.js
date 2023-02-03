@@ -21,6 +21,7 @@ import NavBar from "./components/NavBar/NavBar";
 import UsersList from "./components/UsersList";
 
 import UserProfile from "./pages/UserProfile/UserProfile";
+import EditProfile from "./pages/UserProfile/EditProfile/EditProfile";
 
 import { Modal } from "./context/Modal";
 
@@ -102,10 +103,13 @@ function App() {
           <Route path="/c/:communityId/edit" exact={true}>
             <EditCommunity />
           </Route>
+          <Route path="/users/:userId/profile/edit" exact={true}>
+            <EditProfile />
+          </Route>
           <ProtectedRoute path="/users" exact={true}>
             <UsersList />
           </ProtectedRoute>
-          <ProtectedRoute path="/users/:userId" exact={true}>
+          <ProtectedRoute path="/users/:userId/profile" exact={true}>
             <UserProfile />
           </ProtectedRoute>
           <Route>

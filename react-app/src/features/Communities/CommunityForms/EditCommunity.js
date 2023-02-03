@@ -75,7 +75,11 @@ export default function EditCommunity() {
           <>
             <h1>Community settings</h1>
             <div className="edit-community-page-section">
-              <h2>Community display name</h2>
+              <h2>Community display name (optional)</h2>
+              <p className="community-description-details">
+                If input field below is empty, your display name will be your
+                community name.
+              </p>
               <input
                 className="community-name-input"
                 type="text"
@@ -94,7 +98,7 @@ export default function EditCommunity() {
               </span>
             </div>
             <div className="edit-community-page-section">
-              <h2>Community description</h2>
+              <h2>Community description (optional)</h2>
               <p className="community-description-details">
                 This is how new members come to understand your community.
               </p>

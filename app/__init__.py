@@ -12,6 +12,7 @@ from .api.post_routes import post_routes
 from .api.comment_routes import comment_routes
 from .api.community_routes import community_routes
 from .api.subscription_routes import subscription_routes
+from .api.search_routes import search_routes
 
 from .seeds import seed_commands
 
@@ -39,6 +40,7 @@ app.register_blueprint(post_routes, url_prefix="/api/posts")
 app.register_blueprint(comment_routes, url_prefix="/api/comments")
 app.register_blueprint(community_routes, url_prefix="/api/communities")
 app.register_blueprint(subscription_routes, url_prefix="/api/subscriptions")
+app.register_blueprint(search_routes, url_prefix="/api/search")
 
 db.init_app(app)
 Migrate(app, db)

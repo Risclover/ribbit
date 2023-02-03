@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 
+import { search } from "../../store/search";
 import { getPosts } from "../../store/posts";
 import { getCommunities } from "../../store/communities";
 
@@ -25,7 +26,8 @@ export default function Posts() {
 
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
-  const [sortMode, setSortMode] = useState("new");
+  const [results, setResults] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
 
   const posts = useSelector((state) => Object.values(state.posts));
   const user = useSelector((state) => state.session.user);
@@ -35,28 +37,26 @@ export default function Posts() {
     dispatch(getCommunities());
   }, [dispatch]);
 
-  if (sortMode === "new") {
-    posts.sort((a, b) => {
-      let postA = new Date(a.createdAt).getTime();
-      let postB = new Date(b.createdAt).getTime();
-      return postB - postA;
-    });
-  }
+  const handleQuery = async (e) => {
+    e.preventDefault();
 
-  if (sortMode === "top") {
-    posts.sort((a, b) => {
-      let postA = new Date(a.createdAt).getTime();
-      let postB = new Date(b.createdAt).getTime();
-      return b.votes - a.votes || postB - postA;
-    });
-  }
+    setResults(await dispatch(search(searchValue)).query);
+    console.log(results);
+  };
+
+  // Sorting newer posts first
+  posts.sort((a, b) => {
+    let postA = new Date(a.createdAt).getTime();
+    let postB = new Date(b.createdAt).getTime();
+    return postB - postA;
+  });
 
   if (!posts) return null;
   return (
     <div className="posts-container">
       <div className="posts-left-col">
         {user && <CreatePostBar />}
-        <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+        <SortingBar />
         {posts &&
           posts.map((post) => (
             <NavLink key={post.id} to={`/posts/${post.id}`}>
@@ -74,18 +74,11 @@ export default function Posts() {
         <div className="posts-home-box">
           <img src={RibbitBanner} alt="Ribbit banner" />
           <div className="posts-home-box-content">
-            {user ? <h1>c/all</h1> : <h1>Home</h1>}
-            {user ? (
-              <p>
-                The most active posts from all of Ribbit. Come here to see new
-                posts rising and be a part of the conversation.
-              </p>
-            ) : (
-              <p>
-                Your personal internet frontpage. Come here to check in with
-                your favorite communities.
-              </p>
-            )}
+            <h1>c/all</h1>
+            <p>
+              Thee most active posts from all of Ribbit. Come here to see new
+              posts rising and be a part of the conversation.
+            </p>
             {user && (
               <div className="posts-home-box-buttons">
                 <button

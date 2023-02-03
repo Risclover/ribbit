@@ -120,7 +120,7 @@ export const updateCommunity = (payload, communityId) => async (dispatch) => {
 };
 
 export const deleteCommunity = (communityId) => async (dispatch) => {
-  const response = await fetch(`/api/communities/${communityId}/edit`, {
+  const response = await fetch(`/api/communities/${communityId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

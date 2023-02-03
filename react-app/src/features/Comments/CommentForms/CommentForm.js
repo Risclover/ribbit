@@ -43,7 +43,6 @@ export default function CommentForm({ postId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let errors = [];
-
     if (content.trim().length === 0)
       errors.push("Please add some content to your comment.");
     if (errors.length > 0) {
@@ -53,7 +52,7 @@ export default function CommentForm({ postId }) {
       await dispatch(createComment({ content: content.trim() }, postId));
       await dispatch(getPosts());
       setErrors([]);
-      setContent("");
+      setContent(" ");
     }
   };
 
@@ -62,6 +61,11 @@ export default function CommentForm({ postId }) {
       setDisabled(true);
     } else {
       setDisabled(false);
+    }
+
+    if (content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
+      setContent("");
+      setDisabled(true);
     }
   }, [content]);
 
@@ -73,13 +77,14 @@ export default function CommentForm({ postId }) {
         <form className="comment-form" onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="comment-box">
             Comment as{" "}
-            <NavLink to={`/users/${user.id}`}>{user.username}</NavLink>
+            <NavLink to={`/users/${user.id}/profile`}>{user.username}</NavLink>
           </label>
           <div className="post-comment-box">
             <ReactQuill
               theme="snow"
               modules={modules}
               onChange={setContent}
+              value={content}
               placeholder="What are your thoughts?"
             />
             <div className="comment-form-button-container">

@@ -272,6 +272,13 @@
   line-height: 16px;
 }
 
+.owned-community-title {
+  max-width: 130px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .owned-community-title a:hover {
   text-decoration: underline;
 }

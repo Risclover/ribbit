@@ -7,12 +7,13 @@ class Community(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     name = db.Column(db.String(20), nullable=False)
-    description = db.Column(db.String(500))
+    description = db.Column(db.String(500), nullable=True)
     community_img = db.Column(db.String(255), default="https://i.imgur.com/nfpa9x1.png")
     display_name = db.Column(db.String(100), nullable=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    community_posts = db.relationship('Post', back_populates="post_community")
-    subscribers = db.relationship('User', back_populates="user_subscriptions", secondary=subscriptions, lazy="joined", cascade="all,delete")
+
+    community_posts = db.relationship('Post', back_populates="post_community", cascade="all, delete-orphan")
+    subscribers = db.relationship('User', back_populates="user_subscriptions", secondary=subscriptions, lazy="joined")
     community_owner = db.relationship('User', back_populates="user_communities")
 
 
@@ -35,4 +36,4 @@ class Community(db.Model):
         }
 
     def __repr__(self):
-        return f"<Community {self.id}: {self.name}"
+        return f"<Community {self.id}: {self.name}>"

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import parse from "html-react-parser";
 
 import { addPost, getPosts } from "../../../store/posts";
 import { getCommunities } from "../../../store/communities";
@@ -58,6 +59,10 @@ export default function CreatePost() {
     dispatch(getPosts());
     dispatch(getCommunities());
     console.log("community_id:", community_id);
+    if (content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
+      setContent("");
+      setDisabled(true);
+    }
 
     if (
       (postType === "post" && content.length === 0) ||

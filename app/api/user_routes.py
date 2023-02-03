@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import User, db
+from app.forms import ProfileUpdateForm
+from .auth_routes import validation_errors_to_error_messages
+
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 
@@ -33,6 +36,27 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+
+# UPDATE PROFILE DETAILS
+@user_routes.route("/<int:id>/profile/edit", methods=["PUT"])
+@login_required
+def update_profile_details(id):
+    """
+    Query to edit profile details
+    """
+    user = User.query.get(id)
+    form = ProfileUpdateForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        data = form.data
+
+        setattr(user, "display_name", data["display_name"])
+        setattr(user, "about", data["about"])
+
+        db.session.commit()
+        return user.to_dict()
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
 # IMAGE ENDPOINT

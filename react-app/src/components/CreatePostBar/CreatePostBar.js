@@ -12,7 +12,7 @@ export default function CreatePostBar({ loadedCommunity }) {
     <div className="create-post-bar">
       {user && (
         <div className="create-post-bar-user-img">
-          <NavLink to={`/users/${user.id}`}>
+          <NavLink to={`/users/${user.id}/profile`}>
             <img src={user.profile_img} />
           </NavLink>
         </div>

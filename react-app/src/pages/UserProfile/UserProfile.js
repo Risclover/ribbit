@@ -34,6 +34,7 @@ function UserProfile() {
   const [showBannerModal, setShowBannerModal] = useState(false);
   const [karma, setKarma] = useState();
   const [sortMode, setSortMode] = useState("new");
+  const [communitiesList, setCommunitiesList] = useState([]);
 
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => Object.values(state.posts));
@@ -45,6 +46,7 @@ function UserProfile() {
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getPosts());
+    dispatch(getUsers());
 
     let communityList = [];
     for (let community of Object.values(communities)) {
@@ -64,10 +66,16 @@ function UserProfile() {
   }, []);
 
   useEffect(() => {
-    dispatch(getUsers());
-
     setKarma(user?.karma);
-  }, [karma, user?.karma, user?.profile_img]);
+    let list = [];
+    for (let community of Object.values(communities)) {
+      if (community.communityOwner.id === +userId) {
+        list.push(community);
+      }
+    }
+
+    setCommunitiesList(list);
+  }, [karma, user?.karma, user?.profile_img, communities]);
 
   const currentUser = useSelector((state) => state.session.user);
 
@@ -163,7 +171,9 @@ function UserProfile() {
           )}
           <div className="user-profile-about-content">
             {currentUser.id === +userId && (
-              <i className="fa-solid fa-gear user-settings"></i>
+              <NavLink to={`/users/${userId}/profile/edit`}>
+                <i className="fa-solid fa-gear user-settings"></i>
+              </NavLink>
             )}
             <h1 className="user-profile-display-name">{user.displayName}</h1>
             <div className="user-profile-username-year">
@@ -195,9 +205,13 @@ function UserProfile() {
         </div>
         {currentUser?.id === +userId && (
           <div className="user-profile-owned-communities">
-            <h2>You're the owner of these communities.</h2>
+            {communitiesList.length > 0 ? (
+              <h2>You're the owner of these communities.</h2>
+            ) : (
+              <h2>You aren't the owner of any communities.</h2>
+            )}
             <div className="user-profile-owned-communities-box">
-              {Object.values(communities).map((community) =>
+              {communitiesList.map((community) =>
                 community.communityOwner.id === +userId ? (
                   <div className="profile-owned-community">
                     <div className="profile-owned-community-left">

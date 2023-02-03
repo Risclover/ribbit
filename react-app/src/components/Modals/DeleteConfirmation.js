@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import { deletePost, getPosts } from "../../store/posts";
 import { removeComment } from "../../store/comments";
-import { deleteCommunity } from "../../store/communities";
+import { deleteCommunity, getCommunities } from "../../store/communities";
 
 import "./Modals.css";
 

@@ -92,7 +92,7 @@ def update_community(id):
 
 
 # DELETE A COMMUNITY
-@community_routes.route("/<int:id>/edit", methods=["DELETE"])
+@community_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
 def delete_community(id):
     """

@@ -102,7 +102,11 @@ export default function CommunityPage() {
 
               <div className="community-header-info-details-left">
                 <div className="community-header-info-display-name">
-                  <h1>{community[0].displayName}</h1>
+                  <h1>
+                    {community[0].displayName.length === 0
+                      ? community[0].name
+                      : community[0].displayName}
+                  </h1>
                 </div>
                 <div className="community-header-info-name">
                   <h2>c/{community[0].name}</h2>

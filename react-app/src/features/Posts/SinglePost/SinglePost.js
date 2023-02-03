@@ -153,7 +153,7 @@ export default function SinglePost({ id, isPage, userId }) {
                   : isPage === "singlepage"
                   ? `/posts/${post.id}`
                   : isPage === "profile"
-                  ? `/users/${userId}`
+                  ? `/users/${userId}/profile`
                   : ""
               }
             >
@@ -178,7 +178,7 @@ export default function SinglePost({ id, isPage, userId }) {
                   : isPage === "singlepage"
                   ? `/posts/${post.id}`
                   : isPage === "profile"
-                  ? `/users/${userId}`
+                  ? `/users/${userId}/profile`
                   : ""
               }
             >
@@ -208,7 +208,7 @@ export default function SinglePost({ id, isPage, userId }) {
 
               <div className="single-post-author-info">
                 Posted by{" "}
-                <NavLink to={`/users/${post.postAuthor.id}`}>
+                <NavLink to={`/users/${post.postAuthor.id}/profile`}>
                   u/{post.postAuthor.username}
                 </NavLink>{" "}
                 {moment(new Date(post.createdAt)).fromNow()}
@@ -263,7 +263,7 @@ export default function SinglePost({ id, isPage, userId }) {
                       : isPage === "singlepage"
                       ? `/posts/${post.id}`
                       : isPage === "profile"
-                      ? `/users/${userId}`
+                      ? `/users/${userId}/profile`
                       : ""
                   }
                 >

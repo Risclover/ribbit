@@ -9,6 +9,7 @@ nav {
   padding: 0 20px;
   align-items: center;
   border-bottom: 1px solid #edeff1;
+  justify-content: space-between;
 }
 
 nav ul {
@@ -180,4 +181,81 @@ nav ul li {
 
 .nav-user-top-section {
   border-bottom: 1px solid #edeff1;
+}
+
+.nav-search-bar input {
+  border: none;
+  font-family: "Noto Sans", sans-serif;
+  background: none;
+  font-size: 14px;
+  line-height: 14px;
+  margin-right: 16px;
+  outline: none;
+  width: 100%;
+  color: #1c1c1c;
+}
+
+.nav-search-bar input:focus .nav-search-bar-container {
+  background: white;
+}
+
+.nav-search-btn {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.nav-search-bar {
+  position: relative;
+  width: 50%;
+}
+
+.nav-search-stuff {
+  display: flex;
+  flex-direction: row;
+}
+.nav-search-dropdown {
+  position: absolute;
+  border-radius: 4px;
+  z-index: 100;
+  background: white;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px;
+}
+
+.nav-search-input-container {
+  border: 1px solid #edeff1;
+  height: 40px;
+  border-radius: 1.25em;
+  width: 100%;
+  background: #f6f7f8;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.nav-search-input-container:focus-within {
+  background: white;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.nav-search-input-container svg {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.nav-search-section {
+  margin-bottom: 20px;
+}
+
+.nav-search-dropdown h3 {
+  border-bottom: 1px solid #edeff1;
+  width: 100%;
+  padding-bottom: 5px;
 }

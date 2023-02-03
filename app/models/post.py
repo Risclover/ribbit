@@ -20,8 +20,11 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
     # # post_images = db.relationship('ImagePost', back_populates='image_post')
+
+
+
     post_author = db.relationship('User', back_populates='user_posts')
-    post_comments = db.relationship('Comment', back_populates='comment_post', cascade='all, delete')
+    post_comments = db.relationship('Comment', back_populates='comment_post', cascade='all, delete-orphan')
     post_community = db.relationship('Community', back_populates="community_posts")
     users_who_liked = db.relationship("PostVote", back_populates="user_post_vote")
 

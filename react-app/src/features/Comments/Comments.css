@@ -32,18 +32,23 @@
 .log-in-to-comment:hover {
   text-decoration: underline;
 }
+/*
+.threadline-wrapper {
+  border: 1px solid red;
+  padding: 0 5px;
+} */
 
 .the-actual-comment {
   display: flex;
   padding: 0 10px;
-
-  margin-top: 24px;
+  margin-left: -8px;
+  margin-top: 16px;
 }
 
 .comment-left-side {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -53,17 +58,19 @@
   border-radius: 100px;
   background-position: center;
   background-size: cover;
+  margin-left: 4px;
 }
 
 .comment-right-col {
   margin-left: 10px;
   display: flex;
+  padding-bottom: 10px;
   flex-direction: column;
 }
 
 .comment-threadline {
   border-right: 2px solid #edeff1;
-  height: 90%;
+  height: 80%;
   margin-top: 10px;
   width: 5px;
 }
@@ -135,6 +142,7 @@
   font-family: "IBM Plex Sans", sans-serif;
   font-size: 12px;
   margin-top: 8px;
+  margin-left: -10px;
 }
 
 .comment-owner-btns button {
@@ -148,9 +156,42 @@
   display: flex;
   align-items: center;
   border-radius: 4px;
-  height: 33px;
+  height: 24px;
   font-size: 12px;
   font-family: "IBM Plex Sans", sans-serif;
+}
+
+.comment-owner-btns button svg {
+  font-size: 30px;
+  padding: 0;
+}
+
+.comment-owner-btns .karmabar-votes {
+  margin: 0;
+  margin-right: 4px;
+  /* text-align: center; */
+}
+
+.upvote-btn-grey,
+.downvote-btn-grey,
+.vote-btn-red,
+.vote-btn-blue {
+  padding: 0 !important;
+}
+
+.upvote-btn-grey:hover {
+  color: #cc3700;
+}
+
+.downvote-btn-grey:hover {
+  color: #5a75cc;
+}
+.vote-btn-red {
+  color: #ff4500 !important;
+}
+
+.vote-btn-blue {
+  color: #7193ff !important;
 }
 
 .comment-owner-btns button:hover {
@@ -401,7 +442,140 @@
   font-family: "Noto Sans", sans-serif;
 }
 
+.all-comments {
+  margin: 16px 16px 0 10px;
+}
 .post-comment-box .quill {
   display: flex;
   flex-direction: column-reverse;
+}
+
+.comment-sorting {
+  border-bottom: 1px solid #edeff1;
+  padding: 0 16px 4px 0;
+  margin: 4px 48px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #0079d3;
+  cursor: pointer;
+  position: relative;
+}
+
+.comment-sorting svg {
+  font-size: 14px;
+}
+
+.comment-sorting-sortby {
+  margin: 4px 8px 4px 0;
+  text-transform: capitalize;
+}
+
+.comment-sorting-dropdown {
+  background: white;
+  box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
+  border: 1px solid #edeff1;
+  position: absolute;
+  overflow: hidden;
+  color: #1c1c1c;
+  top: 17px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.comment-sorting-dropdown-btn {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  padding: 8px;
+  white-space: nowrap;
+  color: #878a8c;
+  background: white;
+  border: none;
+  font-family: "IBM Plex Sans", sans-serif;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.comment-sorting-dropdown-btn:hover {
+  color: #1c1c1c;
+  background: #e9f5fd;
+}
+
+.sorting-active-btn {
+  color: #0079d3;
+}
+
+.sorting-active-btn:hover {
+  color: #0079d3;
+}
+
+.collapsed-comment {
+  display: flex;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.collapsed-comment svg {
+  cursor: pointer;
+  margin: 0 8px;
+  font-size: 12px;
+  color: #0079d3;
+  transform: rotate(90deg);
+}
+.collapsed-comment-user-img img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 100%;
+}
+
+.collapsed-comment-user-info {
+  font-size: 12px;
+  text-decoration: none;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+.comment-centered {
+  display: flex;
+  align-items: center;
+}
+
+.comment-centered svg {
+  transform: rotate(90deg);
+  font-size: 12px;
+
+  color: #0079d3;
+  margin: 0 8px;
+  cursor: pointer;
+}
+.collapsed-comment-username {
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #1a1a1b;
+}
+
+.collapsed-comment-date {
+  font-family: "Noto Sans", sans-serif;
+  color: #7c7c7c;
+  font-weight: 400;
+}
+
+.collapsed-comment-dot {
+  font-size: 10px;
+  font-family: "Noto Sans", sans-serif;
+  color: #7c7c7c;
+  font-weight: 400;
+  margin: 0 2px;
+}
+
+.comment-collapse {
+  display: none;
 }

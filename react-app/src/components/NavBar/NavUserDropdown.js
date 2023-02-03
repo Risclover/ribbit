@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TbChevronDown } from "react-icons/tb";
-import { HiOutlineUserCircle } from "react-icons/hi2";
 import { NavLink, useHistory } from "react-router-dom";
-import { IoLogInOutline } from "react-icons/io5";
-import { SlLogin } from "react-icons/sl";
+
 import { logout } from "../../store/session";
 
+import { TbChevronDown } from "react-icons/tb";
+import { HiOutlineUserCircle } from "react-icons/hi2";
+import { SlLogin } from "react-icons/sl";
 import Poinsettia from "../../images/user-profile-icons/poinsettia.png";
 
 // function useOutsideAlerter(ref) {
@@ -86,7 +86,7 @@ export default function NavUserDropdown() {
             <div className="nav-user-dropdown-btn-title">
               <HiOutlineUserCircle /> My Stuff
             </div>
-            <NavLink to={`/users/${user.id}`}>
+            <NavLink to={`/users/${user.id}/profile`}>
               <div className="nav-user-dropdown-btn">Profile</div>
             </NavLink>
           </div>
