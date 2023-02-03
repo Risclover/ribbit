@@ -12,7 +12,7 @@ nav {
   justify-content: space-between;
 }
 
-nav ul li button {
+.loginsignup {
   background: none;
   border-radius: 100px;
   color: white;
@@ -27,7 +27,7 @@ nav ul li button {
   font-weight: 700;
   height: 32px;
   cursor: pointer;
-  width: 150px;
+  width: 175px;
 }
 
 nav ul {
@@ -239,8 +239,8 @@ nav ul li {
 .nav-search-bar {
   position: relative;
   width: 100%;
-  margin-left: 300px;
-  margin-right: 20px;
+  margin-left: 100px;
+  margin-right: 60px;
   min-width: 250px;
 }
 

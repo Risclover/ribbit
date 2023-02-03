@@ -124,13 +124,7 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
             All
           </NavLink>
         </li>
-        {!user && (
-          <li>
-            <button onClick={() => setShowLoginForm(true)}>
-              Login/Sign Up
-            </button>
-          </li>
-        )}
+
         {/* {!user && (
           <li>
             <button onClick={() => setShowSignupForm(true)}>Sign Up</button>
@@ -306,6 +300,11 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
           </div>
         )}
       </div>
+      {!user && (
+        <button className="loginsignup" onClick={() => setShowLoginForm(true)}>
+          Login/Sign Up
+        </button>
+      )}
       {user && <NavUserDropdown />}
     </nav>
   );
