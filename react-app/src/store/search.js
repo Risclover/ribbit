@@ -1,10 +1,20 @@
 const SEARCH = "queries/SEARCH";
+const LOAD = "queries/LOAD";
 
 export const searchQueries = (results) => {
   return {
     type: SEARCH,
     results,
   };
+};
+
+export const getSearchResults = () => async (dispatch) => {
+  const response = await fetch("/api/search/results");
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(searchQueries(data));
+    return data;
+  }
 };
 
 export const search = (query) => async (dispatch) => {

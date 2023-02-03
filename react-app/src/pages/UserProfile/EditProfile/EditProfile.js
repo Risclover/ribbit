@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { editProfile, getUsers } from "../../../store/users";
@@ -12,16 +12,21 @@ export default function EditProfile() {
   const { userId } = useParams();
   const user = useSelector((state) => state.session.user);
 
-  const [display_name, setdisplay_name] = useState(user.displayName);
-  const [about, setAbout] = useState(user.about || "");
+  const [display_name, setdisplay_name] = useState(user?.displayName);
+  const [about, setAbout] = useState(user?.about);
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const data = await dispatch(editProfile(user.id, { display_name, about }));
+    const data = dispatch(editProfile(user.id, { display_name, about }));
     dispatch(getUsers());
     if (data.length > 0) {
       console.log(data.errors);
     } else {
+      dispatch(getUsers());
       history.push(`/users/${user.id}/profile`);
     }
   };

@@ -22,6 +22,7 @@ import UsersList from "./components/UsersList";
 
 import UserProfile from "./pages/UserProfile/UserProfile";
 import EditProfile from "./pages/UserProfile/EditProfile/EditProfile";
+import SearchResults from "./pages/SearchResults/SearchResults";
 
 import { Modal } from "./context/Modal";
 
@@ -29,6 +30,8 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
@@ -48,6 +51,8 @@ function App() {
       <NavBar
         setShowLoginForm={setShowLoginForm}
         setShowSignupForm={setShowSignupForm}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />{" "}
       <div className="main">
         <Switch>
@@ -105,6 +110,12 @@ function App() {
           </Route>
           <Route path="/users/:userId/profile/edit" exact={true}>
             <EditProfile />
+          </Route>
+          <Route path="/search/results" exact={true}>
+            <SearchResults
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
           </Route>
           <ProtectedRoute path="/users" exact={true}>
             <UsersList />

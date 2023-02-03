@@ -11,6 +11,7 @@ import {
   getSubscriptions,
 } from "../../store/subscriptions";
 
+import SortingBar from "../../components/SortingBar/SortingBar";
 import LoginForm from "../auth/AuthModal/LoginForm";
 import SignUpForm from "../auth/AuthModal/SignUpForm";
 import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
@@ -45,13 +46,23 @@ export default function CommunityPage() {
   const [isPage, setIsPage] = useState("community");
   const [community_id, setcommunity_id] = useState(+communityId);
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+  const [sortMode, setSortMode] = useState("new");
 
-  commPosts.sort((a, b) => {
-    let postA = new Date(a.createdAt).getTime();
-    let postB = new Date(b.createdAt).getTime();
+  if (sortMode === "new") {
+    commPosts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return postB - postA;
+    });
+  }
 
-    return postB - postA;
-  });
+  if (sortMode === "top") {
+    commPosts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return b.votes - a.votes || postB - postA;
+    });
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -75,6 +86,22 @@ export default function CommunityPage() {
     setMembers(community[0]?.members);
     dispatch(getSingleCommunity(+communityId));
   }, [subscribed, community[0]?.members, subscriptions]);
+
+  if (sortMode === "new") {
+    posts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return postB - postA;
+    });
+  }
+
+  if (sortMode === "top") {
+    posts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return b.votes - a.votes || postB - postA;
+    });
+  }
 
   if (!community[0] || !commPosts || !posts) return null;
   return (
@@ -148,6 +175,8 @@ export default function CommunityPage() {
       <div className="community-page-main">
         <div className="community-page-left-col">
           {user && <CreatePostBar loadedCommunity={community[0]} />}
+          <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+
           {commPosts.length === 0 && (
             <div className="community-no-posts">
               Welcome to your new community! Why don't you write your first post

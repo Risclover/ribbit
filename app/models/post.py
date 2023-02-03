@@ -45,7 +45,9 @@ class Post(db.Model):
             "postVoters": {item.to_dict()["userID"]: item.to_dict() for item in self.users_who_liked},
             "commentNum": len(self.post_comments),
             # "previewImgId": self.preview_img_id,
-            # "postCommunity": self.post_community.to_dict(),
+            "communityName": self.post_community.name,
+            "communityImg": self.post_community.community_img,
+            "communityMembers": len(self.post_community.subscribers),
             # "community": {item.to_dict()["id"]: item.to_dict() for item in self.communities},
             "postComments": {item.to_dict()["id"]: item.to_dict() for item in self.post_comments},
             # "postComments": self.post_comments.to_dict(),
@@ -64,7 +66,7 @@ class Post(db.Model):
         }
 
     def __repr__(self):
-        return f"<Post {self.id}: {self.title}"
+        return f"Post {self.id}: {self.title}"
 
 
 # class ImagePost(db.Model):

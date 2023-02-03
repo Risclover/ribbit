@@ -31,7 +31,9 @@ export default function SortingBar({ sortMode, setSortMode }) {
       ) : (
         <button
           className="post-sorting-bar-btn"
-          onClick={() => setSortMode("top")}
+          onClick={() => {
+            setSortMode("top");
+          }}
         >
           <i className="fa-solid fa-ranking-star"></i>
           Top

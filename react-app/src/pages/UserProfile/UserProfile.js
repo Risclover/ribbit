@@ -19,6 +19,7 @@ import Flower from "../../images/user-profile-icons/poinsettia.png";
 import Cakeday from "../../images/user-profile-icons/cakeday.png";
 
 import "./UserProfile.css";
+import { getSubscribers, getSubscriptions } from "../../store/subscriptions";
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ function UserProfile() {
   }, []);
 
   useEffect(() => {
+    dispatch(getSubscriptions());
     setKarma(user?.karma);
     let list = [];
     for (let community of Object.values(communities)) {
@@ -77,7 +79,12 @@ function UserProfile() {
     setCommunitiesList(list);
   }, [karma, user?.karma, user?.profile_img, communities]);
 
+  // useEffect(() => {
+  //   if (subscriptions[community?.id]) setSubscribed(true);
+  // }, [subscribed, subscriptions]);
+
   const currentUser = useSelector((state) => state.session.user);
+  const subscriptions = useSelector((state) => state.subscriptions);
 
   if (sortMode === "new") {
     posts.sort((a, b) => {
@@ -230,7 +237,7 @@ function UserProfile() {
                         </span>
                       </div>
                     </div>
-                    <button className="owned-community-join-btn">Join</button>
+                    {/* <button className="owned-community-join-btn">Join</button> */}
                   </div>
                 ) : (
                   ""

@@ -62,11 +62,6 @@ export default function CommentForm({ postId }) {
     } else {
       setDisabled(false);
     }
-
-    if (content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
-      setContent("");
-      setDisabled(true);
-    }
   }, [content]);
 
   if (!postId) return null;
@@ -80,13 +75,19 @@ export default function CommentForm({ postId }) {
             <NavLink to={`/users/${user.id}/profile`}>{user.username}</NavLink>
           </label>
           <div className="post-comment-box">
-            <ReactQuill
+            {/* <ReactQuill
               theme="snow"
               modules={modules}
               onChange={setContent}
               value={content}
               placeholder="What are your thoughts?"
-            />
+            /> */}
+            <textarea
+              className="post-comment-textarea"
+              onChange={(e) => setContent(e.target.value)}
+              value={content}
+              placeholder="What are your thoughts?"
+            ></textarea>
             <div className="comment-form-button-container">
               <div className="comment-form-errors">
                 {errors.length > 0 && errors.map((error) => error)}

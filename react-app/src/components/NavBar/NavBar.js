@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useReducer, useState, useRef } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { SlClose } from "react-icons/sl";
 import { BsSearch } from "react-icons/bs";
 import { search } from "../../store/search";
 import { Modal } from "../../context/Modal";
@@ -10,16 +11,18 @@ import LogoutButton from "../../features/auth/LogoutButton";
 import NavUserDropdown from "./NavUserDropdown";
 import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
 import "./NavBar.css";
+import { getUsers } from "../../store/users";
 
-const NavBar = () => {
+const NavBar = ({ searchQuery, setSearchQuery }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
   const [results, setResults] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
+  const wrapperRef = useRef(null);
 
   const products = useSelector((state) => Object.values(state.search));
 
@@ -30,24 +33,79 @@ const NavBar = () => {
     (product) => product.username !== undefined
   );
 
-  console.log("COMM:", communityResults);
+  const allUsers = useSelector((state) => state.users);
+  const allCommunities = useSelector((state) => state.communities);
+
+  let userList = [];
+  for (let i = 0; i < Object.values(allUsers).length; i++) {
+    userList.push({
+      profile_img: Object.values(allUsers)[i].profile_img,
+      username: Object.values(allUsers)[i].username,
+      id: Object.values(allUsers)[i].id,
+      karma: Object.values(allUsers)[i].karma,
+    });
+  }
+
+  let communityList = [];
+  for (let i = 0; i < Object.values(allCommunities).length; i++) {
+    communityList.push({
+      img: Object.values(allCommunities)[i].communityImg,
+      name: Object.values(allCommunities)[i].name,
+      members: Object.values(allCommunities)[i].members,
+      communityImg: Object.values(allCommunities)[i].communityImg,
+      id: Object.values(allCommunities)[i].id,
+    });
+  }
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setShowSearchDropdown(false);
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
+
   useEffect(() => {
     console.log(products);
-  }, [products]);
+    dispatch(getUsers());
+
+    if (searchQuery?.length === 0) {
+      setShowSearchDropdown(false);
+    }
+  }, [showSearchDropdown, searchQuery]);
 
   const handleQuery = async (e) => {
     e.preventDefault();
-
-    setResults(await dispatch(search(searchValue)).query);
-    setShowSearchDropdown(true);
+    setSearchValue(searchQuery);
+    setResults(await dispatch(search(searchQuery)).query);
+    setShowSearchDropdown(false);
+    history.push("/search/results");
     console.log(results);
   };
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
       handleQuery(e);
+      let element = document.querySelector(".nav-input");
+      element.blur();
     }
   };
+
+  console.log(
+    "comm",
+    communityList
+      .filter((community) =>
+        community["name"].toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .slice(0, 5)
+  );
+
+  console.log(communityList);
   return (
     <nav>
       <ul>
@@ -88,7 +146,7 @@ const NavBar = () => {
             />
           </Modal>
         )}
-        {/* {showSignupForm && (
+        {showSignupForm && (
           <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
             <SignUpForm
               setShowLoginForm={setShowLoginForm}
@@ -97,7 +155,7 @@ const NavBar = () => {
               setShowSignupForm={setShowSignupForm}
             />
           </Modal>
-        )} */}
+        )}
         {/* {user && (
           <li>
             <LogoutButton />
@@ -105,101 +163,146 @@ const NavBar = () => {
         )} */}
       </ul>
       <div></div>
-      <div className="nav-search-bar">
+      <div className="nav-search-bar" ref={wrapperRef}>
         <div className="nav-search-stuff">
-          <div className="nav-search-input-container">
+          <div
+            className={
+              showSearchDropdown
+                ? "nav-search-input-container search-input-focus"
+                : "nav-search-input-container"
+            }
+          >
             <button className="nav-search-btn" onClick={handleQuery}>
               <BsSearch />
             </button>
             <input
-              value={searchValue}
+              value={searchQuery}
               onKeyPress={handleEnter}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search for users and communities on Ribbit"
+              onFocus={() => setShowSearchDropdown(true)}
+              onChange={(e) => {
+                setShowSearchDropdown(true);
+                setSearchQuery(e.target.value);
+              }}
+              placeholder="Search Ribbit"
+              className="nav-input"
             />
+            <div
+              className="search-close-icon"
+              onClick={(e) => {
+                setSearchQuery("");
+                setShowSearchDropdown(false);
+                let element = document.querySelector(".nav-input");
+                element.focus();
+              }}
+            >
+              <SlClose />
+            </div>
           </div>
         </div>
-        {showSearchDropdown && (
+        {showSearchDropdown && searchQuery.length > 0 && (
           <div className="nav-search-dropdown">
-            {Object.keys(products).length > 0 ? (
-              <>
-                {communityResults.length > 0 && (
-                  <div className="nav-search-section">
-                    <h3>Communities</h3>
-                    {products.map((product) => (
-                      <div className="search-result-section">
-                        {product.name !== undefined && (
-                          <div className="search-result-community">
-                            <NavLink
-                              to={`/c/${product.id}`}
-                              onClick={() => {
-                                setShowSearchDropdown(false);
-                                setSearchValue("");
-                              }}
-                            >
-                              {product.name}
-                            </NavLink>
+            {communityList.filter((community) =>
+              community["name"]
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase())
+            ).length > 0 && (
+              <div className="nav-search-section">
+                <p>Communities</p>
+                {communityList
+                  .filter((community) =>
+                    community["name"]
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase())
+                  )
+                  // .slice(0, 5)
+                  .map((community) =>
+                    community["name"]
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase()) ? (
+                      <div
+                        className="search-result-community"
+                        onClick={() => {
+                          setShowSearchDropdown(false);
+                          setSearchQuery("");
+                          history.push(`/c/${community.id}`);
+                        }}
+                      >
+                        <div
+                          className="search-result-community-img"
+                          style={{
+                            backgroundImage: `url(${community.communityImg})`,
+                          }}
+                        >
+                          &nbsp;
+                        </div>
+                        <div className="search-result-community-details">
+                          <div className="search-result-community-name">
+                            c/{community.name}
                           </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-                {userResults.length > 0 && (
-                  <div className="nav-search-section">
-                    <h3>Users</h3>
-                    {products.map((product) => (
-                      <div className="search-result-section">
-                        {product.username !== undefined && (
-                          <div className="search-result-community">
-                            <NavLink
-                              to={`/users/${product.id}/profile`}
-                              onClick={() => {
-                                setShowSearchDropdown(false);
-                                setSearchValue("");
-                              }}
-                            >
-                              {product.username}
-                            </NavLink>
+                          <div className="search-result-community-members">
+                            Community • {community.members} members
                           </div>
-                        )}
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                )}
-              </>
-            ) : (
-              ""
-            )}
-            {/* {Object.keys(products).length > 0
-            ? products.map((product) => (
-                <div className="search-result">
-                  {product.name !== undefined && (
-                    <div className="nav-search-communities">
-                      <h3>Communities</h3>
-                    </div>
-                  )}
-                  <NavLink to={`/products/${product.id}`}>
-                    <img
-                      src={product.productImages[product.previewImgId].url}
-                      alt="search-result-product"
-                    />
-                  </NavLink>
-                  <div className="search-result-details">
-                    {" "}
-                    {product.name !== undefined ? (
-                      <NavLink to={`/products/${product.id}`}>
-                        {product.name}
-                      </NavLink>
-                    ) : product.username !== undefined ? (
-                      <div>{product.username}</div>
                     ) : (
                       ""
-                    )}
-                  </div>
-                </div>
-              ))
-            : ""} */}
+                    )
+                  )}
+              </div>
+            )}
+            {userList.filter((user) =>
+              user["username"].toLowerCase().includes(searchQuery.toLowerCase())
+            ).length > 0 && (
+              <div className="nav-search-section">
+                <p>Users</p>
+                {userList
+                  .filter((user) =>
+                    user["username"]
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase())
+                  )
+                  // .slice(0, 5)
+                  .map((user, idx) =>
+                    idx < 6 &&
+                    user["username"]
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase()) ? (
+                      <div
+                        className="search-result-community"
+                        onClick={() => {
+                          setShowSearchDropdown(false);
+                          setSearchQuery("");
+                          history.push(`/users/${user.id}/profile`);
+                        }}
+                      >
+                        {" "}
+                        <div
+                          className="search-result-community-img"
+                          style={{
+                            backgroundImage: `url(${user.profile_img})`,
+                          }}
+                        >
+                          &nbsp;
+                        </div>
+                        <div className="search-result-community-details">
+                          <div className="search-result-community-name">
+                            u/{user.username}
+                          </div>
+                          <div className="search-result-community-members">
+                            User • {user.karma} karma
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      ""
+                    )
+                  )}
+              </div>
+            )}
+
+            {/* <div className="search-for-query" onClick={handleQuery}>
+              <BsSearch /> Search for "{searchQuery}"
+            </div> */}
           </div>
         )}
       </div>
