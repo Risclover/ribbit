@@ -50,7 +50,7 @@ const NavBar = () => {
   };
   return (
     <nav>
-      {/* <ul>
+      <ul>
         <li>
           <NavLink to="/" exact={true}>
             <img className="ribbit-logo" src={RibbitLogo} />
@@ -68,14 +68,16 @@ const NavBar = () => {
         </li>
         {!user && (
           <li>
-            <button onClick={() => setShowLoginForm(true)}>Login</button>
+            <button onClick={() => setShowLoginForm(true)}>
+              Login/Sign Up
+            </button>
           </li>
         )}
-        {!user && (
+        {/* {!user && (
           <li>
             <button onClick={() => setShowSignupForm(true)}>Sign Up</button>
           </li>
-        )}
+        )} */}
         {showLoginForm && (
           <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
             <LoginForm
@@ -86,7 +88,7 @@ const NavBar = () => {
             />
           </Modal>
         )}
-        {showSignupForm && (
+        {/* {showSignupForm && (
           <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
             <SignUpForm
               setShowLoginForm={setShowLoginForm}
@@ -95,13 +97,13 @@ const NavBar = () => {
               setShowSignupForm={setShowSignupForm}
             />
           </Modal>
-        )}
-        {user && (
+        )} */}
+        {/* {user && (
           <li>
             <LogoutButton />
           </li>
-        )}
-      </ul> */}
+        )} */}
+      </ul>
       <div></div>
       <div className="nav-search-bar">
         <div className="nav-search-stuff">
