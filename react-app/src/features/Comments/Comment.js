@@ -164,10 +164,6 @@ export default function Comment({ commentId, postId }) {
     }
   }, [upvote, downvote, comment?.commentVoters]);
 
-  const handleCollapse = (id) => {
-    setCollapsed(!collapsed);
-  };
-
   if (!post) return null;
   return (
     <div className="comment-system">

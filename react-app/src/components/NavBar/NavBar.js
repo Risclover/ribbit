@@ -90,9 +90,7 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      handleQuery(e);
-      let element = document.querySelector(".nav-input");
-      element.blur();
+      return;
     }
   };
 
@@ -166,7 +164,7 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
                 : "nav-search-input-container"
             }
           >
-            <button className="nav-search-btn" onClick={handleQuery}>
+            <button className="nav-search-btn">
               <BsSearch />
             </button>
             <input

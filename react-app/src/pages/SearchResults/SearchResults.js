@@ -77,7 +77,7 @@ export default function SearchResults({ searchQuery, setSearchQuery }) {
               </NavLink>
             ))}
           </div>
-          {/* <div className="search-results-right"> </div> */}
+          <div className="search-results-right"> </div>
         </div>
       </div>
     </div>

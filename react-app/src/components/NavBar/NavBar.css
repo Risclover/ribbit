@@ -234,7 +234,7 @@ nav ul li {
   background: none;
   border: none;
   outline: none;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 .nav-search-bar {
   position: relative;

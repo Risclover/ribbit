@@ -19,6 +19,7 @@
   font-family: "IBM Plex Sans", sans-serif;
   color: #737577;
   left: 4px;
+  cursor: text;
   top: -9px;
 }
 
@@ -43,10 +44,6 @@
   background: #f6f7f8;
 }
 
-.form-field input:hover {
-  border-color: rgba(0, 0, 0, 0.2);
-}
-
 .form-field input:focus {
   border-color: rgba(0, 0, 0, 0.2);
 }
@@ -57,12 +54,16 @@
 
 .form-field input:focus + label,
 .form-field input:not(:placeholder-shown) ~ label {
-  /* top: -10px; */
   font-size: 12px;
   transform: translate3d(0, -10px, 0);
 }
 
 .form-field input:hover + label {
+  font-size: 12px;
+  transform: translate3d(0, -10px, 0);
+}
+
+.form-field label:hover {
   font-size: 12px;
   transform: translate3d(0, -10px, 0);
 }
@@ -144,8 +145,6 @@
 .demo-btn svg {
   font-size: 18px;
   margin: 2px 8px 0 0;
-  /* float: left; */
-  /* flex: 1; */
 }
 
 .demo-btn:hover {
