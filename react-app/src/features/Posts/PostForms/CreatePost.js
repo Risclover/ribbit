@@ -127,10 +127,10 @@ export default function CreatePost() {
             }
           >
             <div className="create-post-header">Create a post</div>
-            {/* <CommunitySelection
-            community_id={community_id}
-            setcommunity_id={setcommunity_id}
-          /> */}
+            <CommunitySelection
+              community_id={community_id}
+              setcommunity_id={setcommunity_id}
+            />
             <div className="create-post-choose-community">
               <select
                 defaultValue={"undefined"}
