@@ -61,6 +61,9 @@ def create_post():
     print(form.errors)
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
+
+
+
 # CREATE AN IMAGE POST:
 @post_routes.route("/img/submit", methods=["POST"])
 @login_required
@@ -86,6 +89,9 @@ def create_image_post():
         return new_post.to_dict()
     print(form.errors)
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+
 
 
 
@@ -180,18 +186,13 @@ def get_followed_posts():
     return {"Posts": [post.to_dict() for post in posts]}
 
 
-# LIKE A POST
+# ADD A VOTE
 @post_routes.route('/<int:id>/vote/<votetype>', methods=["POST"])
 @login_required
 def add_vote(id, votetype):
     """
     Query to like a post
     """
-    # post = Post.query.get(id)
-    # user = User.query.get(current_user.get_id())
-    # post.users_who_liked.append(user)
-    # db.session.commit()
-    # return post.to_dict()
     post = Post.query.get(id)
     user = User.query.get(current_user.get_id())
 

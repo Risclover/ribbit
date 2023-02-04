@@ -22,8 +22,7 @@ class CommunityForm(FlaskForm):
     description = TextAreaField(
         "Description",
         validators=[
-            DataRequired(),
-            Length(min=1,
+            Length(
                 max=300,
                 message="Keep descriptions under 300 characters please."
             )

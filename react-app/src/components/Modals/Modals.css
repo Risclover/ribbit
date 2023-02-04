@@ -74,8 +74,6 @@
 
 .modal-buttons-left:hover {
   background: rgba(0, 121, 211, 0.05);
-  border-color: rgba(135, 138, 140, 0.8);
-  color: rgba(135, 138, 140, 0.8);
 }
 
 .modal-buttons-right:hover {
@@ -210,4 +208,52 @@
   background: white;
   border: 1px solid #edeff1;
   margin-bottom: 5px;
+}
+.image-post-form {
+  background: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.post-img-btn {
+  cursor: pointer;
+  border-radius: 100px;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 700;
+  font-size: 14px !important;
+  line-height: 17px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0079d3;
+  border: 1px solid #0079d3;
+  padding: 4px 16px;
+  height: 32px;
+  outline: none;
+  cursor: pointer;
+}
+
+.post-img-btn:hover {
+  opacity: 0.9;
+}
+
+.image-post-img,
+.image-post-preview {
+  max-width: 100%;
+  /* width: 100%; */
+  display: block;
+  max-height: 512px;
+  margin: 20px 0;
+}
+
+.image-post-img {
+  max-height: 700px;
+}
+
+.img-post-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

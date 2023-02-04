@@ -1,8 +1,30 @@
 import React, { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
+
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import { putSinglePost, putImagePost } from "../../../store/posts";
+
 import "./PostForm.css";
+
+const modules = {
+  toolbar: [
+    [
+      "bold",
+      "italic",
+      "link",
+      "strike",
+      "code",
+      { script: "super" },
+      { header: 1 },
+    ],
+    [{ list: "bullet" }, { list: "ordered" }],
+    ["blockquote", "code-block"],
+    ["image"],
+  ],
+};
 
 export default function UpdatePost() {
   const { postId } = useParams();
@@ -26,8 +48,8 @@ export default function UpdatePost() {
 
   const handleImageSubmit = async (e) => {
     e.preventDefault();
-    dispatch(putImagePost(+postId));
     setPostType("image");
+    dispatch(putImagePost(+postId));
   };
 
   const handleSubmit = async (e) => {
@@ -72,16 +94,23 @@ export default function UpdatePost() {
             titleErrors.map((error) => (
               <div className="update-post-errors">{error}</div>
             ))}
-          <div className="update-title-length">{title.length}/300</div>
+          <div className="update-title-length">{title?.length}/300</div>
         </div>
         <div className="update-post-form-input">
-          <textarea
+          {/* <textarea
             className="update-post-content-field"
             onChange={(e) => setContent(e.target.value)}
             value={content}
             placeholder="Content"
             maxLength={40000}
-          ></textarea>
+          ></textarea> */}
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            onChange={setContent}
+            placeholder="Content"
+            value={content}
+          />
           {contentErrors.length > 0 &&
             contentErrors.map((error) => (
               <div className="update-post-errors">{error}</div>

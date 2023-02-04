@@ -8,7 +8,12 @@ import { getSinglePost } from "../../../store/one_post";
 import { getSingleCommunity } from "../../../store/one_community";
 import { getComments } from "../../../store/comments";
 import { getCommunities } from "../../../store/communities";
+import { getSubscriptions } from "../../../store/subscriptions";
 
+import {
+  addToSubscriptions,
+  deleteSubscription,
+} from "../../../store/subscriptions";
 import Comments from "../../Comments/Comments";
 import Cake from "../../../images/misc/piece4.png";
 import SinglePost from "./SinglePost";
@@ -18,13 +23,16 @@ export default function SinglePostPage({ setShowLoginForm }) {
   const dispatch = useDispatch();
 
   const [commentsNum, setCommentsNum] = useState();
-
+  const [subscribed, setSubscribed] = useState(false);
   const post = useSelector((state) => state.posts[postId]);
   const comments = useSelector((state) => Object.values(state.comments));
   const posts = useSelector((state) => state.posts);
   const community = useSelector(
     (state) => state.communities[post?.communityId]
   );
+  const singleCommunity = useSelector((state) => state.singleCommunity);
+  const subscriptions = useSelector((state) => state.subscriptions);
+  const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -32,7 +40,12 @@ export default function SinglePostPage({ setShowLoginForm }) {
     dispatch(getSingleCommunity(posts[postId]?.communityId));
     dispatch(getCommunities());
     dispatch(getComments(+postId));
+    dispatch(getSubscriptions());
   }, [dispatch, postId]);
+
+  useEffect(() => {
+    if (subscriptions[community?.id]) setSubscribed(true);
+  }, [subscribed, subscriptions]);
 
   if (!comments || !post || !postId) return null;
   return (
@@ -67,7 +80,31 @@ export default function SinglePostPage({ setShowLoginForm }) {
                 Created {moment(community?.createdAt).format("MMM DD, YYYY")}
               </div>
               <div className="single-post-right-col-btns">
-                <button className="single-post-right-col-btn">Join</button>
+                {user && subscribed && (
+                  <button
+                    className="single-post-right-col-btn"
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      await dispatch(deleteSubscription(community?.id));
+                      setSubscribed(false);
+                    }}
+                  >
+                    Joined
+                  </button>
+                )}
+                {!subscribed && (
+                  <button
+                    className="single-post-right-col-btn"
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      await dispatch(addToSubscriptions(community?.id));
+                      user && setSubscribed(true);
+                      !user && setShowLoginForm(true);
+                    }}
+                  >
+                    Join
+                  </button>
+                )}
               </div>
             </div>
             <div className="single-post-community-rules"></div>

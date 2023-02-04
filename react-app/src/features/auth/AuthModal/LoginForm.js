@@ -74,7 +74,12 @@ const LoginForm = ({ showLoginForm, setShowLoginForm, setShowSignupForm }) => {
                   value={email}
                   onChange={updateEmail}
                 />
-                <label htmlFor="email">Email</label>
+                <label
+                  htmlFor="email"
+                  onClick={(e) => e.target.parentElement.children[0].focus()}
+                >
+                  Email
+                </label>
               </div>
               <div className="login-form-errors">
                 {errors?.length > 0 &&
@@ -91,7 +96,14 @@ const LoginForm = ({ showLoginForm, setShowLoginForm, setShowSignupForm }) => {
                 value={password}
                 onChange={updatePassword}
               />
-              <label htmlFor="password">Password</label>
+              <label
+                htmlFor="password"
+                onClick={(e) => e.target.parentElement.children[0].focus()}
+                // onMouseOver={(e) => e.target.parentElement.children[0].focus()}
+                // onMouseOut={(e) => e.target.parentElement.children[0].blur()}
+              >
+                Password
+              </label>
             </div>
             <button className="login-form-submit" type="submit">
               Log In

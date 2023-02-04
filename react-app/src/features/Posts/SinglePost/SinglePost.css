@@ -28,6 +28,23 @@
   padding: 0 32px;
 }
 
+.comment-threadline:hover {
+  /* border-color: red; */
+  /* cursor: pointer; */
+}
+
+.threadline-wrapper {
+  padding: 0 10px;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  /* border: 1px solid red; */
+}
+.threadline-wrapper:hover > .comment-threadline {
+  border-color: blue;
+}
+
 .image-post-img {
   margin: 0 auto;
   height: auto;
@@ -251,6 +268,15 @@
   word-break: break-word;
 }
 
+.single-page-content h1 {
+  font-family: Noto Sans, Arial, sans-serif;
+  font-weight: 400;
+  margin-bottom: 8px;
+  margin-top: 1.4em;
+  font-size: 22px;
+  line-height: 26px;
+}
+
 .single-page-content {
   font-family: "Noto Sans", sans-serif;
   font-size: 14px;
@@ -263,9 +289,33 @@
   max-width: 700px;
   margin-top: 12px;
   width: 100%;
-  display: flex;
-  align-items: center;
   /* justify-content: center; */
+}
+
+.single-page-content code {
+  font-family: "Noto Sans Mono", monospace;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #ff006d;
+  background: #f6f7f8;
+  margin: 0 2px;
+}
+
+.single-page-content pre {
+  background: #f6f7f8;
+  font-family: "Noto Sans Mono", monospace;
+  font-size: 13px;
+  font-weight: 400;
+  color: #1c1c1c;
+  overflow: auto;
+  max-width: 100%;
+  word-break: break-word;
+  white-space: pre;
+  margin: 4px 0;
+  padding: 8px;
+  line-height: 1.4;
+  border-radius: 4px;
 }
 
 .single-page-content a {
@@ -433,12 +483,18 @@
   background: none;
   outline: none;
   border: none;
-  font-size: 22px;
+  font-size: 30px;
   color: rgb(135, 138, 140);
   cursor: pointer;
   /* margin-top: 5px; */
   border-radius: 4px;
-  padding: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.single-post-karmabar a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -503,6 +559,16 @@
 
 .vote-btn-grey {
   color: grey;
+}
+
+.single-page-content ul,
+ol {
+  margin-left: 30px;
+  margin-top: 5px;
+}
+
+.single-page-content ul {
+  list-style-type: disc;
 }
 
 @keyframes mount {

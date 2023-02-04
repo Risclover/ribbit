@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 
 import { getSingleCommunity } from "../../../store/one_community";
 import { updateCommunity } from "../../../store/communities";
@@ -58,12 +58,28 @@ export default function EditCommunity() {
   if (!community || !community[0]) return null;
   return (
     <div className="edit-community-page">
+      <div className="edit-community-top-bar">
+        <img src={community[0].communityImg} />
+        <span className="edit-community-top-bar-name">
+          <NavLink to={`/c/${community[0].id}`}>c/{community[0].name}</NavLink>{" "}
+          / Community Settings
+        </span>
+      </div>
+      <div className="edit-community-save-bar">
+        <button className="edit-community-save-btn" onClick={handleSubmit}>
+          Save changes
+        </button>
+      </div>
       <div className="edit-community-page-settings">
         {user.id === community[0].userId && (
           <>
             <h1>Community settings</h1>
             <div className="edit-community-page-section">
-              <h2>Community name</h2>
+              <h2>Community display name (optional)</h2>
+              <p className="community-description-details">
+                If input field below is empty, your display name will be your
+                community name.
+              </p>
               <input
                 className="community-name-input"
                 type="text"
@@ -82,7 +98,7 @@ export default function EditCommunity() {
               </span>
             </div>
             <div className="edit-community-page-section">
-              <h2>Community description</h2>
+              <h2>Community description (optional)</h2>
               <p className="community-description-details">
                 This is how new members come to understand your community.
               </p>
@@ -103,35 +119,8 @@ export default function EditCommunity() {
               </span>
             </div>
             <div className="edit-community-page-section">
-              <h2>Community image</h2>
+              <h2>Delete Community</h2>
               <p className="community-description-details">
-                Upload an image (png and jpg/jpeg file extensions only) to set a
-                custom community image.
-              </p>
-            </div>
-            <div className="edit-community-form-container">
-              <img src={community[0].communityImg} />
-              <CommunityImg />
-              <form className="edit-community-form" onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  placeholder="Display Name"
-                  onChange={(e) => setdisplay_name(e.target.value)}
-                  value={display_name}
-                  maxLength={100}
-                />
-                <textarea
-                  placeholder="Description"
-                  onChange={(e) => setDescription(e.target.value)}
-                  value={description}
-                  maxLength={500}
-                ></textarea>
-                <button type="submit">Submit</button>
-              </form>
-            </div>
-            <div className="delete-community">
-              <h3>Delete Community</h3>
-              <p>
                 Click the button below to delete this community. Please note
                 that once you confirm deletion, you cannot undo this action.
               </p>

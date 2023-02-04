@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 
-import "./ImagePostForm.css";
+import "../../../components/Modals/Modals.css";
 
 export default function ImagePostForm({
   img_url,
   setimg_url,
+  showImgModal,
   setShowImgModal,
 }) {
   const [imgPreview, setImgPreview] = useState(img_url);
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const showPreview = (e) => {
     e.preventDefault();
@@ -39,29 +41,50 @@ export default function ImagePostForm({
       setShowImgModal(false);
     } else {
       setImageLoading(false);
+      setErrorMsg(
+        "There was a problem with your upload. Make sure your file is a .jpg or .png file, and try again."
+      );
     }
   };
 
   return (
-    <div className="image-post-form">
-      <form>
-        <label className="post-img-btn" htmlFor="post-img">
-          Upload{" "}
-        </label>
-        <input
-          id="post-img"
-          type="file"
-          onChange={showPreview}
-          accept="image/*"
-        />
-        {image ? (
-          <button onClick={handleSubmit}>Submit</button>
+    <div className="modal-container">
+      <div className="modal-content">
+        <div className="img-post-modal">
+          <input
+            id="post-img"
+            type="file"
+            onChange={showPreview}
+            accept="image/png, image/jpeg, image/jpg"
+            hidden
+          />
+          {imgPreview && (
+            <img className="image-post-preview" src={imgPreview} />
+          )}
+          <span className="user-img-error">{errorMsg}</span>
+          {imageLoading && <p>Loading...</p>}
+          <label className="post-img-btn-box" htmlFor="post-img">
+            <div className="post-img-btn">Upload Image</div>
+          </label>
+        </div>
+      </div>
+      <div className="modal-buttons">
+        <button
+          className="modal-buttons-left"
+          onClick={() => setShowImgModal(false)}
+        >
+          Cancel
+        </button>
+        {image !== null ? (
+          <button className="modal-buttons-right" onClick={handleSubmit}>
+            Submit
+          </button>
         ) : (
-          <button disabled>Submit</button>
+          <button className="modal-buttons-right" disabled>
+            Submit
+          </button>
         )}
-      </form>
-      {imageLoading && <p>Loading...</p>}
-      <img className="image-post-preview" src={imgPreview} />
+      </div>
     </div>
   );
 }

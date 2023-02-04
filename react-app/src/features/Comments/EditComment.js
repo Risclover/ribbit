@@ -10,10 +10,11 @@ export default function EditComment({
   setShowEditCommentModal,
   showEditCommentModal,
 }) {
+  const dispatch = useDispatch();
+
   const comment = useSelector((state) => state.comments[commentId]);
   const [content, setContent] = useState(comment?.content);
   const [errors, setErrors] = useState([]);
-  const dispatch = useDispatch();
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -41,7 +42,7 @@ export default function EditComment({
                 className="modal-content-input"
                 onChange={(e) => setContent(e.target.value)}
                 value={content}
-                maxlength={10000}
+                maxLength={10000}
               ></textarea>
             </div>
             <div className="modal-buttons">

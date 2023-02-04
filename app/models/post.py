@@ -20,8 +20,11 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
     # # post_images = db.relationship('ImagePost', back_populates='image_post')
+
+
+
     post_author = db.relationship('User', back_populates='user_posts')
-    post_comments = db.relationship('Comment', back_populates='comment_post', cascade='all, delete')
+    post_comments = db.relationship('Comment', back_populates='comment_post', cascade='all, delete-orphan')
     post_community = db.relationship('Community', back_populates="community_posts")
     users_who_liked = db.relationship("PostVote", back_populates="user_post_vote")
 
@@ -35,14 +38,16 @@ class Post(db.Model):
             "title": self.title,
             "content": self.content,
             "imgUrl": self.img_url,
-            "votes": len(self.users_who_liked),
+            "votes": len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]]) - len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]]),
             "userId": self.user_id,
             "postAuthor": self.post_author.to_dict(),
             "communityId": self.community_id,
             "postVoters": {item.to_dict()["userID"]: item.to_dict() for item in self.users_who_liked},
             "commentNum": len(self.post_comments),
             # "previewImgId": self.preview_img_id,
-            # "postCommunity": self.post_community.to_dict(),
+            "communityName": self.post_community.name,
+            "communityImg": self.post_community.community_img,
+            "communityMembers": len(self.post_community.subscribers),
             # "community": {item.to_dict()["id"]: item.to_dict() for item in self.communities},
             "postComments": {item.to_dict()["id"]: item.to_dict() for item in self.post_comments},
             # "postComments": self.post_comments.to_dict(),
@@ -53,13 +58,15 @@ class Post(db.Model):
         }
 
     def to_dict_likes(self):
+        upvotes = len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]])
+        downvotes = len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]])
         return {
-            "likes": len({item.to_dict()["userID"]: item.to_dict()["isUpvote"] for item in self.users_who_liked}),
-            "dislikes": len({item.to_dict()["userID"]: item.to_dict()["isDownvote"] for item in self.users_who_liked})
+            "likes": upvotes,
+            "dislikes": downvotes
         }
 
     def __repr__(self):
-        return f"<Post {self.id}: {self.title}"
+        return f"Post {self.id}: {self.title}"
 
 
 # class ImagePost(db.Model):

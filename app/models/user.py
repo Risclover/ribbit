@@ -17,16 +17,18 @@ class User(db.Model, UserMixin):
     display_name = db.Column(db.String(30), default=defaultdisplay, nullable=True)
     about = db.Column(db.String(200), nullable=True)
     karma = db.Column(db.Integer, default=0)
-    profile_img = db.Column(db.String(255), default="https://ribbit-img-upload.s3.us-west-1.amazonaws.com/user.png")
+    profile_img = db.Column(db.String(255), default="https://i.imgur.com/OkrlO4H.png")
     banner_img = db.Column(db.String(255), nullable=True)
     followers = db.Column(db.Integer, default=0)
     # posts = db.relationship('Post', backref='author', lazy=True)
-    user_posts = db.relationship("Post", back_populates="post_author", cascade="all, delete")
-    user_comments = db.relationship("Comment", back_populates="comment_author", cascade="all, delete")
+
+
+    user_posts = db.relationship("Post", back_populates="post_author", cascade="all, delete-orphan")
+    user_comments = db.relationship("Comment", back_populates="comment_author", cascade="all, delete-orphan")
     user_subscriptions = db.relationship('Community', back_populates="subscribers", secondary=subscriptions, lazy="joined")
     user_post_votes = db.relationship("PostVote", back_populates="user_who_liked")
     user_comment_votes = db.relationship("CommentVote", back_populates="user_who_liked")
-    user_communities = db.relationship('Community', back_populates="community_owner")
+    user_communities = db.relationship('Community', back_populates="community_owner", cascade="all, delete")
 
     @property
     def password(self):
@@ -47,8 +49,9 @@ class User(db.Model, UserMixin):
             "createdAt": self.created_at,
             'displayName': self.display_name,
             'about': self.about,
-            'likes': sum([post.to_dict_likes()["likes"] for post in self.user_posts]),
-            'dislikes': sum([post.to_dict_likes()["dislikes"] for post in self.user_posts]),
+            'postKarma': sum([post.to_dict_likes()["likes"] for post in self.user_posts]) - sum([post.to_dict_likes()["dislikes"] for post in self.user_posts]),
+            'commentKarma': sum([comment.to_dict_likes()["likes"] for comment in self.user_comments]) - sum([comment.to_dict_likes()["dislikes"] for comment in self.user_comments]),
+            'karma': (sum([post.to_dict_likes()["likes"] for post in self.user_posts]) - sum([post.to_dict_likes()["dislikes"] for post in self.user_posts])) + (sum([comment.to_dict_likes()["likes"] for comment in self.user_comments]) - sum([comment.to_dict_likes()["dislikes"] for comment in self.user_comments])),
             'profile_img': self.profile_img,
             'bannerImg': self.banner_img,
             'followers': self.followers,
@@ -57,3 +60,6 @@ class User(db.Model, UserMixin):
             # 'subscriptions': {item.to_dict()["id"]: item.to_dict() for item in self.user_subscriptions}
             # 'subscriptions': self.user_subscriptions.to_dict()
         }
+
+    def __repr__(self):
+        return f"<User {self.id}: {self.username}>"

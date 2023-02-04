@@ -115,7 +115,11 @@ const SignUpForm = ({
                     emailErrors && emailErrors.length > 0 ? "errors-true" : ""
                   }
                 />
-                <label>Email</label>
+                <label
+                  onClick={(e) => e.target.parentElement.children[0].focus()}
+                >
+                  Email
+                </label>
               </div>
               <div className="signup-form-errors">
                 {emailErrors.map((error, ind) => (
@@ -139,7 +143,11 @@ const SignUpForm = ({
                       : ""
                   }
                 />
-                <label>User Name</label>
+                <label
+                  onClick={(e) => e.target.parentElement.children[0].focus()}
+                >
+                  User Name
+                </label>
               </div>
               <div className="signup-form-errors">
                 {usernameErrors.map((error, ind) => (
@@ -162,7 +170,11 @@ const SignUpForm = ({
                       : ""
                   }
                 ></input>
-                <label>Password</label>
+                <label
+                  onClick={(e) => e.target.parentElement.children[0].focus()}
+                >
+                  Password
+                </label>
               </div>
               <div className="signup-form-errors">
                 {passwordErrors.map((error, ind) => (
@@ -186,7 +198,11 @@ const SignUpForm = ({
                       : ""
                   }
                 ></input>
-                <label>Repeat Password</label>
+                <label
+                  onClick={(e) => e.target.parentElement.children[0].focus()}
+                >
+                  Repeat Password
+                </label>
               </div>
               <div className="signup-form-errors">
                 {errors?.length > 0 &&

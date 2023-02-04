@@ -15,7 +15,7 @@ import Github from "../../images/developer-links/github.png";
 import LinkedIn from "../../images/developer-links/linkedin.png";
 import Resume from "../../images/developer-links/resume.png";
 import Email from "../../images/developer-links/mail.png";
-
+import SortingBar from "../../components/SortingBar/SortingBar";
 import "./Posts.css";
 
 export default function SubscribedPosts() {
@@ -24,6 +24,7 @@ export default function SubscribedPosts() {
 
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
+  const [sortMode, setSortMode] = useState("new");
 
   const user = useSelector((state) => state.session.user);
   const communities = useSelector((state) => Object.values(state.communities));
@@ -44,11 +45,21 @@ export default function SubscribedPosts() {
     Object.values(item).forEach((thing) => newList.push(thing));
   });
 
-  newList.sort((a, b) => {
-    let postA = new Date(a.createdAt);
-    let postB = new Date(b.createdAt);
-    return postB - postA;
-  });
+  if (sortMode === "new") {
+    newList.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return postB - postA;
+    });
+  }
+
+  if (sortMode === "top") {
+    newList.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return b.votes - a.votes || postB - postA;
+    });
+  }
 
   if (!user || !communities) return null;
 
@@ -56,6 +67,8 @@ export default function SubscribedPosts() {
     <div className="posts-container">
       <div className="posts-left-col">
         <CreatePostBar />
+        <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+
         {newList.map((post) => (
           <NavLink key={post.id} to={`/posts/${post.id}`}>
             <SinglePost

@@ -19,6 +19,7 @@ import Flower from "../../images/user-profile-icons/poinsettia.png";
 import Cakeday from "../../images/user-profile-icons/cakeday.png";
 
 import "./UserProfile.css";
+import { getSubscribers, getSubscriptions } from "../../store/subscriptions";
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -32,9 +33,12 @@ function UserProfile() {
   const [img_url, setimg_url] = useState();
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showBannerModal, setShowBannerModal] = useState(false);
+  const [karma, setKarma] = useState();
+  const [sortMode, setSortMode] = useState("new");
+  const [communitiesList, setCommunitiesList] = useState([]);
 
   const communities = useSelector((state) => state.communities);
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => Object.values(state.posts));
 
   useEffect(() => {
     setBanner(user?.bannerImg);
@@ -43,6 +47,7 @@ function UserProfile() {
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getPosts());
+    dispatch(getUsers());
 
     let communityList = [];
     for (let community of Object.values(communities)) {
@@ -53,7 +58,7 @@ function UserProfile() {
     setUserCommunities(communityList);
 
     let postsList = [];
-    for (let post of Object.values(posts)) {
+    for (let post of posts) {
       if (post.postAuthor.id === +userId) {
         postsList.push(post);
       }
@@ -62,11 +67,40 @@ function UserProfile() {
   }, []);
 
   useEffect(() => {
-    dispatch(getUsers());
-    console.log(user?.profile_img);
-  }, [user?.profile_img]);
+    dispatch(getSubscriptions());
+    setKarma(user?.karma);
+    let list = [];
+    for (let community of Object.values(communities)) {
+      if (community.communityOwner.id === +userId) {
+        list.push(community);
+      }
+    }
+
+    setCommunitiesList(list);
+  }, [karma, user?.karma, user?.profile_img, communities]);
+
+  // useEffect(() => {
+  //   if (subscriptions[community?.id]) setSubscribed(true);
+  // }, [subscribed, subscriptions]);
 
   const currentUser = useSelector((state) => state.session.user);
+  const subscriptions = useSelector((state) => state.subscriptions);
+
+  if (sortMode === "new") {
+    posts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return postB - postA;
+    });
+  }
+
+  if (sortMode === "top") {
+    posts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return b.votes - a.votes || postB - postA;
+    });
+  }
 
   if (!user) {
     return null;
@@ -75,12 +109,11 @@ function UserProfile() {
   return (
     <div className="user-profile-page">
       <div className="user-profile-left-col">
-        <SortingBar />
-        {Object.values(posts).map((post) =>
+        <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+        {posts.map((post) =>
           post.postAuthor.id === +userId ? (
-            <NavLink to={`/posts/${post.id}`}>
+            <NavLink key={post.id} to={`/posts/${post.id}`}>
               <SinglePost
-                key={post.id}
                 id={post.id}
                 isCommunity={false}
                 isPage="profile"
@@ -145,7 +178,9 @@ function UserProfile() {
           )}
           <div className="user-profile-about-content">
             {currentUser.id === +userId && (
-              <i className="fa-solid fa-gear user-settings"></i>
+              <NavLink to={`/users/${userId}/profile/edit`}>
+                <i className="fa-solid fa-gear user-settings"></i>
+              </NavLink>
             )}
             <h1 className="user-profile-display-name">{user.displayName}</h1>
             <div className="user-profile-username-year">
@@ -157,9 +192,7 @@ function UserProfile() {
                 <h5>Karma</h5>
                 <div className="stats-stats">
                   <img src={Flower} className="stats-icon" />{" "}
-                  <span className="stats-label">
-                    {user.likes - user.dislikes}
-                  </span>
+                  <span className="stats-label">{karma}</span>
                 </div>
               </div>
               <div className="user-profile-stats stats-cakeday">
@@ -179,9 +212,13 @@ function UserProfile() {
         </div>
         {currentUser?.id === +userId && (
           <div className="user-profile-owned-communities">
-            <h2>You're the owner of these communities.</h2>
+            {communitiesList.length > 0 ? (
+              <h2>You're the owner of these communities.</h2>
+            ) : (
+              <h2>You aren't the owner of any communities.</h2>
+            )}
             <div className="user-profile-owned-communities-box">
-              {Object.values(communities).map((community) =>
+              {communitiesList.map((community) =>
                 community.communityOwner.id === +userId ? (
                   <div className="profile-owned-community">
                     <div className="profile-owned-community-left">
@@ -200,7 +237,7 @@ function UserProfile() {
                         </span>
                       </div>
                     </div>
-                    <button className="owned-community-join-btn">Join</button>
+                    {/* <button className="owned-community-join-btn">Join</button> */}
                   </div>
                 ) : (
                   ""

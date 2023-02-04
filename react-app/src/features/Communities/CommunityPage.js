@@ -11,11 +11,14 @@ import {
   getSubscriptions,
 } from "../../store/subscriptions";
 
+import SortingBar from "../../components/SortingBar/SortingBar";
 import LoginForm from "../auth/AuthModal/LoginForm";
 import SignUpForm from "../auth/AuthModal/SignUpForm";
 import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
 import SinglePost from "../Posts/SinglePost/SinglePost";
 import Cake from "../../images/misc/piece4.png";
+import Camera from "../../images/user-profile-icons/camera.png";
+
 import CommunityWelcome from "./CommunityWelcome";
 import { Modal } from "../../context/Modal";
 
@@ -26,6 +29,7 @@ export default function CommunityPage() {
 
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
+  const [showCommunityImgModal, setShowCommunityImgModal] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const [members, setMembers] = useState(0);
 
@@ -42,13 +46,23 @@ export default function CommunityPage() {
   const [isPage, setIsPage] = useState("community");
   const [community_id, setcommunity_id] = useState(+communityId);
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+  const [sortMode, setSortMode] = useState("new");
 
-  commPosts.sort((a, b) => {
-    let postA = new Date(a.createdAt).getTime();
-    let postB = new Date(b.createdAt).getTime();
+  if (sortMode === "new") {
+    commPosts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return postB - postA;
+    });
+  }
 
-    return postB - postA;
-  });
+  if (sortMode === "top") {
+    commPosts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return b.votes - a.votes || postB - postA;
+    });
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -73,6 +87,22 @@ export default function CommunityPage() {
     dispatch(getSingleCommunity(+communityId));
   }, [subscribed, community[0]?.members, subscriptions]);
 
+  if (sortMode === "new") {
+    posts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return postB - postA;
+    });
+  }
+
+  if (sortMode === "top") {
+    posts.sort((a, b) => {
+      let postA = new Date(a.createdAt).getTime();
+      let postB = new Date(b.createdAt).getTime();
+      return b.votes - a.votes || postB - postA;
+    });
+  }
+
   if (!community[0] || !commPosts || !posts) return null;
   return (
     <div className="community-page-container">
@@ -81,12 +111,29 @@ export default function CommunityPage() {
         <div className="community-page-header-btm">
           <div className="community-header-info">
             <div className="community-header-info-details">
-              <div className="community-header-info-img">
-                <img src={community[0].communityImg} />
+              <div className="community-img-box">
+                {user?.id === community[0].userId ? (
+                  <div
+                    className="community-img-upload-btn"
+                    onClick={() => setShowCommunityImgModal(true)}
+                  >
+                    <img src={Camera} />
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className="community-header-info-img">
+                  <img src={community[0].communityImg} />
+                </div>
               </div>
+
               <div className="community-header-info-details-left">
                 <div className="community-header-info-display-name">
-                  <h1>{community[0].displayName}</h1>
+                  <h1>
+                    {community[0].displayName.length === 0
+                      ? community[0].name
+                      : community[0].displayName}
+                  </h1>
                 </div>
                 <div className="community-header-info-name">
                   <h2>c/{community[0].name}</h2>
@@ -128,6 +175,8 @@ export default function CommunityPage() {
       <div className="community-page-main">
         <div className="community-page-left-col">
           {user && <CreatePostBar loadedCommunity={community[0]} />}
+          <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+
           {commPosts.length === 0 && (
             <div className="community-no-posts">
               Welcome to your new community! Why don't you write your first post
