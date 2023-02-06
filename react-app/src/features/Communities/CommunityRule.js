@@ -27,8 +27,16 @@ export default function CommunityRule({ idx, rule }) {
         </span>
         {!noDesc && (
           <>
-            {showDesc && <VscChevronUp />}
-            {!showDesc && <VscChevronDown />}
+            {showDesc && (
+              <span className="chev">
+                <VscChevronUp />
+              </span>
+            )}
+            {!showDesc && (
+              <span className="chev">
+                <VscChevronDown />
+              </span>
+            )}
           </>
         )}
       </div>

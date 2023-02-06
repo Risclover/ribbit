@@ -25,6 +25,10 @@
   background: white;
 }
 
+.chev {
+  margin-left: 8px;
+}
+
 .community-page-main {
   width: auto;
   display: flex;
