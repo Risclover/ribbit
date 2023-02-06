@@ -14,7 +14,7 @@ import ImagePostForm from "../ImagePost/ImagePostForm";
 import CommunitySelection from "./CreatePostDropdown/CommunitySelection";
 import DiscardPost from "../DiscardPost";
 
-import Frog from "../../../images/ribbit-banners/frog-logo1.png";
+import Frog from "./../../../images/ribbit-banners/frog-logo1.png";
 
 import "./PostForm.css";
 

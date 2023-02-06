@@ -24,7 +24,7 @@ class Post(db.Model):
 
 
     post_author = db.relationship('User', back_populates='user_posts')
-    post_comments = db.relationship('Comment', back_populates='comment_post', cascade='all, delete-orphan')
+    post_comments = db.relationship('Comment', back_populates='comment_post', cascade='all, delete')
     post_community = db.relationship('Community', back_populates="community_posts")
     users_who_liked = db.relationship("PostVote", back_populates="user_post_vote")
 
