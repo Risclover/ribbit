@@ -29,7 +29,8 @@ export default function CommunityEditRule({ idx, rule, community }) {
             <Modal onClose={() => setShowEditRuleModal(false)} title="Add rule">
               <EditCommunityRule
                 communityId={community?.id}
-                setShowEditRuleModal={showEditRuleModal}
+                setShowEditRuleModal={setShowEditRuleModal}
+                rule={rule}
               />
             </Modal>
           )}

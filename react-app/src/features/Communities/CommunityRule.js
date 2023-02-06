@@ -15,7 +15,12 @@ export default function CommunityRule({ idx, rule }) {
   }, []);
 
   return (
-    <li className="community-page-rule" onClick={() => setShowDesc(!showDesc)}>
+    <li
+      className="community-page-rule"
+      onClick={() => {
+        rule.description.length > 0 && setShowDesc(!showDesc);
+      }}
+    >
       <div className="rule-title">
         <span>
           {idx + 1}. {rule.title}

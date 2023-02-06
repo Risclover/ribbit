@@ -330,3 +330,20 @@
   font-weight: 400;
   /* padding-top: 5px; */
 }
+
+.modal-buttons.alt-buttons {
+  display: flex;
+  justify-content: space-between !important;
+}
+
+.modal-buttons-delete {
+  background: inherit;
+  border-color: transparent !important;
+  color: #ea0027;
+}
+
+.modal-buttons-delete:hover {
+  /* opacity: 0.9 !important; */
+  color: rgba(234, 0, 39, 0.8) !important;
+  background: #dddddd;
+}

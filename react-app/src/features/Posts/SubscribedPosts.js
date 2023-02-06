@@ -22,6 +22,7 @@ export default function SubscribedPosts() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const [noPosts, setNoPosts] = useState(true);
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
   const [sortMode, setSortMode] = useState("new");
@@ -61,14 +62,40 @@ export default function SubscribedPosts() {
     });
   }
 
+  useEffect(() => {
+    let postList = communities.map(
+      (community) =>
+        community.subscribers[user?.id] !== undefined &&
+        community.communityPosts
+    );
+    postList.forEach((item) => {
+      Object.values(item).forEach((thing) => newList.push(thing));
+    });
+
+    if (newList.length > 0) {
+      setNoPosts(false);
+    }
+  }, [noPosts, newList, postList, communities]);
+
   if (!user || !communities) return null;
 
   return (
     <div className="posts-container">
       <div className="posts-left-col">
         <CreatePostBar />
-        <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
-
+        {!noPosts && (
+          <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+        )}
+        {noPosts && (
+          <div className="no-posts-div">
+            <i className="fa-solid fa-people-group"></i>
+            <h1 className="head">No Subscriptions Yet</h1>
+            <p>
+              Explore the All feed or the Communities Directory to discover new
+              communities.
+            </p>
+          </div>
+        )}
         {newList.map((post) => (
           <NavLink key={post.id} to={`/posts/${post.id}`}>
             <SinglePost

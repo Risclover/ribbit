@@ -12,6 +12,7 @@ import {
   getSubscriptions,
 } from "../../store/subscriptions";
 
+import CommunityImgModal from "./CommunityForms/CommunityImgModal";
 import SortingBar from "../../components/SortingBar/SortingBar";
 import LoginForm from "../auth/AuthModal/LoginForm";
 import SignUpForm from "../auth/AuthModal/SignUpForm";
@@ -110,7 +111,17 @@ export default function CommunityPage() {
                   <img src={community.communityImg} />
                 </div>
               </div>
-
+              {showCommunityImgModal && (
+                <Modal
+                  onClose={() => setShowCommunityImgModal(false)}
+                  title="Change community image"
+                >
+                  <CommunityImgModal
+                    setShowCommunityImgModal={setShowCommunityImgModal}
+                    communityId={community.id}
+                  />
+                </Modal>
+              )}
               <div className="community-header-info-details-left">
                 <div className="community-header-info-display-name">
                   <h1>

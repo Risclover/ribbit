@@ -681,7 +681,6 @@ li {
   line-height: 16px;
   font-family: "Noto Sans", sans-serif;
 }
-
 @media (max-width: 960px) {
   .community-page-right-col {
     display: none;

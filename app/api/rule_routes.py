@@ -54,7 +54,7 @@ def get_rule(id):
     return rule.to_dict()
 
 # EDIT A RULE
-@rule_routes.route("/<int:rule_id>/edit", methods=["PUT"])
+@rule_routes.route("/<int:id>/edit", methods=["PUT"])
 def update_rule(id):
     """
     Query to edit a rule

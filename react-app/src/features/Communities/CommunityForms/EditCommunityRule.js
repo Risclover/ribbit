@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { createRule, getCommunityRules } from "../../../store/rules";
+import {
+  updateRule,
+  getCommunityRules,
+  deleteRule,
+} from "../../../store/rules";
 import "../../../components/Modals/Modals.css";
 import { getSingleCommunity } from "../../../store/one_community";
+import { Modal } from "../../../context/Modal";
+import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
+
+import "../../../components/Modals/Modals.css";
 
 export default function AddCommunityRule({
   setShowEditRuleModal,
@@ -14,18 +22,18 @@ export default function AddCommunityRule({
   const history = useHistory();
   // const { communityId } = useParams();
 
-  console.log("COMMUNITY ID:", communityId);
   const [title, setTitle] = useState(rule?.title);
   const [description, setDescription] = useState(rule?.description);
   const [disabled, setDisabled] = useState(title?.length === 0 ? true : false);
   const [titleError, setTitleError] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const community = useSelector((state) => state.singleCommunity[communityId]);
   const rules = useSelector((state) => Object.values(state.rules));
 
   useEffect(() => {
     title?.length === 0 ? setDisabled(true) : setDisabled(false);
-
+    dispatch(getSingleCommunity(community?.id));
     dispatch(getCommunityRules(communityId));
     let changed = false;
 
@@ -43,11 +51,19 @@ export default function AddCommunityRule({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(createRule({ title, description }, +communityId));
-    setShowEditRuleModal(false);
-    await dispatch(getCommunityRules(communityId));
+    await dispatch(updateRule({ title, description }, rule.id));
+    dispatch(getCommunityRules(communityId));
     dispatch(getSingleCommunity(communityId));
-    history.push(`/c/${communityId}/edit`);
+    setShowEditRuleModal(false);
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    setShowDeleteModal(true);
+    // await dispatch(deleteRule(rule.id));
+    // setShowEditRuleModal(false);
+    // dispatch(getCommunityRules(communityId));
+    // dispatch(getSingleCommunity(communityId));
   };
   return (
     <div className="modal-container">
@@ -95,8 +111,10 @@ export default function AddCommunityRule({
           </p>
         </div>
       </div>
-      <div className="modal-buttons">
-        <button className="modal-buttons-delete">Delete</button>
+      <div className="modal-buttons alt-buttons">
+        <button className="modal-buttons-delete" onClick={handleDelete}>
+          Delete
+        </button>
         <div className="modal-buttons-main">
           <button
             className="modal-buttons-left"
@@ -111,6 +129,20 @@ export default function AddCommunityRule({
           >
             Save
           </button>
+          {showDeleteModal && (
+            <Modal
+              onClose={() => setShowDeleteModal(false)}
+              title="Delete rule?"
+            >
+              <DeleteConfirmation
+                showDeleteModal={showDeleteModal}
+                setShowEditRuleModal={setShowEditRuleModal}
+                setShowDeleteModal={setShowDeleteModal}
+                communityId={communityId}
+                rule={rule}
+              />
+            </Modal>
+          )}
         </div>
       </div>
     </div>

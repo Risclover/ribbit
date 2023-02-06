@@ -7,15 +7,18 @@ import { removeComment } from "../../store/comments";
 import { deleteCommunity, getCommunities } from "../../store/communities";
 
 import "./Modals.css";
+import { deleteRule, getCommunityRules } from "../../store/rules";
+import { getSingleCommunity } from "../../store/one_community";
 
 export default function DeleteConfirmation({
+  setShowEditRuleModal,
   setShowDeleteModal,
   showDeleteModal,
   postId,
   commentId,
   communityName,
   communityId,
-  post,
+  rule,
   item,
 }) {
   const history = useHistory();
@@ -39,12 +42,22 @@ export default function DeleteConfirmation({
     await dispatch(deleteCommunity(communityId));
     history.push(`/`);
   };
+
+  const handleDeleteRule = async (e) => {
+    e.preventDefault();
+    await dispatch(deleteRule(rule.id));
+    setShowDeleteModal(false);
+    setShowEditRuleModal(false);
+    dispatch(getCommunityRules(communityId));
+    dispatch(getSingleCommunity(communityId));
+  };
   return (
     <>
       {showDeleteModal && (
         <div className="modal-container">
           <div className="modal-content">
-            Are you sure you want to delete your {item}? You can't undo this.
+            Are you sure you want to delete this {item}? This action can't be
+            undone.
           </div>
           <div className="modal-buttons">
             <button
@@ -60,7 +73,9 @@ export default function DeleteConfirmation({
                   ? handleDeletePost
                   : item === "community"
                   ? handleDeleteCommunity
-                  : handleDeleteComment
+                  : item === "comment"
+                  ? handleDeleteComment
+                  : handleDeleteRule
               }
             >
               Delete

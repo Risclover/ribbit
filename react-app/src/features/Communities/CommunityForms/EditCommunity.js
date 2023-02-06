@@ -24,7 +24,7 @@ export default function EditCommunity() {
   const rules = useSelector((state) => Object.values(state.rules));
 
   const [showRuleModal, setShowRuleModal] = useState(false);
-  const [showEditRuleModal, setShowEditRuleModal] = useState(false);
+  const [addAllowed, setAddAllowed] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [rulesNum, setRulesNum] = useState(0);
   const [display_name, setdisplay_name] = useState(
@@ -37,6 +37,15 @@ export default function EditCommunity() {
     dispatch(getSingleCommunity(community?.id));
     dispatch(getCommunityRules(communityId));
   }, []);
+
+  useEffect(() => {
+    if (rules.length === 15) {
+      setAddAllowed(false);
+    }
+    if (rules.length < 15) {
+      setAddAllowed(true);
+    }
+  }, [addAllowed]);
 
   useEffect(() => {
     setdisplay_name(community?.displayName);
