@@ -12,6 +12,7 @@ export default function CommunitySelectionDropdownCommunity({
   search,
   setSearch,
   setName,
+  communityList,
 }) {
   const handleClick = (e, name) => {
     e.preventDefault();
@@ -21,6 +22,7 @@ export default function CommunitySelectionDropdownCommunity({
     console.log(community_id, search);
     setShowDropdown(false);
   };
+
   return (
     <NavLink to={`/c/${subscription.id}`}>
       <div

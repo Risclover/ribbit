@@ -25,14 +25,6 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
   const wrapperRef = useRef(null);
 
   const products = useSelector((state) => Object.values(state.search));
-
-  const communityResults = products.filter(
-    (product) => product.name !== undefined
-  );
-  const userResults = products.filter(
-    (product) => product.username !== undefined
-  );
-
   const allUsers = useSelector((state) => state.users);
   const allCommunities = useSelector((state) => state.communities);
 

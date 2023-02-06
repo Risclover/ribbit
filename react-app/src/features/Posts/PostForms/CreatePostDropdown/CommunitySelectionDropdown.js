@@ -12,6 +12,7 @@ export default function CommunitySelectionDropdown({
   showDropdown,
   search,
   setSearch,
+  communityList,
   setName,
 }) {
   console.log("subbies:", subscriptions);
@@ -28,6 +29,7 @@ export default function CommunitySelectionDropdown({
       </div>
       {subscriptions.map((subscription) => (
         <CommunitySelectionDropdownCommunity
+          communityList={communityList}
           search={search}
           setSearch={setSearch}
           setcommunity_id={setcommunity_id}
@@ -40,6 +42,44 @@ export default function CommunitySelectionDropdown({
       ))}
       <div className="community-selection-dropdown-topbar">
         <h5>Other Communities</h5>
+        {/* <CommunitySelectionDropdownCommunity
+          communityList={communityList}
+          search={search}
+          setSearch={setSearch}
+          setcommunity_id={setcommunity_id}
+          subscription={subscription}
+          community_id={community_id}
+          setShowDropdown={setShowDropdown}
+          showDropdown={showDropdown}
+          setName={setName}
+        /> */}
+        {/* {communityList.filter((community) =>
+          community["name"].toLowerCase().includes(search.toLowerCase())
+        ).length > 0 &&
+          communityList.filter((community) =>
+            community["name"]
+              .toLowerCase()
+              .includes(search.toLowerCase())
+              .map((community) =>
+                community["name"]
+                  .toLowerCase()
+                  .includes(search.toLowerCase()) ? (
+                  <CommunitySelectionDropdownCommunity
+                    communityList={communityList}
+                    search={search}
+                    setSearch={setSearch}
+                    setcommunity_id={setcommunity_id}
+                    community_id={community_id}
+                    setShowDropdown={setShowDropdown}
+                    showDropdown={showDropdown}
+                    setName={setName}
+                    subscription={community}
+                  />
+                ) : (
+                  ""
+                )
+              )
+          )} */}
       </div>
     </div>
   );

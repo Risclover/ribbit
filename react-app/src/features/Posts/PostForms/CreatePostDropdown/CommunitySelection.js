@@ -17,10 +17,23 @@ export default function CommunitySelection({ setcommunity_id, community_id }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [name, setName] = useState("");
 
+  const allCommunities = useSelector((state) => state.communities);
+
   useEffect(() => {
     dispatch(getSubscriptions());
     console.log("dropdown:", showDropdown);
   }, []);
+
+  let communityList = [];
+  for (let i = 0; i < Object.values(allCommunities).length; i++) {
+    communityList.push({
+      img: Object.values(allCommunities)[i].communityImg,
+      name: Object.values(allCommunities)[i].name,
+      members: Object.values(allCommunities)[i].members,
+      communityImg: Object.values(allCommunities)[i].communityImg,
+      id: Object.values(allCommunities)[i].id,
+    });
+  }
 
   return (
     <div className="community-selection">
@@ -31,9 +44,11 @@ export default function CommunitySelection({ setcommunity_id, community_id }) {
         showDropdown={showDropdown}
         name={name}
         setName={setName}
+        communityList={communityList}
       />
       {showDropdown && (
         <CommunitySelectionDropdown
+          communityList={communityList}
           setName={setName}
           search={search}
           setSearch={setSearch}

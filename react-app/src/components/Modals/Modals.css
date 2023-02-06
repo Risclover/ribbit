@@ -87,7 +87,7 @@
 .modal-content-input {
   padding: 10px;
   outline: none;
-  border: 1px solid #eee;
+  /* border: 1px solid #eee; */
   border-radius: 4px;
   min-height: 122px;
   font-family: "Noto Sans", sans-serif;
@@ -124,7 +124,7 @@
   border: 1px solid #edeff1;
   color: #1c1c1c;
   margin-bottom: 8px;
-  padding: 4px 24px;
+  padding: 4px 26px;
   width: 100%;
   line-height: 21px;
   font-size: 14px;
@@ -132,10 +132,24 @@
   height: 37px;
 }
 
+.create-community-textarea {
+  padding: 10px;
+  outline: none;
+  /* border: 1px solid #eee; */
+  border-radius: 4px;
+  min-height: 122px;
+  font-family: "Noto Sans", sans-serif;
+  width: 100%;
+  resize: vertical;
+  margin-bottom: 0px;
+  max-height: 65vh;
+  max-height: 60vh;
+}
+
 .create-community-input-r {
   font-size: 16px;
   font-family: "IBM Plex Sans", sans-serif;
-  top: 8px;
+  top: 9px;
   left: 12px;
   position: absolute;
   color: #989ca0;

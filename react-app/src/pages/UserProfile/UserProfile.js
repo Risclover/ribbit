@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import { IoIosPaper } from "react-icons/io";
 
 import { getCommunities } from "../../store/communities";
 import { getPosts } from "../../store/posts";
@@ -33,6 +34,8 @@ function UserProfile() {
   const [img_url, setimg_url] = useState();
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showBannerModal, setShowBannerModal] = useState(false);
+  const [noPosts, setNoPosts] = useState(true);
+
   const [karma, setKarma] = useState();
   const [sortMode, setSortMode] = useState("new");
   const [communitiesList, setCommunitiesList] = useState([]);
@@ -67,6 +70,12 @@ function UserProfile() {
   }, []);
 
   useEffect(() => {
+    if (userPosts.length > 0) {
+      setNoPosts(false);
+    }
+  }, [posts]);
+
+  useEffect(() => {
     dispatch(getSubscriptions());
     setKarma(user?.karma);
     let list = [];
@@ -79,12 +88,7 @@ function UserProfile() {
     setCommunitiesList(list);
   }, [karma, user?.karma, user?.profile_img, communities]);
 
-  // useEffect(() => {
-  //   if (subscriptions[community?.id]) setSubscribed(true);
-  // }, [subscribed, subscriptions]);
-
   const currentUser = useSelector((state) => state.session.user);
-  const subscriptions = useSelector((state) => state.subscriptions);
 
   if (sortMode === "new") {
     posts.sort((a, b) => {
@@ -109,7 +113,16 @@ function UserProfile() {
   return (
     <div className="user-profile-page">
       <div className="user-profile-left-col">
-        <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+        {!noPosts && (
+          <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+        )}
+        {noPosts && (
+          <div className="no-posts-div">
+            <IoIosPaper />
+            <h1 className="head">No Posts Yet</h1>
+            <p>This user hasn't created any posts yet. Perhaps they're shy?</p>
+          </div>
+        )}
         {posts.map((post) =>
           post.postAuthor.id === +userId ? (
             <NavLink key={post.id} to={`/posts/${post.id}`}>
@@ -205,9 +218,9 @@ function UserProfile() {
                 </div>
               </div>
             </div>
-            {currentUser?.id !== +userId && (
+            {/* {currentUser?.id !== +userId && (
               <button className="user-profile-follow-btn">Follow</button>
-            )}
+            )} */}
           </div>
         </div>
         {currentUser?.id === +userId && (

@@ -36,9 +36,19 @@ export default function AddCommunityRule({
     dispatch(getSingleCommunity(community?.id));
     dispatch(getCommunityRules(communityId));
     let changed = false;
+    let originalName = rule?.title;
 
-    if (rule?.title === title) {
-      changed = true;
+    // if (rule?.title === title) {
+    //   changed = true;
+    // }
+
+    for (let rule of rules) {
+      if (rule.title === title) {
+        changed = true;
+      }
+      if (title === originalName) {
+        changed = false;
+      }
     }
 
     if (changed) {

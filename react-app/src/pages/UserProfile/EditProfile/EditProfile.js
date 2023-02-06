@@ -10,7 +10,8 @@ export default function EditProfile() {
   const history = useHistory();
 
   const { userId } = useParams();
-  const user = useSelector((state) => state.session.user);
+  const user1 = useSelector((state) => state.session.user);
+  const user = useSelector((state) => state.users[user1.id]);
 
   const [display_name, setdisplay_name] = useState(user?.displayName);
   const [about, setAbout] = useState(user?.about);

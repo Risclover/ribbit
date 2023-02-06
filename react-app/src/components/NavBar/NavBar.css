@@ -93,6 +93,7 @@ nav ul li {
   width: 24px;
   height: 24px;
   margin-right: 5px;
+  object-fit: cover;
 }
 
 .navbar-user-info {
@@ -180,7 +181,7 @@ nav ul li {
 .door-icon {
   font-size: 24px;
   margin-left: -8px;
-  margin-right: 11px;
+  margin-right: 11 px;
 }
 
 .nav-user-dropdown-logout-btn {

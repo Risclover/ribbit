@@ -129,7 +129,7 @@
 .posts-author-box li {
   display: flex;
   align-items: center;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .posts-author-box li:last-child {
@@ -137,7 +137,7 @@
 }
 
 .posts-author-box img {
-  height: 40px;
+  height: 45px;
   cursor: pointer;
 }
 
