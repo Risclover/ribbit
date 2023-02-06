@@ -77,7 +77,7 @@ export default function NavUserDropdown() {
               {user?.username}
               <div className="user-karma-info">
                 <img className="karma-poinsettia" src={Poinsettia} />
-                {user?.karma} karma
+                {users[user?.id]?.karma} karma
               </div>
             </div>
           </div>
