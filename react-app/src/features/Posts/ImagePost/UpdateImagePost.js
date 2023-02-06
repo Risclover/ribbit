@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-
+import { Modal } from "../../../context/Modal";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { putSinglePost, putImagePost } from "../../../store/posts";
-
-import "./PostForm.css";
+import ImagePostForm from "./ImagePostForm";
+import "../PostForms/PostForm.css";
+import "../../Posts/Posts.css";
 
 const modules = {
   toolbar: [
@@ -25,7 +26,7 @@ const modules = {
   ],
 };
 
-export default function UpdatePost() {
+export default function UpdateImagePost() {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -35,7 +36,7 @@ export default function UpdatePost() {
   const [disabled, setDisabled] = useState(false);
   const [showImgModal, setShowImgModal] = useState(false);
   const [postType, setPostType] = useState("post");
-
+  const [img_url, setimg_url] = useState(post[0]?.img_url);
   const [titleErrors, setTitleErrors] = useState([]);
   const [contentErrors, setContentErrors] = useState([]);
   const [errors, setErrors] = useState([]);
@@ -81,51 +82,32 @@ export default function UpdatePost() {
   return (
     <div className="update-post-form-container">
       <div className="update-post-form-header">Update post</div>
-      <form className="update-post-form" onSubmit={handleSubmit}>
-        <div className="update-post-form-input">
-          <textarea
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            placeholder="Title"
-            maxLength={300}
-          ></textarea>
-          {titleErrors.length > 0 &&
-            titleErrors.map((error) => (
-              <div className="update-post-errors">{error}</div>
-            ))}
-          <div className="update-title-length">{title?.length}/300</div>
-        </div>
-        <div className="update-post-form-input">
-          {/* <textarea
-            className="update-post-content-field"
-            onChange={(e) => setContent(e.target.value)}
-            value={content}
-            placeholder="Content"
-            maxLength={40000}
-          ></textarea> */}
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            onChange={setContent}
-            placeholder="Content"
-            value={content}
-          />
-          {contentErrors.length > 0 &&
-            contentErrors.map((error) => (
-              <div className="update-post-errors">{error}</div>
-            ))}
-        </div>
-        <div className="update-post-form-buttons">
-          <button
-            className="update-post-cancel"
-            onClick={() => history.push(`/posts/${postId}`)}
-          >
-            Cancel
-          </button>
-          <button className="update-post-submit" type="submit">
-            Save
-          </button>
-        </div>
+      <form className="image-post" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Title"
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
+        />
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setShowImgModal(true);
+          }}
+        >
+          Add Image
+        </button>
+        {showImgModal && (
+          <Modal title="Upload Image" onClose={() => setShowImgModal(false)}>
+            <ImagePostForm
+              setShowImgModal={setShowImgModal}
+              setimg_url={setimg_url}
+              img_url={img_url}
+            />
+          </Modal>
+        )}
+        <img className="image-post-preview" src={img_url} />{" "}
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

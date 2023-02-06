@@ -15,7 +15,7 @@ export default function AddCommunityRule({ setShowRuleModal, communityId }) {
   const [description, setDescription] = useState("");
   const [disabled, setDisabled] = useState(title?.length === 0 ? true : false);
   const [titleError, setTitleError] = useState(false);
-
+  const [errors, setErrors] = useState([]);
   const community = useSelector((state) => state.singleCommunity[communityId]);
   const rules = useSelector((state) => Object.values(state.rules));
 
@@ -33,20 +33,35 @@ export default function AddCommunityRule({ setShowRuleModal, communityId }) {
     }
 
     if (changed) {
-      setTitleError(true);
+      setTitleError("You have another rule with this title. Please change.");
+      setErrors([]);
       setDisabled(true);
     } else if (!changed) {
-      setTitleError(false);
+      setTitleError("");
     }
   }, [title, titleError]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(createRule({ title, description }, +communityId));
-    setShowRuleModal(false);
-    await dispatch(getCommunityRules(communityId));
-    dispatch(getSingleCommunity(communityId));
-    history.push(`/c/${communityId}/edit`);
+    const errors = [];
+    console.log("TITLE ERROR:", titleError);
+    if (title.trim().length === 0) {
+      errors.push("You must set a title for this rule.");
+    }
+    if (errors.length > 0) {
+      setErrors(errors);
+    } else {
+      await dispatch(
+        createRule(
+          { title: title.trim(), description: description.trim() },
+          +communityId
+        )
+      );
+      setShowRuleModal(false);
+      await dispatch(getCommunityRules(communityId));
+      dispatch(getSingleCommunity(communityId));
+      history.push(`/c/${communityId}/edit`);
+    }
   };
   return (
     <div className="modal-container">
@@ -61,8 +76,8 @@ export default function AddCommunityRule({ setShowRuleModal, communityId }) {
             onChange={(e) => setTitle(e.target.value)}
           ></textarea>
           <p className="title-exists-error">
-            {titleError &&
-              "You have another rule with this title. Please change."}
+            {errors.map((error) => error)}
+            {titleError}
           </p>
           <p
             className={

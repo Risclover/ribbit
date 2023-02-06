@@ -23,6 +23,7 @@ import UsersList from "./components/UsersList";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import EditProfile from "./pages/UserProfile/EditProfile/EditProfile";
 import SearchResults from "./pages/SearchResults/SearchResults";
+import UpdateImagePost from "./features/Posts/ImagePost/UpdateImagePost";
 
 import { Modal } from "./context/Modal";
 import CommunitiesDirectory from "./pages/CommunitiesDirectory.js/CommunitiesDirectory";
@@ -114,6 +115,9 @@ function App() {
           </Route>
           <Route path="/users/:userId/profile/edit" exact={true}>
             <EditProfile />
+          </Route>
+          <Route path="/posts/:postId/img/edit" exact={true}>
+            <UpdateImagePost />
           </Route>
           <Route path="/search/results" exact={true}>
             <SearchResults

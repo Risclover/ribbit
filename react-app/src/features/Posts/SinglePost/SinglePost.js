@@ -300,13 +300,15 @@ export default function SinglePost({ id, isPage, userId }) {
               user.id === post.postAuthor.id ? (
                 <div className="logged-in-btns">
                   <div className="single-post-button">
-                    <button
-                      className="single-post-edit-btn"
-                      onClick={() => history.push(`/posts/${post.id}/edit`)}
-                    >
-                      <i className="fa-solid fa-pencil"></i>
-                      Edit
-                    </button>
+                    {post?.imgUrl === null && (
+                      <button
+                        className="single-post-edit-btn"
+                        onClick={() => history.push(`/posts/${post.id}/edit`)}
+                      >
+                        <i className="fa-solid fa-pencil"></i>
+                        Edit
+                      </button>
+                    )}
                     {showEditModal && (
                       <Modal
                         onClose={() => setShowEditModal(false)}
