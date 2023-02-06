@@ -4,3 +4,4 @@ from .post_form import PostForm, PostUpdateForm, ImagePostForm, UpdateImagePostF
 from .comment_form import CommentForm
 from .community_form import CommunityForm, UpdateCommunityForm
 from .profile_form import ProfileUpdateForm
+from .rule_form import RuleForm

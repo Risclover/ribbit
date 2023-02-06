@@ -15,7 +15,7 @@ class Community(db.Model):
     community_posts = db.relationship('Post', back_populates="post_community", cascade="all, delete-orphan")
     subscribers = db.relationship('User', back_populates="user_subscriptions", secondary=subscriptions, lazy="joined")
     community_owner = db.relationship('User', back_populates="user_communities")
-
+    community_rules = db.relationship("Rule", back_populates="rule_of_community", cascade="all, delete")
 
     def to_dict(self):
         return {
@@ -29,10 +29,8 @@ class Community(db.Model):
             'subscribers': {item.to_dict()["id"]: item.to_dict() for item in self.subscribers},
             'communityPosts': {item.to_dict()["id"]: item.to_dict() for item in self.community_posts},
             'communityOwner': self.community_owner.to_dict(),
+            "communityRules": {item.to_dict()["id"]: item.to_dict() for item in self.community_rules},
             'members': len(self.subscribers)
-
-            # "subscribers": self.subscribed_users.to_dict()
-
         }
 
     def __repr__(self):

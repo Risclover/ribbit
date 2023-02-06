@@ -38,7 +38,6 @@ export const editProfile = (id, payload) => async (dispatch) => {
     }),
   });
 
-  console.log(response);
   if (response.ok) {
     const data = await response.json();
     dispatch(loadUser(data));

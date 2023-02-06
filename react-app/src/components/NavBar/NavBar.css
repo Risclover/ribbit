@@ -6,7 +6,7 @@ nav {
   height: 49px;
   top: 0;
   z-index: 200;
-  padding: 0 20px;
+  padding: 0 10px;
   align-items: center;
   border-bottom: 1px solid #edeff1;
   justify-content: space-between;
@@ -123,7 +123,7 @@ nav ul li {
   border-radius: 4px;
   border: 1px solid #edeff1;
   position: fixed;
-  right: 20px;
+  right: 10px;
   text-align: left;
   top: 45.5px;
   background: white;
@@ -149,7 +149,7 @@ nav ul li {
 
 .nav-user-dropdown-btn-title svg {
   font-size: 24px;
-  margin-right: 12px;
+  margin-right: 8px;
 }
 
 .nav-user-dropdown-btn {
@@ -179,8 +179,8 @@ nav ul li {
 
 .door-icon {
   font-size: 24px;
-  margin-left: -4px;
-  margin-right: 12px;
+  margin-left: -8px;
+  margin-right: 11px;
 }
 
 .nav-user-dropdown-logout-btn {
@@ -389,4 +389,20 @@ nav ul li {
 }
 .search-for-query:hover {
   background: #f6f7f8;
+}
+
+@media (max-width: 1200px) {
+  .navbar-user-info {
+    display: none;
+  }
+
+  .navbar-user-dropdown {
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .nav-user-dropdown-box {
+    top: 42px;
+    right: 15px;
+  }
 }

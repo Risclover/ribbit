@@ -3,6 +3,7 @@ import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
+import { getCommunityRules } from "../../store/rules";
 import { getSingleCommunity } from "../../store/one_community";
 import { getPosts } from "../../store/posts";
 import {
@@ -19,6 +20,7 @@ import SinglePost from "../Posts/SinglePost/SinglePost";
 import Cake from "../../images/misc/piece4.png";
 import Camera from "../../images/user-profile-icons/camera.png";
 
+import CommunityRule from "./CommunityRule";
 import CommunityWelcome from "./CommunityWelcome";
 import { Modal } from "../../context/Modal";
 
@@ -34,9 +36,7 @@ export default function CommunityPage() {
   const [members, setMembers] = useState(0);
 
   const subscriptions = useSelector((state) => state.subscriptions);
-  const community = useSelector((state) =>
-    Object.values(state.singleCommunity)
-  );
+  const community = useSelector((state) => state.singleCommunity[+communityId]);
   const user = useSelector((state) => state.session.user);
   const posts = useSelector((state) => Object.values(state.posts));
 
@@ -83,27 +83,11 @@ export default function CommunityPage() {
   useEffect(() => {
     if (subscriptions[community_id]) setSubscribed(true);
 
-    setMembers(community[0]?.members);
+    setMembers(community?.members);
     dispatch(getSingleCommunity(+communityId));
-  }, [subscribed, community[0]?.members, subscriptions]);
+  }, [subscribed, community?.members, subscriptions]);
 
-  if (sortMode === "new") {
-    posts.sort((a, b) => {
-      let postA = new Date(a.createdAt).getTime();
-      let postB = new Date(b.createdAt).getTime();
-      return postB - postA;
-    });
-  }
-
-  if (sortMode === "top") {
-    posts.sort((a, b) => {
-      let postA = new Date(a.createdAt).getTime();
-      let postB = new Date(b.createdAt).getTime();
-      return b.votes - a.votes || postB - postA;
-    });
-  }
-
-  if (!community[0] || !commPosts || !posts) return null;
+  if (!community || !commPosts || !posts) return null;
   return (
     <div className="community-page-container">
       <div className="community-page-header">
@@ -112,7 +96,7 @@ export default function CommunityPage() {
           <div className="community-header-info">
             <div className="community-header-info-details">
               <div className="community-img-box">
-                {user?.id === community[0].userId ? (
+                {user?.id === community.userId ? (
                   <div
                     className="community-img-upload-btn"
                     onClick={() => setShowCommunityImgModal(true)}
@@ -123,20 +107,20 @@ export default function CommunityPage() {
                   ""
                 )}
                 <div className="community-header-info-img">
-                  <img src={community[0].communityImg} />
+                  <img src={community.communityImg} />
                 </div>
               </div>
 
               <div className="community-header-info-details-left">
                 <div className="community-header-info-display-name">
                   <h1>
-                    {community[0].displayName.length === 0
-                      ? community[0].name
-                      : community[0].displayName}
+                    {community.displayName.length === 0
+                      ? community.name
+                      : community.displayName}
                   </h1>
                 </div>
                 <div className="community-header-info-name">
-                  <h2>c/{community[0].name}</h2>
+                  <h2>c/{community.name}</h2>
                 </div>
               </div>
               <div className="community-header-info-details-right">
@@ -174,7 +158,7 @@ export default function CommunityPage() {
       </div>
       <div className="community-page-main">
         <div className="community-page-left-col">
-          {user && <CreatePostBar loadedCommunity={community[0]} />}
+          {user && <CreatePostBar loadedCommunity={community} />}
           <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
 
           {commPosts.length === 0 && (
@@ -199,14 +183,12 @@ export default function CommunityPage() {
             </div>
             <div className="community-page-box-content">
               <div className="community-page-box-description">
-                <p>{community[0].description}</p>
+                <p>{community.description}</p>
               </div>
               <div className="community-page-box-date">
                 <img src={Cake} className="community-cake-icon" />
                 Created{" "}
-                {moment(new Date(community[0].createdAt)).format(
-                  "MMM DD, YYYY"
-                )}
+                {moment(new Date(community.createdAt)).format("MMM DD, YYYY")}
               </div>
               <div className="community-page-box-members">
                 <h2>{members}</h2>
@@ -214,7 +196,7 @@ export default function CommunityPage() {
               </div>
               <div className="community-page-box-btn">
                 {user && (
-                  <NavLink to={`/c/${community[0].id}/submit`}>
+                  <NavLink to={`/c/${community.id}/submit`}>
                     <button className="community-page-box-create-post">
                       Create Post
                     </button>
@@ -252,8 +234,8 @@ export default function CommunityPage() {
                   </Modal>
                 )}
 
-                {user?.id === community[0].userId ? (
-                  <NavLink to={`/c/${community[0].id}/edit`}>
+                {user?.id === community.userId ? (
+                  <NavLink to={`/c/${community.id}/edit`}>
                     <button className="community-page-box-edit-community">
                       Edit Community
                     </button>
@@ -264,6 +246,20 @@ export default function CommunityPage() {
               </div>
             </div>
           </div>
+          {Object.values(community.communityRules).length > 0 && (
+            <div className="community-page-community-rules">
+              <div className="community-page-rules-header">
+                c/{community.name} Rules
+              </div>
+              <div className="community-page-rules">
+                <ol>
+                  {Object.values(community.communityRules).map((rule, idx) => (
+                    <CommunityRule idx={idx} rule={rule} />
+                  ))}
+                </ol>
+              </div>
+            </div>
+          )}
           <div className="back-to-top-box">
             <button
               className="back-to-top"
