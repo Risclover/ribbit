@@ -19,6 +19,7 @@ import Resume from "../../images/developer-links/resume.png";
 import Email from "../../images/developer-links/mail.png";
 
 import "./Posts.css";
+import { getUsers } from "../../store/users";
 
 export default function Posts() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ export default function Posts() {
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getCommunities());
+    dispatch(getUsers());
   }, [dispatch]);
 
   const handleQuery = async (e) => {
@@ -126,7 +128,7 @@ export default function Posts() {
               <li key={0} className="tooltip">
                 <span className="tooltiptext">Developer Portfolio</span>
                 <a
-                  href="https://www.saradunlop.com"
+                  href="https://risclover.github.io"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -134,7 +136,13 @@ export default function Posts() {
                 </a>
               </li>
               <li key={1} className="tooltip">
-                <img src={LinkedIn} alt="LinkedIn" />
+                <a
+                  href="https://www.linkedin.com/in/sara-dunlop-66375a146/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={LinkedIn} alt="LinkedIn" />
+                </a>
                 <span className="tooltiptext">LinkedIn</span>
               </li>
               <li key={2} className="tooltip">

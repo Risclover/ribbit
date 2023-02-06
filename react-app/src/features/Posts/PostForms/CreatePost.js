@@ -31,7 +31,6 @@ const modules = {
     ],
     [{ list: "bullet" }, { list: "ordered" }],
     ["blockquote", "code-block"],
-    ["image"],
   ],
 };
 
@@ -44,7 +43,7 @@ export default function CreatePost() {
   const [img_url, setimg_url] = useState("");
   const [content, setContent] = useState("");
   const [community_id, setcommunity_id] = useState(
-    communityId === "undefined" ? 1 : communityId
+    communityId === "undefined" ? "undefined" : communityId
   );
   const [disabled, setDisabled] = useState(false);
   const [showImgModal, setShowImgModal] = useState(false);
@@ -127,10 +126,10 @@ export default function CreatePost() {
             }
           >
             <div className="create-post-header">Create a post</div>
-            <CommunitySelection
+            {/* <CommunitySelection
               community_id={community_id}
               setcommunity_id={setcommunity_id}
-            />
+            /> */}
             <div className="create-post-choose-community">
               <select
                 defaultValue={"undefined"}

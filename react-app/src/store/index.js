@@ -10,6 +10,7 @@ import singleCommunityReducer from "./one_community";
 import allSubscriptionsReducer from "./subscriptions";
 import usersReducer from "./users";
 import searchReducer from "./search";
+import rulesReducer from "./rules";
 
 const rootReducer = combineReducers({
   session,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   singleCommunity: singleCommunityReducer,
   subscriptions: allSubscriptionsReducer,
   search: searchReducer,
+  rules: rulesReducer,
 });
 
 let enhancer;

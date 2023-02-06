@@ -36,6 +36,7 @@ export default function NavUserDropdown() {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const user = useSelector((state) => state.session.user);
+  const users = useSelector((state) => state.users);
 
   const onLogout = async (e) => {
     await dispatch(logout());
@@ -68,7 +69,10 @@ export default function NavUserDropdown() {
       <div className="navbar-user-dropdown-face">
         <div className="navbar-user-info-box">
           <div className="navbar-user-info-details">
-            <img className="navbar-user-img" src={user?.profile_img} />
+            <img
+              className="navbar-user-img"
+              src={users[user?.id]?.profile_img}
+            />
             <div className="navbar-user-info">
               {user?.username}
               <div className="user-karma-info">
@@ -88,6 +92,9 @@ export default function NavUserDropdown() {
             </div>
             <NavLink to={`/users/${user.id}/profile`}>
               <div className="nav-user-dropdown-btn">Profile</div>
+            </NavLink>
+            <NavLink to={`/directory`}>
+              <div className="nav-user-dropdown-btn">Communities Directory</div>
             </NavLink>
           </div>
           <div className="nav-user-dropdown-logout-btn" onClick={onLogout}>

@@ -4,3 +4,4 @@ from .post import Post
 from .comment import Comment
 from .community import Community
 from .joins import subscriptions, PostVote, CommentVote
+from .rule import Rule

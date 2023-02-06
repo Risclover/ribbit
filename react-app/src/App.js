@@ -25,6 +25,7 @@ import EditProfile from "./pages/UserProfile/EditProfile/EditProfile";
 import SearchResults from "./pages/SearchResults/SearchResults";
 
 import { Modal } from "./context/Modal";
+import CommunitiesDirectory from "./pages/CommunitiesDirectory.js/CommunitiesDirectory";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -98,6 +99,9 @@ function App() {
           </Route>
           <Route path="/posts/:postId" exact={true}>
             <SinglePostPage setShowLoginForm={setShowLoginForm} />
+          </Route>
+          <Route path="/directory" exact={true}>
+            <CommunitiesDirectory />
           </Route>
           <Route path="/posts/:postId/edit" exact={true}>
             <UpdatePost />

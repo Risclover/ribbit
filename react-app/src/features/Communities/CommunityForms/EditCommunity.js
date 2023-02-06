@@ -1,40 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, NavLink } from "react-router-dom";
+import { useHistory, NavLink, useParams } from "react-router-dom";
 
 import { getSingleCommunity } from "../../../store/one_community";
 import { updateCommunity } from "../../../store/communities";
-
+import { getCommunityRules } from "../../../store/rules";
 import { Modal } from "../../../context/Modal";
 import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
 import CommunityImg from "./CommunityImg";
 
+import EditCommunityRule from "./EditCommunityRule";
+import AddCommunityRule from "./AddCommunityRule";
 import "../CommunityPage.css";
+import CommunityEditRule from "../CommunityEditRule";
 
 export default function EditCommunity() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { communityId } = useParams();
 
   const user = useSelector((state) => state.session.user);
-  const community = useSelector((state) =>
-    Object.values(state.singleCommunity)
-  );
+  const community = useSelector((state) => state.singleCommunity[+communityId]);
+  const rules = useSelector((state) => Object.values(state.rules));
 
+  const [showRuleModal, setShowRuleModal] = useState(false);
+  const [addAllowed, setAddAllowed] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [rulesNum, setRulesNum] = useState(0);
   const [display_name, setdisplay_name] = useState(
-    community[0] ? community[0].displayName : ""
+    community ? community.displayName : ""
   );
-  const [description, setDescription] = useState(community[0]?.description);
+  const [description, setDescription] = useState(community?.description);
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    dispatch(getSingleCommunity(community[0]?.id));
+    dispatch(getSingleCommunity(community?.id));
+    dispatch(getCommunityRules(communityId));
   }, []);
 
   useEffect(() => {
-    setdisplay_name(community[0]?.displayName);
-    setDescription(community[0]?.description);
-  }, []);
+    if (rules.length === 15) {
+      setAddAllowed(false);
+    }
+    if (rules.length < 15) {
+      setAddAllowed(true);
+    }
+  }, [addAllowed]);
+
+  useEffect(() => {
+    setdisplay_name(community?.displayName);
+    setDescription(community?.description);
+
+    setRulesNum(rules.length);
+
+    console.log("num:", rulesNum);
+  }, [rulesNum]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +65,7 @@ export default function EditCommunity() {
       setErrors(errors);
     } else {
       const data = await dispatch(
-        updateCommunity({ display_name, description }, community[0].id)
+        updateCommunity({ display_name, description }, community.id)
       );
       if (data.length > 0) {
         setErrors(data.errors);
@@ -55,23 +75,25 @@ export default function EditCommunity() {
     }
   };
 
-  if (!community || !community[0]) return null;
+  if (!community || !community) return null;
   return (
     <div className="edit-community-page">
-      <div className="edit-community-top-bar">
-        <img src={community[0].communityImg} />
-        <span className="edit-community-top-bar-name">
-          <NavLink to={`/c/${community[0].id}`}>c/{community[0].name}</NavLink>{" "}
-          / Community Settings
-        </span>
-      </div>
-      <div className="edit-community-save-bar">
-        <button className="edit-community-save-btn" onClick={handleSubmit}>
-          Save changes
-        </button>
+      <div className="edit-community-page-header">
+        <div className="edit-community-top-bar">
+          <img src={community.communityImg} />
+          <span className="edit-community-top-bar-name">
+            <NavLink to={`/c/${community.id}`}>c/{community.name}</NavLink> /
+            Community Settings
+          </span>
+        </div>
+        <div className="edit-community-save-bar">
+          <button className="edit-community-save-btn" onClick={handleSubmit}>
+            Save changes
+          </button>
+        </div>
       </div>
       <div className="edit-community-page-settings">
-        {user.id === community[0].userId && (
+        {user.id === community.userId && (
           <>
             <h1>Community settings</h1>
             <div className="edit-community-page-section">
@@ -119,6 +141,51 @@ export default function EditCommunity() {
               </span>
             </div>
             <div className="edit-community-page-section">
+              <h2>Community rules (optional)</h2>
+              <p className="community-description-details">
+                These are rules that visitors must follow to participate.
+                Communities can have a maximum of 15 rules.
+              </p>
+              <div className="community-rules-container">
+                <div className="community-rules-button-bar">
+                  {rulesNum >= 15 && (
+                    <button
+                      disabled
+                      className="add-rule-btn"
+                      onClick={() => setShowRuleModal(true)}
+                    >
+                      Add rule
+                    </button>
+                  )}
+                  {rulesNum < 15 && (
+                    <button
+                      className="add-rule-btn"
+                      onClick={() => setShowRuleModal(true)}
+                    >
+                      Add rule
+                    </button>
+                  )}
+                </div>
+                <div className="community-rules-edit">
+                  {Object.values(community.communityRules).map((rule, idx) => (
+                    <CommunityEditRule
+                      community={community}
+                      idx={idx}
+                      rule={rule}
+                    />
+                  ))}
+                </div>
+              </div>
+              {showRuleModal && (
+                <Modal onClose={() => setShowRuleModal(false)} title="Add rule">
+                  <AddCommunityRule
+                    communityId={community?.id}
+                    setShowRuleModal={setShowRuleModal}
+                  />
+                </Modal>
+              )}
+            </div>
+            <div className="edit-community-page-section">
               <h2>Delete Community</h2>
               <p className="community-description-details">
                 Click the button below to delete this community. Please note
@@ -128,19 +195,19 @@ export default function EditCommunity() {
                 className="delete-community-btn"
                 onClick={() => setShowDeleteModal(true)}
               >
-                Delete c/{community[0].name}
+                Delete c/{community.name}
               </button>
               {showDeleteModal && (
                 <Modal
                   onClose={() => setShowDeleteModal(false)}
-                  title={`Delete community c/${community[0].name}?`}
+                  title={`Delete community c/${community.name}?`}
                 >
                   <DeleteConfirmation
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
                     item="community"
-                    communityId={community[0].id}
-                    communityName={community[0].name}
+                    communityId={community.id}
+                    communityName={community.name}
                   />
                 </Modal>
               )}
