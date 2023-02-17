@@ -50,8 +50,6 @@ export default function EditCommunity() {
     setDescription(community?.description);
 
     setRulesNum(rules.length);
-
-    console.log("num:", rulesNum);
   }, [rulesNum]);
 
   const handleSubmit = async (e) => {

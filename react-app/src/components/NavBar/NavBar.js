@@ -63,7 +63,6 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
   }, [wrapperRef]);
 
   useEffect(() => {
-    console.log(products);
     dispatch(getUsers());
 
     if (searchQuery?.length === 0) {
@@ -77,7 +76,6 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
     setResults(await dispatch(search(searchQuery)).query);
     setShowSearchDropdown(false);
     history.push("/search/results");
-    console.log(results);
   };
 
   const handleEnter = (e) => {
@@ -86,14 +84,6 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
     }
   };
 
-  console.log(
-    "comm",
-    communityList.filter((community) =>
-      community["name"].toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  );
-
-  console.log(communityList);
   return (
     <nav>
       <ul>

@@ -14,7 +14,6 @@ export default function CreatePostBar({ page, communityId }) {
 
   useEffect(() => {
     dispatch(getUsers());
-    console.log(user.profile_img);
   }, []);
 
   const handleClick = (e) => {

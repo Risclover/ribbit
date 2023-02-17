@@ -42,7 +42,6 @@ export default function AddCommunityRule({ setShowRuleModal, communityId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = [];
-    console.log("TITLE ERROR:", titleError);
     if (title.trim().length === 0) {
       errors.push("You must set a title for this rule.");
     }

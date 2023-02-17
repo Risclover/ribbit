@@ -64,9 +64,9 @@ export default function CreatePost() {
   }, [community?.members]);
 
   useEffect(() => {
-    dispatch(getPosts());
-    dispatch(getCommunities());
-    dispatch(getSingleCommunity(+communityId));
+    // dispatch(getPosts());
+    // dispatch(getCommunities());
+    // dispatch(getSingleCommunity(+communityId));
 
     if (content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
       setContent("");

@@ -18,8 +18,6 @@ export default function SearchResults({ searchQuery, setSearchQuery }) {
     post.title?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  console.log("RESULTS:", posts);
-
   useEffect(() => {
     dispatch(getPosts());
     dispatch(search(searchQuery));

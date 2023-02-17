@@ -28,15 +28,12 @@ function UserProfile() {
 
   const user = useSelector((state) => state.users[+userId]);
 
-  console.log("USER POSTS:", user?.userPosts);
-
   const [banner, setBanner] = useState();
   const [userCommunities, setUserCommunities] = useState([]);
   const [userPosts, setUserPosts] = useState([]);
   const [img_url, setimg_url] = useState();
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showBannerModal, setShowBannerModal] = useState(false);
-  const [noPosts, setNoPosts] = useState(false);
 
   const [karma, setKarma] = useState();
   const [sortMode, setSortMode] = useState("new");

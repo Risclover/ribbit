@@ -25,7 +25,6 @@ export default function EditProfile() {
     const data = dispatch(editProfile(user.id, { display_name, about }));
     dispatch(getUsers());
     if (data.length > 0) {
-      console.log(data.errors);
     } else {
       dispatch(getUsers());
       history.push(`/users/${user.id}/profile`);

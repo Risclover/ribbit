@@ -24,7 +24,6 @@ export default function DeleteConfirmation({
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
-  console.log("PAGE:", isPage);
 
   const handleDeletePost = async (e) => {
     e.preventDefault();
@@ -32,7 +31,7 @@ export default function DeleteConfirmation({
       history.push("/c/all");
     }
     await dispatch(deletePost(postId));
-    dispatch(getPosts());
+    // dispatch(getPosts());
     setShowDeleteModal(false);
   };
 

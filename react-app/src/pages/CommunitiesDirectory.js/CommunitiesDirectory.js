@@ -10,7 +10,6 @@ export default function CommunitiesDirectory() {
 
   const communities = useSelector((state) => Object.values(state.communities));
 
-  console.log("COMMUNITIES", communities);
   useEffect(() => {
     dispatch(getCommunities());
   }, []);

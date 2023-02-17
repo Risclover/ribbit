@@ -17,9 +17,6 @@ const Chat = () => {
   const [showTime, setShowTime] = useState(false);
   const monthNum = new Date().getMonth();
   const dayNum = new Date().getDate();
-  const allMessages = useSelector((state) => state.messages);
-  console.log("day:", dayNum);
-  console.log("date:", monthNum);
 
   useEffect(() => {
     dispatch(getMessages());
@@ -65,8 +62,6 @@ const Chat = () => {
       default:
         break;
     }
-
-    console.log(month);
   }, [month, monthNum]);
 
   const fullDate = month + " " + dayNum;
@@ -78,7 +73,6 @@ const Chat = () => {
 
     socket.on("chat", (chat) => {
       setMessages((messages) => [...messages, chat]);
-      console.log("socket msgs:", messages);
     });
     // when component unmounts, disconnect
     return () => {
@@ -101,7 +95,6 @@ const Chat = () => {
     });
     setChatInput("");
   };
-  console.log("socket msgs:", messages);
   return (
     user && (
       <div>

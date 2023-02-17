@@ -27,8 +27,7 @@ export const getUsers = () => async (dispatch) => {
 
 export const editProfile = (id, payload) => async (dispatch) => {
   const { display_name, about } = payload;
-  console.log("DISPLAY_NAME", display_name);
-  console.log("ABOUT", about);
+
   const response = await fetch(`/api/users/${id}/profile/edit`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
