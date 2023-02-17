@@ -185,6 +185,122 @@ def seed_comments():
         user_id = 11,
         post_id = 10
     )
+    comment_35 = Comment(
+        content="Blind people ride in cars sometimes.",
+        user_id=5,
+        post_id=15
+    )
+    comment_36=Comment(
+        content="Well I’m sure as hell not going to read the entire menu out to my blind buddy.",
+        user_id=6,
+        post_id=15
+    )
+    comment_37 = Comment(
+        content="Yknow in case you have a blind passenger",
+        user_id=7,
+        post_id=15
+    )
+    comment_38 = Comment(
+        content="Ice... use lots of ice.",
+        user_id=8,
+        post_id=14
+    )
+    comment_39 = Comment(
+        content="Some women buy their men cookies after a vasectomy. Mine bought me gauze that STUCK TO MY STITCHES. No amount of soaking got it unstuck either. I basically ripped my stitches out trying to get it off. So much pain.",
+        user_id=9,
+        post_id=14
+    )
+    comment_40 = Comment(
+        content="Yikes announced on the same day as the contraceptive pill for men that works.",
+        user_id=10,
+        post_id=14
+    )
+    comment_41 = Comment(
+        content="This post is peak Ribbit.",
+        user_id=11,
+        post_id=14
+    )
+    comment_42=Comment(
+        content="Unlabeled liquid containers, no lids on the cotton/gauze, used(?) rectal thermometer on the countertop. Sneaky kitty hiding in the sink.",
+        user_id=12,
+        post_id=15
+    )
+    comment_43=Comment(
+        content="Sharps should not be ‘disposed’ in the sink",
+        user_id=1,
+        post_id=15
+    )
+    comment_44 = Comment(
+        content="""Saw absolutely nothing. Went to the comments to see what the OSHA violations were, hoping to learn something I didn't already know.
+
+Top comment said "Stealth 100." I did not read further, and angrily scrolled back up to find what I missed. Took me WAY too long. I now sympathize with all the NPCs I've killed as a Kajiit stealth archer.""",
+        user_id=2,
+        post_id=15
+    )
+    comment_45 = Comment(
+        content="""I went to a security talk on this from github.
+GitHub have a system where they will search through every bit of public code uploaded, then they have patten detection to find api keys/security tokens and they can match them to say Google, Slack, AWS, in your case OpenAI. Then github will send the found keys to the relevant organization through a batch process, then the organization will see if its real, disable it and let the customer know they stuffed up.
+
+They build the system with Slack I think, to stop slack having to scrape GitHub constantly looking for leaked API keys in public code.""",
+        user_id=12,
+        post_id=16
+    )
+    comment_46 = Comment(
+        content="Does anyone else feel a bit weary trusting their code to a third party, such as github? Wouldn't it be more secure to run on-premise GitLab self hosted solution, and use their CI/CD pipelines to publish to the cloud?",
+        user_id=11,
+        post_id=16
+    )
+    comment_47=Comment(
+        content="If their bots can find the key, so have thousands of others.",
+        user_id=10,
+        post_id=16
+    )
+    comment_48=Comment(
+        content="I usually use copy and paste",
+        user_id=9,
+        post_id=17
+    )
+    comment_49=Comment(
+        content="All you need to do is copy the code, copy the license file and any copyright information. That's it. You must include the copyright and license information for the code used. You are otherwise free to do whatever you please including use the code commercially.",
+        user_id=8,
+        post_id=17
+    )
+    comment_50=Comment(
+        content="@lurkinislife - Alright but where do I put the license file?",
+        user_id=3,
+        post_id=17
+    )
+    comment_51=Comment(
+        content="Hippity hoppity your code is now my property",
+        user_id=1,
+        post_id=17
+    )
+    comment_52=Comment(
+        content="Love it, but as others have said - you need to look out for yourself here - they can use this against you and make things even worse",
+        user_id=5,
+        post_id=18
+    )
+    comment_53=Comment(
+        content="""This is dangerous op, you could get sued.
+
+If a 500 error screen pops up, however, it's not your fault and they will need to contact you.
+
+You know, from time to time a permission may get reset, or run out of storage capacity because an unnecessary debug log level you forgot to drop, or a database host was changed by the hosting company, or whatever issue that lead to a 500.
+
+Explicitly doing this is dangerous.""",
+        user_id=7,
+        post_id=18
+    )
+    comment_54=Comment(
+        content="A week isn’t that long, some companies process all their invoices once a month for example, this seems far too extreme for a week",
+        user_id=8,
+        post_id=18
+    )
+    comment_55=Comment(
+        content="Expect a lawsuit. A week?! Let's maybe slow our roll here yeah?",
+        user_id=3,
+        post_id=18
+    )
 
 
     db.session.add(comment_1)
@@ -221,6 +337,28 @@ def seed_comments():
     db.session.add(comment_32)
     db.session.add(comment_33)
     db.session.add(comment_34)
+    db.session.add(comment_35)
+    db.session.add(comment_36)
+    db.session.add(comment_37)
+    db.session.add(comment_38)
+    db.session.add(comment_39)
+    db.session.add(comment_40)
+    db.session.add(comment_41)
+    db.session.add(comment_42)
+    db.session.add(comment_43)
+    db.session.add(comment_44)
+    db.session.add(comment_45)
+    db.session.add(comment_46)
+    db.session.add(comment_47)
+    db.session.add(comment_48)
+    db.session.add(comment_49)
+    db.session.add(comment_50)
+    db.session.add(comment_51)
+    db.session.add(comment_52)
+    db.session.add(comment_53)
+    db.session.add(comment_54)
+    db.session.add(comment_55)
+
     db.session.commit()
 
 def undo_comments():

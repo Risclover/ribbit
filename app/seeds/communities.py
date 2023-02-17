@@ -69,6 +69,14 @@ def seed_communities():
         community_img="https://a.thumbs.redditmedia.com/kIpBoUR8zJLMQlF8azhN-kSBsjVUidHjvZNLuHDONm8.png",
         user_id=1
     )
+    community_11 = Community(
+        name="webdev",
+        description="A community dedicated to all things web development: both front-end and back-end.",
+        display_name="webdev: ribbit for web developers",
+        community_img="https://styles.redditmedia.com/t5_2qs0q/styles/communityIcon_kxcmzy9bt1381.jpg?width=256&format=pjpg&v=enabled&s=6a2945f540463756d33acd2919b0476668879106",
+        user_id=1
+    )
+
 
     db.session.add(community_1)
     db.session.add(community_2)
@@ -80,6 +88,7 @@ def seed_communities():
     db.session.add(community_8)
     db.session.add(community_9)
     db.session.add(community_10)
+    db.session.add(community_11)
     db.session.commit()
 
 def undo_communities():

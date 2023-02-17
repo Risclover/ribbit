@@ -70,6 +70,48 @@ def seed_rules():
         description="Social media content of any kind is not allowed. This includes anything from any form of \"comments section\" on the Internet, as well as content accompanied by text from those platforms. Screenshots of electronic messages of any variety are not allowed. Images with added Snapchat text are allowed, as long as all UI elements have been removed.",
         community_id=10
     )
+    community11_rule1=Rule(
+        title="No vague support questions about WYSIWYG editors or other software.",
+        description="No vague product support questions (like \"why is this plugin not working\" or \"how do I set up X\"). For vague product support questions, please use communities relevant to that product for best results. Specific issues that follow rule 6 are allowed.",
+        community_id=11
+    )
+    community11_rule2=Rule(
+        title="No memes, screenshots, and jokes",
+        description="Do not post memes, screenshots of bad design, or jokes. Check out /c/ProgrammerHumor/ for this type of content.",
+        community_id=11
+    )
+    community11_rule3=Rule(
+        title="No self-promotion",
+        description="Read and follow ribbiquette; no excessive self-promotion. Please refer to the Ribbit 9:1 rule when considering posting self promoting materials.",
+        community_id=11
+    )
+    community11_rule4=Rule(
+        title="No commercial promotions/solicitations",
+        description="We do not allow any commercial promotion or solicitation. Violations can result in a ban.",
+        community_id=11
+    )
+    community11_rule5=Rule(
+        title="No soliciting feedback not on Saturday",
+        description="Sharing your project, portfolio, or any other content that you want to either show off or request feedback on is limited to Showoff Saturday. If you post such content on any other day, it will be removed.",
+        community_id=11
+    )
+    community11_rule6=Rule(
+        title="Assistance Questions Guidelines",
+        description="""
+        If you are asking for assistance on a problem, you are required to provide
+
+- Context of the problem
+- Research you have completed prior to requesting assistance
+- Problem you are attempting to solve with high specificity
+- Questions in violation of this rule will be removed or locked.
+        """,
+        community_id=11
+    )
+    community11_rule7=Rule(
+        title="Career/Getting Started Questions",
+        description="Highly specific career/getting started assistance questions are allowed so long as they follow the required assistance post guidelines.",
+        community_id=11
+    )
 
     db.session.add(community1_rule1)
     db.session.add(community1_rule2)
@@ -84,6 +126,13 @@ def seed_rules():
     db.session.add(community10_rule8)
     db.session.add(community10_rule9)
     db.session.add(community10_rule10)
+    db.session.add(community11_rule1)
+    db.session.add(community11_rule2)
+    db.session.add(community11_rule3)
+    db.session.add(community11_rule4)
+    db.session.add(community11_rule5)
+    db.session.add(community11_rule6)
+    db.session.add(community11_rule7)
 
     db.session.commit()
 
