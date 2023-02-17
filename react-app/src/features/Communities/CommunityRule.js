@@ -48,25 +48,10 @@ export default function CommunityRule({ idx, rule }) {
         <span className="rule-num">{idx + 1}.</span>
         <span className="rule-title">{rule.title}</span>
         {!noDesc && (
-<<<<<<< HEAD
-          <>
-            {showDesc && (
-              <span className="chev">
-                <VscChevronUp />
-              </span>
-            )}
-            {!showDesc && (
-              <span className="chev">
-                <VscChevronDown />
-              </span>
-            )}
-          </>
-=======
           <span className="rule-chevron">
             {showDesc && <VscChevronUp />}
             {!showDesc && <VscChevronDown />}
           </span>
->>>>>>> dev
         )}
       </div>
       {showDesc && (

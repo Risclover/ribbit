@@ -15,7 +15,7 @@ from .api.community_routes import community_routes
 from .api.subscription_routes import subscription_routes
 from .api.search_routes import search_routes
 from .api.rule_routes import rule_routes
-from .api.chat_routes import chat_routes
+# from .api.chat_routes import chat_routes
 
 from .seeds import seed_commands
 
@@ -45,7 +45,7 @@ app.register_blueprint(community_routes, url_prefix="/api/communities")
 app.register_blueprint(subscription_routes, url_prefix="/api/subscriptions")
 app.register_blueprint(search_routes, url_prefix="/api/search")
 app.register_blueprint(rule_routes, url_prefix="/api/rules")
-app.register_blueprint(chat_routes, url_prefix="/api/chats")
+# app.register_blueprint(chat_routes, url_prefix="/api/chats")
 
 db.init_app(app)
 Migrate(app, db)

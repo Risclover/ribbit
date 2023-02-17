@@ -6,4 +6,4 @@ from .community import Community
 from .joins import subscriptions, PostVote, CommentVote
 # followers
 from .rule import Rule
-from .message import Message, Chat
+# from .message import Message, Chat

@@ -13,13 +13,8 @@ import { Modal } from "../../../context/Modal";
 import ImagePostForm from "../ImagePost/ImagePostForm";
 import CommunitySelection from "./CreatePostDropdown/CommunitySelection";
 import DiscardPost from "../DiscardPost";
-<<<<<<< HEAD
-
-import Frog from "./../../../images/ribbit-banners/frog-logo1.png";
-=======
 import Cake from "../../../images/misc/piece4.png";
 import Frog from "../../../images/ribbit-banners/frog-logo1.png";
->>>>>>> dev
 
 import "./PostForm.css";
 import { getSingleCommunity } from "../../../store/one_community";

@@ -57,9 +57,9 @@ comment_votes = db.Table(
 #     db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
 # )
 
-user_chat_threads = db.Table(
-    "user_chat_threads",
-    db.Model.metadata,
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-    db.Column('chat_id', db.Integer, db.ForeignKey('chats.id'), primary_key=True)
-)
+# user_chat_threads = db.Table(
+#     "user_chat_threads",
+#     db.Model.metadata,
+#     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+#     db.Column('chat_id', db.Integer, db.ForeignKey('chats.id'), primary_key=True)
+# )

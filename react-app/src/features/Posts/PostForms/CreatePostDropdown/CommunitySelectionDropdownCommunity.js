@@ -7,10 +7,8 @@ import { getCommunities } from "../../../../store/communities";
 import { getPosts } from "../../../../store/posts";
 
 export default function CommunitySelectionDropdownCommunity({
-  setcommunity_id,
   subscription,
   setShowDropdown,
-  community_id,
   setSearch,
 }) {
   const { communityId } = useParams();

@@ -46,8 +46,8 @@ class User(db.Model, UserMixin):
     user_post_votes = db.relationship("PostVote", back_populates="user_who_liked")
     user_comment_votes = db.relationship("CommentVote", back_populates="user_who_liked")
     user_communities = db.relationship('Community', back_populates="community_owner", cascade="all, delete")
-    user_messages = db.relationship("Message", back_populates="message_sender")
-    user_chats = db.relationship("Chat", back_populates="chat_users", secondary="user_chat_threads", lazy="joined")
+    # user_messages = db.relationship("Message", back_populates="message_sender")
+    # user_chats = db.relationship("Chat", back_populates="chat_users", secondary="user_chat_threads", lazy="joined")
 
     @property
     def password(self):
