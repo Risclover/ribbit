@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 
-import { search } from "../../store/search";
 import { getPosts } from "../../store/posts";
 import { getCommunities } from "../../store/communities";
 
@@ -27,8 +26,6 @@ export default function Posts() {
 
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
-  const [results, setResults] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
   const [sortMode, setSortMode] = useState("new");
 
   const posts = useSelector((state) => Object.values(state.posts));
@@ -39,13 +36,6 @@ export default function Posts() {
     dispatch(getCommunities());
     dispatch(getUsers());
   }, [dispatch]);
-
-  const handleQuery = async (e) => {
-    e.preventDefault();
-
-    setResults(await dispatch(search(searchValue)).query);
-    console.log(results);
-  };
 
   if (sortMode === "new") {
     posts.sort((a, b) => {
@@ -88,7 +78,7 @@ export default function Posts() {
           <div className="posts-home-box-content">
             <h1>c/all</h1>
             <p>
-              Thee most active posts from all of Ribbit. Come here to see new
+              The most active posts from all of Ribbit. Come here to see new
               posts rising and be a part of the conversation.
             </p>
             {user && (

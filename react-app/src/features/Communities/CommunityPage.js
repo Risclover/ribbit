@@ -3,7 +3,6 @@ import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
-import { getCommunityRules } from "../../store/rules";
 import { getSingleCommunity } from "../../store/one_community";
 import { getPosts } from "../../store/posts";
 import {
@@ -169,7 +168,7 @@ export default function CommunityPage() {
       </div>
       <div className="community-page-main">
         <div className="community-page-left-col">
-          {user && <CreatePostBar loadedCommunity={community} />}
+          {user && <CreatePostBar page="community" communityId={communityId} />}
           <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
 
           {commPosts.length === 0 && (

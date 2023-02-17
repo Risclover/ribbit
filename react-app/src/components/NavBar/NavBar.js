@@ -88,11 +88,9 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
 
   console.log(
     "comm",
-    communityList
-      .filter((community) =>
-        community["name"].toLowerCase().includes(searchQuery.toLowerCase())
-      )
-      .slice(0, 5)
+    communityList.filter((community) =>
+      community["name"].toLowerCase().includes(searchQuery.toLowerCase())
+    )
   );
 
   console.log(communityList);

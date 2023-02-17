@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import { createRule, getCommunityRules } from "../../../store/rules";
-import "../../../components/Modals/Modals.css";
 import { getSingleCommunity } from "../../../store/one_community";
+
+import "../../../components/Modals/Modals.css";
 
 export default function AddCommunityRule({ setShowRuleModal, communityId }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const { communityId } = useParams();
 
-  console.log("COMMUNITY ID:", communityId);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [disabled, setDisabled] = useState(title?.length === 0 ? true : false);
@@ -25,8 +25,6 @@ export default function AddCommunityRule({ setShowRuleModal, communityId }) {
     dispatch(getCommunityRules(communityId));
     let changed = false;
     for (let rule of rules) {
-      console.log(title);
-      console.log("RULE TITLE:", rule.title);
       if (rule.title === title) {
         changed = true;
       }

@@ -20,14 +20,20 @@ export default function DeleteConfirmation({
   communityId,
   rule,
   item,
+  isPage,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
+  console.log("PAGE:", isPage);
 
   const handleDeletePost = async (e) => {
     e.preventDefault();
+    if (isPage == "singlepage") {
+      history.push("/c/all");
+    }
     await dispatch(deletePost(postId));
-    history.push(`/c/${communityId}`);
+    dispatch(getPosts());
+    setShowDeleteModal(false);
   };
 
   const handleDeleteComment = async (e) => {
@@ -62,7 +68,10 @@ export default function DeleteConfirmation({
           <div className="modal-buttons">
             <button
               className="modal-buttons-left"
-              onClick={() => setShowDeleteModal(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                setShowDeleteModal(false);
+              }}
             >
               Cancel
             </button>

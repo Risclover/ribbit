@@ -19,3 +19,6 @@ class Rule(db.Model):
             "description": self.description,
             "createdAt": self.created_at
         }
+
+    def __repr__(self):
+        return f"<Rule {self.id}: {self.title}>"

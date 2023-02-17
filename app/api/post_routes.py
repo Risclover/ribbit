@@ -1,3 +1,4 @@
+from builtins import print, setattr
 from flask import Blueprint, jsonify, render_template, request, redirect
 from flask_login import login_required, current_user
 from app.models import db, Post, User, Comment, PostVote

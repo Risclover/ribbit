@@ -25,12 +25,12 @@ class Community(db.Model):
             "displayName": self.display_name,
             "description": self.description,
             "createdAt": self.created_at,
-            "communityImg": self.community_img,
             'subscribers': {item.to_dict()["id"]: item.to_dict() for item in self.subscribers},
+            'members': len(self.subscribers),
+            "communityImg": self.community_img,
             'communityPosts': {item.to_dict()["id"]: item.to_dict() for item in self.community_posts},
             'communityOwner': self.community_owner.to_dict(),
             "communityRules": {item.to_dict()["id"]: item.to_dict() for item in self.community_rules},
-            'members': len(self.subscribers)
         }
 
     def __repr__(self):

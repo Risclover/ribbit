@@ -5,7 +5,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { putSinglePost, putImagePost } from "../../../store/posts";
+import { putSinglePost } from "../../../store/posts";
 
 import "./PostForm.css";
 
@@ -22,7 +22,6 @@ const modules = {
     ],
     [{ list: "bullet" }, { list: "ordered" }],
     ["blockquote", "code-block"],
-    ["image"],
   ],
 };
 
@@ -30,27 +29,14 @@ export default function UpdatePost() {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+
   const post = useSelector((state) => Object.values(state.singlePost));
+
   const [title, setTitle] = useState(post[0]?.title);
   const [content, setContent] = useState(post[0]?.content);
-  const [disabled, setDisabled] = useState(false);
-  const [showImgModal, setShowImgModal] = useState(false);
-  const [postType, setPostType] = useState("post");
-
   const [titleErrors, setTitleErrors] = useState([]);
   const [contentErrors, setContentErrors] = useState([]);
   const [errors, setErrors] = useState([]);
-
-  const handlePostTypeChange = (e, type) => {
-    e.preventDefault();
-    setPostType("post");
-  };
-
-  const handleImageSubmit = async (e) => {
-    e.preventDefault();
-    setPostType("image");
-    dispatch(putImagePost(+postId));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,13 +83,6 @@ export default function UpdatePost() {
           <div className="update-title-length">{title?.length}/300</div>
         </div>
         <div className="update-post-form-input">
-          {/* <textarea
-            className="update-post-content-field"
-            onChange={(e) => setContent(e.target.value)}
-            value={content}
-            placeholder="Content"
-            maxLength={40000}
-          ></textarea> */}
           <ReactQuill
             theme="snow"
             modules={modules}
