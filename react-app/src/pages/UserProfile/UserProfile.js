@@ -49,7 +49,8 @@ function UserProfile() {
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getPosts());
-    dispatch(getUsers());
+    // dispatch(getUsers());
+    dispatch(getSubscriptions());
 
     let communityList = [];
     for (let community of Object.values(communities)) {
@@ -77,7 +78,6 @@ function UserProfile() {
   // }, [userPosts, noPosts, posts]);
 
   useEffect(() => {
-    dispatch(getSubscriptions());
     setKarma(user?.karma);
     let list = [];
     for (let community of Object.values(communities)) {

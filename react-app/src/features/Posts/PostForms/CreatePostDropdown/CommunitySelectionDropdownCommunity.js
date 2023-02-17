@@ -16,9 +16,9 @@ export default function CommunitySelectionDropdownCommunity({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCommunities());
-    dispatch(getSingleCommunity(+communityId));
-    dispatch(getPosts());
+    // dispatch(getCommunities());
+    // dispatch(getSingleCommunity(+communityId));
+    // dispatch(getPosts());
   }, []);
 
   const handleClick = (e, name) => {

@@ -84,7 +84,6 @@ export default function CommunityPage() {
     if (subscriptions[community_id]) setSubscribed(true);
 
     setMembers(community?.members);
-    dispatch(getSingleCommunity(+communityId));
   }, [subscribed, community?.members, subscriptions]);
 
   if (!community || !commPosts || !posts) return null;
