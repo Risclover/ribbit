@@ -9,6 +9,7 @@ import "./Comments.css";
 export default function Comments({ postId, setShowLoginForm, setCommentsNum }) {
   const comments = useSelector((state) => Object.values(state.comments));
   const [sortType, setSortType] = useState("Best");
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
     setCommentsNum(comments.length);
@@ -68,21 +69,42 @@ export default function Comments({ postId, setShowLoginForm, setCommentsNum }) {
       }
     });
   }
+
+  setTimeout(() => {
+    setShowLoader(false);
+  }, 1000);
+
   return (
     <div className="comments-container">
       <CommentForm setShowLoginForm={setShowLoginForm} postId={postId} />
       <CommentSorting sortType={sortType} setSortType={setSortType} />
-      <div className="all-comments">
-        {comments.length > 0 &&
-          comments.map((comment) => (
-            <Comment key={comment.id} commentId={comment.id} postId={+postId} />
-          ))}
-      </div>
-      {comments.length === 0 && (
-        <div className="no-comments-msg">
-          <i className="fa-solid fa-comments"></i>
-          <h1 className="no-comments-yet">No Comments Yet</h1>
-          <p>Be the first to share what you think!</p>
+      {showLoader && (
+        <div className="comments-loading">
+          <div className="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      )}
+      {!showLoader && (
+        <div className="all-comments">
+          {comments.length > 0 &&
+            comments.map((comment) => (
+              <Comment
+                key={comment.id}
+                commentId={comment.id}
+                postId={+postId}
+              />
+            ))}
+          {comments.length === 0 && (
+            <div className="no-comments-msg">
+              <i className="fa-solid fa-comments"></i>
+              <h1 className="no-comments-yet">No Comments Yet</h1>
+              <p>Be the first to share what you think!</p>
+            </div>
+          )}
         </div>
       )}
     </div>

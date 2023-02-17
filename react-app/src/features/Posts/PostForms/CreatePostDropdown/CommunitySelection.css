@@ -25,6 +25,11 @@
   box-shadow: 0px 0px 2px 1px #edeff1;
 }
 
+.community-dropdown-img {
+  width: 20px;
+  border-radius: 100%;
+}
+
 .dotted-circle {
   border-radius: 100px;
   border: 1px dashed #878a8c;
@@ -52,6 +57,14 @@
   font-weight: 500;
   line-height: 22px;
   color: #1c1c1c;
+}
+
+.community-selection-span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1c1c1c;
+  margin-left: 8px;
+  margin-right: -8px;
 }
 
 .inner-input-box {
@@ -93,6 +106,7 @@
   padding: 8px 8px 3px 16px;
   justify-content: space-between;
   align-items: center;
+  /* flex-direction: column; */
 }
 
 .community-selection-dropdown-topbar h5 {

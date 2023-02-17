@@ -6,7 +6,6 @@ import parse from "html-react-parser";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 
 import { addPostVote, removePostVote } from "../../../store/posts";
-
 import { Modal } from "../../../context/Modal";
 import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
 import UpdatePost from "../PostForms/UpdatePost";
@@ -15,35 +14,14 @@ import Bounce from "../../../images/misc/curved-arrow.png";
 import "./SinglePost.css";
 import { getUsers } from "../../../store/users";
 
-const URL_REGEX =
-  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
-
-function Text({ content }) {
-  const words = content.split(" ");
-  return (
-    <p>
-      {words.map((word) => {
-        return word.match(URL_REGEX) ? (
-          <>
-            <a href={word} target="_blank" rel="noreferrer">
-              {word}
-            </a>{" "}
-          </>
-        ) : (
-          word + " "
-        );
-      })}
-    </p>
-  );
-}
-
 export default function SinglePost({ id, isPage, userId }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const post = useSelector((state) => state.posts[id]);
   const posts = useSelector((state) => state.posts);
-  const user = useSelector((state) => state.session.user);
+  const cuser = useSelector((state) => state.session.user);
+  const user = useSelector((state) => state.users[cuser.id]);
   const community = useSelector(
     (state) => state.communities[post?.communityId]
   );
@@ -119,6 +97,7 @@ export default function SinglePost({ id, isPage, userId }) {
   };
 
   useEffect(() => {
+    // dispatch(getPosts());
     if (posts && Object.values(posts).length > 0) {
       if (Object.values(post?.postVoters).length > 0) {
         for (let voter of Object.values(post?.postVoters)) {
@@ -295,9 +274,7 @@ export default function SinglePost({ id, isPage, userId }) {
                   </div>
                 )}
               </div>
-              {isPage === "singlepage" &&
-              user &&
-              user.id === post.postAuthor.id ? (
+              {user && user.id === post.postAuthor.id ? (
                 <div className="logged-in-btns">
                   <div className="single-post-button">
                     {post?.imgUrl === null && (
@@ -344,6 +321,7 @@ export default function SinglePost({ id, isPage, userId }) {
                           communityId={community.id}
                           item="post"
                           post={post}
+                          isPage={isPage}
                         />
                       </Modal>
                     )}

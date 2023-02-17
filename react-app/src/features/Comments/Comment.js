@@ -43,7 +43,9 @@ function Text({ content }) {
       {words.map((word) => {
         return word.match(URL_REGEX) ? (
           <>
-            <a href={word}>{word}</a>{" "}
+            <a href={word} target="_blank">
+              {word}
+            </a>{" "}
           </>
         ) : (
           word + " "
@@ -59,7 +61,6 @@ export default function Comment({ commentId, postId }) {
   const [showEditCommentModal, setShowEditCommentModal] = useState(false);
   const [wasEdited, setWasEdited] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [commentPermission, setCommentPermission] = useState(false);
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
@@ -76,22 +77,6 @@ export default function Comment({ commentId, postId }) {
       setWasEdited(false);
     }
   }, [dispatch, comment.createdAt, comment.updatedAt]);
-
-  useEffect(() => {
-    if (Object.values(comment.commentVoters).length === 0) {
-      setCommentPermission(true);
-    } else {
-      for (let voter of Object.values(comment.commentVoters)) {
-        if (voter?.username === user?.username) {
-          setCommentPermission(false);
-          break;
-        } else {
-          setCommentPermission(true);
-          continue;
-        }
-      }
-    }
-  }, [user?.username, comment.commentVoters]);
 
   const handleUpvoteClick = async () => {
     if (user?.id in comment?.commentVoters) {
@@ -230,7 +215,7 @@ export default function Comment({ commentId, postId }) {
           </div>
           {collapsed === false && (
             <div className="comment-right-content">
-              {parse(comment.content)}
+              <Text content={comment.content} />
             </div>
           )}
           {collapsed === false && (

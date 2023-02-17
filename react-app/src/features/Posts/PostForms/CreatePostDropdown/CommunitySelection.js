@@ -1,14 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getCommunities } from "../../../../store/communities";
 import { getSubscriptions } from "../../../../store/subscriptions";
 
 import CommunitySelectionDropdown from "./CommunitySelectionDropdown";
 import CommunitySelectionInput from "./CommunitySelectionInput";
 import "./CommunitySelection.css";
 
+function useOutsideAlerter(ref, setShowDropdown) {
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
+}
+
 export default function CommunitySelection({ setcommunity_id, community_id }) {
+  const wrapperRef = useRef(null);
   const dispatch = useDispatch();
 
   const communities = useSelector((state) => state.communities);
@@ -17,11 +36,11 @@ export default function CommunitySelection({ setcommunity_id, community_id }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [name, setName] = useState("");
 
+  useOutsideAlerter(wrapperRef, setShowDropdown);
   const allCommunities = useSelector((state) => state.communities);
 
   useEffect(() => {
     dispatch(getSubscriptions());
-    console.log("dropdown:", showDropdown);
   }, []);
 
   let communityList = [];
@@ -36,7 +55,7 @@ export default function CommunitySelection({ setcommunity_id, community_id }) {
   }
 
   return (
-    <div className="community-selection">
+    <div className="community-selection" ref={wrapperRef}>
       <CommunitySelectionInput
         search={search}
         setSearch={setSearch}

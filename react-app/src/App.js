@@ -19,6 +19,7 @@ import EditCommunity from "./features/Communities/CommunityForms/EditCommunity";
 
 import NavBar from "./components/NavBar/NavBar";
 import UsersList from "./components/UsersList";
+import ScrollToTop from "./components/ScrollToTop";
 
 import UserProfile from "./pages/UserProfile/UserProfile";
 import EditProfile from "./pages/UserProfile/EditProfile/EditProfile";
@@ -27,6 +28,8 @@ import UpdateImagePost from "./features/Posts/ImagePost/UpdateImagePost";
 
 import { Modal } from "./context/Modal";
 import CommunitiesDirectory from "./pages/CommunitiesDirectory.js/CommunitiesDirectory";
+import MessageWindow from "./features/Messages/MessageWindow";
+import Chat from "./features/Messages/Chat";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -50,6 +53,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <NavBar
         setShowLoginForm={setShowLoginForm}
         setShowSignupForm={setShowSignupForm}
@@ -95,14 +99,23 @@ function App() {
           <Route path="/c/all" exact={true}>
             <Posts />
           </Route>
+          <Route path="/c/submit" exact={true}>
+            <CreatePost />
+          </Route>
           <Route path="/c/:communityId/submit" exact={true}>
             <CreatePost />
           </Route>
           <Route path="/posts/:postId" exact={true}>
             <SinglePostPage setShowLoginForm={setShowLoginForm} />
           </Route>
+          <Route path="/messages/:recipientId" exact={true}>
+            <MessageWindow />
+          </Route>
           <Route path="/directory" exact={true}>
             <CommunitiesDirectory />
+          </Route>
+          <Route path="/chat" exact={true}>
+            <Chat />
           </Route>
           <Route path="/posts/:postId/edit" exact={true}>
             <UpdatePost />

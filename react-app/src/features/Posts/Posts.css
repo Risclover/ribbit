@@ -116,13 +116,6 @@
   margin-bottom: 8px;
 }
 
-/* .single-page-content {
-  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
-  mask-image: linear-gradient(180deg, #000 60%, transparent);
-  max-height: 250px;
-  word-break: break-word;
-  align-items: flex-start;
-} */
 .tooltip a {
   height: 40px;
 }

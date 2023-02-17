@@ -11,6 +11,7 @@ import allSubscriptionsReducer from "./subscriptions";
 import usersReducer from "./users";
 import searchReducer from "./search";
 import rulesReducer from "./rules";
+// import messagesReducer from "./messages";
 
 const rootReducer = combineReducers({
   session,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   subscriptions: allSubscriptionsReducer,
   search: searchReducer,
   rules: rulesReducer,
+  // messages: messagesReducer,
 });
 
 let enhancer;

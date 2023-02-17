@@ -26,7 +26,9 @@ function UserProfile() {
   const dispatch = useDispatch();
   const { userId } = useParams();
 
-  const user = useSelector((state) => state.users[userId]);
+  const user = useSelector((state) => state.users[+userId]);
+
+  console.log("USER POSTS:", user?.userPosts);
 
   const [banner, setBanner] = useState();
   const [userCommunities, setUserCommunities] = useState([]);
@@ -34,7 +36,7 @@ function UserProfile() {
   const [img_url, setimg_url] = useState();
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showBannerModal, setShowBannerModal] = useState(false);
-  const [noPosts, setNoPosts] = useState(true);
+  const [noPosts, setNoPosts] = useState(false);
 
   const [karma, setKarma] = useState();
   const [sortMode, setSortMode] = useState("new");
@@ -69,11 +71,13 @@ function UserProfile() {
     setUserPosts(postsList);
   }, []);
 
-  useEffect(() => {
-    if (userPosts.length > 0) {
-      setNoPosts(false);
-    }
-  }, [posts]);
+  // useEffect(() => {
+  //   if (Object.values(user.userPosts).length > 0) {
+  //     setNoPosts(true);
+  //   } else {
+  //     setNoPosts(false);
+  //   }
+  // }, [userPosts, noPosts, posts]);
 
   useEffect(() => {
     dispatch(getSubscriptions());
@@ -113,10 +117,10 @@ function UserProfile() {
   return (
     <div className="user-profile-page">
       <div className="user-profile-left-col">
-        {!noPosts && (
+        {user.userPosts > 0 && (
           <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
         )}
-        {noPosts && (
+        {user.userPosts === 0 && (
           <div className="no-posts-div">
             <IoIosPaper />
             <h1 className="head">No Posts Yet</h1>

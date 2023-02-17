@@ -7,12 +7,10 @@ import { updateCommunity } from "../../../store/communities";
 import { getCommunityRules } from "../../../store/rules";
 import { Modal } from "../../../context/Modal";
 import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
-import CommunityImg from "./CommunityImg";
 
-import EditCommunityRule from "./EditCommunityRule";
 import AddCommunityRule from "./AddCommunityRule";
-import "../CommunityPage.css";
 import CommunityEditRule from "../CommunityEditRule";
+import "../CommunityPage.css";
 
 export default function EditCommunity() {
   const dispatch = useDispatch();

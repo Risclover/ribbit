@@ -5,7 +5,6 @@ import "../../../components/Modals/Modals.css";
 export default function ImagePostForm({
   img_url,
   setimg_url,
-  showImgModal,
   setShowImgModal,
 }) {
   const [imgPreview, setImgPreview] = useState(img_url);
@@ -25,6 +24,7 @@ export default function ImagePostForm({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMsg("");
     const formData = new FormData();
     formData.append("image", image);
 
@@ -61,13 +61,15 @@ export default function ImagePostForm({
           {imgPreview && (
             <img className="image-post-preview" src={imgPreview} />
           )}
-          <span className="user-img-error">{errorMsg}</span>
-          {imageLoading && <p>Loading...</p>}
+          <div className="user-img-error">
+            {errorMsg} {imageLoading && <p className="loading">Loading...</p>}
+          </div>
           <label className="post-img-btn-box" htmlFor="post-img">
             <div className="post-img-btn">Upload Image</div>
           </label>
         </div>
       </div>
+
       <div className="modal-buttons">
         <button
           className="modal-buttons-left"

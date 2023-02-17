@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
-import {
-  updateRule,
-  getCommunityRules,
-  deleteRule,
-} from "../../../store/rules";
-import "../../../components/Modals/Modals.css";
+
+import { updateRule, getCommunityRules } from "../../../store/rules";
 import { getSingleCommunity } from "../../../store/one_community";
+
 import { Modal } from "../../../context/Modal";
+
 import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
 
 import "../../../components/Modals/Modals.css";
@@ -19,8 +16,6 @@ export default function AddCommunityRule({
   rule,
 }) {
   const dispatch = useDispatch();
-  const history = useHistory();
-  // const { communityId } = useParams();
 
   const [title, setTitle] = useState(rule?.title);
   const [description, setDescription] = useState(rule?.description);

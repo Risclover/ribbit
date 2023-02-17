@@ -1,33 +1,43 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { NavLink, useHistory, useParams } from "react-router-dom";
 import "./CommunitySelection.css";
+import { getSingleCommunity } from "../../../../store/one_community";
+import { getCommunities } from "../../../../store/communities";
+import { getPosts } from "../../../../store/posts";
 
 export default function CommunitySelectionDropdownCommunity({
   setcommunity_id,
-  community_id,
-  setInputState,
   subscription,
   setShowDropdown,
-  showDropdown,
-  search,
+  community_id,
   setSearch,
-  setName,
-  communityList,
 }) {
+  const { communityId } = useParams();
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCommunities());
+    dispatch(getSingleCommunity(+communityId));
+    dispatch(getPosts());
+  }, []);
+
   const handleClick = (e, name) => {
     e.preventDefault();
-    setShowDropdown(true);
-    setcommunity_id(subscription.id);
-    setName(name);
-    console.log(community_id, search);
+    setSearch(name);
+    history.push(`/c/${subscription?.id}/submit`);
     setShowDropdown(false);
+    // dispatch(getSingleCommunity(+communityId));
+    // dispatch(getSingleCommunity(+communityId));
+    // dispatch(getCommunities());
+    // dispatch(getPosts());
   };
-
   return (
-    <NavLink to={`/c/${subscription.id}`}>
+    <NavLink to={`/c/${subscription?.id}/submit`}>
       <div
         className="community-selection-dropdown-community"
-        onClick={(e) => handleClick(e, subscription.name)}
+        onClick={(e) => handleClick(e, subscription?.name)}
       >
         <img
           className="community-selection-community-img"
@@ -38,7 +48,8 @@ export default function CommunitySelectionDropdownCommunity({
             c/{subscription?.name}
           </div>
           <div className="community-selection-community-members">
-            {subscription?.members} members
+            {subscription?.members}{" "}
+            {subscription?.members === 1 ? "member" : "members"}
           </div>
         </div>
       </div>

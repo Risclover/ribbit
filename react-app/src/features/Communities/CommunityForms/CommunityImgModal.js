@@ -6,7 +6,6 @@ import "../../../components/Modals/Modals.css";
 
 export default function CommunityImgModal({
   img_url,
-  setimg_url,
   setShowCommunityImgModal,
   communityId,
 }) {

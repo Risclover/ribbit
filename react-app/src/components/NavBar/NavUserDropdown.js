@@ -35,7 +35,8 @@ export default function NavUserDropdown() {
 
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const user = useSelector((state) => state.session.user);
+  const cuser = useSelector((state) => state.session.user);
+  const user = useSelector((state) => state.users[cuser.id]);
   const users = useSelector((state) => state.users);
 
   const onLogout = async (e) => {

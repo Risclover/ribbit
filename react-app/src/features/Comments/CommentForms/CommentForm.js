@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import parse from "html-react-parser";
 
 import { createComment } from "../../../store/comments";
 import { getPosts } from "../../../store/posts";
@@ -12,22 +11,6 @@ import LoginForm from "../../auth/AuthModal/LoginForm";
 import SignUpForm from "../../auth/AuthModal/SignUpForm";
 
 import "../Comments.css";
-
-const modules = {
-  toolbar: [
-    [
-      "bold",
-      "italic",
-      "link",
-      "strike",
-      "code",
-      { script: "super" },
-      { header: 1 },
-    ],
-    [{ list: "bullet" }, { list: "ordered" }],
-    ["blockquote", "code-block"],
-  ],
-};
 
 export default function CommentForm({ postId }) {
   const dispatch = useDispatch();
@@ -75,13 +58,6 @@ export default function CommentForm({ postId }) {
             <NavLink to={`/users/${user.id}/profile`}>{user.username}</NavLink>
           </label>
           <div className="post-comment-box">
-            {/* <ReactQuill
-              theme="snow"
-              modules={modules}
-              onChange={setContent}
-              value={content}
-              placeholder="What are your thoughts?"
-            /> */}
             <textarea
               className="post-comment-textarea"
               onChange={(e) => setContent(e.target.value)}

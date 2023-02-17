@@ -58,9 +58,13 @@ export default function UploadBannerImage({
         <div className="modal-content">
           <div className="upload-user-img">
             <div className="banner-img-preview-box">
-              <img className="banner-img-preview" src={imgPreview} />
-              <span className="user-img-error">{errorMsg}</span>
-              {imageLoading && <p>Loading...</p>}
+              {imgPreview && (
+                <img className="banner-img-preview" src={imgPreview} />
+              )}
+              <div className="user-img-error">
+                {errorMsg}{" "}
+                {imageLoading && <p className="loading">Loading...</p>}
+              </div>
             </div>
             <label for="upload-user-img">
               <input

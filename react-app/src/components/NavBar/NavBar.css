@@ -27,7 +27,8 @@ nav {
   font-weight: 700;
   height: 32px;
   cursor: pointer;
-  width: 175px;
+  min-width: 200px;
+  /* width: 175px; */
 }
 
 nav ul {
@@ -72,7 +73,7 @@ nav ul li {
   align-items: center;
   width: 100%;
   padding: 2px 0;
-  min-height: 32px;
+  height: 44px;
   margin-left: 8px;
 }
 
@@ -90,8 +91,8 @@ nav ul li {
 
 .navbar-user-img {
   border-radius: 100%;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   margin-right: 5px;
   object-fit: cover;
 }
@@ -201,6 +202,10 @@ nav ul li {
   /* padding-top: 12px; */
 }
 
+.nav-user-dropdown-logout-btn svg {
+  margin-right: 12px;
+}
+
 .nav-user-dropdown-logout-btn:hover {
   background: rgba(0, 0, 0, 0.04);
 }
@@ -272,6 +277,8 @@ nav ul li {
   display: flex;
   align-items: center;
   padding-left: 15px;
+  max-width: 1450px;
+  margin: 0 auto;
 }
 
 .nav-search-input-container:hover {
@@ -405,5 +412,13 @@ nav ul li {
   .nav-user-dropdown-box {
     top: 42px;
     right: 15px;
+  }
+
+  .loginsignup {
+    min-width: 200px;
+  }
+
+  . {
+    width: 100px;
   }
 }

@@ -21,6 +21,7 @@ class Comment(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "content": self.content,
             "postId": self.post_id,
             "userId": self.user_id,
             "commentAuthor": self.comment_author.to_dict(),
@@ -28,7 +29,6 @@ class Comment(db.Model):
             "upvotes": len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]]),
             "downvotes": len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]]),
             "commentVoters": {item.to_dict()["userId"]: item.to_dict() for item in self.users_who_liked},
-            "content": self.content,
             "createdAt": self.created_at,
             "updatedAt": self.updated_at
         }
@@ -42,4 +42,4 @@ class Comment(db.Model):
         }
 
     def __repr__(self):
-        return f"<Comment {self.id}: {self.content}"
+        return f"<Comment {self.id}: {self.content}>"

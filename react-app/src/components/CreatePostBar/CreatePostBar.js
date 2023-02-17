@@ -5,11 +5,10 @@ import { getUsers } from "../../store/users";
 
 import "./CreatePostBar.css";
 
-export default function CreatePostBar({ loadedCommunity }) {
+export default function CreatePostBar({ page, communityId }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const history = useHistory();
-  const { communityId } = useParams();
 
   const users = useSelector((state) => state.users);
 
@@ -17,6 +16,15 @@ export default function CreatePostBar({ loadedCommunity }) {
     dispatch(getUsers());
     console.log(user.profile_img);
   }, []);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (page === "community") {
+      history.push(`/c/${communityId}/submit`);
+    } else {
+      history.push(`/c/submit`);
+    }
+  };
 
   return (
     <div className="create-post-bar">
@@ -28,11 +36,7 @@ export default function CreatePostBar({ loadedCommunity }) {
         </div>
       )}
       <div className="create-post-bar-create">
-        <input
-          type="text"
-          placeholder="Create Post"
-          onClick={() => history.push(`/c/${communityId}/submit`)}
-        />
+        <input type="text" placeholder="Create Post" onClick={handleClick} />
       </div>
     </div>
   );

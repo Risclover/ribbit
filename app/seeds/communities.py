@@ -62,6 +62,13 @@ def seed_communities():
         community_img="https://cdn-icons-png.flaticon.com/512/6306/6306035.png",
         user_id=3
     )
+    community_10 = Community(
+        name="funny",
+        description="Welcome to c/Funny, Ribbit's largest humour depository.",
+        display_name="funny",
+        community_img="https://a.thumbs.redditmedia.com/kIpBoUR8zJLMQlF8azhN-kSBsjVUidHjvZNLuHDONm8.png",
+        user_id=1
+    )
 
     db.session.add(community_1)
     db.session.add(community_2)
@@ -72,6 +79,7 @@ def seed_communities():
     db.session.add(community_7)
     db.session.add(community_8)
     db.session.add(community_9)
+    db.session.add(community_10)
     db.session.commit()
 
 def undo_communities():
