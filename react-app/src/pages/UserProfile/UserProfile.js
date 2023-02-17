@@ -131,6 +131,7 @@ function UserProfile() {
           post.postAuthor.id === +userId ? (
             <NavLink key={post.id} to={`/posts/${post.id}`}>
               <SinglePost
+                key={post.id}
                 id={post.id}
                 isCommunity={false}
                 isPage="profile"
