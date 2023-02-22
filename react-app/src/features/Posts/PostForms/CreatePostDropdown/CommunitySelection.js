@@ -35,6 +35,7 @@ export default function CommunitySelection({ setcommunity_id, community_id }) {
   const [search, setSearch] = useState();
   const [showDropdown, setShowDropdown] = useState(false);
   const [name, setName] = useState("");
+  const [communityModalOpen, setCommunityModalOpen] = useState(false);
 
   useOutsideAlerter(wrapperRef, setShowDropdown);
   const allCommunities = useSelector((state) => state.communities);
@@ -67,6 +68,8 @@ export default function CommunitySelection({ setcommunity_id, community_id }) {
       />
       {showDropdown && (
         <CommunitySelectionDropdown
+          communityModalOpen={communityModalOpen}
+          setCommunityModalOpen={setCommunityModalOpen}
           communityList={communityList}
           setName={setName}
           search={search}

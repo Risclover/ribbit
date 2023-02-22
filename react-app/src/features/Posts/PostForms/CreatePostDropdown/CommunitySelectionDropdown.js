@@ -15,10 +15,15 @@ export default function CommunitySelectionDropdown({
   setSearch,
   communityList,
   setName,
+  communityModalOpen,
+  setCommunityModalOpen,
 }) {
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
-
+  const handleOpenCreateCommunity = () => {
+    setCommunityModalOpen(true);
+    setShowCreateCommunityModal(true);
+  };
   return (
     <div className="community-selection-dropdown">
       <div className="community-selection-dropdown-topbar">
@@ -27,7 +32,7 @@ export default function CommunitySelectionDropdown({
           className="community-selection-dropdown-new-community"
           onClick={(e) => {
             e.preventDefault();
-            setShowCreateCommunityModal(true);
+            handleOpenCreateCommunity();
           }}
         >
           Create New
@@ -57,9 +62,14 @@ export default function CommunitySelectionDropdown({
           setName={setName}
         />
       ))}
-      <div className="community-selection-dropdown-topbar">
-        <h5>Other Communities</h5>
-      </div>
+      {communityList.filter((community) =>
+        community["name"].toLowerCase().includes(search?.toLowerCase())
+      ).length > 0 &&
+        search?.length > 0 && (
+          <div className="community-selection-dropdown-topbar">
+            <h5>Other Communities</h5>
+          </div>
+        )}
       <div className="searched-communities">
         {search?.length > 0 &&
           communityList

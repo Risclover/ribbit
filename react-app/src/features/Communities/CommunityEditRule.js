@@ -7,6 +7,29 @@ import {
   BsArrowsAngleContract,
   BsPencilFill,
 } from "react-icons/bs";
+import parse from "html-react-parser";
+
+const URL_REGEX =
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+
+function Text({ content }) {
+  const words = String(parse(content)).split(" ");
+  return (
+    <p>
+      {words.map((word) => {
+        return word.match(URL_REGEX) ? (
+          <>
+            <a href={word} target="_blank">
+              {word}
+            </a>{" "}
+          </>
+        ) : (
+          word + " "
+        );
+      })}
+    </p>
+  );
+}
 
 export default function CommunityEditRule({ idx, rule, community }) {
   const [showEditRuleModal, setShowEditRuleModal] = useState(false);
@@ -50,7 +73,12 @@ export default function CommunityEditRule({ idx, rule, community }) {
         <div className="community-edit-rule-expanded">
           <div className="community-edit-rule-expanded-section">
             <span className="rule-expanded-title">Full Description</span>
-            <span className="rule-expanded-content">{rule.description}</span>
+            <span
+              className="rule-expanded-content"
+              style={{ whiteSpace: "pre-line" }}
+            >
+              <Text content={rule.description} />
+            </span>
           </div>
           <div className="community-edit-rule-expanded-section">
             <span className="rule-expanded-title">Created</span>

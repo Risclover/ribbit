@@ -13,17 +13,24 @@ import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
 import "./NavBar.css";
 import { getUsers } from "../../store/users";
 
-const NavBar = ({ searchQuery, setSearchQuery }) => {
+const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector((state) => state.session.user);
+  const wrapperRef = useRef(null);
+  const ref = useRef();
+  const [hasFocus, setFocus] = useState(false);
+
+  useEffect(() => {
+    if (adjustQuery) ref.current.focus();
+  }, [adjustQuery]);
+
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
   const [results, setResults] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
-  const wrapperRef = useRef(null);
 
+  const user = useSelector((state) => state.session.user);
   const products = useSelector((state) => Object.values(state.search));
   const allUsers = useSelector((state) => state.users);
   const allCommunities = useSelector((state) => state.communities);
@@ -61,6 +68,15 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [wrapperRef]);
+
+  const useFocus = () => {
+    const htmlElRef = useRef(null);
+    const setFocus = () => {
+      htmlElRef.current && htmlElRef.current.focus();
+    };
+
+    return [htmlElRef, setFocus];
+  };
 
   useEffect(() => {
     dispatch(getUsers());
@@ -148,9 +164,14 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
               <BsSearch />
             </button>
             <input
+              ref={ref}
+              autoFocus={adjustQuery}
               value={searchQuery}
               onKeyPress={handleEnter}
-              onFocus={() => setShowSearchDropdown(true)}
+              onFocus={() => {
+                setFocus(true);
+                setShowSearchDropdown(true);
+              }}
               onChange={(e) => {
                 setShowSearchDropdown(true);
                 setSearchQuery(e.target.value);
@@ -272,9 +293,9 @@ const NavBar = ({ searchQuery, setSearchQuery }) => {
               </div>
             )}
 
-            {/* <div className="search-for-query" onClick={handleQuery}>
+            <div className="search-for-query" onClick={handleQuery}>
               <BsSearch /> Search for "{searchQuery}"
-            </div> */}
+            </div>
           </div>
         )}
       </div>

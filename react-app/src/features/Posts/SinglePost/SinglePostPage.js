@@ -9,7 +9,7 @@ import { getSingleCommunity } from "../../../store/one_community";
 import { getComments } from "../../../store/comments";
 import { getCommunities } from "../../../store/communities";
 import { getSubscriptions } from "../../../store/subscriptions";
-
+import CommunityRule from "../../Communities/CommunityRule";
 import {
   addToSubscriptions,
   deleteSubscription,
@@ -47,7 +47,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
     if (subscriptions[community?.id]) setSubscribed(true);
   }, [subscribed, subscriptions]);
 
-  if (!comments || !post || !postId) return null;
+  if (!comments || !post || !postId || !community) return null;
   return (
     <div className="single-post-page">
       <div className="single-post-left-col">
@@ -110,6 +110,20 @@ export default function SinglePostPage({ setShowLoginForm }) {
             <div className="single-post-community-rules"></div>
           </div>
         </NavLink>
+        {Object.values(community?.communityRules).length > 0 && (
+          <div className="single-post-community-rules">
+            <div className="single-post-rules-header">
+              c/{community?.name} Rules
+            </div>
+            <div className="single-post-rules">
+              <ol>
+                {Object.values(community?.communityRules).map((rule, idx) => (
+                  <CommunityRule idx={idx} rule={rule} />
+                ))}
+              </ol>
+            </div>
+          </div>
+        )}
         <div className="back-to-top-box">
           <button
             className="back-to-top"

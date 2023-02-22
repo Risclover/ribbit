@@ -36,6 +36,7 @@ function App() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [adjustQuery, setAdjustQuery] = useState(false);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
@@ -55,6 +56,7 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <NavBar
+        adjustQuery={adjustQuery}
         setShowLoginForm={setShowLoginForm}
         setShowSignupForm={setShowSignupForm}
         searchQuery={searchQuery}
@@ -134,6 +136,8 @@ function App() {
           </Route>
           <Route path="/search/results" exact={true}>
             <SearchResults
+              adjustQuery={adjustQuery}
+              setAdjustQuery={setAdjustQuery}
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
             />
