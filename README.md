@@ -8,6 +8,7 @@
 - [Features](#features)
 - [Future Implementations](#future-implementations)
 - [Site Screenshots](#site-screenshots)
+- [Developer Links](#developer-links)
 
 ## Project Information
 
@@ -51,6 +52,7 @@ This is Ribbit, a clone of https://www.reddit.com. On this site, users can subsc
 
 Future feature implementations include:
 
+- More-developed search results page
 - Following other users
 - Favoriting communities
 - Saving posts and comments
@@ -65,3 +67,9 @@ Future feature implementations include:
 ![](/react-app/src/images/readme/posts-feed.png)
 ![](/react-app/src/images/readme/single-post.png)
 ![](/react-app/src/images/readme/user-profile.png)
+
+## Developer Links
+- [Developer portfolio](https://risclover.github.io)
+- [LinkedIn](https://www.linkedin.com/in/sara-dunlop)
+- [Wellfound](https://angel.co/u/sara-dunlop-1)
+- [Github](https://www.github.com/Risclover)
