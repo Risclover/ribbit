@@ -7,6 +7,7 @@
 - [Languages, Features, and Technologies](#languages-frameworks-and-technologies)
 - [Features](#features)
 - [Future Implementations](#future-implementations)
+- [Getting Started](#getting-started)
 - [Site Screenshots](#site-screenshots)
 - [Developer Links](#developer-links)
 
@@ -58,6 +59,13 @@ Future feature implementations include:
 - Saving posts and comments
 - Live messaging via Socket.io
 - Notifications for post replies, comment replies, new community posts, and messages
+
+## Getting Started
+
+To run this app locally:
+1. Navigate to the root directory of the project in the terminal and run `flask run`.
+2. In a separate terminal, navigate to the `/react-app` directory and enter `npm start`. This should automatically launch a browser window navigated to the proper localhost address.
+3. By default, the app will be running on port `3000`.
 
 ## Site Screenshots
 
