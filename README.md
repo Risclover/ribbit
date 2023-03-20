@@ -7,7 +7,9 @@
 - [Languages, Features, and Technologies](#languages-frameworks-and-technologies)
 - [Features](#features)
 - [Future Implementations](#future-implementations)
+- [Getting Started](#getting-started)
 - [Site Screenshots](#site-screenshots)
+- [Developer Links](#developer-links)
 
 ## Project Information
 
@@ -51,11 +53,19 @@ This is Ribbit, a clone of https://www.reddit.com. On this site, users can subsc
 
 Future feature implementations include:
 
+- More-developed search results page
 - Following other users
 - Favoriting communities
 - Saving posts and comments
 - Live messaging via Socket.io
 - Notifications for post replies, comment replies, new community posts, and messages
+
+## Getting Started
+
+To run this app locally:
+1. Navigate to the root directory of the project in the terminal and run `flask run`.
+2. In a separate terminal, navigate to the `/react-app` directory and enter `npm start`. This should automatically launch a browser window navigated to the proper localhost address.
+3. By default, the app will be running on port `3000`.
 
 ## Site Screenshots
 
@@ -65,3 +75,9 @@ Future feature implementations include:
 ![](/react-app/src/images/readme/posts-feed.png)
 ![](/react-app/src/images/readme/single-post.png)
 ![](/react-app/src/images/readme/user-profile.png)
+
+## Developer Links
+- [Developer portfolio](https://risclover.github.io)
+- [LinkedIn](https://www.linkedin.com/in/sara-dunlop)
+- [Wellfound](https://angel.co/u/sara-dunlop-1)
+- [Github](https://www.github.com/Risclover)
