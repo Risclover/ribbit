@@ -15,7 +15,7 @@ def search(query):
 
     queried_communities = Community.query.filter(Community.name.ilike(f"%{formatted_query}%")).all()
     queried_users = User.query.filter(User.username.ilike(f"%{formatted_query}%")).all()
-    queried_posts = Post.query.filter(or_(Post.title.ilike(f"%{formatted_query}%"), Post.content.ilike(f"%formatted_query%"))).all()
+    queried_posts = Post.query.filter(or_(Post.title.ilike(f"%{formatted_query}%"), Post.content.ilike(f"%{formatted_query}%"))).all()
     queried_comments = Comment.query.filter(Comment.content.ilike(f"%{formatted_query}%")).all()
     combined_query = queried_users + queried_communities + queried_posts + queried_comments
 

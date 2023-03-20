@@ -98,8 +98,11 @@ export default function SinglePost({ id, isPage, userId }) {
 
   useEffect(() => {
     // dispatch(getPosts());
-    if (posts && Object.values(posts).length > 0) {
-      if (Object.values(post?.postVoters).length > 0) {
+    if (posts && Object.values(posts)?.length > 0) {
+      if (
+        Object.values(post?.postVoters) &&
+        Object.values(post?.postVoters)?.length > 0
+      ) {
         for (let voter of Object.values(post?.postVoters)) {
           if (user?.id === voter?.userID) {
             if (voter.isUpvote) {
@@ -115,7 +118,7 @@ export default function SinglePost({ id, isPage, userId }) {
     }
   }, [upvote, downvote, voteTotal, post?.postVoters]);
 
-  if (!post || !post.postVoters || !Object.values(post.postVoters)) return null;
+  // if (!post || !post.postVoters || !Object.values(post.postVoters)) return null;
   return (
     <>
       {post && (
@@ -318,7 +321,7 @@ export default function SinglePost({ id, isPage, userId }) {
                           showDeleteModal={showDeleteModal}
                           setShowDeleteModal={setShowDeleteModal}
                           postId={post.id}
-                          communityId={community.id}
+                          communityId={community?.id}
                           item="post"
                           post={post}
                           isPage={isPage}

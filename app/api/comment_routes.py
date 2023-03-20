@@ -6,14 +6,15 @@ from .auth_routes import validation_errors_to_error_messages
 
 comment_routes = Blueprint("comments", __name__)
 
-# GET ALL COMMENTS OF POST
+# GET ALL COMMENTS
 @comment_routes.route("")
-def get_comments(id):
+def get_comments():
     """
-    Query to get all comments of a post
+    Query to get all comments
     """
-    comments = Comment.query.filter(Comment.post_id == id).all()
+    comments = Comment.query.all()
     return {"Comments": [comment.to_dict() for comment in comments]}
+
 
 # GET A SINGLE COMMENT:
 @comment_routes.route("/<int:id>")

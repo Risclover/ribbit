@@ -59,8 +59,7 @@ def seed_posts():
 
         Treat the underlying problem. We have a mental health crisis, and it’s not going to go away on its own. Developed countries especially need to work on providing resources to people with mental health conditions, before it escalates to suicide.
 
-        Source: https://www.merckmanuals.com/home/injuries-and-poisoning/poisoning/acetaminophen-poisoning
-        ''',
+        Source: https://www.merckmanuals.com/home/injuries-and-poisoning/poisoning/acetaminophen-poisoning''',
         user_id = 8,
         community_id = 8
     )
@@ -108,8 +107,7 @@ def seed_posts():
     )
     post_16=Post(
         title="API key scraping?",
-        content="""
-            I made an AI image generator using OpenAI, but when I pushed it to github, I forgot that I'd put another instance of the key in (in a header that I'd then forgotten I'd done, and didn't use .env), wasn't a huge issue as it was just for personal learning.
+        content="""I made an AI image generator using OpenAI, but when I pushed it to github, I forgot that I'd put another instance of the key in (in a header that I'd then forgotten I'd done, and didn't use .env), wasn't a huge issue as it was just for personal learning.
 
 Anyway, I immediately got an email from Openai to tell me the key had been leaked and they'd given me a new API key. My question is, how did they know?
 

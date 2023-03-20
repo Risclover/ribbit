@@ -80,14 +80,14 @@ export default function UploadBannerImage({
         </div>
         <div className="modal-buttons">
           <button
-            className="modal-buttons-left"
+            className="blue-btn-unfilled-modal btn-short"
             onClick={() => setShowBannerModal(false)}
           >
             Cancel
           </button>
           {image ? (
             <button
-              className="modal-buttons-right"
+              className="blue-btn-filled btn-short"
               type="submit"
               onClick={handleSubmit}
             >

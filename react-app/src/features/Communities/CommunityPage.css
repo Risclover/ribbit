@@ -101,45 +101,6 @@
   padding: 12px;
 }
 
-.community-page-box-btn {
-  border-top: 1px solid rgba(26, 26, 27, 0.07);
-  margin-top: 16px;
-  padding-bottom: 6px;
-  padding-top: 6px;
-}
-
-.community-page-box-btn button {
-  border-radius: 100px;
-  padding: 4px 16px;
-  font-weight: 700;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 14px;
-  width: 100%;
-  cursor: pointer;
-  margin-top: 10px;
-  height: 32px;
-}
-
-.community-page-box-create-post {
-  background: #0079d3;
-  border: 1px solid #0079d3;
-  color: white;
-}
-
-.community-page-box-create-post:hover {
-  opacity: 0.9;
-}
-
-.community-page-box-edit-community {
-  border: 1px solid #0079d3;
-  background: white;
-  color: #0079d3;
-}
-
-.community-page-box-edit-community:hover {
-  background: rgba(0, 121, 211, 0.05);
-}
-
 .community-page-box-description {
   font-family: "Noto Sans", sans-serif;
   font-size: 14px;
@@ -159,6 +120,17 @@
 
 .community-header-info-details-right {
   margin-top: 24px;
+}
+
+.community-page-box-btn {
+  border-top: 1px solid rgba(26, 26, 27, 0.07);
+  margin-top: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.community-page-box-btn button {
+  margin-top: 8px;
 }
 
 .community-header-info-display-name h1 {
@@ -190,7 +162,7 @@
   font-weight: 500;
   color: #7c7c7c;
 }
-
+/*
 .community-header-info-subscribe button {
   border-radius: 100px;
   height: 32px;
@@ -207,7 +179,7 @@
 
 .community-header-info-subscribe button:hover {
   opacity: 0.9;
-}
+} */
 
 .community-page-box-header {
   background: #0079d3;
@@ -401,28 +373,6 @@
   margin-top: 48px;
 }
 
-.edit-community-save-btn {
-  background: #0079d3;
-  font-size: 14px;
-  font-weight: 700;
-  font-family: "Noto Sans", sans-serif;
-  padding: 4px 16px;
-  border-radius: 100px;
-  height: 32px;
-  color: white;
-  border: 1px solid #0079d3;
-  outline: none;
-  cursor: pointer;
-  line-height: 17px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.edit-community-save-btn:hover {
-  opacity: 0.9;
-}
-
 .delete-community-btn {
   background: #eb001f;
   font-size: 14px;
@@ -595,26 +545,6 @@ li {
   line-height: 21px;
   border-bottom: 1px solid #edeff1;
   padding: 16px 8px;
-}
-
-.add-rule-btn {
-  background: #0079d3;
-  border: 1px solid #0079d3;
-  border-radius: 100px;
-  height: 32px;
-  color: white;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  padding: 4px 16px;
-}
-
-.add-rule-btn:hover {
-  opacity: 0.9;
 }
 
 .add-rule-btn:disabled {

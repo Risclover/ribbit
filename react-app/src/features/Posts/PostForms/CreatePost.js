@@ -200,7 +200,7 @@ export default function CreatePost() {
                     <div className="image-post-box">
                       {!img_url && (
                         <button
-                          className="image-post-btn"
+                          className="blue-btn-unfilled btn-short"
                           onClick={(e) => {
                             e.preventDefault();
                             setShowImgModal(true);

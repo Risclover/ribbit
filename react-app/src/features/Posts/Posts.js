@@ -84,13 +84,13 @@ export default function Posts() {
             {user && (
               <div className="posts-home-box-buttons">
                 <button
-                  className="posts-home-post-btn"
+                  className="blue-btn-filled btn-long"
                   onClick={() => history.push("/c/undefined/submit")}
                 >
                   Create Post
                 </button>
                 <button
-                  className="posts-home-community-btn"
+                  className="blue-btn-unfilled btn-long"
                   onClick={() => setShowCreateCommunityModal(true)}
                 >
                   Create Community
@@ -159,7 +159,7 @@ export default function Posts() {
           </div>
           <div className="back-to-top-box">
             <button
-              className="back-to-top"
+              className="blue-btn-filled btn-short"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               Back to Top

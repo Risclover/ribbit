@@ -36,6 +36,7 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
   const allCommunities = useSelector((state) => state.communities);
 
   let userList = [];
+
   for (let i = 0; i < Object.values(allUsers).length; i++) {
     userList.push({
       profile_img: Object.values(allUsers)[i].profile_img,
@@ -46,6 +47,7 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
   }
 
   let communityList = [];
+
   for (let i = 0; i < Object.values(allCommunities).length; i++) {
     communityList.push({
       img: Object.values(allCommunities)[i].communityImg,
@@ -55,12 +57,14 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
       id: Object.values(allCommunities)[i].id,
     });
   }
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setShowSearchDropdown(false);
       }
     }
+
     // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -151,6 +155,7 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
         )} */}
       </ul>
       <div></div>
+      {/* Search bar */}
       <div className="nav-search-bar" ref={wrapperRef}>
         <div className="nav-search-stuff">
           <div
@@ -300,7 +305,10 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
         )}
       </div>
       {!user && (
-        <button className="loginsignup" onClick={() => setShowLoginForm(true)}>
+        <button
+          className="blue-btn-filled loginsignup"
+          onClick={() => setShowLoginForm(true)}
+        >
           Login/Sign Up
         </button>
       )}

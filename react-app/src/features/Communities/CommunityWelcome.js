@@ -29,13 +29,13 @@ export default function CommunityWelcome({
           </div>
           <div className="modal-buttons">
             <button
-              className="modal-buttons-left"
+              className="blue-btn-unfilled-modal btn-short"
               onClick={() => setShowWelcomeModal(false)}
             >
               Continue
             </button>
             <button
-              className="modal-buttons-right"
+              className="blue-btn-filled btn-short"
               onClick={() => history.push(`/posts/submit`)}
             >
               Create A Post

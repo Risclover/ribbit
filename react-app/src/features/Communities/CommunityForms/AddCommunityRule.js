@@ -108,14 +108,14 @@ export default function AddCommunityRule({ setShowRuleModal, communityId }) {
       </div>
       <div className="modal-buttons">
         <button
-          className="modal-buttons-left"
+          className="blue-btn-unfilled-modal btn-short"
           onClick={() => setShowRuleModal(false)}
         >
           Cancel
         </button>
         <button
           disabled={disabled}
-          className="modal-buttons-right"
+          className="blue-btn-filled btn-short"
           onClick={handleSubmit}
         >
           Add new rule

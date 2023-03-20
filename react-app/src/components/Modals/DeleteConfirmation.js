@@ -66,7 +66,7 @@ export default function DeleteConfirmation({
           </div>
           <div className="modal-buttons">
             <button
-              className="modal-buttons-left"
+              className="delete-modal-btn-left"
               onClick={(e) => {
                 e.preventDefault();
                 setShowDeleteModal(false);
@@ -75,7 +75,7 @@ export default function DeleteConfirmation({
               Cancel
             </button>
             <button
-              className="modal-buttons-right"
+              className="delete-modal-btn-right"
               onClick={
                 item === "post"
                   ? handleDeletePost

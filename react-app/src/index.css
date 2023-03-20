@@ -38,3 +38,64 @@ a {
   margin-top: 48px;
   /* padding-left: 270px; */
 }
+
+/* Buttons */
+button {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 1000px;
+  height: 32px;
+  cursor: pointer;
+  line-height: 17px;
+  padding: 4px 16px;
+  border: 1px solid #0079d3;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(1);
+  background: #3293db;
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid transparent;
+}
+
+.blue-btn-filled {
+  background: #0079d3;
+  color: white;
+}
+
+.blue-btn-unfilled {
+  background: white;
+  color: #0079d3;
+}
+
+.btn-long {
+  width: 100%;
+}
+
+.btn-short {
+  min-width: 32px;
+}
+
+.blue-btn-filled:hover {
+  opacity: 0.9;
+}
+
+.blue-btn-unfilled:hover {
+  background: rgba(0, 121, 211, 0.05);
+}
+
+.blue-btn-unfilled-modal {
+  background: inherit;
+  color: #0079d3;
+  margin-right: 10px;
+}
+
+.blue-btn-unfilled-modal:hover {
+  background: rgba(0, 121, 211, 0.05);
+}
+
+.join-btn {
+  min-width: 96px;
+}

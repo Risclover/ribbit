@@ -74,14 +74,14 @@ export default function UploadImage({ img_url, setShowUploadModal, userId }) {
         </div>
         <div className="modal-buttons">
           <button
-            className="modal-buttons-left"
+            className="blue-btn-unfilled-modal btn-short"
             onClick={() => setShowUploadModal(false)}
           >
             Cancel
           </button>
           {image ? (
             <button
-              className="modal-buttons-right"
+              className="blue-btn-filled btn-short"
               type="submit"
               onClick={handleSubmit}
             >

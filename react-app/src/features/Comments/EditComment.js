@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateComment } from "../../store/comments";
@@ -15,6 +15,15 @@ export default function EditComment({
   const comment = useSelector((state) => state.comments[commentId]);
   const [content, setContent] = useState(comment?.content);
   const [errors, setErrors] = useState([]);
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (content.trim().length === 0) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  });
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -47,12 +56,16 @@ export default function EditComment({
             </div>
             <div className="modal-buttons">
               <button
-                className="modal-buttons-left"
+                className="blue-btn-unfilled-modal btn-short"
                 onClick={() => setShowEditCommentModal(false)}
               >
                 Cancel
               </button>
-              <button className="modal-buttons-right" type="submit">
+              <button
+                disabled={disabled}
+                className="blue-btn-filled btn-short"
+                type="submit"
+              >
                 Submit
               </button>
             </div>

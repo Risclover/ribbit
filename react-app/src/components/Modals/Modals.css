@@ -61,23 +61,26 @@
   border: 1px solid #0079d3;
 }
 
-.modal-buttons-left {
+.delete-modal-btn-left {
   background: inherit;
   color: #0079d3;
   margin-right: 10px;
 }
 
-.modal-buttons-right {
+.delete-modal-btn-right {
   background: #0079d3;
   color: white;
 }
 
-.modal-buttons-left:hover {
+.delete-modal-btn-left:hover {
   background: rgba(0, 121, 211, 0.05);
+  border-color: rgba(135, 138, 140, 0.8);
+  color: rgba(135, 138, 140, 0.8);
 }
 
-.modal-buttons-right:hover {
-  opacity: 0.9;
+.delete-modal-btn-right:hover {
+  background: rgba(234, 0, 39, 0.8);
+  border-color: rgba(234, 0, 39, 0.8);
 }
 
 .modal-content form {

@@ -98,12 +98,10 @@ def seed_rules():
     community11_rule6=Rule(
         title="Assistance Questions Guidelines",
         description="""If you are asking for assistance on a problem, you are required to provide
-
 - Context of the problem
 - Research you have completed prior to requesting assistance
 - Problem you are attempting to solve with high specificity
-- Questions in violation of this rule will be removed or locked.
-        """,
+- Questions in violation of this rule will be removed or locked.""",
         community_id=11
     )
     community11_rule7=Rule(

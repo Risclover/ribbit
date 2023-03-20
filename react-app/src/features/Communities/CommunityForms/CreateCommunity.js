@@ -84,12 +84,12 @@ export default function CreateCommunity({
             </div>
             <div className="modal-buttons">
               <button
-                className="modal-buttons-left"
+                className="blue-btn-unfilled-modal btn-short"
                 onClick={() => setShowCreateCommunityModal(false)}
               >
                 Cancel
               </button>
-              <button type="submit" className="modal-buttons-right">
+              <button type="submit" className="blue-btn-filled btn-short">
                 Create Community
               </button>
             </div>

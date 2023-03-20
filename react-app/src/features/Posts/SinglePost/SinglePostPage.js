@@ -82,7 +82,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
               <div className="single-post-right-col-btns">
                 {user && subscribed && (
                   <button
-                    className="single-post-right-col-btn"
+                    className="blue-btn-filled btn-long"
                     onClick={async (e) => {
                       e.preventDefault();
                       await dispatch(deleteSubscription(community?.id));
@@ -94,7 +94,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
                 )}
                 {!subscribed && (
                   <button
-                    className="single-post-right-col-btn"
+                    className="blue-btn-filled btn-long"
                     onClick={async (e) => {
                       e.preventDefault();
                       await dispatch(addToSubscriptions(community?.id));
@@ -107,7 +107,6 @@ export default function SinglePostPage({ setShowLoginForm }) {
                 )}
               </div>
             </div>
-            <div className="single-post-community-rules"></div>
           </div>
         </NavLink>
         {Object.values(community?.communityRules).length > 0 && (
@@ -126,7 +125,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
         )}
         <div className="back-to-top-box">
           <button
-            className="back-to-top"
+            className="blue-btn-filled btn-short"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             Back to Top

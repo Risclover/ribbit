@@ -35,7 +35,9 @@ const UploadPicture = () => {
   return (
     <form onSubmit={handleSubmit}>
       <input type="file" accept="image/*" onChange={updateImage} />
-      <button type="submit">Submit</button>
+      <button type="submit" className="">
+        Submit?
+      </button>
       {imageLoading && <p>Loading...</p>}
     </form>
   );

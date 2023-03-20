@@ -137,7 +137,7 @@ export default function CommunityPage() {
                 <div className="community-header-info-subscribe">
                   {user && subscribed && (
                     <button
-                      className="unsubscribe-btn"
+                      className="blue-btn-filled btn-short join-btn"
                       onClick={async (e) => {
                         e.preventDefault();
                         await dispatch(deleteSubscription(community_id));
@@ -149,6 +149,7 @@ export default function CommunityPage() {
                   )}
                   {!subscribed && (
                     <button
+                      className="blue-btn-filled btn-short join-btn"
                       onClick={async (e) => {
                         e.preventDefault();
                         await dispatch(addToSubscriptions(community_id));
@@ -207,14 +208,14 @@ export default function CommunityPage() {
               <div className="community-page-box-btn">
                 {user && (
                   <NavLink to={`/c/${community.id}/submit`}>
-                    <button className="community-page-box-create-post">
+                    <button className="blue-btn-filled btn-long">
                       Create Post
                     </button>
                   </NavLink>
                 )}
                 {!user && (
                   <button
-                    className="community-page-box-create-post"
+                    className="blue-btn-filled btn-long"
                     onClick={() => setShowLoginForm(true)}
                   >
                     Log In / Sign Up
@@ -246,7 +247,7 @@ export default function CommunityPage() {
 
                 {user?.id === community.userId ? (
                   <NavLink to={`/c/${community.id}/edit`}>
-                    <button className="community-page-box-edit-community">
+                    <button className="blue-btn-unfilled btn-long">
                       Edit Community
                     </button>
                   </NavLink>
@@ -272,7 +273,7 @@ export default function CommunityPage() {
           )}
           <div className="back-to-top-box">
             <button
-              className="back-to-top"
+              className="blue-btn-filled btn-short"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               Back to Top

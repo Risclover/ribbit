@@ -13,13 +13,13 @@ export default function DiscardPost({ showDiscardModal, setShowDiscardModal }) {
           </div>
           <div className="modal-buttons">
             <button
-              className="modal-buttons-left"
+              className="blue-btn-unfilled-modal btn-short"
               onClick={() => setShowDiscardModal(false)}
             >
               Cancel
             </button>
             <button
-              className="modal-buttons-right"
+              className="blue-btn-filled btn-short"
               onClick={() => history.push("/home")}
             >
               Discard post

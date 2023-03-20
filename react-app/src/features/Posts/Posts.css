@@ -58,15 +58,6 @@
 }
 
 .posts-home-box-buttons button {
-  width: 100%;
-  border-radius: 1000px;
-  outline: none;
-  border: 1px solid #0079d3;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  height: 32px;
-  padding: 4px 16px;
   margin-top: 10px;
 }
 

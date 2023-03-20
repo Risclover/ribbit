@@ -83,7 +83,7 @@ export default function EditCommunity() {
           </span>
         </div>
         <div className="edit-community-save-bar">
-          <button className="edit-community-save-btn" onClick={handleSubmit}>
+          <button className="blue-btn-filled btn-short" onClick={handleSubmit}>
             Save changes
           </button>
         </div>
@@ -147,7 +147,7 @@ export default function EditCommunity() {
                   {rulesNum >= 15 && (
                     <button
                       disabled
-                      className="add-rule-btn"
+                      className="blue-btn-filled btn-short"
                       onClick={() => setShowRuleModal(true)}
                     >
                       Add rule
@@ -155,7 +155,7 @@ export default function EditCommunity() {
                   )}
                   {rulesNum < 15 && (
                     <button
-                      className="add-rule-btn"
+                      className="blue-btn-filled btn-short"
                       onClick={() => setShowRuleModal(true)}
                     >
                       Add rule

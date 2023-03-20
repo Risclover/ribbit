@@ -72,17 +72,17 @@ export default function CommunityImgModal({
       </div>
       <div className="modal-buttons">
         <button
-          className="modal-buttons-left"
+          className="blue-btn-unfilled-modal btn-short"
           onClick={() => setShowCommunityImgModal(false)}
         >
           Cancel
         </button>
         {image !== null ? (
-          <button className="modal-buttons-right" onClick={handleSubmit}>
+          <button className="blue-btn-filled btn-short" onClick={handleSubmit}>
             Submit
           </button>
         ) : (
-          <button className="modal-buttons-right" disabled>
+          <button className="blue-btn-filled btn-short" disabled>
             Submit
           </button>
         )}
