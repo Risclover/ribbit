@@ -127,7 +127,7 @@ export default function Posts() {
               </li>
               <li key={1} className="tooltip">
                 <a
-                  href="https://www.linkedin.com/in/sara-dunlop-66375a146/"
+                  href="https://www.linkedin.com/in/sara-dunlop"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -147,7 +147,7 @@ export default function Posts() {
               </li>
               <li key={3} className="tooltip">
                 <a
-                  href="mailto:sara091592@gmail.com"
+                  href="mailto:sara.dunlop.dev@gmail.com"
                   target="_blank"
                   rel="noreferrer"
                 >

@@ -24,11 +24,9 @@ const loadMessages = (messages) => {
 };
 
 export const getMessages = (id) => async (dispatch) => {
-  console.log(id);
   const response = await fetch(`/api/messages/${id}`);
   if (response.ok) {
     const messages = await response.json();
-    console.log("MeSages", messages);
     dispatch(loadMessages(messages));
     return messages;
   }
@@ -46,7 +44,6 @@ export const sendMessage = (payload, recipientId) => async (dispatch) => {
 
   if (response.ok) {
     const message = await response.json();
-    console.log("meSSAGE", message);
     dispatch(loadMessage(message));
     return message;
   }
@@ -57,8 +54,6 @@ const initialState = {};
 export default function messagesReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_MESSAGES:
-      console.log("ACTION", action);
-      console.log("AAAAction", action.messages.messages, "action mm");
       return action.messages.Messages.reduce((messages, message) => {
         messages[message.id] = message;
         return messages;

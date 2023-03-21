@@ -21,8 +21,6 @@ export default function MessageFeed() {
   const users = useSelector((state) => Object.values(state.users));
   const user = useSelector((state) => state.session.user);
 
-  console.log("USERS:", users);
-
   let received = Object.values(user?.messagesReceived);
   let sent = Object.values(user?.messagesSent);
   //   let messages = [];
@@ -40,7 +38,6 @@ export default function MessageFeed() {
 
     if (received.length > 0 && received !== null && received !== undefined) {
       messages.concat(received);
-      console.log("messages2", messages);
     }
   }, [messages, body]);
 
@@ -72,10 +69,7 @@ export default function MessageFeed() {
       setDisabled(false);
     }
     setSender(users[0]);
-    console.log("sender:", sender);
-
     setRecipient(users[+recipientId - 1]);
-    console.log("recipient:", recipient);
   }, [sender, recipient, disabled, body, users]);
 
   //   if (!user.messagesSent || !user.messagesReceived) return null;

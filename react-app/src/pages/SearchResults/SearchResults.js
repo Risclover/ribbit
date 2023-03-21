@@ -39,8 +39,6 @@ export default function SearchResults({
       post?.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  console.log("POSTYPOSTS", posts);
-
   const communities = results.filter(
     (community) =>
       community.name &&
@@ -58,7 +56,6 @@ export default function SearchResults({
       user.username &&
       user?.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  console.log("comments:", comments);
 
   let postList = [];
   for (let i = 0; i < Object.values(allPosts).length; i++) {
@@ -101,8 +98,6 @@ export default function SearchResults({
     });
   }
 
-  console.log("user list:", userList);
-
   let commentsList = [];
   let comment;
 
@@ -129,11 +124,6 @@ export default function SearchResults({
     commentsList.push(comment);
   }
 
-  console.log("commentsList", commentsList);
-
-  console.log("userList", userList);
-
-  console.log(communityList);
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getUsers());

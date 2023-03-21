@@ -18,7 +18,6 @@ export default function SearchResultsComments({
     let commentObj = {};
 
     for (let post of posts) {
-      console.log("POST:", post);
       let username = post.author;
       for (let i = 0; i < Object.values(post.postComments).length; i++) {
         commentObj = {
