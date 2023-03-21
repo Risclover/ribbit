@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { TbChevronDown } from "react-icons/tb";
@@ -9,7 +9,6 @@ export default function CommunitySelectionInput({
   setShowDropdown,
   search,
   showDropdown,
-
   setSearch,
   name,
 }) {
@@ -38,6 +37,7 @@ export default function CommunitySelectionInput({
         {search && (
           <img
             className="community-dropdown-img"
+            alt="Community dropdown"
             src={communities[+communityId]?.communityImg}
           />
         )}

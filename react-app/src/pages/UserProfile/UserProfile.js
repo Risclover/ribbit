@@ -6,7 +6,6 @@ import { IoIosPaper } from "react-icons/io";
 
 import { getCommunities } from "../../store/communities";
 import { getPosts } from "../../store/posts";
-import { getUsers } from "../../store/users";
 
 import SortingBar from "../../components/SortingBar/SortingBar";
 import SinglePost from "../../features/Posts/SinglePost/SinglePost";
@@ -20,7 +19,7 @@ import Flower from "../../images/user-profile-icons/poinsettia.png";
 import Cakeday from "../../images/user-profile-icons/cakeday.png";
 
 import "./UserProfile.css";
-import { getSubscribers, getSubscriptions } from "../../store/subscriptions";
+import { getSubscriptions } from "../../store/subscriptions";
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -29,9 +28,6 @@ function UserProfile() {
   const user = useSelector((state) => state.users[+userId]);
 
   const [banner, setBanner] = useState();
-  const [userCommunities, setUserCommunities] = useState([]);
-  const [userPosts, setUserPosts] = useState([]);
-  const [img_url, setimg_url] = useState();
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showBannerModal, setShowBannerModal] = useState(false);
 
@@ -41,6 +37,7 @@ function UserProfile() {
 
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => Object.values(state.posts));
+  const currentUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
     setBanner(user?.bannerImg);
@@ -49,7 +46,6 @@ function UserProfile() {
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getPosts());
-    // dispatch(getUsers());
     dispatch(getSubscriptions());
 
     let communityList = [];
@@ -58,7 +54,6 @@ function UserProfile() {
         communityList.push(community);
       }
     }
-    setUserCommunities(communityList);
 
     let postsList = [];
     for (let post of posts) {
@@ -66,16 +61,7 @@ function UserProfile() {
         postsList.push(post);
       }
     }
-    setUserPosts(postsList);
-  }, []);
-
-  // useEffect(() => {
-  //   if (Object.values(user.userPosts).length > 0) {
-  //     setNoPosts(true);
-  //   } else {
-  //     setNoPosts(false);
-  //   }
-  // }, [userPosts, noPosts, posts]);
+  }, [dispatch, currentUser.username, userId]);
 
   useEffect(() => {
     setKarma(user?.karma);
@@ -87,9 +73,7 @@ function UserProfile() {
     }
 
     setCommunitiesList(list);
-  }, [karma, user?.karma, user?.profile_img, communities]);
-
-  const currentUser = useSelector((state) => state.session.user);
+  }, [userId, karma, user?.karma, user?.profile_img, communities]);
 
   if (sortMode === "new") {
     posts.sort((a, b) => {
@@ -143,13 +127,13 @@ function UserProfile() {
       <div className="user-profile-right-col">
         <div className="user-profile-about-box">
           <div className="user-profile-about-box-banner">
-            <img src={banner} className="user-profile-banner" />
+            <img src={banner} className="user-profile-banner" alt="Banner" />
             {currentUser.id === +userId && (
               <div
                 className="user-profile-banner-upload-btn"
                 onClick={() => setShowBannerModal(true)}
               >
-                <img src={Camera} />
+                <img src={Camera} alt="Camera" />
               </div>
             )}
           </div>
@@ -172,10 +156,14 @@ function UserProfile() {
                 className="user-profile-upload-btn"
                 onClick={() => setShowUploadModal(true)}
               >
-                <img src={Camera} />
+                <img src={Camera} alt="Camera" />
               </div>
             )}
-            <img src={user?.profile_img} className="user-profile-img" />
+            <img
+              src={user?.profile_img}
+              alt="User"
+              className="user-profile-img"
+            />
           </div>
           {showUploadModal && (
             <Modal
@@ -185,7 +173,6 @@ function UserProfile() {
               <UploadUserImage
                 setShowUploadModal={setShowUploadModal}
                 showUploadModal={showUploadModal}
-                setimg_url={setimg_url}
                 img_url={user?.profile_img}
                 userId={currentUser.id}
               />
@@ -206,14 +193,14 @@ function UserProfile() {
               <div className="user-profile-stats stats-karma">
                 <h5>Karma</h5>
                 <div className="stats-stats">
-                  <img src={Flower} className="stats-icon" />{" "}
+                  <img src={Flower} className="stats-icon" alt="Flower" />{" "}
                   <span className="stats-label">{karma}</span>
                 </div>
               </div>
               <div className="user-profile-stats stats-cakeday">
                 <h5>Cake day</h5>
                 <div className="stats-stats">
-                  <img src={Cakeday} className="stats-icon" />
+                  <img src={Cakeday} className="stats-icon" alt="Cakeday" />
                   <span className="stats-label">
                     {moment(new Date(user.createdAt)).format("MMMM DD, YYYY")}
                   </span>
@@ -238,7 +225,7 @@ function UserProfile() {
                   <div className="profile-owned-community">
                     <div className="profile-owned-community-left">
                       <div className="owned-community-icon">
-                        <img src={community.communityImg} />
+                        <img src={community.communityImg} alt="Community" />
                       </div>
                       <div className="owned-community-info">
                         <span className="owned-community-title">

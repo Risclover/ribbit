@@ -9,21 +9,16 @@ import "./CommunitySelection.css";
 
 function useOutsideAlerter(ref, setShowDropdown) {
   useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
         setShowDropdown(false);
       }
     }
-    // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, setShowDropdown]);
 }
 
 export default function CommunitySelection({ setcommunity_id, community_id }) {
@@ -42,7 +37,7 @@ export default function CommunitySelection({ setcommunity_id, community_id }) {
 
   useEffect(() => {
     dispatch(getSubscriptions());
-  }, []);
+  }, [dispatch]);
 
   let communityList = [];
   for (let i = 0; i < Object.values(allCommunities).length; i++) {

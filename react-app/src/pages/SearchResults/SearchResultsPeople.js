@@ -13,14 +13,15 @@ export default function SearchResultsPeople({
         .filter((user) =>
           user["username"].toLowerCase().includes(searchQuery.toLowerCase())
         )
-        .map((user) =>
+        .map((user, idx) =>
           user["username"].toLowerCase().includes(searchQuery.toLowerCase()) ? (
-            <NavLink to={`/users/${user.id}/profile`}>
+            <NavLink key={idx} to={`/users/${user.id}/profile`}>
               <div className="search-results-page-person">
                 <div className="search-results-page-community-left">
                   <img
                     src={user.profile_img}
                     className="search-results-page-community-img"
+                    alt="User"
                   />
                   <div className="search-results-page-community-details">
                     <div className="search-results-page-community-details-top">
@@ -54,7 +55,7 @@ export default function SearchResultsPeople({
         user["username"].toLowerCase().includes(searchQuery.toLowerCase())
       ).length === 0 && (
         <div className="no-search-results">
-          <img src={SearchDude} />
+          <img src={SearchDude} alt="Search Dude" />
           <h2>Hm... we couldn't find any results for “{searchQuery}”</h2>
           <p>
             Double-check your spelling or try different keywords to{" "}

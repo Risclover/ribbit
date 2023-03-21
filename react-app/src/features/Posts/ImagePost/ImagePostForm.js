@@ -59,7 +59,11 @@ export default function ImagePostForm({
             hidden
           />
           {imgPreview && (
-            <img className="image-post-preview" src={imgPreview} />
+            <img
+              className="image-post-preview"
+              src={imgPreview}
+              alt="Preview"
+            />
           )}
           <div className="user-img-error">
             {errorMsg} {imageLoading && <p className="loading">Loading...</p>}

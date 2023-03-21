@@ -1,30 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Modal } from "../../../context/Modal";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { putSinglePost, putImagePost } from "../../../store/posts";
+import { putSinglePost } from "../../../store/posts";
 import ImagePostForm from "./ImagePostForm";
 import "../PostForms/PostForm.css";
 import "../../Posts/Posts.css";
-
-const modules = {
-  toolbar: [
-    [
-      "bold",
-      "italic",
-      "link",
-      "strike",
-      "code",
-      { script: "super" },
-      { header: 1 },
-    ],
-    [{ list: "bullet" }, { list: "ordered" }],
-    ["blockquote", "code-block"],
-  ],
-};
 
 export default function UpdateImagePost() {
   const { postId } = useParams();
@@ -33,24 +16,15 @@ export default function UpdateImagePost() {
   const post = useSelector((state) => Object.values(state.singlePost));
   const [title, setTitle] = useState(post[0]?.title);
   const [content, setContent] = useState(post[0]?.content);
-  const [disabled, setDisabled] = useState(false);
   const [showImgModal, setShowImgModal] = useState(false);
-  const [postType, setPostType] = useState("post");
   const [img_url, setimg_url] = useState(post[0]?.img_url);
-  const [titleErrors, setTitleErrors] = useState([]);
-  const [contentErrors, setContentErrors] = useState([]);
-  const [errors, setErrors] = useState([]);
+  // const [titleErrors, setTitleErrors] = useState([]);
+  // const [contentErrors, setContentErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
 
-  const handlePostTypeChange = (e, type) => {
-    e.preventDefault();
-    setPostType("post");
-  };
-
-  const handleImageSubmit = async (e) => {
-    e.preventDefault();
-    setPostType("image");
-    dispatch(putImagePost(+postId));
-  };
+  useEffect(() => {
+    setContent(post[0]?.content);
+  }, [post]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,8 +36,8 @@ export default function UpdateImagePost() {
     if (content.trim().length === 0)
       contents.push("Please give your post some content.");
     if (titles.length > 0 || contents.length > 0) {
-      setTitleErrors(titles);
-      setContentErrors(contents);
+      // setTitleErrors(titles);
+      // setContentErrors(contents);
     } else {
       const data = await dispatch(
         putSinglePost(
@@ -72,7 +46,7 @@ export default function UpdateImagePost() {
         )
       );
       if (data.errors) {
-        setErrors(data.errors);
+        // setErrors(data.errors);
       } else {
         history.push(`/posts/${postId}`);
       }
@@ -106,7 +80,7 @@ export default function UpdateImagePost() {
             />
           </Modal>
         )}
-        <img className="image-post-preview" src={img_url} />{" "}
+        <img className="image-post-preview" src={img_url} alt="Preview" />{" "}
         <button type="submit">Submit</button>
       </form>
     </div>

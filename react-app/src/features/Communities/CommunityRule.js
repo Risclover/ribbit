@@ -6,7 +6,7 @@ import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import "./CommunityPage.css";
 
 const URL_REGEX =
-  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
 
 function Text({ content }) {
   const words = String(parse(content)).split(" ");
@@ -15,7 +15,7 @@ function Text({ content }) {
       {words.map((word) => {
         return word.match(URL_REGEX) ? (
           <>
-            <a href={word} target="_blank">
+            <a href={word} rel="noreferrer" target="_blank">
               {word}
             </a>{" "}
           </>
@@ -35,7 +35,7 @@ export default function CommunityRule({ idx, rule }) {
     if (rule.description.length === 0) {
       setNoDesc(true);
     }
-  }, []);
+  }, [rule.description.length]);
 
   return (
     <li

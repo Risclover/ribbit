@@ -3,19 +3,16 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export default function SearchResultsComments({
-  comments,
   posts,
   searchQuery,
   SearchDude,
   setAdjustQuery,
 }) {
   const [finishedComments, setFinishedComments] = useState([]);
-  const [author, setAuthor] = useState("");
-
-  let unfinishedComments = [];
 
   useEffect(() => {
     let commentObj = {};
+    let unfinishedComments = [];
 
     for (let post of posts) {
       let username = post.author;
@@ -49,7 +46,7 @@ export default function SearchResultsComments({
     }
 
     setFinishedComments(unfinishedComments);
-  }, []);
+  }, [posts]);
 
   return (
     <div className="search-results-page-comments">
@@ -57,17 +54,18 @@ export default function SearchResultsComments({
         .filter((comment) =>
           comment["content"].toLowerCase().includes(searchQuery.toLowerCase())
         )
-        .map((comment) =>
+        .map((comment, idx) =>
           comment["content"]
             .toLowerCase()
             .includes(searchQuery.toLowerCase()) ? (
-            <NavLink to={`/posts/${comment.postId}`}>
+            <NavLink key={idx} to={`/posts/${comment.postId}`}>
               <div className="search-results-page-comment">
                 <div className="search-results-comment-post-header">
                   <NavLink to={`/c/${comment.communityId}`}>
                     <img
                       src={comment.communityImg}
                       className="search-results-comment-community-img"
+                      alt="Comment community"
                     />
                   </NavLink>
                   <NavLink to={`/c/${comment.communityId}`}>
@@ -95,6 +93,7 @@ export default function SearchResultsComments({
                       <img
                         src={comment.userImg}
                         className="search-results-comment-author-img"
+                        alt="Comment user"
                       />
                     </NavLink>
                   </div>
@@ -141,7 +140,7 @@ export default function SearchResultsComments({
         user["content"].toLowerCase().includes(searchQuery.toLowerCase())
       ).length === 0 && (
         <div className="no-search-results">
-          <img src={SearchDude} />
+          <img src={SearchDude} alt="Search Dude" />
           <h2>Hm... we couldn't find any results for “{searchQuery}”</h2>
           <p>
             Double-check your spelling or try different keywords to{" "}

@@ -33,7 +33,7 @@ export default function SubscribedPosts() {
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getPosts());
-  }, []);
+  }, [dispatch]);
 
   let postList = communities.map(
     (community) =>
@@ -78,7 +78,7 @@ export default function SubscribedPosts() {
     } else {
       setNoPosts(false);
     }
-  }, [noPosts, newList, postList, communities]);
+  }, [noPosts, newList, postList, communities, user?.id]);
 
   if (!user || !communities) return null;
 

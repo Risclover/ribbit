@@ -14,11 +14,11 @@ export default function JoinBtn({ community }) {
 
   useEffect(() => {
     dispatch(getSubscriptions());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (subscriptions[community?.id]) setSubscribed(true);
-  }, [subscribed, subscriptions]);
+  }, [subscribed, community?.id, subscriptions]);
 
   return (
     <div>

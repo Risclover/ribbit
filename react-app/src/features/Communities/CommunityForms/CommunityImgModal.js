@@ -61,7 +61,11 @@ export default function CommunityImgModal({
             hidden
           />
           {imgPreview && (
-            <img className="image-post-preview" src={imgPreview} />
+            <img
+              className="image-post-preview"
+              src={imgPreview}
+              alt="Preview"
+            />
           )}
           <span className="user-img-error">{errorMsg}</span>
           {imageLoading && <p>Loading...</p>}

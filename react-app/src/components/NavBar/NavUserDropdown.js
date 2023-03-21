@@ -1,32 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-
 import { logout } from "../../store/session";
-
 import { TbChevronDown } from "react-icons/tb";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { SlLogin } from "react-icons/sl";
 import Poinsettia from "../../images/user-profile-icons/poinsettia.png";
-
-// function useOutsideAlerter(ref) {
-//   useEffect(() => {
-//     /**
-//      * Alert if clicked on outside of element
-//      */
-//     function handleClickOutside(event) {
-//       if (ref.current && !ref.current.contains(event.target)) {
-//         setShowDropdown(false);
-//       }
-//     }
-//     // Bind the event listener
-//     document.addEventListener("mousedown", handleClickOutside);
-//     return () => {
-//       // Unbind the event listener on clean up
-//       document.removeEventListener("mousedown", handleClickOutside);
-//     };
-//   }, [ref]);
-// }
 
 export default function NavUserDropdown() {
   const history = useHistory();
@@ -45,18 +24,13 @@ export default function NavUserDropdown() {
   };
 
   useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setShowDropdown(false);
       }
     }
-    // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [wrapperRef]);
@@ -73,11 +47,16 @@ export default function NavUserDropdown() {
             <img
               className="navbar-user-img"
               src={users[user?.id]?.profile_img}
+              alt="User"
             />
             <div className="navbar-user-info">
               {user?.username}
               <div className="user-karma-info">
-                <img className="karma-poinsettia" src={Poinsettia} />
+                <img
+                  className="karma-poinsettia"
+                  src={Poinsettia}
+                  alt="Karma"
+                />
                 {users[user?.id]?.karma} karma
               </div>
             </div>

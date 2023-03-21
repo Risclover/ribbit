@@ -39,7 +39,7 @@ export default function MessageFeed() {
     if (received.length > 0 && received !== null && received !== undefined) {
       messages.concat(received);
     }
-  }, [messages, body]);
+  }, [messages, body, received, recipient?.id, sender?.id, sent]);
 
   if (sent.length > 0 && sent !== null && sent !== undefined) {
     sent.concat(received);
@@ -60,7 +60,7 @@ export default function MessageFeed() {
   useEffect(() => {
     dispatch(getMessages(+recipientId));
     dispatch(getUsers());
-  }, []);
+  }, [recipientId, dispatch]);
 
   useEffect(() => {
     if (body.length === 0) {
@@ -70,7 +70,7 @@ export default function MessageFeed() {
     }
     setSender(users[0]);
     setRecipient(users[+recipientId - 1]);
-  }, [sender, recipient, disabled, body, users]);
+  }, [sender, recipient, disabled, body, users, recipientId]);
 
   //   if (!user.messagesSent || !user.messagesReceived) return null;
 
@@ -79,11 +79,11 @@ export default function MessageFeed() {
       <div className="message-feed-messages">
         <div className="message-feed-participants">
           <div className="message-feed-participants-recipient">
-            <img src={recipient?.profile_img} />
+            <img src={recipient?.profile_img} alt="Recipient" />
             {recipient?.username},
           </div>
           <div className="message-feed-participants-sender">
-            <img src={sender?.profile_img} />
+            <img src={sender?.profile_img} alt="Sender" />
             {sender?.username}
           </div>
         </div>
@@ -102,12 +102,12 @@ export default function MessageFeed() {
         />
         {!disabled && (
           <button className="send-msg-btn" onClick={handleClick}>
-            <img src={Send} />
+            <img src={Send} alt="Send" />
           </button>
         )}
         {disabled && (
           <button disabled className="send-msg-btn">
-            <img src={Send} />
+            <img src={Send} alt="Send" />
           </button>
         )}
       </form>

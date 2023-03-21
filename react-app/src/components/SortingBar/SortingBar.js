@@ -19,10 +19,6 @@ export default function SortingBar({ sortMode, setSortMode }) {
           New
         </button>
       )}
-      {/* <button className="post-sorting-bar-btn">
-        <i className="fa-solid fa-fire-flame-simple"></i>
-        Hot
-      </button> */}
       {sortMode === "top" ? (
         <button className="post-sorting-bar-btn active-sort-btn">
           <i className="fa-solid fa-ranking-star"></i>

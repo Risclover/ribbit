@@ -1,5 +1,4 @@
 const SEARCH = "queries/SEARCH";
-const LOAD = "queries/LOAD";
 
 export const searchQueries = (results) => {
   return {

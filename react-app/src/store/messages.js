@@ -1,13 +1,5 @@
 const LOAD_MESSAGES = "messages/LOAD_MESSAGES";
 const LOAD_MESSAGE = "messages/LOAD_MESSAGE";
-const SEND_MESSAGE = "messages/ADD";
-
-const createMessage = (message) => {
-  return {
-    type: SEND_MESSAGE,
-    message,
-  };
-};
 
 const loadMessage = (message) => {
   return {

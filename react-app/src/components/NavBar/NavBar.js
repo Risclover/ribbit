@@ -1,24 +1,21 @@
-import React, { useEffect, useReducer, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { getUsers } from "../../store/users";
+import { Modal } from "../../context/Modal";
 import { SlClose } from "react-icons/sl";
 import { BsSearch } from "react-icons/bs";
-import { search } from "../../store/search";
-import { Modal } from "../../context/Modal";
 import LoginForm from "../../features/auth/AuthModal/LoginForm";
 import SignUpForm from "../../features/auth/AuthModal/SignUpForm";
-import LogoutButton from "../../features/auth/LogoutButton";
 import NavUserDropdown from "./NavUserDropdown";
 import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
 import "./NavBar.css";
-import { getUsers } from "../../store/users";
 
 const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const wrapperRef = useRef(null);
   const ref = useRef();
-  const [hasFocus, setFocus] = useState(false);
 
   useEffect(() => {
     if (adjustQuery) ref.current.focus();
@@ -26,12 +23,9 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
 
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
-  const [results, setResults] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
   const user = useSelector((state) => state.session.user);
-  const products = useSelector((state) => Object.values(state.search));
   const allUsers = useSelector((state) => state.users);
   const allCommunities = useSelector((state) => state.communities);
 
@@ -73,27 +67,16 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
     };
   }, [wrapperRef]);
 
-  const useFocus = () => {
-    const htmlElRef = useRef(null);
-    const setFocus = () => {
-      htmlElRef.current && htmlElRef.current.focus();
-    };
-
-    return [htmlElRef, setFocus];
-  };
-
   useEffect(() => {
     dispatch(getUsers());
 
     if (searchQuery?.length === 0) {
       setShowSearchDropdown(false);
     }
-  }, [showSearchDropdown, searchQuery]);
+  }, [dispatch, showSearchDropdown, searchQuery]);
 
   const handleQuery = async (e) => {
     e.preventDefault();
-    setSearchValue(searchQuery);
-    setResults(await dispatch(search(searchQuery)).query);
     setShowSearchDropdown(false);
     history.push("/search/results");
   };
@@ -109,7 +92,7 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
       <ul>
         <li>
           <NavLink to="/" exact={true}>
-            <img className="ribbit-logo" src={RibbitLogo} />
+            <img className="ribbit-logo" src={RibbitLogo} alt="Ribbit" />
           </NavLink>
         </li>
         <li>
@@ -174,7 +157,6 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
               value={searchQuery}
               onKeyPress={handleEnter}
               onFocus={() => {
-                setFocus(true);
                 setShowSearchDropdown(true);
               }}
               onChange={(e) => {

@@ -54,7 +54,11 @@ export default function UploadImage({ img_url, setShowUploadModal, userId }) {
         <div className="modal-content">
           <div className="upload-user-img">
             <div className="user-img-preview-box">
-              <img className="user-img-preview" src={imgPreview} />
+              <img
+                className="user-img-preview"
+                src={imgPreview}
+                alt="Preview"
+              />
               <div className="user-img-error">
                 {errorMsg}{" "}
                 {imageLoading && <p className="loading">Loading...</p>}

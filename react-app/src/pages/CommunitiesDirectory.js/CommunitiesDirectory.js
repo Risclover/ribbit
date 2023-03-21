@@ -12,15 +12,15 @@ export default function CommunitiesDirectory() {
 
   useEffect(() => {
     dispatch(getCommunities());
-  }, []);
+  }, [dispatch]);
   return (
     <div className="communities-directory-container">
       <div className="directory-header">
         <h1>Browse communities</h1>
       </div>
       <div className="directory-listings-container">
-        {communities.map((community) => (
-          <div className="directory-listing">
+        {communities.map((community, idx) => (
+          <div className="directory-listing" key={idx}>
             <NavLink to={`/c/${community.id}`}>{community.name}</NavLink>
           </div>
         ))}

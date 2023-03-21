@@ -30,7 +30,6 @@ export default function SinglePostPage({ setShowLoginForm }) {
   const community = useSelector(
     (state) => state.communities[post?.communityId]
   );
-  const singleCommunity = useSelector((state) => state.singleCommunity);
   const subscriptions = useSelector((state) => state.subscriptions);
   const user = useSelector((state) => state.session.user);
 
@@ -45,7 +44,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
 
   useEffect(() => {
     if (subscriptions[community?.id]) setSubscribed(true);
-  }, [subscribed, subscriptions]);
+  }, [subscribed, subscriptions, community?.id]);
 
   if (!comments || !post || !postId || !community) return null;
   return (
@@ -76,7 +75,11 @@ export default function SinglePostPage({ setShowLoginForm }) {
                 {community?.description}
               </div>
               <div className="single-post-community-date">
-                <img src={Cake} className="single-post-community-cake" />{" "}
+                <img
+                  src={Cake}
+                  className="single-post-community-cake"
+                  alt="Cake"
+                />{" "}
                 Created {moment(community?.createdAt).format("MMM DD, YYYY")}
               </div>
               <div className="single-post-right-col-btns">

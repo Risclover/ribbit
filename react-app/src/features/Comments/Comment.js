@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
-import parse from "html-react-parser";
 import { BsArrowsAngleExpand } from "react-icons/bs";
+import parse from "html-react-parser";
 import moment from "moment";
 
 import { getUsers } from "../../store/users";
@@ -34,7 +34,7 @@ moment.updateLocale("en", {
 });
 
 const URL_REGEX =
-  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
 
 function Text({ content }) {
   const words = String(parse(content)).split(" ");
@@ -43,7 +43,7 @@ function Text({ content }) {
       {words.map((word) => {
         return word.match(URL_REGEX) ? (
           <>
-            <a href={word} target="_blank">
+            <a href={word} rel="noreferrer" target="_blank">
               {word}
             </a>{" "}
           </>
@@ -147,7 +147,7 @@ export default function Comment({ commentId, postId }) {
         }
       }
     }
-  }, [upvote, downvote, comment?.commentVoters]);
+  }, [upvote, downvote, comment?.commentVoters, user?.id, comments]);
 
   if (!post) return null;
   return (

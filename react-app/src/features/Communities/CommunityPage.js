@@ -75,7 +75,6 @@ export default function CommunityPage() {
   }, [commPosts]);
 
   useEffect(() => {
-    dispatch(getSingleCommunity(+communityId));
     dispatch(getPosts());
     dispatch(getSubscriptions());
   }, [communityId, dispatch]);
@@ -178,8 +177,9 @@ export default function CommunityPage() {
               to give visitors something to read?
             </div>
           )}
-          {commPosts.map((post) => (
+          {commPosts.map((post, idx) => (
             <NavLink
+              key={idx}
               activeClassName="single-post-active"
               to={`/posts/${post.id}`}
             >

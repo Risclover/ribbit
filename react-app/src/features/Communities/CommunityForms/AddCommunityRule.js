@@ -16,7 +16,6 @@ export default function AddCommunityRule({ setShowRuleModal, communityId }) {
   const [disabled, setDisabled] = useState(title?.length === 0 ? true : false);
   const [titleError, setTitleError] = useState(false);
   const [errors, setErrors] = useState([]);
-  const community = useSelector((state) => state.singleCommunity[communityId]);
   const rules = useSelector((state) => Object.values(state.rules));
 
   useEffect(() => {
@@ -37,7 +36,7 @@ export default function AddCommunityRule({ setShowRuleModal, communityId }) {
     } else if (!changed) {
       setTitleError("");
     }
-  }, [title, titleError]);
+  }, [title, titleError, communityId, dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

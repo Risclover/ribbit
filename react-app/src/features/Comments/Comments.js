@@ -13,7 +13,7 @@ export default function Comments({ postId, setShowLoginForm, setCommentsNum }) {
 
   useEffect(() => {
     setCommentsNum(comments.length);
-  }, []);
+  }, [setCommentsNum, comments.length]);
 
   if (sortType === "New") {
     comments.sort((a, b) => {

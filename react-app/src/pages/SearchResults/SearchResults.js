@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { getUsers } from "../../store/users";
 import { getCommunities } from "../../store/communities";
 import { getPosts } from "../../store/posts";
 import { getAllComments } from "../../store/comments";
 import { search } from "../../store/search";
-import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import "./SearchResults.css";
 import SearchDude from "../../images/search-icon.png";
-import moment from "moment";
 import SearchResultsPeople from "./SearchResultsPeople";
 import SearchResultsCommunities from "./SearchResultsCommunities";
 import SearchResultsComments from "./SearchResultsComments";
@@ -19,12 +16,8 @@ export default function SearchResults({
   searchQuery,
   setSearchQuery,
   setAdjustQuery,
-  adjustQuery,
 }) {
   const dispatch = useDispatch();
-
-  const [sortOpen, setSortOpen] = useState(false);
-  const [timeOpen, setTimeOpen] = useState(false);
   const [searchPage, setSearchPage] = useState("Posts");
 
   const allCommunities = useSelector((state) => state.communities);
@@ -37,24 +30,6 @@ export default function SearchResults({
     (post) =>
       post.title &&
       post?.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const communities = results.filter(
-    (community) =>
-      community.name &&
-      community?.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const comments = results.filter(
-    (comment) =>
-      comment.commentAuthor &&
-      comment?.content.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const users = results.filter(
-    (user) =>
-      user.username &&
-      user?.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   let postList = [];
@@ -130,7 +105,7 @@ export default function SearchResults({
     dispatch(search(searchQuery));
     dispatch(getAllComments());
     dispatch(getCommunities());
-  }, []);
+  }, [dispatch, searchQuery]);
 
   return (
     <div className="search-results-page">

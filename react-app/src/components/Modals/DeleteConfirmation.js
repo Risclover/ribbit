@@ -1,14 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-
 import { deletePost, getPosts } from "../../store/posts";
 import { removeComment } from "../../store/comments";
-import { deleteCommunity, getCommunities } from "../../store/communities";
-
-import "./Modals.css";
+import { deleteCommunity } from "../../store/communities";
 import { deleteRule, getCommunityRules } from "../../store/rules";
-import { getSingleCommunity } from "../../store/one_community";
+import "./Modals.css";
 
 export default function DeleteConfirmation({
   setShowEditRuleModal,
@@ -16,7 +13,6 @@ export default function DeleteConfirmation({
   showDeleteModal,
   postId,
   commentId,
-  communityName,
   communityId,
   rule,
   item,
@@ -27,11 +23,10 @@ export default function DeleteConfirmation({
 
   const handleDeletePost = async (e) => {
     e.preventDefault();
-    if (isPage == "singlepage") {
+    if (isPage === "singlepage") {
       history.push("/c/all");
     }
     await dispatch(deletePost(postId));
-    // dispatch(getPosts());
     setShowDeleteModal(false);
   };
 
@@ -54,7 +49,6 @@ export default function DeleteConfirmation({
     setShowDeleteModal(false);
     setShowEditRuleModal(false);
     dispatch(getCommunityRules(communityId));
-    dispatch(getSingleCommunity(communityId));
   };
   return (
     <>

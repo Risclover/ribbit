@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { editProfile, getUsers } from "../../../store/users";
 
 import "./EditProfile.css";
@@ -8,8 +8,6 @@ import "./EditProfile.css";
 export default function EditProfile() {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const { userId } = useParams();
   const user1 = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[user1.id]);
 
@@ -18,7 +16,7 @@ export default function EditProfile() {
 
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

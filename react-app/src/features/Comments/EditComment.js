@@ -23,7 +23,7 @@ export default function EditComment({
     } else {
       setDisabled(false);
     }
-  });
+  }, [setDisabled, content]);
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -45,6 +45,9 @@ export default function EditComment({
     <>
       {showEditCommentModal && (
         <div className="modal-container">
+          {errors.map((error) => (
+            <div>{error}</div>
+          ))}
           <form onSubmit={handleEdit}>
             <div className="modal-content">
               <textarea

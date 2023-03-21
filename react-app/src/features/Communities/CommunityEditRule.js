@@ -10,7 +10,7 @@ import {
 import parse from "html-react-parser";
 
 const URL_REGEX =
-  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
 
 function Text({ content }) {
   const words = String(parse(content)).split(" ");
@@ -19,7 +19,7 @@ function Text({ content }) {
       {words.map((word) => {
         return word.match(URL_REGEX) ? (
           <>
-            <a href={word} target="_blank">
+            <a href={word} rel="noreferrer" target="_blank">
               {word}
             </a>{" "}
           </>
@@ -36,7 +36,7 @@ export default function CommunityEditRule({ idx, rule, community }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="community-edit-rule">
+    <div className="community-edit-rule" key={idx}>
       <div className="community-edit-rule-face">
         <span>
           {idx + 1}. {rule.title}

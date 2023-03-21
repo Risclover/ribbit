@@ -52,7 +52,7 @@ export default function AddCommunityRule({
     } else if (!changed) {
       setTitleError(false);
     }
-  }, [title, titleError]);
+  }, [title, titleError, community?.id, communityId, dispatch, rule?.title]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

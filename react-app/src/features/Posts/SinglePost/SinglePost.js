@@ -31,8 +31,12 @@ export default function SinglePost({ id, isPage, userId }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
-  const [voteTotal, setVoteTotal] = useState(post?.votes);
+  const [voteTotal, setVoteTotal] = useState();
   const [commentNum, setCommentNum] = useState(0);
+
+  useEffect(() => {
+    setVoteTotal(post?.votes);
+  }, [post?.votes]);
 
   useEffect(() => {
     if (showLinkCopied) {
@@ -116,9 +120,8 @@ export default function SinglePost({ id, isPage, userId }) {
         }
       }
     }
-  }, [upvote, downvote, voteTotal, post?.postVoters]);
+  }, [upvote, downvote, voteTotal, post?.postVoters, posts, user?.id]);
 
-  // if (!post || !post.postVoters || !Object.values(post.postVoters)) return null;
   return (
     <>
       {post && (
@@ -177,7 +180,7 @@ export default function SinglePost({ id, isPage, userId }) {
               {isPage !== "community" && (
                 <div className="single-post-community-info">
                   <div className="single-post-community-img">
-                    <img src={community?.communityImg} />
+                    <img src={community?.communityImg} alt="Community" />
                   </div>
                   <div className="single-post-community-name">
                     <NavLink to={`/c/${community?.id}`}>
@@ -199,7 +202,7 @@ export default function SinglePost({ id, isPage, userId }) {
             <div className="single-post-title-bar">{post.title}</div>
             {post.imgUrl ? (
               <div className="single-post-content-image">
-                <img className="image-post-img" src={post.imgUrl} />
+                <img className="image-post-img" src={post.imgUrl} alt="Post" />
               </div>
             ) : (
               <>
@@ -259,7 +262,11 @@ export default function SinglePost({ id, isPage, userId }) {
                         );
                       }}
                     >
-                      <img src={Bounce} className="single-post-share-icon" />
+                      <img
+                        src={Bounce}
+                        alt="Share"
+                        className="single-post-share-icon"
+                      />
                       Share
                     </button>
                   </div>

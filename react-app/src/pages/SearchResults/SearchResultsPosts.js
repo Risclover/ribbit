@@ -6,7 +6,6 @@ import RibbitBanner from "../../images/ribbit-banners/ribbit_banner.png";
 import "./SearchResults.css";
 import { Modal } from "../../context/Modal";
 import CreateCommunity from "../../features/Communities/CommunityForms/CreateCommunity";
-import JoinBtn from "./JoinBtn";
 
 export default function SearchResultsPosts({
   posts,
@@ -34,7 +33,7 @@ export default function SearchResultsPosts({
                 <NavLink to={`/posts/${post.id}`}>
                   <div className="search-results-post">
                     <div className="search-results-post-topbar">
-                      <img src={post.communityImg} />
+                      <img src={post.communityImg} alt="Community" />
                       <NavLink
                         className="results-post-community"
                         to={`/c/${post.communityId}`}
@@ -60,6 +59,7 @@ export default function SearchResultsPosts({
                         <img
                           className="search-results-post-img"
                           src={post.imgUrl}
+                          alt="Post"
                         />
                       )}
                     </div>
@@ -77,7 +77,7 @@ export default function SearchResultsPosts({
           )}
         {posts.length === 0 && (
           <div className="no-search-results">
-            <img src={SearchDude} />
+            <img src={SearchDude} alt="Search Dude" />
             <h2>Hm... we couldn't find any results for “{searchQuery}”</h2>
             <p>
               Double-check your spelling or try different keywords to{" "}
@@ -112,7 +112,7 @@ export default function SearchResultsPosts({
                   >
                     <div className="search-result-page-community-left">
                       <div className="search-result-page-community-img">
-                        <img src={community.communityImg} />
+                        <img src={community.communityImg} alt="Community" />
                         &nbsp;
                       </div>
                       <div className="search-result-community-details">
@@ -169,7 +169,7 @@ export default function SearchResultsPosts({
                   >
                     <div className="search-result-page-community-left">
                       <div className="search-result-page-community-img">
-                        <img src={user?.profile_img} />
+                        <img src={user?.profile_img} alt="User" />
                       </div>
                       <div className="search-result-page-community-details">
                         <div className="search-result-page-community-name">
@@ -210,7 +210,7 @@ export default function SearchResultsPosts({
         </div>
         <div className="last-box-wrapper">
           <div className="search-results-right-box search-results-create-community">
-            <img src={RibbitBanner} />
+            <img src={RibbitBanner} alt="Ribbit Banner" />
             <div className="search-results-create-community-box">
               <p>Have an idea for a new community?</p>
               <button

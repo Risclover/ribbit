@@ -59,7 +59,11 @@ export default function UploadBannerImage({
           <div className="upload-user-img">
             <div className="banner-img-preview-box">
               {imgPreview && (
-                <img className="banner-img-preview" src={imgPreview} />
+                <img
+                  className="banner-img-preview"
+                  src={imgPreview}
+                  alt="Banner preview"
+                />
               )}
               <div className="user-img-error">
                 {errorMsg}{" "}

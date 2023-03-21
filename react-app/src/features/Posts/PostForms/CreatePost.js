@@ -5,8 +5,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import moment from "moment";
 
-import { addPost, getPosts } from "../../../store/posts";
-import { getCommunities } from "../../../store/communities";
+import { addPost } from "../../../store/posts";
 import { addImagePost } from "../../../store/posts";
 import CommunityRule from "../../Communities/CommunityRule";
 import { Modal } from "../../../context/Modal";
@@ -17,7 +16,6 @@ import Cake from "../../../images/misc/piece4.png";
 import Frog from "../../../images/ribbit-banners/frog-logo1.png";
 
 import "./PostForm.css";
-import { getSingleCommunity } from "../../../store/one_community";
 
 const modules = {
   toolbar: [
@@ -93,7 +91,16 @@ export default function CreatePost() {
         setcommunity_id(+communityId);
       }
     }
-  }, [dispatch, title, content, community_id, img_url]);
+  }, [
+    dispatch,
+    title,
+    content,
+    community_id,
+    img_url,
+    communities,
+    communityId,
+    postType,
+  ]);
 
   const handlePostSubmit = (e) => {
     e.preventDefault();
@@ -245,7 +252,7 @@ export default function CreatePost() {
                   )}
                   <div className="create-post-form-errors">
                     {errors && errors.length > 0
-                      ? errors.map((error) => <div>{error}</div>)
+                      ? errors.map((error, idx) => <div key={idx}>{error}</div>)
                       : ""}
                   </div>
                   <div className="create-post-form-buttons">
@@ -294,6 +301,7 @@ export default function CreatePost() {
                 <img
                   className="community-title-details-img"
                   src={community?.communityImg}
+                  alt="Community"
                 />
                 <div className="community-title-details-name">
                   <NavLink to={`/c/${community?.id}`}>
@@ -306,7 +314,7 @@ export default function CreatePost() {
                   <p>{community?.description}</p>
                 </div>
                 <div className="community-page-box-date">
-                  <img src={Cake} className="community-cake-icon" />
+                  <img src={Cake} className="community-cake-icon" alt="Cake" />
                   Created{" "}
                   {moment(new Date(community?.createdAt)).format(
                     "MMM DD, YYYY"
@@ -339,7 +347,7 @@ export default function CreatePost() {
         )}
         <div className="ribbit-rules-box">
           <div className="ribbit-rules-title">
-            <img className="ribbit-rules-frog" src={Frog} />
+            <img className="ribbit-rules-frog" src={Frog} alt="Frog" />
             Posting to Ribbit
           </div>
           <div className="ribbit-rules-rule">1. Remember the human</div>

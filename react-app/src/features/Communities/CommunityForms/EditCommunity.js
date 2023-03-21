@@ -34,7 +34,7 @@ export default function EditCommunity() {
   useEffect(() => {
     dispatch(getSingleCommunity(community?.id));
     dispatch(getCommunityRules(communityId));
-  }, []);
+  }, [community?.id, communityId, dispatch]);
 
   useEffect(() => {
     if (rules.length === 15) {
@@ -43,14 +43,14 @@ export default function EditCommunity() {
     if (rules.length < 15) {
       setAddAllowed(true);
     }
-  }, [addAllowed]);
+  }, [rules.length, addAllowed]);
 
   useEffect(() => {
     setdisplay_name(community?.displayName);
     setDescription(community?.description);
 
     setRulesNum(rules.length);
-  }, [rulesNum]);
+  }, [rulesNum, community?.displayName, community?.description, rules.length]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,7 +76,7 @@ export default function EditCommunity() {
     <div className="edit-community-page">
       <div className="edit-community-page-header">
         <div className="edit-community-top-bar">
-          <img src={community.communityImg} />
+          <img src={community.communityImg} alt="Community" />
           <span className="edit-community-top-bar-name">
             <NavLink to={`/c/${community.id}`}>c/{community.name}</NavLink> /
             Community Settings
