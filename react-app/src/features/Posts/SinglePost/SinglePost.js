@@ -5,7 +5,7 @@ import moment from "moment";
 import parse from "html-react-parser";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 
-import { addPostVote, removePostVote } from "../../../store/posts";
+import { addPostVote, getPosts, removePostVote } from "../../../store/posts";
 import { Modal } from "../../../context/Modal";
 import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
 import UpdatePost from "../PostForms/UpdatePost";
@@ -31,12 +31,8 @@ export default function SinglePost({ id, isPage, userId }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
-  const [voteTotal, setVoteTotal] = useState();
+  const [voteTotal, setVoteTotal] = useState(post?.votes);
   const [commentNum, setCommentNum] = useState(0);
-
-  useEffect(() => {
-    setVoteTotal(post?.votes);
-  }, [post?.votes]);
 
   useEffect(() => {
     if (showLinkCopied) {
@@ -47,7 +43,8 @@ export default function SinglePost({ id, isPage, userId }) {
     setCommentNum(post?.commentNum);
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
 
-  const handleUpvoteClick = async () => {
+  const handleUpvoteClick = async (e) => {
+    e.preventDefault();
     if (user?.id in post?.postVoters) {
       if (!post?.postVoters[user?.id].isUpvote) {
         await dispatch(removePostVote(post.id));
@@ -63,7 +60,8 @@ export default function SinglePost({ id, isPage, userId }) {
     }
   };
 
-  const handleDownvoteClick = async () => {
+  const handleDownvoteClick = async (e) => {
+    e.preventDefault();
     if (user?.id in post?.postVoters) {
       if (post?.postVoters[user?.id].isUpvote) {
         await dispatch(removePostVote(post.id));
@@ -101,7 +99,6 @@ export default function SinglePost({ id, isPage, userId }) {
   };
 
   useEffect(() => {
-    // dispatch(getPosts());
     if (posts && Object.values(posts)?.length > 0) {
       if (
         Object.values(post?.postVoters) &&
@@ -120,7 +117,7 @@ export default function SinglePost({ id, isPage, userId }) {
         }
       }
     }
-  }, [upvote, downvote, voteTotal, post?.postVoters, posts, user?.id]);
+  }, [upvote, downvote, voteTotal, post?.postVoters, user?.id]);
 
   return (
     <>
@@ -255,7 +252,8 @@ export default function SinglePost({ id, isPage, userId }) {
                   <div className="single-post-button">
                     <button
                       className="single-post-share-btn"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         setShowLinkCopied(true);
                         navigator.clipboard.writeText(
                           `https://ribbit-app.herokuapp.com/posts/${post.id}`

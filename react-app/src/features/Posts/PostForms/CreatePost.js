@@ -38,6 +38,7 @@ export default function CreatePost() {
   const history = useHistory();
   const { communityId } = useParams();
 
+  const [community, setCommunity] = useState();
   const [title, setTitle] = useState("");
   const [members, setMembers] = useState(0);
   const [img_url, setimg_url] = useState("");
@@ -50,22 +51,26 @@ export default function CreatePost() {
   const [errors, setErrors] = useState([]);
   const [showDiscardModal, setShowDiscardModal] = useState(false);
   const [postType, setPostType] = useState("post");
-  const community = useSelector(
-    (state) => state.singleCommunity[+community_id]
-  );
+  // const community = useSelector(
+  //   (state) => state.singleCommunity[+community_id]
+  // );
 
   const communities = useSelector((state) => Object.values(state.communities));
   const user = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    for (let community of communities) {
+      if (community.id === community_id) {
+        setCommunity(community);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     setMembers(community?.members);
   }, [community?.members]);
 
   useEffect(() => {
-    // dispatch(getPosts());
-    // dispatch(getCommunities());
-    // dispatch(getSingleCommunity(+communityId));
-
     if (content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
       setContent("");
       setDisabled(true);
@@ -149,6 +154,8 @@ export default function CreatePost() {
               <div className="create-post-header">Create a post</div>
               <CommunitySelection
                 community_id={community_id}
+                community={community}
+                setCommunity={setCommunity}
                 setcommunity_id={setcommunity_id}
               />
 

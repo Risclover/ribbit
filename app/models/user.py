@@ -3,7 +3,8 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 # from ..models.message import Message
-from .joins import subscriptions
+from ..models.post import Post
+from .joins import subscriptions, followers
 from datetime import datetime
 import json
 from time import time
@@ -32,14 +33,7 @@ class User(db.Model, UserMixin):
     #                                     backref='recipient', lazy='dynamic')
     # last_message_read_time = db.Column(db.DateTime)
     # notifications = db.relationship('Notification', backref='user', lazy='dynamic')
-    # followed = db.relationship(
-    #     'User', secondary=followers,
-    #     primaryjoin=(followers.c.follower_id == id),
-    #     secondaryjoin=(followers.c.followed_id == id),
-    #     backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
-    # posts = db.relationship('Post', backref='author', lazy=True)
-
-
+    followed = db.relationship('User', secondary=followers, primaryjoin=(followers.c.follower_id == id), secondaryjoin=(followers.c.followed_id == id), backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
     user_posts = db.relationship("Post", back_populates="post_author", cascade="all, delete-orphan")
     user_comments = db.relationship("Comment", back_populates="comment_author", cascade="all, delete-orphan")
     user_subscriptions = db.relationship('Community', back_populates="subscribers", secondary=subscriptions, lazy="joined")
@@ -60,23 +54,38 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    # def follow(self, user):
-    #     if not self.is_following(user):
-    #         self.followed.append(user)
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
 
-    # def unfollow(self, user):
-    #     if self.is_following(user):
-    #         self.followed.remove(user)
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
 
-    # def is_following(self, user):
-    #     return self.followed.filter(
-    #         followers.c.followed_id == user.id).count() > 0
+    def is_following(self, user):
+        return self.followed.filter(
+            followers.c.followed_id == user.id).count() > 0
 
-    # def followed_posts(self):
-    #     return Post.query.join(
-    #         followers, (followers.c.followed_id == Post.user_id)).filter(
-    #             followers.c.follower_id == self.id).order_by(
-    #                 Post.created_at.desc())
+    def followed_posts(self):
+        followed_posts = Post.query.join(
+            followers, (followers.c.followed_id == Post.user_id)).filter(
+                followers.c.follower_id == self.id)
+        user_posts = Post.query.filter_by(user_id=self.id)
+        return followed_posts.union(user_posts)
+
+    def followed_users(self):
+        followed = User.query.join(
+            followers, (followers.c.followed_id == User.id)).filter(
+                followers.c.follower_id == self.id)
+        return followed
+
+    def user_followers(self):
+        follower = User.query.join(
+            followers, (followers.c.follower_id == User.id)).filter(
+                followers.c.followed_id == self.id)
+        return follower
+
+
 
     # def new_messages(self):
     #     last_read_time = self.last_message_read_time or datetime(1900, 1, 1)

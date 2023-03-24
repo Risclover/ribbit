@@ -136,12 +136,14 @@ export default function CommunityPage() {
                 <div className="community-header-info-subscribe">
                   {user && subscribed && (
                     <button
-                      className="blue-btn-filled btn-short join-btn"
+                      className="blue-btn-unfilled btn-short join-btn"
                       onClick={async (e) => {
                         e.preventDefault();
                         await dispatch(deleteSubscription(community_id));
                         setSubscribed(false);
                       }}
+                      onMouseEnter={(e) => (e.target.textContent = "Leave")}
+                      onMouseLeave={(e) => (e.target.textContent = "Joined")}
                     >
                       Joined
                     </button>

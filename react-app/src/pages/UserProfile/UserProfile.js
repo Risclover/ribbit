@@ -2,13 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { IoIosPaper } from "react-icons/io";
-
 import { getCommunities } from "../../store/communities";
-import { getPosts } from "../../store/posts";
-
-import SortingBar from "../../components/SortingBar/SortingBar";
-import SinglePost from "../../features/Posts/SinglePost/SinglePost";
+import { getFollowedPosts, getPosts } from "../../store/posts";
 import { Modal } from "../../context/Modal";
 
 import UploadUserImage from "./UploadUserImage";
@@ -17,9 +12,18 @@ import UploadBannerImage from "./UploadBannerImage";
 import Camera from "../../images/user-profile-icons/camera.png";
 import Flower from "../../images/user-profile-icons/poinsettia.png";
 import Cakeday from "../../images/user-profile-icons/cakeday.png";
+import { SlArrowRight } from "react-icons/sl";
 
 import "./UserProfile.css";
 import { getSubscriptions } from "../../store/subscriptions";
+import {
+  followUser,
+  getFollowers,
+  getUserFollowers,
+} from "../../store/followers";
+import UserProfilePosts from "./UserProfilePosts";
+import UserProfileFollowers from "./UserProfileFollowers";
+import { getUsers } from "../../store/users";
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -27,10 +31,11 @@ function UserProfile() {
 
   const user = useSelector((state) => state.users[+userId]);
 
+  const [page, setPage] = useState("Posts");
   const [banner, setBanner] = useState();
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showBannerModal, setShowBannerModal] = useState(false);
-
+  const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [karma, setKarma] = useState();
   const [sortMode, setSortMode] = useState("new");
   const [communitiesList, setCommunitiesList] = useState([]);
@@ -38,16 +43,27 @@ function UserProfile() {
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => Object.values(state.posts));
   const currentUser = useSelector((state) => state.session.user);
+  const users = useSelector((state) => state.users);
+  const followers = useSelector((state) => state.followers.followers);
+  const follows = useSelector((state) => state.followers.follows);
+  const userFollowers = useSelector((state) => state.followers.userFollowers);
 
   useEffect(() => {
     setBanner(user?.bannerImg);
   }, [userId, user?.bannerImg]);
 
   useEffect(() => {
+    setPage("Posts");
     dispatch(getCommunities());
+    dispatch(getUserFollowers(+userId));
+    dispatch(getFollowers());
+    dispatch(getFollowedPosts());
+    dispatch(getUsers());
     dispatch(getPosts());
     dispatch(getSubscriptions());
+  }, [dispatch]);
 
+  useEffect(() => {
     let communityList = [];
     for (let community of Object.values(communities)) {
       if (community.communityOwner.username === currentUser.username) {
@@ -61,7 +77,7 @@ function UserProfile() {
         postsList.push(post);
       }
     }
-  }, [dispatch, currentUser.username, userId]);
+  }, [currentUser.username, userId]);
 
   useEffect(() => {
     setKarma(user?.karma);
@@ -91,6 +107,12 @@ function UserProfile() {
     });
   }
 
+  const handleFollow = async () => {
+    await dispatch(followUser(+userId));
+    dispatch(getFollowers());
+    dispatch(getUserFollowers(+userId));
+  };
+
   if (!user) {
     return null;
   }
@@ -98,36 +120,31 @@ function UserProfile() {
   return (
     <div className="user-profile-page">
       <div className="user-profile-left-col">
-        {user.userPosts > 0 && (
-          <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+        {page === "Posts" && (
+          <UserProfilePosts
+            posts={posts}
+            user={user}
+            userId={userId}
+            sortMode={sortMode}
+            setSortMode={setSortMode}
+          />
         )}
-        {user.userPosts === 0 && (
-          <div className="no-posts-div">
-            <IoIosPaper />
-            <h1 className="head">No Posts Yet</h1>
-            <p>This user hasn't created any posts yet. Perhaps they're shy?</p>
-          </div>
-        )}
-        {posts.map((post) =>
-          post.postAuthor.id === +userId ? (
-            <NavLink key={post.id} to={`/posts/${post.id}`}>
-              <SinglePost
-                key={post.id}
-                id={post.id}
-                isCommunity={false}
-                isPage="profile"
-                userId={+userId}
-              />
-            </NavLink>
-          ) : (
-            ""
-          )
+        {showFollowersModal && (
+          <Modal onClose={() => setShowFollowersModal(false)} title="Followers">
+            <UserProfileFollowers
+              setShowFollowersModal={setShowFollowersModal}
+            />
+          </Modal>
         )}
       </div>
       <div className="user-profile-right-col">
         <div className="user-profile-about-box">
           <div className="user-profile-about-box-banner">
-            <img src={banner} className="user-profile-banner" alt="Banner" />
+            {banner === null ? (
+              ""
+            ) : (
+              <img src={banner} className="user-profile-banner" alt="Banner" />
+            )}
             {currentUser.id === +userId && (
               <div
                 className="user-profile-banner-upload-btn"
@@ -206,10 +223,35 @@ function UserProfile() {
                   </span>
                 </div>
               </div>
+              {currentUser.id === user.id && (
+                <div
+                  className="user-profile-stats stats-followers"
+                  onClick={() => setShowFollowersModal(true)}
+                >
+                  <h5>Followers</h5>
+                  <div className="stats-stats">
+                    <i className="fa-solid fa-user"></i>
+                    <span className="stats-label">
+                      {followers && Object.values(followers).length}
+                    </span>
+                    <SlArrowRight />
+                  </div>
+                </div>
+              )}
             </div>
-            {/* {currentUser?.id !== +userId && (
-              <button className="user-profile-follow-btn">Follow</button>
-            )} */}
+
+            {userFollowers && currentUser.id !== +userId && (
+              <button
+                className={
+                  !userFollowers[currentUser?.id]
+                    ? "blue-btn-filled btn-long"
+                    : "blue-btn-unfilled btn-long"
+                }
+                onClick={handleFollow}
+              >
+                {!userFollowers[currentUser.id] ? "Follow" : "Unfollow"}
+              </button>
+            )}
           </div>
         </div>
         {currentUser?.id === +userId && (

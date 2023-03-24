@@ -308,3 +308,174 @@
   background: #0079d3;
   cursor: pointer;
 }
+
+.stats-stats svg {
+  font-size: 12px;
+  color: #24a0ed;
+}
+
+.stats-stats svg:last-of-type {
+  font-size: 10px;
+  color: grey;
+  margin-left: 12px;
+}
+
+/* USER PROFILE - FOLLOWERS */
+.user-profile-followers-page {
+  display: flex;
+  flex-direction: column;
+  max-width: 640px;
+}
+
+.user-profile-followers-head {
+  display: flex;
+  background: #edeff1;
+  padding: 8px 16px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px 4px 0 0;
+}
+
+.user-profile-followers-head-left {
+  display: flex;
+  flex-direction: column;
+  padding-right: 10px;
+}
+
+.user-profile-followers-head-title {
+  font-weight: 500;
+  line-height: 18px;
+  color: #1c1c1c;
+}
+
+.user-profile-followers-head-desc {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #7c7c7c;
+}
+
+.user-profile-followers-head-right {
+  display: flex;
+}
+
+.user-profile-followers-search-input {
+  border: 1px solid #878a8c;
+  color: #1c1c1c;
+  font-family: "IBM Plex Sans", sans-serif;
+  border-radius: 4px 0 0 4px;
+  height: 32px;
+  padding: 8px;
+  width: 248px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.user-profile-followers-search-btn {
+  background: #878a8c;
+  border-radius: 0 4px 4px 0;
+  height: 32px;
+  width: 40px;
+  border: transparent;
+  color: white;
+  font-size: 20px;
+  position: relative;
+  text-align: center;
+}
+
+.user-profile-followers-search-btn svg {
+  position: absolute;
+  top: 7px;
+  left: 10px;
+}
+
+.user-profile-followers-list {
+  background: white;
+  color: #1c1c1c;
+  padding: 8px 16px;
+}
+
+.user-profile-follower {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-profile-follower-left {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  padding: 4px 8px 4px 4px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.user-profile-follower-left:hover {
+  background: #edeff1;
+}
+
+.user-profile-follower-img {
+  width: 32px;
+  height: 32px;
+  margin-right: 6px;
+  border-radius: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.user-profile-follower-btn {
+  min-width: 112px;
+  background-color: #f6f7f8;
+  border: 1px solid transparent;
+  color: #0079d3;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  min-height: 38px;
+  padding: 4px 16px;
+}
+
+.user-profile-follower-btn:hover {
+  background-color: rgba(0, 121, 211, 0.1);
+}
+
+.user-profile-follower-btn:active {
+  background-color: rgba(0, 121, 211, 0.2);
+}
+
+.user-profile-following-btn {
+  min-width: 112px;
+  background: white;
+  border: 1px solid transparent;
+  color: #878a8c;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  min-height: 38px;
+  padding: 4px 16px;
+  position: relative;
+}
+
+.user-profile-following-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: #1c1c1c;
+  opacity: 0;
+}
+
+.user-profile-following-btn:hover:before {
+  opacity: 0.08;
+}
+
+.user-profile-following-btn:active:before {
+  opacity: 0.24;
+}

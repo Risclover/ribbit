@@ -21,7 +21,12 @@ function useOutsideAlerter(ref, setShowDropdown) {
   }, [ref, setShowDropdown]);
 }
 
-export default function CommunitySelection({ setcommunity_id, community_id }) {
+export default function CommunitySelection({
+  setcommunity_id,
+  community_id,
+  community,
+  setCommunity,
+}) {
   const wrapperRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -38,6 +43,14 @@ export default function CommunitySelection({ setcommunity_id, community_id }) {
   useEffect(() => {
     dispatch(getSubscriptions());
   }, [dispatch]);
+
+  useEffect(() => {
+    for (let community of Object.values(allCommunities)) {
+      if (community.id === community_id) {
+        setSearch(community.name);
+      }
+    }
+  }, []);
 
   let communityList = [];
   for (let i = 0; i < Object.values(allCommunities).length; i++) {
@@ -60,6 +73,7 @@ export default function CommunitySelection({ setcommunity_id, community_id }) {
         name={name}
         setName={setName}
         communityList={communityList}
+        communityId={community_id}
       />
       {showDropdown && (
         <CommunitySelectionDropdown
@@ -75,6 +89,8 @@ export default function CommunitySelection({ setcommunity_id, community_id }) {
           showDropdown={showDropdown}
           communities={Object.values(communities)}
           subscriptions={Object.values(subscriptions)}
+          community={community}
+          setCommunity={setCommunity}
         />
       )}
     </div>

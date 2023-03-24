@@ -132,6 +132,7 @@ nav ul li {
   display: flex;
   padding: 0 20px;
   height: 40px;
+  cursor: default;
 }
 
 .nav-user-dropdown-btn-title svg {
@@ -345,6 +346,7 @@ nav ul li {
   background-repeat: no-repeat;
   background-size: 100%;
   border-radius: 1000px;
+  object-fit: cover;
 }
 
 .search-result-community-details {

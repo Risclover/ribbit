@@ -17,9 +17,12 @@ export default function CommunitySelectionDropdown({
   setName,
   communityModalOpen,
   setCommunityModalOpen,
+  community,
+  setCommunity,
 }) {
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
+
   const handleOpenCreateCommunity = () => {
     setCommunityModalOpen(true);
     setShowCreateCommunityModal(true);
@@ -60,6 +63,7 @@ export default function CommunitySelectionDropdown({
           setShowDropdown={setShowDropdown}
           showDropdown={showDropdown}
           setName={setName}
+          setCommunity={setCommunity}
         />
       ))}
       {communityList.filter((community) =>

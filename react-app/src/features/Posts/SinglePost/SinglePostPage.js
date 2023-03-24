@@ -85,12 +85,14 @@ export default function SinglePostPage({ setShowLoginForm }) {
               <div className="single-post-right-col-btns">
                 {user && subscribed && (
                   <button
-                    className="blue-btn-filled btn-long"
+                    className="blue-btn-unfilled btn-long"
                     onClick={async (e) => {
                       e.preventDefault();
                       await dispatch(deleteSubscription(community?.id));
                       setSubscribed(false);
                     }}
+                    onMouseEnter={(e) => (e.target.textContent = "Leave")}
+                    onMouseLeave={(e) => (e.target.textContent = "Joined")}
                   >
                     Joined
                   </button>

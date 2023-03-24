@@ -11,6 +11,7 @@ import allSubscriptionsReducer from "./subscriptions";
 import usersReducer from "./users";
 import searchReducer from "./search";
 import rulesReducer from "./rules";
+import followersReducer from "./followers";
 // import messagesReducer from "./messages";
 
 const rootReducer = combineReducers({
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   subscriptions: allSubscriptionsReducer,
   search: searchReducer,
   rules: rulesReducer,
+  followers: followersReducer,
   // messages: messagesReducer,
 });
 

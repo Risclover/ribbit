@@ -207,13 +207,11 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
                           history.push(`/c/${community.id}`);
                         }}
                       >
-                        <div
-                          className="search-result-community-img"
-                          style={{
-                            backgroundImage: `url(${community.communityImg})`,
-                          }}
-                        >
-                          &nbsp;
+                        <div className="search-result-community-img-box">
+                          <img
+                            src={community.communityImg}
+                            className="search-result-community-img"
+                          />
                         </div>
                         <div className="search-result-community-details">
                           <div className="search-result-community-name">
@@ -256,13 +254,11 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
                         }}
                       >
                         {" "}
-                        <div
-                          className="search-result-community-img"
-                          style={{
-                            backgroundImage: `url(${user.profile_img})`,
-                          }}
-                        >
-                          &nbsp;
+                        <div className="search-result-community-img-box">
+                          <img
+                            src={user.profile_img}
+                            className="search-result-community-img"
+                          />
                         </div>
                         <div className="search-result-community-details">
                           <div className="search-result-community-name">

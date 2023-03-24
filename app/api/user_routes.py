@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import User, db
-from app.forms import ProfileUpdateForm
+from app.forms import ProfileUpdateForm, EmptyForm
 from .auth_routes import validation_errors_to_error_messages
 
 from app.s3_helpers import (
@@ -106,3 +106,85 @@ def upload_image(id, type):
 #         return jsonify({'karma': user.karma})
 #     else:
 #         return jsonify({'error': 'You must be logged in to update karma'})
+
+
+# FOLLOW USER
+@user_routes.route("/follow/<username>", methods=["POST"])
+@login_required
+def follow(username):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            return {"errors": "User not found"}, 400
+        if user == current_user:
+            return {"errors": "You cannot follow yourself."}, 400
+        current_user.follow(user)
+        db.session.commit()
+        return {"user": username}
+    else:
+        return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+# UNFOLLOW USER
+@user_routes.route("/unfollow/<username>", methods=["POST"])
+@login_required
+def unfollow(username):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            return {"errors": "User not found"}, 400
+        if user == current_user:
+            return {"errors": "You cannot follow yourself."}, 400
+        current_user.unfollow(user)
+        db.session.commit()
+        return {"user": username}
+    else:
+        return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+
+# FOLLOW/UNFOLLOW USER
+@user_routes.route("/follow/<int:id>", methods=["POST"])
+@login_required
+def handle_follow(id):
+    """
+    Follow or unfollow the user based on id
+    """
+    user = User.query.get(current_user.get_id())
+    target = User.query.get(id)
+
+    if not user.is_following(target):
+        user.follow(target)
+    else:
+        user.unfollow(target)
+
+    db.session.commit()
+    return {"message": "successfully followed/unfollowed"}
+
+
+
+# GET CURRENT USER'S FOLLOWERS
+@user_routes.route("/followers")
+def get_followers():
+    """
+    Get current user's followers
+    """
+    user = User.query.get(current_user.get_id())
+    return {
+        "Follows": [user.to_dict() for user in user.followed_users()],
+        "Followers": [user.to_dict() for user in user.user_followers()]
+    }
+
+
+# GET ANY USER'S FOLLOWERS
+@user_routes.route("/<int:id>/followers")
+def get_user_followers(id):
+    """
+    Get user's followers
+    """
+    user = User.query.get(id)
+    return {
+        "Follows": [user.to_dict() for user in user.followed_users()],
+        "Followers": [user.to_dict() for user in user.user_followers()]
+    }

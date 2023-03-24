@@ -17,6 +17,7 @@ import Resume from "../../images/developer-links/resume.png";
 import Email from "../../images/developer-links/mail.png";
 import SortingBar from "../../components/SortingBar/SortingBar";
 import "./Posts.css";
+import { getFollowers, getUserFollowers } from "../../store/followers";
 
 export default function SubscribedPosts() {
   const dispatch = useDispatch();
@@ -29,10 +30,14 @@ export default function SubscribedPosts() {
 
   const user = useSelector((state) => state.session.user);
   const communities = useSelector((state) => Object.values(state.communities));
+  const followedPosts = useSelector((state) => state.followers.followedPosts);
 
+  console.log("FOLLOWED POSTS:", followedPosts);
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getPosts());
+    dispatch(getFollowers());
+    dispatch(getUserFollowers(user.id));
   }, [dispatch]);
 
   let postList = communities.map(
@@ -40,11 +45,25 @@ export default function SubscribedPosts() {
       community.subscribers[user?.id] !== undefined && community.communityPosts
   );
 
-  let newList = [];
+  // let followedList = followedPosts.map((post) => post.followedPosts);
+
+  // console.log("FOLLOWED LIST:", followedList);
+
+  let concatList = [];
 
   postList.forEach((item) => {
-    Object.values(item).forEach((thing) => newList.push(thing));
+    Object.values(item).forEach((thing) => concatList.push(thing));
   });
+
+  let newList = [];
+
+  if (followedPosts) {
+    let ids = new Set(Object.values(followedPosts).map((d) => d.id));
+    newList = [
+      ...Object.values(followedPosts),
+      ...concatList.filter((d) => !ids.has(d.id)),
+    ];
+  }
 
   if (sortMode === "new") {
     newList.sort((a, b) => {
@@ -99,10 +118,10 @@ export default function SubscribedPosts() {
             </p>
           </div>
         )}
-        {newList.map((post) => (
+        {newList.map((post, idx) => (
           <NavLink key={post.id} to={`/posts/${post.id}`}>
             <SinglePost
-              key={post.id}
+              key={idx}
               id={post.id}
               postComments={Object.values(post.postComments).length}
               isCommunity={false}
