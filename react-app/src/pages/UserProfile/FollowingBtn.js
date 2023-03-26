@@ -10,34 +10,38 @@ export default function FollowingBtn({ user, follows }) {
   const dispatch = useDispatch();
   const [following, setFollowing] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
+
   useEffect(() => {
     for (let followed of Object.values(follows)) {
       if (followed.username === user.username) {
         setFollowing(true);
+        break;
+      } else {
+        setFollowing(false);
       }
     }
-  });
+  }, []);
 
   const userFollowers = useSelector((state) => state.followers.userFollowers);
 
   const handleFollowing = async () => {
-    setFollowing(!following);
     await dispatch(followUser(user.id));
     dispatch(getFollowers());
     dispatch(getUserFollowers(user.id));
+    setFollowing(!following);
   };
   return (
     <div className="user-profile-follower-right">
       {" "}
       <button
         className={
-          !userFollowers[currentUser.id]
+          !following
             ? "user-profile-follower-btn"
             : "user-profile-following-btn"
         }
         onClick={handleFollowing}
       >
-        {!userFollowers[currentUser.id] ? "Follow" : "Following"}
+        {!following ? "Follow" : "Following"}
       </button>
     </div>
   );

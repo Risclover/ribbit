@@ -39,6 +39,7 @@ function UserProfile() {
   const [karma, setKarma] = useState();
   const [sortMode, setSortMode] = useState("new");
   const [communitiesList, setCommunitiesList] = useState([]);
+  const [following, setFollowing] = useState(false);
 
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => Object.values(state.posts));
@@ -47,6 +48,8 @@ function UserProfile() {
   const followers = useSelector((state) => state.followers.followers);
   const follows = useSelector((state) => state.followers.follows);
   const userFollowers = useSelector((state) => state.followers.userFollowers);
+
+  console.log("follows:", follows);
 
   useEffect(() => {
     setBanner(user?.bannerImg);
@@ -62,6 +65,21 @@ function UserProfile() {
     dispatch(getPosts());
     dispatch(getSubscriptions());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (follows) {
+      if (Object.values(follows).length > 0) {
+        for (let followed of Object.values(follows)) {
+          if (followed.username === user.username) {
+            setFollowing(true);
+            break;
+          } else {
+            setFollowing(false);
+          }
+        }
+      }
+    }
+  }, []);
 
   useEffect(() => {
     let communityList = [];
@@ -111,9 +129,10 @@ function UserProfile() {
     await dispatch(followUser(+userId));
     dispatch(getFollowers());
     dispatch(getUserFollowers(+userId));
+    setFollowing(!following);
   };
 
-  if (!user) {
+  if (!user || !follows) {
     return null;
   }
 

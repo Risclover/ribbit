@@ -32,13 +32,14 @@ export default function CommunitySelection({
 
   const communities = useSelector((state) => state.communities);
   const subscriptions = useSelector((state) => state.subscriptions);
+  const allCommunities = useSelector((state) => state.communities);
+
   const [search, setSearch] = useState();
   const [showDropdown, setShowDropdown] = useState(false);
   const [name, setName] = useState("");
   const [communityModalOpen, setCommunityModalOpen] = useState(false);
 
   useOutsideAlerter(wrapperRef, setShowDropdown);
-  const allCommunities = useSelector((state) => state.communities);
 
   useEffect(() => {
     dispatch(getSubscriptions());

@@ -34,7 +34,7 @@ export default function UserProfileFollowers({ setShowFollowersModal }) {
           </div>
         </div>
         <div className="user-profile-followers-head-right">
-          <input
+          {/* <input
             type="text"
             placeholder="Search for a user"
             className="user-profile-followers-search-input"
@@ -43,7 +43,7 @@ export default function UserProfileFollowers({ setShowFollowersModal }) {
           />
           <button className="user-profile-followers-search-btn">
             <BiSearch />
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="user-profile-followers-list">

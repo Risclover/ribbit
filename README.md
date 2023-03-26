@@ -3,8 +3,9 @@
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Project Information](#project-information)
-- [Languages, Features, and Technologies](#languages-frameworks-and-technologies)
+- [Languages, Frameworks, and Technologies](#languages-frameworks-and-technologies)
 - [Features](#features)
 - [Future Implementations](#future-implementations)
 - [Getting Started](#getting-started)
@@ -42,6 +43,7 @@ This is Ribbit, a clone of https://www.reddit.com. On this site, users can subsc
 - Post Likes and Dislikes (Create, Read, and Delete)
 - Comment Likes and Dislikes (Create, Read, and Delete)
 - Community Rules (Create, Read, Update, and Delete)
+- Followers
 - Search
 - AWS S3 used for:
   - User profile images
@@ -53,16 +55,33 @@ This is Ribbit, a clone of https://www.reddit.com. On this site, users can subsc
 
 Future feature implementations include:
 
-- More-developed search results page
-- Following other users
-- Favoriting communities
+- ~~More-developed search results page~~ &check;
+- ~~Following other users~~ &check;
+- Favorite communities
 - Saving posts and comments
-- Live messaging via Socket.io
+- Live messaging via websockets
 - Notifications for post replies, comment replies, new community posts, and messages
 
 ## Getting Started
 
+To set up this app:
+
+1. Clone the project.
+2. In the root directory of the project, run `pipenv install -r requirements.txt`.
+3. Create a `.env` file based on the `.envexample` file provided.
+4. Make sure the SQLite3 database connection URL is in the `.env` file
+5. This starter organizes all tables inside the flask_schema schema, defined by the SCHEMA environment variable. Replace the value for SCHEMA with a unique name, making sure you use the snake_case convention.
+6. Get into your `pipenv`, migrate your database, seed your database, and run your Flask app
+   ```
+   pipenv shell
+   flask db upgrade
+   flask seed all
+   flask run
+   ```
+7. Switch to the react-app folder and run `npm install`
+
 To run this app locally:
+
 1. Navigate to the root directory of the project in the terminal and run `flask run`.
 2. In a separate terminal, navigate to the `/react-app` directory and enter `npm start`. This should automatically launch a browser window navigated to the proper localhost address.
 3. By default, the app will be running on port `3000`.
@@ -77,6 +96,7 @@ To run this app locally:
 ![](/react-app/src/images/readme/user-profile.png)
 
 ## Developer Links
+
 - [Developer portfolio](https://risclover.github.io)
 - [LinkedIn](https://www.linkedin.com/in/sara-dunlop)
 - [Wellfound](https://angel.co/u/sara-dunlop-1)

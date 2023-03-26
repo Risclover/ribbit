@@ -78,17 +78,18 @@ export default function CommunitySelectionDropdown({
         {search?.length > 0 &&
           communityList
             .filter((community) =>
-              community["name"].toLowerCase().includes(search?.toLowerCase())
+              community["name"].toLowerCase().includes(search.toLowerCase())
             )
             .map((community) => (
               <CommunitySelectionDropdownCommunity
-                community_id={community_id}
-                setSearch={setSearch}
-                search={search}
                 communityList={communityList}
-                subscription={community}
+                search={search}
+                setSearch={setSearch}
                 setcommunity_id={setcommunity_id}
+                subscription={community}
+                community_id={community_id}
                 setShowDropdown={setShowDropdown}
+                setCommunity={setCommunity}
               />
             ))}
       </div>
