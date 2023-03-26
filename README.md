@@ -1,22 +1,29 @@
+# Ribbit
+
 <p align="center"><img src="./react-app/src/images/ribbit-banners/ribbit_banner.png" /></p>
 <p align="center"><a href="https://ribbit-app.herokuapp.com/" target="_blank">Check out Ribbit here!</a></p>
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [Project Information](#project-information)
-- [Languages, Frameworks, and Technologies](#languages-frameworks-and-technologies)
-- [Features](#features)
-- [Future Implementations](#future-implementations)
-- [Getting Started](#getting-started)
-- [Site Screenshots](#site-screenshots)
-- [Developer Links](#developer-links)
+- [Ribbit](#ribbit)
+  - [Table of Contents](#table-of-contents)
+  - [Project Information](#project-information)
+  - [Languages, Frameworks, and Technologies](#languages-frameworks-and-technologies)
+  - [Features](#features)
+  - [Future Implementations](#future-implementations)
+  - [Getting Started](#getting-started)
+  - [Site Screenshots](#site-screenshots)
+  - [Developer Links](#developer-links)
 
 ## Project Information
+
+(^ [Back to Top](#ribbit))
 
 This is Ribbit, a clone of https://www.reddit.com. On this site, users can subscribe to communities that interest them and interact with other users by creating posts on communities, or by creating comments on other users' posts. Users can use their homepage to look through the posts from their subscribed communities, or the 'All' feed to view posts from all communities on the site. In addition, users can upload a profile image and a banner image on their profiles to represent themselves or their personalities. Owners of communities can customize the community's display name, description, image, and rules section.
 
 ## Languages, Frameworks, and Technologies
+
+(^ [Back to Top](#ribbit))
 
 - [React](https://beta.reactjs.org/)
 - [Redux](https://redux.js.org/)
@@ -34,6 +41,8 @@ This is Ribbit, a clone of https://www.reddit.com. On this site, users can subsc
 - [Git](https://devdocs.io/git/)
 
 ## Features
+
+(^ [Back to Top](#ribbit))
 
 - Sign-up and Login functionality for users
 - Communities (Create, Read, Update, and Delete)
@@ -53,6 +62,8 @@ This is Ribbit, a clone of https://www.reddit.com. On this site, users can subsc
 
 ## Future Implementations
 
+(^ [Back to Top](#ribbit))
+
 Future feature implementations include:
 
 - ~~More-developed search results page~~ &check;
@@ -63,6 +74,8 @@ Future feature implementations include:
 - Notifications for post replies, comment replies, new community posts, and messages
 
 ## Getting Started
+
+(^ [Back to Top](#ribbit))
 
 To set up this app:
 
@@ -88,6 +101,8 @@ To run this app locally:
 
 ## Site Screenshots
 
+(^ [Back to Top](#ribbit))
+
 ![](/react-app/src/images/readme/community-img.png)
 ![](/react-app/src/images/readme/create-post.png)
 ![](/react-app/src/images/readme/edit-community.png)
@@ -96,6 +111,8 @@ To run this app locally:
 ![](/react-app/src/images/readme/user-profile.png)
 
 ## Developer Links
+
+(^ [Back to Top](#ribbit))
 
 - [Developer portfolio](https://risclover.github.io)
 - [LinkedIn](https://www.linkedin.com/in/sara-dunlop)
