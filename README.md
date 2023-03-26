@@ -5,15 +5,14 @@
 
 ## Table of Contents
 
-- [Ribbit](#ribbit)
-  - [Table of Contents](#table-of-contents)
-  - [Project Information](#project-information)
-  - [Languages, Frameworks, and Technologies](#languages-frameworks-and-technologies)
-  - [Features](#features)
-  - [Future Implementations](#future-implementations)
-  - [Getting Started](#getting-started)
-  - [Site Screenshots](#site-screenshots)
-  - [Developer Links](#developer-links)
+- [Table of Contents](#table-of-contents)
+- [Project Information](#project-information)
+- [Languages, Frameworks, and Technologies](#languages-frameworks-and-technologies)
+- [Features](#features)
+- [Future Implementations](#future-implementations)
+- [Getting Started](#getting-started)
+- [Site Screenshots](#site-screenshots)
+- [Developer Links](#developer-links)
 
 ## Project Information
 
