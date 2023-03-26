@@ -77,13 +77,12 @@ export default function CommunityPage() {
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getSubscriptions());
+    dispatch(getSingleCommunity(+communityId));
   }, [communityId, dispatch]);
 
   useEffect(() => {
     if (subscriptions[community_id]) setSubscribed(true);
-
     setMembers(community?.members);
-    dispatch(getSingleCommunity(+communityId));
   }, [subscribed, community?.members, subscriptions]);
 
   if (!community || !commPosts || !posts) return null;

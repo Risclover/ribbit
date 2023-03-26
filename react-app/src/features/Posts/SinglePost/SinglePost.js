@@ -99,19 +99,23 @@ export default function SinglePost({ id, isPage, userId }) {
   };
 
   useEffect(() => {
-    if (posts && Object.values(posts)?.length > 0) {
-      if (
-        Object.values(post?.postVoters) &&
-        Object.values(post?.postVoters)?.length > 0
-      ) {
-        for (let voter of Object.values(post?.postVoters)) {
-          if (user?.id === voter?.userID) {
-            if (voter.isUpvote) {
-              setUpvote(true);
-              setDownvote(false);
-            } else if (!voter.isUpvote) {
-              setUpvote(false);
-              setDownvote(true);
+    if (
+      Object.values(posts) &&
+      post?.postVoters &&
+      post?.postVoters !== undefined &&
+      post?.postVoters !== null
+    ) {
+      if (Object.values(posts)?.length > 0) {
+        if (Object.values(post?.postVoters)?.length > 0) {
+          for (let voter of Object.values(post?.postVoters)) {
+            if (user?.id === voter?.userID) {
+              if (voter.isUpvote) {
+                setUpvote(true);
+                setDownvote(false);
+              } else if (!voter.isUpvote) {
+                setUpvote(false);
+                setDownvote(true);
+              }
             }
           }
         }
