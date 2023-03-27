@@ -75,7 +75,7 @@ export default function EditProfile() {
         <div className="edit-profile-btns">
           <button
             className="cancel-profile-edit"
-            onClick={() => history.goBack()}
+            onClick={() => history.push(`/users/${user.id}/profile`)}
           >
             Cancel
           </button>

@@ -5,14 +5,14 @@ import moment from "moment";
 import parse from "html-react-parser";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 
-import { addPostVote, getPosts, removePostVote } from "../../../store/posts";
+import { addPostVote, removePostVote } from "../../../store/posts";
 import { Modal } from "../../../context/Modal";
 import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
-import UpdatePost from "../PostForms/UpdatePost";
 import Bounce from "../../../images/misc/curved-arrow.png";
 
 import "./SinglePost.css";
 import { getUsers } from "../../../store/users";
+import { getSinglePost } from "../../../store/one_post";
 
 export default function SinglePost({ id, isPage, userId }) {
   const history = useHistory();
@@ -28,7 +28,6 @@ export default function SinglePost({ id, isPage, userId }) {
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
   const [voteTotal, setVoteTotal] = useState(post?.votes);
@@ -288,17 +287,35 @@ export default function SinglePost({ id, isPage, userId }) {
               </div>
               {user && user.id === post.postAuthor.id ? (
                 <div className="logged-in-btns">
-                  <div className="single-post-button">
-                    {post?.imgUrl === null && (
-                      <button
-                        className="single-post-edit-btn"
-                        onClick={() => history.push(`/posts/${post.id}/edit`)}
-                      >
-                        <i className="fa-solid fa-pencil"></i>
-                        Edit
-                      </button>
-                    )}
-                    {showEditModal && (
+                  <NavLink
+                    to={
+                      isPage === undefined
+                        ? "/"
+                        : isPage === "all"
+                        ? "/c/all"
+                        : isPage === "community"
+                        ? `/c/${post.communityId}`
+                        : isPage === "singlepage"
+                        ? `/posts/${post.id}`
+                        : isPage === "profile"
+                        ? `/users/${userId}/profile`
+                        : ""
+                    }
+                  >
+                    <div className="single-post-button">
+                      {post?.imgUrl === null && (
+                        <button
+                          className="single-post-edit-btn"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            history.push(`/posts/${post.id}/edit`);
+                          }}
+                        >
+                          <i className="fa-solid fa-pencil"></i>
+                          Edit
+                        </button>
+                      )}
+                      {/* {showEditModal && (
                       <Modal
                         onClose={() => setShowEditModal(false)}
                         title="Edit post"
@@ -308,8 +325,9 @@ export default function SinglePost({ id, isPage, userId }) {
                           showEditModal={showEditModal}
                         />
                       </Modal>
-                    )}
-                  </div>
+                    )} */}
+                    </div>
+                  </NavLink>
                   <div className="single-post-button">
                     <button
                       className="single-post-delete-btn"

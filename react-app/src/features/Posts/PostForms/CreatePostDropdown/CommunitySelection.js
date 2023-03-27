@@ -7,11 +7,24 @@ import CommunitySelectionDropdown from "./CommunitySelectionDropdown";
 import CommunitySelectionInput from "./CommunitySelectionInput";
 import "./CommunitySelection.css";
 
-function useOutsideAlerter(ref, setShowDropdown) {
+function useOutsideAlerter(
+  ref,
+  setShowDropdown,
+  communityModalOpen,
+  setCommunityModalOpen
+) {
   useEffect(() => {
     function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setShowDropdown(false);
+      if (communityModalOpen) {
+        return;
+      }
+      if (!communityModalOpen) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setShowDropdown(false);
+          setCommunityModalOpen(false);
+        }
+      } else {
+        setCommunityModalOpen(true);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -39,7 +52,14 @@ export default function CommunitySelection({
   const [name, setName] = useState("");
   const [communityModalOpen, setCommunityModalOpen] = useState(false);
 
-  useOutsideAlerter(wrapperRef, setShowDropdown);
+  console.log(communityModalOpen, "--- open");
+
+  useOutsideAlerter(
+    wrapperRef,
+    setShowDropdown,
+    communityModalOpen,
+    setCommunityModalOpen
+  );
 
   useEffect(() => {
     dispatch(getSubscriptions());

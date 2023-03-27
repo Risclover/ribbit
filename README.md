@@ -68,7 +68,10 @@ Future feature implementations include:
 
 - ~~More-developed search results page~~ &check;
 - ~~Following other users~~ &check;
-- Favorite communities
+- ~~Favorite communities~~ &check;
+- Improved navigation bar
+  - Left nav dropdown
+  - Left nav sidebar
 - Saving posts and comments
 - Live messaging via websockets
 - Notifications for post replies, comment replies, new community posts, and messages

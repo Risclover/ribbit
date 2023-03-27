@@ -49,8 +49,6 @@ function UserProfile() {
   const follows = useSelector((state) => state.followers.follows);
   const userFollowers = useSelector((state) => state.followers.userFollowers);
 
-  console.log("follows:", follows);
-
   useEffect(() => {
     setBanner(user?.bannerImg);
   }, [userId, user?.bannerImg]);
@@ -68,14 +66,10 @@ function UserProfile() {
 
   useEffect(() => {
     if (follows) {
-      if (Object.values(follows).length > 0) {
-        for (let followed of Object.values(follows)) {
-          if (followed.username === user.username) {
-            setFollowing(true);
-            break;
-          } else {
-            setFollowing(false);
-          }
+      for (let followed of Object.values(follows)) {
+        if (followed?.username === user?.username) {
+          setFollowing(true);
+          break;
         }
       }
     }
@@ -126,13 +120,13 @@ function UserProfile() {
   }
 
   const handleFollow = async () => {
-    await dispatch(followUser(+userId));
+    await dispatch(followUser(user.id));
     dispatch(getFollowers());
-    dispatch(getUserFollowers(+userId));
+    dispatch(getUserFollowers(user.id));
     setFollowing(!following);
   };
 
-  if (!user || !follows) {
+  if (!user || !follows || !user) {
     return null;
   }
 
@@ -262,13 +256,13 @@ function UserProfile() {
             {userFollowers && currentUser.id !== +userId && (
               <button
                 className={
-                  !userFollowers[currentUser?.id]
+                  !following
                     ? "blue-btn-filled btn-long"
                     : "blue-btn-unfilled btn-long"
                 }
                 onClick={handleFollow}
               >
-                {!userFollowers[currentUser.id] ? "Follow" : "Unfollow"}
+                {!following ? "Follow" : "Unfollow"}
               </button>
             )}
           </div>

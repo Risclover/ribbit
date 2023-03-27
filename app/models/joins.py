@@ -8,6 +8,13 @@ subscriptions = db.Table(
     db.Column("community_id", db.Integer, db.ForeignKey("communities.id"), primary_key=True)
 )
 
+favorite_communities = db.Table(
+    "favorite_communities",
+    db.Model.metadata,
+    db.Column("user_id", db.Integer, db.ForeignKey("users.id"), primary_key=True),
+    db.Column("community_id", db.Integer, db.ForeignKey("communities.id"), primary_key=True)
+)
+
 class PostVote(db.Model):
     __tablename__ = "post_votes"
 

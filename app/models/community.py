@@ -1,5 +1,5 @@
 from .db import db
-from .joins import subscriptions
+from .joins import subscriptions, favorite_communities
 
 class Community(db.Model):
     __tablename__ = "communities"
@@ -14,6 +14,7 @@ class Community(db.Model):
 
     community_posts = db.relationship('Post', back_populates="post_community", cascade="all, delete-orphan")
     subscribers = db.relationship('User', back_populates="user_subscriptions", secondary=subscriptions, lazy="joined")
+    favorited_communities = db.relationship('User', back_populates='user_favorite_communities', secondary=favorite_communities, lazy="joined")
     community_owner = db.relationship('User', back_populates="user_communities")
     community_rules = db.relationship("Rule", back_populates="rule_of_community", cascade="all, delete")
 
@@ -26,6 +27,7 @@ class Community(db.Model):
             "description": self.description,
             "createdAt": self.created_at,
             'subscribers': {item.to_dict()["id"]: item.to_dict() for item in self.subscribers},
+            'favoriteCommunities': {item.to_dict()["id"]: item.to_dict() for item in self.favorited_communities},
             'members': len(self.subscribers),
             "communityImg": self.community_img,
             'communityPosts': {item.to_dict()["id"]: item.to_dict() for item in self.community_posts},

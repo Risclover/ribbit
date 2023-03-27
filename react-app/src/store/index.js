@@ -12,6 +12,7 @@ import usersReducer from "./users";
 import searchReducer from "./search";
 import rulesReducer from "./rules";
 import followersReducer from "./followers";
+import favoriteCommunitiesReducer from "./favorite_communities";
 // import messagesReducer from "./messages";
 
 const rootReducer = combineReducers({
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   search: searchReducer,
   rules: rulesReducer,
   followers: followersReducer,
+  favoriteCommunities: favoriteCommunitiesReducer,
   // messages: messagesReducer,
 });
 

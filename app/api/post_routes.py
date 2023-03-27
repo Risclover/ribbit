@@ -112,11 +112,11 @@ def update_post(id):
 
         setattr(post, 'title', data['title'])
         setattr(post, 'content', data['content'])
+        print(data)
 
         db.session.commit()
+        # print(post.to_dict())
         return post.to_dict()
-    print(post.to_dict())
-    print(data)
     print(validation_errors_to_error_messages(form.errors))
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 

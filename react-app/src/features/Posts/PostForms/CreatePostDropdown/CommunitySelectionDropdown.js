@@ -31,7 +31,7 @@ export default function CommunitySelectionDropdown({
     <div className="community-selection-dropdown">
       <div className="community-selection-dropdown-topbar">
         <h5>Your Communities</h5>
-        <button
+        {/* <button
           className="community-selection-dropdown-new-community"
           onClick={(e) => {
             e.preventDefault();
@@ -39,7 +39,7 @@ export default function CommunitySelectionDropdown({
           }}
         >
           Create New
-        </button>
+        </button> */}
         {showCreateCommunityModal && (
           <Modal
             onClose={() => setShowCreateCommunityModal(false)}

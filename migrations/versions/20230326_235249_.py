@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: b7f26b86828b
+Revision ID: b363289fc23b
 Revises: 
-Create Date: 2023-03-19 17:36:52.645686
+Create Date: 2023-03-26 23:52:49.639148
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b7f26b86828b'
+revision = 'b363289fc23b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -43,6 +43,19 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('followers',
+    sa.Column('follower_id', sa.Integer(), nullable=True),
+    sa.Column('followed_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['followed_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['follower_id'], ['users.id'], )
+    )
+    op.create_table('favorite_communities',
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('community_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['community_id'], ['communities.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('user_id', 'community_id')
     )
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -123,6 +136,8 @@ def downgrade():
     op.drop_table('subscriptions')
     op.drop_table('rules')
     op.drop_table('posts')
+    op.drop_table('favorite_communities')
+    op.drop_table('followers')
     op.drop_table('communities')
     op.drop_table('users')
     # ### end Alembic commands ###

@@ -17,8 +17,6 @@ export default function UserProfileFollowers({ setShowFollowersModal }) {
   const followers = useSelector((state) => state.followers.followers);
   const follows = useSelector((state) => state.followers.follows);
 
-  console.log("FOLLOWERS", followers);
-
   useEffect(() => {
     dispatch(getFollowers());
   }, []);

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { putSinglePost } from "../../../store/posts";
+import { getPosts, putSinglePost } from "../../../store/posts";
 
 import "./PostForm.css";
 
@@ -30,32 +30,43 @@ export default function UpdatePost() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const post = useSelector((state) => Object.values(state.singlePost));
+  const post = useSelector((state) => state.posts[+postId]);
+  const posts = useSelector((state) => state.posts);
 
-  const [title, setTitle] = useState(post[0]?.title);
-  const [content, setContent] = useState(post[0]?.content);
+  const [title, setTitle] = useState(post ? post.title : "");
+  const [content, setContent] = useState(post ? post.content : "");
   const [titleErrors, setTitleErrors] = useState([]);
   const [contentErrors, setContentErrors] = useState([]);
   const [errors, setErrors] = useState([]);
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (content?.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
+      setContent("");
+      setDisabled(true);
+    }
+    if (content?.trim().length === 0 || title?.trim().length === 0) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [dispatch, title, content]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let titles = [];
     let contents = [];
 
-    if (title.trim().length === 0)
+    if (title && title.trim().length < 1)
       titles.push("Please give your post a title.");
-    if (content.trim().length === 0)
+    if (content && content.trim().length < 1)
       contents.push("Please give your post some content.");
     if (titles.length > 0 || contents.length > 0) {
       setTitleErrors(titles);
       setContentErrors(contents);
     } else {
       const data = await dispatch(
-        putSinglePost(
-          { title: title.trim(), content: content.trim() },
-          post[0].id
-        )
+        putSinglePost({ title: title, content: content }, post?.id)
       );
       if (data.errors) {
         setErrors(data.errors);
@@ -102,7 +113,11 @@ export default function UpdatePost() {
           >
             Cancel
           </button>
-          <button className="update-post-submit" type="submit">
+          <button
+            className="create-post-form-submit"
+            disabled={disabled}
+            type="submit"
+          >
             Save
           </button>
         </div>

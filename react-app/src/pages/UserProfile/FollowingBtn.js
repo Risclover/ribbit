@@ -30,6 +30,7 @@ export default function FollowingBtn({ user, follows }) {
     dispatch(getUserFollowers(user.id));
     setFollowing(!following);
   };
+
   return (
     <div className="user-profile-follower-right">
       {" "}

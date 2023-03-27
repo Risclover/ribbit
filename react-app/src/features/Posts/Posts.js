@@ -19,6 +19,8 @@ import Email from "../../images/developer-links/mail.png";
 
 import "./Posts.css";
 import { getUsers } from "../../store/users";
+import { getSinglePost } from "../../store/one_post";
+import { getFavoriteCommunities } from "../../store/favorite_communities";
 
 export default function Posts() {
   const dispatch = useDispatch();
@@ -34,6 +36,7 @@ export default function Posts() {
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getCommunities());
+    dispatch(getFavoriteCommunities());
     dispatch(getUsers());
   }, [dispatch]);
 
