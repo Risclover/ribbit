@@ -18,6 +18,7 @@ import Email from "../../images/developer-links/mail.png";
 import SortingBar from "../../components/SortingBar/SortingBar";
 import "./Posts.css";
 import { getFollowers, getUserFollowers } from "../../store/followers";
+import { getFavoriteCommunities } from "../../store/favorite_communities";
 
 export default function SubscribedPosts() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ export default function SubscribedPosts() {
     dispatch(getPosts());
     dispatch(getFollowers());
     dispatch(getUserFollowers(user.id));
+    dispatch(getFavoriteCommunities());
   }, [dispatch]);
 
   let postList = communities.map(

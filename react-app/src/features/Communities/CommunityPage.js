@@ -25,6 +25,11 @@ import CommunityWelcome from "./CommunityWelcome";
 import { Modal } from "../../context/Modal";
 
 import "./CommunityPage.css";
+import {
+  addFavoriteCommunity,
+  getFavoriteCommunities,
+  removeFavoriteCommunity,
+} from "../../store/favorite_communities";
 
 export default function CommunityPage() {
   const { communityId } = useParams();
@@ -34,11 +39,13 @@ export default function CommunityPage() {
   const [showCommunityImgModal, setShowCommunityImgModal] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const [members, setMembers] = useState(0);
+  const [favorited, setFavorited] = useState(false);
 
   const subscriptions = useSelector((state) => state.subscriptions);
   const community = useSelector((state) => state.singleCommunity[+communityId]);
   const user = useSelector((state) => state.session.user);
   const posts = useSelector((state) => Object.values(state.posts));
+  const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
 
   let commPosts = posts.filter((post) => post.communityId == communityId);
 
@@ -78,12 +85,29 @@ export default function CommunityPage() {
     dispatch(getPosts());
     dispatch(getSubscriptions());
     dispatch(getSingleCommunity(+communityId));
+    dispatch(getFavoriteCommunities());
   }, [communityId, dispatch]);
 
   useEffect(() => {
     if (subscriptions[community_id]) setSubscribed(true);
     setMembers(community?.members);
   }, [subscribed, community?.members, subscriptions]);
+
+  useEffect(() => {
+    if (favoriteCommunities[community_id]) {
+      setFavorited(true);
+    } else {
+      setFavorited(false);
+    }
+  }, [favorited, favoriteCommunities]);
+
+  const handleFavorite = async (e) => {
+    e.preventDefault();
+    await dispatch(addFavoriteCommunity(+communityId));
+    dispatch(getFavoriteCommunities());
+    dispatch(getSubscriptions());
+    setFavorited(!favorited);
+  };
 
   if (!community || !commPosts || !posts) return null;
   return (
@@ -139,6 +163,7 @@ export default function CommunityPage() {
                       onClick={async (e) => {
                         e.preventDefault();
                         await dispatch(deleteSubscription(community_id));
+                        dispatch(getFavoriteCommunities());
                         setSubscribed(false);
                       }}
                       onMouseEnter={(e) => (e.target.textContent = "Leave")}
@@ -213,6 +238,26 @@ export default function CommunityPage() {
                       Create Post
                     </button>
                   </NavLink>
+                )}
+                {user && favorited && (
+                  <button
+                    className="blue-btn-unfilled btn-long"
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      await dispatch(removeFavoriteCommunity(community.id));
+                      setFavorited(false);
+                    }}
+                  >
+                    Remove from Favorites
+                  </button>
+                )}
+                {user && !favorited && (
+                  <button
+                    className="blue-btn-filled btn-long"
+                    onClick={handleFavorite}
+                  >
+                    Add to Favorites
+                  </button>
                 )}
                 {!user && (
                   <button

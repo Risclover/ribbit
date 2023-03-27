@@ -37,7 +37,7 @@ class User(db.Model, UserMixin):
     user_posts = db.relationship("Post", back_populates="post_author", cascade="all, delete-orphan")
     user_comments = db.relationship("Comment", back_populates="comment_author", cascade="all, delete-orphan")
     user_subscriptions = db.relationship('Community', back_populates="subscribers", secondary=subscriptions, lazy="joined")
-    user_favorite_communities = db.relationship('Community', back_populates='favorited_communities', secondary=favorite_communities, lazy="joined")
+    user_favorite_communities = db.relationship('Community', back_populates='users_who_favorited', secondary=favorite_communities, lazy="joined")
     user_post_votes = db.relationship("PostVote", back_populates="user_who_liked", cascade="all,delete-orphan")
     user_comment_votes = db.relationship("CommentVote", back_populates="user_who_liked")
     user_communities = db.relationship('Community', back_populates="community_owner", cascade="all, delete")

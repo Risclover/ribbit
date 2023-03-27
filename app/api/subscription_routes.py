@@ -64,7 +64,31 @@ def delete_subscription(id):
     """
     user = User.query.get(current_user.get_id())
     community = Community.query.get(id)
+
+    print("""hi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    """, user.user_favorite_communities)
     user.user_subscriptions.remove(community)
+
+    if community in user.user_favorite_communities:
+        user.user_favorite_communities.remove(community)
+
+
 
     db.session.commit()
 

@@ -1,10 +1,17 @@
 const LOAD = "favorite_communities/LOAD";
-const ADD = "favorite_communities/ADD";
+const DELETE = "favorite_communities/DELETE";
 
-const load = (data) => {
+const load = (favoriteCommunities) => {
   return {
     type: LOAD,
-    data,
+    favoriteCommunities,
+  };
+};
+
+const remove = (communityId) => {
+  return {
+    type: DELETE,
+    communityId,
   };
 };
 
@@ -17,12 +24,37 @@ export const getFavoriteCommunities = () => async (dispatch) => {
   }
 };
 
+export const addFavoriteCommunity = (communityId) => async (dispatch) => {
+  const response = await fetch("/api/favorite_communities", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      communityId: communityId,
+    }),
+  });
+  return response;
+};
+
+export const removeFavoriteCommunity = (communityId) => async (dispatch) => {
+  const response = await fetch(`/api/favorite_communities/${communityId}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    const deletedMessage = await response.json();
+    dispatch(remove(communityId));
+    return deletedMessage;
+  }
+};
+
 const initialState = {};
 
 export default function favoriteCommunitiesReducer(
   state = initialState,
   action
 ) {
+  const newState = { ...state };
   switch (action.type) {
     case LOAD:
       return action.favoriteCommunities.communities.reduce(
@@ -32,6 +64,10 @@ export default function favoriteCommunitiesReducer(
         },
         {}
       );
+    case DELETE:
+      let removeState = { ...state };
+      delete removeState[action.communityId];
+      return removeState;
     default:
       return state;
   }

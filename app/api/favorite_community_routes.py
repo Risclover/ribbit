@@ -17,6 +17,10 @@ def favorite_community():
     community = Community.query.filter(Community.id == community_id).one()
 
     queried_user.user_favorite_communities.append(community)
+
+    if community not in queried_user.user_subscriptions:
+        queried_user.user_subscriptions.append(community)
+
     db.session.commit()
 
     return jsonify({
@@ -59,7 +63,7 @@ def get_user_favorite_communities():
 @login_required
 def delete_favorited_community(id):
     """
-    Query for a single subscription and unfavorite the community if authorized.
+    Query to unfavorite the community if authorized.
     """
     user = User.query.get(current_user.get_id())
     community = Community.query.get(id)

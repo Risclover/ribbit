@@ -54,16 +54,6 @@ def get_followed_posts():
     Get the posts of the current user's followed users
     """
     user = User.query.get(current_user.get_id())
-    print("""posts
-
-
-
-
-
-
-
-
-    """, user.followed_posts())
     return {
         "followedPosts": [user.to_dict() for user in user.followed_posts()]
     }
