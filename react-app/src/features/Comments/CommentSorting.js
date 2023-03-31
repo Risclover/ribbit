@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import HandleClickOutside from "../../components/HandleClickOutside";
 import "./Comments.css";
 
 export default function CommentSorting({ sortType, setSortType }) {
@@ -12,21 +13,27 @@ export default function CommentSorting({ sortType, setSortType }) {
   };
 
   useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
-    function handleClickOutside(event) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        setShowSortingDropdown(false);
-      }
-    }
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", function (e) {
+      HandleClickOutside(
+        e,
+        wrapperRef,
+        showSortingDropdown,
+        setShowSortingDropdown
+      );
+    });
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", function (e) {
+        HandleClickOutside(
+          e,
+          wrapperRef,
+          showSortingDropdown,
+          setShowSortingDropdown
+        );
+      });
     };
   }, [wrapperRef]);
+
   return (
     <div className="comment-sorting">
       <div

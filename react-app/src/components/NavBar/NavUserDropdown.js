@@ -6,6 +6,7 @@ import { TbChevronDown } from "react-icons/tb";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { SlLogin } from "react-icons/sl";
 import Poinsettia from "../../images/user-profile-icons/poinsettia.png";
+import HandleClickOutside from "../HandleClickOutside";
 
 export default function NavUserDropdown() {
   const history = useHistory();
@@ -24,14 +25,14 @@ export default function NavUserDropdown() {
   };
 
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", function (e) {
+      HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
+    });
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", function (e) {
+        HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
+      });
     };
   }, [wrapperRef]);
 

@@ -103,10 +103,32 @@ function App() {
             <Posts postType={postType} setPostType={setPostType} />
           </Route>
           <Route path="/c/submit" exact={true}>
-            <CreatePost postType={postType} setPostType={setPostType} />
+            <CreatePost
+              postType={postType}
+              setPostType={setPostType}
+              val="post"
+            />
           </Route>
           <Route path="/c/:communityId/submit" exact={true}>
-            <CreatePost postType={postType} setPostType={setPostType} />
+            <CreatePost
+              postType={postType}
+              setPostType={setPostType}
+              val="post"
+            />
+          </Route>
+          <Route path="/c/submit/image" exact={true}>
+            <CreatePost
+              postType={postType}
+              setPostType={setPostType}
+              val="image"
+            />
+          </Route>
+          <Route path="/c/submit/url" exact={true}>
+            <CreatePost
+              postType={postType}
+              setPostType={setPostType}
+              val="link"
+            />
           </Route>
           <Route path="/posts/:postId" exact={true}>
             <SinglePostPage setShowLoginForm={setShowLoginForm} />

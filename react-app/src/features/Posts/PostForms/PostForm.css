@@ -661,10 +661,11 @@ pre.ql-syntax {
 
 .single-page-content-link {
   display: flex;
+  align-items: center;
   margin-top: 3px;
 }
 
-.single-page-content-link a {
+.single-post-content-box a {
   display: flex;
   align-items: center;
   color: #3f9ade;
@@ -675,7 +676,7 @@ pre.ql-syntax {
   white-space: nowrap;
 }
 
-.single-page-content-link a:hover {
+.single-post-content-box a:hover {
   text-decoration: underline;
 }
 
@@ -709,6 +710,7 @@ pre.ql-syntax {
   position: relative;
   vertical-align: bottom;
   margin: 0 8px;
+  background: white;
   cursor: pointer;
 }
 
@@ -731,4 +733,11 @@ pre.ql-syntax {
   font-size: 15px;
 
   /* margin-left: 2px; */
+}
+
+.create-post-form-errors {
+  color: red;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 12px;
+  margin-bottom: 10px;
 }

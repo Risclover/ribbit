@@ -34,7 +34,7 @@ export default function CommunitySelectionInput({
         {!search && inputState === "choose" && (
           <div className="dotted-circle"></div>
         )}
-        {communityId && (
+        {communityId && search && (
           <img
             className="community-dropdown-img"
             alt="Community dropdown"

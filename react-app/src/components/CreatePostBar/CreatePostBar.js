@@ -39,10 +39,16 @@ export default function CreatePostBar({ page, communityId }) {
       <div className="create-post-bar-create">
         <input type="text" placeholder="Create Post" onClick={handleClick} />
       </div>
-      <button className="create-post-bar-icon">
+      <button
+        className="create-post-bar-icon"
+        onClick={() => history.push(`/c/submit/image`)}
+      >
         <RxImage />
       </button>
-      <button className="create-post-bar-icon">
+      <button
+        className="create-post-bar-icon"
+        onClick={() => history.push(`/c/submit/url`)}
+      >
         <FiLink />
       </button>
     </div>

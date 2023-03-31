@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { getSubscriptions } from "../../../store/subscriptions";
@@ -16,12 +16,13 @@ import {
 } from "../../../store/favorite_communities";
 import {
   addFavoriteUser,
-  favoriteUser,
   getFavoriteUsers,
   removeFavoriteUser,
 } from "../../../store/favorite_users";
+import HandleClickOutside from "../../HandleClickOutside";
 
-export default function NavLeftDropdown({ setShowIcon }) {
+export default function NavLeftDropdown({ showIcon, setShowIcon }) {
+  const wrapperRef = useRef(null);
   const history = useHistory();
   const dispatch = useDispatch();
   const [filter, setFilter] = useState("");
@@ -54,6 +55,18 @@ export default function NavLeftDropdown({ setShowIcon }) {
     setFollowing(followers);
     setFavorites(Object.values(favoriteCommunities));
   }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", function (e) {
+      HandleClickOutside(e, wrapperRef, showIcon, setShowIcon);
+    });
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", function (e) {
+        HandleClickOutside(e, wrapperRef, showIcon, setShowIcon);
+      });
+    };
+  }, [wrapperRef]);
 
   Object.values(favoriteCommunities).sort((a, b) =>
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
@@ -118,7 +131,7 @@ export default function NavLeftDropdown({ setShowIcon }) {
 
   if (!followers || !communities || !following) return null;
   return (
-    <div className="nav-left-dropdown">
+    <div className="nav-left-dropdown" ref={wrapperRef}>
       <input
         className="nav-left-dropdown-filter"
         type="text"

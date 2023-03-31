@@ -205,7 +205,7 @@ export default function SinglePost({ id, isPage, userId }) {
             <div className="single-post-content-box">
               <div className="single-post-content-box-left">
                 <div className="single-post-title-bar">{post.title}</div>
-                {post.imgUrl ? (
+                {post.imgUrl !== null ? (
                   <div className="single-post-content-image">
                     <img
                       className="image-post-img"
@@ -213,15 +213,30 @@ export default function SinglePost({ id, isPage, userId }) {
                       alt="Post"
                     />
                   </div>
-                ) : post.linkUrl ? (
-                  <>
-                    <div className="single-page-content-link">
-                      <a href={post.linkUrl} target="_blank">
-                        {cutLink(post.linkUrl)}
-                        <HiOutlineExternalLink />
-                      </a>
+                ) : post.linkUrl !== null ? (
+                  <NavLink
+                    to={
+                      isPage === undefined
+                        ? "/"
+                        : isPage === "all"
+                        ? "/c/all"
+                        : isPage === "community"
+                        ? `/c/${post.communityId}`
+                        : isPage === "singlepage"
+                        ? `/posts/${post.id}`
+                        : isPage === "profile"
+                        ? `/users/${userId}/profile`
+                        : ""
+                    }
+                  >
+                    <div
+                      className="single-page-content-link"
+                      onClick={() => (window.location.href = post.linkUrl)}
+                    >
+                      {cutLink(post.linkUrl)}
+                      <HiOutlineExternalLink />
                     </div>
-                  </>
+                  </NavLink>
                 ) : (
                   <>
                     {isPage === "singlepage" ? (
@@ -243,16 +258,31 @@ export default function SinglePost({ id, isPage, userId }) {
                 )}
               </div>
               {post.linkUrl && (
-                <a
-                  href={post.linkUrl}
-                  target="_blank"
-                  className="single-post-content-box-right"
+                <NavLink
+                  to={
+                    isPage === undefined
+                      ? "/"
+                      : isPage === "all"
+                      ? "/c/all"
+                      : isPage === "community"
+                      ? `/c/${post.communityId}`
+                      : isPage === "singlepage"
+                      ? `/posts/${post.id}`
+                      : isPage === "profile"
+                      ? `/users/${userId}/profile`
+                      : ""
+                  }
                 >
-                  <FiLink />
-                  <div className="single-post-external-link-box">
-                    <HiOutlineExternalLink />
-                  </div>
-                </a>
+                  <button
+                    onClick={() => (window.location.href = post.linkUrl)}
+                    className="single-post-content-box-right"
+                  >
+                    <FiLink />
+                    <div className="single-post-external-link-box">
+                      <HiOutlineExternalLink />
+                    </div>
+                  </button>
+                </NavLink>
               )}
             </div>
             <div className="single-post-button-bar">

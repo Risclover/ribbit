@@ -14,6 +14,7 @@ import NavLeftDropdownFace from "./NavLeftDropdown/NavLeftDropdownFace";
 import { getCommunities } from "../../store/communities";
 import { getSubscriptions } from "../../store/subscriptions";
 import { getFollowers, getUserFollowers } from "../../store/followers";
+import HandleClickOutside from "../HandleClickOutside";
 
 const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
   const dispatch = useDispatch();
@@ -63,17 +64,24 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
   }
 
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        setShowSearchDropdown(false);
-      }
-    }
-
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", function (e) {
+      HandleClickOutside(
+        e,
+        wrapperRef,
+        showSearchDropdown,
+        setShowSearchDropdown
+      );
+    });
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", function (e) {
+        HandleClickOutside(
+          e,
+          wrapperRef,
+          showSearchDropdown,
+          setShowSearchDropdown
+        );
+      });
     };
   }, [wrapperRef]);
 

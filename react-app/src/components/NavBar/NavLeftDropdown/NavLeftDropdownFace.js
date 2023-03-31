@@ -14,11 +14,11 @@ export default function NavLeftDropdownFace() {
         className={
           showIcon ? "nav-left-dropdown-open" : "nav-left-dropdown-face"
         }
+        onClick={() => {
+          showIcon === true ? setShowIcon(false) : setShowIcon(true);
+        }}
       >
-        <button
-          className="nav-left-dropdown-face-left"
-          onClick={() => setShowIcon(!showIcon)}
-        >
+        <button className="nav-left-dropdown-face-left">
           <img src={Home} className="nav-left-dropdown-face-icon" />
           <h1>Home</h1>
         </button>
@@ -29,7 +29,9 @@ export default function NavLeftDropdownFace() {
           </div>
         )}
       </div>
-      {showIcon && <NavLeftDropdown setShowIcon={setShowIcon} />}
+      {showIcon && (
+        <NavLeftDropdown showIcon={showIcon} setShowIcon={setShowIcon} />
+      )}
     </div>
   );
 }

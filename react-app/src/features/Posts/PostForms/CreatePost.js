@@ -37,7 +37,7 @@ const modules = {
   ],
 };
 
-export default function CreatePost({ postType, setPostType }) {
+export default function CreatePost({ postType, setPostType, val }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { communityId } = useParams();
@@ -54,6 +54,8 @@ export default function CreatePost({ postType, setPostType }) {
   const [disabled, setDisabled] = useState(false);
   const [showImgModal, setShowImgModal] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [linkErrors, setLinkErrors] = useState([]);
+  const [imageErrors, setImageErrors] = useState([]);
   const [showDiscardModal, setShowDiscardModal] = useState(false);
   // const community = useSelector(
   //   (state) => state.singleCommunity[+community_id]
@@ -75,6 +77,75 @@ export default function CreatePost({ postType, setPostType }) {
   }, [community?.members]);
 
   useEffect(() => {
+    setPostType(val);
+  }, [val]);
+
+  useEffect(() => {
+    let errors = [];
+    if (
+      postType === "link" &&
+      !validator.isURL(link_url) &&
+      link_url.length > 0
+    ) {
+      errors.push("Link doesn't look right.");
+    }
+    if (link_url.length === 0 || link_url === "" || link_url === null) {
+      errors.push("Please enter a url.");
+    }
+    if (title.length <= 0) {
+      errors.push("Please include a title.");
+    }
+    if (community === undefined) {
+      errors.push("Please select a community.");
+    }
+
+    if (errors.length > 0) {
+      setLinkErrors(errors);
+    } else {
+      setLinkErrors([]);
+    }
+  }, [link_url, title, community]);
+
+  useEffect(() => {
+    let errors = [];
+    if (img_url === "" || img_url === null || img_url === undefined) {
+      errors.push("Select an image.");
+    }
+    if (title.length <= 0) {
+      errors.push("Please include a title.");
+    }
+    if (community === undefined) {
+      errors.push("Please select a community.");
+    }
+
+    if (errors.length > 0) {
+      setImageErrors(errors);
+    } else {
+      setImageErrors([]);
+    }
+  }, [img_url, title, community]);
+
+  useEffect(() => {
+    let errors = [];
+
+    if (content === "") {
+      errors.push("Enter some content.");
+    }
+    if (title.trim().length <= 0) {
+      errors.push("Please include a title.");
+    }
+    if (community === undefined) {
+      errors.push("Please select a community.");
+    }
+
+    if (errors.length > 0) {
+      setErrors(errors);
+    } else {
+      setErrors([]);
+    }
+  }, [content, title, community]);
+
+  useEffect(() => {
     if (content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
       setContent("");
       setDisabled(true);
@@ -82,7 +153,8 @@ export default function CreatePost({ postType, setPostType }) {
 
     if (
       (postType === "post" && content.length === 0) ||
-      (postType === "image" && img_url === undefined) ||
+      (postType === "image" &&
+        (img_url === "" || img_url === undefined || img_url === null)) ||
       (postType === "link" &&
         (link_url.length === 0 || !validator.isURL(link_url))) ||
       title.length === 0 ||
@@ -128,17 +200,8 @@ export default function CreatePost({ postType, setPostType }) {
 
   const handleLinkSubmit = (e) => {
     e.preventDefault();
-    let errors = [];
-    if (!validator.isURL(link_url)) {
-      errors.push("Link doesn't look right.");
-    }
-
-    if (errors.length > 0) {
-      setErrors(errors);
-    } else {
-      dispatch(addLinkPost({ title, link_url, community_id }));
-      history.push(`/c/${community_id}`);
-    }
+    dispatch(addLinkPost({ title, link_url, community_id }));
+    history.push(`/c/${community_id}`);
   };
 
   const handleImageSubmit = async (e) => {
@@ -301,9 +364,20 @@ export default function CreatePost({ postType, setPostType }) {
                     </div>
                   )}
                   <div className="create-post-form-errors">
-                    {errors && errors.length > 0
-                      ? errors.map((error, idx) => <div key={idx}>{error}</div>)
-                      : ""}
+                    {postType === "link" &&
+                      linkErrors.length > 0 &&
+                      linkErrors.map((error, idx) => (
+                        <div key={idx}>{error}</div>
+                      ))}
+                    {postType === "image" &&
+                      imageErrors.length > 0 &&
+                      imageErrors.map((error, idx) => (
+                        <div key={idx}>{error}</div>
+                      ))}
+
+                    {postType === "post" &&
+                      errors.length > 0 &&
+                      errors.map((error, idx) => <div key={idx}>{error}</div>)}
                   </div>
                   <div className="create-post-form-buttons">
                     <button
