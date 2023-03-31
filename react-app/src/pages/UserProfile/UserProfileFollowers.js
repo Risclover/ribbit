@@ -45,6 +45,11 @@ export default function UserProfileFollowers({ setShowFollowersModal }) {
         </div>
       </div>
       <div className="user-profile-followers-list">
+        {Object.values(followers).length === 0 && (
+          <div className="no-followers-msg">
+            You don't currently have any followers.
+          </div>
+        )}
         {Object.values(followers).map((follower) => (
           <div className="user-profile-follower">
             <div

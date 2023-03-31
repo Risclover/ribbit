@@ -33,12 +33,9 @@ export default function SubscribedPosts() {
   const communities = useSelector((state) => Object.values(state.communities));
   const followedPosts = useSelector((state) => state.followers.followedPosts);
 
-  console.log("FOLLOWED POSTS:", followedPosts);
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getPosts());
-    dispatch(getFollowers());
-    dispatch(getUserFollowers(user.id));
     dispatch(getFavoriteCommunities());
   }, [dispatch]);
 

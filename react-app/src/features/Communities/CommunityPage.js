@@ -89,24 +89,29 @@ export default function CommunityPage() {
   }, [communityId, dispatch]);
 
   useEffect(() => {
-    if (subscriptions[community_id]) setSubscribed(true);
+    if (subscriptions[community?.id]) setSubscribed(true);
     setMembers(community?.members);
   }, [subscribed, community?.members, subscriptions]);
 
   useEffect(() => {
-    if (favoriteCommunities[community_id]) {
+    if (favoriteCommunities[community?.id]) {
       setFavorited(true);
     } else {
       setFavorited(false);
     }
   }, [favorited, favoriteCommunities]);
 
-  const handleFavorite = async (e) => {
+  const handleFavorite = async (e, community) => {
     e.preventDefault();
-    await dispatch(addFavoriteCommunity(+communityId));
+    if (favoriteCommunities[community.id]) {
+      await dispatch(removeFavoriteCommunity(community.id));
+      setFavorited(false);
+    } else {
+      await dispatch(addFavoriteCommunity(community.id));
+      setFavorited(true);
+    }
     dispatch(getFavoriteCommunities());
     dispatch(getSubscriptions());
-    setFavorited(!favorited);
   };
 
   if (!community || !commPosts || !posts) return null;
@@ -162,8 +167,9 @@ export default function CommunityPage() {
                       className="blue-btn-unfilled btn-short join-btn"
                       onClick={async (e) => {
                         e.preventDefault();
-                        await dispatch(deleteSubscription(community_id));
+                        await dispatch(deleteSubscription(community.id));
                         dispatch(getFavoriteCommunities());
+                        dispatch(getSubscriptions(+communityId));
                         setSubscribed(false);
                       }}
                       onMouseEnter={(e) => (e.target.textContent = "Leave")}
@@ -177,7 +183,9 @@ export default function CommunityPage() {
                       className="blue-btn-filled btn-short join-btn"
                       onClick={async (e) => {
                         e.preventDefault();
-                        await dispatch(addToSubscriptions(community_id));
+                        await dispatch(addToSubscriptions(community.id));
+                        dispatch(getSubscriptions(+communityId));
+
                         user && setSubscribed(true);
                         !user && setShowLoginForm(true);
                       }}
@@ -239,26 +247,21 @@ export default function CommunityPage() {
                     </button>
                   </NavLink>
                 )}
-                {user && favorited && (
+                {user && (
                   <button
-                    className="blue-btn-unfilled btn-long"
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      await dispatch(removeFavoriteCommunity(community.id));
-                      setFavorited(false);
-                    }}
+                    className={
+                      favoriteCommunities[community.id]
+                        ? "blue-btn-unfilled btn-long"
+                        : "blue-btn-filled btn-long"
+                    }
+                    onClick={(e) => handleFavorite(e, community)}
                   >
-                    Remove from Favorites
+                    {favoriteCommunities[community.id]
+                      ? "Remove from Favorites"
+                      : "Add to Favorites"}
                   </button>
                 )}
-                {user && !favorited && (
-                  <button
-                    className="blue-btn-filled btn-long"
-                    onClick={handleFavorite}
-                  >
-                    Add to Favorites
-                  </button>
-                )}
+
                 {!user && (
                   <button
                     className="blue-btn-filled btn-long"

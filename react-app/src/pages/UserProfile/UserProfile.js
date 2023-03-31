@@ -57,11 +57,8 @@ function UserProfile() {
     setPage("Posts");
     dispatch(getCommunities());
     dispatch(getUserFollowers(+userId));
-    dispatch(getFollowers());
     dispatch(getFollowedPosts());
     dispatch(getUsers());
-    dispatch(getPosts());
-    dispatch(getSubscriptions());
   }, [dispatch]);
 
   useEffect(() => {
@@ -256,13 +253,13 @@ function UserProfile() {
             {userFollowers && currentUser.id !== +userId && (
               <button
                 className={
-                  !following
+                  !follows[+userId]
                     ? "blue-btn-filled btn-long"
                     : "blue-btn-unfilled btn-long"
                 }
                 onClick={handleFollow}
               >
-                {!following ? "Follow" : "Unfollow"}
+                {!follows[+userId] ? "Follow" : "Unfollow"}
               </button>
             )}
           </div>

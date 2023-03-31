@@ -4,8 +4,9 @@ import { useHistory, useParams, NavLink } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import moment from "moment";
+import validator from "validator";
 
-import { addPost } from "../../../store/posts";
+import { addLinkPost, addPost } from "../../../store/posts";
 import { addImagePost } from "../../../store/posts";
 import CommunityRule from "../../Communities/CommunityRule";
 import { Modal } from "../../../context/Modal";
@@ -14,6 +15,9 @@ import CommunitySelection from "./CreatePostDropdown/CommunitySelection";
 import DiscardPost from "../DiscardPost";
 import Cake from "../../../images/misc/piece4.png";
 import Frog from "../../../images/ribbit-banners/frog-logo1.png";
+import { CgNotes } from "react-icons/cg";
+import { RxImage } from "react-icons/rx";
+import { FiLink } from "react-icons/fi";
 
 import "./PostForm.css";
 
@@ -33,11 +37,12 @@ const modules = {
   ],
 };
 
-export default function CreatePost() {
+export default function CreatePost({ postType, setPostType }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { communityId } = useParams();
 
+  const [link_url, setlink_url] = useState("");
   const [community, setCommunity] = useState();
   const [title, setTitle] = useState("");
   const [members, setMembers] = useState(0);
@@ -50,7 +55,6 @@ export default function CreatePost() {
   const [showImgModal, setShowImgModal] = useState(false);
   const [errors, setErrors] = useState([]);
   const [showDiscardModal, setShowDiscardModal] = useState(false);
-  const [postType, setPostType] = useState("post");
   // const community = useSelector(
   //   (state) => state.singleCommunity[+community_id]
   // );
@@ -79,6 +83,8 @@ export default function CreatePost() {
     if (
       (postType === "post" && content.length === 0) ||
       (postType === "image" && img_url === undefined) ||
+      (postType === "link" &&
+        (link_url.length === 0 || !validator.isURL(link_url))) ||
       title.length === 0 ||
       community_id === undefined ||
       community_id === "undefined" ||
@@ -120,6 +126,21 @@ export default function CreatePost() {
     }
   };
 
+  const handleLinkSubmit = (e) => {
+    e.preventDefault();
+    let errors = [];
+    if (!validator.isURL(link_url)) {
+      errors.push("Link doesn't look right.");
+    }
+
+    if (errors.length > 0) {
+      setErrors(errors);
+    } else {
+      dispatch(addLinkPost({ title, link_url, community_id }));
+      history.push(`/c/${community_id}`);
+    }
+  };
+
   const handleImageSubmit = async (e) => {
     e.preventDefault();
     dispatch(addImagePost({ title, img_url, community_id }));
@@ -148,6 +169,8 @@ export default function CreatePost() {
                   ? handlePostSubmit
                   : postType === "image"
                   ? handleImageSubmit
+                  : postType === "link"
+                  ? handleLinkSubmit
                   : ""
               }
             >
@@ -163,13 +186,13 @@ export default function CreatePost() {
                 <div className="post-type-bar">
                   <button
                     className={
-                      postType === "image"
-                        ? "post-type-post"
-                        : "post-type-post active-type"
+                      postType === "post"
+                        ? "post-type-post active-type"
+                        : "post-type-post"
                     }
                     onClick={(e) => handlePostTypeChange(e, "post")}
                   >
-                    <i className="fa-regular fa-file-lines"></i> Post
+                    <CgNotes /> Post
                   </button>
                   <button
                     className={
@@ -179,7 +202,17 @@ export default function CreatePost() {
                     }
                     onClick={(e) => handlePostTypeChange(e, "image")}
                   >
-                    <i className="fa-regular fa-image"></i> Image
+                    <RxImage /> Image
+                  </button>
+                  <button
+                    className={
+                      postType === "link"
+                        ? "post-type-post active-type"
+                        : "post-type-post"
+                    }
+                    onClick={(e) => handlePostTypeChange(e, "link")}
+                  >
+                    <FiLink /> Link
                   </button>
                 </div>
                 <div className="create-post-form-inputs">
@@ -256,6 +289,16 @@ export default function CreatePost() {
                         img_url={img_url}
                       />
                     </Modal>
+                  )}
+                  {postType === "link" && (
+                    <div className="create-post-form-input">
+                      <textarea
+                        placeholder="Url"
+                        className="create-post-input link-input"
+                        onChange={(e) => setlink_url(e.target.value)}
+                        value={link_url}
+                      ></textarea>
+                    </div>
                   )}
                   <div className="create-post-form-errors">
                     {errors && errors.length > 0

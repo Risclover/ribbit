@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { getUsers } from "../../store/users";
+import { RxImage } from "react-icons/rx";
+import { FiLink } from "react-icons/fi";
 
 import "./CreatePostBar.css";
 
@@ -37,6 +39,12 @@ export default function CreatePostBar({ page, communityId }) {
       <div className="create-post-bar-create">
         <input type="text" placeholder="Create Post" onClick={handleClick} />
       </div>
+      <button className="create-post-bar-icon">
+        <RxImage />
+      </button>
+      <button className="create-post-bar-icon">
+        <FiLink />
+      </button>
     </div>
   );
 }

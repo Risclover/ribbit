@@ -4,6 +4,9 @@ import { NavLink, useHistory } from "react-router-dom";
 
 import { getPosts } from "../../store/posts";
 import { getCommunities } from "../../store/communities";
+import { getUsers } from "../../store/users";
+import { getSinglePost } from "../../store/one_post";
+import { getFavoriteCommunities } from "../../store/favorite_communities";
 
 import CreateCommunity from "../Communities/CommunityForms/CreateCommunity";
 import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
@@ -18,11 +21,8 @@ import Resume from "../../images/developer-links/resume.png";
 import Email from "../../images/developer-links/mail.png";
 
 import "./Posts.css";
-import { getUsers } from "../../store/users";
-import { getSinglePost } from "../../store/one_post";
-import { getFavoriteCommunities } from "../../store/favorite_communities";
 
-export default function Posts() {
+export default function Posts({ postType, setPostType }) {
   const dispatch = useDispatch();
   const history = useHistory();
 

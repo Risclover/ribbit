@@ -13,6 +13,7 @@ import searchReducer from "./search";
 import rulesReducer from "./rules";
 import followersReducer from "./followers";
 import favoriteCommunitiesReducer from "./favorite_communities";
+import favoriteUsersReducer from "./favorite_users.js";
 // import messagesReducer from "./messages";
 
 const rootReducer = combineReducers({
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   rules: rulesReducer,
   followers: followersReducer,
   favoriteCommunities: favoriteCommunitiesReducer,
+  favoriteUsers: favoriteUsersReducer,
   // messages: messagesReducer,
 });
 

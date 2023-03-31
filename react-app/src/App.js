@@ -37,6 +37,7 @@ function App() {
   const [showSignupForm, setShowSignupForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [adjustQuery, setAdjustQuery] = useState(false);
+  const [postType, setPostType] = useState("post");
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
@@ -74,7 +75,7 @@ function App() {
             </Route>
           )}
           <Route path="/home" exact={true}>
-            <SubscribedPosts />
+            <SubscribedPosts postType={postType} setPostType={setPostType} />
           </Route>
           <Route path="/login">
             {showLoginForm && (
@@ -99,13 +100,13 @@ function App() {
             )}
           </Route>
           <Route path="/c/all" exact={true}>
-            <Posts />
+            <Posts postType={postType} setPostType={setPostType} />
           </Route>
           <Route path="/c/submit" exact={true}>
-            <CreatePost />
+            <CreatePost postType={postType} setPostType={setPostType} />
           </Route>
           <Route path="/c/:communityId/submit" exact={true}>
-            <CreatePost />
+            <CreatePost postType={postType} setPostType={setPostType} />
           </Route>
           <Route path="/posts/:postId" exact={true}>
             <SinglePostPage setShowLoginForm={setShowLoginForm} />
@@ -123,7 +124,11 @@ function App() {
             <UpdatePost />
           </Route>
           <Route path="/c/:communityId" exact={true}>
-            <CommunityPage setShowLoginForm={setShowLoginForm} />
+            <CommunityPage
+              postType={postType}
+              setPostType={setPostType}
+              setShowLoginForm={setShowLoginForm}
+            />
           </Route>
           <Route path="/c/:communityId/edit" exact={true}>
             <EditCommunity />

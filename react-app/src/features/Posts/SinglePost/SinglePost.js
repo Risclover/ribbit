@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import parse from "html-react-parser";
+import cutLink from "./SliceUrl";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
+import { HiOutlineExternalLink } from "react-icons/hi";
+import { FiLink } from "react-icons/fi";
 
 import { addPostVote, removePostVote } from "../../../store/posts";
 import { Modal } from "../../../context/Modal";
@@ -199,31 +202,59 @@ export default function SinglePost({ id, isPage, userId }) {
                 {moment(new Date(post.createdAt)).fromNow()}
               </div>
             </div>
-            <div className="single-post-title-bar">{post.title}</div>
-            {post.imgUrl ? (
-              <div className="single-post-content-image">
-                <img className="image-post-img" src={post.imgUrl} alt="Post" />
-              </div>
-            ) : (
-              <>
-                {isPage === "singlepage" ? (
-                  <div
-                    className="single-page-content"
-                    style={{ whiteSpace: "pre-line" }}
-                  >
-                    {parse(post.content)}
+            <div className="single-post-content-box">
+              <div className="single-post-content-box-left">
+                <div className="single-post-title-bar">{post.title}</div>
+                {post.imgUrl ? (
+                  <div className="single-post-content-image">
+                    <img
+                      className="image-post-img"
+                      src={post.imgUrl}
+                      alt="Post"
+                    />
                   </div>
+                ) : post.linkUrl ? (
+                  <>
+                    <div className="single-page-content-link">
+                      <a href={post.linkUrl} target="_blank">
+                        {cutLink(post.linkUrl)}
+                        <HiOutlineExternalLink />
+                      </a>
+                    </div>
+                  </>
                 ) : (
-                  <div
-                    className="single-post-content"
-                    style={{ whiteSpace: "pre-line" }}
-                  >
-                    {parse(post.content)}
-                  </div>
+                  <>
+                    {isPage === "singlepage" ? (
+                      <div
+                        className="single-page-content"
+                        style={{ whiteSpace: "pre-line" }}
+                      >
+                        {parse(post.content)}
+                      </div>
+                    ) : (
+                      <div
+                        className="single-post-content"
+                        style={{ whiteSpace: "pre-line" }}
+                      >
+                        {parse(post.content)}
+                      </div>
+                    )}
+                  </>
                 )}
-              </>
-            )}
-
+              </div>
+              {post.linkUrl && (
+                <a
+                  href={post.linkUrl}
+                  target="_blank"
+                  className="single-post-content-box-right"
+                >
+                  <FiLink />
+                  <div className="single-post-external-link-box">
+                    <HiOutlineExternalLink />
+                  </div>
+                </a>
+              )}
+            </div>
             <div className="single-post-button-bar">
               <div className="single-post-button">
                 <button className="single-post-comments-btn">
@@ -303,7 +334,7 @@ export default function SinglePost({ id, isPage, userId }) {
                     }
                   >
                     <div className="single-post-button">
-                      {post?.imgUrl === null && (
+                      {post?.imgUrl === null && post?.linkUrl === null && (
                         <button
                           className="single-post-edit-btn"
                           onClick={(e) => {

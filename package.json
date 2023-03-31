@@ -1,6 +1,15 @@
 {
   "dependencies": {
+    "@dhaiwat10/react-link-preview": "^1.15.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.31",
+    "@types/react-dom": "^18.0.11",
     "moment": "^2.29.4",
-    "react-onclickoutside": "^6.12.2"
+    "react-link-previewer": "^1.0.8",
+    "react-onclickoutside": "^6.12.2",
+    "react-tiny-link": "^3.6.1",
+    "typescript": "^5.0.2",
+    "validator": "^13.9.0"
   }
 }

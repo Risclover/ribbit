@@ -14,14 +14,9 @@ export default function EditProfile() {
   const [display_name, setdisplay_name] = useState(user?.displayName);
   const [about, setAbout] = useState(user?.about);
 
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = dispatch(editProfile(user.id, { display_name, about }));
-    dispatch(getUsers());
     if (data.length > 0) {
     } else {
       dispatch(getUsers());
@@ -45,12 +40,12 @@ export default function EditProfile() {
           />
           <span
             className={
-              display_name.length === 30
+              display_name?.length === 30
                 ? "user-profile-char-counter red-counter"
                 : "user-profile-char-counter"
             }
           >
-            {30 - display_name.length} Characters remaining
+            {30 - display_name?.length} Characters remaining
           </span>
         </div>
         <div className="edit-profile-page-section">
@@ -64,12 +59,12 @@ export default function EditProfile() {
           ></textarea>
           <span
             className={
-              about.length === 200
+              about?.length === 200
                 ? "user-profile-char-counter red-counter"
                 : "user-profile-char-counter"
             }
           >
-            {200 - about.length} Characters remaining
+            {200 - about?.length} Characters remaining
           </span>
         </div>
         <div className="edit-profile-btns">

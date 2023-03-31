@@ -6,7 +6,7 @@ nav {
   height: 49px;
   top: 0;
   z-index: 200;
-  padding: 0 10px;
+  padding: 0 20px;
   align-items: center;
   border-bottom: 1px solid #edeff1;
   justify-content: space-between;
@@ -19,20 +19,17 @@ nav {
 nav ul {
   display: flex;
   list-style-type: none;
-  width: 200px;
   justify-content: space-between;
 }
 
 nav ul li {
-  padding: 5px;
   display: flex;
   align-items: center;
   margin-right: 20px;
 }
 
 .ribbit-logo {
-  width: 120px;
-  margin: 8px;
+  height: 28px;
 }
 
 .navbar-user-dropdown {
@@ -231,8 +228,8 @@ nav ul li {
 .nav-search-bar {
   position: relative;
   width: 100%;
-  margin-left: 100px;
-  margin-right: 60px;
+  /* margin-left: 100px;
+  margin-right: 60px; */
   min-width: 250px;
   max-width: 1450px;
 }
@@ -265,7 +262,7 @@ nav ul li {
   background: #f6f7f8;
   display: flex;
   align-items: center;
-  padding-left: 15px;
+  /* padding-left: 15px; */
   max-width: 1450px;
 }
 

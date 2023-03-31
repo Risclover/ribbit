@@ -224,6 +224,26 @@ export const putImagePost = (post, postId) => async (dispatch) => {
   return data;
 };
 
+export const addLinkPost = (payload) => async (dispatch) => {
+  const { title, link_url, community_id } = payload;
+
+  const response = await fetch(`/api/posts/url/submit`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      title,
+      link_url,
+      community_id,
+    }),
+  });
+
+  if (response.ok) {
+    const post = await response.json();
+    dispatch(loadPost(post));
+    return post;
+  }
+};
+
 export const deletePost = (postId) => async (dispatch) => {
   const response = await fetch(`/api/posts/${postId}`, {
     method: "DELETE",

@@ -12,6 +12,7 @@ class Post(db.Model):
     title = db.Column(db.String(300), nullable=False)
     content = db.Column(db.String(40000), nullable=True)
     img_url = db.Column(db.String(255), nullable=True)
+    link_url = db.Column(db.String(40000), nullable=True)
     votes = db.Column(db.Integer, default=0)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     community_id = db.Column(db.Integer, db.ForeignKey('communities.id'), nullable=False)
@@ -31,6 +32,7 @@ class Post(db.Model):
             "title": self.title,
             "content": self.content,
             "imgUrl": self.img_url,
+            "linkUrl": self.link_url,
             "votes": len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]]) - len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]]),
             "postVoters": {item.to_dict()["userID"]: item.to_dict() for item in self.users_who_liked},
             "postAuthor": self.post_author.to_dict(),

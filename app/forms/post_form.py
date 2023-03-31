@@ -85,3 +85,20 @@ class UpdateImagePostForm(FlaskForm):
     )
     img_url = StringField("imgUrl")
     submit = SubmitField("Submit")
+
+
+class LinkPostForm(FlaskForm):
+    title = TextAreaField(
+        "Title",
+        validators=[
+            DataRequired("Please give your post a title."),
+            Length(
+                min=1,
+                max=300,
+                message="Please give your post a title. Titles are limited to 300 characters."
+            ),
+        ],
+    )
+    link_url = StringField("linkUrl")
+    community_id = IntegerField("CommunityId")
+    submit = SubmitField("Submit")

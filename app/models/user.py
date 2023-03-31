@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 # from ..models.message import Message
 from ..models.post import Post
-from .joins import subscriptions, favorite_communities, followers
+from .joins import subscriptions, favorite_communities, followers, favorite_users
 from datetime import datetime
 import json
 from time import time
@@ -34,10 +34,15 @@ class User(db.Model, UserMixin):
     # last_message_read_time = db.Column(db.DateTime)
     # notifications = db.relationship('Notification', backref='user', lazy='dynamic')
     followed = db.relationship('User', secondary=followers, primaryjoin=(followers.c.follower_id == id), secondaryjoin=(followers.c.followed_id == id), backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+
+    favorited = db.relationship('User', secondary=favorite_users, primaryjoin=(favorite_users.c.current_id == id), secondaryjoin=(favorite_users.c.user_id == id), backref=db.backref('favorite_users', lazy='dynamic'), lazy='dynamic')
+
     user_posts = db.relationship("Post", back_populates="post_author", cascade="all, delete-orphan")
     user_comments = db.relationship("Comment", back_populates="comment_author", cascade="all, delete-orphan")
     user_subscriptions = db.relationship('Community', back_populates="subscribers", secondary=subscriptions, lazy="joined")
+
     user_favorite_communities = db.relationship('Community', back_populates='users_who_favorited', secondary=favorite_communities, lazy="joined")
+
     user_post_votes = db.relationship("PostVote", back_populates="user_who_liked", cascade="all,delete-orphan")
     user_comment_votes = db.relationship("CommentVote", back_populates="user_who_liked")
     user_communities = db.relationship('Community', back_populates="community_owner", cascade="all, delete")
@@ -85,6 +90,26 @@ class User(db.Model, UserMixin):
             followers, (followers.c.follower_id == User.id)).filter(
                 followers.c.followed_id == self.id)
         return follower
+
+    def favorite(self, user):
+        if not self.is_favorited(user):
+            self.favorited.append(user)
+
+    def unfavorite(self, user):
+        if self.is_favorited(user):
+            self.favorited.remove(user)
+
+    def is_favorited(self, user):
+        return self.favorited.filter(
+            favorite_users.c.user_id == user.id).count() > 0
+
+
+    def favorited_users(self):
+        favorited = User.query.join(
+            favorite_users, (favorite_users.c.user_id == User.id)).filter(
+            favorite_users.c.current_id == self.id)
+        return favorited
+
 
 
 

@@ -67,8 +67,8 @@ followers = db.Table('followers',
 
 favorite_users = db.Table('favorite_users',
     db.Model.metadata,
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
-    db.Column('favorited_user_id', db.Integer, db.ForeignKey('users.id'))
+    db.Column('current_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
 )
 
 # user_chat_threads = db.Table(

@@ -23,6 +23,10 @@
   margin-left: 24px;
 }
 
+.no-followers-msg {
+  padding: 10px 5px;
+}
+
 .user-profile-about-box {
   background: white;
   border-radius: 4px;

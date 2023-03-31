@@ -54,7 +54,6 @@ export default function favoriteCommunitiesReducer(
   state = initialState,
   action
 ) {
-  const newState = { ...state };
   switch (action.type) {
     case LOAD:
       return action.favoriteCommunities.communities.reduce(

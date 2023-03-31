@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, render_template, request, redirect
 from flask_login import login_required, current_user
 from app.models import db, Post, User, Comment, PostVote
 from .auth_routes import validation_errors_to_error_messages
-from app.forms import PostForm, PostUpdateForm, ImagePostForm, UpdateImagePostForm
+from app.forms import PostForm, PostUpdateForm, ImagePostForm, UpdateImagePostForm, LinkPostForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 
@@ -92,7 +92,31 @@ def create_image_post():
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
+# CREATE A LINK POST
+@post_routes.route("/url/submit", methods=["POST"])
+@login_required
+def create_link_post():
+    """
+    Query for creating a new link post
+    """
+    form = LinkPostForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        data = form.data
 
+        new_post = Post(
+            title=data["title"],
+            link_url=data["link_url"],
+            user_id=current_user.get_id(),
+            community_id=data["community_id"]
+        )
+
+        db.session.add(new_post)
+        db.session.commit()
+
+        return new_post.to_dict()
+    print(form.errors)
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
 
@@ -262,3 +286,7 @@ def upload_image():
 
     url = upload["url"]
     return {"url": url}
+
+
+
+# ADD A LINK POST

@@ -44,6 +44,9 @@ def follow_user(id):
     else:
         user.unfollow(target)
 
+    if target in user.favorited:
+        user.favorited.remove(target)
+
     db.session.commit()
     return {"message": "User successfully followed/unfollowed"}
 

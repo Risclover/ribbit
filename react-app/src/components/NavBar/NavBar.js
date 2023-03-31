@@ -10,12 +10,23 @@ import SignUpForm from "../../features/auth/AuthModal/SignUpForm";
 import NavUserDropdown from "./NavUserDropdown";
 import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
 import "./NavBar.css";
+import NavLeftDropdownFace from "./NavLeftDropdown/NavLeftDropdownFace";
+import { getCommunities } from "../../store/communities";
+import { getSubscriptions } from "../../store/subscriptions";
+import { getFollowers, getUserFollowers } from "../../store/followers";
 
 const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const wrapperRef = useRef(null);
   const ref = useRef();
+  const user = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    dispatch(getSubscriptions());
+    dispatch(getUserFollowers(user?.id));
+    dispatch(getFollowers());
+  }, [dispatch]);
 
   useEffect(() => {
     if (adjustQuery) ref.current.focus();
@@ -25,7 +36,6 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
   const [showSignupForm, setShowSignupForm] = useState(false);
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
-  const user = useSelector((state) => state.session.user);
   const allUsers = useSelector((state) => state.users);
   const allCommunities = useSelector((state) => state.communities);
 
@@ -94,6 +104,9 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
           <NavLink to="/" exact={true}>
             <img className="ribbit-logo" src={RibbitLogo} alt="Ribbit" />
           </NavLink>
+        </li>
+        <li>
+          <NavLeftDropdownFace />
         </li>
         <li>
           <NavLink to="/" exact={true} activeClassName="active">
