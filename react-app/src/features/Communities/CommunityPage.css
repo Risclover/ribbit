@@ -14,6 +14,11 @@
   height: 100%;
 }
 
+.community-header-info-alt {
+  width: 100%;
+  padding-left: 24px;
+}
+
 .community-page-header-top {
   height: 80px;
   width: 100%;
@@ -40,6 +45,11 @@
 
 .community-page-left-col {
   max-width: 640px;
+  width: 100%;
+}
+
+.community-page-left-col-alt {
+  max-width: 100%;
   width: 100%;
 }
 
@@ -154,7 +164,7 @@
   border: 4px solid white;
   border-radius: 1000px;
   height: 80px;
-  width: 80px;
+  min-width: 80px;
   background: white;
 }
 
@@ -398,6 +408,9 @@
   border: 1px solid #a50016;
 }
 
+.community-img-box {
+  position: relative;
+}
 .community-img-upload-btn {
   position: absolute;
   border-radius: 100px;

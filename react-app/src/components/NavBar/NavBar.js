@@ -308,7 +308,7 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
           className="blue-btn-filled loginsignup"
           onClick={() => setShowLoginForm(true)}
         >
-          Login/Sign Up
+          Log In/Sign Up
         </button>
       )}
       {user && <NavUserDropdown />}

@@ -31,7 +31,7 @@ import {
   removeFavoriteCommunity,
 } from "../../store/favorite_communities";
 
-export default function CommunityPage() {
+export default function CommunityPage({ format, setFormat }) {
   const { communityId } = useParams();
 
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -120,7 +120,13 @@ export default function CommunityPage() {
       <div className="community-page-header">
         <div className="community-page-header-top"></div>
         <div className="community-page-header-btm">
-          <div className="community-header-info">
+          <div
+            className={
+              format === "Card"
+                ? "community-header-info"
+                : "community-header-info-alt"
+            }
+          >
             <div className="community-header-info-details">
               <div className="community-img-box">
                 {user?.id === community.userId ? (
@@ -201,9 +207,27 @@ export default function CommunityPage() {
         </div>
       </div>
       <div className="community-page-main">
-        <div className="community-page-left-col">
-          {user && <CreatePostBar page="community" communityId={communityId} />}
-          <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+        <div
+          className={
+            format === "Card"
+              ? "community-page-left-col"
+              : "community-page-left-col-alt"
+          }
+        >
+          {user && (
+            <CreatePostBar
+              page="community"
+              communityId={communityId}
+              format={format}
+              setFormat={setFormat}
+            />
+          )}
+          <SortingBar
+            sortMode={sortMode}
+            setSortMode={setSortMode}
+            format={format}
+            setFormat={setFormat}
+          />
 
           {commPosts.length === 0 && (
             <div className="community-no-posts">
@@ -217,7 +241,12 @@ export default function CommunityPage() {
               activeClassName="single-post-active"
               to={`/posts/${post.id}`}
             >
-              <SinglePost id={post.id} isPage={isPage} />
+              <SinglePost
+                id={post.id}
+                isPage={isPage}
+                format={format}
+                setFormat={setFormat}
+              />
             </NavLink>
           ))}
         </div>

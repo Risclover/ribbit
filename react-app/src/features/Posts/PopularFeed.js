@@ -1,98 +1,76 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-
 import { getPosts } from "../../store/posts";
-import { getCommunities } from "../../store/communities";
-import { getUsers } from "../../store/users";
-import { getSinglePost } from "../../store/one_post";
-import { getFavoriteCommunities } from "../../store/favorite_communities";
-
-import CreateCommunity from "../Communities/CommunityForms/CreateCommunity";
 import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
 import SortingBar from "../../components/SortingBar/SortingBar";
 import SinglePost from "./SinglePost/SinglePost";
 import { Modal } from "../../context/Modal";
-
+import CreateCommunity from "../Communities/CommunityForms/CreateCommunity";
 import RibbitBanner from "../../images/ribbit-banners/ribbit_banner.png";
 import Github from "../../images/developer-links/github.png";
 import LinkedIn from "../../images/developer-links/linkedin.png";
 import Resume from "../../images/developer-links/resume.png";
 import Email from "../../images/developer-links/mail.png";
-
 import "./Posts.css";
+import { getCommunities } from "../../store/communities";
 
-export default function Posts({ postType, setPostType, format, setFormat }) {
+export default function PopularFeed() {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const posts = useSelector((state) => Object.values(state.posts));
+  const [noPosts, setNoPosts] = useState(false);
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
   const [sortMode, setSortMode] = useState("new");
-
-  const posts = useSelector((state) => Object.values(state.posts));
   const user = useSelector((state) => state.session.user);
-
+  const communities = useSelector((state) => Object.values(state.communities));
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getCommunities());
-    dispatch(getFavoriteCommunities());
-    dispatch(getUsers());
   }, [dispatch]);
 
-  if (sortMode === "new") {
-    posts.sort((a, b) => {
-      let postA = new Date(a.createdAt).getTime();
-      let postB = new Date(b.createdAt).getTime();
-      return postB - postA;
-    });
-  }
+  posts.sort((a, b) => {
+    return b.votes - a.votes;
+  });
 
-  if (sortMode === "top") {
-    posts.sort((a, b) => {
-      let postA = new Date(a.createdAt).getTime();
-      let postB = new Date(b.createdAt).getTime();
-      return b.votes - a.votes || postB - postA;
-    });
-  }
-
-  if (!posts) return null;
+  console.log("posts:", posts);
   return (
-    <div
-      className={format === "Card" ? "posts-container" : "posts-container-alt"}
-    >
-      <div
-        className={format === "Card" ? "posts-left-col" : "posts-left-col-alt"}
-      >
-        {user && <CreatePostBar />}
-        <SortingBar
-          setFormat={setFormat}
-          format={format}
-          sortMode={sortMode}
-          setSortMode={setSortMode}
-        />
-        {posts &&
-          posts.map((post) => (
-            <NavLink key={post.id} to={`/posts/${post.id}`}>
-              <SinglePost
-                key={post.id}
-                id={post.id}
-                postComments={Object.values(post.postComments).length}
-                isCommunity={false}
-                format={format}
-                isPage="all"
-              />
-            </NavLink>
-          ))}
+    <div className="posts-container">
+      <div className="posts-left-col">
+        <CreatePostBar />
+        {!noPosts && (
+          <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+        )}
+        {noPosts && (
+          <div className="no-posts-div">
+            <i className="fa-solid fa-people-group"></i>
+            <h1 className="head">No Subscriptions Yet</h1>
+            <p>
+              Explore the All feed or the Communities Directory to discover new
+              communities.
+            </p>
+          </div>
+        )}
+        {posts.map((post, idx) => (
+          <NavLink key={post.id} to={`/posts/${post.id}`}>
+            <SinglePost
+              key={idx}
+              id={post.id}
+              postComments={Object.values(post.postComments).length}
+              isCommunity={false}
+            />
+          </NavLink>
+        ))}
       </div>
       <div className="posts-right-col">
         <div className="posts-home-box">
           <img src={RibbitBanner} alt="Ribbit banner" />
           <div className="posts-home-box-content">
-            <h1>c/all</h1>
+            <h1>Home</h1>
             <p>
-              The most active posts from all of Ribbit. Come here to see new
-              posts rising and be a part of the conversation.
+              Your personal Ribbit frontpage. Come here to check in with your
+              favorite communities.
             </p>
             {user && (
               <div className="posts-home-box-buttons">
@@ -140,7 +118,7 @@ export default function Posts({ postType, setPostType, format, setFormat }) {
               </li>
               <li key={1} className="tooltip">
                 <a
-                  href="https://www.linkedin.com/in/sara-dunlop"
+                  href="https://www.linkedin.com/in/sara-dunlop-66375a146/"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -160,7 +138,7 @@ export default function Posts({ postType, setPostType, format, setFormat }) {
               </li>
               <li key={3} className="tooltip">
                 <a
-                  href="mailto:sara.dunlop.dev@gmail.com"
+                  href="mailto:sara091592@gmail.com"
                   target="_blank"
                   rel="noreferrer"
                 >

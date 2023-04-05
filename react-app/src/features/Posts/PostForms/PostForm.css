@@ -662,12 +662,6 @@ pre.ql-syntax {
 .single-page-content-link {
   display: flex;
   align-items: center;
-  margin-top: 3px;
-}
-
-.single-post-content-box a {
-  display: flex;
-  align-items: center;
   color: #3f9ade;
   font-size: 12px;
   font-weight: 400;
@@ -676,7 +670,7 @@ pre.ql-syntax {
   white-space: nowrap;
 }
 
-.single-post-content-box a:hover {
+.single-page-content-link:hover {
   text-decoration: underline;
 }
 

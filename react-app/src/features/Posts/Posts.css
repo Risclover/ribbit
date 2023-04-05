@@ -7,9 +7,27 @@
   min-height: 100vh;
 }
 
+.posts-container-alt {
+  margin: 0 auto;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  padding: 20px 24px;
+  min-height: 100vh;
+  max-width: 100%;
+}
+
 .posts-left-col {
   max-width: 640px;
   width: 100%;
+}
+
+.posts-left-col-alt {
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
 }
 
 .posts-right-col {

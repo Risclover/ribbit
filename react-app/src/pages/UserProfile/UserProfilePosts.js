@@ -14,7 +14,11 @@ export default function UserProfilePosts({
   return (
     <div className="user-profile-posts-page">
       {user.userPosts > 0 && (
-        <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+        <SortingBar
+          sortMode={sortMode}
+          setSortMode={setSortMode}
+          format="none"
+        />
       )}
       {user.userPosts === 0 && (
         <div className="no-posts-div">
@@ -27,6 +31,7 @@ export default function UserProfilePosts({
         post.postAuthor.id === +userId ? (
           <NavLink key={post.id} to={`/posts/${post.id}`}>
             <SinglePost
+              format="Card"
               key={post.id}
               id={post.id}
               isCommunity={false}

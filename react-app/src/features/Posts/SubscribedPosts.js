@@ -17,10 +17,9 @@ import Resume from "../../images/developer-links/resume.png";
 import Email from "../../images/developer-links/mail.png";
 import SortingBar from "../../components/SortingBar/SortingBar";
 import "./Posts.css";
-import { getFollowers, getUserFollowers } from "../../store/followers";
 import { getFavoriteCommunities } from "../../store/favorite_communities";
 
-export default function SubscribedPosts() {
+export default function SubscribedPosts({ format, setFormat }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -28,6 +27,7 @@ export default function SubscribedPosts() {
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
   const [sortMode, setSortMode] = useState("new");
+  console.log("sortMode", sortMode);
 
   const user = useSelector((state) => state.session.user);
   const communities = useSelector((state) => Object.values(state.communities));
@@ -43,10 +43,6 @@ export default function SubscribedPosts() {
     (community) =>
       community.subscribers[user?.id] !== undefined && community.communityPosts
   );
-
-  // let followedList = followedPosts.map((post) => post.followedPosts);
-
-  // console.log("FOLLOWED LIST:", followedList);
 
   let concatList = [];
 
@@ -101,11 +97,20 @@ export default function SubscribedPosts() {
   if (!user || !communities) return null;
 
   return (
-    <div className="posts-container">
-      <div className="posts-left-col">
+    <div
+      className={format === "Card" ? "posts-container" : "posts-container-alt"}
+    >
+      <div
+        className={format === "Card" ? "posts-left-col" : "posts-left-col-alt"}
+      >
         <CreatePostBar />
         {!noPosts && (
-          <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+          <SortingBar
+            sortMode={sortMode}
+            setSortMode={setSortMode}
+            setFormat={setFormat}
+            format={format}
+          />
         )}
         {noPosts && (
           <div className="no-posts-div">
@@ -124,6 +129,7 @@ export default function SubscribedPosts() {
               id={post.id}
               postComments={Object.values(post.postComments).length}
               isCommunity={false}
+              format={format}
             />
           </NavLink>
         ))}

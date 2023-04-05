@@ -30,6 +30,7 @@ import { Modal } from "./context/Modal";
 import CommunitiesDirectory from "./pages/CommunitiesDirectory.js/CommunitiesDirectory";
 import MessageWindow from "./features/Messages/MessageWindow";
 import Chat from "./features/Messages/Chat";
+import PopularFeed from "./features/Posts/PopularFeed";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -38,6 +39,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [adjustQuery, setAdjustQuery] = useState(false);
   const [postType, setPostType] = useState("post");
+  const [format, setFormat] = useState("Card");
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
@@ -67,15 +69,20 @@ function App() {
         <Switch>
           {user ? (
             <Route path="/" exact={true}>
-              <SubscribedPosts />
+              <SubscribedPosts format={format} setFormat={setFormat} />
             </Route>
           ) : (
             <Route path="/" exact={true}>
-              <Posts />
+              <Posts format={format} setFormat={setFormat} />
             </Route>
           )}
           <Route path="/home" exact={true}>
-            <SubscribedPosts postType={postType} setPostType={setPostType} />
+            <SubscribedPosts
+              postType={postType}
+              setPostType={setPostType}
+              format={format}
+              setFormat={setFormat}
+            />
           </Route>
           <Route path="/login">
             {showLoginForm && (
@@ -100,7 +107,15 @@ function App() {
             )}
           </Route>
           <Route path="/c/all" exact={true}>
-            <Posts postType={postType} setPostType={setPostType} />
+            <Posts
+              postType={postType}
+              setPostType={setPostType}
+              format={format}
+              setFormat={setFormat}
+            />
+          </Route>
+          <Route path="/c/popular" exact={true}>
+            <PopularFeed />
           </Route>
           <Route path="/c/submit" exact={true}>
             <CreatePost
@@ -150,6 +165,8 @@ function App() {
               postType={postType}
               setPostType={setPostType}
               setShowLoginForm={setShowLoginForm}
+              format={format}
+              setFormat={setFormat}
             />
           </Route>
           <Route path="/c/:communityId/edit" exact={true}>

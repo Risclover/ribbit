@@ -73,7 +73,7 @@ nav ul li {
 
 .navbar-user-img {
   border-radius: 100%;
-  width: 24px;
+  min-width: 24px;
   height: 24px;
   margin-right: 5px;
   object-fit: cover;

@@ -6,6 +6,7 @@ import { RxImage } from "react-icons/rx";
 import { FiLink } from "react-icons/fi";
 
 import "./CreatePostBar.css";
+import PostFormatFace from "../../features/Posts/PostFormatDropdown/PostFormatFace";
 
 export default function CreatePostBar({ page, communityId }) {
   const dispatch = useDispatch();

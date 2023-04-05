@@ -44,7 +44,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
 
   useEffect(() => {
     dispatch(getSubscriptions());
-    dispatch(getUserFollowers(currentUser.id));
+    dispatch(getUserFollowers(currentUser?.id));
     dispatch(getFollowers());
     dispatch(getFavoriteCommunities());
     dispatch(getFavoriteUsers());
@@ -76,10 +76,15 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
   );
 
-  Object.values(followers)?.sort((a, b) =>
-    a.username.toLowerCase() > b.username.toLowerCase() ? 1 : -1
-  );
-  console.log("f:", Object.values(followers));
+  if (
+    followers &&
+    Object.values(followers) &&
+    Object.values(followers).length > 0
+  ) {
+    Object.values(followers)?.sort((a, b) =>
+      a.username.toLowerCase() > b.username.toLowerCase() ? 1 : -1
+    );
+  }
 
   const handleFavorite = async (e, community) => {
     e.preventDefault();
@@ -470,11 +475,11 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
-            history.push(`/users/${currentUser.id}/profile/edit`);
+            history.push(`/users/${currentUser?.id}/profile/edit`);
           }}
         >
           <img
-            src={currentUser.profile_img}
+            src={currentUser?.profile_img}
             className="nav-left-dropdown-item-img"
           />
           <span className="nav-left-dropdown-item">User Settings</span>
@@ -486,12 +491,12 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
-            history.push(`/users/${currentUser.id}/profile/edit`);
+            history.push(`/users/${currentUser?.id}/profile/edit`);
           }}
         >
           {" "}
           <img
-            src={currentUser.profile_img}
+            src={currentUser?.profile_img}
             className="nav-left-dropdown-item-img"
           />
           <span className="nav-left-dropdown-item">Messages</span>

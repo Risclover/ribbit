@@ -1,0 +1,84 @@
+.post-format-face-wrapper {
+  position: relative;
+}
+
+.post-format-face-wrapper img {
+  width: 24px;
+  height: 24px;
+}
+
+.post-format-face {
+  align-items: center;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: 32px;
+  padding: 0 8px;
+  border-color: transparent;
+  background: white;
+}
+
+.post-format-face:hover {
+  background: #f6f7f8;
+}
+
+.post-format-face-wrapper svg {
+  font-size: 20px;
+  margin-left: 0;
+  margin-right: -4px;
+  color: #878a8c;
+}
+
+.post-format-dropdown {
+  border: 1px solid #edeff1;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
+  color: #1c1c1c;
+  overflow: hidden;
+  background-color: white;
+  position: absolute;
+  z-index: 1000;
+  width: max-content;
+}
+
+.post-format-btn {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  display: block;
+  padding: 8px;
+  text-transform: capitalize;
+  white-space: nowrap;
+  border-radius: 0;
+  background: white;
+  border-color: transparent;
+  display: flex;
+  align-items: center;
+  color: #878a8c;
+  border-bottom: 1px solid #edeff1;
+  height: 37px;
+  font-family: "IBM Plex Sans", sans-serif;
+  width: 100%;
+}
+
+.post-format-btn:hover {
+  background: #e9f5fd;
+  color: black;
+}
+
+.post-format-btn img {
+  margin-right: 4px;
+}
+
+.format-btn-black {
+  color: black;
+}
+
+.format-btn-grey {
+  color: #878a8c;
+}
+
+.format-btn-active {
+  color: #0079d3;
+}

@@ -56,6 +56,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
           id={+postId}
           isPage={"singlepage"}
           postComments={Object.values(post.postComments).length}
+          format="Card"
         />
         <Comments
           setCommentsNum={setCommentsNum}
