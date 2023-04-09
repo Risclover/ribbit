@@ -52,8 +52,6 @@ export default function CommunitySelection({
   const [name, setName] = useState("");
   const [communityModalOpen, setCommunityModalOpen] = useState(false);
 
-  console.log(communityModalOpen, "--- open");
-
   useOutsideAlerter(
     wrapperRef,
     setShowDropdown,

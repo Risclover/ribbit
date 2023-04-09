@@ -4,9 +4,24 @@ import Home from "../../../images/navbar/home-icon.png";
 import { VscChevronDown } from "react-icons/vsc";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import NavLeftDropdown from "./NavLeftDropdown";
+import { getSubscriptions } from "../../../store/subscriptions";
+import { getFollowers, getUserFollowers } from "../../../store/followers";
+import { getFavoriteCommunities } from "../../../store/favorite_communities";
+import { getFavoriteUsers } from "../../../store/favorite_users";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function NavLeftDropdownFace() {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.session.user);
   const [showIcon, setShowIcon] = useState(false);
+
+  useEffect(() => {
+    dispatch(getSubscriptions());
+    dispatch(getUserFollowers(currentUser?.id));
+    dispatch(getFollowers());
+    dispatch(getFavoriteCommunities());
+    dispatch(getFavoriteUsers());
+  }, [dispatch]);
 
   return (
     <div className="nav-left-dropdown-wrapper">

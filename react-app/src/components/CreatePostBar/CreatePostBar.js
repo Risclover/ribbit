@@ -42,13 +42,13 @@ export default function CreatePostBar({ page, communityId }) {
       </div>
       <button
         className="create-post-bar-icon"
-        onClick={() => history.push(`/c/submit/image`)}
+        onClick={() => history.push(`/c/${communityId}/submit/image`)}
       >
         <RxImage />
       </button>
       <button
         className="create-post-bar-icon"
-        onClick={() => history.push(`/c/submit/url`)}
+        onClick={() => history.push(`/c/${communityId}/submit/url`)}
       >
         <FiLink />
       </button>

@@ -24,56 +24,52 @@ export default function SinglePostPage({ setShowLoginForm }) {
 
   const [commentsNum, setCommentsNum] = useState();
   const [subscribed, setSubscribed] = useState(false);
-  const post = useSelector((state) => state.posts[postId]);
-  const comments = useSelector((state) => Object.values(state.comments));
+  const post = useSelector((state) => state.singlePost[+postId]);
   const posts = useSelector((state) => state.posts);
-  const community = useSelector(
-    (state) => state.communities[post?.communityId]
-  );
+  const community = useSelector((state) => state.singleCommunity);
   const subscriptions = useSelector((state) => state.subscriptions);
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
-    dispatch(getPosts());
-    dispatch(getSinglePost(postId));
-    dispatch(getSingleCommunity(posts[postId]?.communityId));
-    dispatch(getCommunities());
-    dispatch(getComments(+postId));
+    dispatch(getSinglePost(+postId));
+    dispatch(getSingleCommunity(post?.communityId));
     dispatch(getSubscriptions());
   }, [dispatch, postId]);
 
   useEffect(() => {
-    if (subscriptions[community?.id]) setSubscribed(true);
-  }, [subscribed, subscriptions, community?.id]);
+    if (subscriptions[post?.communityId]) setSubscribed(true);
+  }, [subscribed, subscriptions, post?.communityId]);
 
-  if (!comments || !post || !postId || !community) return null;
+  if (!post || !postId || !community) return null;
   return (
     <div className="single-post-page">
       <div className="single-post-left-col">
         <SinglePost
           commentsNum={commentsNum}
+          post={post}
           setCommentsNum={setCommentsNum}
           id={+postId}
           isPage={"singlepage"}
-          postComments={Object.values(post.postComments).length}
           format="Card"
+          postComments={Object.values(post.postComments).length}
         />
         <Comments
           setCommentsNum={setCommentsNum}
+          post={post}
           postId={+postId}
           setShowLoginForm={setShowLoginForm}
         />
       </div>
       <div className="single-post-right-col">
-        <NavLink to={`/c/${community?.id}`}>
+        <NavLink to={`/c/${post?.communityId}`}>
           <div className="single-post-community-box">
             <div className="single-post-box-header"></div>
             <div className="single-post-community-info-content">
               <div className="single-post-community-info-name">
-                c/{community?.name}
+                c/{post?.communityName}
               </div>
               <div className="single-post-community-description">
-                {community?.description}
+                {post?.communityDesc}
               </div>
               <div className="single-post-community-date">
                 <img
@@ -81,7 +77,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
                   className="single-post-community-cake"
                   alt="Cake"
                 />{" "}
-                Created {moment(community?.createdAt).format("MMM DD, YYYY")}
+                Created {moment(post?.communityDate).format("MMM DD, YYYY")}
               </div>
               <div className="single-post-right-col-btns">
                 {user && subscribed && (
@@ -89,7 +85,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
                     className="blue-btn-unfilled btn-long"
                     onClick={async (e) => {
                       e.preventDefault();
-                      await dispatch(deleteSubscription(community?.id));
+                      await dispatch(deleteSubscription(post?.communityId));
                       setSubscribed(false);
                     }}
                     onMouseEnter={(e) => (e.target.textContent = "Leave")}
@@ -103,7 +99,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
                     className="blue-btn-filled btn-long"
                     onClick={async (e) => {
                       e.preventDefault();
-                      await dispatch(addToSubscriptions(community?.id));
+                      await dispatch(addToSubscriptions(post?.communityId));
                       user && setSubscribed(true);
                       !user && setShowLoginForm(true);
                     }}
@@ -115,14 +111,14 @@ export default function SinglePostPage({ setShowLoginForm }) {
             </div>
           </div>
         </NavLink>
-        {Object.values(community?.communityRules).length > 0 && (
+        {Object.values(post?.communityRules).length > 0 && (
           <div className="single-post-community-rules">
             <div className="single-post-rules-header">
-              c/{community?.name} Rules
+              c/{post?.communityName} Rules
             </div>
             <div className="single-post-rules">
               <ol>
-                {Object.values(community?.communityRules).map((rule, idx) => (
+                {Object.values(post?.communityRules).map((rule, idx) => (
                   <CommunityRule idx={idx} rule={rule} />
                 ))}
               </ol>

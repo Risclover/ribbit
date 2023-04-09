@@ -4,20 +4,23 @@ from app.models import db, Community
 def seed_communities():
     community_1 = Community(
         name="cats",
-        description="A community for people to be obsessed with cats, because duh, they're cats",
-        display_name="Kitty kitty cats",
+        description="Pictures, videos, questions, and articles featuring/about cats.",
+        display_name="Cats",
+        community_img="https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png?width=256&v=enabled&s=0b5ca667995815b9aa608db0dc326bbb8c282a72",
         user_id=3
     )
     community_2 = Community(
-        name="movies",
-        description="A place for all movie-lovers to feel free to discuss everything to do with cinema/film",
-        display_name="Film enthusiasts unite!",
+        name="oddlyspecific",
+        description="For things that are way too specific.",
+        display_name="For things that are way too specific.",
+        community_img="https://styles.redditmedia.com/t5_2wjlc/styles/communityIcon_oyjnznh9lcq41.png?width=256&v=enabled&s=ae4cc15c29ad88c9b0ed1207e2691d5ff837b615",
         user_id=3
     )
     community_3 = Community(
-        name="people",
-        description="Introduce yourself, make friends, and simply be a person",
-        display_name="People are people so what can you do?",
+        name="javascript",
+        description="All about the 𝚓𝚊𝚟𝚊𝚜𝚌𝚛𝚒𝚙𝚝 programming language!",
+        display_name="javascript",
+        community_img="https://a.thumbs.redditmedia.com/zDOFJTXd6fmlD58VDGypiV94Leflz11woxmgbGY6p_4.png",
         user_id=3
     )
     community_4 = Community(
@@ -38,7 +41,7 @@ def seed_communities():
         name="mildlyinteresting",
         description="Aww, cripes. I didn't know I'd have to write a description. How many words is that so far, like a hundred? Soooo, yeah. Mildly interesting stuff. Stuff that interests you. Mildly. It's in the name, ffs.",
         display_name="For photos that are, you know, mildly interesting",
-        community_img="https://i.imgur.com/6zYO5R7.png",
+        community_img="https://b.thumbs.redditmedia.com/lTgz7Yx_6n8VZemjf54viYVZgFhW2GlB6dlpj1ZwKbo.png",
         user_id=3
     )
     community_7 = Community(
@@ -76,6 +79,76 @@ def seed_communities():
         community_img="https://styles.redditmedia.com/t5_2qs0q/styles/communityIcon_kxcmzy9bt1381.jpg?width=256&format=pjpg&v=enabled&s=6a2945f540463756d33acd2919b0476668879106",
         user_id=1
     )
+    community_12 = Community(
+        name="interestingasfuck",
+        description="For anything that is InterestingAsFuck",
+        display_name="Interesting As Fuck",
+        community_img="https://styles.redditmedia.com/t5_2qhsa/styles/communityIcon_5v3bepmshpg81.png?width=256&v=enabled&s=2914ade77dd2525043d2a30b44aad9ea0a38c0b9",
+        user_id=1
+    )
+    community_13 = Community(
+        name="todayilearned",
+        description="You learn something new every day; what did you learn today? Submit interesting and specific facts about something that you just found out here.",
+        display_name="Today I Learned (TIL)",
+        community_img="https://b.thumbs.redditmedia.com/B7IpR8P1mEsQIjdizK5x79s5aGfJUtKk3u2ksGZ9n2Q.png",
+        user_id=1
+    )
+    community_14 = Community(
+        name="OldSchoolCool",
+        description="/c/OldSchoolCool **History's cool kids, looking fantastic!** A pictorial and video celebration of history's coolest kids, everything from beatniks to bikers, mods to rude boys, hippies to ravers. And everything in between. If you've found a photo, or a photo essay, of people from the past looking fantastic, here's the place to share it.",
+        display_name="OldSchoolCool: History's cool kids, looking fantastic",
+        community_img="https://styles.redditmedia.com/t5_2tycb/styles/communityIcon_uadq4hbj2k451.png?width=256&v=enabled&s=cfdd323092b4d0204b1d89c312bba4a3d5ca02b5",
+        user_id=1
+    )
+    community_15 = Community(
+        name="mildlyinfuriating",
+        description="jukmifgguggh fbrltbruh",
+        display_name="jukmifgguggh",
+        community_img="https://styles.redditmedia.com/t5_2ubgg/styles/communityIcon_lkxajjefezh51.png?width=256&v=enabled&s=e9f08e5f20f9c160ae08bda2cfd54ad5af270323",
+        user_id=1
+    )
+    community_16 = Community(
+        name="reactjs",
+        description="A community for learning and developing web applications using React by Facebook.",
+        display_name="/c/ReactJS - The Front Page of React",
+        community_img="https://styles.redditmedia.com/t5_2zldd/styles/communityIcon_fbblpo38vy941.png?width=256&v=enabled&s=c26d81d14216024db4de148c4bb8bd03b5fa345c",
+        user_id=1
+    )
+    community_17 = Community(
+        name="flask",
+        description="Flask is a Python micro-framework for web development. Flask is easy to get started with and a great way to build websites and web applications.",
+        display_name="Flask",
+        community_img="https://styles.redditmedia.com/t5_2s1s3/styles/communityIcon_o4vkby94vkz41.png?width=256&v=enabled&s=009ae27a22252c14b7263d2c52bc0f974dd6937b",
+        user_id=1
+    )
+    community_18 = Community(
+        name="Python",
+        description="News about the programming language Python. If you have something to teach others post here. If you have questions or are a newbie use r/learnpython",
+        display_name="Python",
+        community_img="https://styles.redditmedia.com/t5_2qh0y/styles/communityIcon_h9cdwd9m75a51.png?width=256&v=enabled&s=cefd3a42f994dcee5281520c6e4c2baabc4d9ae1",
+        user_id=1
+    )
+    community_19 = Community(
+        name="learnpython",
+        description="Subreddit for posting questions and asking for general advice about your python code.",
+        display_name="Python Education",
+        user_id=1
+    )
+    community_20 = Community(
+        name="facepalm",
+        description="*A subreddit for you to share the stupidity of individuals online and IRL. Post screenshots from forums, social media sites, or just real life. --------------------------------------------------- ***PLEASE*** read all of the sidebar before posting, thanks! -------------------------------------------",
+        display_name="now double verified",
+        community_img="https://styles.redditmedia.com/t5_2r5rp/styles/communityIcon_qzjxzx1g08z91.jpg?width=256&format=pjpg&v=enabled&s=d6cca2b14a68a919df6ebf6e2f7536453c7b432a",
+        user_id=1
+    )
+    community_21 = Community(
+        name="learnjavascript",
+        description="This subreddit is for anyone who wants to learn JavaScript or help others do so. Questions and posts about frontend development in general are welcome, as are all posts pertaining to JavaScript on the backend.",
+        display_name="Learn Javascript",
+        community_img="https://styles.redditmedia.com/t5_2tugi/styles/communityIcon_7yzrvmem0wi31.png?width=256&v=enabled&s=465ca5c67a15cfb68f0316e982e17b0918da945b",
+        user_id=3
+    )
+
 
 
     db.session.add(community_1)
@@ -89,6 +162,17 @@ def seed_communities():
     db.session.add(community_9)
     db.session.add(community_10)
     db.session.add(community_11)
+    db.session.add(community_12)
+    db.session.add(community_13)
+    db.session.add(community_14)
+    db.session.add(community_15)
+    db.session.add(community_16)
+    db.session.add(community_17)
+    db.session.add(community_18)
+    db.session.add(community_19)
+    db.session.add(community_20)
+    db.session.add(community_21)
+
     db.session.commit()
 
 def undo_communities():

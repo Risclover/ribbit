@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { signUp } from "../../../store/session";
 import "./AuthModal.css";
 
@@ -8,8 +8,10 @@ const SignUpForm = ({
   showSignupForm,
   setShowSignupForm,
   setShowLoginForm,
+  val,
 }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState("");
@@ -19,6 +21,14 @@ const SignUpForm = ({
   const [usernameErrors, setUsernameErrors] = useState([]);
   const [emailErrors, setEmailErrors] = useState([]);
   const [passwordErrors, setPasswordErrors] = useState([]);
+  let newId = 0;
+  const allUsers = useSelector((state) => Object.values(state.users));
+
+  useEffect(() => {
+    for (let user of allUsers) {
+      newId += 1;
+    }
+  }, []);
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -76,6 +86,11 @@ const SignUpForm = ({
         setErrors([]);
       } else {
         setShowSignupForm(false);
+        let id = 0;
+        for (let user of allUsers) {
+          id += 1;
+        }
+        if (val === "loginpage") history.push(`/users/${id + 1}/profile`);
       }
     }
   };

@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import CommentSorting from "./CommentSorting";
 import CommentForm from "./CommentForms/CommentForm";
 import Comment from "./Comment";
 import "./Comments.css";
+import { getComments } from "../../store/comments";
+import { useParams } from "react-router-dom";
 
-export default function Comments({ postId, setShowLoginForm, setCommentsNum }) {
+export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
+  const dispatch = useDispatch();
+  const { postId } = useParams();
   const comments = useSelector((state) => Object.values(state.comments));
   const [sortType, setSortType] = useState("Best");
   const [showLoader, setShowLoader] = useState(true);
+
+  useEffect(() => {
+    dispatch(getComments(+postId));
+  }, []);
 
   useEffect(() => {
     setCommentsNum(comments.length);

@@ -15,10 +15,6 @@ export default function CommunityWelcome({
     Object.values(state.singleCommunity)
   );
 
-  useEffect(() => {
-    dispatch(getSingleCommunity(community.id));
-  }, [dispatch, community]);
-
   return (
     <>
       {showWelcomeModal && (

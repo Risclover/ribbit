@@ -524,6 +524,11 @@ li {
   word-break: break-word;
 }
 
+.rule-description a {
+  color: #0079d3;
+  text-decoration: underline;
+}
+
 .community-rules-container {
   margin-top: 16px;
   /* border: 1px solid #ccc; */
@@ -629,6 +634,11 @@ li {
   max-width: 50%;
   margin-right: 20px;
   padding: 8px 0;
+}
+
+.rule-expanded-content a {
+  text-decoration: underline;
+  color: #0079d3;
 }
 
 .rule-expanded-title {

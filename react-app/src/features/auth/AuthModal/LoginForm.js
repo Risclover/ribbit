@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-
+import { useHistory } from "react-router-dom";
 import { login } from "../../../store/session";
 import "./AuthModal.css";
 
-const LoginForm = ({ showLoginForm, setShowLoginForm, setShowSignupForm }) => {
+const LoginForm = ({
+  showLoginForm,
+  setShowLoginForm,
+  setShowSignupForm,
+  val,
+}) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
@@ -15,6 +21,7 @@ const LoginForm = ({ showLoginForm, setShowLoginForm, setShowSignupForm }) => {
     e.preventDefault();
     dispatch(login("demo@aa.io", "password"));
     setShowLoginForm(false);
+    if (val === "loginpage") history.push("/");
   };
 
   const onLogin = async (e) => {
@@ -30,6 +37,7 @@ const LoginForm = ({ showLoginForm, setShowLoginForm, setShowSignupForm }) => {
       if (data && data.length > 0) {
         setErrors(["Incorrect email or password."]);
       } else {
+        if (val === "loginpage") history.push("/");
         setShowLoginForm(false);
       }
     }

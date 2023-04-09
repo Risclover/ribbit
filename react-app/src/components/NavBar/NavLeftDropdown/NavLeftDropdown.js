@@ -20,6 +20,7 @@ import {
   removeFavoriteUser,
 } from "../../../store/favorite_users";
 import HandleClickOutside from "../../HandleClickOutside";
+import { getUsers } from "../../../store/users";
 
 export default function NavLeftDropdown({ showIcon, setShowIcon }) {
   const wrapperRef = useRef(null);
@@ -41,14 +42,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
   const [communities, setCommunities] = useState();
   const [following, setFollowing] = useState();
   const [final, setFinal] = useState();
-
-  useEffect(() => {
-    dispatch(getSubscriptions());
-    dispatch(getUserFollowers(currentUser?.id));
-    dispatch(getFollowers());
-    dispatch(getFavoriteCommunities());
-    dispatch(getFavoriteUsers());
-  }, [dispatch]);
 
   useEffect(() => {
     setCommunities(subscriptions);
@@ -92,12 +85,10 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
       await dispatch(removeFavoriteCommunity(community.id));
       dispatch(getFavoriteCommunities());
       setFinal(Object.values(favoriteCommunities));
-      console.log("favorites:", favorites);
     } else {
       await dispatch(addFavoriteCommunity(community.id));
       dispatch(getFavoriteCommunities());
       setFinal(Object.values(favoriteCommunities));
-      console.log("favorites:", favorites);
     }
   };
 
@@ -131,8 +122,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
       setCommunities(sorted);
     }
   }, [filter]);
-
-  console.log("filter:", filter);
 
   if (!followers || !communities || !following) return null;
   return (
@@ -171,10 +160,10 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
               />
               <span className="nav-left-dropdown-item">c/{item.name}</span>
             </div>
-
             <div
               className="nav-left-dropdown-star star-filled"
               onClick={(e) => {
+                e.preventDefault();
                 handleFavorite(e, item);
               }}
             >
@@ -187,10 +176,11 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           <div className="nav-left-dropdown-navitem">
             <div
               className="nav-left-dropdown-item-link"
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
                 setShowIcon(false);
                 history.push(`/users/${item.id}/profile`);
+                await dispatch(getUsers());
               }}
             >
               <img
@@ -199,7 +189,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
               />
               <span className="nav-left-dropdown-item">u/{item.username}</span>
             </div>
-
             <div
               className="nav-left-dropdown-star star-filled"
               onClick={(e) => {

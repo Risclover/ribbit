@@ -101,7 +101,8 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      return;
+      setShowSearchDropdown(false);
+      history.push("/search/results");
     }
   };
 
@@ -113,18 +114,20 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
             <img className="ribbit-logo" src={RibbitLogo} alt="Ribbit" />
           </NavLink>
         </li>
+        <li>{user && <NavLeftDropdownFace />}</li>
         <li>
-          <NavLeftDropdownFace />
+          {user && (
+            <NavLink to="/" exact={true} activeClassName="active">
+              Home
+            </NavLink>
+          )}
         </li>
         <li>
-          <NavLink to="/" exact={true} activeClassName="active">
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/c/all" exact={true}>
-            All
-          </NavLink>
+          {user && (
+            <NavLink to="/c/all" exact={true}>
+              All
+            </NavLink>
+          )}
         </li>
 
         {/* {!user && (
@@ -215,7 +218,7 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
                       .toLowerCase()
                       .includes(searchQuery.toLowerCase())
                   )
-                  // .slice(0, 5)
+                  .slice(0, 5)
                   .map((community) =>
                     community["name"]
                       .toLowerCase()
@@ -260,7 +263,7 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
                       .toLowerCase()
                       .includes(searchQuery.toLowerCase())
                   )
-                  // .slice(0, 5)
+                  .slice(0, 5)
                   .map((user, idx) =>
                     idx < 6 &&
                     user["username"]

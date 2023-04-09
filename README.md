@@ -53,6 +53,7 @@ This is Ribbit, a clone of https://www.reddit.com. On this site, users can subsc
 - Comment Likes and Dislikes (Create, Read, and Delete)
 - Community Rules (Create, Read, Update, and Delete)
 - Followers
+- Favorites list (Communities & Users)
 - Search
 - AWS S3 used for:
   - User profile images
@@ -70,11 +71,13 @@ Future feature implementations include:
 - ~~Following other users~~ &check;
 - ~~Favorite communities~~ &check;
 - Improved navigation bar
-  - Left nav dropdown
+  - ~~Left nav dropdown~~ &check;
   - Left nav sidebar
+- ~~Advanced post formatting (on feeds)~~
 - Saving posts and comments
 - Live messaging via websockets
 - Notifications for post replies, comment replies, new community posts, and messages
+- Nested comments
 
 ## Getting Started
 

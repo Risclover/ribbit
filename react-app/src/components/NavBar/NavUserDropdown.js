@@ -71,7 +71,7 @@ export default function NavUserDropdown() {
             <div className="nav-user-dropdown-btn-title">
               <HiOutlineUserCircle /> My Stuff
             </div>
-            <NavLink to={`/users/${user.id}/profile`}>
+            <NavLink to={`/users/${cuser.id}/profile`}>
               <div className="nav-user-dropdown-btn">Profile</div>
             </NavLink>
             <NavLink to={`/directory`}>

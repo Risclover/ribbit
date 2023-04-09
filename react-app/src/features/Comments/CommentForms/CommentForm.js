@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { createComment } from "../../../store/comments";
+import { createComment, getAllComments } from "../../../store/comments";
 import { getPosts } from "../../../store/posts";
 
 import { Modal } from "../../../context/Modal";
@@ -32,7 +32,7 @@ export default function CommentForm({ postId }) {
       return;
     } else {
       await dispatch(createComment({ content: content.trim() }, postId));
-      await dispatch(getPosts());
+      dispatch(getPosts());
       setErrors([]);
       setContent(" ");
     }

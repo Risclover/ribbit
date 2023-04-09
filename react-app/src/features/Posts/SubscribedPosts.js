@@ -19,15 +19,19 @@ import SortingBar from "../../components/SortingBar/SortingBar";
 import "./Posts.css";
 import { getFavoriteCommunities } from "../../store/favorite_communities";
 
-export default function SubscribedPosts({ format, setFormat }) {
+export default function SubscribedPosts({
+  format,
+  setFormat,
+  setShowLoginForm,
+}) {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [noPosts, setNoPosts] = useState(false);
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
+  const [loader, setLoader] = useState(true);
   const [sortMode, setSortMode] = useState("new");
-  console.log("sortMode", sortMode);
 
   const user = useSelector((state) => state.session.user);
   const communities = useSelector((state) => Object.values(state.communities));
@@ -38,6 +42,10 @@ export default function SubscribedPosts({ format, setFormat }) {
     dispatch(getPosts());
     dispatch(getFavoriteCommunities());
   }, [dispatch]);
+
+  setTimeout(() => {
+    setLoader(false);
+  }, 3000);
 
   let postList = communities.map(
     (community) =>
@@ -100,135 +108,154 @@ export default function SubscribedPosts({ format, setFormat }) {
     <div
       className={format === "Card" ? "posts-container" : "posts-container-alt"}
     >
-      <div
-        className={format === "Card" ? "posts-left-col" : "posts-left-col-alt"}
-      >
-        <CreatePostBar />
-        {!noPosts && (
-          <SortingBar
-            sortMode={sortMode}
-            setSortMode={setSortMode}
-            setFormat={setFormat}
-            format={format}
-          />
-        )}
-        {noPosts && (
-          <div className="no-posts-div">
-            <i className="fa-solid fa-people-group"></i>
-            <h1 className="head">No Subscriptions Yet</h1>
-            <p>
-              Explore the All feed or the Communities Directory to discover new
-              communities.
-            </p>
-          </div>
-        )}
-        {newList.map((post, idx) => (
-          <NavLink key={post.id} to={`/posts/${post.id}`}>
-            <SinglePost
-              key={idx}
-              id={post.id}
-              postComments={Object.values(post.postComments).length}
-              isCommunity={false}
-              format={format}
-            />
-          </NavLink>
-        ))}
-      </div>
-      <div className="posts-right-col">
-        <div className="posts-home-box">
-          <img src={RibbitBanner} alt="Ribbit banner" />
-          <div className="posts-home-box-content">
-            <h1>Home</h1>
-            <p>
-              Your personal Ribbit frontpage. Come here to check in with your
-              favorite communities.
-            </p>
-            {user && (
-              <div className="posts-home-box-buttons">
-                <button
-                  className="blue-btn-filled btn-long"
-                  onClick={() => history.push("/c/submit")}
-                >
-                  Create Post
-                </button>
-                <button
-                  className="blue-btn-unfilled btn-long"
-                  onClick={() => setShowCreateCommunityModal(true)}
-                >
-                  Create Community
-                </button>
-                {showCreateCommunityModal && (
-                  <Modal
-                    onClose={() => setShowCreateCommunityModal(false)}
-                    title="Create a community"
-                  >
-                    <CreateCommunity
-                      showCreateCommunityModal={showCreateCommunityModal}
-                      setShowCreateCommunityModal={setShowCreateCommunityModal}
-                    />
-                  </Modal>
-                )}
+      {loader && (
+        <div class="lds-ellipsis">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
+      {!loader && (
+        <>
+          <div
+            className={
+              format === "Card" ? "posts-left-col" : "posts-left-col-alt"
+            }
+          >
+            <CreatePostBar />
+            {!noPosts && (
+              <SortingBar
+                sortMode={sortMode}
+                setSortMode={setSortMode}
+                setFormat={setFormat}
+                format={format}
+              />
+            )}
+            {noPosts && (
+              <div className="no-posts-div">
+                <i className="fa-solid fa-people-group"></i>
+                <h1 className="head">No Subscriptions Yet</h1>
+                <p>
+                  Explore the All feed or the Communities Directory to discover
+                  new communities.
+                </p>
               </div>
             )}
-            {}
+            {newList.map((post, idx) => (
+              <NavLink key={post.id} to={`/posts/${post.id}`}>
+                <SinglePost
+                  key={idx}
+                  setShowLoginForm={setShowLoginForm}
+                  id={post.id}
+                  postComments={Object.values(post.postComments).length}
+                  isCommunity={false}
+                  format={format}
+                />
+              </NavLink>
+            ))}
           </div>
-        </div>
-        <div className="last-box-wrapper">
-          <div className="posts-author-box">
-            <h1>Developer Links</h1>
-            <ul>
-              <li key={0} className="tooltip">
-                <span className="tooltiptext">Developer Portfolio</span>
-                <a
-                  href="https://risclover.github.io"
-                  target="_blank"
-                  rel="noreferrer"
+          <div className="posts-right-col">
+            <div className="posts-home-box">
+              <img src={RibbitBanner} alt="Ribbit banner" />
+              <div className="posts-home-box-content">
+                <h1>Home</h1>
+                <p>
+                  Your personal Ribbit frontpage. Come here to check in with
+                  your favorite communities.
+                </p>
+                {user && (
+                  <div className="posts-home-box-buttons">
+                    <button
+                      className="blue-btn-filled btn-long"
+                      onClick={() => history.push("/c/submit")}
+                    >
+                      Create Post
+                    </button>
+                    <button
+                      className="blue-btn-unfilled btn-long"
+                      onClick={() => setShowCreateCommunityModal(true)}
+                    >
+                      Create Community
+                    </button>
+                    {showCreateCommunityModal && (
+                      <Modal
+                        onClose={() => setShowCreateCommunityModal(false)}
+                        title="Create a community"
+                      >
+                        <CreateCommunity
+                          showCreateCommunityModal={showCreateCommunityModal}
+                          setShowCreateCommunityModal={
+                            setShowCreateCommunityModal
+                          }
+                        />
+                      </Modal>
+                    )}
+                  </div>
+                )}
+                {}
+              </div>
+            </div>
+            <div className="last-box-wrapper">
+              <div className="posts-author-box">
+                <h1>Developer Links</h1>
+                <ul>
+                  <li key={0} className="tooltip">
+                    <span className="tooltiptext">Developer Portfolio</span>
+                    <a
+                      href="https://risclover.github.io"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <img src={Resume} alt="Portfolio" />
+                    </a>
+                  </li>
+                  <li key={1} className="tooltip">
+                    <a
+                      href="https://www.linkedin.com/in/sara-dunlop-66375a146/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <img src={LinkedIn} alt="LinkedIn" />
+                    </a>
+                    <span className="tooltiptext">LinkedIn</span>
+                  </li>
+                  <li key={2} className="tooltip">
+                    <a
+                      href="https://www.github.com/Risclover"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <img src={Github} alt="GitHub" />
+                    </a>
+                    <span className="tooltiptext">GitHub</span>
+                  </li>
+                  <li key={3} className="tooltip">
+                    <a
+                      href="mailto:sara091592@gmail.com"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <img src={Email} alt="Email" />
+                    </a>
+                    <span className="tooltiptext">Email</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="back-to-top-box">
+                <button
+                  className="blue-btn-filled btn-short"
+                  onClick={() =>
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                  }
                 >
-                  <img src={Resume} alt="Portfolio" />
-                </a>
-              </li>
-              <li key={1} className="tooltip">
-                <a
-                  href="https://www.linkedin.com/in/sara-dunlop-66375a146/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img src={LinkedIn} alt="LinkedIn" />
-                </a>
-                <span className="tooltiptext">LinkedIn</span>
-              </li>
-              <li key={2} className="tooltip">
-                <a
-                  href="https://www.github.com/Risclover"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img src={Github} alt="GitHub" />
-                </a>
-                <span className="tooltiptext">GitHub</span>
-              </li>
-              <li key={3} className="tooltip">
-                <a
-                  href="mailto:sara091592@gmail.com"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img src={Email} alt="Email" />
-                </a>
-                <span className="tooltiptext">Email</span>
-              </li>
-            </ul>
+                  Back to Top
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="back-to-top-box">
-            <button
-              className="blue-btn-filled btn-short"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              Back to Top
-            </button>
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 }

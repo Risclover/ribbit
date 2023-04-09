@@ -15,7 +15,7 @@ import Email from "../../images/developer-links/mail.png";
 import "./Posts.css";
 import { getCommunities } from "../../store/communities";
 
-export default function PopularFeed() {
+export default function PopularFeed({ setShowLoginForm }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const posts = useSelector((state) => Object.values(state.posts));
@@ -34,7 +34,6 @@ export default function PopularFeed() {
     return b.votes - a.votes;
   });
 
-  console.log("posts:", posts);
   return (
     <div className="posts-container">
       <div className="posts-left-col">
@@ -55,10 +54,12 @@ export default function PopularFeed() {
         {posts.map((post, idx) => (
           <NavLink key={post.id} to={`/posts/${post.id}`}>
             <SinglePost
+              setShowLoginForm={setShowLoginForm}
               key={idx}
               id={post.id}
               postComments={Object.values(post.postComments).length}
               isCommunity={false}
+              post={post}
             />
           </NavLink>
         ))}

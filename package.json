@@ -6,6 +6,7 @@
     "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.11",
     "moment": "^2.29.4",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-link-previewer": "^1.0.8",
     "react-onclickoutside": "^6.12.2",
     "react-tiny-link": "^3.6.1",

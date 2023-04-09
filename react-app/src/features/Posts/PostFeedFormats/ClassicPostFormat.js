@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import parse from "html-react-parser";
-import cutLink from "../SliceUrl";
+import cutLink from "../SinglePost/SliceUrl";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
@@ -12,20 +12,23 @@ import {
   BsArrowsAngleContract,
   BsPencilFill,
 } from "react-icons/bs";
-import { addPostVote, removePostVote } from "../../../../store/posts";
-import { Modal } from "../../../../context/Modal";
-import DeleteConfirmation from "../../../../components/Modals/DeleteConfirmation";
-import Bounce from "../../../../images/misc/curved-arrow.png";
+import { addPostVote, removePostVote } from "../../../store/posts";
+import { Modal } from "../../../context/Modal";
+import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
+import Bounce from "../../../images/misc/curved-arrow.png";
 import { CgNotes } from "react-icons/cg";
-import "../SinglePost.css";
-import { getUsers } from "../../../../store/users";
-import { getSinglePost } from "../../../../store/one_post";
+import "../SinglePost/SinglePost.css";
+import { getUsers } from "../../../store/users";
+import { getSinglePost } from "../../../store/one_post";
 import "./ClassicPostFormat.css";
+import SignUpForm from "../../auth/AuthModal/SignUpForm";
+import LoginForm from "../../auth/AuthModal/LoginForm";
 
 export default function ClassicPostFormat({ isPage, id, userId }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const currentUser = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.posts[id]);
   const posts = useSelector((state) => state.posts);
   const cuser = useSelector((state) => state.session.user);
@@ -41,6 +44,9 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
   const [voteTotal, setVoteTotal] = useState(post?.votes);
   const [postExpand, setPostExpand] = useState(false);
   const [commentNum, setCommentNum] = useState(0);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showSignupForm, setShowSignupForm] = useState(false);
+  const [voted, setVoted] = useState();
 
   useEffect(() => {
     if (showLinkCopied) {
@@ -53,18 +59,23 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
 
   const handleUpvoteClick = async (e) => {
     e.preventDefault();
-    if (user?.id in post?.postVoters) {
-      if (!post?.postVoters[user?.id].isUpvote) {
-        await dispatch(removePostVote(post.id));
-        await dispatch(addPostVote(post.id, "upvote"));
-        dispatch(getUsers());
-      } else if (upvote) {
-        handleRemoveVote();
+
+    if (!currentUser) {
+      setShowLoginForm(true);
+    } else {
+      if (user?.id in post?.postVoters) {
+        if (!post?.postVoters[user?.id].isUpvote) {
+          await dispatch(removePostVote(post.id));
+          await dispatch(addPostVote(post.id, "upvote"));
+          dispatch(getUsers());
+        } else if (upvote) {
+          handleRemoveVote();
+        } else {
+          handleAddVote();
+        }
       } else {
         handleAddVote();
       }
-    } else {
-      handleAddVote();
     }
   };
 
@@ -107,6 +118,14 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
   };
 
   useEffect(() => {
+    if (post?.postVoters[currentUser?.id]) {
+      setVoted(true);
+    } else {
+      setVoted(false);
+    }
+  });
+
+  useEffect(() => {
     if (
       Object.values(posts) &&
       post?.postVoters &&
@@ -145,25 +164,50 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
         </button>
 
         <span className="karmabar-votes">
-          {post?.votes === 0 ? "Vote" : post?.votes}
+          {post?.votes === 0 && voted
+            ? 0
+            : post?.votes === 0 && !voted
+            ? "Vote"
+            : post?.votes}
         </span>
-        <button
-          className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
-          onClick={(e) => {
-            e.preventDefault();
-            handleDownvoteClick(e);
-          }}
-        >
-          <GoArrowDown />
-        </button>
+        {!currentUser && (
+          <button
+            className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
+            onClick={(e) => {
+              e.preventDefault();
+              history.push("/");
+              setShowLoginForm(true);
+            }}
+          >
+            <GoArrowDown />
+          </button>
+        )}
+        {currentUser && (
+          <button
+            className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
+            onClick={handleDownvoteClick}
+          >
+            <GoArrowDown />
+          </button>
+        )}
       </div>
       <div className="classic-post-main">
         <div className="classic-post-content-box">
           <div className="classic-post-content-img">
             {post?.imgUrl !== null && <img src={post?.imgUrl} alt="Post" />}
-            {!post?.imgUrl && (
+            {!post?.imgUrl && !post?.linkUrl && (
               <div className="classic-post-img-placeholder">
                 <CgNotes />
+              </div>
+            )}
+            {post?.linkUrl && (
+              <div className="classic-post-img-placeholder">
+                <span className="placeholder-link">
+                  <FiLink />
+                </span>
+                <div className="placeholder-external">
+                  <HiOutlineExternalLink />
+                </div>
               </div>
             )}
           </div>
@@ -256,7 +300,7 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
               <div className="single-post-button">
                 <button
                   className="single-post-comments-btn"
-                  onClick={() => history.push(`/posts/${post.id}`)}
+                  onClick={() => history.push(`/posts/${post?.id}`)}
                 >
                   <i className="fa-regular fa-message"></i>{" "}
                   <span className="single-post-comments-num">
@@ -365,7 +409,9 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
         {postExpand && (
           <div className="classic-post-expanded">
             {post.imgUrl ? (
-              <img src={post.imgUrl} />
+              <div className="classic-post-expanded-img">
+                <img src={post.imgUrl} />
+              </div>
             ) : (
               <div
                 className="classic-post-expanded-text"
@@ -377,6 +423,26 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
           </div>
         )}
       </div>
+      {showLoginForm && (
+        <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
+          <LoginForm
+            setShowLoginForm={setShowLoginForm}
+            showLoginForm={showLoginForm}
+            showSignupForm={showSignupForm}
+            setShowSignupForm={setShowSignupForm}
+          />
+        </Modal>
+      )}
+      {showSignupForm && (
+        <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
+          <SignUpForm
+            setShowLoginForm={setShowLoginForm}
+            showLoginForm={showLoginForm}
+            showSignupForm={showSignupForm}
+            setShowSignupForm={setShowSignupForm}
+          />
+        </Modal>
+      )}
     </div>
   );
 }

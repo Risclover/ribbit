@@ -24,7 +24,6 @@ export default function CreateCommunity({
         "Community names must be between 3–21 characters, and can only contain letters, numbers, or underscores."
       );
 
-    console.log(errors, "errors");
     if (errors.length > 0) {
       setErrors(errors.slice(0, 5));
     } else {
@@ -32,7 +31,6 @@ export default function CreateCommunity({
       const data = await dispatch(addCommunity({ name, description }));
 
       if (data.length > 0) {
-        console.log("data:", data[0].slice(4));
         setErrors([...errors, "That name is already taken."]);
       } else {
         await dispatch(addToSubscriptions(data.id));

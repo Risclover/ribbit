@@ -31,6 +31,7 @@ import CommunitiesDirectory from "./pages/CommunitiesDirectory.js/CommunitiesDir
 import MessageWindow from "./features/Messages/MessageWindow";
 import Chat from "./features/Messages/Chat";
 import PopularFeed from "./features/Posts/PopularFeed";
+import LoginPage from "./features/auth/LoginPage";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -82,18 +83,11 @@ function App() {
               setPostType={setPostType}
               format={format}
               setFormat={setFormat}
+              setShowLoginForm={setShowLoginForm}
             />
           </Route>
           <Route path="/login">
-            {showLoginForm && (
-              <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
-                <LoginForm
-                  showLoginForm={showLoginForm}
-                  setShowLoginForm={setShowLoginForm}
-                  setShowSignupForm={setShowSignupForm}
-                />
-              </Modal>
-            )}
+            <LoginPage />
           </Route>
           <Route path="/signup">
             {showSignupForm && (
@@ -112,19 +106,13 @@ function App() {
               setPostType={setPostType}
               format={format}
               setFormat={setFormat}
+              setShowLoginForm={setShowLoginForm}
             />
           </Route>
           <Route path="/c/popular" exact={true}>
-            <PopularFeed />
+            <PopularFeed setShowLoginForm={setShowLoginForm} />
           </Route>
           <Route path="/c/submit" exact={true}>
-            <CreatePost
-              postType={postType}
-              setPostType={setPostType}
-              val="post"
-            />
-          </Route>
-          <Route path="/c/:communityId/submit" exact={true}>
             <CreatePost
               postType={postType}
               setPostType={setPostType}
@@ -145,8 +133,32 @@ function App() {
               val="link"
             />
           </Route>
+          <Route path="/c/:communityId/submit" exact={true}>
+            <CreatePost
+              postType={postType}
+              setPostType={setPostType}
+              val="post"
+            />
+          </Route>
+          <Route path="/c/:communityId/submit/image" exact={true}>
+            <CreatePost
+              postType={postType}
+              setPostType={setPostType}
+              val="image"
+            />
+          </Route>
+          <Route path="/c/:communityId/submit/url" exact={true}>
+            <CreatePost
+              postType={postType}
+              setPostType={setPostType}
+              val="link"
+            />
+          </Route>
           <Route path="/posts/:postId" exact={true}>
-            <SinglePostPage setShowLoginForm={setShowLoginForm} />
+            <SinglePostPage
+              format={format}
+              setShowLoginForm={setShowLoginForm}
+            />
           </Route>
           <Route path="/messages/:recipientId" exact={true}>
             <MessageWindow />
@@ -190,8 +202,11 @@ function App() {
             <UsersList />
           </ProtectedRoute>
           <ProtectedRoute path="/users/:userId/profile" exact={true}>
-            <UserProfile />
+            <UserProfile setShowLoginForm={setShowLoginForm} />
           </ProtectedRoute>
+          <Route path="/profile" exact={true}>
+            <UserProfile setShowLoginForm={setShowLoginForm} />
+          </Route>
           <Route>
             <h1>
               ERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERR

@@ -76,7 +76,7 @@ export default function Comment({ commentId, postId }) {
     } else {
       setWasEdited(false);
     }
-  }, [dispatch, comment.createdAt, comment.updatedAt]);
+  }, [dispatch, comment.createdAt, comment?.updatedAt]);
 
   const handleUpvoteClick = async () => {
     if (user?.id in comment?.commentVoters) {

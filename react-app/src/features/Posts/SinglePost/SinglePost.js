@@ -16,13 +16,16 @@ import Bounce from "../../../images/misc/curved-arrow.png";
 import "./SinglePost.css";
 import { getUsers } from "../../../store/users";
 import { getSinglePost } from "../../../store/one_post";
-import ClassicPostFormat from "./PostFeedFormats/ClassicPostFormat";
-import CompactPostFormat from "./PostFeedFormats/CompactPostFormat";
+import ClassicPostFormat from "../PostFeedFormats/ClassicPostFormat";
+import CompactPostFormat from "../PostFeedFormats/CompactPostFormat";
+import LoginForm from "../../auth/AuthModal/LoginForm";
+import SignUpForm from "../../auth/AuthModal/SignUpForm";
 
-export default function SinglePost({ id, isPage, userId, format }) {
+export default function SinglePost({ id, isPage, userId, format, postList }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const currentUser = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.posts[id]);
   const posts = useSelector((state) => state.posts);
   const cuser = useSelector((state) => state.session.user);
@@ -37,10 +40,9 @@ export default function SinglePost({ id, isPage, userId, format }) {
   const [downvote, setDownvote] = useState(false);
   const [voteTotal, setVoteTotal] = useState(post?.votes);
   const [commentNum, setCommentNum] = useState(0);
-
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showSignupForm, setShowSignupForm] = useState(false);
+  const [voted, setVoted] = useState();
 
   useEffect(() => {
     if (showLinkCopied) {
@@ -53,33 +55,49 @@ export default function SinglePost({ id, isPage, userId, format }) {
 
   const handleUpvoteClick = async (e) => {
     e.preventDefault();
-    if (user?.id in post?.postVoters) {
-      if (!post?.postVoters[user?.id].isUpvote) {
-        await dispatch(removePostVote(post.id));
-        await dispatch(addPostVote(post.id, "upvote"));
-        dispatch(getUsers());
-      } else if (upvote) {
-        handleRemoveVote();
+    if (!currentUser) {
+      setShowLoginForm(true);
+    } else {
+      if (user?.id in post?.postVoters) {
+        if (!post?.postVoters[user?.id].isUpvote) {
+          await dispatch(removePostVote(post.id));
+          await dispatch(addPostVote(post.id, "upvote"));
+          dispatch(getUsers());
+        } else if (upvote) {
+          handleRemoveVote();
+        } else {
+          handleAddVote();
+        }
       } else {
         handleAddVote();
       }
-    } else {
-      handleAddVote();
     }
   };
 
+  useEffect(() => {
+    if (post?.postVoters[currentUser?.id]) {
+      setVoted(true);
+    } else {
+      setVoted(false);
+    }
+  });
+
   const handleDownvoteClick = async (e) => {
     e.preventDefault();
-    if (user?.id in post?.postVoters) {
-      if (post?.postVoters[user?.id].isUpvote) {
-        await dispatch(removePostVote(post.id));
-        await dispatch(addPostVote(post.id, "downvote"));
-        dispatch(getUsers());
-      } else if (downvote) {
-        handleRemoveVote();
-      }
+    if (!currentUser) {
+      setShowLoginForm(true);
     } else {
-      handleAddDownvote();
+      if (user?.id in post?.postVoters) {
+        if (post?.postVoters[user?.id].isUpvote) {
+          await dispatch(removePostVote(post.id));
+          await dispatch(addPostVote(post.id, "downvote"));
+          dispatch(getUsers());
+        } else if (downvote) {
+          handleRemoveVote();
+        }
+      } else {
+        handleAddDownvote();
+      }
     }
   };
 
@@ -138,23 +156,52 @@ export default function SinglePost({ id, isPage, userId, format }) {
           {post && (
             <div className="single-post-container">
               <div className="single-post-karmabar">
-                <button
-                  className={upvote ? "vote-btn-red" : "upvote-btn-grey"}
-                  onClick={handleUpvoteClick}
-                >
-                  <GoArrowUp />
-                </button>
-
+                {currentUser && (
+                  <button
+                    className={upvote ? "vote-btn-red" : "upvote-btn-grey"}
+                    onClick={handleUpvoteClick}
+                  >
+                    <GoArrowUp />
+                  </button>
+                )}
+                {!currentUser && (
+                  <button
+                    className={upvote ? "vote-btn-red" : "upvote-btn-grey"}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push("/login");
+                    }}
+                  >
+                    <GoArrowUp />
+                  </button>
+                )}
                 <span className="karmabar-votes">
-                  {post?.votes === 0 ? "Vote" : post?.votes}
+                  {post?.votes === 0 && voted
+                    ? 0
+                    : post?.votes === 0 && !voted
+                    ? "Vote"
+                    : post?.votes}
                 </span>
 
-                <button
-                  className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
-                  onClick={handleDownvoteClick}
-                >
-                  <GoArrowDown />
-                </button>
+                {currentUser && (
+                  <button
+                    className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
+                    onClick={handleDownvoteClick}
+                  >
+                    <GoArrowDown />
+                  </button>
+                )}
+                {!currentUser && (
+                  <button
+                    className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push("/login");
+                    }}
+                  >
+                    <GoArrowDown />
+                  </button>
+                )}
               </div>
               <div className="single-post-main">
                 <div className="single-post-author-bar">
@@ -361,6 +408,26 @@ export default function SinglePost({ id, isPage, userId, format }) {
             post={post}
           />
         </div>
+      )}
+      {showLoginForm && (
+        <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
+          <LoginForm
+            setShowLoginForm={setShowLoginForm}
+            showLoginForm={showLoginForm}
+            showSignupForm={showSignupForm}
+            setShowSignupForm={setShowSignupForm}
+          />
+        </Modal>
+      )}
+      {showSignupForm && (
+        <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
+          <SignUpForm
+            setShowLoginForm={setShowLoginForm}
+            showLoginForm={showLoginForm}
+            showSignupForm={showSignupForm}
+            setShowSignupForm={setShowSignupForm}
+          />
+        </Modal>
       )}
     </>
   );

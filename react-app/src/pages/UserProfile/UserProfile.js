@@ -25,7 +25,7 @@ import UserProfilePosts from "./UserProfilePosts";
 import UserProfileFollowers from "./UserProfileFollowers";
 import { getUsers } from "../../store/users";
 
-function UserProfile() {
+function UserProfile({ setShowLoginForm }) {
   const dispatch = useDispatch();
   const { userId } = useParams();
 
@@ -56,9 +56,9 @@ function UserProfile() {
   useEffect(() => {
     setPage("Posts");
     dispatch(getCommunities());
-    dispatch(getUserFollowers(+userId));
     dispatch(getFollowedPosts());
     dispatch(getUsers());
+    dispatch(getPosts());
   }, [dispatch]);
 
   useEffect(() => {
@@ -137,6 +137,7 @@ function UserProfile() {
             userId={userId}
             sortMode={sortMode}
             setSortMode={setSortMode}
+            setShowLoginForm={setShowLoginForm}
           />
         )}
         {showFollowersModal && (

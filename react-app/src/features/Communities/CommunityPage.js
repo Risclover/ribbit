@@ -73,19 +73,19 @@ export default function CommunityPage({ format, setFormat }) {
 
   useEffect(() => {
     setTimeout(() => {
-      if (posts.length === 0 || posts === undefined || !posts) {
-        setShowWelcomeModal(true);
-      } else if (commPosts.length !== 0) {
-        setShowWelcomeModal(false);
+      if (community?.userId === user?.id) {
+        if (posts.length === 0 || posts === undefined || !posts) {
+          setShowWelcomeModal(true);
+        } else if (commPosts.length !== 0) {
+          setShowWelcomeModal(false);
+        }
       }
     }, 100);
   }, [commPosts]);
 
   useEffect(() => {
     dispatch(getPosts());
-    dispatch(getSubscriptions());
     dispatch(getSingleCommunity(+communityId));
-    dispatch(getFavoriteCommunities());
   }, [communityId, dispatch]);
 
   useEffect(() => {
@@ -246,6 +246,8 @@ export default function CommunityPage({ format, setFormat }) {
                 isPage={isPage}
                 format={format}
                 setFormat={setFormat}
+                setShowLoginForm={setShowLoginForm}
+                post={post}
               />
             </NavLink>
           ))}

@@ -735,3 +735,9 @@ pre.ql-syntax {
   font-size: 12px;
   margin-bottom: 10px;
 }
+
+@media (max-width: 960px) {
+  .create-post-page-right {
+    display: none;
+  }
+}

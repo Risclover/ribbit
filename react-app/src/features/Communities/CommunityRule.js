@@ -56,7 +56,7 @@ export default function CommunityRule({ idx, rule }) {
       </div>
       {showDesc && (
         <div className="rule-description" style={{ whiteSpace: "pre-line" }}>
-          <Text content={rule.description} />
+          {parse(rule.description)}
         </div>
       )}
     </li>

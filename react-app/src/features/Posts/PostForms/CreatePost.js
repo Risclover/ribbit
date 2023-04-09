@@ -6,7 +6,7 @@ import "react-quill/dist/quill.snow.css";
 import moment from "moment";
 import validator from "validator";
 
-import { addLinkPost, addPost } from "../../../store/posts";
+import { addLinkPost, addPost, addPostVote } from "../../../store/posts";
 import { addImagePost } from "../../../store/posts";
 import CommunityRule from "../../Communities/CommunityRule";
 import { Modal } from "../../../context/Modal";
@@ -61,6 +61,7 @@ export default function CreatePost({ postType, setPostType, val }) {
   //   (state) => state.singleCommunity[+community_id]
   // );
 
+  const posts = useSelector((state) => Object.values(state.posts));
   const communities = useSelector((state) => Object.values(state.communities));
   const user = useSelector((state) => state.session.user);
 
@@ -194,6 +195,9 @@ export default function CreatePost({ postType, setPostType, val }) {
     } else {
       setTitle("");
       setContent("");
+      const postId = posts.length + 1;
+
+      dispatch(addPostVote(postId, "upvote"));
       history.push(`/c/${community_id}`);
     }
   };

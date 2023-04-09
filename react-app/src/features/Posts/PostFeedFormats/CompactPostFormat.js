@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import parse from "html-react-parser";
-import cutLink from "../SliceUrl";
+import cutLink from "../SinglePost/SliceUrl";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
@@ -12,20 +12,20 @@ import {
   BsArrowsAngleContract,
   BsPencilFill,
 } from "react-icons/bs";
-import { addPostVote, removePostVote } from "../../../../store/posts";
-import { Modal } from "../../../../context/Modal";
-import DeleteConfirmation from "../../../../components/Modals/DeleteConfirmation";
-import Bounce from "../../../../images/misc/curved-arrow.png";
+import { addPostVote, removePostVote } from "../../../store/posts";
+import { Modal } from "../../../context/Modal";
+import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
+import Bounce from "../../../images/misc/curved-arrow.png";
 import { CgNotes } from "react-icons/cg";
 import { RxImage } from "react-icons/rx";
 import { BsThreeDots } from "react-icons/bs";
 
-import "../SinglePost.css";
-import { getUsers } from "../../../../store/users";
-import { getSinglePost } from "../../../../store/one_post";
+import "../SinglePost/SinglePost.css";
+import { getUsers } from "../../../store/users";
+import { getSinglePost } from "../../../store/one_post";
 import "./ClassicPostFormat.css";
 import "./CompactPostFormat.css";
-import HandleClickOutside from "../../../../components/HandleClickOutside";
+import HandleClickOutside from "../../../components/HandleClickOutside";
 
 export default function CompactPostFormat({ id, isPage, userId }) {
   const history = useHistory();
@@ -48,6 +48,7 @@ export default function CompactPostFormat({ id, isPage, userId }) {
   const [postExpand, setPostExpand] = useState(false);
   const [commentNum, setCommentNum] = useState(0);
   const [showSubmenu, setShowSubmenu] = useState(false);
+  const [voted, setVoted] = useState();
 
   useEffect(() => {
     if (showLinkCopied) {
@@ -126,6 +127,14 @@ export default function CompactPostFormat({ id, isPage, userId }) {
   };
 
   useEffect(() => {
+    if (post?.postVoters[cuser?.id]) {
+      setVoted(true);
+    } else {
+      setVoted(false);
+    }
+  });
+
+  useEffect(() => {
     if (
       Object.values(posts) &&
       post?.postVoters &&
@@ -153,6 +162,28 @@ export default function CompactPostFormat({ id, isPage, userId }) {
   return (
     <div className="compact-post-container">
       <div className="compact-post-principle">
+        <div className="compact-post-karmabar-alt">
+          <div className="compact-post-karmabar-btns karmabar-alt">
+            <button
+              className={upvote ? "vote-btn-red" : "upvote-btn-grey"}
+              onClick={(e) => {
+                e.preventDefault();
+                handleUpvoteClick(e);
+              }}
+            >
+              <GoArrowUp />
+            </button>
+            <button
+              className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
+              onClick={(e) => {
+                e.preventDefault();
+                handleDownvoteClick(e);
+              }}
+            >
+              <GoArrowDown />
+            </button>
+          </div>
+        </div>
         <div className="compact-post-karmabar">
           <div className="compact-post-karmabar-btns">
             <button
@@ -165,7 +196,11 @@ export default function CompactPostFormat({ id, isPage, userId }) {
               <GoArrowUp />
             </button>
             <span className="karmabar-votes">
-              {post?.votes === 0 ? "Vote" : post?.votes}
+              {post?.votes === 0 && voted
+                ? 0
+                : post?.votes === 0 && !voted
+                ? "Vote"
+                : post?.votes}
             </span>
             <button
               className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
@@ -240,6 +275,17 @@ export default function CompactPostFormat({ id, isPage, userId }) {
                   </div>
                 )}
               </div>
+              <div className="compact-post-author-bar-alt">
+                {post?.votes === 1
+                  ? post?.votes + " point"
+                  : post?.votes + " points"}
+                <span className="single-post-dot-spacer">•</span>
+                {commentNum === 1
+                  ? commentNum + " comment"
+                  : commentNum + " comments"}
+                <span className="single-post-dot-spacer">•</span>
+                c/{post?.communityName} Posted by u/{post?.postAuthor.username}
+              </div>
               <div className="compact-post-author-bar">
                 {isPage !== "community" && (
                   <>
@@ -302,7 +348,7 @@ export default function CompactPostFormat({ id, isPage, userId }) {
                     <div className="compact-post-menu-btn-title">Share</div>
                   </button>
                   {user &&
-                    user.id === post.postAuthor.id &&
+                    user.id === post?.postAuthor.id &&
                     post?.imgUrl === null &&
                     post?.linkUrl === null && (
                       <button

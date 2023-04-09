@@ -77,7 +77,7 @@ export default function CommunityEditRule({ idx, rule, community }) {
               className="rule-expanded-content"
               style={{ whiteSpace: "pre-line" }}
             >
-              <Text content={rule.description} />
+              {parse(rule.description)}
             </span>
           </div>
           <div className="community-edit-rule-expanded-section">

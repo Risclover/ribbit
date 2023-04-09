@@ -42,6 +42,9 @@ class Post(db.Model):
             "communityName": self.post_community.name,
             "communityImg": self.post_community.community_img,
             "communityMembers": len(self.post_community.subscribers),
+            "communityRules": {item.to_dict()["id"]: item.to_dict() for item in self.post_community.community_rules},
+            "communityDesc": self.post_community.description,
+            "communityDate": self.post_community.created_at,
             "createdAt": self.created_at,
             "updatedAt": self.updated_at,
         }
