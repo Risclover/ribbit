@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "../../../../context/Modal";
 import "./CommunitySelection.css";
 
-import CreateCommunity from "../../../Communities/CommunityForms/CreateCommunity";
+import CreateCommunityModal from "../../../../components/Modals/CreateCommunityModal";
 import CommunitySelectionDropdownCommunity from "./CommunitySelectionDropdownCommunity";
 
 export default function CommunitySelectionDropdown({
@@ -45,7 +45,7 @@ export default function CommunitySelectionDropdown({
             onClose={() => setShowCreateCommunityModal(false)}
             title="Create community"
           >
-            <CreateCommunity
+            <CreateCommunityModal
               setShowCreateCommunityModal={setShowCreateCommunityModal}
               showCreateCommunityModal={showCreateCommunityModal}
             />

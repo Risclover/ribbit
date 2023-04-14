@@ -151,6 +151,7 @@
   font-size: 14px;
   line-height: 21px;
   font-family: "Noto Sans", sans-serif;
+  word-wrap: break-word;
 }
 
 .single-post-community-date {

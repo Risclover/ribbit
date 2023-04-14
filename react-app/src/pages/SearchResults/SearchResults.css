@@ -161,9 +161,11 @@
   font-size: 16px;
   color: #1c1c1c;
   font-weight: 500;
-  word-wrap: break-word;
   padding-right: 4px;
   line-height: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .search-results-post-img {
@@ -303,7 +305,9 @@
   flex-direction: column;
   border-radius: 4px;
   text-align: center;
+  text-overflow: ellipsis;
   overflow: hidden;
+  word-wrap: break-word;
   padding: 24px 16px;
   color: #1c1c1c;
 }
@@ -328,6 +332,10 @@
   font-weight: 500;
   line-height: 24px;
   padding: 16px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
 .no-search-results span {
@@ -364,16 +372,22 @@
   font-family: "Noto Sans", sans-serif;
 }
 
-.search-result-page-community {
+.search-result-page-community,
+.search-results-page-community-page {
   display: flex;
   padding: 16px;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
   border-bottom: thin solid #ccc;
+}
+
+.search-results-page-community-page .search-results-page-community-left {
+  align-items: flex-start;
 }
 
 .search-result-page-community-left {
   display: flex;
+  word-break: break-word;
 }
 
 .search-result-page-community-img {
@@ -562,6 +576,9 @@
   line-height: 16px;
   color: #1a1a1b;
   margin-bottom: 12px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .search-results-comment-author-img-box {
@@ -709,6 +726,7 @@
 .search-results-page-community-details-top {
   display: flex;
   align-items: center;
+  word-break: break-word;
 }
 
 .search-results-page-community-details {

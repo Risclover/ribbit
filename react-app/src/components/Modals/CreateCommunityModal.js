@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addCommunity } from "../../../store/communities";
-import { addToSubscriptions } from "../../../store/subscriptions";
+import { addCommunity } from "../../store/communities";
+import { addToSubscriptions } from "../../store/subscriptions";
 
-export default function CreateCommunity({
+export default function CreateCommunityModal({
   showCreateCommunityModal,
   setShowCreateCommunityModal,
 }) {

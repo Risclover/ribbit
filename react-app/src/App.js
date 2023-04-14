@@ -30,7 +30,6 @@ import { Modal } from "./context/Modal";
 import CommunitiesDirectory from "./pages/CommunitiesDirectory.js/CommunitiesDirectory";
 import MessageWindow from "./features/Messages/MessageWindow";
 import Chat from "./features/Messages/Chat";
-import PopularFeed from "./features/Posts/PopularFeed";
 import LoginPage from "./features/auth/LoginPage";
 
 function App() {
@@ -108,9 +107,6 @@ function App() {
               setFormat={setFormat}
               setShowLoginForm={setShowLoginForm}
             />
-          </Route>
-          <Route path="/c/popular" exact={true}>
-            <PopularFeed setShowLoginForm={setShowLoginForm} />
           </Route>
           <Route path="/c/submit" exact={true}>
             <CreatePost

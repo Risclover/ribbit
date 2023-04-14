@@ -1,8 +1,26 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-export default function DiscardPost({ showDiscardModal, setShowDiscardModal }) {
+export default function DiscardPost({
+  showDiscardModal,
+  setShowDiscardModal,
+  community_id,
+}) {
   const history = useHistory();
+
+  const discard = (e) => {
+    e.preventDefault();
+    if (
+      community_id !== undefined &&
+      community_id !== "undefined" &&
+      community_id &&
+      !isNaN(community_id)
+    ) {
+      history.push(`/c/${community_id}`);
+    } else {
+      history.push("/home");
+    }
+  };
   return (
     <>
       {showDiscardModal && (
@@ -18,10 +36,7 @@ export default function DiscardPost({ showDiscardModal, setShowDiscardModal }) {
             >
               Cancel
             </button>
-            <button
-              className="blue-btn-filled btn-short"
-              onClick={() => history.push("/home")}
-            >
+            <button className="blue-btn-filled btn-short" onClick={discard}>
               Discard post
             </button>
           </div>

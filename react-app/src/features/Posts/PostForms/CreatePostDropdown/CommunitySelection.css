@@ -144,8 +144,7 @@
   padding: 8px;
   z-index: 20;
   cursor: pointer;
-  margin-bottom: 10px;
-  height: 40px;
+  height: 50px;
 }
 
 .community-selection-community-img {
@@ -165,6 +164,10 @@
   font-weight: 500;
   color: #1c1c1c;
   line-height: 18px;
+  width: 230px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .community-selection-community-members {

@@ -1151,7 +1151,6 @@ For more information about the different forms of wage theft, see Bernhardt et a
     post57_comment1=Comment(
         content="""In a published article following the contest, Malcomson provided others with her 10 rules for beauty. Listed briefly, they are:
 
-<code>
 Rise early.
 Eat a hearty breakfast.
 Exercise.
@@ -1161,8 +1160,7 @@ Get outdoors.
 Eat a light lunch.
 Eat a satisfying dinner.
 Early to bed.
-Sleep
-</code>""",
+Sleep""",
         user_id=14,
         post_id=57
     )
@@ -1410,7 +1408,7 @@ You'll end up with 40 tabs open, some of which are duplicates you have open from
         post_id=68
     )
     post68_comment2=Comment(
-        content="""<code>[].reduce((acc, curr) => acc + curr)</code>
+        content="""[].reduce((acc, curr) => acc + curr)
 
 Requires a nonempty array. So, it's not the most general formula.""",
         user_id=6,

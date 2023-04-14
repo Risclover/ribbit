@@ -40,17 +40,3 @@ export function Modal({ onClose, children, title }) {
     modalNode
   );
 }
-
-// export function SortedModal({ onClose, children }) {
-//   const modalNode = useContext(ModalContext);
-//   if (!modalNode) return null;
-
-//   return ReactDOM.createPortal(
-//     <div id="sortModal">
-//       <div id="sortModal-background" onClick={onClose} />
-//       <div id="sortModal-content">{children}</div>
-//     </div>,
-//     modalNode
-
-//   );
-// }

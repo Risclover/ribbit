@@ -8,7 +8,7 @@ import { getUsers } from "../../store/users";
 import { getSinglePost } from "../../store/one_post";
 import { getFavoriteCommunities } from "../../store/favorite_communities";
 
-import CreateCommunity from "../Communities/CommunityForms/CreateCommunity";
+import CreateCommunity from "../../components/Modals/CreateCommunityModal";
 import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
 import SortingBar from "../../components/SortingBar/SortingBar";
 import SinglePost from "./SinglePost/SinglePost";
@@ -23,6 +23,7 @@ import Email from "../../images/developer-links/mail.png";
 import "./Posts.css";
 import SearchResultsPosts from "../../pages/SearchResults/SearchResultsPosts";
 import { getSubscribers } from "../../store/subscriptions";
+import BackToTop from "../../components/BackToTop";
 
 export default function Subscribed({
   postType,
@@ -64,8 +65,6 @@ export default function Subscribed({
       }
     }
   }, [subscriptions]);
-
-  console.log("list:", postList);
 
   if (sortMode === "new") {
     list.sort((a, b) => {
@@ -213,16 +212,7 @@ export default function Subscribed({
                   </li>
                 </ul>
               </div>
-              <div className="back-to-top-box">
-                <button
-                  className="blue-btn-filled btn-short"
-                  onClick={() =>
-                    window.scrollTo({ top: 0, behavior: "smooth" })
-                  }
-                >
-                  Back to Top
-                </button>
-              </div>
+              <BackToTop />
             </div>
           </div>
         </>

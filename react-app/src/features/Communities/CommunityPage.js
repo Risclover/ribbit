@@ -1,97 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-
 import { getSingleCommunity } from "../../store/one_community";
 import { getPosts } from "../../store/posts";
-import {
-  addToSubscriptions,
-  deleteSubscription,
-  getSubscriptions,
-} from "../../store/subscriptions";
-
-import CommunityImgModal from "./CommunityForms/CommunityImgModal";
-import SortingBar from "../../components/SortingBar/SortingBar";
-import LoginForm from "../auth/AuthModal/LoginForm";
-import SignUpForm from "../auth/AuthModal/SignUpForm";
-import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
-import SinglePost from "../Posts/SinglePost/SinglePost";
-import Cake from "../../images/misc/piece4.png";
-import Camera from "../../images/user-profile-icons/camera.png";
-
-import CommunityRule from "./CommunityRule";
-import CommunityWelcome from "./CommunityWelcome";
-import { Modal } from "../../context/Modal";
-
+import { getSubscriptions } from "../../store/subscriptions";
 import "./CommunityPage.css";
-import {
-  addFavoriteCommunity,
-  getFavoriteCommunities,
-  removeFavoriteCommunity,
-} from "../../store/favorite_communities";
+import CommunityWelcomeModal from "../../components/Modals/CommunityWelcomeModal";
+import CommunityRulesBox from "./CommunityRulesBox";
+import CommunityImage from "./CommunityImage";
+import CommunityInfoBox from "./CommunityInfoBox";
+import CommunitySubscribeBtn from "./CommunitySubscribeBtn";
+import CommunityName from "./CommunityName";
+import CommunityPosts from "./CommunityPosts";
+import BackToTop from "../../components/BackToTop";
 
 export default function CommunityPage({ format, setFormat }) {
+  const dispatch = useDispatch();
   const { communityId } = useParams();
 
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
-  const [showCommunityImgModal, setShowCommunityImgModal] = useState(false);
-  const [subscribed, setSubscribed] = useState(false);
-  const [members, setMembers] = useState(0);
   const [favorited, setFavorited] = useState(false);
+  const [isPage, setIsPage] = useState("community");
 
-  const subscriptions = useSelector((state) => state.subscriptions);
+  const posts = useSelector((state) => Object.values(state.posts));
   const community = useSelector((state) => state.singleCommunity[+communityId]);
   const user = useSelector((state) => state.session.user);
-  const posts = useSelector((state) => Object.values(state.posts));
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
 
   let commPosts = posts.filter((post) => post.communityId == communityId);
 
-  const dispatch = useDispatch();
-  const [isPage, setIsPage] = useState("community");
-  const [community_id, setcommunity_id] = useState(+communityId);
-  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
-  const [sortMode, setSortMode] = useState("new");
-
-  if (sortMode === "new") {
-    commPosts.sort((a, b) => {
-      let postA = new Date(a.createdAt).getTime();
-      let postB = new Date(b.createdAt).getTime();
-      return postB - postA;
-    });
-  }
-
-  if (sortMode === "top") {
-    commPosts.sort((a, b) => {
-      let postA = new Date(a.createdAt).getTime();
-      let postB = new Date(b.createdAt).getTime();
-      return b.votes - a.votes || postB - postA;
-    });
-  }
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (community?.userId === user?.id) {
-        if (posts.length === 0 || posts === undefined || !posts) {
-          setShowWelcomeModal(true);
-        } else if (commPosts.length !== 0) {
-          setShowWelcomeModal(false);
-        }
-      }
-    }, 100);
-  }, [commPosts]);
-
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getSingleCommunity(+communityId));
+    dispatch(getSubscriptions());
   }, [communityId, dispatch]);
-
-  useEffect(() => {
-    if (subscriptions[community?.id]) setSubscribed(true);
-    setMembers(community?.members);
-  }, [subscribed, community?.members, subscriptions]);
 
   useEffect(() => {
     if (favoriteCommunities[community?.id]) {
@@ -101,20 +44,7 @@ export default function CommunityPage({ format, setFormat }) {
     }
   }, [favorited, favoriteCommunities]);
 
-  const handleFavorite = async (e, community) => {
-    e.preventDefault();
-    if (favoriteCommunities[community.id]) {
-      await dispatch(removeFavoriteCommunity(community.id));
-      setFavorited(false);
-    } else {
-      await dispatch(addFavoriteCommunity(community.id));
-      setFavorited(true);
-    }
-    dispatch(getFavoriteCommunities());
-    dispatch(getSubscriptions());
-  };
-
-  if (!community || !commPosts || !posts) return null;
+  if (!community || !posts) return null;
   return (
     <div className="community-page-container">
       <div className="community-page-header">
@@ -128,251 +58,55 @@ export default function CommunityPage({ format, setFormat }) {
             }
           >
             <div className="community-header-info-details">
-              <div className="community-img-box">
-                {user?.id === community.userId ? (
-                  <div
-                    className="community-img-upload-btn"
-                    onClick={() => setShowCommunityImgModal(true)}
-                  >
-                    <img src={Camera} />
-                  </div>
-                ) : (
-                  ""
-                )}
-                <div className="community-header-info-img">
-                  <img src={community.communityImg} />
-                </div>
-              </div>
-              {showCommunityImgModal && (
-                <Modal
-                  onClose={() => setShowCommunityImgModal(false)}
-                  title="Change community image"
-                >
-                  <CommunityImgModal
-                    setShowCommunityImgModal={setShowCommunityImgModal}
-                    communityId={community.id}
-                  />
-                </Modal>
-              )}
-              <div className="community-header-info-details-left">
-                <div className="community-header-info-display-name">
-                  <h1>
-                    {community.displayName.length === 0
-                      ? community.name
-                      : community.displayName}
-                  </h1>
-                </div>
-                <div className="community-header-info-name">
-                  <h2>c/{community.name}</h2>
-                </div>
-              </div>
-              <div className="community-header-info-details-right">
-                <div className="community-header-info-subscribe">
-                  {user && subscribed && (
-                    <button
-                      className="blue-btn-unfilled btn-short join-btn"
-                      onClick={async (e) => {
-                        e.preventDefault();
-                        await dispatch(deleteSubscription(community.id));
-                        dispatch(getFavoriteCommunities());
-                        dispatch(getSubscriptions(+communityId));
-                        setSubscribed(false);
-                      }}
-                      onMouseEnter={(e) => (e.target.textContent = "Leave")}
-                      onMouseLeave={(e) => (e.target.textContent = "Joined")}
-                    >
-                      Joined
-                    </button>
-                  )}
-                  {!subscribed && (
-                    <button
-                      className="blue-btn-filled btn-short join-btn"
-                      onClick={async (e) => {
-                        e.preventDefault();
-                        await dispatch(addToSubscriptions(community.id));
-                        dispatch(getSubscriptions(+communityId));
-
-                        user && setSubscribed(true);
-                        !user && setShowLoginForm(true);
-                      }}
-                    >
-                      Join
-                    </button>
-                  )}
-                </div>
-                <div className="community-header-info-unsubscribe"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="community-page-main">
-        <div
-          className={
-            format === "Card"
-              ? "community-page-left-col"
-              : "community-page-left-col-alt"
-          }
-        >
-          {user && (
-            <CreatePostBar
-              page="community"
-              communityId={communityId}
-              format={format}
-              setFormat={setFormat}
-            />
-          )}
-          <SortingBar
-            sortMode={sortMode}
-            setSortMode={setSortMode}
-            format={format}
-            setFormat={setFormat}
-          />
-
-          {commPosts.length === 0 && (
-            <div className="community-no-posts">
-              Welcome to your new community! Why don't you write your first post
-              to give visitors something to read?
-            </div>
-          )}
-          {commPosts.map((post, idx) => (
-            <NavLink
-              key={idx}
-              activeClassName="single-post-active"
-              to={`/posts/${post.id}`}
-            >
-              <SinglePost
-                id={post.id}
-                isPage={isPage}
-                format={format}
-                setFormat={setFormat}
+              <CommunityImage user={user} community={community} />
+              <CommunityName community={community} />
+              <CommunitySubscribeBtn
+                user={user}
+                community={community}
+                communityId={+communityId}
                 setShowLoginForm={setShowLoginForm}
-                post={post}
               />
-            </NavLink>
-          ))}
-        </div>
-        <div className="community-page-right-col">
-          <div className="community-page-community-info">
-            <div className="community-page-box-header">
-              <h3>About Community</h3>
             </div>
-            <div className="community-page-box-content">
-              <div className="community-page-box-description">
-                <p>{community.description}</p>
-              </div>
-              <div className="community-page-box-date">
-                <img src={Cake} className="community-cake-icon" />
-                Created{" "}
-                {moment(new Date(community.createdAt)).format("MMM DD, YYYY")}
-              </div>
-              <div className="community-page-box-members">
-                <h2>{members}</h2>
-                <span>{members === 1 ? "Member" : "Members"}</span>
-              </div>
-              <div className="community-page-box-btn">
-                {user && (
-                  <NavLink to={`/c/${community.id}/submit`}>
-                    <button className="blue-btn-filled btn-long">
-                      Create Post
-                    </button>
-                  </NavLink>
-                )}
-                {user && (
-                  <button
-                    className={
-                      favoriteCommunities[community.id]
-                        ? "blue-btn-unfilled btn-long"
-                        : "blue-btn-filled btn-long"
-                    }
-                    onClick={(e) => handleFavorite(e, community)}
-                  >
-                    {favoriteCommunities[community.id]
-                      ? "Remove from Favorites"
-                      : "Add to Favorites"}
-                  </button>
-                )}
-
-                {!user && (
-                  <button
-                    className="blue-btn-filled btn-long"
-                    onClick={() => setShowLoginForm(true)}
-                  >
-                    Log In / Sign Up
-                  </button>
-                )}
-                {showLoginForm && (
-                  <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
-                    <LoginForm
-                      setShowLoginForm={setShowLoginForm}
-                      showLoginForm={showLoginForm}
-                      showSignupForm={showSignupForm}
-                      setShowSignupForm={setShowSignupForm}
-                    />
-                  </Modal>
-                )}
-                {showSignupForm && (
-                  <Modal
-                    title="Sign Up"
-                    onClose={() => setShowSignupForm(false)}
-                  >
-                    <SignUpForm
-                      setShowLoginForm={setShowLoginForm}
-                      showLoginForm={showLoginForm}
-                      showSignupForm={showSignupForm}
-                      setShowSignupForm={setShowSignupForm}
-                    />
-                  </Modal>
-                )}
-
-                {user?.id === community.userId ? (
-                  <NavLink to={`/c/${community.id}/edit`}>
-                    <button className="blue-btn-unfilled btn-long">
-                      Edit Community
-                    </button>
-                  </NavLink>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-          </div>
-          {Object.values(community.communityRules).length > 0 && (
-            <div className="community-page-community-rules">
-              <div className="community-page-rules-header">
-                c/{community.name} Rules
-              </div>
-              <div className="community-page-rules">
-                <ol>
-                  {Object.values(community.communityRules).map((rule, idx) => (
-                    <CommunityRule idx={idx} rule={rule} />
-                  ))}
-                </ol>
-              </div>
-            </div>
-          )}
-          <div className="back-to-top-box">
-            <button
-              className="blue-btn-filled btn-short"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              Back to Top
-            </button>
           </div>
         </div>
       </div>
-      {showWelcomeModal && (
-        <Modal
-          onClose={() => setShowWelcomeModal(false)}
-          title="Create your first post"
-        >
-          <CommunityWelcome
-            setShowWelcomeModal={setShowWelcomeModal}
-            showWelcomeModal={showWelcomeModal}
+
+      <div className="community-page-main">
+        <CommunityPosts
+          commPosts={commPosts}
+          format={format}
+          setFormat={setFormat}
+          isPage={isPage}
+          communityId={communityId}
+          user={user}
+          setShowLoginForm={setShowLoginForm}
+        />
+        <div className="community-page-right-col">
+          <CommunityInfoBox
+            setFavorited={setFavorited}
+            user={user}
+            favoriteCommunities={favoriteCommunities}
             community={community}
+            showLoginForm={showLoginForm}
+            setShowLoginForm={setShowLoginForm}
+            showSignupForm={showSignupForm}
+            setShowSignupForm={setShowSignupForm}
           />
-        </Modal>
-      )}
+
+          {Object.values(community.communityRules).length > 0 && (
+            <CommunityRulesBox community={community} />
+          )}
+
+          <BackToTop />
+        </div>
+      </div>
+
+      <CommunityWelcomeModal
+        community={community}
+        user={user}
+        posts={posts}
+        commPosts={commPosts}
+      />
     </div>
   );
 }

@@ -5,7 +5,8 @@ import SearchDude from "../../images/search-icon.png";
 import RibbitBanner from "../../images/ribbit-banners/ribbit_banner.png";
 import "./SearchResults.css";
 import { Modal } from "../../context/Modal";
-import CreateCommunity from "../../features/Communities/CommunityForms/CreateCommunity";
+import CreateCommunity from "../../components/Modals/CreateCommunityModal";
+import BackToTop from "../../components/BackToTop";
 
 export default function SearchResultsPosts({
   posts,
@@ -232,14 +233,7 @@ export default function SearchResultsPosts({
               />
             </Modal>
           )}
-          <div className="back-to-top-box">
-            <button
-              className="blue-btn-filled btn-short"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              Back to Top
-            </button>
-          </div>
+          <BackToTop />
         </div>
       </div>
     </div>

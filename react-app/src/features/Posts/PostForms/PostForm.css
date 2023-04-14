@@ -631,6 +631,10 @@ pre.ql-syntax {
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .create-post-page-right .community-page-box-content {

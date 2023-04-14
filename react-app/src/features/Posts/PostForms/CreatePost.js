@@ -3,23 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, NavLink } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import moment from "moment";
 import validator from "validator";
 
-import { addLinkPost, addPost, addPostVote } from "../../../store/posts";
+import {
+  addLinkPost,
+  addPost,
+  addPostVote,
+  getPosts,
+} from "../../../store/posts";
 import { addImagePost } from "../../../store/posts";
 import CommunityRule from "../../Communities/CommunityRule";
 import { Modal } from "../../../context/Modal";
 import ImagePostForm from "../ImagePost/ImagePostForm";
 import CommunitySelection from "./CreatePostDropdown/CommunitySelection";
 import DiscardPost from "../DiscardPost";
-import Cake from "../../../images/misc/piece4.png";
-import Frog from "../../../images/ribbit-banners/frog-logo1.png";
-import { CgNotes } from "react-icons/cg";
-import { RxImage } from "react-icons/rx";
-import { FiLink } from "react-icons/fi";
 
 import "./PostForm.css";
+import RibbitRules from "./RibbitRules";
+import CommunityInfoBox from "./CommunityInfoBox";
+import PostTypeBar from "./PostTypeBar";
 
 const modules = {
   toolbar: [
@@ -45,7 +47,6 @@ export default function CreatePost({ postType, setPostType, val }) {
   const [link_url, setlink_url] = useState("");
   const [community, setCommunity] = useState();
   const [title, setTitle] = useState("");
-  const [members, setMembers] = useState(0);
   const [img_url, setimg_url] = useState("");
   const [content, setContent] = useState("");
   const [community_id, setcommunity_id] = useState(
@@ -57,9 +58,6 @@ export default function CreatePost({ postType, setPostType, val }) {
   const [linkErrors, setLinkErrors] = useState([]);
   const [imageErrors, setImageErrors] = useState([]);
   const [showDiscardModal, setShowDiscardModal] = useState(false);
-  // const community = useSelector(
-  //   (state) => state.singleCommunity[+community_id]
-  // );
 
   const posts = useSelector((state) => Object.values(state.posts));
   const communities = useSelector((state) => Object.values(state.communities));
@@ -72,10 +70,6 @@ export default function CreatePost({ postType, setPostType, val }) {
       }
     }
   }, []);
-
-  useEffect(() => {
-    setMembers(community?.members);
-  }, [community?.members]);
 
   useEffect(() => {
     setPostType(val);
@@ -186,7 +180,7 @@ export default function CreatePost({ postType, setPostType, val }) {
     postType,
   ]);
 
-  const handlePostSubmit = (e) => {
+  const handlePostSubmit = async (e) => {
     e.preventDefault();
 
     const data = dispatch(addPost({ title, content, community_id }));
@@ -199,6 +193,7 @@ export default function CreatePost({ postType, setPostType, val }) {
 
       dispatch(addPostVote(postId, "upvote"));
       history.push(`/c/${community_id}`);
+      await dispatch(getPosts());
     }
   };
 
@@ -214,14 +209,27 @@ export default function CreatePost({ postType, setPostType, val }) {
     history.push(`/c/${community_id}`);
   };
 
-  const handlePostTypeChange = (e, type) => {
-    e.preventDefault();
-    setPostType(type);
-  };
-
   const handleDeletePreview = (e) => {
     e.preventDefault();
     setimg_url(undefined);
+  };
+
+  const cancelPost = (e) => {
+    e.preventDefault();
+    if (content.length > 0 && postType === "post") {
+      setShowDiscardModal(true);
+    } else {
+      if (
+        community_id !== undefined &&
+        community_id !== "undefined" &&
+        community_id &&
+        !isNaN(community_id)
+      ) {
+        history.push(`/c/${community_id}`);
+      } else {
+        history.push("/home");
+      }
+    }
   };
 
   return (
@@ -250,38 +258,7 @@ export default function CreatePost({ postType, setPostType, val }) {
               />
 
               <div className="create-post-content">
-                <div className="post-type-bar">
-                  <button
-                    className={
-                      postType === "post"
-                        ? "post-type-post active-type"
-                        : "post-type-post"
-                    }
-                    onClick={(e) => handlePostTypeChange(e, "post")}
-                  >
-                    <CgNotes /> Post
-                  </button>
-                  <button
-                    className={
-                      postType === "image"
-                        ? "post-type-post active-type"
-                        : "post-type-post"
-                    }
-                    onClick={(e) => handlePostTypeChange(e, "image")}
-                  >
-                    <RxImage /> Image
-                  </button>
-                  <button
-                    className={
-                      postType === "link"
-                        ? "post-type-post active-type"
-                        : "post-type-post"
-                    }
-                    onClick={(e) => handlePostTypeChange(e, "link")}
-                  >
-                    <FiLink /> Link
-                  </button>
-                </div>
+                <PostTypeBar postType={postType} setPostType={setPostType} />
                 <div className="create-post-form-inputs">
                   <div className="create-post-form-input">
                     <textarea
@@ -386,12 +363,7 @@ export default function CreatePost({ postType, setPostType, val }) {
                   <div className="create-post-form-buttons">
                     <button
                       className="create-post-form-cancel"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        content.length > 0 && postType === "post"
-                          ? setShowDiscardModal(true)
-                          : history.push("/home");
-                      }}
+                      onClick={cancelPost}
                     >
                       Cancel
                     </button>
@@ -401,6 +373,7 @@ export default function CreatePost({ postType, setPostType, val }) {
                         onClose={() => setShowDiscardModal(false)}
                       >
                         <DiscardPost
+                          community_id={community_id}
                           setShowDiscardModal={setShowDiscardModal}
                           showDiscardModal={showDiscardModal}
                         />
@@ -423,37 +396,7 @@ export default function CreatePost({ postType, setPostType, val }) {
       <div className="create-post-page-right">
         {community && (
           <>
-            <div className="community-page-community-info">
-              <div className="community-page-box-header"></div>
-              <div className="community-title-details">
-                <img
-                  className="community-title-details-img"
-                  src={community?.communityImg}
-                  alt="Community"
-                />
-                <div className="community-title-details-name">
-                  <NavLink to={`/c/${community?.id}`}>
-                    c/{community?.name}
-                  </NavLink>
-                </div>
-              </div>
-              <div className="community-page-box-content">
-                <div className="community-page-box-description">
-                  <p>{community?.description}</p>
-                </div>
-                <div className="community-page-box-date">
-                  <img src={Cake} className="community-cake-icon" alt="Cake" />
-                  Created{" "}
-                  {moment(new Date(community?.createdAt)).format(
-                    "MMM DD, YYYY"
-                  )}
-                </div>
-                <div className="community-page-box-members">
-                  <h2>{members}</h2>
-                  <span>{members === 1 ? "Member" : "Members"}</span>
-                </div>
-              </div>
-            </div>
+            <CommunityInfoBox community={community} />
 
             {Object.values(community?.communityRules).length > 0 && (
               <div className="community-page-community-rules">
@@ -473,23 +416,7 @@ export default function CreatePost({ postType, setPostType, val }) {
             )}
           </>
         )}
-        <div className="ribbit-rules-box">
-          <div className="ribbit-rules-title">
-            <img className="ribbit-rules-frog" src={Frog} alt="Frog" />
-            Posting to Ribbit
-          </div>
-          <div className="ribbit-rules-rule">1. Remember the human</div>
-          <div className="ribbit-rules-rule">
-            2. Behave like you would in real life
-          </div>
-          <div className="ribbit-rules-rule">
-            3. Look for the original source of content
-          </div>
-          <div className="ribbit-rules-rule">
-            4. Search for duplicates before posting
-          </div>
-          <div className="ribbit-rules-rule">5. Read the community's rules</div>
-        </div>
+        <RibbitRules />
       </div>
     </div>
   );

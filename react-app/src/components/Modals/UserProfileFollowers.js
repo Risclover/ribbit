@@ -4,15 +4,13 @@ import { useHistory } from "react-router-dom";
 
 import { BiSearch } from "react-icons/bi";
 import { getFollowers } from "../../store/followers";
-import FollowingBtn from "./FollowingBtn";
+import FollowingBtn from "../../pages/UserProfile/FollowingBtn";
 
-import "./UserProfile.css";
+import "../../pages/UserProfile/UserProfile.css";
 
 export default function UserProfileFollowers({ setShowFollowersModal }) {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const [search, setSearch] = useState("");
 
   const followers = useSelector((state) => state.followers.followers);
   const follows = useSelector((state) => state.followers.follows);

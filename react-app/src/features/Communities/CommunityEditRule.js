@@ -38,9 +38,9 @@ export default function CommunityEditRule({ idx, rule, community }) {
   return (
     <div className="community-edit-rule" key={idx}>
       <div className="community-edit-rule-face">
-        <span>
-          {idx + 1}. {rule.title}
-        </span>
+        <p className="community-edit-rule-title">{`${idx + 1}. ${
+          rule.title
+        }`}</p>
         <div className="community-edit-rule-icons">
           <span
             className="rule-pencil"

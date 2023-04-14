@@ -3,11 +3,8 @@ import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
-import { getPosts } from "../../../store/posts";
 import { getSinglePost } from "../../../store/one_post";
 import { getSingleCommunity } from "../../../store/one_community";
-import { getComments } from "../../../store/comments";
-import { getCommunities } from "../../../store/communities";
 import { getSubscriptions } from "../../../store/subscriptions";
 import CommunityRule from "../../Communities/CommunityRule";
 import {
@@ -17,6 +14,7 @@ import {
 import Comments from "../../Comments/Comments";
 import Cake from "../../../images/misc/piece4.png";
 import SinglePost from "./SinglePost";
+import BackToTop from "../../../components/BackToTop";
 
 export default function SinglePostPage({ setShowLoginForm }) {
   const { postId } = useParams();
@@ -25,7 +23,6 @@ export default function SinglePostPage({ setShowLoginForm }) {
   const [commentsNum, setCommentsNum] = useState();
   const [subscribed, setSubscribed] = useState(false);
   const post = useSelector((state) => state.singlePost[+postId]);
-  const posts = useSelector((state) => state.posts);
   const community = useSelector((state) => state.singleCommunity);
   const subscriptions = useSelector((state) => state.subscriptions);
   const user = useSelector((state) => state.session.user);
@@ -125,14 +122,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
             </div>
           </div>
         )}
-        <div className="back-to-top-box">
-          <button
-            className="blue-btn-filled btn-short"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            Back to Top
-          </button>
-        </div>
+        <BackToTop />
       </div>
     </div>
   );

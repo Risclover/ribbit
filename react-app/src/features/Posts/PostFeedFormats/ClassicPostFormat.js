@@ -23,6 +23,7 @@ import { getSinglePost } from "../../../store/one_post";
 import "./ClassicPostFormat.css";
 import SignUpForm from "../../auth/AuthModal/SignUpForm";
 import LoginForm from "../../auth/AuthModal/LoginForm";
+import SinglePostKarmabar from "../SinglePost/SinglePostKarmabar";
 
 export default function ClassicPostFormat({ isPage, id, userId }) {
   const history = useHistory();
@@ -57,68 +58,8 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
     setCommentNum(post?.commentNum);
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
 
-  const handleUpvoteClick = async (e) => {
-    e.preventDefault();
-
-    if (!currentUser) {
-      setShowLoginForm(true);
-    } else {
-      if (user?.id in post?.postVoters) {
-        if (!post?.postVoters[user?.id].isUpvote) {
-          await dispatch(removePostVote(post.id));
-          await dispatch(addPostVote(post.id, "upvote"));
-          dispatch(getUsers());
-        } else if (upvote) {
-          handleRemoveVote();
-        } else {
-          handleAddVote();
-        }
-      } else {
-        handleAddVote();
-      }
-    }
-  };
-
-  const handleDownvoteClick = async (e) => {
-    e.preventDefault();
-    if (user?.id in post?.postVoters) {
-      if (post?.postVoters[user?.id].isUpvote) {
-        await dispatch(removePostVote(post.id));
-        await dispatch(addPostVote(post.id, "downvote"));
-        dispatch(getUsers());
-      } else if (downvote) {
-        handleRemoveVote();
-      }
-    } else {
-      handleAddDownvote();
-    }
-  };
-
-  const handleAddVote = async (e) => {
-    await dispatch(addPostVote(post.id, "upvote"));
-    setUpvote(true);
-    dispatch(getUsers());
-  };
-
-  const handleAddDownvote = async () => {
-    await dispatch(addPostVote(post.id, "downvote"));
-    setDownvote(true);
-    dispatch(getUsers());
-  };
-
-  const handleRemoveVote = async () => {
-    await dispatch(removePostVote(post.id));
-    if (upvote) {
-      setUpvote(false);
-    }
-    if (downvote) {
-      setDownvote(false);
-    }
-    dispatch(getUsers());
-  };
-
   useEffect(() => {
-    if (post?.postVoters[currentUser?.id]) {
+    if (Object.values(post?.postVoters).length > 0) {
       setVoted(true);
     } else {
       setVoted(false);
@@ -151,298 +92,259 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
   }, [upvote, downvote, voteTotal, post?.postVoters, user?.id]);
 
   return (
-    <div className="classic-post-container">
-      <div className="classic-post-karmabar">
-        <button
-          className={upvote ? "vote-btn-red" : "upvote-btn-grey"}
-          onClick={(e) => {
-            e.preventDefault();
-            handleUpvoteClick(e);
-          }}
-        >
-          <GoArrowUp />
-        </button>
-
-        <span className="karmabar-votes">
-          {post?.votes === 0 && voted
-            ? 0
-            : post?.votes === 0 && !voted
-            ? "Vote"
-            : post?.votes}
-        </span>
-        {!currentUser && (
-          <button
-            className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
-            onClick={(e) => {
-              e.preventDefault();
-              history.push("/");
-              setShowLoginForm(true);
-            }}
-          >
-            <GoArrowDown />
-          </button>
-        )}
-        {currentUser && (
-          <button
-            className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
-            onClick={handleDownvoteClick}
-          >
-            <GoArrowDown />
-          </button>
-        )}
-      </div>
-      <div className="classic-post-main">
-        <div className="classic-post-content-box">
-          <div className="classic-post-content-img">
-            {post?.imgUrl !== null && <img src={post?.imgUrl} alt="Post" />}
-            {!post?.imgUrl && !post?.linkUrl && (
-              <div className="classic-post-img-placeholder">
-                <CgNotes />
-              </div>
-            )}
-            {post?.linkUrl && (
-              <div className="classic-post-img-placeholder">
-                <span className="placeholder-link">
-                  <FiLink />
-                </span>
-                <div className="placeholder-external">
-                  <HiOutlineExternalLink />
+    <div className="post-classic-format">
+      <div className="classic-post-container">
+        <SinglePostKarmabar
+          post={post}
+          upvote={upvote}
+          downvote={downvote}
+          voted={voted}
+          setUpvote={setUpvote}
+          setDownvote={setDownvote}
+          setShowLoginForm={setShowLoginForm}
+        />
+        <div className="classic-post-main">
+          <div className="classic-post-content-box">
+            <div className="classic-post-content-img">
+              {post?.imgUrl !== null && <img src={post?.imgUrl} alt="Post" />}
+              {!post?.imgUrl && !post?.linkUrl && (
+                <div className="classic-post-img-placeholder">
+                  <CgNotes />
+                </div>
+              )}
+              {post?.linkUrl && (
+                <div className="classic-post-img-placeholder">
+                  <span className="placeholder-link">
+                    <FiLink />
+                  </span>
+                  <div className="placeholder-external">
+                    <HiOutlineExternalLink />
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="classic-post-content-body">
+              <div className="classic-post-content-body-top">
+                <div className="classic-post-title">
+                  {post?.title}
+                  {post?.linkUrl && (
+                    <div
+                      className="classic-post-link"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.open(post?.linkUrl);
+                      }}
+                    >
+                      {cutLink(post?.linkUrl)} <HiOutlineExternalLink />
+                    </div>
+                  )}
                 </div>
               </div>
-            )}
-          </div>
-          <div className="classic-post-content-body">
-            <div className="classic-post-content-body-top">
-              <div className="classic-post-title">
-                {post?.title}
-                {post?.linkUrl && (
-                  <div
-                    className="classic-post-link"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      window.open(post?.linkUrl);
-                    }}
-                  >
-                    {cutLink(post?.linkUrl)} <HiOutlineExternalLink />
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="classic-post-author-bar">
-              <div
-                className="classic-post-community-info"
-                onClick={(e) => {
-                  e.preventDefault();
-                  history.push(`/c/${post?.communityId}`);
-                }}
-              >
-                {isPage !== "community" && (
-                  <>
-                    c/{post?.communityName}{" "}
-                    <span className="single-post-dot-spacer">•</span>
-                  </>
-                )}
-              </div>
-              <div className="classic-post-author-info">
-                Posted by{" "}
-                <span
-                  className="classic-post-author"
+              <div className="classic-post-author-bar">
+                <div
+                  className="classic-post-community-info"
                   onClick={(e) => {
                     e.preventDefault();
-                    history.push(`/users/${post?.postAuthor.id}/profile`);
+                    history.push(`/c/${post?.communityId}`);
                   }}
                 >
-                  u/{post?.postAuthor.username}
-                </span>
-                {moment(post?.createdAt).fromNow()}
+                  {isPage !== "community" && (
+                    <>
+                      c/{post?.communityName}{" "}
+                      <span className="single-post-dot-spacer">•</span>
+                    </>
+                  )}
+                </div>
+                <div className="classic-post-author-info">
+                  Posted by{" "}
+                  <span
+                    className="classic-post-author"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push(`/users/${post?.postAuthor.id}/profile`);
+                    }}
+                  >
+                    u/{post?.postAuthor.username}
+                  </span>
+                  {moment(post?.createdAt).fromNow()}
+                </div>
               </div>
-            </div>
-            <div
-              className="classic-post-buttons"
-              onClick={(e) => e.preventDefault()}
-            >
-              {post?.linkUrl === null &&
-                post?.content !== "" &&
-                !postExpand && (
+              <div
+                className="classic-post-buttons"
+                onClick={(e) => e.preventDefault()}
+              >
+                {post?.linkUrl === null &&
+                  post?.content !== "" &&
+                  !postExpand && (
+                    <button
+                      className="classic-post-button btn-expand"
+                      onClick={(e) => setPostExpand(true)}
+                    >
+                      <BsArrowsAngleExpand />
+                    </button>
+                  )}
+                {post?.linkUrl === null && postExpand && (
                   <button
                     className="classic-post-button btn-expand"
-                    onClick={(e) => setPostExpand(true)}
+                    onClick={(e) => setPostExpand(false)}
                   >
-                    <BsArrowsAngleExpand />
+                    <BsArrowsAngleContract />
                   </button>
                 )}
-              {post?.linkUrl === null && postExpand && (
-                <button
-                  className="classic-post-button btn-expand"
-                  onClick={(e) => setPostExpand(false)}
-                >
-                  <BsArrowsAngleContract />
-                </button>
-              )}
-              {post?.linkUrl !== null && (
-                <button
-                  className="classic-post-button"
-                  onClick={(e) => window.open(post?.linkUrl)}
-                >
-                  <HiOutlineExternalLink />
-                </button>
-              )}
-              {post?.linkUrl === null &&
-                post?.content === "" &&
-                post?.imgUrl === null && (
+                {post?.linkUrl !== null && (
                   <button
                     className="classic-post-button"
                     onClick={(e) => window.open(post?.linkUrl)}
                   >
-                    <CgNotes />
+                    <HiOutlineExternalLink />
                   </button>
                 )}
-              <div className="single-post-button">
-                <button
-                  className="single-post-comments-btn"
-                  onClick={() => history.push(`/posts/${post?.id}`)}
-                >
-                  <i className="fa-regular fa-message"></i>{" "}
-                  <span className="single-post-comments-num">
-                    {commentNum}{" "}
-                    {Object.values(post?.postComments).length === 1
-                      ? "Comment"
-                      : "Comments"}
-                  </span>
-                </button>
-              </div>
-              <div className="share-btn-stuff">
+                {post?.linkUrl === null &&
+                  post?.content === "" &&
+                  post?.imgUrl === null && (
+                    <button
+                      className="classic-post-button"
+                      onClick={(e) => window.open(post?.linkUrl)}
+                    >
+                      <CgNotes />
+                    </button>
+                  )}
                 <div className="single-post-button">
                   <button
-                    className="single-post-share-btn"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setShowLinkCopied(true);
-                      navigator.clipboard.writeText(
-                        `https://ribbit-app.herokuapp.com/posts/${post?.id}`
-                      );
-                    }}
+                    className="single-post-comments-btn"
+                    onClick={() => history.push(`/posts/${post?.id}`)}
                   >
-                    <img
-                      src={Bounce}
-                      alt="Share"
-                      className="single-post-share-icon"
-                    />
-                    Share
+                    <i className="fa-regular fa-message"></i>{" "}
+                    <span className="single-post-comments-num">
+                      {commentNum}{" "}
+                      {Object.values(post?.postComments).length === 1
+                        ? "Comment"
+                        : "Comments"}
+                    </span>
                   </button>
                 </div>
-
-                {showLinkCopied && (
-                  <div
-                    className={
-                      showLinkCopied
-                        ? "animate-mount tooltiptext"
-                        : "animate-unmount tooltiptext"
-                    }
-                  >
-                    Link Copied to Clipboard
-                  </div>
-                )}
-              </div>
-              {user && user.id === post?.postAuthor.id ? (
-                <div className="logged-in-btns">
-                  <div className="single-post-button">
-                    {post?.imgUrl === null && post?.linkUrl === null && (
-                      <button
-                        className="single-post-edit-btn"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          history.push(`/posts/${post?.id}/edit`);
-                        }}
-                      >
-                        <i className="fa-solid fa-pencil"></i>
-                        Edit
-                      </button>
-                    )}
-                    {/* {showEditModal && (
-                      <Modal
-                        onClose={() => setShowEditModal(false)}
-                        title="Edit post"
-                      >
-                        <UpdatePost
-                          setShowEditModal={setShowEditModal}
-                          showEditModal={showEditModal}
-                        />
-                      </Modal>
-                    )} */}
-                  </div>
+                <div className="share-btn-stuff">
                   <div className="single-post-button">
                     <button
-                      className="single-post-delete-btn"
+                      className="single-post-share-btn"
                       onClick={(e) => {
                         e.preventDefault();
-                        setShowDeleteModal(true);
+                        setShowLinkCopied(true);
+                        navigator.clipboard.writeText(
+                          `https://ribbit-app.herokuapp.com/posts/${post?.id}`
+                        );
                       }}
                     >
-                      <i className="fa-regular fa-trash-can"></i>
-                      Delete
+                      <img
+                        src={Bounce}
+                        alt="Share"
+                        className="single-post-share-icon"
+                      />
+                      Share
                     </button>
-                    {showDeleteModal && (
-                      <Modal
-                        onClose={() => setShowDeleteModal(false)}
-                        title="Delete post?"
-                      >
-                        <DeleteConfirmation
-                          showDeleteModal={showDeleteModal}
-                          setShowDeleteModal={setShowDeleteModal}
-                          postId={post?.id}
-                          communityId={community?.id}
-                          item="post"
-                          post={post}
-                          isPage={isPage}
-                        />
-                      </Modal>
-                    )}
                   </div>
+
+                  {showLinkCopied && (
+                    <div
+                      className={
+                        showLinkCopied
+                          ? "animate-mount tooltiptext"
+                          : "animate-unmount tooltiptext"
+                      }
+                    >
+                      Link Copied to Clipboard
+                    </div>
+                  )}
                 </div>
-              ) : (
-                ""
-              )}
+                {user && user.id === post?.postAuthor.id ? (
+                  <div className="logged-in-btns">
+                    <div className="single-post-button">
+                      {post?.imgUrl === null && post?.linkUrl === null && (
+                        <button
+                          className="single-post-edit-btn"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            history.push(`/posts/${post?.id}/edit`);
+                          }}
+                        >
+                          <i className="fa-solid fa-pencil"></i>
+                          Edit
+                        </button>
+                      )}
+                    </div>
+                    <div className="single-post-button">
+                      <button
+                        className="single-post-delete-btn"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setShowDeleteModal(true);
+                        }}
+                      >
+                        <i className="fa-regular fa-trash-can"></i>
+                        Delete
+                      </button>
+                      {showDeleteModal && (
+                        <Modal
+                          onClose={() => setShowDeleteModal(false)}
+                          title="Delete post?"
+                        >
+                          <DeleteConfirmation
+                            showDeleteModal={showDeleteModal}
+                            setShowDeleteModal={setShowDeleteModal}
+                            postId={post?.id}
+                            communityId={community?.id}
+                            item="post"
+                            post={post}
+                            isPage={isPage}
+                          />
+                        </Modal>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
           </div>
+          {postExpand && (
+            <div className="classic-post-expanded">
+              {post.imgUrl ? (
+                <div className="classic-post-expanded-img">
+                  <img src={post.imgUrl} />
+                </div>
+              ) : (
+                <div
+                  className="classic-post-expanded-text"
+                  style={{ whiteSpace: "pre-line" }}
+                >
+                  {parse(post.content)}
+                </div>
+              )}
+            </div>
+          )}
         </div>
-        {postExpand && (
-          <div className="classic-post-expanded">
-            {post.imgUrl ? (
-              <div className="classic-post-expanded-img">
-                <img src={post.imgUrl} />
-              </div>
-            ) : (
-              <div
-                className="classic-post-expanded-text"
-                style={{ whiteSpace: "pre-line" }}
-              >
-                {parse(post.content)}
-              </div>
-            )}
-          </div>
+        {showLoginForm && (
+          <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
+            <LoginForm
+              setShowLoginForm={setShowLoginForm}
+              showLoginForm={showLoginForm}
+              showSignupForm={showSignupForm}
+              setShowSignupForm={setShowSignupForm}
+            />
+          </Modal>
+        )}
+        {showSignupForm && (
+          <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
+            <SignUpForm
+              setShowLoginForm={setShowLoginForm}
+              showLoginForm={showLoginForm}
+              showSignupForm={showSignupForm}
+              setShowSignupForm={setShowSignupForm}
+            />
+          </Modal>
         )}
       </div>
-      {showLoginForm && (
-        <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
-          <LoginForm
-            setShowLoginForm={setShowLoginForm}
-            showLoginForm={showLoginForm}
-            showSignupForm={showSignupForm}
-            setShowSignupForm={setShowSignupForm}
-          />
-        </Modal>
-      )}
-      {showSignupForm && (
-        <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
-          <SignUpForm
-            setShowLoginForm={setShowLoginForm}
-            showLoginForm={showLoginForm}
-            showSignupForm={showSignupForm}
-            setShowSignupForm={setShowSignupForm}
-          />
-        </Modal>
-      )}
     </div>
   );
 }

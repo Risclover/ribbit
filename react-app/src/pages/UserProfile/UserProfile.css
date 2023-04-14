@@ -18,6 +18,7 @@
 }
 
 .user-profile-right-col {
+  display: block;
   max-width: 312px;
   width: 100%;
   margin-left: 24px;
@@ -482,4 +483,16 @@
 
 .user-profile-following-btn:active:before {
   opacity: 0.24;
+}
+
+@media (max-width: 960px) and (min-width: 1px) {
+  .user-profile-right-col {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) and (min-width: 1px) {
+  .user-profile-page {
+    padding: 0;
+  }
 }
