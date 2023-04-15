@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { getPosts } from "../../store/posts";
@@ -24,7 +24,6 @@ export default function Posts({
   const dispatch = useDispatch();
 
   const [sortMode, setSortMode] = useState("new");
-  const [loader, setLoader] = useState(true);
 
   // setTimeout(() => {
   //   setLoader(false);
@@ -33,20 +32,28 @@ export default function Posts({
   const posts = useSelector((state) => Object.values(state.posts));
   const user = useSelector((state) => state.session.user);
 
-  const [postsList, setPostsList] = useState(Array.from(posts.slice(0, 5)));
+  const [listItems, setListItems] = useState(Array.from(posts.slice(0, 10)));
   const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreListItems);
-
-  console.log("postsList:", postsList);
+  const [num, setNum] = useState(5);
 
   function fetchMoreListItems() {
-    setTimeout(() => {
-      setPostsList((prevState) => [
-        ...prevState,
-        ...Array.from(posts.slice(prevState, prevState + 5)),
-      ]);
-      setIsFetching(false);
-    }, 2000);
+    setListItems((prevState) => [
+      ...prevState,
+      ...Array.from(posts.slice(num, num + 10)),
+    ]);
+    setIsFetching(false);
+    setNum((prev) => prev + 10);
   }
+
+  console.log("list items:", listItems);
+
+  const [postsList, setPostsList] = useState({
+    list: posts.slice(0, 5),
+  });
+  const [page, setPage] = useState(1);
+  const loader = useRef(null);
+
+  console.log("postsList:", postsList);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -85,7 +92,7 @@ export default function Posts({
             setSortMode={setSortMode}
           />
           {posts &&
-            postsList.map((post) => (
+            listItems.map((post) => (
               <NavLink key={post.id} to={`/posts/${post.id}`}>
                 <SinglePost
                   key={post.id}
