@@ -15,14 +15,15 @@ const useInfiniteScroll = (callback) => {
     });
   }, [isFetching]);
 
-  function handleScroll() {
+  function handleScroll(e) {
     if (
       window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight ||
-      isFetching
-    )
+      document.documentElement.offsetHeight
+    ) {
       return;
-    setIsFetching(true);
+    } else {
+      setIsFetching(true);
+    }
   }
 
   return [isFetching, setIsFetching];
