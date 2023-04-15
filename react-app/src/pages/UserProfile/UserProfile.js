@@ -9,7 +9,7 @@ import "./UserProfile.css";
 import UserProfilePosts from "./UserProfilePosts";
 import { getUsers } from "../../store/users";
 
-function UserProfile({ setShowLoginForm }) {
+function UserProfile({ setShowLoginForm, setPageTitle }) {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const [page, setPage] = useState("Posts");
@@ -27,6 +27,20 @@ function UserProfile({ setShowLoginForm }) {
     dispatch(getUsers());
     dispatch(getPosts());
   }, [dispatch]);
+
+  useEffect(() => {
+    document.title = user?.displayName + " (u/" + user?.username + ") - Ribbit";
+
+    setPageTitle(
+      <div className="nav-left-dropdown-face-title">
+        <img
+          src={user?.profile_img}
+          className="nav-left-dropdown-item-icon item-icon-circle"
+        />
+        <span className="nav-left-dropdown-item">u/{user?.username}</span>
+      </div>
+    );
+  }, [user]);
 
   useEffect(() => {
     let communityList = [];

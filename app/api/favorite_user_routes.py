@@ -19,6 +19,7 @@ def favorite_user():
     queried_user.favorited.append(user)
 
 
+
     db.session.commit()
 
     return jsonify({

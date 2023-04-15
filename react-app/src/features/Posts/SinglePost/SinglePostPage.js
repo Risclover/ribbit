@@ -15,6 +15,8 @@ import Comments from "../../Comments/Comments";
 import Cake from "../../../images/misc/piece4.png";
 import SinglePost from "./SinglePost";
 import BackToTop from "../../../components/BackToTop";
+import { getPosts } from "../../../store/posts";
+import { getCommunities } from "../../../store/communities";
 
 export default function SinglePostPage({ setShowLoginForm }) {
   const { postId } = useParams();
@@ -29,9 +31,15 @@ export default function SinglePostPage({ setShowLoginForm }) {
 
   useEffect(() => {
     dispatch(getSinglePost(+postId));
-    dispatch(getSingleCommunity(post?.communityId));
-    dispatch(getSubscriptions());
-  }, [dispatch, postId]);
+    dispatch(getPosts());
+    // dispatch(getSingleCommunity(post?.communityId));
+    dispatch(getCommunities());
+    // dispatch(getSubscriptions());
+  }, [dispatch, +postId]);
+
+  useEffect(() => {
+    document.title = post?.title + " : " + post?.communityName;
+  }, [post]);
 
   useEffect(() => {
     if (subscriptions[post?.communityId]) setSubscribed(true);
@@ -99,6 +107,7 @@ export default function SinglePostPage({ setShowLoginForm }) {
                       await dispatch(addToSubscriptions(post?.communityId));
                       user && setSubscribed(true);
                       !user && setShowLoginForm(true);
+                      dispatch(getSubscriptions());
                     }}
                   >
                     Join

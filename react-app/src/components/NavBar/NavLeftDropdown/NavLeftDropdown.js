@@ -138,7 +138,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
             mode="Community"
             setShowIcon={setShowIcon}
             handleFavorite={handleFavorite}
-            handleUserFavorite={handleUserFavorite}
           />
         ))}
 
@@ -155,7 +154,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
               mode="Community"
               setShowIcon={setShowIcon}
               handleFavorite={handleFavorite}
-              handleUserFavorite={handleUserFavorite}
             />
           ))}
 
@@ -167,8 +165,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
             item={item}
             mode="User"
             setShowIcon={setShowIcon}
-            handleFavorite={handleFavorite}
-            handleUserFavorite={handleUserFavorite}
+            handleFavorite={handleUserFavorite}
           />
         ))}
 
@@ -184,8 +181,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
               item={item}
               mode="User"
               setShowIcon={setShowIcon}
-              handleFavorite={handleFavorite}
-              handleUserFavorite={handleUserFavorite}
+              handleFavorite={handleUserFavorite}
             />
           ))}
 
@@ -204,7 +200,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
             mode="Community"
             setShowIcon={setShowIcon}
             handleFavorite={handleFavorite}
-            handleUserFavorite={handleUserFavorite}
           />
         ))}
 
@@ -221,7 +216,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
               mode="Community"
               setShowIcon={setShowIcon}
               handleFavorite={handleFavorite}
-              handleUserFavorite={handleUserFavorite}
             />
           ))}
 
@@ -236,8 +230,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
             favoriteType={favoriteUsers}
             item={item}
             mode="User"
-            handleFavorite={handleFavorite}
-            handleUserFavorite={handleUserFavorite}
+            handleFavorite={handleUserFavorite}
             setShowIcon={setShowIcon}
           />
         ))}
@@ -253,8 +246,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
               favoriteType={favoriteUsers}
               item={item}
               mode="User"
-              handleFavorite={handleFavorite}
-              handleUserFavorite={handleUserFavorite}
+              handleFavorite={handleUserFavorite}
               setShowIcon={setShowIcon}
             />
           ))}

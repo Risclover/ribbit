@@ -667,6 +667,7 @@ pre.ql-syntax {
   display: flex;
   align-items: center;
   color: #3f9ade;
+  cursor: pointer;
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;

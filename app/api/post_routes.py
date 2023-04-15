@@ -95,6 +95,10 @@ def create_image_post():
 
         return new_post.to_dict()
     print(form.errors)
+
+    user = User.query.get(current_user.get_id())
+    user.user_post_votes.append(new_post)
+    new_post.users_who_liked.append(user)
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
@@ -122,6 +126,10 @@ def create_link_post():
 
         return new_post.to_dict()
     print(form.errors)
+
+    user = User.query.get(current_user.get_id())
+    user.user_post_votes.append(new_post)
+    new_post.users_who_liked.append(user)
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 

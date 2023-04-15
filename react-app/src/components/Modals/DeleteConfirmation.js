@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { deletePost, getPosts } from "../../store/posts";
 import { removeComment } from "../../store/comments";
-import { deleteCommunity } from "../../store/communities";
+import { deleteCommunity, getCommunities } from "../../store/communities";
 import { deleteRule, getCommunityRules } from "../../store/rules";
 import "./Modals.css";
+import { getUsers } from "../../store/users";
+import { getSingleCommunity } from "../../store/one_community";
 
 export default function DeleteConfirmation({
   setShowEditRuleModal,
@@ -28,6 +30,7 @@ export default function DeleteConfirmation({
     }
     await dispatch(deletePost(postId));
     setShowDeleteModal(false);
+    await dispatch(getUsers());
   };
 
   const handleDeleteComment = async (e) => {
@@ -49,6 +52,7 @@ export default function DeleteConfirmation({
     setShowDeleteModal(false);
     setShowEditRuleModal(false);
     dispatch(getCommunityRules(communityId));
+    dispatch(getSingleCommunity(communityId));
   };
   return (
     <>

@@ -9,6 +9,7 @@ import "./Searchbar.css";
 import HandleClickOutside from "../../HandleClickOutside";
 
 export default function Searchbar({
+  setPageTitle,
   searchQuery,
   setSearchQuery,
   adjustQuery,
@@ -19,6 +20,18 @@ export default function Searchbar({
   const ref = useRef();
 
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
+
+  // useEffect(() => {
+  //   setPageTitle(
+  //     <div className="nav-left-dropdown-face-title">
+  //       <span className="nav-left-dropdown-item-svg">
+  //         <BsSearch />
+  //       </span>
+
+  //       <span className="nav-left-dropdown-item">Search Results</span>
+  //     </div>
+  //   );
+  // }, []);
 
   useEffect(() => {
     if (adjustQuery) ref.current.focus();

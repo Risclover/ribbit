@@ -21,11 +21,6 @@ export default function CommunitySelectionDropdownCommunity({
     Object.values(state.communities)
   );
 
-  useEffect(() => {
-    dispatch(getSingleCommunity(community_id));
-    dispatch(getCommunities());
-  }, []);
-
   const handleClick = (e, name) => {
     e.preventDefault();
     setSearch(name);

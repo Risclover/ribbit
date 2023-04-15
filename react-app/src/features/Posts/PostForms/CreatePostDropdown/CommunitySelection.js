@@ -60,10 +60,6 @@ export default function CommunitySelection({
   );
 
   useEffect(() => {
-    dispatch(getSubscriptions());
-  }, [dispatch]);
-
-  useEffect(() => {
     for (let community of Object.values(allCommunities)) {
       if (community.id === community_id) {
         setSearch(community.name);

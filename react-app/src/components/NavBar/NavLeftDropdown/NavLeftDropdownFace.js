@@ -10,7 +10,7 @@ import { getFavoriteCommunities } from "../../../store/favorite_communities";
 import { getFavoriteUsers } from "../../../store/favorite_users";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function NavLeftDropdownFace() {
+export default function NavLeftDropdownFace({ pageTitle, setPageTitle }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const [showIcon, setShowIcon] = useState(false);
@@ -26,8 +26,7 @@ export default function NavLeftDropdownFace() {
         }}
       >
         <button className="nav-left-dropdown-face-left">
-          <img src={Home} className="nav-left-dropdown-face-icon" />
-          <h1>Home</h1>
+          <h1>{pageTitle}</h1>
         </button>
         <VscChevronDown />
         {showIcon && (

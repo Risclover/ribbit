@@ -18,7 +18,13 @@ import "./NavBar.css";
 import { getFavoriteCommunities } from "../../store/favorite_communities";
 import { getFavoriteUsers } from "../../store/favorite_users";
 
-const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
+const NavBar = ({
+  searchQuery,
+  setSearchQuery,
+  adjustQuery,
+  pageTitle,
+  setPageTitle,
+}) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
@@ -41,7 +47,14 @@ const NavBar = ({ searchQuery, setSearchQuery, adjustQuery }) => {
             <img className="ribbit-logo" src={RibbitLogo} alt="Ribbit" />
           </NavLink>
         </li>
-        <li>{user && <NavLeftDropdownFace />}</li>
+        <li>
+          {user && (
+            <NavLeftDropdownFace
+              pageTitle={pageTitle}
+              setPageTitle={setPageTitle}
+            />
+          )}
+        </li>
         <li>
           {user && (
             <NavLink to="/" exact={true} activeClassName="active">

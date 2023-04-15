@@ -14,7 +14,7 @@ import CommunityName from "./CommunityName";
 import CommunityPosts from "./CommunityPosts";
 import BackToTop from "../../components/BackToTop";
 
-export default function CommunityPage({ format, setFormat }) {
+export default function CommunityPage({ setPageTitle, format, setFormat }) {
   const dispatch = useDispatch();
   const { communityId } = useParams();
 
@@ -31,10 +31,24 @@ export default function CommunityPage({ format, setFormat }) {
   let commPosts = posts.filter((post) => post.communityId == communityId);
 
   useEffect(() => {
+    dispatch(getSubscriptions());
     dispatch(getPosts());
     dispatch(getSingleCommunity(+communityId));
-    dispatch(getSubscriptions());
   }, [communityId, dispatch]);
+
+  useEffect(() => {
+    document.title = community?.displayName;
+
+    setPageTitle(
+      <div className="nav-left-dropdown-face-title">
+        <img
+          src={community?.communityImg}
+          className="nav-left-dropdown-item-icon item-icon-circle"
+        />
+        <span className="nav-left-dropdown-item">c/{community?.name}</span>
+      </div>
+    );
+  }, [community]);
 
   useEffect(() => {
     if (favoriteCommunities[community?.id]) {

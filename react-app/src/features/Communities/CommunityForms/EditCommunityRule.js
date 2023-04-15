@@ -143,7 +143,7 @@ export default function AddCommunityRule({
                 showDeleteModal={showDeleteModal}
                 setShowEditRuleModal={setShowEditRuleModal}
                 setShowDeleteModal={setShowDeleteModal}
-                communityId={communityId}
+                communityId={community.id}
                 rule={rule}
               />
             </Modal>

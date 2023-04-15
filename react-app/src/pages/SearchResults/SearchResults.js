@@ -11,8 +11,10 @@ import SearchResultsPeople from "./SearchResultsPeople";
 import SearchResultsCommunities from "./SearchResultsCommunities";
 import SearchResultsComments from "./SearchResultsComments";
 import SearchResultsPosts from "./SearchResultsPosts";
+import { BsSearch } from "react-icons/bs";
 
 export default function SearchResults({
+  setPageTitle,
   searchQuery,
   setSearchQuery,
   setAdjustQuery,
@@ -25,6 +27,18 @@ export default function SearchResults({
   const results = useSelector((state) => Object.values(state.search));
   const allComments = useSelector((state) => state.comments);
   const allPosts = useSelector((state) => state.posts);
+
+  useEffect(() => {
+    document.title = "Search Results";
+    setPageTitle(
+      <div className="nav-left-dropdown-face-title">
+        <span className="nav-left-dropdown-item-svg">
+          <BsSearch />
+        </span>
+        <span className="nav-left-dropdown-item">Search Results</span>
+      </div>
+    );
+  }, []);
 
   const posts = results.filter(
     (post) =>

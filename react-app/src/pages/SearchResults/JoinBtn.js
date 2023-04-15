@@ -12,9 +12,9 @@ export default function JoinBtn({ community }) {
   const user = useSelector((state) => state.session.user);
   const subscriptions = useSelector((state) => state.subscriptions);
 
-  useEffect(() => {
-    dispatch(getSubscriptions());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getSubscriptions());
+  // }, [dispatch]);
 
   useEffect(() => {
     if (subscriptions[community?.id]) setSubscribed(true);

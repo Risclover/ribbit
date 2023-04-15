@@ -13,9 +13,11 @@ import DeveloperLinksBox from "./DeveloperLinksBox/DeveloperLinksBox";
 import AboutBox from "./AboutBox";
 import LoadingEllipsis from "../../components/LoadingEllipsis";
 import SortingFunction from "./SortingFunction";
+import Home from "../../images/navbar/home-icon.png";
 
 export default function SubscribedPosts({
   format,
+  setPageTitle,
   setFormat,
   setShowLoginForm,
 }) {
@@ -33,7 +35,14 @@ export default function SubscribedPosts({
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getPosts());
-    dispatch(getFavoriteCommunities());
+    // dispatch(getFavoriteCommunities());
+    document.title = "Ribbit - Splash into anything";
+    setPageTitle(
+      <div className="nav-left-dropdown-face-title">
+        <img src={Home} className="nav-left-dropdown-item-icon" />
+        <span className="nav-left-dropdown-item">Home</span>
+      </div>
+    );
   }, [dispatch]);
 
   setTimeout(() => {

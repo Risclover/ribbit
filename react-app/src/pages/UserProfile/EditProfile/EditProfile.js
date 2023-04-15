@@ -5,7 +5,7 @@ import { editProfile, getUsers } from "../../../store/users";
 
 import "./EditProfile.css";
 
-export default function EditProfile() {
+export default function EditProfile({ setPageTitle }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const user1 = useSelector((state) => state.session.user);
@@ -13,6 +13,19 @@ export default function EditProfile() {
 
   const [display_name, setdisplay_name] = useState(user?.displayName);
   const [about, setAbout] = useState(user?.about);
+
+  useEffect(() => {
+    document.title = "User Settings";
+    setPageTitle(
+      <div className="nav-left-dropdown-face-title">
+        <img
+          src={user1?.profile_img}
+          className="nav-left-dropdown-item-icon item-icon-circle"
+        />
+        <span className="nav-left-dropdown-item">User Settings</span>
+      </div>
+    );
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

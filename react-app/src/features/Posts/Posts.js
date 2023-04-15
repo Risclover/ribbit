@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { getPosts } from "../../store/posts";
 import { getCommunities } from "../../store/communities";
-import { getUsers } from "../../store/users";
-import { getFavoriteCommunities } from "../../store/favorite_communities";
 import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
 import SortingBar from "../../components/SortingBar/SortingBar";
 import SinglePost from "./SinglePost/SinglePost";
@@ -14,8 +12,15 @@ import DeveloperLinksBox from "./DeveloperLinksBox/DeveloperLinksBox";
 import AboutBox from "./AboutBox";
 import LoadingEllipsis from "../../components/LoadingEllipsis";
 import SortingFunction from "./SortingFunction";
+import useInfiniteScroll from "../../hooks/useInfiniteScroll";
+import All from "../../images/navbar/all-icon2.png";
 
-export default function Posts({ format, setFormat, setShowLoginForm }) {
+export default function Posts({
+  format,
+  setFormat,
+  setShowLoginForm,
+  setPageTitle,
+}) {
   const dispatch = useDispatch();
 
   const [sortMode, setSortMode] = useState("new");
@@ -28,11 +33,33 @@ export default function Posts({ format, setFormat, setShowLoginForm }) {
   const posts = useSelector((state) => Object.values(state.posts));
   const user = useSelector((state) => state.session.user);
 
+  const [postsList, setPostsList] = useState(Array.from(posts.slice(0, 5)));
+  const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreListItems);
+
+  console.log("postsList:", postsList);
+
+  function fetchMoreListItems() {
+    setTimeout(() => {
+      setPostsList((prevState) => [
+        ...prevState,
+        ...Array.from(posts.slice(prevState, prevState + 5)),
+      ]);
+      setIsFetching(false);
+    }, 2000);
+  }
+
   useEffect(() => {
     dispatch(getPosts());
-    dispatch(getFavoriteCommunities());
+    // dispatch(getFavoriteCommunities());
     dispatch(getCommunities());
-    dispatch(getUsers());
+    // dispatch(getUsers());
+    document.title = "c/all";
+    setPageTitle(
+      <div className="nav-left-dropdown-face-title">
+        <img src={All} className="nav-left-dropdown-item-icon" />
+        <span className="nav-left-dropdown-item">All</span>
+      </div>
+    );
   }, [dispatch]);
 
   SortingFunction(posts, sortMode);
@@ -58,7 +85,7 @@ export default function Posts({ format, setFormat, setShowLoginForm }) {
             setSortMode={setSortMode}
           />
           {posts &&
-            posts.map((post) => (
+            postsList.map((post) => (
               <NavLink key={post.id} to={`/posts/${post.id}`}>
                 <SinglePost
                   key={post.id}
@@ -72,6 +99,7 @@ export default function Posts({ format, setFormat, setShowLoginForm }) {
                 />
               </NavLink>
             ))}
+          {isFetching && "Fetching more list items..."}
         </div>
         <div className="posts-right-col">
           <AboutBox

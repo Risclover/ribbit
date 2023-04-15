@@ -4,6 +4,7 @@ import { useHistory, useParams, NavLink } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import validator from "validator";
+import { TfiPlus } from "react-icons/tfi";
 
 import {
   addLinkPost,
@@ -39,7 +40,12 @@ const modules = {
   ],
 };
 
-export default function CreatePost({ postType, setPostType, val }) {
+export default function CreatePost({
+  setPageTitle,
+  postType,
+  setPostType,
+  val,
+}) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { communityId } = useParams();
@@ -62,6 +68,18 @@ export default function CreatePost({ postType, setPostType, val }) {
   const posts = useSelector((state) => Object.values(state.posts));
   const communities = useSelector((state) => Object.values(state.communities));
   const user = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    document.title = `Submit to ${community ? community?.name : "Ribbit"}`;
+    setPageTitle(
+      <div className="nav-left-dropdown-face-title">
+        <span className="nav-left-dropdown-item-svg">
+          <TfiPlus />
+        </span>
+        <span className="nav-left-dropdown-item">Create Post</span>
+      </div>
+    );
+  }, [community]);
 
   useEffect(() => {
     for (let community of communities) {
@@ -123,9 +141,6 @@ export default function CreatePost({ postType, setPostType, val }) {
   useEffect(() => {
     let errors = [];
 
-    if (content === "") {
-      errors.push("Enter some content.");
-    }
     if (title.trim().length <= 0) {
       errors.push("Please include a title.");
     }
@@ -147,7 +162,6 @@ export default function CreatePost({ postType, setPostType, val }) {
     }
 
     if (
-      (postType === "post" && content.length === 0) ||
       (postType === "image" &&
         (img_url === "" || img_url === undefined || img_url === null)) ||
       (postType === "link" &&
@@ -189,24 +203,32 @@ export default function CreatePost({ postType, setPostType, val }) {
     } else {
       setTitle("");
       setContent("");
-      const postId = posts.length + 1;
+      const postId = posts[posts.length - 1].id + 1;
 
-      dispatch(addPostVote(postId, "upvote"));
+      // dispatch(addPostVote(postId, "upvote"));
       history.push(`/c/${community_id}`);
       await dispatch(getPosts());
+      dispatch(addPostVote(postId, "upvote"));
     }
   };
 
-  const handleLinkSubmit = (e) => {
+  const handleLinkSubmit = async (e) => {
     e.preventDefault();
+    const postId = posts[posts.length - 1].id + 1;
     dispatch(addLinkPost({ title, link_url, community_id }));
     history.push(`/c/${community_id}`);
+    await dispatch(getPosts());
+    dispatch(addPostVote(postId, "upvote"));
   };
 
   const handleImageSubmit = async (e) => {
     e.preventDefault();
+    const postId = posts[posts.length - 1].id + 1;
+
     dispatch(addImagePost({ title, img_url, community_id }));
     history.push(`/c/${community_id}`);
+    await dispatch(getPosts());
+    dispatch(addPostVote(postId, "upvote"));
   };
 
   const handleDeletePreview = (e) => {

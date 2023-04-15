@@ -8,7 +8,6 @@ export default function NavLeftDropdownLink({
   favorite,
   favoriteType,
   handleFavorite,
-  handleUserFavorite,
   item,
   mode,
   setShowIcon,
@@ -37,14 +36,14 @@ export default function NavLeftDropdownLink({
           {!favoriteType[item.id] ? (
             <div
               className="nav-left-dropdown-star"
-              onClick={(e) => handleUserFavorite(e, item)}
+              onClick={(e) => handleFavorite(e, item)}
             >
               <BsStar />
             </div>
           ) : (
             <div
               className="nav-left-dropdown-star star-filled"
-              onClick={(e) => handleUserFavorite(e, item)}
+              onClick={(e) => handleFavorite(e, item)}
             >
               <BsStarFill />
             </div>
@@ -92,7 +91,6 @@ export default function NavLeftDropdownLink({
               e.preventDefault();
               setShowIcon(false);
               history.push(`/users/${item.id}/profile`);
-              await dispatch(getUsers());
             }}
           >
             <img
@@ -104,7 +102,7 @@ export default function NavLeftDropdownLink({
           <div
             className="nav-left-dropdown-star star-filled"
             onClick={(e) => {
-              handleUserFavorite(e, item);
+              handleFavorite(e, item);
             }}
           >
             <BsStarFill />

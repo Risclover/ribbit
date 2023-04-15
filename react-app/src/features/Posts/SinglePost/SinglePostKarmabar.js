@@ -24,6 +24,8 @@ export default function SinglePostKarmabar({
   const [voted, setVoted] = useState(false);
 
   useEffect(() => {
+    setUpvote(false);
+    setDownvote(false);
     if (
       Object.values(posts) &&
       post?.postVoters &&

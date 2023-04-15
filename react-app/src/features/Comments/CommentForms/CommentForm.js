@@ -61,6 +61,7 @@ export default function CommentForm({ postId }) {
               className="post-comment-textarea"
               onChange={(e) => setContent(e.target.value)}
               value={content}
+              maxLength={10000}
               placeholder="What are your thoughts?"
             ></textarea>
             <div className="comment-form-button-container">

@@ -52,23 +52,30 @@ export default function CommunitySelectionDropdown({
           </Modal>
         )}
       </div>
-      {subscriptions.map((subscription) => (
-        <CommunitySelectionDropdownCommunity
-          communityList={communityList}
-          search={search}
-          setSearch={setSearch}
-          setcommunity_id={setcommunity_id}
-          subscription={subscription}
-          community_id={community_id}
-          setShowDropdown={setShowDropdown}
-          showDropdown={showDropdown}
-          setName={setName}
-          setCommunity={setCommunity}
-        />
-      ))}
-      {communityList.filter((community) =>
-        community["name"].toLowerCase().includes(search?.toLowerCase())
-      ).length > 0 &&
+      {subscriptions
+        .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1))
+        .filter((community) =>
+          community["name"].toLowerCase().includes(search?.toLowerCase())
+        )
+        .map((subscription) => (
+          <CommunitySelectionDropdownCommunity
+            communityList={communityList}
+            search={search}
+            setSearch={setSearch}
+            setcommunity_id={setcommunity_id}
+            subscription={subscription}
+            community_id={community_id}
+            setShowDropdown={setShowDropdown}
+            showDropdown={showDropdown}
+            setName={setName}
+            setCommunity={setCommunity}
+          />
+        ))}
+      {communityList
+        .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1))
+        .filter((community) =>
+          community["name"].toLowerCase().includes(search?.toLowerCase())
+        ).length > 0 &&
         search?.length > 0 && (
           <div className="community-selection-dropdown-topbar">
             <h5>Other Communities</h5>

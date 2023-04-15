@@ -55,7 +55,7 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
         setShowLinkCopied(false);
       }, 3000);
     }
-    setCommentNum(post?.commentNum);
+    setCommentNum(post?.commentNum || 0);
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
 
   useEffect(() => {
