@@ -22,10 +22,16 @@ export default function SubscribedPosts({
   setShowLoginForm,
 }) {
   const dispatch = useDispatch();
+  const posts = useSelector((state) => Object.values(state.posts));
+  let postList = [];
 
   const [noPosts, setNoPosts] = useState(false);
   const [loader, setLoader] = useState(true);
+  const [items, setItems] = useState(postList.slice(10, 15));
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(2);
   const [sortMode, setSortMode] = useState("new");
+
   const user = useSelector((state) => state.session.user);
   const communities = useSelector((state) => Object.values(state.communities));
   const subscriptions = useSelector((state) =>
@@ -35,7 +41,7 @@ export default function SubscribedPosts({
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getPosts());
-    // dispatch(getFavoriteCommunities());
+
     document.title = "Ribbit - Splash into anything";
     setPageTitle(
       <div className="nav-left-dropdown-face-title">
@@ -44,12 +50,6 @@ export default function SubscribedPosts({
       </div>
     );
   }, [dispatch]);
-
-  setTimeout(() => {
-    setLoader(false);
-  }, 1000);
-
-  let postList = [];
 
   for (let post of subscriptions) {
     if (post?.subscribers[user?.id]?.id === user?.id) {
@@ -69,12 +69,43 @@ export default function SubscribedPosts({
     }
   }, [noPosts, postList, subscriptions, user?.id]);
 
+  const loadMore = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setItems([...items, ...postList.slice(page * 5, page * 5 + 5)]);
+      setPage(page + 1);
+      setLoading(false);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [items]);
+
+  const handleScroll = () => {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
+      !loading
+    ) {
+      loadMore();
+    }
+  };
+
+  setTimeout(() => {
+    setLoader(false);
+  }, 5000);
+
   if (!user || !communities) return null;
 
   return (
     <div
       className={format === "Card" ? "posts-container" : "posts-container-alt"}
     >
+      {loader && <LoadingEllipsis loader={loader} />}
+
       <>
         <div
           className={
@@ -100,7 +131,19 @@ export default function SubscribedPosts({
               </p>
             </div>
           )}
-          {postList.map((post, idx) => (
+          {postList.slice(0, 10).map((post, idx) => (
+            <NavLink key={post.id} to={`/posts/${post.id}`}>
+              <SinglePost
+                key={idx}
+                setShowLoginForm={setShowLoginForm}
+                id={post.id}
+                postComments={Object.values(post.postComments).length}
+                isCommunity={false}
+                format={format}
+              />
+            </NavLink>
+          ))}
+          {items.map((post, idx) => (
             <NavLink key={post.id} to={`/posts/${post.id}`}>
               <SinglePost
                 key={idx}

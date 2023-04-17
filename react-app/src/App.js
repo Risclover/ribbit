@@ -81,7 +81,11 @@ function App() {
             </Route>
           ) : (
             <Route path="/" exact={true}>
-              <Posts format={format} setFormat={setFormat} />
+              <Posts
+                setPageTitle={setPageTitle}
+                format={format}
+                setFormat={setFormat}
+              />
             </Route>
           )}
           <Route path="/home" exact={true}>

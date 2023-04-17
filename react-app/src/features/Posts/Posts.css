@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   padding: 20px 24px;
-  min-height: 100vh;
+  min-height: 95vh;
 }
 
 .posts-container-alt {
@@ -226,6 +226,19 @@
   font-weight: 500;
   font-size: 14px;
   color: #7c7c7c8e;
+}
+
+.loading-component {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(218, 224, 230);
+  z-index: 2000;
 }
 
 .lds-ellipsis {
