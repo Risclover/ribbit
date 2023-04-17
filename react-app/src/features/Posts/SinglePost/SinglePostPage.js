@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
@@ -19,6 +19,7 @@ import { getPosts } from "../../../store/posts";
 import { getCommunities } from "../../../store/communities";
 
 export default function SinglePostPage({ setShowLoginForm }) {
+  const history = useHistory();
   const { postId } = useParams();
   const dispatch = useDispatch();
 
@@ -99,15 +100,25 @@ export default function SinglePostPage({ setShowLoginForm }) {
                     Joined
                   </button>
                 )}
-                {!subscribed && (
+                {user && !subscribed && (
                   <button
                     className="blue-btn-filled btn-long"
                     onClick={async (e) => {
                       e.preventDefault();
                       await dispatch(addToSubscriptions(post?.communityId));
-                      user && setSubscribed(true);
-                      !user && setShowLoginForm(true);
+                      !user ? history.push("/login") : setSubscribed(true);
                       dispatch(getSubscriptions());
+                    }}
+                  >
+                    Join
+                  </button>
+                )}
+                {!user && (
+                  <button
+                    className="blue-btn-filled btn-long"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.push("/login");
                     }}
                   >
                     Join

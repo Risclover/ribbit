@@ -39,10 +39,13 @@ export default function Posts({
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    if (format === "Card") {
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
   }, [items]);
 
   const handleScroll = () => {
@@ -94,6 +97,7 @@ export default function Posts({
             setSortMode={setSortMode}
           />
           {posts &&
+            format === "Card" &&
             posts.slice(0, 10).map((post) => (
               <NavLink key={post.id} to={`/posts/${post.id}`}>
                 <SinglePost
@@ -108,20 +112,36 @@ export default function Posts({
                 />
               </NavLink>
             ))}
-          {items.map((post) => (
-            <NavLink key={post.id} to={`/posts/${post.id}`}>
-              <SinglePost
-                key={post.id}
-                id={post.id}
-                postComments={Object.values(post.postComments).length}
-                isCommunity={false}
-                format={format}
-                isPage="all"
-                setShowLoginForm={setShowLoginForm}
-                post={post}
-              />
-            </NavLink>
-          ))}
+          {format === "Card" &&
+            items.map((post) => (
+              <NavLink key={post.id} to={`/posts/${post.id}`}>
+                <SinglePost
+                  key={post.id}
+                  id={post.id}
+                  postComments={Object.values(post.postComments).length}
+                  isCommunity={false}
+                  format={format}
+                  isPage="all"
+                  setShowLoginForm={setShowLoginForm}
+                  post={post}
+                />
+              </NavLink>
+            ))}
+          {format !== "Card" &&
+            posts.map((post) => (
+              <NavLink key={post.id} to={`/posts/${post.id}`}>
+                <SinglePost
+                  key={post.id}
+                  id={post.id}
+                  postComments={Object.values(post.postComments).length}
+                  isCommunity={false}
+                  format={format}
+                  isPage="all"
+                  setShowLoginForm={setShowLoginForm}
+                  post={post}
+                />
+              </NavLink>
+            ))}
         </div>
         <div className="posts-right-col">
           <AboutBox
