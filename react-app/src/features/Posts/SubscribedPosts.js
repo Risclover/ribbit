@@ -146,7 +146,7 @@ export default function SubscribedPosts({
           {items.map((post, idx) => (
             <NavLink key={post.id} to={`/posts/${post.id}`}>
               <SinglePost
-                key={idx}
+                key={idx + 10}
                 setShowLoginForm={setShowLoginForm}
                 id={post.id}
                 postComments={Object.values(post.postComments).length}
