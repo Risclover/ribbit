@@ -32,6 +32,9 @@ import MessageWindow from "./features/Messages/MessageWindow";
 import Chat from "./features/Messages/Chat";
 import LoginPage from "./features/auth/LoginPage";
 import SingleImagePage from "./features/Posts/SinglePost/SingleImagePage/SingleImagePage";
+import { getSubscriptions } from "./store/subscriptions";
+import { getCommunities } from "./store/communities";
+import { getFollowers } from "./store/followers";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -51,6 +54,9 @@ function App() {
       await dispatch(authenticate());
       setLoaded(true);
     })();
+    dispatch(getSubscriptions());
+    dispatch(getCommunities());
+    dispatch(getFollowers());
   }, [dispatch]);
 
   if (!loaded) {

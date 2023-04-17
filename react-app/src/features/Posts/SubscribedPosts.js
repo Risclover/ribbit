@@ -14,6 +14,7 @@ import AboutBox from "./AboutBox";
 import LoadingEllipsis from "../../components/LoadingEllipsis";
 import SortingFunction from "./SortingFunction";
 import Home from "../../images/navbar/home-icon.png";
+import { getSubscriptions } from "../../store/subscriptions";
 
 export default function SubscribedPosts({
   format,
@@ -41,6 +42,7 @@ export default function SubscribedPosts({
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getPosts());
+    dispatch(getSubscriptions());
 
     document.title = "Ribbit - Splash into anything";
     setPageTitle(

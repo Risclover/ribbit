@@ -9,11 +9,20 @@ import { getFollowers, getUserFollowers } from "../../../store/followers";
 import { getFavoriteCommunities } from "../../../store/favorite_communities";
 import { getFavoriteUsers } from "../../../store/favorite_users";
 import { useDispatch, useSelector } from "react-redux";
+import { getCommunities } from "../../../store/communities";
 
 export default function NavLeftDropdownFace({ pageTitle, setPageTitle }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const [showIcon, setShowIcon] = useState(false);
+
+  useEffect(() => {
+    dispatch(getSubscriptions());
+    dispatch(getCommunities());
+    dispatch(getFollowers());
+    dispatch(getFavoriteCommunities());
+    dispatch(getFavoriteUsers());
+  }, [dispatch]);
 
   return (
     <div className="nav-left-dropdown-wrapper">

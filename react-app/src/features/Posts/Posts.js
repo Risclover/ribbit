@@ -13,6 +13,7 @@ import AboutBox from "./AboutBox";
 import LoadingEllipsis from "../../components/LoadingEllipsis";
 import SortingFunction from "./SortingFunction";
 import All from "../../images/navbar/all-icon2.png";
+import { getSubscriptions } from "../../store/subscriptions";
 
 export default function Posts({
   format,
@@ -28,6 +29,10 @@ export default function Posts({
   const [items, setItems] = useState(posts.slice(10, 15));
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(2);
+
+  window.onload = function () {
+    setLoader(false);
+  };
 
   const loadMore = () => {
     setLoading(true);
@@ -57,13 +62,12 @@ export default function Posts({
     }
   };
 
-  setTimeout(() => {
-    setLoader(false);
-  }, 5000);
+  // setTimeout(() => {
+  //   setLoader(false);
+  // }, 5000);
 
   useEffect(() => {
     dispatch(getPosts());
-    dispatch(getCommunities());
 
     document.title = "c/all";
     setPageTitle(

@@ -18,6 +18,9 @@ import {
 } from "../../../store/favorite_users";
 import HandleClickOutside from "../../HandleClickOutside";
 import NavLeftDropdownLink from "./NavLeftDropdownLink";
+import { getSubscriptions } from "../../../store/subscriptions";
+import { getCommunities } from "../../../store/communities";
+import { getFollowers, getUserFollowers } from "../../../store/followers";
 
 export default function NavLeftDropdown({ showIcon, setShowIcon }) {
   const dispatch = useDispatch();

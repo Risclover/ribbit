@@ -17,6 +17,7 @@ import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
 import "./NavBar.css";
 import { getFavoriteCommunities } from "../../store/favorite_communities";
 import { getFavoriteUsers } from "../../store/favorite_users";
+import { getCommunities } from "../../store/communities";
 
 const NavBar = ({
   searchQuery,
@@ -37,6 +38,7 @@ const NavBar = ({
     dispatch(getFavoriteUsers());
     dispatch(getUserFollowers(user?.id));
     dispatch(getFollowers());
+    dispatch(getCommunities());
   }, [dispatch]);
 
   return (
