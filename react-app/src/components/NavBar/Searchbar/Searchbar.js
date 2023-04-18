@@ -59,12 +59,10 @@ export default function Searchbar({
   }, [wrapperRef]);
 
   useEffect(() => {
-    dispatch(getUsers());
-
     if (searchQuery?.length === 0) {
       setShowSearchDropdown(false);
     }
-  }, [dispatch, showSearchDropdown, searchQuery]);
+  }, [showSearchDropdown, searchQuery]);
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {

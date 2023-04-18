@@ -1,10 +1,9 @@
-from builtins import property
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 # from ..models.message import Message
 from ..models.post import Post
-from .joins import subscriptions, favorite_communities, followers, favorite_users
+from .joins import subscriptions, favorite_communities, followers, favorite_users, viewed_posts
 from datetime import datetime
 import json
 from time import time
@@ -42,6 +41,8 @@ class User(db.Model, UserMixin):
     user_subscriptions = db.relationship('Community', back_populates="subscribers", secondary=subscriptions, lazy="joined")
 
     user_favorite_communities = db.relationship('Community', back_populates='users_who_favorited', secondary=favorite_communities, lazy="joined")
+
+    user_viewed_posts = db.relationship("Post", back_populates="users_who_viewed", secondary=viewed_posts, lazy="joined")
 
     user_post_votes = db.relationship("PostVote", back_populates="user_who_liked", cascade="all,delete-orphan")
     user_comment_votes = db.relationship("CommentVote", back_populates="user_who_liked")

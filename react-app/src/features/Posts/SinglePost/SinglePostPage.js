@@ -17,8 +17,14 @@ import SinglePost from "./SinglePost";
 import BackToTop from "../../../components/BackToTop";
 import { getPosts } from "../../../store/posts";
 import { getCommunities } from "../../../store/communities";
+import { addViewedPost, getViewedPosts } from "../../../store/viewed_posts";
+import { openStdin } from "process";
 
-export default function SinglePostPage({ setShowLoginForm }) {
+export default function SinglePostPage({
+  setShowLoginForm,
+  setRecentPostList,
+  recentPostList,
+}) {
   const history = useHistory();
   const { postId } = useParams();
   const dispatch = useDispatch();
@@ -32,10 +38,28 @@ export default function SinglePostPage({ setShowLoginForm }) {
 
   useEffect(() => {
     dispatch(getSinglePost(+postId));
-    dispatch(getPosts());
+    dispatch(addViewedPost(+postId));
+    setRecentPostList([
+      ...recentPostList,
+      {
+        postId: +postId,
+        post: {
+          id: post?.id,
+          title: post?.title,
+          imgUrl: post?.imgUrl,
+          linkUrl: post?.linkUrl,
+          content: post?.content,
+          comments: post?.postComments,
+          points: post?.votes,
+          date: post?.createdAt,
+        },
+        date: new Date(),
+      },
+    ]);
+    console.log("recent post list:", recentPostList);
+
+    dispatch(getViewedPosts());
     // dispatch(getSingleCommunity(post?.communityId));
-    dispatch(getCommunities());
-    // dispatch(getSubscriptions());
   }, [dispatch, +postId]);
 
   useEffect(() => {

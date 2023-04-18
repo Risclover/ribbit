@@ -22,10 +22,8 @@ function UserProfile({ setShowLoginForm, setPageTitle }) {
 
   useEffect(() => {
     setPage("Posts");
-    dispatch(getCommunities());
     dispatch(getFollowedPosts());
     dispatch(getUsers());
-    dispatch(getPosts());
   }, [dispatch]);
 
   useEffect(() => {

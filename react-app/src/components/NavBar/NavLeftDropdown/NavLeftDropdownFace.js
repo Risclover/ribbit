@@ -16,14 +16,6 @@ export default function NavLeftDropdownFace({ pageTitle, setPageTitle }) {
   const currentUser = useSelector((state) => state.session.user);
   const [showIcon, setShowIcon] = useState(false);
 
-  useEffect(() => {
-    dispatch(getSubscriptions());
-    dispatch(getCommunities());
-    dispatch(getFollowers());
-    dispatch(getFavoriteCommunities());
-    dispatch(getFavoriteUsers());
-  }, [dispatch]);
-
   return (
     <div className="nav-left-dropdown-wrapper">
       <div

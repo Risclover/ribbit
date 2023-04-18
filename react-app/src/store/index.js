@@ -14,6 +14,7 @@ import rulesReducer from "./rules";
 import followersReducer from "./followers";
 import favoriteCommunitiesReducer from "./favorite_communities";
 import favoriteUsersReducer from "./favorite_users.js";
+import viewedPostsReducer from "./viewed_posts";
 // import messagesReducer from "./messages";
 
 const rootReducer = combineReducers({
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   followers: followersReducer,
   favoriteCommunities: favoriteCommunitiesReducer,
   favoriteUsers: favoriteUsersReducer,
+  viewedPosts: viewedPostsReducer,
   // messages: messagesReducer,
 });
 

@@ -18,6 +18,7 @@ from .api.rule_routes import rule_routes
 from .api.follower_routes import follower_routes
 from .api.favorite_community_routes import favorite_community_routes
 from .api.favorite_user_routes import favorite_user_routes
+from .api.viewed_post_routes import viewed_post_routes
 # from .api.chat_routes import chat_routes
 
 from .seeds import seed_commands
@@ -51,6 +52,7 @@ app.register_blueprint(rule_routes, url_prefix="/api/rules")
 app.register_blueprint(follower_routes, url_prefix="/api/followers")
 app.register_blueprint(favorite_community_routes, url_prefix="/api/favorite_communities")
 app.register_blueprint(favorite_user_routes, url_prefix="/api/favorite_users")
+app.register_blueprint(viewed_post_routes, url_prefix="/api/viewed_posts")
 # app.register_blueprint(chat_routes, url_prefix="/api/chats")
 
 db.init_app(app)

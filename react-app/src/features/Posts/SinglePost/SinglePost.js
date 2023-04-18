@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../../../context/Modal";
 
@@ -10,9 +10,9 @@ import SinglePostKarmabar from "./SinglePostKarmabar";
 import SinglePostAuthorBar from "./SinglePostAuthorBar";
 import SinglePostContent from "./SinglePostContent";
 import SinglePostButtonBar from "./SinglePostButtonBar";
-
 import "./SinglePost.css";
-export default function SinglePost({ id, isPage, userId, format }) {
+
+function SinglePost({ id, isPage, userId, format }) {
   const post = useSelector((state) => state.posts[id]);
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[cuser?.id]);
@@ -99,3 +99,4 @@ export default function SinglePost({ id, isPage, userId, format }) {
     </>
   );
 }
+export default memo(SinglePost);

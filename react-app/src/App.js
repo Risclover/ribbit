@@ -45,6 +45,7 @@ function App() {
   const [postType, setPostType] = useState("post");
   const [format, setFormat] = useState("Card");
   const [pageTitle, setPageTitle] = useState();
+  const [recentPostList, setRecentPostList] = useState([]);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
@@ -54,9 +55,6 @@ function App() {
       await dispatch(authenticate());
       setLoaded(true);
     })();
-    dispatch(getSubscriptions());
-    dispatch(getCommunities());
-    dispatch(getFollowers());
   }, [dispatch]);
 
   if (!loaded) {
@@ -91,6 +89,8 @@ function App() {
                 setPageTitle={setPageTitle}
                 format={format}
                 setFormat={setFormat}
+                setRecentPostList={setRecentPostList}
+                recentPostList={recentPostList}
               />
             </Route>
           )}
@@ -126,6 +126,8 @@ function App() {
               format={format}
               setFormat={setFormat}
               setShowLoginForm={setShowLoginForm}
+              setRecentPostList={setRecentPostList}
+              recentPostList={recentPostList}
             />
           </Route>
           <Route path="/c/submit" exact={true}>
@@ -178,6 +180,8 @@ function App() {
           </Route>
           <Route path="/posts/:postId" exact={true}>
             <SinglePostPage
+              setRecentPostList={setRecentPostList}
+              recentPostList={recentPostList}
               format={format}
               setShowLoginForm={setShowLoginForm}
             />

@@ -15,6 +15,13 @@ favorite_communities = db.Table(
     db.Column("community_id", db.Integer, db.ForeignKey("communities.id"), primary_key=True)
 )
 
+viewed_posts = db.Table(
+    "viewed_posts",
+    db.Model.metadata,
+    db.Column("user_id", db.Integer, db.ForeignKey("users.id"), primary_key=True),
+    db.Column("post_id", db.Integer, db.ForeignKey("posts.id"), primary_key=True)
+)
+
 class PostVote(db.Model):
     __tablename__ = "post_votes"
 

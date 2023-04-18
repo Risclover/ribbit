@@ -52,7 +52,6 @@ export default function Subscribed({
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getCommunities());
-    dispatch(getFavoriteCommunities());
     dispatch(getUsers());
   }, [dispatch]);
 

@@ -6,6 +6,7 @@ from .auth_routes import validation_errors_to_error_messages
 from app.forms import PostForm, PostUpdateForm, ImagePostForm, UpdateImagePostForm, LinkPostForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
+import datetime
 
 post_routes = Blueprint("posts", __name__)
 
@@ -302,5 +303,24 @@ def upload_image():
     return {"url": url}
 
 
+# A USER VIEWS A POST
+@post_routes.route("/<int:id>/view", methods=["POST"])
+def view_post(post_id):
+    # Retrieve the current user's ID from the session or request data
+    user_id = request.form['user_id']
 
-# ADD A LINK POST
+    # Check if the user has already viewed this post
+    viewed_post = ViewedPost.query.filter_by(user_id=user_id, post_id=post_id).first()
+
+    if viewed_post:
+        # If the user has already viewed this post, update the timestamp
+        viewed_post.timestamp = datetime.now()
+    else:
+        # If the user has not yet viewed this post, create a new viewed_post object and add it to the database
+        viewed_post = ViewedPost(user_id=user_id, post_id=post_id)
+        db.session.add(viewed_post)
+
+    db.session.commit()
+
+    # Return a JSON response indicating success
+    return jsonify({'success': True})

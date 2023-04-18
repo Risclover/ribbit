@@ -6,6 +6,7 @@ const DELETE_POST = "posts/DELETE";
 const LOAD_COMMUNITY_POSTS = "posts/LOAD_COMMUNITY_POSTS";
 const ADD_POST_VOTE = "posts/CREATE_VOTE";
 const REMOVE_POST_VOTE = "posts/REMOVE_VOTE";
+const UPDATE_VIEWED_POSTS = "posts/UPDATE_VIEWED_POSTS";
 
 export const loadPosts = (posts) => {
   return {
@@ -62,6 +63,11 @@ export const removeVote = (post) => {
     post,
   };
 };
+
+const updateViewedPosts = (viewedPosts) => ({
+  type: UPDATE_VIEWED_POSTS,
+  viewedPosts,
+});
 
 // ################################################## //
 // #################### THUNKS ##################### //
@@ -122,26 +128,6 @@ export const addCommunityPost = (payload) => async (dispatch) => {
   }
   return { errors: "testing" };
 };
-
-// export const addImagePost = (payload) => async (dispatch) => {
-//   const { title, community_id, preview_img_url } = payload;
-//   const response = await fetch(`/api/posts/submit`, {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({
-//       title,
-//       community_id,
-//       preview_img_url,
-//     }),
-//   });
-
-//   if (response.ok) {
-//     const post = await response.json();
-//     dispatch(loadPost(post));
-//     return post;
-//   }
-//   return { errors: "testing" };
-// };
 
 export const addPost = (payload) => async (dispatch) => {
   const { title, content, community_id } = payload;
@@ -292,6 +278,26 @@ export const removePostVote = (postId) => async (dispatch) => {
   return await response.json();
 };
 
+export const handlePostView = (postId, userId, dispatch) => {
+  fetch(`/posts/${postId}/view`, {
+    method: "POST",
+    body: JSON.stringify({ user_id: userId }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        fetch(`/users/${userId}/viewed-posts`)
+          .then((response) => response.json())
+          .then((data) => {
+            dispatch(updateViewedPosts(data.viewedPosts));
+          });
+      }
+    });
+};
+
 // #################### REDUCER #################### //
 
 const initialState = {};
@@ -323,6 +329,8 @@ export default function postsReducer(state = initialState, action) {
       return { ...state, [action.post.id]: action.post };
     case REMOVE_POST_VOTE:
       return { ...state, [action.post.id]: action.post };
+    case UPDATE_VIEWED_POSTS:
+      return action.post.viewedPosts;
     default:
       return state;
   }

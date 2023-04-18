@@ -18,6 +18,7 @@ import "./NavBar.css";
 import { getFavoriteCommunities } from "../../store/favorite_communities";
 import { getFavoriteUsers } from "../../store/favorite_users";
 import { getCommunities } from "../../store/communities";
+import { getPosts } from "../../store/posts";
 
 const NavBar = ({
   searchQuery,
@@ -39,6 +40,7 @@ const NavBar = ({
     dispatch(getUserFollowers(user?.id));
     dispatch(getFollowers());
     dispatch(getCommunities());
+    dispatch(getPosts());
   }, [dispatch]);
 
   return (

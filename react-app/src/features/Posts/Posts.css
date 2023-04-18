@@ -297,6 +297,172 @@
   }
 }
 
+.recent-posts-box {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 12px;
+  overflow: visible;
+  word-wrap: break-word;
+  border-radius: 5px 5px 4px 4px;
+  margin-top: 16px;
+}
+
+.recent-posts-head {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 12px;
+  text-transform: uppercase;
+  padding-bottom: 4px;
+  color: #1a1a1b;
+}
+
+.recent-post-type {
+  border-radius: 4px;
+  display: inline-block;
+  -ms-flex: 0 0 65px;
+  flex: 0 0 65px;
+  height: 49px;
+  margin-right: 7px;
+  width: 65px;
+  overflow: hidden;
+  border: 1px solid rgb(237, 239, 241);
+  padding: 0;
+  background: transparent;
+  position: relative;
+}
+
+.recent-post {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 2px solid #f6f7f8;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  cursor: pointer;
+  flex-direction: row;
+}
+
+.recent-post-li {
+  list-style-type: none;
+}
+
+.li-last .recent-post {
+  padding-bottom: 0;
+  border-bottom: 0 !important;
+}
+
+.recent-post:hover .recent-post-title {
+  text-decoration: underline;
+}
+
+.recent-post-type-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.recent-post-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #1c1c1c;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 36px;
+}
+
+.recent-post-info-bar {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #878a8c;
+  white-space: nowrap;
+}
+
+.recent-post-type-post svg {
+  height: 20px;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  color: #878a8c;
+}
+
+.recent-post-dot-spacer {
+  /* margin: 0 3px; */
+  font-size: 12px;
+}
+
+.recent-post-dot-spacer::before {
+  content: "·";
+  font-weight: 700;
+  margin: 0 3px;
+}
+
+.recent-posts-foot {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #878a8c;
+  text-align: right;
+  width: 100%;
+  cursor: pointer;
+  padding: 0;
+  margin-top: -10px !important;
+  background: white;
+  border: none;
+  font-family: "IBM Plex Sans", sans-serif;
+  border-radius: 0;
+  height: auto;
+}
+
+.recent-post-type.type-link {
+  color: #0079d3;
+  border-color: #0079d3;
+  position: relative;
+}
+
+.recent-post-type-link svg {
+  height: 20px;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  width: 20px;
+}
+
+.recent-post-type-link-box {
+  background: #0079d3;
+  border-top-left-radius: 4px;
+  bottom: 0;
+  height: 18px;
+  position: absolute;
+  right: 0;
+  width: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recent-post-type-link-box svg {
+  color: white;
+  line-height: 18px;
+  font-size: 15px !important;
+}
+
+.recent-post-list:last-child {
+  border-bottom: 0;
+}
+
 @media (max-width: 960px) {
   .posts-right-col {
     display: none;
