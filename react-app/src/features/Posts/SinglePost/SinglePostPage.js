@@ -72,6 +72,11 @@ export default function SinglePostPage({ setShowLoginForm }) {
             <div className="single-post-box-header"></div>
             <div className="single-post-community-info-content">
               <div className="single-post-community-info-name">
+                <img
+                  src={post?.communityImg}
+                  alt="Community"
+                  className="single-post-community-info-img"
+                />
                 c/{post?.communityName}
               </div>
               <div className="single-post-community-description">

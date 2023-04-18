@@ -28,6 +28,13 @@
   padding: 0 32px;
 }
 
+.single-post-community-info-img {
+  border-radius: 100%;
+  width: 54px;
+  height: 54px;
+  margin-right: 8px;
+}
+
 .comment-threadline:hover {
   /* border-color: red; */
   /* cursor: pointer; */
@@ -123,12 +130,14 @@
 }
 
 .single-post-community-info-name {
-  margin-bottom: 15px;
+  margin-bottom: 8px;
   font-size: 16px;
   font-weight: 500;
   font-family: "IBM Plex Sans", sans-serif;
   color: #1a1a1b;
   word-wrap: break-word;
+  display: flex;
+  align-items: center;
 }
 
 .single-post-community-info-content {
