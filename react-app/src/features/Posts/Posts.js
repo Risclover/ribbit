@@ -30,10 +30,6 @@ export default function Posts({
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(2);
 
-  window.onload = function () {
-    setLoader(false);
-  };
-
   const loadMore = () => {
     setLoading(true);
     setTimeout(() => {
@@ -62,9 +58,9 @@ export default function Posts({
     }
   };
 
-  // setTimeout(() => {
-  //   setLoader(false);
-  // }, 5000);
+  setTimeout(() => {
+    setLoader(false);
+  }, 5000);
 
   useEffect(() => {
     dispatch(getPosts());
