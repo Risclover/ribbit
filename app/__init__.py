@@ -19,7 +19,8 @@ from .api.follower_routes import follower_routes
 from .api.favorite_community_routes import favorite_community_routes
 from .api.favorite_user_routes import favorite_user_routes
 from .api.viewed_post_routes import viewed_post_routes
-# from .api.chat_routes import chat_routes
+from .api.thread_routes import thread_routes
+from .api.message_routes import message_routes
 
 from .seeds import seed_commands
 
@@ -53,7 +54,8 @@ app.register_blueprint(follower_routes, url_prefix="/api/followers")
 app.register_blueprint(favorite_community_routes, url_prefix="/api/favorite_communities")
 app.register_blueprint(favorite_user_routes, url_prefix="/api/favorite_users")
 app.register_blueprint(viewed_post_routes, url_prefix="/api/viewed_posts")
-# app.register_blueprint(chat_routes, url_prefix="/api/chats")
+app.register_blueprint(thread_routes, url_prefix="/api/threads")
+app.register_blueprint(message_routes, url_prefix="/api/messages")
 
 db.init_app(app)
 Migrate(app, db)

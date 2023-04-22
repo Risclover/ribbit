@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 # from ..models.message import Message
 from ..models.post import Post
+from ..models.message import user_threads
 from .joins import subscriptions, favorite_communities, followers, favorite_users, viewed_posts
 from datetime import datetime
 import json
@@ -47,6 +48,10 @@ class User(db.Model, UserMixin):
     user_post_votes = db.relationship("PostVote", back_populates="user_who_liked", cascade="all,delete-orphan")
     user_comment_votes = db.relationship("CommentVote", back_populates="user_who_liked")
     user_communities = db.relationship('Community', back_populates="community_owner", cascade="all, delete")
+
+    user_threads = db.relationship('MessageThread', back_populates='thread_users', secondary=user_threads, lazy='joined')
+    user_messages = db.relationship('Message', back_populates='sender', overlaps="recipient", primaryjoin="User.id==Message.receiver_id", cascade='all, delete')
+
     # user_messages = db.relationship("Message", back_populates="message_sender")
     # user_chats = db.relationship("Chat", back_populates="chat_users", secondary="user_chat_threads", lazy="joined")
 
@@ -139,6 +144,8 @@ class User(db.Model, UserMixin):
             'commentKarma': sum([comment.to_dict_likes()["likes"] for comment in self.user_comments]) - sum([comment.to_dict_likes()["dislikes"] for comment in self.user_comments]),
             'profile_img': self.profile_img,
             'bannerImg': self.banner_img,
+            'unreadMsgs': len([msg.id for msg in self.user_messages if not msg.read])
+
             # 'messagesReceived': {item.to_dict()["id"]: item.to_dict() for item in self.messages_received},
             # 'messagesSent': {item.to_dict()["id"]: item.to_dict() for item in self.messages_sent}
             # 'followers': self.followers,

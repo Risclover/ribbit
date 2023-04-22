@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import UploadBannerImage from "../../pages/UserProfile/UploadBannerImage";
+import UploadBannerImageModal from "../../components/Modals/UploadBannerImageModal";
 import { Modal } from "../../context/Modal";
 import Camera from "../../images/user-profile-icons/camera.png";
 
-export default function UserBannerModal({ user, currentUser }) {
+export default function UploadUserBanner({ user, currentUser }) {
   const [showBannerModal, setShowBannerModal] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ export default function UserBannerModal({ user, currentUser }) {
           onClose={() => setShowBannerModal(false)}
           title="Change Profile Banner"
         >
-          <UploadBannerImage
+          <UploadBannerImageModal
             setShowBannerModal={setShowBannerModal}
             showBannerModal={showBannerModal}
             img_url={user?.bannerImg}

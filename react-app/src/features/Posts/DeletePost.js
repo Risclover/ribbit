@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
-import DeleteConfirmation from "./DeleteConfirmation";
+import DeleteConfirmation from "../../components/Modals/DeleteConfirmation";
 
 export default function DeletePostModal({ post, community, isPage }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);

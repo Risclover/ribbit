@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { Modal } from "../../context/Modal";
-import UploadUserImage from "./UploadUserImage";
+import UploadUserImage from "../../components/Modals/UploadUserImageModal";
 import { SlArrowRight } from "react-icons/sl";
 import Camera from "../../images/user-profile-icons/camera.png";
 import Flower from "../../images/user-profile-icons/poinsettia.png";
@@ -14,8 +14,9 @@ import {
   getUserFollowers,
 } from "../../store/followers";
 import UserProfileFollowers from "../../components/Modals/UserProfileFollowers";
-import UserBannerModal from "../../components/Modals/UserBannerModal";
-import UserImageModal from "../../components/Modals/UserImageModal";
+import UserBannerModal from "./UploadUserBanner";
+import UserImageModal from "./UploadUserImage";
+import SendMessage from "./SendMessage";
 
 export default function UserAboutBox({ currentUser, user }) {
   const dispatch = useDispatch();
@@ -116,7 +117,7 @@ export default function UserAboutBox({ currentUser, user }) {
           )}
         </div>
 
-        {userFollowers && currentUser.id !== +userId && (
+        {userFollowers && currentUser?.id !== +userId && (
           <button
             className={
               !follows[+userId]
@@ -128,6 +129,7 @@ export default function UserAboutBox({ currentUser, user }) {
             {!follows[+userId] ? "Follow" : "Unfollow"}
           </button>
         )}
+        <SendMessage userId={+userId} user={user?.username} />
       </div>
       {showFollowersModal && (
         <Modal onClose={() => setShowFollowersModal(false)} title="Followers">

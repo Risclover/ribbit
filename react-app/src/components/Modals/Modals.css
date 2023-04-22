@@ -42,14 +42,23 @@
   opacity: 0.9;
 }
 
-.modal-buttons {
+.modal-buttons,
+.message-modal-buttons {
   padding: 16px;
   background: #edeff1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
-.modal-buttons button {
+.message-modal-buttons {
+  padding: 0;
+  padding-left: 16px;
+  justify-content: space-between;
+}
+
+.modal-buttons button,
+.message-modal-buttons button {
   border-radius: 100px;
   height: 32px;
   padding: 4px 16px;
@@ -377,4 +386,54 @@
   /* opacity: 0.9 !important; */
   color: rgba(234, 0, 39, 0.8) !important;
   background: #dddddd;
+}
+
+.message-modal-container {
+  width: 550px;
+}
+
+.message-modal-form {
+  display: flex;
+  flex-direction: column;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.message-modal-label {
+  font-size: large;
+  font-weight: 500;
+  color: #373c3f;
+  margin-bottom: 15px;
+}
+
+.message-modal-label-subtext {
+  color: #878a8c;
+  font-size: smaller;
+}
+
+.message-modal-input {
+  margin: 0;
+  margin-top: 5px;
+  font-size: 100%;
+  width: 492px;
+  padding: 3px;
+  border: 1px solid gray;
+  height: 30px;
+}
+
+.message-modal-textarea {
+  display: block;
+  margin: 0;
+  margin-top: 5px;
+  /* font-size: 1.0769230769230769em; */
+  width: 492px;
+  padding: 3px;
+  border: 1px solid gray;
+  min-height: 100px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 400;
+  resize: vertical;
+}
+
+.message-success-msg {
+  margin-right: 10px;
 }

@@ -1,43 +1,18 @@
-const LOAD_MESSAGES = "messages/LOAD_MESSAGES";
-const LOAD_MESSAGE = "messages/LOAD_MESSAGE";
+const LOAD = "messages/LOAD";
 
-const loadMessage = (message) => {
+const load = (messages) => {
   return {
-    type: LOAD_MESSAGE,
-    message,
-  };
-};
-
-const loadMessages = (messages) => {
-  return {
-    type: LOAD_MESSAGES,
+    type: LOAD,
     messages,
   };
 };
 
-export const getMessages = (id) => async (dispatch) => {
-  const response = await fetch(`/api/messages/${id}`);
+export const getMessages = () => async (dispatch) => {
+  const response = await fetch("/api/messages");
   if (response.ok) {
-    const messages = await response.json();
-    dispatch(loadMessages(messages));
-    return messages;
-  }
-};
-
-export const sendMessage = (payload, recipientId) => async (dispatch) => {
-  const { body } = payload;
-  const response = await fetch(`/api/messages/send/${recipientId}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      body,
-    }),
-  });
-
-  if (response.ok) {
-    const message = await response.json();
-    dispatch(loadMessage(message));
-    return message;
+    const data = await response.json();
+    dispatch(load(data));
+    return data;
   }
 };
 
@@ -45,16 +20,11 @@ const initialState = {};
 
 export default function messagesReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_MESSAGES:
+    case LOAD:
       return action.messages.Messages.reduce((messages, message) => {
         messages[message.id] = message;
         return messages;
       }, {});
-    case LOAD_MESSAGE:
-      return {
-        ...state,
-        [action.message.id]: { ...action.message },
-      };
     default:
       return state;
   }

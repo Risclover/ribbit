@@ -40,10 +40,6 @@ export default function SubscribedPosts({
   );
 
   useEffect(() => {
-    dispatch(getCommunities());
-    dispatch(getPosts());
-    dispatch(getSubscriptions());
-
     document.title = "Ribbit - Splash into anything";
     setPageTitle(
       <div className="nav-left-dropdown-face-title">
@@ -98,7 +94,7 @@ export default function SubscribedPosts({
 
   setTimeout(() => {
     setLoader(false);
-  }, 5000);
+  }, 3000);
 
   if (!user || !communities) return null;
 
@@ -108,68 +104,70 @@ export default function SubscribedPosts({
     >
       {loader && <LoadingEllipsis loader={loader} />}
 
-      <>
-        <div
-          className={
-            format === "Card" ? "posts-left-col" : "posts-left-col-alt"
-          }
-        >
-          <CreatePostBar />
-          {!noPosts && (
-            <SortingBar
-              sortMode={sortMode}
-              setSortMode={setSortMode}
-              setFormat={setFormat}
-              format={format}
-            />
-          )}
-          {noPosts && (
-            <div className="no-posts-div">
-              <i className="fa-solid fa-people-group"></i>
-              <h1 className="head">No Subscriptions Yet</h1>
-              <p>
-                Explore the All feed or the Communities Directory to discover
-                new communities.
-              </p>
-            </div>
-          )}
-          {postList.slice(0, 10).map((post, idx) => (
-            <NavLink key={post.id} to={`/posts/${post.id}`}>
-              <SinglePost
-                key={idx}
-                setShowLoginForm={setShowLoginForm}
-                id={post.id}
-                postComments={Object.values(post.postComments).length}
-                isCommunity={false}
+      {!loader && (
+        <>
+          <div
+            className={
+              format === "Card" ? "posts-left-col" : "posts-left-col-alt"
+            }
+          >
+            <CreatePostBar />
+            {!noPosts && (
+              <SortingBar
+                sortMode={sortMode}
+                setSortMode={setSortMode}
+                setFormat={setFormat}
                 format={format}
               />
-            </NavLink>
-          ))}
-          {items.map((post, idx) => (
-            <NavLink key={post.id} to={`/posts/${post.id}`}>
-              <SinglePost
-                key={idx + 10}
-                setShowLoginForm={setShowLoginForm}
-                id={post.id}
-                postComments={Object.values(post.postComments).length}
-                isCommunity={false}
-                format={format}
-              />
-            </NavLink>
-          ))}
-        </div>
-        <div className="posts-right-col">
-          <AboutBox
-            title="Home"
-            description="Your personal Ribbit frontpage. Come here to check in with your favorite communities."
-            user={user}
-          />
-          <div className="last-box-wrapper">
-            <DeveloperLinksBox />
-            <BackToTop />
+            )}
+            {noPosts && (
+              <div className="no-posts-div">
+                <i className="fa-solid fa-people-group"></i>
+                <h1 className="head">No Subscriptions Yet</h1>
+                <p>
+                  Explore the All feed or the Communities Directory to discover
+                  new communities.
+                </p>
+              </div>
+            )}
+            {postList.slice(0, 10).map((post, idx) => (
+              <NavLink key={post.id} to={`/posts/${post.id}`}>
+                <SinglePost
+                  key={idx}
+                  setShowLoginForm={setShowLoginForm}
+                  id={post.id}
+                  postComments={Object.values(post.postComments).length}
+                  isCommunity={false}
+                  format={format}
+                />
+              </NavLink>
+            ))}
+            {items.map((post, idx) => (
+              <NavLink key={post.id} to={`/posts/${post.id}`}>
+                <SinglePost
+                  key={idx + 10}
+                  setShowLoginForm={setShowLoginForm}
+                  id={post.id}
+                  postComments={Object.values(post.postComments).length}
+                  isCommunity={false}
+                  format={format}
+                />
+              </NavLink>
+            ))}
           </div>
-        </div>
-      </>
+          <div className="posts-right-col">
+            <AboutBox
+              title="Home"
+              description="Your personal Ribbit frontpage. Come here to check in with your favorite communities."
+              user={user}
+            />
+            <div className="last-box-wrapper">
+              <DeveloperLinksBox />
+              <BackToTop />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

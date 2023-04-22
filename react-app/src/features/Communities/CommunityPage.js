@@ -5,7 +5,7 @@ import { getSingleCommunity } from "../../store/one_community";
 import { getPosts } from "../../store/posts";
 import { getSubscriptions } from "../../store/subscriptions";
 import "./CommunityPage.css";
-import CommunityWelcomeModal from "../../components/Modals/CommunityWelcomeModal";
+import CommunityWelcome from "./CommunityWelcome";
 import CommunityRulesBox from "./CommunityRulesBox";
 import CommunityImage from "./CommunityImage";
 import CommunityInfoBox from "./CommunityInfoBox";
@@ -115,7 +115,7 @@ export default function CommunityPage({ setPageTitle, format, setFormat }) {
         </div>
       </div>
 
-      <CommunityWelcomeModal
+      <CommunityWelcome
         community={community}
         user={user}
         posts={posts}

@@ -11,7 +11,7 @@ import NavUserDropdown from "./NavUserDropdown";
 import NavLeftDropdownFace from "./NavLeftDropdown/NavLeftDropdownFace";
 import LoginForm from "../../features/auth/AuthModal/LoginForm";
 import SignUpForm from "../../features/auth/AuthModal/SignUpForm";
-
+import { IoMdNotificationsOutline } from "react-icons/io";
 import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
 
 import "./NavBar.css";
@@ -19,6 +19,7 @@ import { getFavoriteCommunities } from "../../store/favorite_communities";
 import { getFavoriteUsers } from "../../store/favorite_users";
 import { getCommunities } from "../../store/communities";
 import { getPosts } from "../../store/posts";
+import { getMessages } from "../../store/messages";
 
 const NavBar = ({
   searchQuery,
@@ -32,9 +33,13 @@ const NavBar = ({
 
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
+  const [notifications, setNotifications] = useState(0);
+
+  const messages = useSelector((state) => Object.values(state.messages));
 
   useEffect(() => {
     dispatch(getSubscriptions());
+    dispatch(getMessages());
     dispatch(getFavoriteCommunities());
     dispatch(getFavoriteUsers());
     dispatch(getUserFollowers(user?.id));
@@ -42,6 +47,10 @@ const NavBar = ({
     dispatch(getCommunities());
     dispatch(getPosts());
   }, [dispatch]);
+
+  useEffect(() => {
+    setNotifications(user?.unreadMsgs);
+  }, [user?.unreadMsgs]);
 
   return (
     <nav>
@@ -100,6 +109,12 @@ const NavBar = ({
         setSearchQuery={setSearchQuery}
         adjustQuery={adjustQuery}
       />
+      <div className="notification-wrapper">
+        <span className="notification-icon">
+          <IoMdNotificationsOutline />
+        </span>
+        <div className="notification-number">{notifications}</div>
+      </div>
       {!user && (
         <button
           className="blue-btn-filled loginsignup"

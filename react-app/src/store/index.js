@@ -15,7 +15,8 @@ import followersReducer from "./followers";
 import favoriteCommunitiesReducer from "./favorite_communities";
 import favoriteUsersReducer from "./favorite_users.js";
 import viewedPostsReducer from "./viewed_posts";
-// import messagesReducer from "./messages";
+import threadsReducer from "./threads";
+import messagesReducer from "./messages";
 
 const rootReducer = combineReducers({
   session,
@@ -33,7 +34,8 @@ const rootReducer = combineReducers({
   favoriteCommunities: favoriteCommunitiesReducer,
   favoriteUsers: favoriteUsersReducer,
   viewedPosts: viewedPostsReducer,
-  // messages: messagesReducer,
+  threads: threadsReducer,
+  messages: messagesReducer,
 });
 
 let enhancer;

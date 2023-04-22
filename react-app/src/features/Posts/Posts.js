@@ -73,10 +73,6 @@ function Posts({ format, setFormat, setShowLoginForm, setPageTitle }) {
     history.push(`/posts/${postId}`);
   };
 
-  // setTimeout(() => {
-  //   setLoader(false);
-  // }, 5000);
-
   useEffect(() => {
     dispatch(getPosts());
 

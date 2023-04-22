@@ -67,11 +67,13 @@ button:disabled {
 
 .blue-btn-unfilled {
   background: white;
+
   color: #0079d3;
 }
 
 .btn-long {
   width: 100%;
+  margin-top: 8px;
 }
 
 .btn-short {

@@ -4,6 +4,6 @@ from wtforms.validators import DataRequired, Length, URL, ValidationError
 from app.models import Message
 
 class MessageForm(FlaskForm):
-    body = StringField("Body", validators=[DataRequired()])
+    content = StringField("Content", validators=[DataRequired()])
     submit = SubmitField("Submit")
 6

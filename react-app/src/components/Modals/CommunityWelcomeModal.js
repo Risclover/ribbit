@@ -1,41 +1,44 @@
-import React, { useEffect, useState } from "react";
-import { Modal } from "../../context/Modal";
-import CommunityWelcome from "../../features/Communities/CommunityWelcome";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleCommunity } from "../../store/one_community";
 
 export default function CommunityWelcomeModal({
+  showWelcomeModal,
+  setShowWelcomeModal,
   community,
-  user,
-  posts,
-  commPosts,
 }) {
-  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (community?.userId === user?.id) {
-        if (posts.length === 0 || posts === undefined || !posts) {
-          setShowWelcomeModal(true);
-        } else if (commPosts.length !== 0) {
-          setShowWelcomeModal(false);
-        }
-      }
-    }, 1000);
-  }, [commPosts]);
+  const singleCommunity = useSelector((state) =>
+    Object.values(state.singleCommunity)
+  );
 
   return (
-    <div>
+    <>
       {showWelcomeModal && (
-        <Modal
-          onClose={() => setShowWelcomeModal(false)}
-          title="Create your first post"
-        >
-          <CommunityWelcome
-            setShowWelcomeModal={setShowWelcomeModal}
-            showWelcomeModal={showWelcomeModal}
-            community={community}
-          />
-        </Modal>
+        <div className="modal-container">
+          <div className="modal-content">
+            Welcome to your new community, c/{singleCommunity[0].name}! Set the
+            tone for your community and welcome new members with a post.
+          </div>
+          <div className="modal-buttons">
+            <button
+              className="blue-btn-unfilled-modal btn-short"
+              onClick={() => setShowWelcomeModal(false)}
+            >
+              Continue
+            </button>
+            <button
+              className="blue-btn-filled btn-short"
+              onClick={() => history.push(`/posts/submit`)}
+            >
+              Create A Post
+            </button>
+          </div>
+        </div>
       )}
-    </div>
+    </>
   );
 }
