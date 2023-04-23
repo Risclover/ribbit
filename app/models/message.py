@@ -40,6 +40,8 @@ class MessageThread(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.String(50), nullable=True)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     messages = db.relationship('Message', back_populates='message_thread', cascade='all, delete')
     thread_users = db.relationship('User', back_populates='user_threads', secondary=user_threads, lazy='joined')
@@ -50,6 +52,8 @@ class MessageThread(db.Model):
             "subject": self.subject,
             "messages": [msg.to_dict() for msg in self.messages],
             "users": [user.to_dict() for user in self.thread_users],
+            "createdAt": self.created_at,
+            "updatedAt": self.updated_at
         }
 
     def __repr__(self):

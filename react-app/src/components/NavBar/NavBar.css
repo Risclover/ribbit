@@ -1,3 +1,4 @@
+.navbar-nav,
 nav {
   display: flex;
   position: fixed;
@@ -16,12 +17,14 @@ nav {
   min-width: 200px;
 }
 
+.navbar-nav,
 nav ul {
   display: flex;
   list-style-type: none;
   justify-content: space-between;
 }
 
+.navbar-nav,
 nav ul li {
   display: flex;
   align-items: center;
@@ -34,7 +37,7 @@ nav ul li {
 }
 
 .notification-icon {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 400;
   height: 20px;
   line-height: 20px;
@@ -51,7 +54,7 @@ nav ul li {
   font-size: 10px;
   font-weight: 700;
   height: 16px;
-  left: 20px;
+  left: 15px;
   line-height: 16px;
   padding: 0 4px;
   position: absolute;

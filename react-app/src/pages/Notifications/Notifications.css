@@ -2,4 +2,106 @@
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 48px);
+  width: 648px;
+  margin: 0 auto;
+}
+
+.notifications-header {
+  display: flex;
+  flex-direction: column;
+  height: 131px;
+}
+
+.notifications-header h1 {
+  padding: 40px 0 21px;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 26px;
+  color: #1c1c1c;
+}
+
+.notifications-button-bar {
+  display: block;
+  width: 100%;
+}
+
+.notifications-button-bar-list {
+  list-style: none;
+  display: flex;
+  width: 100%;
+}
+
+.notifications-button-bar-item {
+  cursor: pointer;
+  padding: 15px 12px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #7c7c7c;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  border-bottom: none;
+  display: inline-block;
+  line-height: unset;
+  margin-right: 8px;
+  display: flex;
+  height: 50px;
+  text-align: center;
+  justify-content: center;
+}
+
+.notifications-button-bar-active {
+  border-bottom: 3px solid #0079d3;
+  color: #1c1c1c;
+  padding-right: 17px;
+  height: 44px;
+}
+
+.notifications-button-bar-messages {
+  margin-right: auto;
+  padding-right: 17px;
+  height: 41px;
+}
+
+.notifications-button-bar-item svg {
+  font-size: 20px;
+  margin-right: 6px;
+  line-height: 20px;
+}
+
+.notifications-main-wrapper {
+  max-width: 1248px;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.notifications-main {
+  max-width: 740px;
+  flex: 1 1 100%;
+  min-width: 0;
+  width: 100%;
+}
+
+.notifications-spacer {
+  margin: 0 auto 16px;
+  max-width: 648px;
+}
+
+.notifications-content {
+  border-radius: 4px;
+  margin: 0 auto;
+  max-width: 648px;
+  background: #fff;
+  width: 100%;
+}
+
+.notifications-content-header {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
 }

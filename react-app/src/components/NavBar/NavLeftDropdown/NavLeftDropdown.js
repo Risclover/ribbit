@@ -254,7 +254,8 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
             />
           ))}
 
-      {["Home", "Popular", "All"].filter((item) =>
+      {/* Don't forget to add 'Popular' back in */}
+      {["Home", "All"].filter((item) =>
         item.toLowerCase().includes(filter.toLowerCase())
       ).length > 0 && <div className="nav-left-dropdown-title">Feeds</div>}
 
@@ -272,7 +273,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
         </div>
       )}
 
-      {"Popular".toLowerCase().includes(filter.toLowerCase()) && (
+      {/* {"Popular".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
           onClick={(e) => {
@@ -284,7 +285,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           <img src={Popular} className="nav-left-dropdown-item-icon" />
           <span className="nav-left-dropdown-item">Popular</span>
         </div>
-      )}
+      )} */}
 
       {"All".toLowerCase().includes(filter.toLowerCase()) && (
         <div
@@ -300,8 +301,9 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
         </div>
       )}
 
-      {["User Settings", "Messages", "Create Post", "Notifications"].filter(
-        (item) => item.toLowerCase().includes(filter.toLowerCase())
+      {/* Don't forget to add 'Notifications' and 'Messages' back here */}
+      {["User Settings", "Create Post"].filter((item) =>
+        item.toLowerCase().includes(filter.toLowerCase())
       ).length > 0 && <div className="nav-left-dropdown-title">Other</div>}
 
       {"User Settings".toLowerCase().includes(filter.toLowerCase()) && (
@@ -321,7 +323,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
         </div>
       )}
 
-      {"Messages".toLowerCase().includes(filter.toLowerCase()) && (
+      {/* {"Messages".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
           onClick={(e) => {
@@ -337,7 +339,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           />
           <span className="nav-left-dropdown-item">Messages</span>
         </div>
-      )}
+      )} */}
 
       {"Create Post".toLowerCase().includes(filter.toLowerCase()) && (
         <div
@@ -352,7 +354,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           <span className="nav-left-dropdown-item">Create Post</span>
         </div>
       )}
-
+      {/*
       {"Notifications".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
@@ -365,7 +367,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           <FaRegBell />
           <span className="nav-left-dropdown-item">Notifications</span>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

@@ -53,7 +53,7 @@ const NavBar = ({
   }, [user?.unreadMsgs]);
 
   return (
-    <nav>
+    <nav className="navbar-nav">
       <ul>
         <li>
           <NavLink to="/" exact={true}>
@@ -109,12 +109,12 @@ const NavBar = ({
         setSearchQuery={setSearchQuery}
         adjustQuery={adjustQuery}
       />
-      <div className="notification-wrapper">
+      {/* <div className="notification-wrapper">
         <span className="notification-icon">
           <IoMdNotificationsOutline />
         </span>
         <div className="notification-number">{notifications}</div>
-      </div>
+      </div> */}
       {!user && (
         <button
           className="blue-btn-filled loginsignup"

@@ -16,6 +16,8 @@ const Chat = () => {
     socket.on("chat", (chat) => {
       setMessages((messages) => [...messages, chat]);
     });
+
+    socket.on("join", )
     // when component unmounts, disconnect
     return () => {
       socket.disconnect();

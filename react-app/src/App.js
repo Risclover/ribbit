@@ -28,13 +28,14 @@ import UpdateImagePost from "./features/Posts/ImagePost/UpdateImagePost";
 
 import { Modal } from "./context/Modal";
 import CommunitiesDirectory from "./pages/CommunitiesDirectory.js/CommunitiesDirectory";
-import MessageWindow from "./features/Messages/MessageWindow";
 import Chat from "./features/Messages/Chat";
 import LoginPage from "./features/auth/LoginPage";
 import SingleImagePage from "./features/Posts/SinglePost/SingleImagePage/SingleImagePage";
 import { getSubscriptions } from "./store/subscriptions";
 import { getCommunities } from "./store/communities";
 import { getFollowers } from "./store/followers";
+import Notifications from "./pages/Notifications/Notifications";
+import Messages from "./features/Messages/Messages";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -189,14 +190,15 @@ function App() {
           <Route path="/image/:imageId" exact={true}>
             <SingleImagePage />
           </Route>
-          <Route path="/messages/:recipientId" exact={true}>
-            <MessageWindow />
-          </Route>
+
           <Route path="/directory" exact={true}>
             <CommunitiesDirectory setPageTitle={setPageTitle} />
           </Route>
           <Route path="/chat" exact={true}>
             <Chat />
+          </Route>
+          <Route path="/message" exact={true}>
+            <Messages setPageTitle={setPageTitle} />
           </Route>
           <Route path="/posts/:postId/edit" exact={true}>
             <UpdatePost />
@@ -243,6 +245,9 @@ function App() {
               setPageTitle={setPageTitle}
               setShowLoginForm={setShowLoginForm}
             />
+          </Route>
+          <Route path="/notifications" exact={true}>
+            <Notifications />
           </Route>
           <Route>
             <h1>
