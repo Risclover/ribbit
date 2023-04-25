@@ -129,7 +129,9 @@ export default function UserAboutBox({ currentUser, user }) {
             {!follows[+userId] ? "Follow" : "Unfollow"}
           </button>
         )}
-        <SendMessage userId={+userId} user={user?.username} />
+        {userFollowers && currentUser?.id !== +userId && (
+          <SendMessage userId={+userId} user={user?.username} />
+        )}
       </div>
       {showFollowersModal && (
         <Modal onClose={() => setShowFollowersModal(false)} title="Followers">
