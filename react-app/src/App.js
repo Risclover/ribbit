@@ -197,7 +197,7 @@ function App() {
           <Route path="/chat" exact={true}>
             <Chat />
           </Route>
-          <Route path="/message" exact={true}>
+          <Route path="/message/messages" exact={true}>
             <Messages setPageTitle={setPageTitle} />
           </Route>
           <Route path="/posts/:postId/edit" exact={true}>

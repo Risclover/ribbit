@@ -18,7 +18,7 @@ export default function SendMessage({ userId, user }) {
           <MessageModal
             userId={userId}
             setShowMessageModal={setShowMessageModal}
-            user={user}
+            username={user?.username}
           />
         </Modal>
       )}

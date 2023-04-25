@@ -42,6 +42,10 @@ export default function MessageModal({
     }
   }, [recipient, receiver]);
 
+  useEffect(() => {
+    console.log("sliced:", username?.slice(0, 3));
+  }, []);
+
   const handleSend = async (e) => {
     e.preventDefault();
     setSuccessMsg("Submitting...");

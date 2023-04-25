@@ -1,3 +1,11 @@
+.messages-page {
+  background: #edeff1;
+  height: 100%;
+  min-height: calc(100vh - 49px);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+}
+
 .messages-header {
   background-color: #0079d3;
   border-bottom: none;
@@ -10,10 +18,38 @@
   margin: 0 20px 0 100px;
 }
 
+.messages-content-menu {
+  background: #0079d3;
+}
+
+.messages-content-menu-list {
+  display: flex;
+  list-style: none;
+  color: white;
+  margin: 0 20px 0 100px;
+}
+
+.messages-content-menu-list-item {
+  margin: 0 10px;
+  padding: 0 10px 3px;
+  color: #edeff1;
+  border-bottom: 2px transparent solid;
+  background: transparent;
+  text-transform: capitalize;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+  margin-top: -3px;
+}
+
+.messages-content-menu-list-item.messages-menu-item-active {
+  border-bottom-color: #fff;
+}
+
 .messages-main-menu-item {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: inline-block;
   padding: 0 10px;
+  margin: 0 3px;
   font-size: larger;
   background-color: transparent;
   color: #edeff1;
@@ -21,7 +57,13 @@
   border: none;
   cursor: pointer;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 14.4px;
+  opacity: 0.8;
+}
+
+.messages-main-menu-selected {
+  color: #80bce9;
+  opacity: 1;
 }
 
 .messages-content-message-button {
@@ -34,4 +76,169 @@
   background: transparent;
   border-radius: 0;
   border: 0;
+}
+
+.messages-content-message-button:hover {
+  text-decoration: underline;
+}
+
+.messages-content-main {
+  margin: 20px auto;
+  width: 70%;
+  min-width: 700px;
+}
+
+.messages-content-item {
+  padding: 10px 15px;
+  margin: 0;
+  background: white;
+}
+
+.messages-content-item:nth-of-type(4n + 1) {
+  background: #f6f7f8;
+}
+
+.messages-content-top-box {
+  margin-bottom: 10px;
+}
+
+.messages-content-subject-box {
+  display: flex;
+  align-items: center;
+}
+
+.messages-content-sender {
+  background-color: white;
+  border: 1px solid #336699;
+  color: #80bce9;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 1px 5px;
+  border-radius: 7px;
+  font-weight: bold;
+  /* font-size: larger; */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+  height: 21px;
+}
+
+.messages-content-sender a {
+  margin-right: 6px;
+}
+
+.messages-content-subject {
+  font-weight: bold;
+  color: #373c3f;
+}
+
+.messages-content-expand-btn {
+  background: transparent;
+  color: #0079d3;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-radius: 0;
+  border: 0;
+  font-size: smaller;
+  margin: 0px 5px;
+  margin-top: 4px;
+  display: inline-block;
+  padding: 0;
+  height: auto;
+  line-height: 9px;
+  padding-top: 2px;
+}
+
+.messages-content-message {
+  margin-left: 10px;
+  border-left: 2px dashed #e7e7e7;
+  padding: 10px;
+  padding-bottom: 5px;
+}
+
+.messages-content-message-author {
+  padding-left: 14px;
+  margin-top: -5px;
+  font-size: 10px;
+  color: #878a8c;
+}
+
+.expanded-btn {
+  font-size: 10px;
+  display: inline;
+  margin-right: 3px;
+  color: #0079d3;
+  cursor: pointer;
+}
+
+.expanded-btn:hover {
+  text-decoration: underline;
+}
+
+.messages-content-message-author a {
+  color: #80bce9;
+}
+
+.messages-content-message-author a:hover {
+  text-decoration: underline;
+}
+
+.messages-content-message-body {
+  margin-left: 15px;
+  font-size: 12.8px;
+  max-width: 60em;
+  font-weight: 400;
+  word-wrap: break-word;
+  color: #373c3f;
+  margin-top: 2px;
+}
+
+.messages-content-message-button-bar {
+  margin-left: 10px;
+  border-left: 2px dashed #e7e7e7;
+  /* padding-top: 5px; */
+  padding-left: 25px;
+  padding-bottom: 10px;
+}
+
+.messages-reply-box {
+  margin-top: 10px;
+  font-size: 12px;
+  width: 500px;
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-reply-input {
+  margin-left: 15px;
+  width: 500px;
+  height: 100px;
+  line-height: 1.5em;
+  font-size: 12px;
+  padding: 2px;
+  font: normal small verdana, arial, helvetica, sans-serif;
+}
+
+.messages-reply-btns button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #0079d3;
+  border: 2px solid #0079d3;
+  border-right: 2px solid #00497f;
+  border-bottom: 2px solid #00497f;
+  padding: 4px 16px 4px;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 5px 5px 10px 0;
+  cursor: pointer;
+  height: auto;
+  font-weight: 600;
+  height: 29px;
+}
+
+.messages-reply-btns button:active {
+  border-style: inset;
+  border: 2px solid #0079d3;
+  border-top: 2px solid #00497f;
+  border-left: 2px solid #00497f;
 }

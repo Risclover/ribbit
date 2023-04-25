@@ -8,14 +8,20 @@ import { Modal } from "../../context/Modal";
 import MessageModal from "../../components/Modals/MessageModal";
 import MessageReply from "./MessageReply";
 import "./Messages.css";
+import { getUsers } from "../../store/users";
+import Message from "./Message";
+import MessageThread from "./MessageThread";
 export default function Messages({ setPageTitle }) {
   const dispatch = useDispatch();
   const messages = useSelector((state) => Object.values(state.messages));
   const threads = useSelector((state) => Object.values(state.threads));
 
+  const [showMessageModal, setShowMessageModal] = useState(false);
+
   useEffect(() => {
     dispatch(getMessages());
     dispatch(getThreads());
+    dispatch(getUsers());
     setPageTitle("Messages");
   }, []);
 
@@ -36,49 +42,37 @@ export default function Messages({ setPageTitle }) {
     <div className="messages-page">
       <div className="messages-header">
         <ul className="messages-main-menu">
-          <li className="messages-main-menu-item">Send A Private Message</li>
-          <li className="messages-main-menu-item">Inbox</li>
+          <li
+            className="messages-main-menu-item"
+            onClick={() => setShowMessageModal(true)}
+          >
+            Send A Private Message
+          </li>
+          <li className="messages-main-menu-item messages-main-menu-selected">
+            Inbox
+          </li>
           <li className="messages-main-menu-item">Sent</li>
         </ul>
       </div>
+      {showMessageModal && (
+        <Modal onClose={() => setShowMessageModal(false)} title="Send Message">
+          <MessageModal setShowMessageModal={setShowMessageModal} username="" />
+        </Modal>
+      )}
       <div className="messages-content">
         <div className="messages-content-menu">
           <ul className="messages-content-menu-list">
             <li className="messages-content-menu-list-item">All</li>
             <li className="messages-content-menu-list-item">Unread</li>
-            <li className="messages-content-menu-list-item">Messages</li>
+            <li className="messages-content-menu-list-item messages-menu-item-active">
+              Messages
+            </li>
             <li className="messages-content-menu-list-item">Post Replies</li>
           </ul>
         </div>
         <div className="messages-content-main">
           {threads.map((item) => (
-            <div className="messages-content-item">
-              <div className="messages-content-subject-box">
-                <div className="messages-content-sender">
-                  <NavLink to={`/users/${item.users[1].id}/profile`}>
-                    /u/{item.users[1].username}
-                  </NavLink>
-                </div>
-                <div className="messages-content-subject">{item.subject}:</div>
-              </div>
-              <div className="messages-content-message-list">
-                {item.messages.map((message) => (
-                  <div className="messages-content-message">
-                    <div className="messages-content-message-author">
-                      from{" "}
-                      <NavLink to={`/users/${message.sender.id}/profile`}>
-                        /u/{message.sender.username}
-                      </NavLink>{" "}
-                      sent {moment(message.createdAt).fromNow()}
-                    </div>
-                    <div className="messages-content-message-body">
-                      {message.content}
-                    </div>
-                    <MessageReply message={message} threadId={item.id} />
-                  </div>
-                ))}
-              </div>
-            </div>
+            <MessageThread item={item} />
           ))}
         </div>
       </div>

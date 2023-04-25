@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createMessage, getThreads } from "../../store/threads";
 import { getMessages } from "../../store/messages";
 
-export default function MessageReply({ message, threadId }) {
+export default function MessageReply({ message, threadId, expanded }) {
   const dispatch = useDispatch();
   const [reply, setReply] = useState("");
   const [showReplyBox, setShowReplyBox] = useState(false);
@@ -23,16 +23,18 @@ export default function MessageReply({ message, threadId }) {
   };
   return (
     <div>
-      <div className="messages-content-message-button-bar">
-        {message.sender.username !== currentUser?.username && (
-          <button
-            className="messages-content-message-button"
-            onClick={() => setShowReplyBox(true)}
-          >
-            Reply
-          </button>
-        )}
-      </div>
+      {expanded && (
+        <div className="messages-content-message-button-bar">
+          {message.sender.username !== currentUser?.username && (
+            <button
+              className="messages-content-message-button"
+              onClick={() => setShowReplyBox(true)}
+            >
+              Reply
+            </button>
+          )}
+        </div>
+      )}
       {showReplyBox && (
         <div className="messages-reply-box">
           <textarea
@@ -40,15 +42,17 @@ export default function MessageReply({ message, threadId }) {
             onChange={(e) => setReply(e.target.value)}
             value={reply}
           ></textarea>
-          <button className="messages-reply-save-btn" onClick={handleReply}>
-            Save
-          </button>
-          <button
-            className="messages-reply-cancel-btn"
-            onClick={() => setShowReplyBox(false)}
-          >
-            Cancel
-          </button>
+          <div className="messages-reply-btns">
+            <button className="messages-reply-save-btn" onClick={handleReply}>
+              Save
+            </button>
+            <button
+              className="messages-reply-cancel-btn"
+              onClick={() => setShowReplyBox(false)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       )}
     </div>
