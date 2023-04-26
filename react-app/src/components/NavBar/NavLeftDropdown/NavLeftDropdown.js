@@ -22,7 +22,11 @@ import { getSubscriptions } from "../../../store/subscriptions";
 import { getCommunities } from "../../../store/communities";
 import { getFollowers, getUserFollowers } from "../../../store/followers";
 
-export default function NavLeftDropdown({ showIcon, setShowIcon }) {
+export default function NavLeftDropdown({
+  showIcon,
+  setShowIcon,
+  setPageTitle,
+}) {
   const dispatch = useDispatch();
   const wrapperRef = useRef(null);
   const history = useHistory();
@@ -54,6 +58,19 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
       });
     };
   }, [wrapperRef]);
+
+  useEffect(() => {
+    document.title = "Messages";
+    setPageTitle(
+      <div className="nav-left-dropdown-face-title">
+        <img
+          src={currentUser?.profile_img}
+          className="nav-left-dropdown-item-icon item-icon-circle"
+        />
+        <span className="nav-left-dropdown-item">Messages</span>
+      </div>
+    );
+  }, []);
 
   Object.values(favoriteCommunities).sort((a, b) =>
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
@@ -302,7 +319,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
       )}
 
       {/* Don't forget to add 'Notifications' and 'Messages' back here */}
-      {["User Settings", "Create Post"].filter((item) =>
+      {["User Settings", "Messages", "Create Post"].filter((item) =>
         item.toLowerCase().includes(filter.toLowerCase())
       ).length > 0 && <div className="nav-left-dropdown-title">Other</div>}
 
@@ -323,13 +340,13 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
         </div>
       )}
 
-      {/* {"Messages".toLowerCase().includes(filter.toLowerCase()) && (
+      {"Messages".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
-            history.push(`/users/${currentUser?.id}/profile/edit`);
+            history.push("/message/messages");
           }}
         >
           {" "}
@@ -339,7 +356,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           />
           <span className="nav-left-dropdown-item">Messages</span>
         </div>
-      )} */}
+      )}
 
       {"Create Post".toLowerCase().includes(filter.toLowerCase()) && (
         <div
