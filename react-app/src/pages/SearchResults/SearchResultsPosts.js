@@ -7,6 +7,9 @@ import "./SearchResults.css";
 import { Modal } from "../../context/Modal";
 import CreateCommunity from "../../components/Modals/CreateCommunityModal";
 import BackToTop from "../../components/BackToTop";
+import { useSelector } from "react-redux";
+import SignUpForm from "../../features/auth/AuthModal/SignUpForm";
+import LoginForm from "../../features/auth/AuthModal/LoginForm";
 
 export default function SearchResultsPosts({
   posts,
@@ -18,6 +21,9 @@ export default function SearchResultsPosts({
   setSearchPage,
 }) {
   const [showCommunityModal, setShowCommunityModal] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showSignupForm, setShowSignupForm] = useState(false);
+  const currentUser = useSelector((state) => state.session.user);
 
   return (
     <div className="search-results-posts-page">
@@ -214,12 +220,22 @@ export default function SearchResultsPosts({
             <img src={RibbitBanner} alt="Ribbit Banner" />
             <div className="search-results-create-community-box">
               <p>Have an idea for a new community?</p>
-              <button
-                className="blue-btn-unfilled btn-long"
-                onClick={() => setShowCommunityModal(true)}
-              >
-                Create Community
-              </button>
+              {currentUser && (
+                <button
+                  className="blue-btn-unfilled btn-long"
+                  onClick={() => setShowCommunityModal(true)}
+                >
+                  Create Community
+                </button>
+              )}
+              {!currentUser && (
+                <button
+                  className="blue-btn-filled btn-long"
+                  onClick={() => setShowLoginForm(true)}
+                >
+                  Log In/Sign Up
+                </button>
+              )}
             </div>
           </div>
           {showCommunityModal && (
@@ -230,6 +246,26 @@ export default function SearchResultsPosts({
               <CreateCommunity
                 showCreateCommunityModal={showCommunityModal}
                 setShowCreateCommunityModal={setShowCommunityModal}
+              />
+            </Modal>
+          )}
+          {showLoginForm && (
+            <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
+              <LoginForm
+                setShowLoginForm={setShowLoginForm}
+                showLoginForm={showLoginForm}
+                showSignupForm={showSignupForm}
+                setShowSignupForm={setShowSignupForm}
+              />
+            </Modal>
+          )}
+          {showSignupForm && (
+            <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
+              <SignUpForm
+                setShowLoginForm={setShowLoginForm}
+                showLoginForm={showLoginForm}
+                showSignupForm={showSignupForm}
+                setShowSignupForm={setShowSignupForm}
               />
             </Modal>
           )}

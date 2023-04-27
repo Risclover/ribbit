@@ -15,6 +15,8 @@ import LoadingEllipsis from "../../components/LoadingEllipsis";
 import SortingFunction from "./SortingFunction";
 import Home from "../../images/navbar/home-icon.png";
 import { getSubscriptions } from "../../store/subscriptions";
+import { addViewedPost, getViewedPosts } from "../../store/viewed_posts";
+import RecentPosts from "./RecentPosts";
 
 export default function SubscribedPosts({
   format,
@@ -38,6 +40,12 @@ export default function SubscribedPosts({
   const subscriptions = useSelector((state) =>
     Object.values(state.subscriptions)
   );
+
+  const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
+
+  useEffect(() => {
+    dispatch(getViewedPosts());
+  }, [dispatch]);
 
   useEffect(() => {
     document.title = "Ribbit - Splash into anything";
@@ -161,6 +169,7 @@ export default function SubscribedPosts({
               description="Your personal Ribbit frontpage. Come here to check in with your favorite communities."
               user={user}
             />
+            {viewedPosts && viewedPosts.length > 0 && <RecentPosts />}
             <div className="last-box-wrapper">
               <DeveloperLinksBox />
               <BackToTop />

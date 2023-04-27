@@ -37,7 +37,11 @@ export default function NavLeftDropdownFace({ pageTitle, setPageTitle }) {
         )}
       </div>
       {showIcon && (
-        <NavLeftDropdown showIcon={showIcon} setShowIcon={setShowIcon} />
+        <NavLeftDropdown
+          setPageTitle={setPageTitle}
+          showIcon={showIcon}
+          setShowIcon={setShowIcon}
+        />
       )}
     </div>
   );

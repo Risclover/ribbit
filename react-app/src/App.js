@@ -69,8 +69,6 @@ function App() {
         pageTitle={pageTitle}
         setPageTitle={setPageTitle}
         adjustQuery={adjustQuery}
-        setShowLoginForm={setShowLoginForm}
-        setShowSignupForm={setShowSignupForm}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />{" "}
@@ -102,7 +100,6 @@ function App() {
               setPostType={setPostType}
               format={format}
               setFormat={setFormat}
-              setShowLoginForm={setShowLoginForm}
             />
           </Route>
           <Route path="/login">
@@ -126,65 +123,63 @@ function App() {
               setPostType={setPostType}
               format={format}
               setFormat={setFormat}
-              setShowLoginForm={setShowLoginForm}
               setRecentPostList={setRecentPostList}
               recentPostList={recentPostList}
             />
           </Route>
-          <Route path="/c/submit" exact={true}>
+          <ProtectedRoute path="/c/submit" exact={true}>
             <CreatePost
               setPageTitle={setPageTitle}
               postType={postType}
               setPostType={setPostType}
               val="post"
             />
-          </Route>
-          <Route path="/c/submit/image" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute path="/c/submit/image" exact={true}>
             <CreatePost
               setPageTitle={setPageTitle}
               postType={postType}
               setPostType={setPostType}
               val="image"
             />
-          </Route>
-          <Route path="/c/submit/url" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute path="/c/submit/url" exact={true}>
             <CreatePost
               setPageTitle={setPageTitle}
               postType={postType}
               setPostType={setPostType}
               val="link"
             />
-          </Route>
-          <Route path="/c/:communityId/submit" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute path="/c/:communityId/submit" exact={true}>
             <CreatePost
               setPageTitle={setPageTitle}
               postType={postType}
               setPostType={setPostType}
               val="post"
             />
-          </Route>
-          <Route path="/c/:communityId/submit/image" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute path="/c/:communityId/submit/image" exact={true}>
             <CreatePost
               setPageTitle={setPageTitle}
               postType={postType}
               setPostType={setPostType}
               val="image"
             />
-          </Route>
-          <Route path="/c/:communityId/submit/url" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute path="/c/:communityId/submit/url" exact={true}>
             <CreatePost
               setPageTitle={setPageTitle}
               postType={postType}
               setPostType={setPostType}
               val="link"
             />
-          </Route>
+          </ProtectedRoute>
           <Route path="/posts/:postId" exact={true}>
             <SinglePostPage
               setRecentPostList={setRecentPostList}
               recentPostList={recentPostList}
               format={format}
-              setShowLoginForm={setShowLoginForm}
             />
           </Route>
           <Route path="/image/:imageId" exact={true}>
@@ -197,31 +192,30 @@ function App() {
           <Route path="/chat" exact={true}>
             <Chat />
           </Route>
-          <Route path="/message/messages" exact={true}>
+          <ProtectedRoute path="/message/messages" exact={true}>
             <Messages setPageTitle={setPageTitle} />
-          </Route>
-          <Route path="/posts/:postId/edit" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute path="/posts/:postId/edit" exact={true}>
             <UpdatePost />
-          </Route>
+          </ProtectedRoute>
           <Route path="/c/:communityId" exact={true}>
             <CommunityPage
               setPageTitle={setPageTitle}
               postType={postType}
               setPostType={setPostType}
-              setShowLoginForm={setShowLoginForm}
               format={format}
               setFormat={setFormat}
             />
           </Route>
-          <Route path="/c/:communityId/edit" exact={true}>
+          <ProtectedRoute path="/c/:communityId/edit" exact={true}>
             <EditCommunity />
-          </Route>
-          <Route path="/users/:userId/profile/edit" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute path="/users/:userId/profile/edit" exact={true}>
             <EditProfile setPageTitle={setPageTitle} />
-          </Route>
-          <Route path="/posts/:postId/img/edit" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute path="/posts/:postId/img/edit" exact={true}>
             <UpdateImagePost />
-          </Route>
+          </ProtectedRoute>
           <Route path="/search/results" exact={true}>
             <SearchResults
               setPageTitle={setPageTitle}
@@ -234,21 +228,15 @@ function App() {
           <ProtectedRoute path="/users" exact={true}>
             <UsersList />
           </ProtectedRoute>
-          <ProtectedRoute path="/users/:userId/profile" exact={true}>
-            <UserProfile
-              setPageTitle={setPageTitle}
-              setShowLoginForm={setShowLoginForm}
-            />
-          </ProtectedRoute>
+          <Route path="/users/:userId/profile" exact={true}>
+            <UserProfile setPageTitle={setPageTitle} />
+          </Route>
           <Route path="/profile" exact={true}>
-            <UserProfile
-              setPageTitle={setPageTitle}
-              setShowLoginForm={setShowLoginForm}
-            />
+            <UserProfile setPageTitle={setPageTitle} />
           </Route>
-          <Route path="/notifications" exact={true}>
+          <ProtectedRoute path="/notifications" exact={true}>
             <Notifications />
-          </Route>
+          </ProtectedRoute>
           <Route>
             <h1>
               ERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERR

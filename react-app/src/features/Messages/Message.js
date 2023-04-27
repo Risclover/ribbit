@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import MessageReply from "./MessageReply";
 import { useSelector } from "react-redux";
 
 export default function Message({ message, item, allExpanded }) {
+  const history = useHistory();
   const [expanded, setExpanded] = useState(true);
   const currentUser = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    if (!currentUser) history.redirect("/login");
+  }, []);
 
   useEffect(() => {
     if (allExpanded === false) {

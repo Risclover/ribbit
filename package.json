@@ -5,12 +5,19 @@
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.11",
+    "@types/react-redux": "^7.1.25",
     "moment": "^2.29.4",
     "react-infinite-scroll-component": "^6.1.0",
     "react-link-previewer": "^1.0.8",
     "react-onclickoutside": "^6.12.2",
     "react-tiny-link": "^3.6.1",
-    "typescript": "^5.0.2",
     "validator": "^13.9.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.2",
+    "vite-plugin-svgr": "^2.4.0",
+    "vite-tsconfig-paths": "^4.2.0"
   }
 }

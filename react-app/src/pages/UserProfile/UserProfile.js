@@ -43,7 +43,7 @@ function UserProfile({ setShowLoginForm, setPageTitle }) {
   useEffect(() => {
     let communityList = [];
     for (let community of Object.values(communities)) {
-      if (community.communityOwner.username === currentUser.username) {
+      if (community.communityOwner.username === currentUser?.username) {
         communityList.push(community);
       }
     }
@@ -54,7 +54,7 @@ function UserProfile({ setShowLoginForm, setPageTitle }) {
         postsList.push(post);
       }
     }
-  }, [currentUser.username, userId]);
+  }, [currentUser?.username, userId]);
 
   useEffect(() => {
     let list = [];

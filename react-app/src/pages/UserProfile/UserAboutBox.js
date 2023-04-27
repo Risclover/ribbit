@@ -37,9 +37,9 @@ export default function UserAboutBox({ currentUser, user }) {
   }, [userId, user?.bannerImg, user?.karma]);
 
   const handleFollow = async () => {
-    await dispatch(followUser(user.id));
+    await dispatch(followUser(user?.id));
     dispatch(getFollowers());
-    dispatch(getUserFollowers(user.id));
+    dispatch(getUserFollowers(user?.id));
     setFollowing(!following);
   };
 
@@ -62,27 +62,27 @@ export default function UserAboutBox({ currentUser, user }) {
         ) : (
           <img src={banner} className="user-profile-banner" alt="Banner" />
         )}
-        {currentUser.id === +userId && (
+        {currentUser?.id === +userId && (
           <UserBannerModal user={user} currentUser={currentUser} />
         )}
       </div>
       <div className="user-profile-img-box">
-        {currentUser.id === +userId && (
+        {currentUser?.id === +userId && (
           <UserImageModal user={user} currentUser={currentUser} />
         )}
         <img src={user?.profile_img} alt="User" className="user-profile-img" />
       </div>
       <div className="user-profile-about-content">
-        {currentUser.id === +userId && (
+        {currentUser?.id === +userId && (
           <NavLink to={`/users/${userId}/profile/edit`}>
             <i className="fa-solid fa-gear user-settings"></i>
           </NavLink>
         )}
-        <h1 className="user-profile-display-name">{user.displayName}</h1>
+        <h1 className="user-profile-display-name">{user?.displayName}</h1>
         <div className="user-profile-username-year">
-          <span>u/{user.username}</span>
+          <span>u/{user?.username}</span>
         </div>
-        <div className="user-profile-about">{user.about}</div>
+        <div className="user-profile-about">{user?.about}</div>
         <div className="user-profile-stats-box">
           <div className="user-profile-stats stats-karma">
             <h5>Karma</h5>
@@ -96,11 +96,11 @@ export default function UserAboutBox({ currentUser, user }) {
             <div className="stats-stats">
               <img src={Cakeday} className="stats-icon" alt="Cakeday" />
               <span className="stats-label">
-                {moment(new Date(user.createdAt)).format("MMMM DD, YYYY")}
+                {moment(new Date(user?.createdAt)).format("MMMM DD, YYYY")}
               </span>
             </div>
           </div>
-          {currentUser.id === user.id && (
+          {currentUser?.id === user?.id && (
             <div
               className="user-profile-stats stats-followers"
               onClick={() => setShowFollowersModal(true)}

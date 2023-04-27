@@ -18,7 +18,7 @@ import { SlBasketLoaded } from "react-icons/sl";
 import { addViewedPost, getViewedPosts } from "../../store/viewed_posts";
 import RecentPosts from "./RecentPosts";
 
-function Posts({ format, setFormat, setShowLoginForm, setPageTitle }) {
+function Posts({ format, setFormat, setPageTitle }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const posts = useSelector((state) => Object.values(state.posts));
@@ -119,7 +119,6 @@ function Posts({ format, setFormat, setShowLoginForm, setPageTitle }) {
                     isCommunity={false}
                     format={format}
                     isPage="all"
-                    setShowLoginForm={setShowLoginForm}
                     post={post}
                   />
                 </NavLink>
@@ -134,7 +133,6 @@ function Posts({ format, setFormat, setShowLoginForm, setPageTitle }) {
                     isCommunity={false}
                     format={format}
                     isPage="all"
-                    setShowLoginForm={setShowLoginForm}
                     post={post}
                     onClick={() => handleViewPost(post.id)}
                   />
@@ -150,7 +148,6 @@ function Posts({ format, setFormat, setShowLoginForm, setPageTitle }) {
                     isCommunity={false}
                     format={format}
                     isPage="all"
-                    setShowLoginForm={setShowLoginForm}
                     post={post}
                   />
                 </NavLink>
