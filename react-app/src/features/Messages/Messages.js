@@ -15,6 +15,7 @@ export default function Messages({ setPageTitle }) {
   const dispatch = useDispatch();
   const messages = useSelector((state) => Object.values(state.messages));
   const threads = useSelector((state) => Object.values(state.threads));
+  const currentUser = useSelector((state) => state.session.user);
 
   const [showMessageModal, setShowMessageModal] = useState(false);
 
@@ -22,7 +23,19 @@ export default function Messages({ setPageTitle }) {
     dispatch(getMessages());
     dispatch(getThreads());
     dispatch(getUsers());
-    setPageTitle("Messages");
+  }, []);
+
+  useEffect(() => {
+    document.title = "Messages";
+    setPageTitle(
+      <div className="nav-left-dropdown-face-title">
+        <img
+          src={currentUser?.profile_img}
+          className="nav-left-dropdown-item-icon item-icon-circle"
+        />
+        <span className="nav-left-dropdown-item">Messages</span>
+      </div>
+    );
   }, []);
 
   const handleReply = (e) => {

@@ -59,19 +59,6 @@ export default function NavLeftDropdown({
     };
   }, [wrapperRef]);
 
-  useEffect(() => {
-    document.title = "Messages";
-    setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <img
-          src={currentUser?.profile_img}
-          className="nav-left-dropdown-item-icon item-icon-circle"
-        />
-        <span className="nav-left-dropdown-item">Messages</span>
-      </div>
-    );
-  }, []);
-
   Object.values(favoriteCommunities).sort((a, b) =>
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
   );
