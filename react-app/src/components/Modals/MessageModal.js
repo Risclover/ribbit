@@ -16,7 +16,7 @@ export default function MessageModal({
 }) {
   const dispatch = useDispatch();
 
-  const [recipient, setRecipient] = useState(username || "");
+  const [recipient, setRecipient] = useState(username !== "" ? username : "");
   const [recipientError, setRecipientError] = useState("");
   const [receiver, setReceiver] = useState();
   const [subject, setSubject] = useState("");
@@ -28,6 +28,10 @@ export default function MessageModal({
   const currentUser = useSelector((state) => state.session.user);
   const allUsers = useSelector((state) => Object.values(state.users));
   const threads = useSelector((state) => Object.values(state.threads));
+
+  useEffect(() => {
+    console.log(recipient);
+  }, [recipient]);
 
   useEffect(() => {
     dispatch(getThreads());
@@ -102,6 +106,7 @@ export default function MessageModal({
         };
         const msg = await dispatch(createMessage(payload));
         console.log("msg:", msg);
+        console.log("recipient:", recipient, receiver);
         dispatch(getMessages());
         setTimeout(() => {
           setSuccessMsg("your message has been delivered");

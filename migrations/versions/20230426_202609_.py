@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d2f054624940
+Revision ID: c78a9078ea19
 Revises: 
-Create Date: 2023-04-22 14:21:04.422612
+Create Date: 2023-04-26 20:26:09.757571
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd2f054624940'
+revision = 'c78a9078ea19'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,6 +21,8 @@ def upgrade():
     op.create_table('message_threads',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('subject', sa.String(length=50), nullable=True),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
@@ -65,7 +67,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('sender_id', sa.Integer(), nullable=False),
     sa.Column('receiver_id', sa.Integer(), nullable=False),
-    sa.Column('content', sa.String(length=1000), nullable=False),
+    sa.Column('content', sa.String(length=10000), nullable=False),
     sa.Column('thread_id', sa.Integer(), nullable=False),
     sa.Column('read', sa.Boolean(), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),

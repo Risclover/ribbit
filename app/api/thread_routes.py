@@ -42,6 +42,7 @@ def create_thread():
     db.session.add(thread)
     db.session.commit()
 
+
     return {"thread": thread.to_dict()}
 
 
@@ -68,6 +69,15 @@ def send_message(id):
 
         db.session.add(message)
         db.session.commit()
+
+        print("""
+
+
+
+
+
+        """, message.receiver_id, message.content, message.thread_id)
+
 
         return message.to_dict()
 
