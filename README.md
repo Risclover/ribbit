@@ -116,12 +116,16 @@ To run this app locally:
 
 (^ [Back to Top](#ribbit))
 
-![](/react-app/src/images/readme/community-img.png)
-![](/react-app/src/images/readme/create-post.png)
-![](/react-app/src/images/readme/edit-community.png)
-![](/react-app/src/images/readme/posts-feed.png)
-![](/react-app/src/images/readme/single-post.png)
-![](/react-app/src/images/readme/user-profile.png)
+![](https://github.com/Risclover/ribbit/blob/main/feed-page.png)
+![](https://github.com/Risclover/ribbit/blob/main/feed-page-classic.png)
+![](https://github.com/Risclover/ribbit/blob/main/community-page.png)
+![](https://github.com/Risclover/ribbit/blob/main/edit-community-page.png)
+![](https://github.com/Risclover/ribbit/blob/main/edit-rules-section.png)
+![](https://github.com/Risclover/ribbit/blob/main/search-results-page-full.png)
+![](https://github.com/Risclover/ribbit/blob/main/single-post-page.png)
+![](https://github.com/Risclover/ribbit/blob/main/create-post-page.png)
+![](https://github.com/Risclover/ribbit/blob/main/current-user-profile.png)
+![](https://github.com/Risclover/ribbit/blob/main/user-profile.png)
 
 ## Developer Links
 
