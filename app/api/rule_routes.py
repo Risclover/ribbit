@@ -43,7 +43,7 @@ def create_rule(id):
     print(form.errors)
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
-# GET A RULE
+# GET A SINGLE RULE
 @rule_routes.route("/<int:id>")
 def get_rule(id):
     """

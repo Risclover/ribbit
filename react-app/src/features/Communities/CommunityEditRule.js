@@ -49,7 +49,10 @@ export default function CommunityEditRule({ idx, rule, community }) {
             <BsPencilFill />
           </span>
           {showEditRuleModal && (
-            <Modal onClose={() => setShowEditRuleModal(false)} title="Add rule">
+            <Modal
+              onClose={() => setShowEditRuleModal(false)}
+              title="Edit rule"
+            >
               <EditCommunityRule
                 communityId={community?.id}
                 setShowEditRuleModal={setShowEditRuleModal}

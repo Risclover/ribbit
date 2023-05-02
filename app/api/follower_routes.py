@@ -16,6 +16,8 @@ def get_user_followers(id):
         "Followers": [user.to_dict() for user in user.user_followers()],
         "FollowedPosts": [user.to_dict() for user in user.followed_posts()]
     }
+
+
 # GET CURRENT USER'S FOLLOWERS
 @follower_routes.route("")
 def get_current_user_followers():

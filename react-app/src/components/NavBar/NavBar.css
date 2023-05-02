@@ -31,41 +31,6 @@ nav ul li {
   margin-right: 20px;
 }
 
-.notification-wrapper {
-  position: relative;
-  margin: 0 20px;
-}
-
-.notification-icon {
-  font-size: 26px;
-  font-weight: 400;
-  height: 20px;
-  line-height: 20px;
-  vertical-align: middle;
-  width: 20px;
-}
-
-.notification-number {
-  background: #ff4500;
-  border-radius: 12px;
-  box-shadow: 0 0 0 2px #fff;
-  box-sizing: border-box;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  height: 16px;
-  left: 15px;
-  line-height: 16px;
-  padding: 0 4px;
-  position: absolute;
-  text-align: center;
-  top: 0;
-  vertical-align: middle;
-  min-width: 16px;
-  width: auto;
-  z-index: 1;
-}
-
 .ribbit-logo {
   height: 28px;
 }

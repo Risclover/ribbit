@@ -13,6 +13,16 @@
   - [Future Implementations](#future-implementations)
   - [Getting Started](#getting-started)
   - [Site Screenshots](#site-screenshots)
+    - [All Feed Page](#all-feed-page)
+    - [Classic Feed Mode](#classic-feed-mode)
+    - [Community Page](#community-page)
+    - ['Edit Community' Page](#edit-community-page)
+    - [Edit Rules Section](#edit-rules-section)
+    - [Search Results Page](#search-results-page)
+    - [Single Post Page](#single-post-page)
+    - [Create Post Page](#create-post-page)
+    - [Current User Profile](#current-user-profile)
+    - [Other User Profile](#other-user-profile)
   - [Developer Links](#developer-links)
 
 ## Project Information
@@ -44,7 +54,8 @@ This is Ribbit, a clone of https://www.reddit.com. On this site, users can subsc
 
 (^ [Back to Top](#ribbit))
 
-- Sign-up and Login functionality for users
+- <strong>Sign-up and Login</strong>: Users may create their own accounts. They may log into their accounts after account creation.
+  [All Feed Page](#all-feed-page)
 - <strong>Communities</strong>: Users can create communities, edit the details of communities they've created, delete communities they've created, and view existing communities.
 - <strong>Posts</strong>: Users can create posts (regular text posts, image posts, or link posts) under communities, edit posts, read posts, and delete posts.
 - <strong>Comments</strong>: A user can reply to a post by leaving a comment underneath it. Users can also edit comments, read other users' comments, and delete comments.
@@ -68,6 +79,7 @@ This is Ribbit, a clone of https://www.reddit.com. On this site, users can subsc
 (^ [Back to Top](#ribbit))
 
 I am currently working on:
+
 - Notifications for messages
 - Frontend for messages and notifications
 
@@ -116,16 +128,45 @@ To run this app locally:
 
 (^ [Back to Top](#ribbit))
 
-![](https://github.com/Risclover/ribbit/blob/main/feed-page.png)
-![](https://github.com/Risclover/ribbit/blob/main/feed-page-classic.png)
-![](https://github.com/Risclover/ribbit/blob/main/community-page.png)
-![](https://github.com/Risclover/ribbit/blob/main/edit-community-page.png)
-![](https://github.com/Risclover/ribbit/blob/main/edit-rules-section.png)
-![](https://github.com/Risclover/ribbit/blob/main/search-results-page-full.png)
-![](https://github.com/Risclover/ribbit/blob/main/single-post-page.png)
-![](https://github.com/Risclover/ribbit/blob/main/create-post-page.png)
-![](https://github.com/Risclover/ribbit/blob/main/current-user-profile.png)
-![](https://github.com/Risclover/ribbit/blob/main/user-profile.png)
+### All Feed Page
+
+![](react-app/src/images/screenshots/feed-page.png)
+
+### Classic Feed Mode
+
+![](react-app/src/images/screenshots/feed-page-classic.png)
+
+### Community Page
+
+![](react-app/src/images/screenshots/community-page.png)
+
+### 'Edit Community' Page
+
+![](react-app/src/images/screenshots/edit-community-page.png)
+
+### Edit Rules Section
+
+<center><img src="react-app/src/images/screenshots/edit-rules-section.png" /></center>
+
+### Search Results Page
+
+![](react-app/src/images/screenshots/search-results-page-full.png)
+
+### Single Post Page
+
+![](react-app/src/images/screenshots/single-post-page.png)
+
+### Create Post Page
+
+![](react-app/src/images/screenshots/create-post-page.png)
+
+### Current User Profile
+
+![](react-app/src/images/screenshots/current-user-profile.png)
+
+### Other User Profile
+
+![](react-app/src/images/screenshots/user-profile.png)
 
 ## Developer Links
 

@@ -4,7 +4,7 @@ from sqlalchemy import or_
 
 search_routes = Blueprint("search", __name__)
 
-
+# SEARCH ALL COMMUNITIES AND USERS
 @search_routes.route("/<query>")
 def search(query):
     """

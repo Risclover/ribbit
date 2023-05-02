@@ -1,0 +1,148 @@
+.notifications-dropdown-wrapper {
+  position: relative;
+}
+
+.notifications-dropdown {
+  position: absolute;
+  padding-top: 8px;
+  z-index: 1000000;
+  background: white;
+  border-radius: 4px;
+  width: 375px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid #edeff1;
+  height: 400px;
+  top: 38px;
+  right: -42px;
+}
+
+.notification-icon {
+  cursor: pointer;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  /* position: relative; */
+  /* font-size: 40px; */
+  padding: 3px;
+  width: auto;
+  height: auto;
+}
+
+.notification-icon svg {
+  font-size: 26px;
+}
+
+.notification-icon:hover {
+  background: rgba(26, 26, 27, 0.1);
+}
+
+.notification-wrapper {
+  position: relative;
+  margin: 0 20px;
+}
+
+.notification-number {
+  background: #ff4500;
+  border-radius: 12px;
+  box-shadow: 0 0 0 2px #fff;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  height: 16px;
+  left: 20px;
+  line-height: 16px;
+  padding: 0 4px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  vertical-align: middle;
+  min-width: 16px;
+  width: auto;
+  z-index: 1;
+}
+
+.notifications-dropdown::before {
+  border-bottom: 8px solid #dae0e6;
+  opacity: 0.5;
+  top: -8px;
+  content: "";
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  height: 0;
+  position: absolute;
+  right: 45px;
+  width: 0;
+  z-index: 100;
+}
+
+.notifications-dropdown::after {
+  content: "";
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  height: 0;
+  position: absolute;
+  right: 45px;
+  width: 0;
+  z-index: 100;
+  border-bottom: 8px solid white;
+  top: -6px;
+}
+
+.notifications-dropdown-head {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  padding: 16px;
+  border-radius: 4px;
+}
+
+.notifications-dropdown-head-right {
+  display: flex;
+  align-items: center;
+}
+
+.notifications-dropdown-head-messages-btn {
+  border-right: 1px solid #edeff1;
+  padding: 0;
+  padding-right: 8px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  color: #7c7c7c;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  height: auto;
+}
+
+.notifications-dropdown-head-btn {
+  height: auto;
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin-left: 8px;
+}
+
+.notifications-dropdown-head p {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 12px;
+}
+
+.notifications-dropdown-head-btn svg {
+  color: #7c7c7c;
+  font-size: 20px;
+}

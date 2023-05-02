@@ -1,6 +1,10 @@
 import validator from "validator";
 
-export function SignUpFormUsernameValidator(setUsernameErrors, username) {
+export function SignUpFormUsernameValidator(
+  setUsernameErrors,
+  usernameErrors,
+  username
+) {
   let usernames = [];
 
   if (username.length < 3 || username.length > 20) {
@@ -15,12 +19,14 @@ export function SignUpFormUsernameValidator(setUsernameErrors, username) {
 
   if (usernames.length > 0) {
     setUsernameErrors(usernames);
+    console.log("username errors:", usernameErrors);
   }
 }
 
 export function SignUpFormPasswordValidator(
   password,
   setPasswordErrors,
+  passwordErrors,
   repeatPassword
 ) {
   let passes = [];
@@ -32,8 +38,10 @@ export function SignUpFormPasswordValidator(
     passes.push("Password must be at least 8 characters long.");
   }
 
+  console.log("passes:", passes);
   if (passes.length > 0) {
     setPasswordErrors(passes);
+    console.log("password errors:", passwordErrors);
   }
 }
 

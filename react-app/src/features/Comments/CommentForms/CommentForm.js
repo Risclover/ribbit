@@ -10,6 +10,10 @@ import LoginForm from "../../auth/AuthModal/LoginForm";
 import SignUpForm from "../../auth/AuthModal/SignUpForm";
 
 import "../Comments.css";
+import {
+  addNotification,
+  getAllNotifications,
+} from "../../../store/notifications";
 
 export default function CommentForm({ postId }) {
   const dispatch = useDispatch();
@@ -31,8 +35,17 @@ export default function CommentForm({ postId }) {
       setErrors(errors);
       return;
     } else {
-      await dispatch(createComment({ content: content.trim() }, postId));
-      dispatch(getPosts());
+      const commentData = await dispatch(
+        createComment({ content: content.trim() }, postId)
+      );
+      console.log("commentData:", commentData);
+      const notificationPayload = {
+        type: "post-reply",
+        id: commentData.id,
+      };
+      const data = dispatch(addNotification(notificationPayload));
+      console.log("data:", data);
+      dispatch(getAllNotifications());
       setErrors([]);
       setContent(" ");
     }

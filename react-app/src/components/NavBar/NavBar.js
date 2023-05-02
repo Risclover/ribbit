@@ -20,6 +20,8 @@ import { getFavoriteUsers } from "../../store/favorite_users";
 import { getCommunities } from "../../store/communities";
 import { getPosts } from "../../store/posts";
 import { getMessages } from "../../store/messages";
+import { getUserNotifications } from "../../store/notifications";
+import NotificationsDropdownWrapper from "./NotificationsDropdown/NotificationsDropdownWrapper";
 
 const NavBar = ({
   searchQuery,
@@ -46,6 +48,7 @@ const NavBar = ({
     dispatch(getFollowers());
     dispatch(getCommunities());
     dispatch(getPosts());
+    dispatch(getUserNotifications(user?.id));
   }, [dispatch]);
 
   useEffect(() => {
@@ -109,12 +112,11 @@ const NavBar = ({
         setSearchQuery={setSearchQuery}
         adjustQuery={adjustQuery}
       />
-      {/* <div className="notification-wrapper">
-        <span className="notification-icon">
-          <IoMdNotificationsOutline />
-        </span>
-        <div className="notification-number">{notifications}</div>
-      </div> */}
+      {user && (
+        <div className="notification-wrapper">
+          <NotificationsDropdownWrapper />
+        </div>
+      )}
       {!user && (
         <button
           className="blue-btn-filled loginsignup"

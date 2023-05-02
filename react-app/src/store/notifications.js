@@ -1,3 +1,5 @@
+import { request } from "http";
+
 const LOAD = "notifications/LOAD";
 const LOAD_SINGLE = "notifications/LOAD_SINGLE";
 
@@ -45,6 +47,8 @@ export const readAllNotifications = () => async (dispatch) => {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
   });
+
+  console.log("response:", request.method);
 
   if (response.ok) {
     const data = await response.json();

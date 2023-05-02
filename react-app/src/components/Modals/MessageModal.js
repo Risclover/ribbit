@@ -8,6 +8,7 @@ import {
   getThreads,
 } from "../../store/threads";
 import { getMessages } from "../../store/messages";
+import { addNotification } from "../../store/notifications";
 
 export default function MessageModal({
   setShowMessageModal,
@@ -108,6 +109,12 @@ export default function MessageModal({
         console.log("msg:", msg);
         console.log("recipient:", recipient, receiver);
         dispatch(getMessages());
+
+        const notificationPayload = {
+          type: "message",
+          id: msg.id,
+        };
+        dispatch(addNotification(notificationPayload));
         setTimeout(() => {
           setSuccessMsg("your message has been delivered");
           setMessage("");

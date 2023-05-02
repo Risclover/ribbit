@@ -21,6 +21,7 @@ from .api.favorite_user_routes import favorite_user_routes
 from .api.viewed_post_routes import viewed_post_routes
 from .api.thread_routes import thread_routes
 from .api.message_routes import message_routes
+from .api.notification_routes import notification_routes
 
 from .seeds import seed_commands
 
@@ -56,6 +57,7 @@ app.register_blueprint(favorite_user_routes, url_prefix="/api/favorite_users")
 app.register_blueprint(viewed_post_routes, url_prefix="/api/viewed_posts")
 app.register_blueprint(thread_routes, url_prefix="/api/threads")
 app.register_blueprint(message_routes, url_prefix="/api/messages")
+app.register_blueprint(notification_routes, url_prefix="/api/notifications")
 
 db.init_app(app)
 Migrate(app, db)
