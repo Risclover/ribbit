@@ -45,16 +45,18 @@ This is Ribbit, a clone of https://www.reddit.com. On this site, users can subsc
 (^ [Back to Top](#ribbit))
 
 - Sign-up and Login functionality for users
-- Communities (Create, Read, Update, and Delete)
-- Posts (Create, Read, Update, and Delete)
-- Comments (Create, Read, Update, and Delete)
-- Community Subscriptions (Create, Read, and Delete)
-- Post Likes and Dislikes (Create, Read, and Delete)
-- Comment Likes and Dislikes (Create, Read, and Delete)
-- Community Rules (Create, Read, Update, and Delete)
-- Followers
-- Favorites list (Communities & Users)
-- Search
+- <strong>Communities</strong>: Users can create communities, edit the details of communities they've created, delete communities they've created, and view existing communities.
+- <strong>Posts</strong>: Users can create posts (regular text posts, image posts, or link posts) under communities, edit posts, read posts, and delete posts.
+- <strong>Comments</strong>: A user can reply to a post by leaving a comment underneath it. Users can also edit comments, read other users' comments, and delete comments.
+- <strong>Community Subscriptions</strong>: Users can subscribe to communities, which a) puts the community on a list of subscribed communities for easy finding, and b) puts the community's posts on the user's homepage feed. Users can also unsubscribe from communities.
+- <strong>Post Likes and Dislikes</strong>: Users can vote on posts by clicking either an 'upvote' button or a 'downvote' button. Users may also change or remove their vote at any time.
+- <strong>Comment Likes and Dislikes</strong>: Users can vote on comments by clicking either an 'upvote' button or a 'downvote' button. Users may also change or remove their vote at any time.
+- <strong>Community Rules</strong>: Community owners may create rules for their community. They can also edit or delete existing rules, and view rules on other communities.
+- <strong>Followers</strong>: A user can 'follow' another user, which a) puts the followed user on a list of followed users for easy finding, and b) puts the followed user's posts on the following user's homepage feed. Users can find a list of the users they follow by opening the left dropdown menu in the navbar, and can see who is following them by going to their profile and clicking on 'Followers', which also displays the number of followers the user has (but is invisible to other users). Users may also be unfollowed.
+- <strong>Favorite Communities</strong>: Once a community has been subscribed to, the user can open the left dropdown menu in the navbar to find it there. They can then click on the star located beside the community name, which favorites the community and bumps it to the 'Favorites' list at the top of the dropdown menu. Communities may also be unfavorited by clicking on the same star.
+- <strong>Favorite Users</strong>: Once a user has been followed, the following user can open the left dropdown menu in the navbar to find them there. They can then click on the star located beside the user's name, which favorites the user and bumps them up to the 'Favorites' list at the top of the dropdown menu. Users may also be unfavorited by clicking on the same star.
+- <strong>Viewed Posts</strong>: Clicking on a post automatically adds it to the 'Viewed Posts' list found on both the homepage feed and the 'All' feed. This list shows the last 5 viewed posts. Users can click a 'clear' button to delete all of the items in the list.
+- <strong>Search</strong>: Users may use the searchbar at the top of the website to search for posts, comments, users, or communities. Once something is entered into the searchbar, a dropdown will appear showing related communities and users, and additional communities and users, as well as posts and comments, can be found by either pressing 'Enter' or clicking on the 'Search for <em>[query]</em>' button.
 - AWS S3 used for:
   - User profile images
   - User banner images
@@ -64,6 +66,10 @@ This is Ribbit, a clone of https://www.reddit.com. On this site, users can subsc
 ## Future Implementations
 
 (^ [Back to Top](#ribbit))
+
+I am currently working on:
+- Notifications for messages
+- Frontend for messages and notifications
 
 Future feature implementations include:
 
@@ -75,8 +81,9 @@ Future feature implementations include:
   - Left nav sidebar
 - ~~Advanced post formatting (on feeds)~~
 - Saving posts and comments
+- Static messaging
 - Live messaging via websockets
-- Notifications for post replies, comment replies, new community posts, and messages
+- Notifications for post replies, comment replies, new community posts, new followers, and messages
 - Nested comments
 
 ## Getting Started
@@ -109,12 +116,16 @@ To run this app locally:
 
 (^ [Back to Top](#ribbit))
 
-![](/react-app/src/images/readme/community-img.png)
-![](/react-app/src/images/readme/create-post.png)
-![](/react-app/src/images/readme/edit-community.png)
-![](/react-app/src/images/readme/posts-feed.png)
-![](/react-app/src/images/readme/single-post.png)
-![](/react-app/src/images/readme/user-profile.png)
+![](https://github.com/Risclover/ribbit/blob/main/feed-page.png)
+![](https://github.com/Risclover/ribbit/blob/main/feed-page-classic.png)
+![](https://github.com/Risclover/ribbit/blob/main/community-page.png)
+![](https://github.com/Risclover/ribbit/blob/main/edit-community-page.png)
+![](https://github.com/Risclover/ribbit/blob/main/edit-rules-section.png)
+![](https://github.com/Risclover/ribbit/blob/main/search-results-page-full.png)
+![](https://github.com/Risclover/ribbit/blob/main/single-post-page.png)
+![](https://github.com/Risclover/ribbit/blob/main/create-post-page.png)
+![](https://github.com/Risclover/ribbit/blob/main/current-user-profile.png)
+![](https://github.com/Risclover/ribbit/blob/main/user-profile.png)
 
 ## Developer Links
 
