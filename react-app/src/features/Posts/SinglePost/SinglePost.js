@@ -1,11 +1,9 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal } from "../../../context/Modal";
 
 import ClassicPostFormat from "../PostFeedFormats/ClassicPostFormat";
 import CompactPostFormat from "../PostFeedFormats/CompactPostFormat";
-import LoginForm from "../../auth/AuthModal/LoginForm";
-import SignUpForm from "../../auth/AuthModal/SignUpForm";
+
 import SinglePostKarmabar from "./SinglePostKarmabar";
 import SinglePostAuthorBar from "./SinglePostAuthorBar";
 import SinglePostContent from "./SinglePostContent";
@@ -22,9 +20,6 @@ function SinglePost({ id, isPage, userId, format }) {
 
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [showSignupForm, setShowSignupForm] = useState(false);
-
   return (
     <>
       {format === "Card" && (
@@ -37,7 +32,6 @@ function SinglePost({ id, isPage, userId, format }) {
                 downvote={downvote}
                 setUpvote={setUpvote}
                 setDownvote={setDownvote}
-                setShowLoginForm={setShowLoginForm}
               />
 
               <div className="single-post-main">
@@ -75,26 +69,6 @@ function SinglePost({ id, isPage, userId, format }) {
           userId={userId}
           post={post}
         />
-      )}
-      {showLoginForm && (
-        <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
-          <LoginForm
-            setShowLoginForm={setShowLoginForm}
-            showLoginForm={showLoginForm}
-            showSignupForm={showSignupForm}
-            setShowSignupForm={setShowSignupForm}
-          />
-        </Modal>
-      )}
-      {showSignupForm && (
-        <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
-          <SignUpForm
-            setShowLoginForm={setShowLoginForm}
-            showLoginForm={showLoginForm}
-            showSignupForm={showSignupForm}
-            setShowSignupForm={setShowSignupForm}
-          />
-        </Modal>
       )}
     </>
   );

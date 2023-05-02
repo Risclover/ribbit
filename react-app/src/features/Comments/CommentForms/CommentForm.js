@@ -14,6 +14,7 @@ import {
   addNotification,
   getAllNotifications,
 } from "../../../store/notifications";
+import LoginSignupModal from "../../../components/Modals/LoginSignupModal";
 
 export default function CommentForm({ postId }) {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ export default function CommentForm({ postId }) {
         <form className="comment-form" onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="comment-box">
             Comment as{" "}
-            <NavLink to={`/users/${user.id}/profile`}>{user.username}</NavLink>
+            <NavLink to={`/users/${user.id}/profile`}> {user.username}</NavLink>
           </label>
           <div className="post-comment-box">
             <textarea
@@ -97,12 +98,7 @@ export default function CommentForm({ postId }) {
       {!user && (
         <form className="comment-form">
           <label for="comment-box">
-            <span
-              className="log-in-to-comment"
-              onClick={() => setShowLoginForm(true)}
-            >
-              Log in
-            </span>
+            <LoginSignupModal btnText="Log in" className="log-in-to-comment" />
             to comment
           </label>
           <textarea
@@ -113,26 +109,6 @@ export default function CommentForm({ postId }) {
             disabled
           ></textarea>
         </form>
-      )}
-      {showLoginForm && (
-        <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
-          <LoginForm
-            setShowLoginForm={setShowLoginForm}
-            showLoginForm={showLoginForm}
-            showSignupForm={showSignupForm}
-            setShowSignupForm={setShowSignupForm}
-          />
-        </Modal>
-      )}
-      {showSignupForm && (
-        <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
-          <SignUpForm
-            setShowLoginForm={setShowLoginForm}
-            showLoginForm={showLoginForm}
-            showSignupForm={showSignupForm}
-            setShowSignupForm={setShowSignupForm}
-          />
-        </Modal>
       )}
     </div>
   );

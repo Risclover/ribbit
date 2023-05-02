@@ -11,16 +11,12 @@ import {
   removeFavoriteCommunity,
 } from "../../store/favorite_communities";
 import { getSubscriptions } from "../../store/subscriptions";
+import LoginSignupModal from "../../components/Modals/LoginSignupModal";
 
 export default function CommunityInfoBox({
   setFavorited,
   favoriteCommunities,
   community,
-  showLoginForm,
-  setShowLoginForm,
-  showSignupForm,
-  SignUpForm,
-  setShowSignupForm,
   user,
 }) {
   const dispatch = useDispatch();
@@ -82,32 +78,10 @@ export default function CommunityInfoBox({
           )}
 
           {!user && (
-            <button
+            <LoginSignupModal
+              btnText="Log In/Sign Up"
               className="blue-btn-filled btn-long"
-              onClick={() => setShowLoginForm(true)}
-            >
-              Log In / Sign Up
-            </button>
-          )}
-          {showLoginForm && (
-            <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
-              <LoginForm
-                setShowLoginForm={setShowLoginForm}
-                showLoginForm={showLoginForm}
-                showSignupForm={showSignupForm}
-                setShowSignupForm={setShowSignupForm}
-              />
-            </Modal>
-          )}
-          {showSignupForm && (
-            <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
-              <SignUpForm
-                setShowLoginForm={setShowLoginForm}
-                showLoginForm={showLoginForm}
-                showSignupForm={showSignupForm}
-                setShowSignupForm={setShowSignupForm}
-              />
-            </Modal>
+            />
           )}
 
           {user?.id === community.userId ? (

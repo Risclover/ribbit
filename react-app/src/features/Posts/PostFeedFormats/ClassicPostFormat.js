@@ -4,25 +4,15 @@ import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import parse from "html-react-parser";
 import cutLink from "../SinglePost/SliceUrl";
-import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
-import {
-  BsArrowsAngleExpand,
-  BsArrowsAngleContract,
-  BsPencilFill,
-} from "react-icons/bs";
-import { addPostVote, removePostVote } from "../../../store/posts";
+import { BsArrowsAngleExpand, BsArrowsAngleContract } from "react-icons/bs";
 import { Modal } from "../../../context/Modal";
 import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
 import Bounce from "../../../images/misc/curved-arrow.png";
 import { CgNotes } from "react-icons/cg";
 import "../SinglePost/SinglePost.css";
-import { getUsers } from "../../../store/users";
-import { getSinglePost } from "../../../store/one_post";
 import "./ClassicPostFormat.css";
-import SignUpForm from "../../auth/AuthModal/SignUpForm";
-import LoginForm from "../../auth/AuthModal/LoginForm";
 import SinglePostKarmabar from "../SinglePost/SinglePostKarmabar";
 
 export default function ClassicPostFormat({ isPage, id, userId }) {
@@ -45,8 +35,6 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
   const [voteTotal, setVoteTotal] = useState(post?.votes);
   const [postExpand, setPostExpand] = useState(false);
   const [commentNum, setCommentNum] = useState(0);
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [showSignupForm, setShowSignupForm] = useState(false);
   const [voted, setVoted] = useState();
 
   useEffect(() => {
@@ -101,7 +89,6 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
           voted={voted}
           setUpvote={setUpvote}
           setDownvote={setDownvote}
-          setShowLoginForm={setShowLoginForm}
         />
         <div className="classic-post-main">
           <div className="classic-post-content-box">
@@ -324,26 +311,6 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
             </div>
           )}
         </div>
-        {showLoginForm && (
-          <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
-            <LoginForm
-              setShowLoginForm={setShowLoginForm}
-              showLoginForm={showLoginForm}
-              showSignupForm={showSignupForm}
-              setShowSignupForm={setShowSignupForm}
-            />
-          </Modal>
-        )}
-        {showSignupForm && (
-          <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
-            <SignUpForm
-              setShowLoginForm={setShowLoginForm}
-              showLoginForm={showLoginForm}
-              showSignupForm={showSignupForm}
-              setShowSignupForm={setShowSignupForm}
-            />
-          </Modal>
-        )}
       </div>
     </div>
   );

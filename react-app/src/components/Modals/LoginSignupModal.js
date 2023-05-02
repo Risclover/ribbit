@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
+import LoginForm from "../../features/auth/AuthModal/LoginForm";
 import SignUpForm from "../../features/auth/AuthModal/SignUpForm";
 
-export default function LoginForm({ btn }) {
+export default function LoginSignupModal({ btnText, className }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
 
   return (
-    <div>
-      <span onClick={() => setShowLoginForm(true)}>{btn}</span>
+    <div style={{ color: "white" }}>
+      <button
+        className={className}
+        onClick={(e) => {
+          e.preventDefault();
+          setShowLoginForm(true);
+        }}
+      >
+        {btnText}
+      </button>
       {showLoginForm && (
         <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
           <LoginForm

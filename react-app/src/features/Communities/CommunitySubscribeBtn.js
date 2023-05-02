@@ -6,6 +6,7 @@ import {
   getSubscriptions,
 } from "../../store/subscriptions";
 import { getFavoriteCommunities } from "../../store/favorite_communities";
+import LoginSignupModal from "../../components/Modals/LoginSignupModal";
 
 export default function CommunitySubscribeBtn({
   user,
@@ -43,7 +44,7 @@ export default function CommunitySubscribeBtn({
             Joined
           </button>
         )}
-        {!subscribed && (
+        {user && !subscribed && (
           <button
             className="blue-btn-filled btn-short join-btn"
             onClick={async (e) => {
@@ -57,6 +58,12 @@ export default function CommunitySubscribeBtn({
           >
             Join
           </button>
+        )}
+        {!user && (
+          <LoginSignupModal
+            btnText="Join"
+            className="blue-btn-filled btn-short join-btn"
+          />
         )}
       </div>
       <div className="community-header-info-unsubscribe"></div>

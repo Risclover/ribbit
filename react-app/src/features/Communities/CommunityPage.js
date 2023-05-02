@@ -18,8 +18,6 @@ export default function CommunityPage({ setPageTitle, format, setFormat }) {
   const dispatch = useDispatch();
   const { communityId } = useParams();
 
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [showSignupForm, setShowSignupForm] = useState(false);
   const [favorited, setFavorited] = useState(false);
   const [isPage, setIsPage] = useState("community");
 
@@ -78,7 +76,6 @@ export default function CommunityPage({ setPageTitle, format, setFormat }) {
                 user={user}
                 community={community}
                 communityId={+communityId}
-                setShowLoginForm={setShowLoginForm}
               />
             </div>
           </div>
@@ -93,7 +90,6 @@ export default function CommunityPage({ setPageTitle, format, setFormat }) {
           isPage={isPage}
           communityId={communityId}
           user={user}
-          setShowLoginForm={setShowLoginForm}
         />
         <div className="community-page-right-col">
           <CommunityInfoBox
@@ -101,10 +97,6 @@ export default function CommunityPage({ setPageTitle, format, setFormat }) {
             user={user}
             favoriteCommunities={favoriteCommunities}
             community={community}
-            showLoginForm={showLoginForm}
-            setShowLoginForm={setShowLoginForm}
-            showSignupForm={showSignupForm}
-            setShowSignupForm={setShowSignupForm}
           />
 
           {Object.values(community.communityRules).length > 0 && (

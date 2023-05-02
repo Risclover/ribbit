@@ -8,8 +8,7 @@ import { Modal } from "../../context/Modal";
 import CreateCommunity from "../../components/Modals/CreateCommunityModal";
 import BackToTop from "../../components/BackToTop";
 import { useSelector } from "react-redux";
-import SignUpForm from "../../features/auth/AuthModal/SignUpForm";
-import LoginForm from "../../features/auth/AuthModal/LoginForm";
+import LoginSignupModal from "../../components/Modals/LoginSignupModal";
 
 export default function SearchResultsPosts({
   posts,
@@ -21,8 +20,6 @@ export default function SearchResultsPosts({
   setSearchPage,
 }) {
   const [showCommunityModal, setShowCommunityModal] = useState(false);
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [showSignupForm, setShowSignupForm] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
 
   return (
@@ -229,12 +226,10 @@ export default function SearchResultsPosts({
                 </button>
               )}
               {!currentUser && (
-                <button
+                <LoginSignupModal
+                  btnText="Log In/Sign Up?"
                   className="blue-btn-filled btn-long"
-                  onClick={() => setShowLoginForm(true)}
-                >
-                  Log In/Sign Up
-                </button>
+                />
               )}
             </div>
           </div>
@@ -246,26 +241,6 @@ export default function SearchResultsPosts({
               <CreateCommunity
                 showCreateCommunityModal={showCommunityModal}
                 setShowCreateCommunityModal={setShowCommunityModal}
-              />
-            </Modal>
-          )}
-          {showLoginForm && (
-            <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
-              <LoginForm
-                setShowLoginForm={setShowLoginForm}
-                showLoginForm={showLoginForm}
-                showSignupForm={showSignupForm}
-                setShowSignupForm={setShowSignupForm}
-              />
-            </Modal>
-          )}
-          {showSignupForm && (
-            <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
-              <SignUpForm
-                setShowLoginForm={setShowLoginForm}
-                showLoginForm={showLoginForm}
-                showSignupForm={showSignupForm}
-                setShowSignupForm={setShowSignupForm}
               />
             </Modal>
           )}

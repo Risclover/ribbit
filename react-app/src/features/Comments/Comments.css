@@ -27,6 +27,15 @@
   text-decoration: none;
   margin-right: 5px;
   cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  height: auto;
+  padding: 0;
+  display: inline-block;
 }
 
 .log-in-to-comment:hover {
@@ -328,6 +337,10 @@
   resize: vertical;
 }
 
+.comment-box {
+  display: flex;
+}
+
 .post-comment-box {
   margin-top: 7px;
   border: 1px solid #ccc;
@@ -344,6 +357,8 @@
   font-weight: 400;
   line-height: 16px;
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
 }
 
 .comment-form label a {
@@ -352,6 +367,7 @@
   font-size: 12px;
   font-weight: 400;
   color: #0079d3;
+  margin-left: 4px;
 }
 
 .comment-form label a:hover {

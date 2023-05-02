@@ -22,6 +22,7 @@ import { getPosts } from "../../store/posts";
 import { getMessages } from "../../store/messages";
 import { getUserNotifications } from "../../store/notifications";
 import NotificationsDropdownWrapper from "./NotificationsDropdown/NotificationsDropdownWrapper";
+import LoginSignupModal from "../Modals/LoginSignupModal";
 
 const NavBar = ({
   searchQuery,
@@ -33,8 +34,6 @@ const NavBar = ({
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [showSignupForm, setShowSignupForm] = useState(false);
   const [notifications, setNotifications] = useState(0);
 
   const messages = useSelector((state) => Object.values(state.messages));
@@ -85,26 +84,6 @@ const NavBar = ({
             </NavLink>
           )}
         </li>
-        {showLoginForm && (
-          <Modal title="Log In" onClose={() => setShowLoginForm(false)}>
-            <LoginForm
-              setShowLoginForm={setShowLoginForm}
-              showLoginForm={showLoginForm}
-              showSignupForm={showSignupForm}
-              setShowSignupForm={setShowSignupForm}
-            />
-          </Modal>
-        )}
-        {showSignupForm && (
-          <Modal title="Sign Up" onClose={() => setShowSignupForm(false)}>
-            <SignUpForm
-              setShowLoginForm={setShowLoginForm}
-              showLoginForm={showLoginForm}
-              showSignupForm={showSignupForm}
-              setShowSignupForm={setShowSignupForm}
-            />
-          </Modal>
-        )}
       </ul>
       <div></div>
       <Searchbar
@@ -118,12 +97,10 @@ const NavBar = ({
         </div>
       )}
       {!user && (
-        <button
-          className="blue-btn-filled loginsignup"
-          onClick={() => setShowLoginForm(true)}
-        >
-          Log In/Sign Up
-        </button>
+        <LoginSignupModal
+          btnText="Log In/Sign Up"
+          className="blue-btn-filled btn-long"
+        />
       )}
       {user && <NavUserDropdown />}
     </nav>

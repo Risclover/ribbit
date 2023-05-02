@@ -11,7 +11,6 @@ export default function SinglePostKarmabar({
   post,
   setUpvote,
   setDownvote,
-  setShowLoginForm,
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -56,7 +55,6 @@ export default function SinglePostKarmabar({
   const handleVoteClick = async (e, voteType) => {
     e.preventDefault();
     if (!currentUser) {
-      setShowLoginForm(true);
       history.push("/login");
     } else {
       if (user?.id in post?.postVoters) {

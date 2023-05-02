@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signUp } from "../../../store/session";
-import "./AuthModal.css";
-
-import {
-  SignUpFormUsernameValidator,
-  SignUpFormPasswordValidator,
-  SignUpFormEmailValidator,
-} from "./SignUpFormValidators";
-import validator from "validator";
 import SignUpFormInput from "./SignUpFormInput";
-import { off } from "process";
+import validator from "validator";
+import "./AuthModal.css";
 
 const SignUpForm = ({
   showSignupForm,
@@ -22,14 +15,16 @@ const SignUpForm = ({
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+
   const [usernameErrors, setUsernameErrors] = useState([]);
   const [emailErrors, setEmailErrors] = useState([]);
   const [passwordErrors, setPasswordErrors] = useState([]);
+  const [errors, setErrors] = useState([]);
+
   const allUsers = useSelector((state) => Object.values(state.users));
 
   const onSignUp = async (e) => {
@@ -38,8 +33,8 @@ const SignUpForm = ({
     let passes = [];
     let emails = [];
     let errors = [];
-    console.log("password errors:", passwordErrors);
 
+    // Username errors
     if (
       username.length < 3 ||
       username.length > 20 ||
@@ -58,6 +53,7 @@ const SignUpForm = ({
       setUsernameErrors([]);
     }
 
+    // Password errors
     if (password.length < 8) {
       passes.push("Password must be at least 8 characters long.");
     } else {
@@ -65,6 +61,7 @@ const SignUpForm = ({
       setPasswordErrors([]);
     }
 
+    // Repeat password errors
     if (password !== repeatPassword) {
       errors.push("Your passwords don't match. Please try again.");
     } else {
@@ -72,6 +69,7 @@ const SignUpForm = ({
       setErrors([]);
     }
 
+    // Email errors
     if (!validator.isEmail(email)) {
       emails.push("Not a valid email address.");
     } else {
@@ -79,6 +77,7 @@ const SignUpForm = ({
       setEmailErrors([]);
     }
 
+    // Setting visual error messages
     if (emails.length > 0) {
       setEmailErrors(emails);
     }
@@ -96,6 +95,7 @@ const SignUpForm = ({
       setErrors([]);
     }
 
+    // If there are no errors, commence with signup
     if (
       emails.length === 0 &&
       usernames.length === 0 &&
