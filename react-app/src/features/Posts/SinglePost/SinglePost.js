@@ -1,5 +1,5 @@
-import React, { memo, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { memo, useState } from "react";
+import { useSelector } from "react-redux";
 
 import ClassicPostFormat from "../PostFeedFormats/ClassicPostFormat";
 import CompactPostFormat from "../PostFeedFormats/CompactPostFormat";

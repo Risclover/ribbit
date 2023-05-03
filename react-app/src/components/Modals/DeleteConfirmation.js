@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { deletePost, getPosts } from "../../store/posts";
 import { removeComment } from "../../store/comments";
-import { deleteCommunity, getCommunities } from "../../store/communities";
+import { deleteCommunity } from "../../store/communities";
 import { deleteRule, getCommunityRules } from "../../store/rules";
 import "./Modals.css";
 import { getUsers } from "../../store/users";

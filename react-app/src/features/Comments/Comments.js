@@ -17,7 +17,7 @@ export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
 
   useEffect(() => {
     dispatch(getComments(+postId));
-  }, []);
+  }, [dispatch, postId]);
 
   useEffect(() => {
     setCommentsNum(comments.length);
@@ -50,31 +50,6 @@ export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
   if (sortType === "Top") {
     comments.sort((a, b) => {
       return b.votes - a.votes;
-    });
-  }
-
-  if (sortType === "Controversial") {
-    /*
-      It counts the votes on a post. If there are more than a few votes on the post and the number of upvotes is roughly equal to the number of downvotes then it's controversial.
-
-      1 upvote + 1 downvote = 0 points, but not controversial.
-      2 upvotes + 1 downvote = 1 point, but not controversial.
-      1 upvotes + 2 downvotes = -1 point, but not controversial.
-      11 upvotes + 11 downvotes = 0 points, and controversial.
-      12 upvotes + 11 downvotes = 1 point, and controversial.
-      11 upvotes + 12 downvotes = -1 point, and controversial.
-    */
-
-    comments.sort((a, b) => {
-      if (a.votes > 4) {
-        if (a.upvotes + a.downvotes > -2 && a.upvotes + a.downvotes < 2) {
-          return a - b;
-        }
-      } else if (b.votes > 4) {
-        if (b.upvotes + b.downvotes > -2 && b.upvotes + b.downvotes < 2) {
-          return b - a;
-        }
-      }
     });
   }
 

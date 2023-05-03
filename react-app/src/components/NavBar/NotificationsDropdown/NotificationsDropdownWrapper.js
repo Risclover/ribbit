@@ -3,16 +3,11 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 
 import "./NotificationsDropdown.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getUserNotifications,
-  readAllNotifications,
-  readNotification,
-} from "../../../store/notifications";
+import { readNotification } from "../../../store/notifications";
 import NotificationsDropdown from "./NotificationsDropdown";
 
 export default function NotificationsDropdownWrapper() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
   const notificationsList = useSelector((state) =>
     Object.values(state.notifications)
   );
@@ -39,7 +34,7 @@ export default function NotificationsDropdownWrapper() {
     e.preventDefault();
 
     setShowDropdown(!showDropdown);
-    dispatch(readNotification(notificationsList[0].id));
+    dispatch(readNotification(notificationsList[0]?.id));
   };
 
   return (

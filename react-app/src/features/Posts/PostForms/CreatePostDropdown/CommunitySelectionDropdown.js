@@ -15,18 +15,11 @@ export default function CommunitySelectionDropdown({
   setSearch,
   communityList,
   setName,
-  communityModalOpen,
-  setCommunityModalOpen,
-  community,
   setCommunity,
 }) {
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
 
-  const handleOpenCreateCommunity = () => {
-    setCommunityModalOpen(true);
-    setShowCreateCommunityModal(true);
-  };
   return (
     <div className="community-selection-dropdown">
       <div className="community-selection-dropdown-topbar">

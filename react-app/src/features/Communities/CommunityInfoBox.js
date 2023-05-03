@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Modal } from "../../context/Modal";
-import LoginForm from "../auth/AuthModal/LoginForm";
 import moment from "moment";
 import Cake from "../../images/misc/piece4.png";
 import { useDispatch } from "react-redux";
@@ -49,7 +47,7 @@ export default function CommunityInfoBox({
           <p>{community.description}</p>
         </div>
         <div className="community-page-box-date">
-          <img src={Cake} className="community-cake-icon" />
+          <img src={Cake} className="community-cake-icon" alt="Cake" />
           Created {moment(new Date(community.createdAt)).format("MMM DD, YYYY")}
         </div>
         <div className="community-page-box-members">

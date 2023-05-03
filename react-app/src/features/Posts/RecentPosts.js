@@ -5,7 +5,6 @@ import moment from "moment";
 import "./Posts.css";
 import { NavLink } from "react-router-dom";
 import { CgNotes } from "react-icons/cg";
-import { RxImage } from "react-icons/rx";
 import { FiLink } from "react-icons/fi";
 import { HiOutlineExternalLink } from "react-icons/hi";
 
@@ -34,17 +33,7 @@ export default function RecentPosts() {
 
   useEffect(() => {
     dispatch(getViewedPosts());
-  }, []);
-
-  const clearViewedPosts = () => {
-    fetch("/api/viewed_posts", {
-      method: "DELETE",
-      header: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-  };
+  }, [dispatch]);
 
   const handleClear = () => {
     fetch("/api/viewed_posts/delete", { method: "DELETE" })
@@ -74,7 +63,11 @@ export default function RecentPosts() {
                 <div className="recent-post">
                   {post.imgUrl !== null && (
                     <button className="recent-post-type">
-                      <img src={post.imgUrl} className="recent-post-type-img" />
+                      <img
+                        src={post.imgUrl}
+                        className="recent-post-type-img"
+                        alt="Post"
+                      />
                     </button>
                   )}
                   {post.linkUrl !== null && (

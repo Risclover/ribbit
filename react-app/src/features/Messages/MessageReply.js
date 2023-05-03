@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createMessage, getThreads } from "../../store/threads";
-import { getMessages } from "../../store/messages";
 
 export default function MessageReply({ message, threadId, expanded }) {
   const dispatch = useDispatch();

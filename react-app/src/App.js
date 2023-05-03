@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { authenticate } from "./store/session";
 
-import LoginForm from "./features/auth/AuthModal/LoginForm";
 import SignUpForm from "./features/auth/AuthModal/SignUpForm";
 import ProtectedRoute from "./features/auth/ProtectedRoute";
 
@@ -31,9 +30,6 @@ import CommunitiesDirectory from "./pages/CommunitiesDirectory.js/CommunitiesDir
 import Chat from "./features/Messages/Chat";
 import LoginPage from "./features/auth/LoginPage";
 import SingleImagePage from "./features/Posts/SinglePost/SingleImagePage/SingleImagePage";
-import { getSubscriptions } from "./store/subscriptions";
-import { getCommunities } from "./store/communities";
-import { getFollowers } from "./store/followers";
 import Notifications from "./pages/Notifications/Notifications";
 import Messages from "./features/Messages/Messages";
 

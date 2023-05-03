@@ -1,17 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 import parse from "html-react-parser";
 import cutLink from "../SinglePost/SliceUrl";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { HiOutlineExternalLink } from "react-icons/hi";
-import { FiLink } from "react-icons/fi";
-import {
-  BsArrowsAngleExpand,
-  BsArrowsAngleContract,
-  BsPencilFill,
-} from "react-icons/bs";
+import { BsArrowsAngleExpand } from "react-icons/bs";
 import { addPostVote, removePostVote } from "../../../store/posts";
 import { Modal } from "../../../context/Modal";
 import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
@@ -19,10 +14,8 @@ import Bounce from "../../../images/misc/curved-arrow.png";
 import { CgNotes } from "react-icons/cg";
 import { RxImage } from "react-icons/rx";
 import { BsThreeDots } from "react-icons/bs";
-
 import "../SinglePost/SinglePost.css";
 import { getUsers } from "../../../store/users";
-import { getSinglePost } from "../../../store/one_post";
 import "./ClassicPostFormat.css";
 import "./CompactPostFormat.css";
 import HandleClickOutside from "../../../components/HandleClickOutside";
@@ -69,7 +62,7 @@ export default function CompactPostFormat({ id, isPage, userId }) {
         HandleClickOutside(e, wrapperRef, showSubmenu, setShowSubmenu);
       });
     };
-  }, [wrapperRef]);
+  }, [wrapperRef, showSubmenu]);
 
   const handleUpvoteClick = async (e) => {
     e.preventDefault();
@@ -132,7 +125,7 @@ export default function CompactPostFormat({ id, isPage, userId }) {
     } else {
       setVoted(false);
     }
-  });
+  }, [post.postVoters]);
 
   useEffect(() => {
     if (
@@ -157,7 +150,7 @@ export default function CompactPostFormat({ id, isPage, userId }) {
         }
       }
     }
-  }, [upvote, downvote, voteTotal, post?.postVoters, user?.id]);
+  }, [upvote, downvote, voteTotal, post?.postVoters, user?.id, posts]);
 
   return (
     <div className="post-compact-format">
@@ -345,7 +338,7 @@ export default function CompactPostFormat({ id, isPage, userId }) {
                       }}
                     >
                       <div className="compact-post-menu-btn-icon">
-                        <img src={Bounce} />
+                        <img src={Bounce} alt="Share" />
                       </div>
                       <div className="compact-post-menu-btn-title">Share</div>
                     </button>
@@ -419,7 +412,7 @@ export default function CompactPostFormat({ id, isPage, userId }) {
         </div>
         {postExpand && (
           <div className="compact-post-expanded">
-            {post?.imgUrl && <img src={post.imgUrl} />}
+            {post?.imgUrl && <img src={post.imgUrl} alt="Post" />}
             {post?.content && (
               <div
                 className="compact-post-expanded-text"

@@ -10,11 +10,7 @@ import {
 import { getMessages } from "../../store/messages";
 import { addNotification } from "../../store/notifications";
 
-export default function MessageModal({
-  setShowMessageModal,
-  userId,
-  username,
-}) {
+export default function MessageModal({ setShowMessageModal, username }) {
   const dispatch = useDispatch();
 
   const [recipient, setRecipient] = useState(username !== "" ? username : "");
@@ -26,9 +22,7 @@ export default function MessageModal({
   const [messageError, setMessageError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  const currentUser = useSelector((state) => state.session.user);
   const allUsers = useSelector((state) => Object.values(state.users));
-  const threads = useSelector((state) => Object.values(state.threads));
 
   useEffect(() => {
     console.log(recipient);
@@ -36,7 +30,7 @@ export default function MessageModal({
 
   useEffect(() => {
     dispatch(getThreads());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     for (let user of allUsers) {
@@ -45,11 +39,7 @@ export default function MessageModal({
         console.log("receiver:", receiver?.username);
       }
     }
-  }, [recipient, receiver]);
-
-  useEffect(() => {
-    console.log("sliced:", username?.slice(0, 3));
-  }, []);
+  }, [recipient, receiver, allUsers]);
 
   const handleSend = async (e) => {
     e.preventDefault();

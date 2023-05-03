@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Modal } from "../../context/Modal";
 
 import { getFollowers, getUserFollowers } from "../../store/followers";
 import { getSubscriptions } from "../../store/subscriptions";
@@ -9,9 +8,6 @@ import { getSubscriptions } from "../../store/subscriptions";
 import Searchbar from "./Searchbar/Searchbar";
 import NavUserDropdown from "./NavUserDropdown";
 import NavLeftDropdownFace from "./NavLeftDropdown/NavLeftDropdownFace";
-import LoginForm from "../../features/auth/AuthModal/LoginForm";
-import SignUpForm from "../../features/auth/AuthModal/SignUpForm";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
 
 import "./NavBar.css";
@@ -34,10 +30,6 @@ const NavBar = ({
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
-  const [notifications, setNotifications] = useState(0);
-
-  const messages = useSelector((state) => Object.values(state.messages));
-
   useEffect(() => {
     dispatch(getSubscriptions());
     dispatch(getMessages());
@@ -48,11 +40,7 @@ const NavBar = ({
     dispatch(getCommunities());
     dispatch(getPosts());
     dispatch(getUserNotifications(user?.id));
-  }, [dispatch]);
-
-  useEffect(() => {
-    setNotifications(user?.unreadMsgs);
-  }, [user?.unreadMsgs]);
+  }, [dispatch, user?.id]);
 
   return (
     <nav className="navbar-nav">

@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-import { getSubscriptions } from "../../../../store/subscriptions";
-
+import { useSelector } from "react-redux";
 import CommunitySelectionDropdown from "./CommunitySelectionDropdown";
 import CommunitySelectionInput from "./CommunitySelectionInput";
 import "./CommunitySelection.css";
@@ -31,7 +28,7 @@ function useOutsideAlerter(
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref, setShowDropdown]);
+  }, [ref, setShowDropdown, communityModalOpen, setCommunityModalOpen]);
 }
 
 export default function CommunitySelection({
@@ -41,7 +38,6 @@ export default function CommunitySelection({
   setCommunity,
 }) {
   const wrapperRef = useRef(null);
-  const dispatch = useDispatch();
 
   const communities = useSelector((state) => state.communities);
   const subscriptions = useSelector((state) => state.subscriptions);
@@ -65,7 +61,7 @@ export default function CommunitySelection({
         setSearch(community.name);
       }
     }
-  }, []);
+  }, [community_id, allCommunities]);
 
   let communityList = [];
   for (let i = 0; i < Object.values(allCommunities).length; i++) {

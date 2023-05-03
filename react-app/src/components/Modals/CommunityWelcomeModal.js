@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getSingleCommunity } from "../../store/one_community";
+import { useSelector } from "react-redux";
 
 export default function CommunityWelcomeModal({
   showWelcomeModal,
   setShowWelcomeModal,
-  community,
 }) {
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const singleCommunity = useSelector((state) =>

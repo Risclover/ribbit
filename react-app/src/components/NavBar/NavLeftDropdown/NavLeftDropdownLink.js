@@ -1,7 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getUsers } from "../../../store/users";
 import { BsStar, BsStarFill } from "react-icons/bs";
 
 export default function NavLeftDropdownLink({
@@ -12,7 +10,6 @@ export default function NavLeftDropdownLink({
   mode,
   setShowIcon,
 }) {
-  const dispatch = useDispatch;
   const history = useHistory();
 
   return (
@@ -30,6 +27,7 @@ export default function NavLeftDropdownLink({
             <img
               src={item.profile_img}
               className="nav-left-dropdown-item-img"
+              alt="User"
             />
             <span className="nav-left-dropdown-item">u/{item.username}</span>
           </div>
@@ -63,6 +61,7 @@ export default function NavLeftDropdownLink({
             <img
               src={item.communityImg}
               className="nav-left-dropdown-item-img"
+              alt="Community"
             />
             <span className="nav-left-dropdown-item">c/{item.name}</span>
           </div>
@@ -96,6 +95,7 @@ export default function NavLeftDropdownLink({
             <img
               src={item.profile_img}
               className="nav-left-dropdown-item-img"
+              alt="User"
             />
             <span className="nav-left-dropdown-item">u/{item.username}</span>
           </div>
@@ -122,6 +122,7 @@ export default function NavLeftDropdownLink({
             <img
               src={item.communityImg}
               className="nav-left-dropdown-item-img"
+              alt="Community"
             />
             <span className="nav-left-dropdown-item">c/{item.name}</span>
           </div>

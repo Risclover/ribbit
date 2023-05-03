@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { BiSearch } from "react-icons/bi";
 import { getFollowers } from "../../store/followers";
 import FollowingBtn from "../../pages/UserProfile/FollowingBtn";
 
@@ -17,7 +16,7 @@ export default function UserProfileFollowers({ setShowFollowersModal }) {
 
   useEffect(() => {
     dispatch(getFollowers());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="user-profile-followers-page">
@@ -60,6 +59,7 @@ export default function UserProfileFollowers({ setShowFollowersModal }) {
               <img
                 className="user-profile-follower-img"
                 src={follower.profile_img}
+                alt="Follower"
               />
               {follower.username}
             </div>

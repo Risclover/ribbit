@@ -20,7 +20,7 @@ export default function CommunityWelcome({
         }
       }
     }, 1000);
-  }, [commPosts]);
+  }, [commPosts, community?.userId, user?.id, posts]);
 
   return (
     <div>

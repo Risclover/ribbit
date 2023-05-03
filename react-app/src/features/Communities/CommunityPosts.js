@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import SinglePost from "../Posts/SinglePost/SinglePost";
 import { NavLink } from "react-router-dom";
 import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
@@ -19,11 +18,12 @@ export default function CommunityPosts({
   commPosts.sort((a, b) => {
     let postA = new Date(a.createdAt).getTime();
     let postB = new Date(b.createdAt).getTime();
-    if (sortMode === "new") {
-      return postB - postA;
-    } else if (sortMode === "top") {
-      return b.votes - a.votes || postB - postA;
-    }
+
+    return sortMode === "top"
+      ? b.votes - a.votes || postB - postA
+      : sortMode === "new"
+      ? postB - postA
+      : null;
   });
 
   return (

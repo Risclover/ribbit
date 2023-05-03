@@ -9,8 +9,8 @@ export default function NotificationsDropdown() {
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
-    dispatch(getUserNotifications(user.id));
-  }, []);
+    dispatch(getUserNotifications(user?.id));
+  }, [dispatch, user?.id]);
 
   return (
     <div className="notifications-dropdown">

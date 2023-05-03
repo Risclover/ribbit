@@ -2,7 +2,6 @@ import React, { useEffect, useState, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { getPosts } from "../../store/posts";
-import { getCommunities } from "../../store/communities";
 import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
 import SortingBar from "../../components/SortingBar/SortingBar";
 import SinglePost from "./SinglePost/SinglePost";
@@ -14,9 +13,11 @@ import LoadingEllipsis from "../../components/LoadingEllipsis";
 import SortingFunction from "./SortingFunction";
 import All from "../../images/navbar/all-icon2.png";
 import { getSubscriptions } from "../../store/subscriptions";
-import { SlBasketLoaded } from "react-icons/sl";
 import { addViewedPost, getViewedPosts } from "../../store/viewed_posts";
 import RecentPosts from "./RecentPosts";
+import { getFavoriteCommunities } from "../../store/favorite_communities";
+import { getFavoriteUsers } from "../../store/favorite_users";
+import { getFollowers, getUserFollowers } from "../../store/followers";
 
 function Posts({ format, setFormat, setPageTitle }) {
   const dispatch = useDispatch();
@@ -28,13 +29,17 @@ function Posts({ format, setFormat, setPageTitle }) {
   const [items, setItems] = useState(posts.slice(10, 15));
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(2);
-  const isReduxLoaded = useSelector((state) => state.isLoaded);
 
   const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
 
   useEffect(() => {
     dispatch(getViewedPosts());
-  }, [dispatch]);
+    dispatch(getSubscriptions());
+    dispatch(getFavoriteCommunities());
+    dispatch(getFavoriteUsers());
+    dispatch(getUserFollowers(user?.id));
+    dispatch(getFollowers());
+  }, [dispatch, user?.id]);
 
   const loadMore = () => {
     setLoading(true);
@@ -49,16 +54,6 @@ function Posts({ format, setFormat, setPageTitle }) {
     setIsLoaded(false);
   }, 3000);
 
-  useEffect(() => {
-    if (format === "Card") {
-      window.addEventListener("scroll", handleScroll);
-
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
-    }
-  }, [items]);
-
   const handleScroll = () => {
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
@@ -67,6 +62,16 @@ function Posts({ format, setFormat, setPageTitle }) {
       loadMore();
     }
   };
+
+  useEffect(() => {
+    if (format === "Card") {
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [items, format]);
 
   const handleViewPost = async (postId) => {
     await dispatch(addViewedPost(postId));
@@ -79,11 +84,11 @@ function Posts({ format, setFormat, setPageTitle }) {
     document.title = "c/all";
     setPageTitle(
       <div className="nav-left-dropdown-face-title">
-        <img src={All} className="nav-left-dropdown-item-icon" />
+        <img src={All} className="nav-left-dropdown-item-icon" alt="" />
         <span className="nav-left-dropdown-item">All</span>
       </div>
     );
-  }, [dispatch]);
+  }, [dispatch, setPageTitle]);
 
   SortingFunction(posts, sortMode);
 

@@ -11,7 +11,7 @@ export default function Message({ message, item, allExpanded }) {
 
   useEffect(() => {
     if (!currentUser) history.redirect("/login");
-  }, []);
+  }, [currentUser, history]);
 
   useEffect(() => {
     if (allExpanded === false) {

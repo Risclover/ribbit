@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, NavLink } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import validator from "validator";
 import { TfiPlus } from "react-icons/tfi";
-
 import {
   addLinkPost,
   addPost,
@@ -18,7 +17,6 @@ import { Modal } from "../../../context/Modal";
 import ImagePostForm from "../ImagePost/ImagePostForm";
 import CommunitySelection from "./CreatePostDropdown/CommunitySelection";
 import DiscardPost from "../DiscardPost";
-
 import "./PostForm.css";
 import RibbitRules from "./RibbitRules";
 import CommunityInfoBox from "./CommunityInfoBox";
@@ -79,7 +77,7 @@ export default function CreatePost({
         <span className="nav-left-dropdown-item">Create Post</span>
       </div>
     );
-  }, [community]);
+  }, [community, setPageTitle]);
 
   useEffect(() => {
     for (let community of communities) {
@@ -87,11 +85,11 @@ export default function CreatePost({
         setCommunity(community);
       }
     }
-  }, []);
+  }, [community_id, communities]);
 
   useEffect(() => {
     setPostType(val);
-  }, [val]);
+  }, [val, setPostType]);
 
   useEffect(() => {
     let errors = [];
@@ -117,7 +115,7 @@ export default function CreatePost({
     } else {
       setLinkErrors([]);
     }
-  }, [link_url, title, community]);
+  }, [link_url, title, community, postType]);
 
   useEffect(() => {
     let errors = [];
@@ -192,6 +190,7 @@ export default function CreatePost({
     communities,
     communityId,
     postType,
+    link_url,
   ]);
 
   const handlePostSubmit = async (e) => {

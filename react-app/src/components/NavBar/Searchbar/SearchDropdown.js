@@ -74,6 +74,7 @@ export default function SearchDropdown({
                     <img
                       src={community.communityImg}
                       className="search-result-community-img"
+                      alt="Community"
                     />
                   </div>
                   <div className="search-result-community-details">
@@ -119,6 +120,7 @@ export default function SearchDropdown({
                     <img
                       src={user.profile_img}
                       className="search-result-community-img"
+                      alt="User"
                     />
                   </div>
                   <div className="search-result-community-details">

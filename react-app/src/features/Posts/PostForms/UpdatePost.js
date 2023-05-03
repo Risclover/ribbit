@@ -5,7 +5,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts, putSinglePost } from "../../../store/posts";
+import { putSinglePost } from "../../../store/posts";
 
 import "./PostForm.css";
 
@@ -31,13 +31,11 @@ export default function UpdatePost() {
   const history = useHistory();
 
   const post = useSelector((state) => state.posts[+postId]);
-  const posts = useSelector((state) => state.posts);
 
   const [title, setTitle] = useState(post ? post.title : "");
   const [content, setContent] = useState(post ? post.content : "");
   const [titleErrors, setTitleErrors] = useState([]);
   const [contentErrors, setContentErrors] = useState([]);
-  const [errors, setErrors] = useState([]);
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
@@ -65,14 +63,8 @@ export default function UpdatePost() {
       setTitleErrors(titles);
       setContentErrors(contents);
     } else {
-      const data = await dispatch(
-        putSinglePost({ title: title, content: content }, post?.id)
-      );
-      if (data.errors) {
-        setErrors(data.errors);
-      } else {
-        history.push(`/posts/${postId}`);
-      }
+      dispatch(putSinglePost({ title: title, content: content }, post?.id));
+      history.push(`/posts/${postId}`);
     }
   };
 

@@ -29,7 +29,6 @@ export default function EditCommunity() {
     community ? community.displayName : ""
   );
   const [description, setDescription] = useState(community?.description);
-  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     dispatch(getSingleCommunity(community?.id));
@@ -43,7 +42,7 @@ export default function EditCommunity() {
     if (rules.length < 15) {
       setAddAllowed(true);
     }
-  }, [rules.length, addAllowed]);
+  }, [rules.length, addAllowed, rules]);
 
   useEffect(() => {
     setdisplay_name(community?.displayName);
@@ -55,20 +54,11 @@ export default function EditCommunity() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let errors = [];
+    const data = await dispatch(
+      updateCommunity({ display_name, description }, community.id)
+    );
 
-    if (errors.length > 0) {
-      setErrors(errors);
-    } else {
-      const data = await dispatch(
-        updateCommunity({ display_name, description }, community.id)
-      );
-      if (data.length > 0) {
-        setErrors(data.errors);
-      } else {
-        history.push(`/c/${data.id}`);
-      }
-    }
+    history.push(`/c/${data.id}`);
   };
 
   if (!community || !community) return null;

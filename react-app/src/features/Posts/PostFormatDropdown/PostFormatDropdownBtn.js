@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import HandleClickOutside from "../../../components/HandleClickOutside";
 
 function useOutsideAlerter(ref, setActive, active, setImg, item) {
   useEffect(() => {
@@ -20,7 +19,7 @@ function useOutsideAlerter(ref, setActive, active, setImg, item) {
           .removeEventListener("mousedown", handleClickOutside);
       };
     }
-  }, [ref, active]);
+  }, [ref, active, item.grey, setActive, setImg]);
 }
 
 export default function PostFormatDropdownBtn({
@@ -40,7 +39,7 @@ export default function PostFormatDropdownBtn({
     } else {
       setImg(item.grey);
     }
-  }, []);
+  }, [format, item.colored, item.format, item.grey]);
 
   useOutsideAlerter(wrapperRef, setActive, active, setImg, item);
 
@@ -60,7 +59,7 @@ export default function PostFormatDropdownBtn({
         setFormat(item.format);
       }}
     >
-      <img src={img ? img : item.img} />
+      <img src={img ? img : item.img} alt="Item" />
       <span
         className={
           img === item.black

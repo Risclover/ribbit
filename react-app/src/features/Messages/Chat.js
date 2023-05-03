@@ -17,7 +17,7 @@ const Chat = () => {
       setMessages((messages) => [...messages, chat]);
     });
 
-    socket.on("join", )
+    socket.on("join");
     // when component unmounts, disconnect
     return () => {
       socket.disconnect();
@@ -44,7 +44,11 @@ const Chat = () => {
         <div>
           {messages.map((message, ind) => (
             <div key={ind} className="message-message">
-              <img src={message.img} className="message-user-img" />
+              <img
+                src={message.img}
+                className="message-user-img"
+                alt="Message"
+              />
               {`${message.user}: ${message.msg}`}
             </div>
           ))}

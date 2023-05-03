@@ -14,12 +14,12 @@ export default function CommunityImage({ user, community }) {
             className="community-img-upload-btn"
             onClick={() => setShowCommunityImgModal(true)}
           >
-            <img src={Camera} />
+            <img src={Camera} alt="Camera" />
           </div>
         )}
 
         <div className="community-header-info-img">
-          <img src={community.communityImg} />
+          <img src={community.communityImg} alt="Community" />
         </div>
       </div>
 

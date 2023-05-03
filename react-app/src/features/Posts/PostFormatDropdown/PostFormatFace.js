@@ -43,7 +43,7 @@ export default function PostFormatFace({ setFormat, format }) {
         HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
       });
     };
-  }, [wrapperRef]);
+  }, [wrapperRef, showDropdown]);
 
   return (
     <div className="post-format-face-wrapper" ref={wrapperRef}>
@@ -51,9 +51,9 @@ export default function PostFormatFace({ setFormat, format }) {
         className="post-format-face"
         onClick={() => setShowDropdown(!showDropdown)}
       >
-        {format === "Card" && <img src={Card} />}
-        {format === "Classic" && <img src={Classic} />}
-        {format === "Compact" && <img src={Compact} />}
+        {format === "Card" && <img src={Card} alt="Card" />}
+        {format === "Classic" && <img src={Classic} alt="Classic" />}
+        {format === "Compact" && <img src={Compact} alt="Compact" />}
         <TbChevronDown />
       </button>
       {showDropdown && (

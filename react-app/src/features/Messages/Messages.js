@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { getMessages } from "../../store/messages";
-import { createMessage, getThreads, readMessage } from "../../store/threads";
-import moment from "moment";
+import { getThreads } from "../../store/threads";
 import { Modal } from "../../context/Modal";
 import MessageModal from "../../components/Modals/MessageModal";
-import MessageReply from "./MessageReply";
 import "./Messages.css";
 import { getUsers } from "../../store/users";
-import Message from "./Message";
 import MessageThread from "./MessageThread";
+
 export default function Messages({ setPageTitle }) {
   const dispatch = useDispatch();
-  const messages = useSelector((state) => Object.values(state.messages));
   const threads = useSelector((state) => Object.values(state.threads));
   const currentUser = useSelector((state) => state.session.user);
 
@@ -23,7 +19,7 @@ export default function Messages({ setPageTitle }) {
     dispatch(getMessages());
     dispatch(getThreads());
     dispatch(getUsers());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     document.title = "Messages";
@@ -32,17 +28,13 @@ export default function Messages({ setPageTitle }) {
         <img
           src={currentUser?.profile_img}
           className="nav-left-dropdown-item-icon item-icon-circle"
+          alt="User"
         />
         <span className="nav-left-dropdown-item">Messages</span>
       </div>
     );
-  }, []);
+  }, [setPageTitle, currentUser?.profile_img]);
 
-  const handleReply = (e) => {
-    e.preventDefault();
-  };
-
-  console.log(threads);
   threads.sort((a, b) => {
     let aThread = new Date(a.updatedAt);
     let bThread = new Date(b.updatedAt);
@@ -50,7 +42,6 @@ export default function Messages({ setPageTitle }) {
     return bThread - aThread;
   });
 
-  console.log(threads);
   return (
     <div className="messages-page">
       <div className="messages-header">

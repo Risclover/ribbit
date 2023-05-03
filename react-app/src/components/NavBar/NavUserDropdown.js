@@ -34,7 +34,7 @@ export default function NavUserDropdown() {
         HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
       });
     };
-  }, [wrapperRef]);
+  }, [wrapperRef, showDropdown]);
 
   return (
     <div

@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { createComment, getAllComments } from "../../../store/comments";
-import { getPosts } from "../../../store/posts";
-
-import { Modal } from "../../../context/Modal";
-import LoginForm from "../../auth/AuthModal/LoginForm";
-import SignUpForm from "../../auth/AuthModal/SignUpForm";
+import { createComment } from "../../../store/comments";
 
 import "../Comments.css";
 import {
@@ -22,8 +17,6 @@ export default function CommentForm({ postId }) {
   const [content, setContent] = useState("");
   const [errors, setErrors] = useState([]);
   const [disabled, setDisabled] = useState(true);
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [showSignupForm, setShowSignupForm] = useState(false);
 
   const user = useSelector((state) => state.session.user);
 

@@ -20,11 +20,11 @@ export default function CommunitySubscribeBtn({
 
   useEffect(() => {
     if (subscriptions[community?.id]) setSubscribed(true);
-  }, [subscribed, subscriptions]);
+  }, [subscribed, subscriptions, community?.id]);
 
   useEffect(() => {
     if (subscriptions[community?.id]) setSubscribed(true);
-  }, [subscribed, subscriptions]);
+  }, [subscribed, subscriptions, community?.id]);
   return (
     <div className="community-header-info-details-right">
       <div className="community-header-info-subscribe">

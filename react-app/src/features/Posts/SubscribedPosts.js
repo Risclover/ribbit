@@ -7,7 +7,6 @@ import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
 import SinglePost from "./SinglePost/SinglePost";
 import SortingBar from "../../components/SortingBar/SortingBar";
 import "./Posts.css";
-import { getFavoriteCommunities } from "../../store/favorite_communities";
 import BackToTop from "../../components/BackToTop";
 import DeveloperLinksBox from "./DeveloperLinksBox/DeveloperLinksBox";
 import AboutBox from "./AboutBox";
@@ -17,6 +16,9 @@ import Home from "../../images/navbar/home-icon.png";
 import { getSubscriptions } from "../../store/subscriptions";
 import { addViewedPost, getViewedPosts } from "../../store/viewed_posts";
 import RecentPosts from "./RecentPosts";
+import { getFavoriteCommunities } from "../../store/favorite_communities";
+import { getFavoriteUsers } from "../../store/favorite_users";
+import { getFollowers, getUserFollowers } from "../../store/followers";
 
 export default function SubscribedPosts({
   format,
@@ -45,6 +47,11 @@ export default function SubscribedPosts({
 
   useEffect(() => {
     dispatch(getViewedPosts());
+    dispatch(getSubscriptions());
+    dispatch(getFavoriteCommunities());
+    dispatch(getFavoriteUsers());
+    dispatch(getUserFollowers(user?.id));
+    dispatch(getFollowers());
   }, [dispatch]);
 
   useEffect(() => {

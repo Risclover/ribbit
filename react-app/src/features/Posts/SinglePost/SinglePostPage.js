@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
 import { getSinglePost } from "../../../store/one_post";
-import { getSingleCommunity } from "../../../store/one_community";
 import { getSubscriptions } from "../../../store/subscriptions";
 import CommunityRule from "../../Communities/CommunityRule";
 import {
@@ -15,11 +14,7 @@ import Comments from "../../Comments/Comments";
 import Cake from "../../../images/misc/piece4.png";
 import SinglePost from "./SinglePost";
 import BackToTop from "../../../components/BackToTop";
-import { getPosts } from "../../../store/posts";
-import { getCommunities } from "../../../store/communities";
 import { addViewedPost, getViewedPosts } from "../../../store/viewed_posts";
-import { openStdin } from "process";
-
 export default function SinglePostPage({
   setShowLoginForm,
   setRecentPostList,

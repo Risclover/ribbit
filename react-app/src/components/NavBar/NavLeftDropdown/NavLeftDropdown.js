@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { FaRegBell } from "react-icons/fa";
 import { TfiPlus } from "react-icons/tfi";
 import Home from "../../../images/navbar/home-icon.png";
 import All from "../../../images/navbar/all-icon2.png";
-import Popular from "../../../images/navbar/popular.png";
 import {
   addFavoriteCommunity,
   getFavoriteCommunities,
@@ -18,15 +16,8 @@ import {
 } from "../../../store/favorite_users";
 import HandleClickOutside from "../../HandleClickOutside";
 import NavLeftDropdownLink from "./NavLeftDropdownLink";
-import { getSubscriptions } from "../../../store/subscriptions";
-import { getCommunities } from "../../../store/communities";
-import { getFollowers, getUserFollowers } from "../../../store/followers";
 
-export default function NavLeftDropdown({
-  showIcon,
-  setShowIcon,
-  setPageTitle,
-}) {
+export default function NavLeftDropdown({ showIcon, setShowIcon }) {
   const dispatch = useDispatch();
   const wrapperRef = useRef(null);
   const history = useHistory();
@@ -57,7 +48,7 @@ export default function NavLeftDropdown({
         HandleClickOutside(e, wrapperRef, showIcon, setShowIcon);
       });
     };
-  }, [wrapperRef]);
+  }, [wrapperRef, setShowIcon, showIcon]);
 
   Object.values(favoriteCommunities).sort((a, b) =>
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
@@ -90,7 +81,7 @@ export default function NavLeftDropdown({
       );
       setCommunities(sorted);
     }
-  }, [filter]);
+  }, [filter, favoriteCommunities]);
 
   const handleFavorite = async (e, community) => {
     e.preventDefault();
@@ -122,6 +113,7 @@ export default function NavLeftDropdown({
         type="text"
         placeholder="Filter"
         value={filter}
+        autoFocus
         onChange={(e) => setFilter(e.target.value)}
       />
 
@@ -272,7 +264,7 @@ export default function NavLeftDropdown({
             history.push("/");
           }}
         >
-          <img src={Home} className="nav-left-dropdown-item-icon" />
+          <img src={Home} className="nav-left-dropdown-item-icon" alt="Home" />
           <span className="nav-left-dropdown-item">Home</span>
         </div>
       )}
@@ -300,7 +292,7 @@ export default function NavLeftDropdown({
             history.push("/c/all");
           }}
         >
-          <img src={All} className="nav-left-dropdown-item-icon" />
+          <img src={All} className="nav-left-dropdown-item-icon" alt="All" />
           <span className="nav-left-dropdown-item">All</span>
         </div>
       )}
@@ -322,6 +314,7 @@ export default function NavLeftDropdown({
           <img
             src={currentUser?.profile_img}
             className="nav-left-dropdown-item-img"
+            alt="User Settings"
           />
           <span className="nav-left-dropdown-item">User Settings</span>
         </div>
@@ -340,6 +333,7 @@ export default function NavLeftDropdown({
           <img
             src={currentUser?.profile_img}
             className="nav-left-dropdown-item-img"
+            alt="Messages"
           />
           <span className="nav-left-dropdown-item">Messages</span>
         </div>

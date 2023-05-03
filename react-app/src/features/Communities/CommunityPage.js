@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleCommunity } from "../../store/one_community";
 import { getPosts } from "../../store/posts";
@@ -42,11 +42,12 @@ export default function CommunityPage({ setPageTitle, format, setFormat }) {
         <img
           src={community?.communityImg}
           className="nav-left-dropdown-item-icon item-icon-circle"
+          alt="Community"
         />
         <span className="nav-left-dropdown-item">c/{community?.name}</span>
       </div>
     );
-  }, [community]);
+  }, [community, setPageTitle]);
 
   useEffect(() => {
     if (favoriteCommunities[community?.id]) {
@@ -54,7 +55,7 @@ export default function CommunityPage({ setPageTitle, format, setFormat }) {
     } else {
       setFavorited(false);
     }
-  }, [favorited, favoriteCommunities]);
+  }, [favorited, favoriteCommunities, community?.id]);
 
   if (!community || !posts) return null;
   return (

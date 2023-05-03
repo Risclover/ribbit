@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import {
-  getCommunities,
-  getSingleCommunity,
-} from "../../../../store/communities";
+
 import "./CommunitySelection.css";
 
 export default function CommunitySelectionDropdownCommunity({
@@ -12,11 +9,8 @@ export default function CommunitySelectionDropdownCommunity({
   setShowDropdown,
   setSearch,
   setCommunity,
-  search,
-  community_id,
 }) {
   const history = useHistory();
-  const dispatch = useDispatch();
   const allCommunities = useSelector((state) =>
     Object.values(state.communities)
   );

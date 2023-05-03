@@ -50,7 +50,15 @@ export default function SinglePostKarmabar({
         }
       }
     }
-  }, [upvote, downvote, post?.postVoters, user?.id]);
+  }, [
+    upvote,
+    downvote,
+    post?.postVoters,
+    user?.id,
+    posts,
+    setDownvote,
+    setUpvote,
+  ]);
 
   const handleVoteClick = async (e, voteType) => {
     e.preventDefault();

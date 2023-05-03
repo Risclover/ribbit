@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 import parse from "html-react-parser";
 import cutLink from "../SinglePost/SliceUrl";
@@ -19,7 +19,6 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const currentUser = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.posts[id]);
   const posts = useSelector((state) => state.posts);
   const cuser = useSelector((state) => state.session.user);
@@ -52,7 +51,7 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
     } else {
       setVoted(false);
     }
-  });
+  }, [post.postVoters]);
 
   useEffect(() => {
     if (
@@ -77,7 +76,7 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
         }
       }
     }
-  }, [upvote, downvote, voteTotal, post?.postVoters, user?.id]);
+  }, [upvote, downvote, voteTotal, post?.postVoters, user?.id, posts]);
 
   return (
     <div className="post-classic-format">
@@ -298,7 +297,7 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
             <div className="classic-post-expanded">
               {post.imgUrl ? (
                 <div className="classic-post-expanded-img">
-                  <img src={post.imgUrl} />
+                  <img src={post.imgUrl} alt="Post" />
                 </div>
               ) : (
                 <div

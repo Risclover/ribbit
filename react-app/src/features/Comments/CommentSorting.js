@@ -32,7 +32,7 @@ export default function CommentSorting({ sortType, setSortType }) {
         );
       });
     };
-  }, [wrapperRef]);
+  }, [wrapperRef, showSortingDropdown]);
 
   return (
     <div className="comment-sorting">
@@ -81,18 +81,7 @@ export default function CommentSorting({ sortType, setSortType }) {
               New
             </button>
           )}
-          {sortType === "Controversial" ? (
-            <button className="comment-sorting-dropdown-btn sorting-active-btn">
-              Controversial
-            </button>
-          ) : (
-            <button
-              className="comment-sorting-dropdown-btn"
-              onClick={(e) => handleClick(e, "Controversial")}
-            >
-              Controversial
-            </button>
-          )}
+
           {sortType === "Old" ? (
             <button className="comment-sorting-dropdown-btn sorting-active-btn">
               Old

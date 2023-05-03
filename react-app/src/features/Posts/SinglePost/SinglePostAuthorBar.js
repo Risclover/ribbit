@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import { useDispatch } from "react-redux";
-import { getCommunities } from "../../../store/communities";
 
 export default function SinglePostAuthorBar({ community, post, isPage }) {
   return (

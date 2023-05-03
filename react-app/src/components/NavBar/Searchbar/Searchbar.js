@@ -2,19 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import SearchDropdown from "./SearchDropdown";
 import { BsSearch } from "react-icons/bs";
 import { SlClose } from "react-icons/sl";
-import { NavLink, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { getUsers } from "../../../store/users";
+import { useHistory } from "react-router-dom";
 import "./Searchbar.css";
 import HandleClickOutside from "../../HandleClickOutside";
 
 export default function Searchbar({
-  setPageTitle,
   searchQuery,
   setSearchQuery,
   adjustQuery,
 }) {
-  const dispatch = useDispatch();
   const history = useHistory();
   const wrapperRef = useRef(null);
   const ref = useRef();
@@ -56,7 +52,7 @@ export default function Searchbar({
         );
       });
     };
-  }, [wrapperRef]);
+  }, [wrapperRef, showSearchDropdown]);
 
   useEffect(() => {
     if (searchQuery?.length === 0) {
