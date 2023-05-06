@@ -50,7 +50,7 @@ def follow_user(id):
         user.favorited.remove(target)
 
     db.session.commit()
-    return {"message": "User successfully followed/unfollowed"}
+    return {"id": id, "message": "User successfully followed/unfollowed"}
 
 # GET FOLLOWED POSTS
 @follower_routes.route("/posts")

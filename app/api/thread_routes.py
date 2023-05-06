@@ -62,7 +62,8 @@ def send_message(id):
             content = data["content"],
             sender_id = current_user.get_id(),
             receiver_id = data2["receiverId"],
-            thread_id = id
+            thread_id = id,
+            subject = thread.subject
         )
 
         thread.messages.append(message)
@@ -93,3 +94,25 @@ def read_message(id):
 
     db.session.commit()
     return {"message": "Message successfully read"}
+
+
+# SET A MESSAGE STATUS TO 'UNREAD'
+@thread_routes.route("/<int:id>/unread", methods=["PUT"])
+def unread_message(id):
+    message = Message.query.get(id)
+    setattr(message, "read", False)
+
+    db.session.commit()
+    return {"message": "Message successfully unread"}
+
+
+@thread_routes.route("", methods=["PUT"])
+def read_all_messages():
+    user = User.query.get(current_user.get_id())
+    messages = Message.query.filter_by(user_id=user.id, read=True)
+    for message in messages:
+        setattr(message, "read", False)
+
+
+    db.session.commit()
+    return {"message": "Read all messages"}

@@ -26,3 +26,14 @@ def get_user_messages():
     messages = user.user_messages
 
     return {"Messages": [message.to_dict() for message in messages]}
+
+
+# MARK A MESSAGE AS 'READ'
+@message_routes.route("<int:id>", methods=["PUT"])
+def read_message(id):
+    message = Message.query.get(id)
+    setattr(message, "read", True)
+
+    db.session.commit()
+
+    return {"message": "Successfully read message"}

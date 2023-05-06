@@ -71,10 +71,11 @@
 
 .notifications-main-wrapper {
   max-width: 1248px;
-  padding: 20px 24px;
+  /* padding: 20px 24px; */
   display: flex;
   justify-content: center;
   margin: 0 auto;
+  width: 100%;
 }
 
 .notifications-main {
@@ -104,4 +105,34 @@
   display: block;
   width: 100%;
   padding: 8px 16px;
+}
+
+.notification {
+  border-bottom: 1px solid #edeff1;
+  padding: 16px;
+  display: flex;
+  width: 100%;
+}
+
+.notification-main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.notification-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.notification-top-right {
+  display: flex;
+  align-items: center;
+}
+
+.notification-top-right svg {
+  font-size: 20px;
+  color: #7c7c7c;
 }

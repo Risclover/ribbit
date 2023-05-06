@@ -13,6 +13,7 @@ class Message(db.Model):
     sender_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     receiver_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     content = db.Column(db.String(10000), nullable=False)
+    subject = db.Column(db.String(50), nullable=True)
     thread_id = db.Column(db.Integer, db.ForeignKey("message_threads.id"), unique=False, nullable=False)
     read = db.Column(db.Boolean, default=False, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
@@ -25,6 +26,7 @@ class Message(db.Model):
         return {
             "id": self.id,
             "content": self.content,
+            "subject": self.subject,
             "read": self.read,
             "sender": self.sender.to_dict(),
             "receiver": self.recipient.id,

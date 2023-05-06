@@ -1,37 +1,56 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createMessage, getThreads } from "../../store/threads";
+import { createMessage, getThreads, unreadMessage } from "../../store/threads";
+import { addNotification, unreadNotification } from "../../store/notifications";
 
 export default function MessageReply({ message, threadId, expanded }) {
   const dispatch = useDispatch();
   const [reply, setReply] = useState("");
   const [showReplyBox, setShowReplyBox] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
+  const notifications = useSelector((state) =>
+    Object.values(state.notifications)
+  );
 
-  const handleReply = (e) => {
+  const handleReply = async (e) => {
     e.preventDefault();
     const payload = {
       content: reply,
       threadId: threadId,
       receiverId: message.sender.id,
     };
-    dispatch(createMessage(payload));
+    const msg = await dispatch(createMessage(payload));
+    const notificationsPayload = {
+      type: "message",
+      id: msg.id,
+    };
+    dispatch(addNotification(notificationsPayload));
     dispatch(getThreads());
     setReply("");
     setShowReplyBox(false);
   };
+
+  const handleUnread = (e, message) => {
+    e.preventDefault();
+    dispatch(unreadMessage(message.id));
+    // dispatch(unreadNotification(notification.id));
+  };
   return (
-    <div>
-      {expanded && (
+    <div className="messages-content-message-button-bar-spacer">
+      {expanded && message.sender.username !== currentUser?.username && (
         <div className="messages-content-message-button-bar">
-          {message.sender.username !== currentUser?.username && (
-            <button
-              className="messages-content-message-button"
-              onClick={() => setShowReplyBox(true)}
-            >
-              Reply
-            </button>
-          )}
+          <button
+            className="messages-content-message-button"
+            onClick={(e) => handleUnread(e, message)}
+          >
+            Mark Unread
+          </button>
+          <button
+            className="messages-content-message-button"
+            onClick={() => setShowReplyBox(true)}
+          >
+            Reply
+          </button>
         </div>
       )}
       {showReplyBox && (

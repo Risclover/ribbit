@@ -21,6 +21,11 @@ socketio = SocketIO(cors_allowed_origins=origins)
 def handle_chat(data):
     emit("chat", data, broadcast=True)
 
+@socketio.on("celebration")
+def celebrate(data):
+    user = User.query.get(data['user_id'])
+    emit("celebration", data, broadcast=True)
+
 @socketio.on('join')
 def on_join(data):
     user_id = data['user_id']

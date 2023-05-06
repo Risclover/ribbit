@@ -16,6 +16,7 @@ import {
 } from "../../../store/favorite_users";
 import HandleClickOutside from "../../HandleClickOutside";
 import NavLeftDropdownLink from "./NavLeftDropdownLink";
+import { IoMdNotificationsOutline } from "react-icons/io";
 
 export default function NavLeftDropdown({ showIcon, setShowIcon }) {
   const dispatch = useDispatch();
@@ -297,9 +298,8 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
         </div>
       )}
 
-      {/* Don't forget to add 'Notifications' and 'Messages' back here */}
-      {["User Settings", "Messages", "Create Post"].filter((item) =>
-        item.toLowerCase().includes(filter.toLowerCase())
+      {["User Settings", "Messages", "Notifications", "Create Post"].filter(
+        (item) => item.toLowerCase().includes(filter.toLowerCase())
       ).length > 0 && <div className="nav-left-dropdown-title">Other</div>}
 
       {"User Settings".toLowerCase().includes(filter.toLowerCase()) && (
@@ -352,20 +352,20 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           <span className="nav-left-dropdown-item">Create Post</span>
         </div>
       )}
-      {/*
+
       {"Notifications".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
-            history.push("/c/submit");
+            history.push("/notifications");
           }}
         >
-          <FaRegBell />
+          <IoMdNotificationsOutline />
           <span className="nav-left-dropdown-item">Notifications</span>
         </div>
-      )} */}
+      )}
     </div>
   );
 }

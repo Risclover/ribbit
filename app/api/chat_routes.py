@@ -8,53 +8,122 @@ from flask_socketio import SocketIO, emit, join_room, leave_room
 
 chat_routes = Blueprint("chats", __name__)
 
-# GET USER'S CHAT LOGS
-@chat_routes.route("")
+# GET CURRENT USER'S CHAT THREADS
+@chat_routes.route('')
 @login_required
-def get_chats():
+def get_chat_threads():
     """
-    Query to get a user's chat logs
+    Get chat threads of current user
     """
+
     user = User.query.get(current_user.get_id())
-    chats = user.user_chats
-    return {"Chats": [chat.to_dict() for chat in chats]}
+    user_chats = user.user_chats
+
+    return {"Chats": [thread.to_dict() for thread in user_chats]}
 
 
-@chat_routes.route("/")
-def on_connect():
-    emit('connected', {'data': 'Connected'})
+# GET ONE CHAT BY ID
+@chat_routes.route('/<int:id>')
+@login_required
+def get_one_chat(id):
+    """
+    Get one chat thread by its ID
+    """
 
-@socketio.on('join')
-def on_join(data):
-    username = data['username']
-    room = data['room']
-    join_room(room)
-    emit('joined', {'username': username, 'room': room})
+    chat = MessageThread.query.get(id)
 
-@socketio.on('leave')
-def on_leave(data):
-    username = data['username']
-    room = data['room']
-    leave_room(room)
-    emit('left', {'username': username, 'room': room})
+    return {"Chat": chat.to_dict()}
 
-@socketio.on('send_message')
-def on_send_message(data):
-    sender_username = data['sender_username']
-    recipient_username = data['recipient_username']
-    message = data['message']
 
-    sender = User.query.filter_by(username=sender_username).first()
-    recipient = User.query.filter_by(username=recipient_username).first()
+# CREATE NEW MESSAGE THREAD BETWEEN CURR USER AND TARGET USER
+@chat_routes.route('', methods=["POST"])
+@login_required
+def create_thread():
+    """
+    Create a new message thread between the current user and a selected user
+    """
 
-    if sender and recipient:
-        chat = Chat(user_id=sender.id, recipient_id=recipient.id, message=message)
-        db.session.add(chat)
+    targetUser = User.query.get(request.json["targetUserId"])
+    currUser = User.query.get(current_user.get_id())
+
+    for chat in [chat.to_dict() for chat in targetUser.user_chats]:
+        for user in chat["chatUsers"]:
+            if user["id"] == currUser.to_dict()["id"]:
+                return {"chat": chat}
+
+    new_thread = MessageThread()
+    currUser.user_chats.append(new_thread)
+    targetUser.user_chats.append(new_thread)
+    db.session.add(new_thread)
+    db.session.commit()
+
+    return {"chat": new_thread.to_dict()}
+
+
+# ADD A MESSAGE TO A THREAD BY ITS ID
+@chat_routes.route('/<int:id>', methods=["POST"])
+@login_required
+def add_message(id):
+    """
+    Add message to a chat thread by its ID
+    """
+
+    form = MessageForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        data = form.data
+
+        new_msg = Message(
+            message=data["body"],
+            user_id=current_user.get_id(),
+            message_thread_id=id
+        )
+
+        db.session.add(new_msg)
         db.session.commit()
 
-        room = f'{sender_username}_{recipient_username}'
-        emit('receive_message', {'sender_username': sender_username, 'message': message}, room=room)
+        return new_msg.to_dict()
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 403
 
-if __name__ == '__main__':
-    db.create_all()
-    socketio.run(app, debug=True)
+
+# READ MESSAGES
+@chat_routes.route('/read', methods=["PUT"])
+def read_messages():
+    """
+    Change the "read" status of a list of message IDs to True
+    """
+
+    for msgId in request.json['unreadMsgs']:
+        db_msg = Message.query.get(msgId)
+        setattr(db_msg, "read", True)
+
+    db.session.commit()
+    return {"message": "all messages read"}
+
+
+# DELETE A THREAD BY ITS ID
+@chat_routes.route('/<int:id>', methods=["DELETE"])
+@login_required
+def delete_thread(id):
+    """
+    Delete a thread by its ID
+    """
+
+    thread = MessageThread.query.get(id)
+    db.session.delete(thread)
+    db.session.commit()
+    return {"message": "Successfully deleted", "status_code": 200}
+
+
+# DELETE A MESSAGE BY ITS ID
+@chat_routes.route('/message/<int:id>', methods=["DELETE"])
+@login_required
+def delete_message(id):
+    """
+    Delete a message by its ID
+    """
+
+    message = Message.query.get(id)
+    db.session.delete(message)
+    db.session.commit()
+    return {"message": "Successfully deleted", "status_code": 200}

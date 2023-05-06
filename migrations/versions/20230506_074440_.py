@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: ae1fcd2d414a
+Revision ID: 8e7ae810f432
 Revises: 
-Create Date: 2023-04-29 20:45:53.076784
+Create Date: 2023-05-06 07:44:40.042305
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ae1fcd2d414a'
+revision = '8e7ae810f432'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,6 +36,9 @@ def upgrade():
     sa.Column('karma', sa.Integer(), nullable=True),
     sa.Column('profile_img', sa.String(length=255), nullable=True),
     sa.Column('banner_img', sa.String(length=255), nullable=True),
+    sa.Column('message_notifications', sa.Boolean(), nullable=False),
+    sa.Column('follower_notifications', sa.Boolean(), nullable=False),
+    sa.Column('post_reply_notifications', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
@@ -68,22 +71,13 @@ def upgrade():
     sa.Column('sender_id', sa.Integer(), nullable=False),
     sa.Column('receiver_id', sa.Integer(), nullable=False),
     sa.Column('content', sa.String(length=10000), nullable=False),
+    sa.Column('subject', sa.String(length=50), nullable=True),
     sa.Column('thread_id', sa.Integer(), nullable=False),
     sa.Column('read', sa.Boolean(), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.ForeignKeyConstraint(['receiver_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['sender_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['thread_id'], ['message_threads.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('notifications',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('message', sa.Text(), nullable=False),
-    sa.Column('type', sa.String(), nullable=False),
-    sa.Column('read', sa.Boolean(), nullable=True),
-    sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_threads',
@@ -143,6 +137,22 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('notifications',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('sender_id', sa.Integer(), nullable=False),
+    sa.Column('post_id', sa.Integer(), nullable=True),
+    sa.Column('message', sa.Text(), nullable=False),
+    sa.Column('content', sa.Text(), nullable=False),
+    sa.Column('icon', sa.String(length=255), nullable=False),
+    sa.Column('type', sa.String(), nullable=False),
+    sa.Column('read', sa.Boolean(), nullable=True),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
+    sa.ForeignKeyConstraint(['post_id'], ['posts.id'], ),
+    sa.ForeignKeyConstraint(['sender_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('post_votes',
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('post_id', sa.Integer(), nullable=False),
@@ -184,13 +194,13 @@ def downgrade():
     op.drop_table('CommentVotes')
     op.drop_table('viewed_posts')
     op.drop_table('post_votes')
+    op.drop_table('notifications')
     op.drop_table('comments')
     op.drop_table('subscriptions')
     op.drop_table('rules')
     op.drop_table('posts')
     op.drop_table('favorite_communities')
     op.drop_table('user_threads')
-    op.drop_table('notifications')
     op.drop_table('messages')
     op.drop_table('followers')
     op.drop_table('favorite_users')

@@ -5,6 +5,7 @@ export default function HandleClickOutside(
   setShowComponent
 ) {
   if (ref.current && !ref.current.contains(event.target)) {
+    console.log(showComponent);
     setTimeout(() => {
       setShowComponent(false);
     }, [200]);

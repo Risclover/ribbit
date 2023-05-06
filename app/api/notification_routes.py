@@ -28,7 +28,7 @@ def add_notification(type, id):
         comment = Comment.query.get(id)
         post_author = comment.comment_post.post_author
         if post_author != comment.comment_author:
-            notification = Notification(user_id=post_author.id, message=f"{comment.comment_author.username} replied to your post '{comment.comment_post.title}'", type=type)
+            notification = Notification(user_id=post_author.id, post_id=comment.comment_post.id, sender_id=comment.user_id, icon = comment.comment_author.profile_img, message=f"{comment.comment_author.username} replied to your post in c/{comment.comment_post.post_community.name}", content=f"{comment.content}", type=type)
             db.session.add(notification)
             db.session.commit()
             return {"Notification": notification.to_dict()}
@@ -37,7 +37,15 @@ def add_notification(type, id):
     # ADDING A NEW MESSAGE NOTIFICATION
     elif type == "message":
         message = Message.query.get(id)
-        notification = Notification(user_id = message.receiver_id, message="", type=type)
+        user = User.query.get(current_user.get_id())
+        notification = Notification(
+            user_id = message.receiver_id,
+            sender_id=message.sender_id,
+            icon = user.profile_img,
+            message="",
+            content="",
+            type=type
+        )
         db.session.add(notification)
         db.session.commit()
 
@@ -46,51 +54,47 @@ def add_notification(type, id):
 
     # ADDING A NEW FOLLOWER NOTIFICATION
     elif type == "follower":
-        follower = current_user.get_id()
-        notification = Notification(user_id=id, message=f"{follower.username} followed you. Follow them back or start a chat!", type=type)
+        follower = User.query.get(current_user.get_id())
+        notification = Notification(user_id=id, icon = follower.profile_img, sender_id=follower.id, message=f"{follower.username} followed you. Follow them back or start a chat!", content="", type=type)
         db.session.add(notification)
         db.session.commit()
 
         return {"Notification": notification.to_dict()}
 
 
-
-# MARK ALL NOTIFICATIONS AS 'READ'
-notification_routes.route("/read", methods=["PUT"])
-def read_notifications():
-    user_id = current_user.get_id()
-    notifications = Notification.query.filter_by(user_id=user_id, read=False).all()
-    for notification in notifications:
-        notification.read = True
-    db.session.commit()
-
-
-    print(request.method, """
-
-
-
-
-
-
-
-
-
-
-
-    """)
-    return {"message": "Notifications successfully marked as 'read'"}
-
-
-
-# MARK ONE NOTIFICATION AS 'READ'
-notification_routes.route("/read/<int:id>", methods=["PUT"])
+# MARKING A NOTIFICATION AS 'READ'
+@notification_routes.route("/<int:id>/read", methods=["PUT"])
 def read_notification(id):
     notification = Notification.query.get(id)
+    if notification.read == False:
+        setattr(notification, "read", True)
 
-    if notification:
-        notification.read = True
-        db.session.commit()
+    db.session.commit()
 
-        return {"message": "Notification successfully marked as 'read'"}
-    else:
-        return {"error": "Notification not found"}, 404
+    return {"message": "Successfully marked notification as read"}
+
+
+
+# MARKING ALL MESSAGE NOTIFICATIONS AS 'READ'
+@notification_routes.route("/read", methods=["PUT"])
+def read_all_notifications():
+    notifications = Notification.query.filter_by(user_id=current_user.get_id())
+    for notification in notifications:
+        if notification.type == "message":
+            setattr(notification, "read", True)
+
+    db.session.commit()
+    return {"message": "All notifications successfully read"}
+
+
+
+# MARKING A NOTIFICATION AS 'UNREAD'
+@notification_routes.route("/<int:id>/unread", methods=["PUT"])
+def unread_notification(id):
+    notification = Notification.query.get(id)
+    if notification.read == True:
+        setattr(notification, "read", False)
+
+    db.session.commit()
+
+    return {"message": "Successfully marked notification as unread"}

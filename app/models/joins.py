@@ -82,5 +82,5 @@ favorite_users = db.Table('favorite_users',
 #     "user_chat_threads",
 #     db.Model.metadata,
 #     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-#     db.Column('chat_id', db.Integer, db.ForeignKey('chats.id'), primary_key=True)
+#     db.Column('chat_thread_id', db.Integer, db.ForeignKey('chat_threads.id'), primary_key=True)
 # )

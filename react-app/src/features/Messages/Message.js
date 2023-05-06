@@ -28,14 +28,30 @@ export default function Message({ message, item, allExpanded }) {
           <span className="expanded-btn" onClick={() => setExpanded(!expanded)}>
             {expanded ? "[–]" : "[+]"}
           </span>{" "}
-          {currentUser.username === message.sender.username ? "to " : "from"}{" "}
-          <NavLink to={`/users/${item.users[1].id}/profile`}>
-            /u/{item.users[1].username}
-          </NavLink>{" "}
-          sent {moment(message.createdAt).fromNow()}
+          <div
+            className={
+              message.sender.id !== currentUser.id
+                ? "sender-line sender-me"
+                : "sender-line"
+            }
+          >
+            {currentUser.username === message.sender.username ? "to " : "from"}{" "}
+            <NavLink to={`/users/${item.users[1].id}/profile`}>
+              /u/{item.users[1].username}
+            </NavLink>{" "}
+            sent {moment(message.createdAt).fromNow()}
+          </div>
         </div>
         {expanded && (
-          <div className="messages-content-message-body">{message.content}</div>
+          <div
+            className={
+              message.sender.id === currentUser.id
+                ? "messages-content-message-body message-from-me"
+                : "messages-content-message-body"
+            }
+          >
+            {message.content}
+          </div>
         )}
       </div>
       <MessageReply message={message} threadId={item.id} expanded={expanded} />

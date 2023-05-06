@@ -10,7 +10,7 @@ export default function MessageThread({ item }) {
       <div className="messages-content-top-box">
         <div className="messages-content-subject-box">
           <div className="messages-content-sender">
-            <NavLink to={`/users/${parseInt(item.users[0].id)}/profile`}>
+            <NavLink to={`/users/${parseInt(item.users[0]?.id)}/profile`}>
               /u/{item.users[0]?.username}
             </NavLink>
           </div>

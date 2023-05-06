@@ -25,6 +25,11 @@ class User(db.Model, UserMixin):
     karma = db.Column(db.Integer, default=0)
     profile_img = db.Column(db.String(255), default="https://i.imgur.com/OkrlO4H.png")
     banner_img = db.Column(db.String(255), nullable=True)
+
+    message_notifications = db.Column(db.Boolean, default=True, nullable=False)
+    follower_notifications = db.Column(db.Boolean, default=True, nullable=False)
+    post_reply_notifications = db.Column(db.Boolean, default=True, nullable=False)
+
     # messages_sent = db.relationship('Message',
     #                                 foreign_keys='Message.sender_id',
     #                                 backref='author', lazy='dynamic')

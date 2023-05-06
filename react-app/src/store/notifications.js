@@ -10,6 +10,13 @@ const load = (notifications) => {
   };
 };
 
+const loadSingle = (notification) => {
+  return {
+    type: LOAD_SINGLE,
+    notification,
+  };
+};
+
 export const getUserNotifications = (userId) => async (dispatch) => {
   const response = await fetch(`/api/notifications/user/${userId}`);
   if (response.ok) {
@@ -38,6 +45,19 @@ export const addNotification = (payload) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+    dispatch(loadSingle(data));
+    return data;
+  }
+};
+
+export const readNotification = (notificationId) => async (dispatch) => {
+  const response = await fetch(`/api/notifications/${notificationId}/read`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    const data = await response.json();
     return data;
   }
 };
@@ -48,16 +68,14 @@ export const readAllNotifications = () => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
   });
 
-  console.log("response:", request.method);
-
   if (response.ok) {
     const data = await response.json();
     return data;
   }
 };
 
-export const readNotification = (notificationId) => async (dispatch) => {
-  const response = await fetch(`/api/notifications/read/${notificationId}`, {
+export const unreadNotification = (notificationId) => async (dispatch) => {
+  const response = await fetch(`/api/notifications/${notificationId}/unread`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
   });

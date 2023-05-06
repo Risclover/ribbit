@@ -80,6 +80,30 @@ export const readMessage = (messageId) => async (dispatch) => {
   }
 };
 
+export const unreadMessage = (messageId) => async (dispatch) => {
+  const response = await fetch(`/api/threads/${messageId}/unread`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  }
+};
+
+export const readAllMessages = () => async (dispatch) => {
+  const response = await fetch("/api/threads", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  }
+};
+
 const initialState = {};
 
 export default function threadsReducer(state = initialState, action) {

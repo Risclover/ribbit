@@ -32,8 +32,15 @@ import LoginPage from "./features/auth/LoginPage";
 import SingleImagePage from "./features/Posts/SinglePost/SingleImagePage/SingleImagePage";
 import Notifications from "./pages/Notifications/Notifications";
 import Messages from "./features/Messages/Messages";
+import Unread from "./features/Messages/Unread/Unread";
+import Sent from "./features/Messages/Sent";
+import Inbox from "./features/Messages/Inbox";
+import PostReplies from "./features/Messages/PostReplies";
 
 function App() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
+
   const [loaded, setLoaded] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
@@ -43,9 +50,6 @@ function App() {
   const [format, setFormat] = useState("Card");
   const [pageTitle, setPageTitle] = useState();
   const [recentPostList, setRecentPostList] = useState([]);
-
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     (async () => {
@@ -190,6 +194,18 @@ function App() {
           </Route>
           <ProtectedRoute path="/message/messages" exact={true}>
             <Messages setPageTitle={setPageTitle} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/message/unread" exact={true}>
+            <Unread setPageTitle={setPageTitle} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/message/sent" exact={true}>
+            <Sent setPageTitle={setPageTitle} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/message/inbox" exact={true}>
+            <Inbox setPageTitle={setPageTitle} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/message/selfreply" exact={true}>
+            <PostReplies setPageTitle={setPageTitle} />
           </ProtectedRoute>
           <ProtectedRoute path="/posts/:postId/edit" exact={true}>
             <UpdatePost />

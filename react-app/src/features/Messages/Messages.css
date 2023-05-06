@@ -9,7 +9,6 @@
 .messages-header {
   background-color: #0079d3;
   border-bottom: none;
-  /* padding: 0 20px 0 100px; */
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -35,6 +34,7 @@
   color: #edeff1;
   border-bottom: 2px transparent solid;
   background: transparent;
+  cursor: pointer;
   text-transform: capitalize;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 12px;
@@ -69,7 +69,8 @@
 .messages-content-message-button {
   color: #888;
   font-weight: bold;
-  padding: 0 1px;
+  padding: 0;
+  padding-right: 8px;
   text-transform: capitalize;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 10px;
@@ -110,7 +111,7 @@
 .messages-content-sender {
   background-color: white;
   border: 1px solid #336699;
-  color: #80bce9;
+  color: #0079d3;
   display: inline-block;
   margin-right: 10px;
   padding: 1px 5px;
@@ -155,10 +156,16 @@
 }
 
 .messages-content-message-author {
+  display: flex;
+  align-items: center;
   padding-left: 14px;
   margin-top: -5px;
   font-size: 10px;
   color: #878a8c;
+}
+
+.sender-line.sender-me {
+  font-weight: 700;
 }
 
 .expanded-btn {
@@ -174,7 +181,7 @@
 }
 
 .messages-content-message-author a {
-  color: #80bce9;
+  color: #0079d3;
 }
 
 .messages-content-message-author a:hover {
@@ -191,12 +198,16 @@
   margin-top: 2px;
 }
 
+.message-from-me {
+  color: #448855;
+}
+
 .messages-content-message-button-bar {
   margin-left: 10px;
   border-left: 2px dashed #e7e7e7;
   /* padding-top: 5px; */
   padding-left: 25px;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
 }
 
 .messages-reply-box {
@@ -241,4 +252,49 @@
   border: 2px solid #0079d3;
   border-top: 2px solid #00497f;
   border-left: 2px solid #00497f;
+}
+
+.messages-content-nothing {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 20px;
+  margin: 20px auto;
+  width: 70%;
+  min-width: 700px;
+  background: #fff;
+  color: #373c3f;
+  font-size: 13px;
+}
+
+.messages-content-message-button-bar-spacer {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 850px) and (min-width: 1px) {
+  .messages-header ul {
+    margin-left: 5px;
+  }
+  .messages-content-menu-list {
+    margin-left: 5px;
+    flex-wrap: wrap;
+  }
+
+  .messages-content-menu-list li {
+    display: inline;
+    margin-top: 5px;
+  }
+  .messages-content-nothing {
+    width: 90%;
+  }
+
+  .messages-content {
+    min-width: unset;
+  }
+}
+
+@media (max-width: 500px) {
+  .messages-content-main {
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 }

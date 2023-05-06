@@ -19,6 +19,8 @@ import { getMessages } from "../../store/messages";
 import { getUserNotifications } from "../../store/notifications";
 import NotificationsDropdownWrapper from "./NotificationsDropdown/NotificationsDropdownWrapper";
 import LoginSignupModal from "../Modals/LoginSignupModal";
+import { useState } from "react";
+import { getUsers } from "../../store/users";
 
 const NavBar = ({
   searchQuery,
@@ -29,8 +31,16 @@ const NavBar = ({
 }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const notificationsList = useSelector((state) =>
+    Object.values(state.notifications)
+  );
+  const messageList = useSelector((state) => Object.values(state.messages));
+
+  const [notificationNum, setNotificationNum] = useState(0);
+  const [msgNum, setMsgNum] = useState(0);
 
   useEffect(() => {
+    dispatch(getUsers());
     dispatch(getSubscriptions());
     dispatch(getMessages());
     dispatch(getFavoriteCommunities());
@@ -41,6 +51,19 @@ const NavBar = ({
     dispatch(getPosts());
     dispatch(getUserNotifications(user?.id));
   }, [dispatch, user?.id]);
+
+  useEffect(() => {
+    let list = messageList.filter((message) => message.read === false);
+    setNotificationNum(
+      list.length +
+        notificationsList.filter(
+          (notification) =>
+            notification.read === false && notification.senderId !== user?.id
+        ).length
+    );
+
+    setMsgNum(messageList.filter((message) => message.read === false).length);
+  });
 
   return (
     <nav className="navbar-nav">
@@ -81,7 +104,10 @@ const NavBar = ({
       />
       {user && (
         <div className="notification-wrapper">
-          <NotificationsDropdownWrapper />
+          <NotificationsDropdownWrapper
+            msgNum={msgNum}
+            notificationNum={notificationNum}
+          />
         </div>
       )}
       {!user && (

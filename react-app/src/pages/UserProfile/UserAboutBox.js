@@ -17,6 +17,7 @@ import UserProfileFollowers from "../../components/Modals/UserProfileFollowers";
 import UserBannerModal from "./UploadUserBanner";
 import UserImageModal from "./UploadUserImage";
 import SendMessage from "./SendMessage";
+import { addNotification } from "../../store/notifications";
 
 export default function UserAboutBox({ currentUser, user }) {
   const dispatch = useDispatch();
@@ -37,10 +38,19 @@ export default function UserAboutBox({ currentUser, user }) {
   }, [userId, user?.bannerImg, user?.karma]);
 
   const handleFollow = async () => {
-    await dispatch(followUser(user?.id));
+    const data = await dispatch(followUser(user?.id));
     dispatch(getFollowers());
     dispatch(getUserFollowers(user?.id));
     setFollowing(!following);
+    const payload = {
+      type: "follower",
+      id: data.id,
+    };
+
+    if (!following) {
+      const notificationData = await dispatch(addNotification(payload));
+      console.log("notification:", notificationData);
+    }
   };
 
   useEffect(() => {

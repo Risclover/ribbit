@@ -17,6 +17,10 @@ const Chat = () => {
       setMessages((messages) => [...messages, chat]);
     });
 
+    socket.on("celebration", (data) => {
+      console.log("Celebrate " + data);
+    });
+
     socket.on("join");
     // when component unmounts, disconnect
     return () => {
@@ -35,6 +39,8 @@ const Chat = () => {
       img: user.profile_img,
       msg: chatInput,
     });
+    socket.emit("celebration", "good times");
+
     setChatInput("");
   };
 

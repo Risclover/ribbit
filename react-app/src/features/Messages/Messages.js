@@ -7,13 +7,17 @@ import MessageModal from "../../components/Modals/MessageModal";
 import "./Messages.css";
 import { getUsers } from "../../store/users";
 import MessageThread from "./MessageThread";
+import { useHistory } from "react-router-dom";
+import MessageHead from "./MessageHead";
+import MessageContentMenu from "./MessageContentMenu";
+import { readAllNotifications } from "../../store/notifications";
 
 export default function Messages({ setPageTitle }) {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const threads = useSelector((state) => Object.values(state.threads));
   const currentUser = useSelector((state) => state.session.user);
-
-  const [showMessageModal, setShowMessageModal] = useState(false);
 
   useEffect(() => {
     dispatch(getMessages());
@@ -22,7 +26,7 @@ export default function Messages({ setPageTitle }) {
   }, [dispatch]);
 
   useEffect(() => {
-    document.title = "Messages";
+    document.title = "Messages: Messages";
     setPageTitle(
       <div className="nav-left-dropdown-face-title">
         <img
@@ -35,6 +39,10 @@ export default function Messages({ setPageTitle }) {
     );
   }, [setPageTitle, currentUser?.profile_img]);
 
+  useEffect(() => {
+    dispatch(readAllNotifications());
+  }, []);
+
   threads.sort((a, b) => {
     let aThread = new Date(a.updatedAt);
     let bThread = new Date(b.updatedAt);
@@ -44,40 +52,18 @@ export default function Messages({ setPageTitle }) {
 
   return (
     <div className="messages-page">
-      <div className="messages-header">
-        <ul className="messages-main-menu">
-          <li
-            className="messages-main-menu-item"
-            onClick={() => setShowMessageModal(true)}
-          >
-            Send A Private Message
-          </li>
-          <li className="messages-main-menu-item messages-main-menu-selected">
-            Inbox
-          </li>
-          <li className="messages-main-menu-item">Sent</li>
-        </ul>
-      </div>
-      {showMessageModal && (
-        <Modal onClose={() => setShowMessageModal(false)} title="Send Message">
-          <MessageModal setShowMessageModal={setShowMessageModal} username="" />
-        </Modal>
-      )}
+      <MessageHead />
       <div className="messages-content">
-        <div className="messages-content-menu">
-          <ul className="messages-content-menu-list">
-            <li className="messages-content-menu-list-item">All</li>
-            <li className="messages-content-menu-list-item">Unread</li>
-            <li className="messages-content-menu-list-item messages-menu-item-active">
-              Messages
-            </li>
-            <li className="messages-content-menu-list-item">Post Replies</li>
-          </ul>
-        </div>
+        <MessageContentMenu active="Messages" />
         <div className="messages-content-main">
           {threads.map((item) => (
             <MessageThread item={item} />
           ))}
+          {threads.length === 0 && (
+            <div className="messages-content-nothing">
+              there doesn't seem to be anything here
+            </div>
+          )}
         </div>
       </div>
     </div>
