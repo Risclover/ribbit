@@ -30,6 +30,7 @@ class Message(db.Model):
             "read": self.read,
             "sender": self.sender.to_dict(),
             "receiver": self.recipient.id,
+            "threadId": self.thread_id,
             "createdAt": self.created_at,
         }
 
@@ -42,6 +43,7 @@ class MessageThread(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.String(50), nullable=True)
+    expanded = db.Column(db.Boolean, default=True, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
@@ -52,6 +54,7 @@ class MessageThread(db.Model):
         return {
             "id": self.id,
             "subject": self.subject,
+            "expanded": self.expanded,
             "messages": [msg.to_dict() for msg in self.messages],
             "users": [user.to_dict() for user in self.thread_users],
             "createdAt": self.created_at,

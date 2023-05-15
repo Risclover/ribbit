@@ -70,76 +70,76 @@ def seed_communities():
         description="Welcome to c/Funny, Ribbit's largest humour depository.",
         display_name="funny",
         community_img="https://a.thumbs.redditmedia.com/kIpBoUR8zJLMQlF8azhN-kSBsjVUidHjvZNLuHDONm8.png",
-        user_id=1
+        user_id=2
     )
     community_11 = Community(
         name="webdev",
         description="A community dedicated to all things web development: both front-end and back-end.",
         display_name="webdev: ribbit for web developers",
         community_img="https://styles.redditmedia.com/t5_2qs0q/styles/communityIcon_kxcmzy9bt1381.jpg?width=256&format=pjpg&v=enabled&s=6a2945f540463756d33acd2919b0476668879106",
-        user_id=1
+        user_id=2
     )
     community_12 = Community(
         name="interestingasfuck",
         description="For anything that is InterestingAsFuck",
         display_name="Interesting As Fuck",
         community_img="https://styles.redditmedia.com/t5_2qhsa/styles/communityIcon_5v3bepmshpg81.png?width=256&v=enabled&s=2914ade77dd2525043d2a30b44aad9ea0a38c0b9",
-        user_id=1
+        user_id=2
     )
     community_13 = Community(
         name="todayilearned",
         description="You learn something new every day; what did you learn today? Submit interesting and specific facts about something that you just found out here.",
         display_name="Today I Learned (TIL)",
         community_img="https://b.thumbs.redditmedia.com/B7IpR8P1mEsQIjdizK5x79s5aGfJUtKk3u2ksGZ9n2Q.png",
-        user_id=1
+        user_id=2
     )
     community_14 = Community(
         name="OldSchoolCool",
         description="/c/OldSchoolCool **History's cool kids, looking fantastic!** A pictorial and video celebration of history's coolest kids, everything from beatniks to bikers, mods to rude boys, hippies to ravers. And everything in between. If you've found a photo, or a photo essay, of people from the past looking fantastic, here's the place to share it.",
         display_name="OldSchoolCool: History's cool kids, looking fantastic",
         community_img="https://styles.redditmedia.com/t5_2tycb/styles/communityIcon_uadq4hbj2k451.png?width=256&v=enabled&s=cfdd323092b4d0204b1d89c312bba4a3d5ca02b5",
-        user_id=1
+        user_id=2
     )
     community_15 = Community(
         name="mildlyinfuriating",
         description="jukmifgguggh fbrltbruh",
         display_name="jukmifgguggh",
         community_img="https://styles.redditmedia.com/t5_2ubgg/styles/communityIcon_lkxajjefezh51.png?width=256&v=enabled&s=e9f08e5f20f9c160ae08bda2cfd54ad5af270323",
-        user_id=1
+        user_id=2
     )
     community_16 = Community(
         name="reactjs",
         description="A community for learning and developing web applications using React by Facebook.",
         display_name="/c/ReactJS - The Front Page of React",
         community_img="https://styles.redditmedia.com/t5_2zldd/styles/communityIcon_fbblpo38vy941.png?width=256&v=enabled&s=c26d81d14216024db4de148c4bb8bd03b5fa345c",
-        user_id=1
+        user_id=2
     )
     community_17 = Community(
         name="flask",
         description="Flask is a Python micro-framework for web development. Flask is easy to get started with and a great way to build websites and web applications.",
         display_name="Flask",
         community_img="https://styles.redditmedia.com/t5_2s1s3/styles/communityIcon_o4vkby94vkz41.png?width=256&v=enabled&s=009ae27a22252c14b7263d2c52bc0f974dd6937b",
-        user_id=1
+        user_id=2
     )
     community_18 = Community(
         name="Python",
         description="News about the programming language Python. If you have something to teach others post here. If you have questions or are a newbie use r/learnpython",
         display_name="Python",
         community_img="https://styles.redditmedia.com/t5_2qh0y/styles/communityIcon_h9cdwd9m75a51.png?width=256&v=enabled&s=cefd3a42f994dcee5281520c6e4c2baabc4d9ae1",
-        user_id=1
+        user_id=2
     )
     community_19 = Community(
         name="learnpython",
         description="Subreddit for posting questions and asking for general advice about your python code.",
         display_name="Python Education",
-        user_id=1
+        user_id=2
     )
     community_20 = Community(
         name="facepalm",
         description="*A subreddit for you to share the stupidity of individuals online and IRL. Post screenshots from forums, social media sites, or just real life. --------------------------------------------------- ***PLEASE*** read all of the sidebar before posting, thanks! -------------------------------------------",
         display_name="now double verified",
         community_img="https://styles.redditmedia.com/t5_2r5rp/styles/communityIcon_qzjxzx1g08z91.jpg?width=256&format=pjpg&v=enabled&s=d6cca2b14a68a919df6ebf6e2f7536453c7b432a",
-        user_id=1
+        user_id=2
     )
     community_21 = Community(
         name="learnjavascript",
@@ -147,6 +147,13 @@ def seed_communities():
         display_name="Learn Javascript",
         community_img="https://styles.redditmedia.com/t5_2tugi/styles/communityIcon_7yzrvmem0wi31.png?width=256&v=enabled&s=465ca5c67a15cfb68f0316e982e17b0918da945b",
         user_id=3
+    )
+    community_22 = Community(
+        name="CasualConversation",
+        description="The friendlier part of Reddit. Have a fun conversation about anything that is on your mind. Ask a question or start a conversation about (almost) anything you desire. Maybe you'll make some friends in the process.",
+        display_name="The friendlier part of Reddit.",
+        community_img="https://styles.redditmedia.com/t5_323oy/styles/communityIcon_wqodb68q5gca1.jpg?width=256&format=pjpg&v=enabled&s=fa6443b3b5f8d1b6682d9c0eb35f99e3a1ab68e5",
+        user_id=4
     )
 
 
@@ -172,6 +179,7 @@ def seed_communities():
     db.session.add(community_19)
     db.session.add(community_20)
     db.session.add(community_21)
+    db.session.add(community_22)
 
     db.session.commit()
 

@@ -1,0 +1,127 @@
+.inbox-messages-page {
+  background: #edeff1;
+  height: 100%;
+  min-height: calc(100vh - 49px);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+}
+
+.inbox-messages {
+  background: white;
+  margin: 20px auto;
+  width: 70%;
+  min-width: 700px;
+}
+
+.inbox-messages > div:nth-of-type(2n + 1) {
+  background: #f6f7f8;
+}
+
+.inbox-message {
+  padding: 10px 15px;
+  line-height: 14px;
+}
+
+.inbox-message-subject {
+  color: #373c3f;
+  font-weight: bold;
+  font-size: 12px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 6px;
+}
+
+.inbox-messages-content-nothing {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 20px;
+  margin: 20px auto;
+  width: 70%;
+  min-width: 700px;
+  background: #fff;
+  color: #373c3f;
+  font-size: 13px;
+}
+
+.inbox-message-main {
+  color: #373c3f;
+  padding: 10px 15px;
+}
+
+.inbox-message-main-unread {
+  background: #edeff1;
+  color: #373c3f;
+  padding: 10px 15px;
+}
+
+.inbox-message-author-line {
+  padding-left: 14px;
+  color: #878a8c;
+  font-size: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.inbox-message-author-line-unread {
+  color: #ff4500;
+  padding-left: 14px;
+  font-size: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 700;
+}
+
+.inbox-message-content {
+  color: #373c3f;
+  margin-left: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 12.9px;
+  font-weight: 400;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  line-height: 18px;
+}
+
+.inbox-message-sender a {
+  color: #0079d3;
+  cursor: pointer;
+}
+
+.inbox-message-sender a:hover {
+  text-decoration: underline;
+}
+
+.inbox-message-sender a:visited {
+  color: #80bce9;
+}
+
+.inbox-message-subject a {
+  color: #24a0ed;
+}
+
+.inbox-message-subject a:hover {
+  text-decoration: underline;
+}
+
+.inbox-message-subject a:visited {
+  color: #551a8b;
+}
+
+.post-reply-author-line {
+  color: #878a8c;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10px;
+}
+
+.post-reply-author-line a {
+  color: #0079d3;
+}
+
+.post-reply-author-line a:hover {
+  text-decoration: underline;
+}
+
+.post-reply-author-line a:visited {
+  color: #80bce9;
+}
+
+.post-reply-content {
+  margin: 5px 2px 5px 0;
+  line-height: 1.5em;
+}

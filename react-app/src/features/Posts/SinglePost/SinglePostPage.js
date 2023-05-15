@@ -51,7 +51,6 @@ export default function SinglePostPage({
         date: new Date(),
       },
     ]);
-    console.log("recent post list:", recentPostList);
 
     dispatch(getViewedPosts());
     // dispatch(getSingleCommunity(post?.communityId));

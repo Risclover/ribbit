@@ -60,7 +60,7 @@ export default function Messages({ setPageTitle }) {
             <MessageThread item={item} />
           ))}
           {threads.length === 0 && (
-            <div className="messages-content-nothing">
+            <div className="messages-page-content-nothing">
               there doesn't seem to be anything here
             </div>
           )}

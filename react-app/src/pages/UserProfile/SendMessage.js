@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import MessageModal from "../../components/Modals/MessageModal";
 
-export default function SendMessage({ userId, user }) {
+export default function SendMessage({ userId, user, username }) {
   const [showMessageModal, setShowMessageModal] = useState(false);
 
   return (
@@ -18,7 +18,7 @@ export default function SendMessage({ userId, user }) {
           <MessageModal
             userId={userId}
             setShowMessageModal={setShowMessageModal}
-            username={user?.username}
+            username={username}
           />
         </Modal>
       )}

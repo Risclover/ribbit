@@ -1,8 +1,7 @@
 from app.models import db, User, Community
 
 def seed_subscriptions():
-    demo = User.query.get(1)
-    marnie = User.query.get(2)
+    demo = User.query.get(2)
     bobbie = User.query.get(3)
     user_4 = User.query.get(4)
     user_5 = User.query.get(5)
@@ -75,7 +74,6 @@ def seed_subscriptions():
     learnjavascript = Community.query.get(21)
 
     demo.user_subscriptions.extend([python, learnpython, javascript, learnjavascript, flask, reactjs, webdev, programmerhumor])
-    marnie.user_subscriptions.extend([webdev, flask, reactjs, learnjavascript, javascript])
     bobbie.user_subscriptions.extend([oddlyspecific, oddlysatisfying, mildlyinfuriating, mildlyinteresting])
     user_4.user_subscriptions.extend([askmen, aww, cats])
     user_5.user_subscriptions.extend([funny, interestingasfuck, todayilearned, oldschoolcool])

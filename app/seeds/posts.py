@@ -90,7 +90,7 @@ Bonus: if your answer is "yes", how do you tailor interviews to junior / middle 
     post_12 = Post(
         title="They used this picture at work today to see if we could locate all the OSHA safety violations...",
         img_url="https://preview.redd.it/4xu2rr4w7oia1.png?width=960&crop=smart&auto=webp&v=enabled&s=4fdf879e34a95c2ac6908489285cc3d2a1fbbb8f",
-        user_id=1,
+        user_id=2,
         community_id=10
     )
     post_13 = Post(
@@ -173,7 +173,7 @@ Thanks in advance for your help.""",
     post_24=Post(
         title="core-js maintainer: “So, what’s next?”",
         link_url="https://github.com/zloirock/core-js/blob/master/docs/2023-02-14-so-whats-next.md",
-        user_id=1,
+        user_id=2,
         community_id=3
     )
     post_25=Post(
@@ -255,7 +255,7 @@ You are growing. Keep at it. You'll get there. Just dont give up and ask for hel
     post_34=Post(
         title="Lad wrote a Python script to download Alexa voice recordings, he didn't expect this email.",
         img_url="https://i.redd.it/2s0dj8ob12u41.png",
-        user_id=1,
+        user_id=2,
         community_id=18
     )
 
@@ -522,6 +522,41 @@ https://www.epi.org/publication/employers-steal-billions-from-workers-paychecks-
         community_id=4
     )
 
+    post_71=Post(
+        title="My boyfriend tucks his dog in bed every night",
+        content="That's basically it. I just wanted y'all to know that my boyfriend, who on the outside looks very stone cold and masculine, tucks his little dog in his bed every night, making sure his blanket is alright, places a toy next to him and repeatedly kisses him goodnight.",
+        user_id=46,
+        community_id=22
+    )
+
+    post_72=Post(
+        title="Is it normal for kids to compliment me all the time?",
+        content="I work in a kindergarten and have only been working here for a week and I think I get complimented by the kids constantly everyday. And about some weird things like \"I like your voice\" or \"you're the prettiest teacher ever\" or like \"I like your shoes\" or just straight up telling me they love me and i'm just really surprised at how affectionate little kids can be. i almost get no compliments in my day to day life so it's very surprising",
+        user_id=6,
+        community_id=22
+    )
+
+    post_73=Post(
+        title="How I interview for FE positions",
+        img_url="https://i.redd.it/1lg4xebu2hsa1.jpg",
+        user_id=2,
+        community_id=11
+    )
+
+    post_74=Post(
+        title="Dockerfile explained: This Dockerfile creates a Docker image for a Flask app.",
+        img_url="https://i.redd.it/35g8dixdgwz81.png",
+        user_id=10,
+        community_id=17
+    )
+
+    post_75=Post(
+        title="Remember when Kenya tried to send 14 cows to America after 9/11?",
+        content="That’s the cutest fucking thing. Like that’s absolutely adorable and we appreciate their act of kindness. Is there any other instances in history where countries tried to help each other like that? I know Mexico sent tortillas and Marines to aid with hurricane Katrina.",
+        user_id=11,
+        community_id=22
+    )
+
 
     db.session.add(post_1)
     db.session.add(post_2)
@@ -593,6 +628,12 @@ https://www.epi.org/publication/employers-steal-billions-from-workers-paychecks-
     db.session.add(post_68)
     db.session.add(post_69)
     db.session.add(post_70)
+    db.session.add(post_71)
+    db.session.add(post_72)
+    db.session.add(post_73)
+    db.session.add(post_74)
+    db.session.add(post_75)
+
     db.session.commit()
 
 def undo_posts():

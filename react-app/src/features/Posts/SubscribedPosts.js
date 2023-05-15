@@ -47,11 +47,6 @@ export default function SubscribedPosts({
 
   useEffect(() => {
     dispatch(getViewedPosts());
-    dispatch(getSubscriptions());
-    dispatch(getFavoriteCommunities());
-    dispatch(getFavoriteUsers());
-    dispatch(getUserFollowers(user?.id));
-    dispatch(getFollowers());
   }, [dispatch]);
 
   useEffect(() => {

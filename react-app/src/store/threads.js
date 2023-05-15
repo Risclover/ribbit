@@ -1,5 +1,6 @@
 const LOAD = "threads/LOAD";
 const LOAD_ONE = "threads/LOAD_ONE";
+const DELETE = "threads/DELETE";
 
 const loadThreads = (threads) => {
   return {
@@ -12,6 +13,13 @@ const loadThread = (thread) => {
   return {
     type: LOAD_ONE,
     thread,
+  };
+};
+
+const deleteThread = (threadId) => {
+  return {
+    type: DELETE,
+    threadId,
   };
 };
 
@@ -104,6 +112,43 @@ export const readAllMessages = () => async (dispatch) => {
   }
 };
 
+export const expandCollapseThread = (threadId) => async (dispatch) => {
+  const response = await fetch(`/api/threads/${threadId}/expandstate`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  }
+};
+
+export const deleteMessage = (messageId) => async (dispatch) => {
+  const response = await fetch(`/api/threads/${messageId}/delete`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application-json" },
+  });
+
+  if (response.ok) {
+    const msg = await response.json();
+    return msg;
+  }
+};
+
+export const removeThread = (threadId) => async (dispatch) => {
+  const response = await fetch(`/api/threads/${threadId}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    const msg = await response.json();
+    dispatch(deleteThread(threadId));
+    return msg;
+  }
+};
+
 const initialState = {};
 
 export default function threadsReducer(state = initialState, action) {
@@ -115,6 +160,10 @@ export default function threadsReducer(state = initialState, action) {
       }, {});
     case LOAD_ONE:
       return { ...state, [action.thread.id]: { ...action.thread } };
+    case DELETE:
+      let removeState = { ...state };
+      delete removeState[action.threadId];
+      return removeState;
     default:
       return state;
   }

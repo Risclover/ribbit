@@ -2,6 +2,7 @@ import { request } from "http";
 
 const LOAD = "notifications/LOAD";
 const LOAD_SINGLE = "notifications/LOAD_SINGLE";
+const DELETE = "notifications/DELETE";
 
 const load = (notifications) => {
   return {
@@ -14,6 +15,13 @@ const loadSingle = (notification) => {
   return {
     type: LOAD_SINGLE,
     notification,
+  };
+};
+
+const removeNotification = (notificationId) => {
+  return {
+    type: DELETE,
+    notificationId,
   };
 };
 
@@ -62,8 +70,20 @@ export const readNotification = (notificationId) => async (dispatch) => {
   }
 };
 
-export const readAllNotifications = () => async (dispatch) => {
+export const readAllMessageNotifications = () => async (dispatch) => {
   const response = await fetch("/api/notifications/read", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  }
+};
+
+export const readAllNotifications = () => async (dispatch) => {
+  const response = await fetch("/api/notifications/read-all", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
   });
@@ -86,6 +106,21 @@ export const unreadNotification = (notificationId) => async (dispatch) => {
   }
 };
 
+export const deleteNotification = (notificationId) => async (dispatch) => {
+  const response = await fetch(`/api/notifications/${notificationId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (response.ok) {
+    const deleted = await response.json();
+    dispatch(removeNotification(notificationId));
+    return deleted;
+  }
+};
+
 const initialState = {};
 
 export default function notificationsReducer(state = initialState, action) {
@@ -103,6 +138,10 @@ export default function notificationsReducer(state = initialState, action) {
         ...state,
         [action.notification.id]: { ...action.notification },
       };
+    case DELETE:
+      let removeState = { ...state };
+      delete removeState[action.notificationId];
+      return removeState;
     default:
       return state;
   }

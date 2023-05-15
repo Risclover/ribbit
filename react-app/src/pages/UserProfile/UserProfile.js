@@ -101,7 +101,12 @@ function UserProfile({ setShowLoginForm, setPageTitle }) {
         )}
       </div>
       <div className="user-profile-right-col">
-        <UserAboutBox currentUser={currentUser} user={user} userId={+userId} />
+        <UserAboutBox
+          currentUser={currentUser}
+          username={user?.username}
+          user={user}
+          userId={+userId}
+        />
         {currentUser?.id === +userId && (
           <UserOwnedCommunities
             communitiesList={communitiesList}

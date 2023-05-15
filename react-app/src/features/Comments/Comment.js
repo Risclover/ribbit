@@ -14,22 +14,22 @@ import EditComment from "./EditComment";
 
 import "./Comments.css";
 
-moment.updateLocale("en", {
+moment.updateLocale("en-comment", {
   relativeTime: {
     future: (diff) => (diff === "just now" ? diff : `in ${diff}`),
     past: (diff) => (diff === "just now" ? diff : `${diff} ago`),
     s: "just now",
     ss: "just now",
-    m: "1 minute",
-    mm: "%d minutes",
-    h: "1 hour",
-    hh: "%d hours",
+    m: "1 min.",
+    mm: "%d min.",
+    h: "1 hr.",
+    hh: "%d hr.",
     d: "1 day",
     dd: "%d days",
-    M: "1 month",
-    MM: "%d months",
-    y: "1 year",
-    yy: "%d years",
+    M: "1 mo.",
+    MM: "%d mo.",
+    y: "1 yr.",
+    yy: "%d yr.",
   },
 });
 
@@ -37,22 +37,27 @@ const URL_REGEX =
   /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
 
 function Text({ content }) {
-  const words = String(parse(content)).split(" ");
-  return (
-    <p>
-      {words.map((word) => {
-        return word.match(URL_REGEX) ? (
-          <>
-            <a href={word} rel="noreferrer" target="_blank">
-              {word}
-            </a>{" "}
-          </>
-        ) : (
-          word + " "
-        );
-      })}
-    </p>
-  );
+  if (typeof parse(content) !== "string") {
+    console.log("error: not a string");
+    return content;
+  } else if (typeof parse(content) === "string") {
+    const words = String(parse(content)).split(" ");
+    return (
+      <p>
+        {words.map((word) => {
+          return word.match(URL_REGEX) ? (
+            <>
+              <a href={word} rel="noreferrer" target="_blank">
+                {word}
+              </a>{" "}
+            </>
+          ) : (
+            word + " "
+          );
+        })}
+      </p>
+    );
+  }
 }
 
 export default function Comment({ commentId, postId }) {
@@ -70,13 +75,15 @@ export default function Comment({ commentId, postId }) {
   const user = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.posts[postId]);
 
+  const url = window.location.href;
+
   useEffect(() => {
-    if (comment.createdAt !== comment.updatedAt) {
+    if (comment?.createdAt !== comment?.updatedAt) {
       setWasEdited(true);
     } else {
       setWasEdited(false);
     }
-  }, [dispatch, comment.createdAt, comment?.updatedAt]);
+  }, [dispatch, comment?.createdAt, comment?.updatedAt]);
 
   const handleUpvoteClick = async () => {
     if (user?.id in comment?.commentVoters) {
@@ -151,10 +158,14 @@ export default function Comment({ commentId, postId }) {
 
   if (!post) return null;
   return (
-    <div className="comment-system">
+    <div className="comment-system" id={`comment-${comment?.id}`}>
       <div
-        className="the-actual-comment"
-        id={comment.id}
+        className={
+          url.slice(-15).endsWith("comment-" + comment?.id)
+            ? "the-actual-comment active"
+            : "the-actual-comment"
+        }
+        id={comment?.id}
         style={{ whiteSpace: "pre-line" }}
       >
         <div className="comment-left-side">
@@ -165,11 +176,11 @@ export default function Comment({ commentId, postId }) {
                 onClick={() => setCollapsed(false)}
               />
             )}
-            <NavLink to={`/users/${comment.commentAuthor.id}/profile`}>
+            <NavLink to={`/users/${comment?.commentAuthor?.id}/profile`}>
               <div
                 className="comment-user-img"
                 style={{
-                  backgroundImage: `url(${comment.commentAuthor.profile_img})`,
+                  backgroundImage: `url(${comment?.commentAuthor.profile_img})`,
                   backgroundRepeat: "no-repeat",
                 }}
               >
@@ -193,29 +204,34 @@ export default function Comment({ commentId, postId }) {
         </div>
         <div className="comment-right-col">
           <div className="comment-right-username">
-            <NavLink to={`/users/${comment.commentAuthor.id}/profile`}>
-              {comment.commentAuthor.username}
+            <NavLink to={`/users/${comment?.commentAuthor.id}/profile`}>
+              {comment?.commentAuthor.username}
             </NavLink>{" "}
-            {post.postAuthor.username === comment.commentAuthor.username ? (
+            {post.postAuthor.username === comment?.commentAuthor.username ? (
               <span className="op-sign">OP</span>
             ) : (
               ""
             )}
             <span className="single-post-topbar-dot">•</span>
             <span className="comment-original-time">
-              {moment(new Date(comment.createdAt)).fromNow()}
+              {moment(new Date(comment?.createdAt))
+                .locale("en-comment")
+                .fromNow()}
             </span>{" "}
             {wasEdited && (
               <span className="comment-was-edited">
                 {" "}
                 <span className="single-post-topbar-dot">•</span>
-                edited {moment(new Date(comment.updatedAt)).fromNow()}
+                edited{" "}
+                {moment(new Date(comment?.updatedAt))
+                  .locale("en-comment")
+                  .fromNow()}
               </span>
             )}
           </div>
           {collapsed === false && (
             <div className="comment-right-content">
-              <Text content={comment.content} />
+              <Text content={comment?.content} />
             </div>
           )}
           {collapsed === false && (
@@ -234,7 +250,7 @@ export default function Comment({ commentId, postId }) {
               >
                 <GoArrowDown />
               </button>
-              {comment.commentAuthor?.id === user?.id && (
+              {comment?.commentAuthor?.id === user?.id && (
                 <>
                   <button
                     onClick={() => {
@@ -249,7 +265,7 @@ export default function Comment({ commentId, postId }) {
                       title="Edit comment"
                     >
                       <EditComment
-                        commentId={comment.id}
+                        commentId={comment?.id}
                         postId={postId}
                         setShowEditCommentModal={setShowEditCommentModal}
                         showEditCommentModal={showEditCommentModal}
@@ -268,7 +284,7 @@ export default function Comment({ commentId, postId }) {
                         setShowDeleteModal={setShowDeleteModal}
                         showDeleteModal={showDeleteModal}
                         postId={postId}
-                        commentId={comment.id}
+                        commentId={comment?.id}
                         item="comment"
                       />
                     </Modal>

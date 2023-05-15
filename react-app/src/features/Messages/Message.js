@@ -2,11 +2,35 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import MessageReply from "./MessageReply";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { readNotification } from "../../store/notifications";
+import { readMessage } from "../../store/threads";
+import { getMessages } from "../../store/messages";
+
+moment.updateLocale("en-message", {
+  relativeTime: {
+    future: (diff) => (diff === "just now" ? diff : `in ${diff}`),
+    past: (diff) => (diff === "just now" ? diff : `${diff} ago`),
+    s: "just now",
+    ss: "just now",
+    m: "1 minute",
+    mm: "%d minutes",
+    h: "1 hour",
+    hh: "%d hours",
+    d: "1 day",
+    dd: "%d days",
+    M: "1 month",
+    MM: "%d months",
+    y: "1 year",
+    yy: "%d years",
+  },
+});
 
 export default function Message({ message, item, allExpanded }) {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [expanded, setExpanded] = useState(true);
+  const [markedUnread, setMarkedUnread] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
@@ -21,8 +45,17 @@ export default function Message({ message, item, allExpanded }) {
     }
   }, [allExpanded]);
 
+  const handleRead = () => {
+    dispatch(readMessage(message.id));
+    dispatch(getMessages());
+    setMarkedUnread(false);
+  };
+
   return (
-    <>
+    <div
+      className={markedUnread ? "message message-unread" : "message"}
+      onClick={handleRead}
+    >
       <div className="messages-content-message">
         <div className="messages-content-message-author">
           <span className="expanded-btn" onClick={() => setExpanded(!expanded)}>
@@ -36,10 +69,19 @@ export default function Message({ message, item, allExpanded }) {
             }
           >
             {currentUser.username === message.sender.username ? "to " : "from"}{" "}
-            <NavLink to={`/users/${item.users[1].id}/profile`}>
-              /u/{item.users[1].username}
+            <NavLink
+              to={
+                currentUser.id === item?.users[0].id
+                  ? `/users/${item?.users[1]?.id}/profile`
+                  : `/users/${item?.users[0]?.id}/profile`
+              }
+            >
+              /u/
+              {currentUser.username === item.users[1].username
+                ? item.users[0].username
+                : item.users[1].username}
             </NavLink>{" "}
-            sent {moment(message.createdAt).fromNow()}
+            sent {moment(message.createdAt).locale("en-message").fromNow()}
           </div>
         </div>
         {expanded && (
@@ -54,7 +96,13 @@ export default function Message({ message, item, allExpanded }) {
           </div>
         )}
       </div>
-      <MessageReply message={message} threadId={item.id} expanded={expanded} />
-    </>
+      <MessageReply
+        item={item}
+        message={message}
+        threadId={item.id}
+        expanded={expanded}
+        setMarkedUnread={setMarkedUnread}
+      />
+    </div>
   );
 }

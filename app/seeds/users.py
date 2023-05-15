@@ -3,6 +3,7 @@ from app.models import db, User
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
+    admin = User(username='Ribbit', email='ribbit@aa.io', password='password', about='', profile_img='https://i.imgur.com/OkrlO4H.png')
     demo = User(
         username='Demo', email='demo@aa.io', password='password', about="", profile_img="https://i.imgur.com/OkrlO4H.png")
     marnie = User(
@@ -296,7 +297,7 @@ def seed_users():
     )
 
 
-
+    db.session.add(admin)
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)

@@ -2,6 +2,25 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
 
+moment.updateLocale("en-post", {
+  relativeTime: {
+    future: (diff) => (diff === "just now" ? diff : `in ${diff}`),
+    past: (diff) => (diff === "just now" ? diff : `${diff} ago`),
+    s: "just now",
+    ss: "just now",
+    m: "1 minute",
+    mm: "%d minutes",
+    h: "1 hour",
+    hh: "%d hours",
+    d: "1 day",
+    dd: "%d days",
+    M: "1 month",
+    MM: "%d months",
+    y: "1 year",
+    yy: "%d years",
+  },
+});
+
 export default function SinglePostAuthorBar({ community, post, isPage }) {
   return (
     <div className="single-post-author-bar">
@@ -24,7 +43,7 @@ export default function SinglePostAuthorBar({ community, post, isPage }) {
         <NavLink to={`/users/${post.postAuthor.id}/profile`}>
           u/{post.postAuthor.username}
         </NavLink>{" "}
-        {moment(new Date(post.createdAt)).fromNow()}
+        {moment(new Date(post.createdAt)).locale("en-post").fromNow()}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db, Community
+from app.models import User, db, Community, Notification
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -81,7 +81,12 @@ def sign_up():
         user.user_subscriptions.append(community_4)
         user.user_subscriptions.append(community_5)
 
+        admin = User.query.get(1)
+
+        welcome_notification = Notification(user_id=user.id, sender_id=admin.id, content="", icon=admin.profile_img, message="Welcome to Ribbit! Click here to open the user manual in a new tab.", type="welcome")
+
         db.session.add(user)
+        db.session.add(welcome_notification)
         db.session.commit()
         login_user(user)
         return user.to_dict()

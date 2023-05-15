@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { TfiPlus } from "react-icons/tfi";
+import { TfiBell } from "react-icons/tfi";
 import Home from "../../../images/navbar/home-icon.png";
 import All from "../../../images/navbar/all-icon2.png";
 import {
@@ -16,9 +17,8 @@ import {
 } from "../../../store/favorite_users";
 import HandleClickOutside from "../../HandleClickOutside";
 import NavLeftDropdownLink from "./NavLeftDropdownLink";
-import { IoMdNotificationsOutline } from "react-icons/io";
 
-export default function NavLeftDropdown({ showIcon, setShowIcon }) {
+export default function NavLeftDropdown({ mode, showIcon, setShowIcon }) {
   const dispatch = useDispatch();
   const wrapperRef = useRef(null);
   const history = useHistory();
@@ -108,7 +108,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
   if (!followers || !communities || !following) return null;
 
   return (
-    <div className="nav-left-dropdown" ref={wrapperRef}>
+    <div className="nav-left-dropdown-insides" ref={wrapperRef}>
       <input
         className="nav-left-dropdown-filter"
         type="text"
@@ -117,7 +117,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
         autoFocus
         onChange={(e) => setFilter(e.target.value)}
       />
-
       {(Object.values(favoriteCommunities).length > 0 ||
         Object.values(favoriteUsers).length > 0) &&
         (Object.values(favoriteCommunities).filter((item) =>
@@ -128,7 +127,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           ).length > 0) && (
           <div className="nav-left-dropdown-title">Favorites</div>
         )}
-
       {filter === "" &&
         Object.values(favoriteCommunities).map((item) => (
           <NavLeftDropdownLink
@@ -140,7 +138,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
             handleFavorite={handleFavorite}
           />
         ))}
-
       {filter.length > 0 &&
         Object.values(favoriteCommunities)
           .filter((item) =>
@@ -156,7 +153,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
               handleFavorite={handleFavorite}
             />
           ))}
-
       {filter === "" &&
         Object.values(favoriteUsers).map((item) => (
           <NavLeftDropdownLink
@@ -168,7 +164,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
             handleFavorite={handleUserFavorite}
           />
         ))}
-
       {filter.length > 0 &&
         Object.values(favoriteUsers)
           .filter((item) =>
@@ -184,13 +179,11 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
               handleFavorite={handleUserFavorite}
             />
           ))}
-
       {subscriptions.filter((item) =>
         item.name.toLowerCase().includes(filter.toLowerCase())
       ).length > 0 && (
         <div className="nav-left-dropdown-title">Your Communities</div>
       )}
-
       {filter === "" &&
         subscriptions.map((item) => (
           <NavLeftDropdownLink
@@ -202,7 +195,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
             handleFavorite={handleFavorite}
           />
         ))}
-
       {filter.length > 0 &&
         subscriptions
           .filter((item) =>
@@ -218,11 +210,9 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
               handleFavorite={handleFavorite}
             />
           ))}
-
       {Object.values(followers).filter((item) =>
         item.username.toLowerCase().includes(filter.toLowerCase())
       ).length > 0 && <div className="nav-left-dropdown-title">Following</div>}
-
       {filter === "" &&
         Object.values(followers).map((item) => (
           <NavLeftDropdownLink
@@ -234,7 +224,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
             setShowIcon={setShowIcon}
           />
         ))}
-
       {filter.length > 0 &&
         Object.values(followers)
           .filter((item) =>
@@ -250,12 +239,10 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
               setShowIcon={setShowIcon}
             />
           ))}
-
       {/* Don't forget to add 'Popular' back in */}
       {["Home", "All"].filter((item) =>
         item.toLowerCase().includes(filter.toLowerCase())
       ).length > 0 && <div className="nav-left-dropdown-title">Feeds</div>}
-
       {"Home".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
@@ -269,7 +256,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           <span className="nav-left-dropdown-item">Home</span>
         </div>
       )}
-
       {/* {"Popular".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
@@ -283,7 +269,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           <span className="nav-left-dropdown-item">Popular</span>
         </div>
       )} */}
-
       {"All".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
@@ -297,11 +282,9 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           <span className="nav-left-dropdown-item">All</span>
         </div>
       )}
-
       {["User Settings", "Messages", "Notifications", "Create Post"].filter(
         (item) => item.toLowerCase().includes(filter.toLowerCase())
       ).length > 0 && <div className="nav-left-dropdown-title">Other</div>}
-
       {"User Settings".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
@@ -319,7 +302,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           <span className="nav-left-dropdown-item">User Settings</span>
         </div>
       )}
-
       {"Messages".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
@@ -338,7 +320,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           <span className="nav-left-dropdown-item">Messages</span>
         </div>
       )}
-
       {"Create Post".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
@@ -352,7 +333,6 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
           <span className="nav-left-dropdown-item">Create Post</span>
         </div>
       )}
-
       {"Notifications".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-item-link"
@@ -362,7 +342,7 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
             history.push("/notifications");
           }}
         >
-          <IoMdNotificationsOutline />
+          <TfiBell />
           <span className="nav-left-dropdown-item">Notifications</span>
         </div>
       )}

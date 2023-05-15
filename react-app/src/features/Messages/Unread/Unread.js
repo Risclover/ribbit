@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MessageHead from "../MessageHead";
 import { useHistory } from "react-router-dom";
 import MessageContentMenu from "../MessageContentMenu";
 import MessageReply from "../MessageReply";
-
-import "./Unread.css";
 import { getThreads, readAllMessages } from "../../../store/threads";
 import { readAllNotifications } from "../../../store/notifications";
 import { getMessages } from "../../../store/messages";
+import InboxMessage from "../Inbox/InboxMessage";
+import "../Inbox/Inbox.css";
 
 export default function Unread({ setPageTitle }) {
   const dispatch = useDispatch();
@@ -22,11 +22,13 @@ export default function Unread({ setPageTitle }) {
     Object.values(state.notifications)
   );
 
+  const [extended, setExtended] = useState(true);
+  const [markUnread, setMarkUnread] = useState(false);
+
   useEffect(() => {
-    // dispatch(getThreads());
     dispatch(readAllMessages());
-    dispatch(getMessages());
-  }, []);
+    // dispatch(getThreads());
+  }, [dispatch]);
 
   useEffect(() => {
     document.title = "Messages: Unread";
@@ -43,20 +45,21 @@ export default function Unread({ setPageTitle }) {
   }, [setPageTitle, currentUser?.profile_img]);
 
   return (
-    <div className="messages-page">
+    <div className="inbox-messages-page">
       <MessageHead />
-      <div className="messages-content">
+      <div className="inbox-messages-content">
         <MessageContentMenu active="Unread" />
-        {unreadMsgs.length > 0 &&
-          unreadMsgs.map((msg) => (
-            <div className="unread-message-wrapper">
-              <div className="unread-message">
-                <div className="unread-message-author"></div>
-                <div className="unread-message-content">{msg.content}</div>
-                <MessageReply />
-              </div>
-            </div>
-          ))}
+        <div className="inbox-messages">
+          {unreadMsgs.length > 0 &&
+            unreadMsgs.map((msg) => (
+              <InboxMessage
+                marked={true}
+                message={msg}
+                currentUser={currentUser}
+                expanded={extended}
+              />
+            ))}
+        </div>
         {unreadMsgs.length === 0 && (
           <div className="messages-content-nothing">
             there doesn't seem to be anything here

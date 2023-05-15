@@ -10,6 +10,7 @@ import {
 } from "../../store/favorite_communities";
 import { getSubscriptions } from "../../store/subscriptions";
 import LoginSignupModal from "../../components/Modals/LoginSignupModal";
+import { getCommunities } from "../../store/communities";
 
 export default function CommunityInfoBox({
   setFavorited,

@@ -1,0 +1,68 @@
+.sent-messages {
+  margin: 20px auto;
+  width: 70%;
+  min-width: 700px;
+  background: white;
+}
+
+.sent-messages > .sent-message:nth-of-type(2n + 1) {
+  background: #f6f7f8;
+}
+
+.sent-message {
+  padding: 10px 15px;
+}
+
+.sent-message-subject {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.sent-message-main {
+  padding: 10px 15px;
+}
+
+.sent-message-author {
+  padding-left: 14px;
+  color: #878a8c;
+  font-size: 10px;
+  line-height: 12px;
+}
+
+.sent-message-content {
+  font-size: 13px;
+  display: block;
+  color: #373c3f;
+  margin: 5px 0 5px 15px;
+}
+
+.sent-message-author a {
+  cursor: pointer;
+  color: #0079d3;
+}
+
+.sent-message-author a:hover {
+  text-decoration: underline;
+}
+
+.sent-message-author a:visited {
+  color: 80bce9;
+}
+
+.sent-message-btn {
+  display: block;
+  margin: 10px 0 10px 15px;
+}
+
+.sent-message-btn a {
+  color: #888;
+  font-weight: bold;
+  padding: 0 1px;
+
+  font-size: 10px;
+}
+
+.sent-message-btn a:hover {
+  text-decoration: underline;
+}

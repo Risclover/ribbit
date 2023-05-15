@@ -27,7 +27,7 @@ export default function SinglePostContent({ post, isPage }) {
             {cutLink(post.linkUrl)}
             <HiOutlineExternalLink />
           </div>
-        ) : (
+        ) : post.imgUrl === null && post.linkUrl === null ? (
           <div
             className={
               isPage === "singlepage"
@@ -38,6 +38,8 @@ export default function SinglePostContent({ post, isPage }) {
           >
             {parse(post.content)}
           </div>
+        ) : (
+          ""
         )}
       </div>
 

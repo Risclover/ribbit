@@ -1,17 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Message from "./Message";
+import { useDispatch, useSelector } from "react-redux";
+import { getThreads } from "../../store/threads";
 
 export default function MessageThread({ item }) {
   const [allExpanded, setAllExpanded] = useState(true);
+  const dispatch = useDispatch();
+
+  const currentUser = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    dispatch(getThreads());
+  }, [dispatch]);
+
+  if (!item) return null;
+
+  const users = item.users || [];
+
+  console.log("users:", users);
 
   return (
     <div className="messages-content-item">
       <div className="messages-content-top-box">
         <div className="messages-content-subject-box">
           <div className="messages-content-sender">
-            <NavLink to={`/users/${parseInt(item.users[0]?.id)}/profile`}>
-              /u/{item.users[0]?.username}
+            <NavLink
+              to={
+                users[0].id === currentUser.id
+                  ? `/users/${parseInt(users[1].id)}/profile`
+                  : `/users/${parseInt(users[0].id)}/profile`
+              }
+            >
+              /u/
+              {users[0].id === currentUser.id
+                ? item.users?.[1]?.username
+                : item.users?.[0]?.username}
             </NavLink>
           </div>
           <div className="messages-content-subject">{item.subject}:</div>

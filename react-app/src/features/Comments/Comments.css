@@ -54,6 +54,32 @@
   margin-top: 16px;
 }
 
+.the-actual-comment.active {
+  padding: 8px 0 0 8px;
+  background: rgba(0, 121, 211, 0.05);
+}
+
+.view-all-comments-btn {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #0079d3;
+  display: block;
+  cursor: pointer;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  height: auto;
+  padding: 0;
+  line-height: 20px;
+  font-family: "IBM Plex Sans", sans-serif;
+  margin: 4px 30px 0;
+}
+
+.view-all-comments-btn:hover {
+  text-decoration: underline;
+}
+
 .comment-left-side {
   display: flex;
   flex-direction: column;
@@ -452,6 +478,7 @@
 .comment-was-edited {
   font-style: italic;
   font-family: "IBM Plex Sans", sans-serif;
+  display: flex;
 }
 
 .comment-original-time {

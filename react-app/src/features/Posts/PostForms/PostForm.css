@@ -181,7 +181,7 @@
 }
 
 .image-post-preview-box .close-preview-btn {
-  visibility: 1;
+  visibility: visible;
   cursor: pointer;
   font-size: 20px;
   position: absolute;

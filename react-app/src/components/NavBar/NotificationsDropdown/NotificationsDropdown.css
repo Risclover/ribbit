@@ -15,20 +15,20 @@
   right: -42px;
 }
 
-.notification-icon {
+/* .navbar-button {
   cursor: pointer;
   border-radius: 2px;
   display: flex;
   align-items: center;
-  /* position: relative; */
-  /* font-size: 40px; */
-  padding: 3px;
+  position: relative;
+  font-size: 40px;
+  padding: 5px;
   width: auto;
   height: auto;
-}
+} */
 
 .notification-icon svg {
-  font-size: 26px;
+  font-size: 22px;
 }
 
 .notification-icon:hover {
@@ -37,7 +37,7 @@
 
 .notification-wrapper {
   position: relative;
-  margin: 0 20px;
+  /* margin: 0 20px; */
 }
 
 .notification-number {
@@ -189,6 +189,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 4px;
+  position: relative;
 }
 
 .notification-message {
@@ -219,7 +220,7 @@
 .notification-content {
   font-family: "Noto Sans", sans-serif;
   font-weight: 400;
-  overflow: hidden;
+  /* overflow: hidden; */
   text-overflow: ellipsis;
   white-space: normal;
   font-size: 14px;
@@ -318,4 +319,65 @@
 
 .notification-reply-back:hover {
   background-color: rgba(36, 160, 237, 0.2) !important;
+}
+
+.no-notifications {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  background: white;
+  border-radius: 4px;
+  padding-bottom: 32px;
+  min-height: 200px;
+  max-height: 400px !important;
+}
+
+.no-notifications-title {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  color: #1c1c1c;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.no-notifications p {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #7c7c7c;
+  text-align: center;
+  margin: 0 40px;
+}
+
+.no-notifications-btn {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  height: 40px;
+  font-family: "IBMPlexSans", sans-serif;
+  color: #fff;
+  background: #0079d3;
+  border-radius: 999px;
+  margin-right: 8px;
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: unset;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 4px 16px;
+  width: auto;
+}
+
+.sparkly-frog {
+  width: 100%;
+  max-width: 100px;
+  padding-bottom: -20px;
 }

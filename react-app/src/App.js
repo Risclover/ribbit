@@ -24,18 +24,20 @@ import UserProfile from "./pages/UserProfile/UserProfile";
 import EditProfile from "./pages/UserProfile/EditProfile/EditProfile";
 import SearchResults from "./pages/SearchResults/SearchResults";
 import UpdateImagePost from "./features/Posts/ImagePost/UpdateImagePost";
+import CommunitiesDirectory from "./pages/CommunitiesDirectory/CommunitiesDirectory";
 
 import { Modal } from "./context/Modal";
-import CommunitiesDirectory from "./pages/CommunitiesDirectory.js/CommunitiesDirectory";
 import Chat from "./features/Messages/Chat";
 import LoginPage from "./features/auth/LoginPage";
 import SingleImagePage from "./features/Posts/SinglePost/SingleImagePage/SingleImagePage";
 import Notifications from "./pages/Notifications/Notifications";
 import Messages from "./features/Messages/Messages";
 import Unread from "./features/Messages/Unread/Unread";
-import Sent from "./features/Messages/Sent";
-import Inbox from "./features/Messages/Inbox";
-import PostReplies from "./features/Messages/PostReplies";
+import Sent from "./features/Messages/Sent/Sent";
+import Inbox from "./features/Messages/Inbox/Inbox";
+import PostRepliesPage from "./features/Messages/PostReplies/PostRepliesPage";
+import NavSidebar from "./components/NavSidebar.js/NavSidebar";
+import Permalink from "./features/Messages/Permalink/Permalink";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +52,8 @@ function App() {
   const [format, setFormat] = useState("Card");
   const [pageTitle, setPageTitle] = useState();
   const [recentPostList, setRecentPostList] = useState([]);
+  const [showNavSidebar, setShowNavSidebar] = useState();
+  const [normalDropdown, setNormalDropdown] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -71,8 +75,18 @@ function App() {
         adjustQuery={adjustQuery}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        setShowNavSidebar={setShowNavSidebar}
+        showNavSidebar={showNavSidebar}
+        normalDropdown={normalDropdown}
+        setNormalDropdown={setNormalDropdown}
       />{" "}
-      <div className="main">
+      <div className={showNavSidebar ? "main main-padded" : "main"}>
+        <NavSidebar
+          setShowNavSidebar={setShowNavSidebar}
+          showNavSidebar={showNavSidebar}
+          setNormalDropdown={setNormalDropdown}
+          normalDropdown={normalDropdown}
+        />
         <Switch>
           {user ? (
             <Route path="/" exact={true}>
@@ -205,7 +219,10 @@ function App() {
             <Inbox setPageTitle={setPageTitle} />
           </ProtectedRoute>
           <ProtectedRoute path="/message/selfreply" exact={true}>
-            <PostReplies setPageTitle={setPageTitle} />
+            <PostRepliesPage setPageTitle={setPageTitle} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/message/messages/:threadId" exact={true}>
+            <Permalink />
           </ProtectedRoute>
           <ProtectedRoute path="/posts/:postId/edit" exact={true}>
             <UpdatePost />
@@ -247,7 +264,7 @@ function App() {
             <UserProfile setPageTitle={setPageTitle} />
           </Route>
           <ProtectedRoute path="/notifications" exact={true}>
-            <Notifications />
+            <Notifications setPageTitle={setPageTitle} />
           </ProtectedRoute>
           <Route>
             <h1>

@@ -9,11 +9,16 @@ import { getComments } from "../../store/comments";
 import { useParams } from "react-router-dom";
 
 export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
+  const url = window.location.href;
   const dispatch = useDispatch();
   const { postId } = useParams();
   const comments = useSelector((state) => Object.values(state.comments));
   const [sortType, setSortType] = useState("Best");
   const [showLoader, setShowLoader] = useState(true);
+  const [comment, setComment] = useState(url.slice(-15).includes("comment"));
+
+  let commentIndex = url.indexOf("#");
+  let commentNum = url.slice(commentIndex + 9);
 
   useEffect(() => {
     dispatch(getComments(+postId));
@@ -73,14 +78,29 @@ export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
       )}
       {!showLoader && (
         <div className="all-comments">
-          {comments.length > 0 &&
+          {comments.length > 0 && !comment ? (
             comments.map((comment) => (
               <Comment
                 key={comment.id}
                 commentId={comment.id}
                 postId={+postId}
               />
-            ))}
+            ))
+          ) : (
+            <div className="specific-comment">
+              <button
+                className="view-all-comments-btn"
+                onClick={() => setComment(false)}
+              >
+                View all comments
+              </button>
+              <Comment
+                key={commentNum}
+                commentId={commentNum}
+                postId={+postId}
+              />
+            </div>
+          )}
           {comments.length === 0 && (
             <div className="no-comments-msg">
               <i className="fa-solid fa-comments"></i>

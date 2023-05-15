@@ -10,6 +10,7 @@ export default function Searchbar({
   searchQuery,
   setSearchQuery,
   adjustQuery,
+  loggedIn,
 }) {
   const history = useHistory();
   const wrapperRef = useRef(null);
@@ -68,7 +69,12 @@ export default function Searchbar({
   };
 
   return (
-    <div className="nav-search-bar" ref={wrapperRef}>
+    <div
+      className={
+        loggedIn ? "nav-search-bar" : "nav-search-bar nav-search-loggedout"
+      }
+      ref={wrapperRef}
+    >
       <div className="nav-search-stuff">
         <div
           className={

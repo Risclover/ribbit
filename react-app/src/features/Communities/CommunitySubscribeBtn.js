@@ -7,6 +7,7 @@ import {
 } from "../../store/subscriptions";
 import { getFavoriteCommunities } from "../../store/favorite_communities";
 import LoginSignupModal from "../../components/Modals/LoginSignupModal";
+import { getCommunities, getSingleCommunity } from "../../store/communities";
 
 export default function CommunitySubscribeBtn({
   user,
@@ -25,6 +26,7 @@ export default function CommunitySubscribeBtn({
   useEffect(() => {
     if (subscriptions[community?.id]) setSubscribed(true);
   }, [subscribed, subscriptions, community?.id]);
+
   return (
     <div className="community-header-info-details-right">
       <div className="community-header-info-subscribe">
@@ -35,6 +37,7 @@ export default function CommunitySubscribeBtn({
               e.preventDefault();
               await dispatch(deleteSubscription(community.id));
               dispatch(getFavoriteCommunities());
+              dispatch(getSingleCommunity(communityId));
               dispatch(getSubscriptions(communityId));
               setSubscribed(false);
             }}
@@ -51,6 +54,7 @@ export default function CommunitySubscribeBtn({
               e.preventDefault();
               await dispatch(addToSubscriptions(community.id));
               dispatch(getSubscriptions(+communityId));
+              dispatch(getSingleCommunity(communityId));
 
               user && setSubscribed(true);
               !user && setShowLoginForm(true);

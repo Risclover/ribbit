@@ -77,16 +77,17 @@
   background: transparent;
   border-radius: 0;
   border: 0;
+  height: auto;
+  line-height: 14px;
+  display: inline-flex;
+}
+
+.messages-content-message-button.are-you-sure {
+  padding: 0;
 }
 
 .messages-content-message-button:hover {
   text-decoration: underline;
-}
-
-.messages-content-main {
-  margin: 20px auto;
-  width: 70%;
-  min-width: 700px;
 }
 
 .messages-content-item {
@@ -95,7 +96,7 @@
   background: white;
 }
 
-.messages-content-item:nth-of-type(4n + 1) {
+.messages-content-item:nth-of-type(2n + 1) {
   background: #f6f7f8;
 }
 
@@ -149,10 +150,11 @@
 }
 
 .messages-content-message {
-  margin-left: 10px;
-  border-left: 2px dashed #e7e7e7;
+  /* margin-left: 10px; */
+  /* border-left: 2px dashed #e7e7e7; */
   padding: 10px;
-  padding-bottom: 5px;
+  padding-left: 0;
+  /* padding-bottom: 5px; */
 }
 
 .messages-content-message-author {
@@ -196,6 +198,7 @@
   word-wrap: break-word;
   color: #373c3f;
   margin-top: 2px;
+  line-height: 20px;
 }
 
 .message-from-me {
@@ -203,11 +206,28 @@
 }
 
 .messages-content-message-button-bar {
-  margin-left: 10px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.message {
   border-left: 2px dashed #e7e7e7;
-  /* padding-top: 5px; */
-  padding-left: 25px;
-  /* padding-bottom: 10px; */
+  padding-left: 10px;
+  /* background: white; */
+  margin-left: 10px;
+  padding-bottom: 10px;
+}
+
+.message.message-unread {
+  background: #edeff1;
+}
+
+.messages-content-message-button-bar-inbox {
+  padding-left: 15px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
 }
 
 .messages-reply-box {
@@ -219,11 +239,20 @@
   flex-direction: column;
 }
 
+.messages-reply-error {
+  color: red;
+  font-size: 13px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  line-height: 20px;
+  margin-top: 3px;
+}
+
 .messages-reply-input {
   margin-left: 15px;
   width: 500px;
   height: 100px;
   line-height: 1.5em;
+  margin-top: 1.5em;
   font-size: 12px;
   padding: 2px;
   font: normal small verdana, arial, helvetica, sans-serif;
@@ -265,10 +294,35 @@
   font-size: 13px;
 }
 
-.messages-content-message-button-bar-spacer {
-  margin-bottom: 20px;
+.messages-page-content-nothing {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 20px;
+  width: 70%;
+  min-width: 700px;
+  background: #fff;
+  color: #373c3f;
+  font-size: 13px;
 }
 
+.messages-content-message-button-bar-spacer {
+  /* margin-bottom: 20px; */
+}
+
+.messages-content-main {
+  background: white;
+  margin: 20px auto;
+  width: 70%;
+  min-width: 700px;
+}
+
+.messages-are-you-sure {
+  color: red;
+  font-size: 10px;
+  text-transform: lowercase;
+  white-space: nowrap;
+  margin-right: 8px;
+  font-weight: 500 !important;
+}
 @media (max-width: 850px) and (min-width: 1px) {
   .messages-header ul {
     margin-left: 5px;

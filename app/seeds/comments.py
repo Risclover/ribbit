@@ -13,7 +13,7 @@ def seed_comments():
     )
     comment_3 = Comment(
         content="Ha ha ha. You're so funny!",
-        user_id=1,
+        user_id=2,
         post_id=3
     )
     comment_4 = Comment(
@@ -77,7 +77,7 @@ def seed_comments():
         I was hesitant to try the shots but decided on it since I worked across the hall from an allergy center. 6 mos into it I had no allergy symptoms and medication free. It's been 2 years now and still doing good. Stuff I didn't think about like driving with the windows down and not carrying allergy meds everywhere (oral and eye drops) has been nice.
 
         The schedule and cost is a huge deterrent. It was weekly for the first 6 weeks.""",
-        user_id=1,
+        user_id=2,
         post_id=6
     )
     comment_16 = Comment(
@@ -227,7 +227,7 @@ def seed_comments():
     )
     comment_43=Comment(
         content="Sharps should not be ‘disposed’ in the sink",
-        user_id=1,
+        user_id=2,
         post_id=15
     )
     comment_44 = Comment(
@@ -272,7 +272,7 @@ They build the system with Slack I think, to stop slack having to scrape GitHub 
     )
     comment_51=Comment(
         content="Hippity hoppity your code is now my property",
-        user_id=1,
+        user_id=2,
         post_id=17
     )
     comment_52=Comment(
@@ -354,7 +354,7 @@ The vet said we were lucky that she had been slightly overweight, a skinnier kit
     )
 
     post21_comment1=Comment(
-        content="\"Fuck your historical documents. Pet me! WITH YOUR EYES!\" <em>bites</em>",
+        content="\"Fuck your historical documents. Pet me! WITH YOUR EYES!\" *bites*",
         user_id=35,
         post_id=21
     )
@@ -461,7 +461,7 @@ burnout is the direct result of having the extra workload of making your manager
         content="""This reminds me when I was working in a company that wanted us to polish software for months. It was ready in December, but we had to make sure every little things sparks and released 8 months later.
 
 Then I was a part-time consultant to a startup company, they said "we're releasing next Monday, here we have another Jira board for bugs". And sure, bugs were reported, but the software was released and used and devs were happier fixing bugs found in a live app rather than ones found internally.""",
-        user_id=1,
+        user_id=2,
         post_id=25
     )
     post25_comment3=Comment(
@@ -487,7 +487,7 @@ Then I was a part-time consultant to a startup company, they said "we're releasi
 
     post26_comment1=Comment(
         content="All about the TypeScript tbh. I could never go back",
-        user_id=1,
+        user_id=2,
         post_id=26
     )
     post26_comment2=Comment(
@@ -547,7 +547,7 @@ It had to be jarring for a lot of artists.""",
 
     post30_comment1=Comment(
         content="Are those spoons hanging?",
-        user_id=1,
+        user_id=2,
         post_id=30
     )
     post30_comment2=Comment(
@@ -759,7 +759,7 @@ But also, congrats. It does make you feel like you have an “insiders” view o
     post38_comment6=Comment(
         content="""And then there's me:
 
-<em>Stuffs all the cables behind cabinet where no one can see</em>""",
+*Stuffs all the cables behind cabinet where no one can see*""",
         user_id=2,
         post_id=38
     )
@@ -1005,7 +1005,7 @@ Hands in test in 59 minutes
     )
     post52_comment2=Comment(
         content="Report it. You're paying too much for that bull.",
-        user_id=1,
+        user_id=2,
         post_id=52
     )
     post52_comment3=Comment(
@@ -1308,7 +1308,7 @@ Punk will never die""",
 
     post63_comment1=Comment(
         content="Honestly, the town should get together are run that entire department out of town. Could you imagine getting pulled over for speeding by one of these fuckheads in a week or so? Can you imagine seeing these cowards walking around town with their BS cop swagger and you know what cowards they really are?",
-        user_id=1,
+        user_id=2,
         post_id=63
     )
     post63_comment2=Comment(
@@ -1443,8 +1443,117 @@ Requires a nonempty array. So, it's not the most general formula.""",
 
     post70_comment1=Comment(
         content="I drew a perfect circle in paint to compare. <a href='https://i.imgur.com/P0IfYsH.jpg' target='_blank'>Pretty close.</a>",
-        user_id=1,
+        user_id=2,
         post_id=70
+    )
+
+    post71_comment1 = Comment(
+        content="My wife and I take turns tucking the dog in each night… then 10 seconds later he kicks the blanket off and nests anyway. Still a fun tradition we both love.",
+        user_id=50,
+        post_id=71
+    )
+    post71_comment2 = Comment(
+        content="""Every night before bed I tell the dog I hope he had a good day.
+
+I also tell him 'be a good boy, have a good day. Love you & I'll see you after work' every morning as I leave. My toddler has now started saying 'love you bubba!' to him as we leave.""",
+        user_id=20,
+        post_id=71
+    )
+    post71_comment3=Comment(
+        content="Sounds like good dad stuff.",
+        user_id=5,
+        post_id=71
+    )
+    post71_comment4=Comment(
+        content="Thazza goodboy",
+        user_id=16,
+        post_id=71
+    )
+    post71_comment5=Comment(
+        content="My veterinarian says it's the big, tough-looking guys who break down the most when their dog dies. She tells of grungy biker dudes weeping as they carry their sick little fluff-ball into the vet's office.",
+        user_id=29,
+        post_id=71
+    )
+
+    post72_comment1=Comment(
+        content="Little kids are generous with their positive- and sometimes negative - take on things. They are saying they enjoy your company",
+        user_id=2,
+        post_id=72
+    )
+    post72_comment2=Comment(
+        content="Not only generous, but also sincere! I adore kids because of this. They're so honest and pure and full of life! Helps me remember the joy of living whenever I get to spend the day with my youngest sister.",
+        user_id=9,
+        post_id=72
+    )
+    post72_comment3=Comment(
+        content="""I've experienced this! I volunteered for a week with a young elementary school class and had so many compliments from the little kids. I'm not even particularly pretty or anything, it'd be for something as simple as wearing a blouse with butterflies on it lol
+
+Thing is, I don't remember kids doing this back when I was in school. We all seemed like brats 😂 maybe it's just a super casual thing for kids to do without even thinking about it!""",
+        user_id=22,
+        post_id=72
+    )
+    post72_comment4=Comment(
+        content="Kids will just say what they’re thinking, good or bad. It’s so refreshing. But sometimes it can be brutal lol. Glad you’re getting the good comments!",
+        user_id=23,
+        post_id=72
+    )
+
+    post73_comment1=Comment(
+        content="""The structure seems fine, however for me with the experience I have with coding. I wouldn't even bother with the login form. For more experienced developers I would recommend giving them some sample code that has some logical errors (not syntax based) and see if the candidate can offer suggestions of improvement. You could also phrase so that you're a junior developer and see how they give feedback.
+
+Some of the better interviews I've had were ones where writing code wasn't a requirement. The interpersonal skills that relate to others and feedback feel more important for a team than knowing how to build a login form or SMS/2FA workflow. Or at the very least have the candidate draw out what the flow process is for that type of interaction at a high level.""",
+        user_id=23,
+        post_id=73
+    )
+    post73_comment2=Comment(
+        content="One thing that I’ve started to do is showing real code from our codebase and having the candidate walk me through what it’s doing. I find that reading code is a skill that isn’t selected for enough. I start with simple or very readable code and then progress towards complicated or spaghetti code. I occasionally ask how they might do it differently but I don’t make them rewrite code or essentially do “work” for us. I do drill down on their answers though, asking them to get specific.",
+        user_id=11,
+        post_id=73
+    )
+    post73_comment3=Comment(
+        content="""I work in a non-agile environment, in which I have zero control over.
+
+Seems silly that an environment outside of a devs control counts against them as a red flag.""",
+        user_id=19,
+        post_id=73
+    )
+
+    post74_comment1=Comment(
+        content="Okay but really you should be using Apache or Gunicorn in the Dockerfile IMO... at least make it challenging",
+        user_id=20,
+        post_id=74
+    )
+    post74_comment2=Comment(
+        content="""This is cute.
+
+But woah, gcc and musl? I hope they’re not planning on shipping this as a production container, this is fine for an intermediate build container but needs to get cleaned up for prod.
+
+Tidy up those build dependencies folks""",
+        user_id=43,
+        post_id=74
+    )
+    post74_comment3=Comment(
+        content="I understand this was a bad example but I'd definitely use this tool to explain code",
+        user_id=40,
+        post_id=74
+    )
+
+    post75_comment1=Comment(
+        content="Cameroon gave $3.77 to the USA in relief aid during the Great Depression",
+        user_id=2,
+        post_id=75
+    )
+    post75_comment2=Comment(
+        content="""It was a Maasai village, and they didn’t just try, they went ahead and did it. (To be fully accurate, they did give the cows to the US ambassador and they were accepted, but they didn’t get shipped to the US.)
+
+I remember when that happened and honestly I took a lot of comfort in it. It was a very meaningful and valuable gift in that culture and it was nice to know they cared.""",
+        user_id=13,
+        post_id=75
+    )
+    post75_comment3=Comment(
+        content="Every year Nova Scotia sends the city of Boston a big Christmas tree - always thought that was so wholesome! They started doing this over 100 years ago when Boston sent medical aid and supplies to Nova Scotia after a huge explosion in the Halifax Harbor.",
+        user_id=15,
+        post_id=75
     )
 
 
@@ -1686,6 +1795,24 @@ Requires a nonempty array. So, it's not the most general formula.""",
     db.session.add(post69_comment2)
     db.session.add(post69_comment3)
     db.session.add(post70_comment1)
+    db.session.add(post71_comment1)
+    db.session.add(post71_comment2)
+    db.session.add(post71_comment3)
+    db.session.add(post71_comment4)
+    db.session.add(post71_comment5)
+    db.session.add(post72_comment1)
+    db.session.add(post72_comment2)
+    db.session.add(post72_comment3)
+    db.session.add(post72_comment4)
+    db.session.add(post73_comment1)
+    db.session.add(post73_comment2)
+    db.session.add(post73_comment3)
+    db.session.add(post74_comment1)
+    db.session.add(post74_comment2)
+    db.session.add(post74_comment3)
+    db.session.add(post75_comment1)
+    db.session.add(post75_comment2)
+    db.session.add(post75_comment3)
 
 
     db.session.commit()
@@ -1693,3 +1820,5 @@ Requires a nonempty array. So, it's not the most general formula.""",
 def undo_comments():
     db.session.execute("DELETE FROM comments")
     db.session.commit()
+
+    4333

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { IoMdNotificationsOutline } from "react-icons/io";
-
+import { TfiBell } from "react-icons/tfi";
+import "../NavBar.css";
 import "./NotificationsDropdown.css";
 import { useDispatch, useSelector } from "react-redux";
 import { readNotification } from "../../../store/notifications";
@@ -12,12 +12,13 @@ export default function NotificationsDropdownWrapper({
   notificationNum,
 }) {
   const dispatch = useDispatch();
-  const wrapperRef = useRef();
+  const wrapperRef = useRef(null);
 
   const notificationsList = useSelector((state) =>
     Object.values(state.notifications)
   );
 
+  const [showTooltip, setShowTooltip] = useState(false);
   const [notifications, setNotifications] = useState(
     notificationsList.filter((notification) => notification.read === false)
   );
@@ -42,8 +43,16 @@ export default function NotificationsDropdownWrapper({
 
   return (
     <div className="notifications-dropdown-wrapper">
-      <span className="notification-icon" onClick={handleOpenDropdown}>
-        <IoMdNotificationsOutline />
+      <span
+        className="navbar-button"
+        onClick={handleOpenDropdown}
+        onMouseEnter={() => setTimeout(() => setShowTooltip(true), 500)}
+        onMouseLeave={() => setShowTooltip(false)}
+      >
+        <TfiBell />
+        {showTooltip && (
+          <span className="navbtn-tooltiptext text2">Notifications</span>
+        )}
         {notificationNum > 0 && (
           <div className="notification-number">{notificationNum}</div>
         )}

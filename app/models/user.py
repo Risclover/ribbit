@@ -30,14 +30,6 @@ class User(db.Model, UserMixin):
     follower_notifications = db.Column(db.Boolean, default=True, nullable=False)
     post_reply_notifications = db.Column(db.Boolean, default=True, nullable=False)
 
-    # messages_sent = db.relationship('Message',
-    #                                 foreign_keys='Message.sender_id',
-    #                                 backref='author', lazy='dynamic')
-    # messages_received = db.relationship('Message',
-    #                                     foreign_keys='Message.recipient_id',
-    #                                     backref='recipient', lazy='dynamic')
-    # last_message_read_time = db.Column(db.DateTime)
-    # notifications = db.relationship('Notification', backref='user', lazy='dynamic')
     followed = db.relationship('User', secondary=followers, primaryjoin=(followers.c.follower_id == id), secondaryjoin=(followers.c.followed_id == id), backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
     favorited = db.relationship('User', secondary=favorite_users, primaryjoin=(favorite_users.c.current_id == id), secondaryjoin=(favorite_users.c.user_id == id), backref=db.backref('favorite_users', lazy='dynamic'), lazy='dynamic')
@@ -57,8 +49,6 @@ class User(db.Model, UserMixin):
     user_threads = db.relationship('MessageThread', back_populates='thread_users', secondary=user_threads, lazy='joined')
     user_messages = db.relationship('Message', back_populates='sender', overlaps="recipient", primaryjoin="User.id==Message.receiver_id", cascade='all, delete')
 
-    # user_messages = db.relationship("Message", back_populates="message_sender")
-    # user_chats = db.relationship("Chat", back_populates="chat_users", secondary="user_chat_threads", lazy="joined")
 
     @property
     def password(self):
@@ -121,20 +111,6 @@ class User(db.Model, UserMixin):
             favorite_users.c.current_id == self.id)
         return favorited
 
-
-
-
-    # def new_messages(self):
-    #     last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
-    #     return Message.query.filter_by(recipient=self).filter(
-    #         Message.timestamp > last_read_time).count()
-
-    # def add_notification(self, name, data):
-    #     self.notifications.filter_by(name=name).delete()
-    #     n = Notification(name=name, payload_json=json.dumps(data), user=self)
-    #     db.session.add(n)
-    #     return n
-
     def to_dict(self):
         return {
             'id': self.id,
@@ -151,13 +127,6 @@ class User(db.Model, UserMixin):
             'bannerImg': self.banner_img,
             'unreadMsgs': len([msg.id for msg in self.user_messages if not msg.read])
 
-            # 'messagesReceived': {item.to_dict()["id"]: item.to_dict() for item in self.messages_received},
-            # 'messagesSent': {item.to_dict()["id"]: item.to_dict() for item in self.messages_sent}
-            # 'followers': self.followers,
-            # 'userCommunities': {item.to_dict()["id"]: item.to_dict() for item in self.user_communities},
-
-            # 'subscriptions': {item.to_dict()["id"]: item.to_dict() for item in self.user_subscriptions}
-            # 'subscriptions': self.user_subscriptions.to_dict()
         }
 
     def __repr__(self):

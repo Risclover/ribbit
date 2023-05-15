@@ -13,6 +13,7 @@ import CommunitySubscribeBtn from "./CommunitySubscribeBtn";
 import CommunityName from "./CommunityName";
 import CommunityPosts from "./CommunityPosts";
 import BackToTop from "../../components/BackToTop";
+import { getCommunities } from "../../store/communities";
 
 export default function CommunityPage({ setPageTitle, format, setFormat }) {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export default function CommunityPage({ setPageTitle, format, setFormat }) {
     dispatch(getSubscriptions());
     dispatch(getPosts());
     dispatch(getSingleCommunity(+communityId));
+    dispatch(getCommunities());
   }, [communityId, dispatch]);
 
   useEffect(() => {

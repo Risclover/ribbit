@@ -476,13 +476,23 @@
   .posts-container {
     padding: 20px 24px;
     width: 100%;
-    margin-top: 50px;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .posts-right-col {
+    display: none;
+    visibility: none;
   }
 }
 
 @media (max-width: 640px) and (min-width: 1px) {
   .posts-container-alt {
     width: 100%;
+    padding: 0;
+  }
+
+  .posts-container {
     padding: 0;
   }
 }

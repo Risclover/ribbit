@@ -24,7 +24,7 @@ def get_thread(id):
     Get a single message thread
     """
     thread = MessageThread.query.get(id)
-    return {"Thread": thread.to_dict()}
+    return thread.to_dict()
 
 
 # CREATE MESSAGE THREAD
@@ -106,13 +106,59 @@ def unread_message(id):
     return {"message": "Message successfully unread"}
 
 
+
+# READ ALL MESSAGES
 @thread_routes.route("", methods=["PUT"])
 def read_all_messages():
     user = User.query.get(current_user.get_id())
-    messages = Message.query.filter_by(user_id=user.id, read=True)
+    messages = Message.query.filter_by(receiver_id=user.id, read=False)
     for message in messages:
-        setattr(message, "read", False)
+        setattr(message, "read", True)
 
 
     db.session.commit()
     return {"message": "Read all messages"}
+
+
+# EXPAND OR COLLAPSE A THREAD
+@thread_routes.route("/<int:id>/expandstate", methods=["PUT"])
+def thread_expand_state(id):
+    thread = MessageThread.query.get(id)
+    if thread.expanded == True:
+        setattr(thread, "expanded", False)
+    else:
+        setattr(thread, "expanded", True)
+
+    db.session.commit()
+
+    return {"message": "Thread successfully expanded or collapsed"}
+
+
+# DELETE MESSAGE
+@thread_routes.route("/<int:id>/delete", methods=["DELETE"])
+def delete_message(id):
+    message = Message.query.get(id)
+    thread = MessageThread.query.get(message.thread_id)
+
+    db.session.delete(message)
+    db.session.commit()
+
+    return {"thread": thread.to_dict(), "message": "message deleted successfully"}
+
+
+# DELETE THREAD
+@thread_routes.route("/<int:id>", methods=["DELETE"])
+def delete_thread(id):
+    thread = MessageThread.query.get(id)
+
+    db.session.delete(thread)
+    db.session.commit()
+
+    return {"message": "Thread deleted successfully"}
+
+
+# PERMALINK
+@thread_routes.route("/permalink/<int:thread_id>")
+def thread_permalink(thread_id):
+    thread = MessageThread.query.get(thread_id)
+    return thread.to_dict()

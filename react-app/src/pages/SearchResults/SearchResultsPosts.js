@@ -227,7 +227,7 @@ export default function SearchResultsPosts({
               )}
               {!currentUser && (
                 <LoginSignupModal
-                  btnText="Log In/Sign Up?"
+                  btnText="Log In/Sign Up"
                   className="blue-btn-filled btn-long"
                 />
               )}

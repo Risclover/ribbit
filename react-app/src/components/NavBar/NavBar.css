@@ -31,8 +31,14 @@ nav ul li {
   margin-right: 20px;
 }
 
-.ribbit-logo {
+.ribbit-logo-large,
+.ribbit-logo-small {
   height: 28px;
+  display: inline-block;
+}
+
+.ribbit-logo-small {
+  display: none;
 }
 
 .navbar-user-dropdown {
@@ -42,11 +48,13 @@ nav ul li {
   cursor: pointer;
   color: #878a8c;
   height: 44px;
-  max-width: 213px;
+  /* max-width: 213px; */
   width: 100%;
   padding-right: 8px;
   border: 1px solid transparent;
   border-radius: 4px;
+  margin-left: 16px;
+  margin-right: -8px;
 }
 
 .navbar-user-dropdown:hover {
@@ -60,6 +68,7 @@ nav ul li {
   padding: 2px 0;
   min-height: 32px;
   margin-left: 8px;
+  /* width: 213px; */
 }
 
 .navbar-user-info-box {
@@ -72,6 +81,7 @@ nav ul li {
 .navbar-user-info-details {
   display: flex;
   align-items: center;
+  width: 175px;
 }
 
 .navbar-user-img {
@@ -89,12 +99,14 @@ nav ul li {
   color: #1c1c1c;
   font-weight: 500;
   line-height: 16px;
+  margin-right: 5px;
 }
 
 .user-karma-info {
   color: #a8aaab;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .karma-poinsettia {
@@ -168,7 +180,6 @@ nav ul li {
 .door-icon {
   font-size: 24px;
   margin-left: -8px;
-  margin-right: 11 px;
 }
 
 .nav-user-dropdown-logout-btn {
@@ -200,6 +211,118 @@ nav ul li {
   border-bottom: 1px solid #edeff1;
 }
 
+.navbar-button {
+  /* padding: 8px 24px; */
+  /* width: 100%; */
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  flex-grow: 0;
+  cursor: pointer;
+  margin: 0 5px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.chat-btn {
+  cursor: pointer;
+  position: relative;
+  font-size: 20px;
+  flex-grow: 0;
+  cursor: pointer;
+  margin: 0 5px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.navbar-button:hover {
+  background: rgba(26, 26, 27, 0.1);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* max-width: 300px;
+  width: 100%; */
+}
+
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-button .navbtn-tooltiptext {
+  visibility: hidden;
+  width: auto;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 2px 10px;
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 50%;
+  margin-left: -25px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 12px;
+  overflow-wrap: normal;
+}
+
+.navbar-button .navbtn-tooltiptext.text2 {
+  margin-left: -45px;
+  width: 85px;
+}
+
+.navbar-button .navbtn-tooltiptext.text3 {
+  color: red;
+}
+
+.navbar-button .navbtn-tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.navbar-button:hover .navbtn-tooltiptext {
+  visibility: visible;
+}
+
+.navbar-login-btn {
+  width: 120px;
+  background-color: #ff4500;
+  position: relative;
+  border: none;
+  color: white;
+}
+
+.navbar-login-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: white;
+  opacity: 0;
+}
+
+.navbar-login-btn:hover:before {
+  opacity: 0.08;
+}
+
 @media (max-width: 1200px) {
   .navbar-user-info {
     display: none;
@@ -215,7 +338,33 @@ nav ul li {
     right: 15px;
   }
 
+  .navbar-user-info-details {
+    width: auto;
+  }
+
+  .navbar-user-dropdown-face {
+    width: 100%;
+  }
+
   .loginsignup {
     min-width: 200px;
+  }
+}
+
+@media (max-width: 995px) {
+  .ribbit-logo-large {
+    display: none;
+  }
+
+  .ribbit-logo-small {
+    display: inline-block;
+  }
+
+  .navbar-buttons {
+    display: none;
+  }
+
+  .navbar-user-dropdown {
+    margin-left: 5px;
   }
 }

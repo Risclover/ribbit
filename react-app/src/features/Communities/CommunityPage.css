@@ -164,8 +164,9 @@
   border: 4px solid white;
   border-radius: 1000px;
   height: 80px;
-  min-width: 80px;
+  width: 80px;
   background: white;
+  object-fit: cover;
 }
 
 .community-header-info-name h2 {
@@ -669,7 +670,7 @@ li {
 @media (max-width: 960px) {
   .community-page-right-col {
     display: none;
-    margin: none;
+    margin: 0;
   }
 
   .community-page-left-col {

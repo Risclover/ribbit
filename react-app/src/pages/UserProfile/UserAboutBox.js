@@ -19,7 +19,7 @@ import UserImageModal from "./UploadUserImage";
 import SendMessage from "./SendMessage";
 import { addNotification } from "../../store/notifications";
 
-export default function UserAboutBox({ currentUser, user }) {
+export default function UserAboutBox({ currentUser, user, username }) {
   const dispatch = useDispatch();
 
   const { userId } = useParams();
@@ -49,7 +49,6 @@ export default function UserAboutBox({ currentUser, user }) {
 
     if (!following) {
       const notificationData = await dispatch(addNotification(payload));
-      console.log("notification:", notificationData);
     }
   };
 
@@ -140,7 +139,7 @@ export default function UserAboutBox({ currentUser, user }) {
           </button>
         )}
         {userFollowers && currentUser?.id !== +userId && (
-          <SendMessage userId={+userId} user={user?.username} />
+          <SendMessage userId={+userId} username={username} />
         )}
       </div>
       {showFollowersModal && (

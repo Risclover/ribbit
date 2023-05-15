@@ -204,7 +204,7 @@
   height: 80px;
   width: 80px;
   object-fit: cover;
-  overflow: none;
+  overflow: hidden;
   border-radius: 6px;
   position: relative;
   background: white;
@@ -241,7 +241,7 @@
   width: 100%;
   height: 94px;
   object-fit: cover;
-  overflow: none;
+  overflow: hidden;
   border-radius: 6px;
   background: white;
   border: 1px solid #edeff1;
@@ -398,6 +398,10 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.modal-content input {
+  margin-bottom: 5px;
+}
+
 .message-modal-label {
   font-size: large;
   font-weight: 500;
@@ -436,4 +440,9 @@
 
 .message-success-msg {
   margin-right: 10px;
+}
+
+.message-modal-error {
+  color: #ea0027;
+  margin-bottom: 5px;
 }

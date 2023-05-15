@@ -28,7 +28,7 @@ def add_notification(type, id):
         comment = Comment.query.get(id)
         post_author = comment.comment_post.post_author
         if post_author != comment.comment_author:
-            notification = Notification(user_id=post_author.id, post_id=comment.comment_post.id, sender_id=comment.user_id, icon = comment.comment_author.profile_img, message=f"{comment.comment_author.username} replied to your post in c/{comment.comment_post.post_community.name}", content=f"{comment.content}", type=type)
+            notification = Notification(user_id=post_author.id, post_id=comment.comment_post.id, comment_id = comment.id, sender_id=comment.user_id, title=comment.comment_post.title, icon = comment.comment_author.profile_img, message=f"u/{comment.comment_author.username} replied to your post in c/{comment.comment_post.post_community.name}", content=f"{comment.content}", type=type)
             db.session.add(notification)
             db.session.commit()
             return {"Notification": notification.to_dict()}
@@ -55,7 +55,7 @@ def add_notification(type, id):
     # ADDING A NEW FOLLOWER NOTIFICATION
     elif type == "follower":
         follower = User.query.get(current_user.get_id())
-        notification = Notification(user_id=id, icon = follower.profile_img, sender_id=follower.id, message=f"{follower.username} followed you. Follow them back or start a chat!", content="", type=type)
+        notification = Notification(user_id=id, icon = follower.profile_img, sender_id=follower.id, message=f"u/{follower.username} followed you. Follow them back or start a chat!", content="", type=type)
         db.session.add(notification)
         db.session.commit()
 
@@ -74,17 +74,29 @@ def read_notification(id):
     return {"message": "Successfully marked notification as read"}
 
 
+# MARKING ALL NOTIFICATIONS AS 'READ'
+@notification_routes.route("/read-all", methods=["PUT"])
+def read_all_notifications():
+    notifications = Notification.query.filter_by(user_id=current_user.get_id())
+    for notification in notifications:
+        if notification.type != "message":
+            setattr(notification, "read", True)
+
+    db.session.commit()
+    return {"message": "Successfully read all notifications"}
+
+
 
 # MARKING ALL MESSAGE NOTIFICATIONS AS 'READ'
 @notification_routes.route("/read", methods=["PUT"])
-def read_all_notifications():
+def read_all_message_notifications():
     notifications = Notification.query.filter_by(user_id=current_user.get_id())
     for notification in notifications:
         if notification.type == "message":
             setattr(notification, "read", True)
 
     db.session.commit()
-    return {"message": "All notifications successfully read"}
+    return {"message": "All message notifications successfully read"}
 
 
 
@@ -98,3 +110,12 @@ def unread_notification(id):
     db.session.commit()
 
     return {"message": "Successfully marked notification as unread"}
+
+
+# DELETE A NOTIFICATION
+@notification_routes.route("/<int:id>", methods=["DELETE"])
+def delete_notification(id):
+    notification = Notification.query.get(id)
+    db.session.delete(notification)
+    db.session.commit()
+    return {"message": "Successfully deleted", "status_code": 200}

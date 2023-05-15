@@ -1,0 +1,44 @@
+.post-reply {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-reply-main {
+  display: flex;
+}
+
+.post-reply-vote-btns {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-reply-vote-btns svg {
+  color: #a8aaab;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.post-reply-main-content {
+  color: #373c3f;
+  padding: 10px 15px;
+}
+
+.post-reply-author-line-unread {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  color: orangered;
+}
+
+.post-reply-author-line-unread a {
+  color: #0079d3;
+}
+
+.post-reply-author-line-unread a:visited {
+  color: #80bce9;
+}
+
+.post-reply-main-content.post-reply-unread {
+  width: 100%;
+  background: #edeff1;
+}
