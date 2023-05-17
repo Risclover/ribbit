@@ -6,10 +6,11 @@ import {
   getUserFollowers,
 } from "../../store/followers";
 
-export default function FollowingBtn({ user, follows }) {
+export default function FollowingBtn({ user }) {
   const dispatch = useDispatch();
   const [following, setFollowing] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
+  const follows = useSelector((state) => state.followers.follows);
 
   useEffect(() => {
     for (let followed of Object.values(follows)) {
@@ -24,7 +25,8 @@ export default function FollowingBtn({ user, follows }) {
 
   const userFollowers = useSelector((state) => state.followers.userFollowers);
 
-  const handleFollowing = async () => {
+  const handleFollowing = async (e) => {
+    e.preventDefault();
     await dispatch(followUser(user.id));
     dispatch(getFollowers());
     dispatch(getUserFollowers(user.id));

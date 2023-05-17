@@ -259,6 +259,7 @@
 
 .single-post-author-info {
   color: rgb(120, 124, 126);
+  display: flex;
 }
 
 .single-post-author-info a:hover,

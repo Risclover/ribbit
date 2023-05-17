@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
+import Username from "../../../components/Username/Username";
 
 moment.updateLocale("en-post", {
   relativeTime: {
@@ -39,10 +40,8 @@ export default function SinglePostAuthorBar({ community, post, isPage }) {
       )}
 
       <div className="single-post-author-info">
-        Posted by{" "}
-        <NavLink to={`/users/${post.postAuthor.id}/profile`}>
-          u/{post.postAuthor.username}
-        </NavLink>{" "}
+        Posted by
+        <Username username={post.postAuthor.username} user={post.postAuthor} />
         {moment(new Date(post.createdAt)).locale("en-post").fromNow()}
       </div>
     </div>
