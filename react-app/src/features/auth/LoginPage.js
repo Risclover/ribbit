@@ -10,6 +10,7 @@ export default function LoginPage() {
   useEffect(() => {
     setShowLoginForm(true);
   }, []);
+
   return (
     <div>
       {showLoginForm && (

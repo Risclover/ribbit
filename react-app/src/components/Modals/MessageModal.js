@@ -9,7 +9,6 @@ import {
 } from "../../store/threads";
 import { getMessages } from "../../store/messages";
 import { addNotification } from "../../store/notifications";
-import { TfiRuler } from "react-icons/tfi";
 import { getCommunities } from "../../store/communities";
 
 export default function MessageModal({ setShowMessageModal, username }) {
@@ -23,13 +22,10 @@ export default function MessageModal({ setShowMessageModal, username }) {
   const [message, setMessage] = useState("");
   const [messageError, setMessageError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-  const [communityOwner, setCommunityOwner] = useState();
 
   const allUsers = useSelector((state) => Object.values(state.users));
   const currentUser = useSelector((state) => state.session.user);
   const communities = useSelector((state) => Object.values(state.communities));
-
-  console.log("recipient:", recipient);
 
   useEffect(() => {
     for (let user of allUsers) {

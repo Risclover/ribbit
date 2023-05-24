@@ -7,7 +7,6 @@
 
 .create-post-form-container {
   margin: 0 auto;
-  /* width: fit-content; */
   padding: 20px 24px;
   max-width: 1248px;
   display: flex;
@@ -51,15 +50,7 @@
 .create-post-content {
   background: white;
   border-radius: 4px;
-  /* padding: 15px; */
   overflow: hidden;
-}
-.quill {
-  /* margin-top: 16px; */
-  /* display: flex;
-  flex-direction: column-reverse; */
-  /* margin-bottom: 20px 0; */
-  /* border-top: 1px solid #ccc; */
 }
 
 .ql-toolbar.ql-snow {
@@ -83,7 +74,6 @@
   font-family: "Noto Sans", sans-serif;
   font-size: 14px;
   color: #1c1c1c;
-  /* border-bottom: none; */
 }
 
 .ql-snow .ql-editor blockquote {
@@ -389,14 +379,11 @@
 }
 
 .textarea {
-  /* height: 39px; */
   border: 1px solid #edeff1;
   border-radius: 4px;
   font-family: "IBM Plex Sans", sans-serif;
   font-size: 14px;
-  /* overflow-wrap: break-word; */
   outline: none;
-  /* overflow-x: hidden; */
   padding: 8px 64px 8px 16px;
   resize: none;
   overflow: hidden;
@@ -434,7 +421,6 @@
   overflow-y: auto;
   padding: 8px 64px 8px 16px;
   resize: none;
-  /* overflow: hidden; */
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -569,7 +555,6 @@ pre.ql-syntax {
   background: white;
   border-radius: 4px;
   padding: 12px;
-  /* margin-top: 42px; */
   max-width: 312px;
   width: 100%;
   border: 1px solid #ccc;
@@ -730,8 +715,6 @@ pre.ql-syntax {
   color: white;
   line-height: 18px;
   font-size: 15px;
-
-  /* margin-left: 2px; */
 }
 
 .create-post-form-errors {

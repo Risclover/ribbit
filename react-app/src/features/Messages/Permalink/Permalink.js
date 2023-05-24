@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { getThread, getThreads } from "../../../store/threads";
+import { getThreads } from "../../../store/threads";
 import MessageHead from "../MessageHead";
 import MessageContentMenu from "../MessageContentMenu";
 import MessageThread from "../MessageThread";
@@ -20,7 +20,6 @@ export default function Permalink() {
     dispatch(getUsers());
   }, [dispatch]);
 
-  console.log(threads?.id);
   return (
     <div className="messages-page">
       <MessageHead />

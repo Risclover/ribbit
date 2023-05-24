@@ -14,11 +14,11 @@ import Bounce from "../../../images/misc/curved-arrow.png";
 import { CgNotes } from "react-icons/cg";
 import { RxImage } from "react-icons/rx";
 import { BsThreeDots } from "react-icons/bs";
-import "../SinglePost/SinglePost.css";
 import { getUsers } from "../../../store/users";
+import HandleClickOutside from "../../../components/HandleClickOutside";
+import "../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 import "./CompactPostFormat.css";
-import HandleClickOutside from "../../../components/HandleClickOutside";
 
 export default function CompactPostFormat({ id, isPage, userId }) {
   const history = useHistory();
@@ -57,7 +57,6 @@ export default function CompactPostFormat({ id, isPage, userId }) {
       HandleClickOutside(e, wrapperRef, showSubmenu, setShowSubmenu);
     });
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", function (e) {
         HandleClickOutside(e, wrapperRef, showSubmenu, setShowSubmenu);
       });

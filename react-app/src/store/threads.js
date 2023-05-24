@@ -41,7 +41,7 @@ export const getThread = (threadId) => async (dispatch) => {
   }
 };
 
-export const createThread = (payload) => async (dispatch) => {
+export const createThread = (payload) => async () => {
   const { receiverId, subject } = payload;
   const response = await fetch("/api/threads", {
     method: "POST",
@@ -55,7 +55,7 @@ export const createThread = (payload) => async (dispatch) => {
   }
 };
 
-export const createMessage = (payload) => async (dispatch) => {
+export const createMessage = (payload) => async () => {
   const { content, threadId, receiverId } = payload;
   const response = await fetch(`/api/threads/${threadId}`, {
     method: "POST",
@@ -76,7 +76,7 @@ export const createMessage = (payload) => async (dispatch) => {
   }
 };
 
-export const readMessage = (messageId) => async (dispatch) => {
+export const readMessage = (messageId) => async () => {
   const response = await fetch(`/api/threads/${messageId}/read`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -88,7 +88,7 @@ export const readMessage = (messageId) => async (dispatch) => {
   }
 };
 
-export const unreadMessage = (messageId) => async (dispatch) => {
+export const unreadMessage = (messageId) => async () => {
   const response = await fetch(`/api/threads/${messageId}/unread`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -100,7 +100,7 @@ export const unreadMessage = (messageId) => async (dispatch) => {
   }
 };
 
-export const readAllMessages = () => async (dispatch) => {
+export const readAllMessages = () => async () => {
   const response = await fetch("/api/threads", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -112,7 +112,7 @@ export const readAllMessages = () => async (dispatch) => {
   }
 };
 
-export const expandCollapseThread = (threadId) => async (dispatch) => {
+export const expandCollapseThread = (threadId) => async () => {
   const response = await fetch(`/api/threads/${threadId}/expandstate`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -124,7 +124,7 @@ export const expandCollapseThread = (threadId) => async (dispatch) => {
   }
 };
 
-export const deleteMessage = (messageId) => async (dispatch) => {
+export const deleteMessage = (messageId) => async () => {
   const response = await fetch(`/api/threads/${messageId}/delete`, {
     method: "DELETE",
     headers: { "Content-Type": "application-json" },

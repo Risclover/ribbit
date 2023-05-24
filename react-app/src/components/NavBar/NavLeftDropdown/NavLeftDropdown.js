@@ -88,11 +88,10 @@ export default function NavLeftDropdown({ mode, showIcon, setShowIcon }) {
     e.preventDefault();
     if (favoriteCommunities[community.id]) {
       await dispatch(removeFavoriteCommunity(community.id));
-      dispatch(getFavoriteCommunities());
     } else {
       await dispatch(addFavoriteCommunity(community.id));
-      dispatch(getFavoriteCommunities());
     }
+    dispatch(getFavoriteCommunities());
   };
 
   const handleUserFavorite = async (e, user) => {
@@ -245,7 +244,7 @@ export default function NavLeftDropdown({ mode, showIcon, setShowIcon }) {
       ).length > 0 && <div className="nav-left-dropdown-title">Feeds</div>}
       {"Home".toLowerCase().includes(filter.toLowerCase()) && (
         <div
-          className="nav-left-dropdown-item-link"
+          className="nav-left-dropdown-navitem"
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
@@ -258,7 +257,7 @@ export default function NavLeftDropdown({ mode, showIcon, setShowIcon }) {
       )}
       {/* {"Popular".toLowerCase().includes(filter.toLowerCase()) && (
         <div
-          className="nav-left-dropdown-item-link"
+          className="nav-left-dropdown-navitem"
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
@@ -271,7 +270,7 @@ export default function NavLeftDropdown({ mode, showIcon, setShowIcon }) {
       )} */}
       {"All".toLowerCase().includes(filter.toLowerCase()) && (
         <div
-          className="nav-left-dropdown-item-link"
+          className="nav-left-dropdown-navitem"
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
@@ -287,7 +286,7 @@ export default function NavLeftDropdown({ mode, showIcon, setShowIcon }) {
       ).length > 0 && <div className="nav-left-dropdown-title">Other</div>}
       {"User Settings".toLowerCase().includes(filter.toLowerCase()) && (
         <div
-          className="nav-left-dropdown-item-link"
+          className="nav-left-dropdown-navitem"
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
@@ -304,7 +303,7 @@ export default function NavLeftDropdown({ mode, showIcon, setShowIcon }) {
       )}
       {"Messages".toLowerCase().includes(filter.toLowerCase()) && (
         <div
-          className="nav-left-dropdown-item-link"
+          className="nav-left-dropdown-navitem"
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
@@ -322,7 +321,7 @@ export default function NavLeftDropdown({ mode, showIcon, setShowIcon }) {
       )}
       {"Create Post".toLowerCase().includes(filter.toLowerCase()) && (
         <div
-          className="nav-left-dropdown-item-link"
+          className="nav-left-dropdown-navitem"
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
@@ -335,7 +334,7 @@ export default function NavLeftDropdown({ mode, showIcon, setShowIcon }) {
       )}
       {"Notifications".toLowerCase().includes(filter.toLowerCase()) && (
         <div
-          className="nav-left-dropdown-item-link"
+          className="nav-left-dropdown-navitem"
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);

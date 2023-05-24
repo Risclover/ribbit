@@ -18,7 +18,6 @@ class PostForm(FlaskForm):
     content = TextAreaField(
         "Content",
         validators=[
-            DataRequired("You must give your post some content."),
             Length(
                 max=40000,
                 message="Please give your post some content. Posts are limited to 40,000 characters.",

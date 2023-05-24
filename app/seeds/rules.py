@@ -687,243 +687,243 @@ It is up to moderators to decide whether a comment or submission is offensive en
         description="Old School Cool is for real life coolness not fictional coolness.",
         community_id=14
     )
-    community15_rule1 = Rule(
-        title="R1: No memes, meme-like pics, text heavy pics, overdone references.",
-        description="We don't like memes because they're low quality. We also don't like text-heavy pics, because they are meme like, and we occasionally have verbal/text infuriation threads stickies for that purpose. Use the title to be descriptive of the pic! See this post. This includes \"trendy\" title names such as \"This shit.\" and this rule is automatically enforced by automoderator.",
-        community_id=15
-    )
-    community15_rule2 = Rule(
-        title="R2a: No <6 month reposts or xposts unless it's OC.",
-        description="""a) Please try to post original content. Reposts or crossposts of someone else's content will be removed if it has been posted on Ribbit within the past 6 months.
+#     community15_rule1 = Rule(
+#         title="R1: No memes, meme-like pics, text heavy pics, overdone references.",
+#         description="We don't like memes because they're low quality. We also don't like text-heavy pics, because they are meme like, and we occasionally have verbal/text infuriation threads stickies for that purpose. Use the title to be descriptive of the pic! See this post. This includes \"trendy\" title names such as \"This shit.\" and this rule is automatically enforced by automoderator.",
+#         community_id=15
+#     )
+#     community15_rule2 = Rule(
+#         title="R2a: No <6 month reposts or xposts unless it's OC.",
+#         description="""a) Please try to post original content. Reposts or crossposts of someone else's content will be removed if it has been posted on Ribbit within the past 6 months.
 
-We want fresh new content, and hopefully you do, too!""",
-        community_id=15
-    )
-    community15_rule3 = Rule(
-        title="R2b-c-d: No gifs cut short, big overlays, or surveys.",
-        description="""b) No GIFs that end slightly before something happens Example.
+# We want fresh new content, and hopefully you do, too!""",
+#         community_id=15
+#     )
+#     community15_rule3 = Rule(
+#         title="R2b-c-d: No gifs cut short, big overlays, or surveys.",
+#         description="""b) No GIFs that end slightly before something happens Example.
 
-c) Unnecessarily overdone text, arrows, scribbles, or substantive edits over the original content are not allowed.
+# c) Unnecessarily overdone text, arrows, scribbles, or substantive edits over the original content are not allowed.
 
-d) No surveys.
+# d) No surveys.
 
-We feel that this community shouldn't act as a platform for survey spam and information harvesting, whether the surveys are academic in nature or not.""",
-        community_id=15
-    )
-    community15_rule4 = Rule(
-        title="R2e: Blur personal info - Full names, numbers, etc.",
-        description="""Its a site-wide rule of Ribbit (rule 7) that you agreed to when you signed up. Don't post your own or others' personal information under any circumstances, as we can't verify of you are indeed posting your info.
+# We feel that this community shouldn't act as a platform for survey spam and information harvesting, whether the surveys are academic in nature or not.""",
+#         community_id=15
+#     )
+#     community15_rule4 = Rule(
+#         title="R2e: Blur personal info - Full names, numbers, etc.",
+#         description="""Its a site-wide rule of Ribbit (rule 7) that you agreed to when you signed up. Don't post your own or others' personal information under any circumstances, as we can't verify of you are indeed posting your info.
 
-Personal info can include: Full names, phone numbers, license plates, addresses, ID numbers, etc.""",
-        community_id=15
-    )
-    community15_rule5 = Rule(
-        title="R3: Follow Ribbit sitewide rules.",
-        description="The rules of Ribbit are site-wide rules created by the admins. Not following the rules may result in not only a ban from our community, but from Ribbit as well.",
-        community_id=15
-    )
-    community15_rule6 = Rule(
-        title="R4: No meta Ribbit posts. This includes other communities, other users, the Ribbit site design.",
-        description="Posts that in any way concern Ribbit shan't be allowed. This includes posts about other Ribbit users, about a particular community, and the content present in it, DMs or chat messages you've received, about the Ribbit website or Ribbit mobile app design.",
-        community_id=15
-    )
-    community15_rule7 = Rule(
-        title="R5a-b: No grandstanding, politics or pushing agendas. No price complaint posts.",
-        description="Material that could reasonably be deemed inappropriate whether politically, sexually, racially, or socially, is prohibited. This includes but is not limited to, discussion of illegal activities such as piracy, porn, and sexualization of minors. Posts that push an agenda of any sort is also prohibited, including inappropriate posts about this community or other subs as described in \"prevent brigading\" rule. If you're unsure if your post or comment falls under this rule, message the mods to ask!",
-        community_id=15
-    )
-    community16_rule1 = Rule(
-        title="Be kind",
-        description="Be kind to your fellow human. Polite or Constructive criticism is welcome but don't rag on other people's work or attempts to improve themselves. Especially beginners.",
-        community_id=16
-    )
-    community16_rule2 = Rule(
-        title="No bashing",
-        description="No bashing other frameworks. Reasoned criticism of React or any other library is welcome, but spare us your rants.",
-        community_id=16
-    )
-    community16_rule3 = Rule(
-        title="Be inclusive",
-        description="We all started somewhere. Telling people to \"get out\" of the industry or that they are not good enough in some shape or form is a bannable offense.",
-        community_id=16
-    )
-    community16_rule4 = Rule(
-        title="Some Self-promotion OK, Spam not OK",
-        description="You are definitely welcome to promote your own content as part of your participation in this community, but if you repeatedly post low quality crap you will be banned.",
-        community_id=16
-    )
-    community16_rule5 = Rule(
-        title="Demos should link source code or live demos",
-        description="We're all here to learn from you, but can't learn very much from a video recording. Please link some source code (or if not possible, we understand, link some live demo or codepen so that people can try you out and learn from you)",
-        community_id=16
-    )
-    community16_rule6 = Rule(
-        title="GitHub, not PornHub",
-        description="We rarely get NSFW posts (e.g. links to NSFW apps built with React) but try not to be prudes. We're all adults here. We ask that NSFW posts nevertheless focus on the technology rather than the content. Therefore posts of NSFW React apps must link to source, not to the live NSFW app.",
-        community_id=16
-    )
-    community16_rule7 = Rule(
-        title="Portfolios on Sundays only",
-        description="If you want to show off or need feedback on your portfolios, you should post on Sundays, and Sundays only. Mods will remove such posts posted on other days.",
-        community_id=16
-    )
-    community17_rule1 = Rule(
-        title="All posts must relate to Flask.",
-        description="""All posts must pertain to The Pallets Projects' Flask in some way. If your post doesn't involve Flask, consider checking out c/Python.""",
-        community_id=17
-    )
-    community17_rule2 = Rule(
-        title="Be thorough when asking for help.",
-        description="""If you’re encountering an error or if your code won’t behave as expected, include as much detail as possible. This includes:
+# Personal info can include: Full names, phone numbers, license plates, addresses, ID numbers, etc.""",
+#         community_id=15
+#     )
+#     community15_rule5 = Rule(
+#         title="R3: Follow Ribbit sitewide rules.",
+#         description="The rules of Ribbit are site-wide rules created by the admins. Not following the rules may result in not only a ban from our community, but from Ribbit as well.",
+#         community_id=15
+#     )
+#     community15_rule6 = Rule(
+#         title="R4: No meta Ribbit posts. This includes other communities, other users, the Ribbit site design.",
+#         description="Posts that in any way concern Ribbit shan't be allowed. This includes posts about other Ribbit users, about a particular community, and the content present in it, DMs or chat messages you've received, about the Ribbit website or Ribbit mobile app design.",
+#         community_id=15
+#     )
+#     community15_rule7 = Rule(
+#         title="R5a-b: No grandstanding, politics or pushing agendas. No price complaint posts.",
+#         description="Material that could reasonably be deemed inappropriate whether politically, sexually, racially, or socially, is prohibited. This includes but is not limited to, discussion of illegal activities such as piracy, porn, and sexualization of minors. Posts that push an agenda of any sort is also prohibited, including inappropriate posts about this community or other subs as described in \"prevent brigading\" rule. If you're unsure if your post or comment falls under this rule, message the mods to ask!",
+#         community_id=15
+#     )
+#     community16_rule1 = Rule(
+#         title="Be kind",
+#         description="Be kind to your fellow human. Polite or Constructive criticism is welcome but don't rag on other people's work or attempts to improve themselves. Especially beginners.",
+#         community_id=16
+#     )
+#     community16_rule2 = Rule(
+#         title="No bashing",
+#         description="No bashing other frameworks. Reasoned criticism of React or any other library is welcome, but spare us your rants.",
+#         community_id=16
+#     )
+#     community16_rule3 = Rule(
+#         title="Be inclusive",
+#         description="We all started somewhere. Telling people to \"get out\" of the industry or that they are not good enough in some shape or form is a bannable offense.",
+#         community_id=16
+#     )
+#     community16_rule4 = Rule(
+#         title="Some Self-promotion OK, Spam not OK",
+#         description="You are definitely welcome to promote your own content as part of your participation in this community, but if you repeatedly post low quality crap you will be banned.",
+#         community_id=16
+#     )
+#     community16_rule5 = Rule(
+#         title="Demos should link source code or live demos",
+#         description="We're all here to learn from you, but can't learn very much from a video recording. Please link some source code (or if not possible, we understand, link some live demo or codepen so that people can try you out and learn from you)",
+#         community_id=16
+#     )
+#     community16_rule6 = Rule(
+#         title="GitHub, not PornHub",
+#         description="We rarely get NSFW posts (e.g. links to NSFW apps built with React) but try not to be prudes. We're all adults here. We ask that NSFW posts nevertheless focus on the technology rather than the content. Therefore posts of NSFW React apps must link to source, not to the live NSFW app.",
+#         community_id=16
+#     )
+#     community16_rule7 = Rule(
+#         title="Portfolios on Sundays only",
+#         description="If you want to show off or need feedback on your portfolios, you should post on Sundays, and Sundays only. Mods will remove such posts posted on other days.",
+#         community_id=16
+#     )
+#     community17_rule1 = Rule(
+#         title="All posts must relate to Flask.",
+#         description="""All posts must pertain to The Pallets Projects' Flask in some way. If your post doesn't involve Flask, consider checking out c/Python.""",
+#         community_id=17
+#     )
+#     community17_rule2 = Rule(
+#         title="Be thorough when asking for help.",
+#         description="""If you’re encountering an error or if your code won’t behave as expected, include as much detail as possible. This includes:
 
-- Error messages (if applicable)
+# - Error messages (if applicable)
 
-- Relevant code from your program. Please be nice and format your code!
+# - Relevant code from your program. Please be nice and format your code!
 
-- Context - where is the code running? What steps have you taken so far?
+# - Context - where is the code running? What steps have you taken so far?
 
-Help c/Flask help you! And when your question has been solved, edit the title with the "Solved" flair.""",
-        community_id=17
-    )
-    community17_rule3 = Rule(
-        title="Provide details when sharing your work.",
-        description="Remember that others will be learning from your experience. Consider discussing what you learned, challenges you encountered, and best of all, the project source code.",
-        community_id=17
-    )
-    community17_rule4 = Rule(
-        title="No spamming or repeated self-promotion.",
-        description="Posting your personal project/tutorial multiple times, spamming post comments, or any other kind of repetitive self-promotion will result in a temporary ban. Repeat offenders will be banned permanently.",
-        community_id=17
-    )
-    community18_rule1 = Rule(
-        title="\"How do I\" questions belong in c/LearnPython",
-        description="If you are about to ask a question about how to do something in python, please check out /c/learnpython. It is a very helpful community that is focused on helping people get answers that they understand.",
-        community_id=18
-    )
-    community18_rule2 = Rule(
-        title="Posts must be relevant to the Python Programming Language",
-        description="Please use other communities for things that are more generally programmer related, or for things that involve large snakes.",
-        community_id=18
-    )
-    community18_rule3 = Rule(
-        title="Please don't downvote without commenting your reasoning for doing so",
-        description="Obviously we can't enforce this one very easily, it more is a level of trust we have in our users. Please do not downvote comments without providing valid reasoning for doing so. This rule helps maintain a positive atmosphere on the community with both posts and comments.",
-        community_id=18
-    )
-    community18_rule4 = Rule(
-        title="When posting projects please include both description text and a link to source code",
-        description="When posting a project please include an image showing your project if applicable, a textual description of your project including how Python is relevant to it and a link to source code.",
-        community_id=18
-    )
-    community18_rule5 = Rule(
-        title="Project posts must be text",
-        description="""When posting a project you must use a text post, not an image post, video post or similar.
+# Help c/Flask help you! And when your question has been solved, edit the title with the "Solved" flair.""",
+#         community_id=17
+#     )
+#     community17_rule3 = Rule(
+#         title="Provide details when sharing your work.",
+#         description="Remember that others will be learning from your experience. Consider discussing what you learned, challenges you encountered, and best of all, the project source code.",
+#         community_id=17
+#     )
+#     community17_rule4 = Rule(
+#         title="No spamming or repeated self-promotion.",
+#         description="Posting your personal project/tutorial multiple times, spamming post comments, or any other kind of repetitive self-promotion will result in a temporary ban. Repeat offenders will be banned permanently.",
+#         community_id=17
+#     )
+#     community18_rule1 = Rule(
+#         title="\"How do I\" questions belong in c/LearnPython",
+#         description="If you are about to ask a question about how to do something in python, please check out /c/learnpython. It is a very helpful community that is focused on helping people get answers that they understand.",
+#         community_id=18
+#     )
+#     community18_rule2 = Rule(
+#         title="Posts must be relevant to the Python Programming Language",
+#         description="Please use other communities for things that are more generally programmer related, or for things that involve large snakes.",
+#         community_id=18
+#     )
+#     community18_rule3 = Rule(
+#         title="Please don't downvote without commenting your reasoning for doing so",
+#         description="Obviously we can't enforce this one very easily, it more is a level of trust we have in our users. Please do not downvote comments without providing valid reasoning for doing so. This rule helps maintain a positive atmosphere on the community with both posts and comments.",
+#         community_id=18
+#     )
+#     community18_rule4 = Rule(
+#         title="When posting projects please include both description text and a link to source code",
+#         description="When posting a project please include an image showing your project if applicable, a textual description of your project including how Python is relevant to it and a link to source code.",
+#         community_id=18
+#     )
+#     community18_rule5 = Rule(
+#         title="Project posts must be text",
+#         description="""When posting a project you must use a text post, not an image post, video post or similar.
 
-Using new Ribbit you may embed these media types within the post body, including multiple images in one post.
+# Using new Ribbit you may embed these media types within the post body, including multiple images in one post.
 
-Please write a bit about your project instead of just dumping links since it will increase the relevance of your project to the Python community.""",
-        community_id=18
-    )
-    community18_rule6 = Rule(
-        title="Submission Titles must be descriptive",
-        description="Titles for all submissions should describe the topic of the post and offer Ribbitors an idea of what the link or text covers. Vague titles which require clicking through to clarify the subject matter of the post will be removed.",
-        community_id=18
-    )
-    community19_rule1 = Rule(
-        title="Be polite.",
-        description="Don't insult others; everyone comes to Python with a different level of knowledge and experience, and what is obvious to you may not be obvious to them.",
-        community_id=19
-    )
-    community19_rule2 = Rule(
-        title="Posts to this community must be requests for help learning python.",
-        description="",
-        community_id=19
-    )
-    community19_rule3 = Rule(
-        title="Replies on this community must be pertinent to the question OP asked.",
-        description="This is not the place to advertise your blog/video/guide/tutorial. Nor is it the place to try and hire someone. If you want to learn, just post a question so we can answer it.",
-        community_id=19
-    )
-    community19_rule4 = Rule(
-        title="No advertising. No blogs/tutorials/videos/books/recruiting attempts.",
-        description="No advertising. This is not the place to advertise your book, video, blog, study group, company training video, bot, or really anything. No advertising, no recruiting.",
-        community_id=19
-    )
-    community19_rule5 = Rule(
-        title="No replies copy / pasted from ChatGPT or similar.",
-        description="",
-        community_id=19
-    )
-    community20_rule1 = Rule(
-        title="No uncivil, bigoted, misogynist, misandrist, racist comments or posts.",
-        description="No namecalling or personal attacks. No bigotry including but not limited to racism, homophobia, transphobia, sexism, etc.",
-        community_id=20
-    )
-    community20_rule2 = Rule(
-        title="No Misinformation",
-        description="Comments or posts that actively counter a plurality of scientific consensus or other well established facts.",
-        community_id=20
-    )
-    community20_rule3 = Rule(
-        title="No Memes",
-        description="",
-        community_id=20
-    )
-    community20_rule4 = Rule(
-        title="No language error posts",
-        description="Errors of language are not Facepalms.",
-        community_id=20
-    )
-    community20_rule5 = Rule(
-        title="No jokes/satire/trolls posts",
-        description="",
-        community_id=20
-    )
-    community20_rule6 = Rule(
-        title="Remove identifying personal information",
-        description="Please obscure/remove: names, usernames, business names, and other identifying elements from posts. (Only applicable to possible witch-hunt posts)",
-        community_id=20
-    )
-    community20_rule7 = Rule(
-        title="No \"likes\"/\"shares\" posts",
-        description="\"This was shared x times\", \"This received x up/downvotes/likes\", etc, are not Facepalms",
-        community_id=20
-    )
-    community20_rule8 = Rule(
-        title="No \"Ribbit Meta\" Posts",
-        description="No beefing about Ribbit bans, posts, mods or subs.",
-        community_id=20
-    )
-    community20_rule9 = Rule(
-        title="No posts about politicians being politicians",
-        description="",
-        community_id=20
-    )
-    community20_rule10 = Rule(
-        title="No posts attacking a political party or side",
-        description="",
-        community_id=20
-    )
-    community21_rule1 = Rule(
-        title="Be Welcoming.",
-        description="n00bs are welcome here. Negativity is not.",
-        community_id=21
-    )
-    community21_rule2 = Rule(
-        title="Include context and code in your post.",
-        description="The better the question, the better the answers will be. If people cannot recreate or understand a problem, they cannot help as effectively. Consider including a code snippet, or perhaps even an entire <a href='https://jsfiddle.net' target='_blank'>JS fiddle</a>.",
-        community_id=21
-    )
-    community21_rule3 = Rule(
-        title="No unvetted self-promotion.",
-        description="The following are not allowed: Requests for subscribers, asking for \"test users\" for your new JS course, offering paid mentorships, and/or premium courses. Even if there is a coupon discount, no. If you're in doubt, message the mods first.",
-        community_id=21
-    )
-    community21_rule4 = Rule(
-        title="No blogspam.",
-        description="Plagiarizing/stealing content from the real authors for your own financial gain? You better believe that's a banning!",
-        community_id=21
-    )
+# Please write a bit about your project instead of just dumping links since it will increase the relevance of your project to the Python community.""",
+#         community_id=18
+#     )
+#     community18_rule6 = Rule(
+#         title="Submission Titles must be descriptive",
+#         description="Titles for all submissions should describe the topic of the post and offer Ribbitors an idea of what the link or text covers. Vague titles which require clicking through to clarify the subject matter of the post will be removed.",
+#         community_id=18
+#     )
+#     community19_rule1 = Rule(
+#         title="Be polite.",
+#         description="Don't insult others; everyone comes to Python with a different level of knowledge and experience, and what is obvious to you may not be obvious to them.",
+#         community_id=19
+#     )
+#     community19_rule2 = Rule(
+#         title="Posts to this community must be requests for help learning python.",
+#         description="",
+#         community_id=19
+#     )
+#     community19_rule3 = Rule(
+#         title="Replies on this community must be pertinent to the question OP asked.",
+#         description="This is not the place to advertise your blog/video/guide/tutorial. Nor is it the place to try and hire someone. If you want to learn, just post a question so we can answer it.",
+#         community_id=19
+#     )
+#     community19_rule4 = Rule(
+#         title="No advertising. No blogs/tutorials/videos/books/recruiting attempts.",
+#         description="No advertising. This is not the place to advertise your book, video, blog, study group, company training video, bot, or really anything. No advertising, no recruiting.",
+#         community_id=19
+#     )
+#     community19_rule5 = Rule(
+#         title="No replies copy / pasted from ChatGPT or similar.",
+#         description="",
+#         community_id=19
+#     )
+#     community20_rule1 = Rule(
+#         title="No uncivil, bigoted, misogynist, misandrist, racist comments or posts.",
+#         description="No namecalling or personal attacks. No bigotry including but not limited to racism, homophobia, transphobia, sexism, etc.",
+#         community_id=20
+#     )
+#     community20_rule2 = Rule(
+#         title="No Misinformation",
+#         description="Comments or posts that actively counter a plurality of scientific consensus or other well established facts.",
+#         community_id=20
+#     )
+#     community20_rule3 = Rule(
+#         title="No Memes",
+#         description="",
+#         community_id=20
+#     )
+#     community20_rule4 = Rule(
+#         title="No language error posts",
+#         description="Errors of language are not Facepalms.",
+#         community_id=20
+#     )
+#     community20_rule5 = Rule(
+#         title="No jokes/satire/trolls posts",
+#         description="",
+#         community_id=20
+#     )
+#     community20_rule6 = Rule(
+#         title="Remove identifying personal information",
+#         description="Please obscure/remove: names, usernames, business names, and other identifying elements from posts. (Only applicable to possible witch-hunt posts)",
+#         community_id=20
+#     )
+#     community20_rule7 = Rule(
+#         title="No \"likes\"/\"shares\" posts",
+#         description="\"This was shared x times\", \"This received x up/downvotes/likes\", etc, are not Facepalms",
+#         community_id=20
+#     )
+#     community20_rule8 = Rule(
+#         title="No \"Ribbit Meta\" Posts",
+#         description="No beefing about Ribbit bans, posts, mods or subs.",
+#         community_id=20
+#     )
+#     community20_rule9 = Rule(
+#         title="No posts about politicians being politicians",
+#         description="",
+#         community_id=20
+#     )
+#     community20_rule10 = Rule(
+#         title="No posts attacking a political party or side",
+#         description="",
+#         community_id=20
+#     )
+#     community21_rule1 = Rule(
+#         title="Be Welcoming.",
+#         description="n00bs are welcome here. Negativity is not.",
+#         community_id=21
+#     )
+#     community21_rule2 = Rule(
+#         title="Include context and code in your post.",
+#         description="The better the question, the better the answers will be. If people cannot recreate or understand a problem, they cannot help as effectively. Consider including a code snippet, or perhaps even an entire <a href='https://jsfiddle.net' target='_blank'>JS fiddle</a>.",
+#         community_id=21
+#     )
+#     community21_rule3 = Rule(
+#         title="No unvetted self-promotion.",
+#         description="The following are not allowed: Requests for subscribers, asking for \"test users\" for your new JS course, offering paid mentorships, and/or premium courses. Even if there is a coupon discount, no. If you're in doubt, message the mods first.",
+#         community_id=21
+#     )
+#     community21_rule4 = Rule(
+#         title="No blogspam.",
+#         description="Plagiarizing/stealing content from the real authors for your own financial gain? You better believe that's a banning!",
+#         community_id=21
+#     )
 
     db.session.add(community1_rule1)
     db.session.add(community1_rule2)
@@ -1057,55 +1057,55 @@ Please write a bit about your project instead of just dumping links since it wil
     db.session.add(community14_rule7)
     db.session.add(community14_rule8)
 
-    db.session.add(community15_rule1)
-    db.session.add(community15_rule2)
-    db.session.add(community15_rule3)
-    db.session.add(community15_rule4)
-    db.session.add(community15_rule5)
-    db.session.add(community15_rule6)
-    db.session.add(community15_rule7)
+    # db.session.add(community15_rule1)
+    # db.session.add(community15_rule2)
+    # db.session.add(community15_rule3)
+    # db.session.add(community15_rule4)
+    # db.session.add(community15_rule5)
+    # db.session.add(community15_rule6)
+    # db.session.add(community15_rule7)
 
-    db.session.add(community16_rule1)
-    db.session.add(community16_rule2)
-    db.session.add(community16_rule3)
-    db.session.add(community16_rule4)
-    db.session.add(community16_rule5)
-    db.session.add(community16_rule6)
-    db.session.add(community16_rule7)
+    # db.session.add(community16_rule1)
+    # db.session.add(community16_rule2)
+    # db.session.add(community16_rule3)
+    # db.session.add(community16_rule4)
+    # db.session.add(community16_rule5)
+    # db.session.add(community16_rule6)
+    # db.session.add(community16_rule7)
 
-    db.session.add(community17_rule1)
-    db.session.add(community17_rule2)
-    db.session.add(community17_rule3)
-    db.session.add(community17_rule4)
+    # db.session.add(community17_rule1)
+    # db.session.add(community17_rule2)
+    # db.session.add(community17_rule3)
+    # db.session.add(community17_rule4)
 
-    db.session.add(community18_rule1)
-    db.session.add(community18_rule2)
-    db.session.add(community18_rule3)
-    db.session.add(community18_rule4)
-    db.session.add(community18_rule5)
-    db.session.add(community18_rule6)
+    # db.session.add(community18_rule1)
+    # db.session.add(community18_rule2)
+    # db.session.add(community18_rule3)
+    # db.session.add(community18_rule4)
+    # db.session.add(community18_rule5)
+    # db.session.add(community18_rule6)
 
-    db.session.add(community19_rule1)
-    db.session.add(community19_rule2)
-    db.session.add(community19_rule3)
-    db.session.add(community19_rule4)
-    db.session.add(community19_rule5)
+    # db.session.add(community19_rule1)
+    # db.session.add(community19_rule2)
+    # db.session.add(community19_rule3)
+    # db.session.add(community19_rule4)
+    # db.session.add(community19_rule5)
 
-    db.session.add(community20_rule1)
-    db.session.add(community20_rule2)
-    db.session.add(community20_rule3)
-    db.session.add(community20_rule4)
-    db.session.add(community20_rule5)
-    db.session.add(community20_rule6)
-    db.session.add(community20_rule7)
-    db.session.add(community20_rule8)
-    db.session.add(community20_rule9)
-    db.session.add(community20_rule10)
+    # db.session.add(community20_rule1)
+    # db.session.add(community20_rule2)
+    # db.session.add(community20_rule3)
+    # db.session.add(community20_rule4)
+    # db.session.add(community20_rule5)
+    # db.session.add(community20_rule6)
+    # db.session.add(community20_rule7)
+    # db.session.add(community20_rule8)
+    # db.session.add(community20_rule9)
+    # db.session.add(community20_rule10)
 
-    db.session.add(community21_rule1)
-    db.session.add(community21_rule2)
-    db.session.add(community21_rule3)
-    db.session.add(community21_rule4)
+    # db.session.add(community21_rule1)
+    # db.session.add(community21_rule2)
+    # db.session.add(community21_rule3)
+    # db.session.add(community21_rule4)
 
     db.session.commit()
 

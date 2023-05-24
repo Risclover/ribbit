@@ -6,21 +6,13 @@ import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { HashLink as Link } from "react-router-hash-link";
 import {
-  addNotification,
   getAllNotifications,
   getUserNotifications,
   readNotification,
   unreadNotification,
 } from "../../../store/notifications";
-import {
-  createMessage,
-  getThreads,
-  unreadMessage,
-} from "../../../store/threads";
-import { getMessages } from "../../../store/messages";
 
 export default function PostReply({ notification }) {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const users = useSelector((state) => state.users);
@@ -31,9 +23,6 @@ export default function PostReply({ notification }) {
   const postReplySender = users[notification.senderId];
 
   const [markedUnread, setMarkedUnread] = useState(false);
-  const [showReplyBox, setShowReplyBox] = useState(false);
-  const [error, setError] = useState("");
-  const [reply, setReply] = useState("");
   const currentUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
@@ -42,10 +31,7 @@ export default function PostReply({ notification }) {
 
   const handleUpvote = () => {
     let comment = comments[notification?.commentId];
-    console.log("comment:", comment);
   };
-
-  console.log("post:", notification);
 
   // const handleReply = async (e) => {
   //   e.preventDefault();

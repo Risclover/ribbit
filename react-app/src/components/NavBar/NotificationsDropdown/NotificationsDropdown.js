@@ -5,11 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getUserNotifications,
   readAllNotifications,
-  readNotification,
-  unreadNotification,
 } from "../../../store/notifications";
 import moment from "moment";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import HandleClickOutside from "../../HandleClickOutside";
 import SparklyFrog from "../../../images/ribbit-frog-sparkly.png";
 import Notification from "./Notification";
@@ -64,7 +62,7 @@ export default function NotificationsDropdown({
   }, []);
 
   const handleReadAll = async () => {
-    const data = await dispatch(readAllNotifications());
+    await dispatch(readAllNotifications());
     dispatch(getUserNotifications(user?.id));
   };
 
@@ -73,7 +71,6 @@ export default function NotificationsDropdown({
       HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
     });
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", function (e) {
         HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
       });

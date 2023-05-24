@@ -18,9 +18,6 @@ export default function UpdateImagePost() {
   const [content, setContent] = useState(post[0]?.content);
   const [showImgModal, setShowImgModal] = useState(false);
   const [img_url, setimg_url] = useState(post[0]?.img_url);
-  // const [titleErrors, setTitleErrors] = useState([]);
-  // const [contentErrors, setContentErrors] = useState([]);
-  // const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     setContent(post[0]?.content);
@@ -36,8 +33,6 @@ export default function UpdateImagePost() {
     if (content.trim().length === 0)
       contents.push("Please give your post some content.");
     if (titles.length > 0 || contents.length > 0) {
-      // setTitleErrors(titles);
-      // setContentErrors(contents);
     } else {
       const data = await dispatch(
         putSinglePost(
@@ -46,7 +41,6 @@ export default function UpdateImagePost() {
         )
       );
       if (data.errors) {
-        // setErrors(data.errors);
       } else {
         history.push(`/posts/${postId}`);
       }

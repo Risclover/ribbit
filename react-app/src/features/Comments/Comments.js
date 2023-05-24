@@ -78,15 +78,17 @@ export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
       )}
       {!showLoader && (
         <div className="all-comments">
-          {comments.length > 0 && !comment ? (
+          {comments.length > 0 &&
+            !comment &&
             comments.map((comment) => (
               <Comment
                 key={comment.id}
                 commentId={comment.id}
                 postId={+postId}
               />
-            ))
-          ) : (
+            ))}
+
+          {comment && (
             <div className="specific-comment">
               <button
                 className="view-all-comments-btn"
@@ -101,6 +103,7 @@ export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
               />
             </div>
           )}
+
           {comments.length === 0 && (
             <div className="no-comments-msg">
               <i className="fa-solid fa-comments"></i>

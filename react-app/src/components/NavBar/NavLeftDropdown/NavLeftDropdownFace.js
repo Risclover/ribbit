@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NavLeftDropdown.css";
 import { VscChevronDown } from "react-icons/vsc";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
@@ -7,12 +7,34 @@ import NavLeftDropdown from "./NavLeftDropdown";
 export default function NavLeftDropdownFace({
   pageTitle,
   setPageTitle,
+  pageIcon,
+  setPageIcon,
   setShowNavSidebar,
   showNavSidebar,
   setNormalDropdown,
   normalDropdown,
 }) {
   const [showIcon, setShowIcon] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setScreenWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (screenWidth <= 1250) {
+      setShowNavSidebar(false);
+      setNormalDropdown(true);
+    }
+  }, [screenWidth]);
 
   return (
     <div className="nav-left-dropdown-wrapper">
@@ -28,17 +50,20 @@ export default function NavLeftDropdownFace({
               normalDropdown && setShowIcon(true);
             }}
           >
-            {!showNavSidebar && (
-              <button
-                className={
-                  normalDropdown
-                    ? "nav-left-dropdown-face-left"
-                    : "nav-left-dropdown-face-left dropdown-not-normal"
-                }
-              >
-                <h1>{pageTitle}</h1>
-              </button>
-            )}
+            <button
+              className={
+                normalDropdown && showIcon
+                  ? "nav-left-dropdown-face-left plus-border"
+                  : normalDropdown && !showIcon
+                  ? "nav-left-dropdown-face-left"
+                  : "nav-left-dropdown-face-left dropdown-not-normal"
+              }
+            >
+              <div className="nav-left-dropdown-face-title">
+                {pageIcon}
+                {screenWidth > 996 && pageTitle}
+              </div>
+            </button>
             <span
               className={
                 normalDropdown
@@ -72,7 +97,6 @@ export default function NavLeftDropdownFace({
           )}
         </>
       )}
-      {/* {showNavSidebar && <div className=""} */}
     </div>
   );
 }

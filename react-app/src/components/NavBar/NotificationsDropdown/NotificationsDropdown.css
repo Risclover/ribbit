@@ -37,7 +37,6 @@
 
 .notification-wrapper {
   position: relative;
-  /* margin: 0 20px; */
 }
 
 .notification-number {
@@ -110,7 +109,6 @@
 
 .notifications-dropdown-head {
   display: flex;
-  /* align-items: center; */
   justify-content: space-between;
   padding: 16px;
   border-radius: 4px;
@@ -220,7 +218,6 @@
 .notification-content {
   font-family: "Noto Sans", sans-serif;
   font-weight: 400;
-  /* overflow: hidden; */
   text-overflow: ellipsis;
   white-space: normal;
   font-size: 14px;

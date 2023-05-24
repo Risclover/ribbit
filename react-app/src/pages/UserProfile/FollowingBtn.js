@@ -9,7 +9,6 @@ import {
 export default function FollowingBtn({ user }) {
   const dispatch = useDispatch();
   const [following, setFollowing] = useState(false);
-  const currentUser = useSelector((state) => state.session.user);
   const follows = useSelector((state) => state.followers.follows);
 
   useEffect(() => {
@@ -22,8 +21,6 @@ export default function FollowingBtn({ user }) {
       }
     }
   }, []);
-
-  const userFollowers = useSelector((state) => state.followers.userFollowers);
 
   const handleFollowing = async (e) => {
     e.preventDefault();

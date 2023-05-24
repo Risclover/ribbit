@@ -1,7 +1,6 @@
 .username-popup {
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  /* max-width: 380px; */
   min-width: 240px;
   position: absolute;
   z-index: 10000;

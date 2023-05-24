@@ -29,7 +29,6 @@ export default function NavUserDropdown() {
       HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
     });
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", function (e) {
         HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
       });

@@ -43,7 +43,7 @@ export const getFollowers = () => async (dispatch) => {
   }
 };
 
-export const followUser = (id) => async (dispatch) => {
+export const followUser = (id) => async () => {
   const response = await fetch(`/api/followers/${id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

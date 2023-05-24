@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosMore } from "react-icons/io";
 import { IoChatbox } from "react-icons/io5";
-
 import moment from "moment";
 import NotificationMenu from "./NotificationMenu";
 import HandleClickOutside from "../../components/HandleClickOutside";
@@ -17,14 +16,8 @@ export default function Notification({ notification }) {
 
   const [notificationMenu, setNotificationMenu] = useState(false);
   const [hideNotification, setHideNotification] = useState(false);
-  const [markedUnread, setMarkedUnread] = useState(!notification.read);
-  const [readAll, setReadAll] = useState(false);
 
   const currentUser = useSelector((state) => state.session.user);
-
-  useEffect(() => {
-    setMarkedUnread(!notification.read);
-  }, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", function (e) {
@@ -101,7 +94,6 @@ export default function Notification({ notification }) {
                     setNotificationMenu={setNotificationMenu}
                     notificationMenu={notificationMenu}
                     notification={notification}
-                    setMarkedUnread={setMarkedUnread}
                     setHideNotification={setHideNotification}
                   />
                 )}

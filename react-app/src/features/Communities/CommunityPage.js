@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSingleCommunity } from "../../store/one_community";
 import { getPosts } from "../../store/posts";
 import { getSubscriptions } from "../../store/subscriptions";
-import "./CommunityPage.css";
+import { getCommunities } from "../../store/communities";
 import CommunityWelcome from "./CommunityWelcome";
 import CommunityRulesBox from "./CommunityRulesBox";
 import CommunityImage from "./CommunityImage";
@@ -13,9 +13,14 @@ import CommunitySubscribeBtn from "./CommunitySubscribeBtn";
 import CommunityName from "./CommunityName";
 import CommunityPosts from "./CommunityPosts";
 import BackToTop from "../../components/BackToTop";
-import { getCommunities } from "../../store/communities";
+import "./CommunityPage.css";
 
-export default function CommunityPage({ setPageTitle, format, setFormat }) {
+export default function CommunityPage({
+  setPageTitle,
+  setPageIcon,
+  format,
+  setFormat,
+}) {
   const dispatch = useDispatch();
   const { communityId } = useParams();
 
@@ -39,17 +44,17 @@ export default function CommunityPage({ setPageTitle, format, setFormat }) {
   useEffect(() => {
     document.title = community?.displayName;
 
-    setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <img
-          src={community?.communityImg}
-          className="nav-left-dropdown-item-icon item-icon-circle"
-          alt="Community"
-        />
-        <span className="nav-left-dropdown-item">c/{community?.name}</span>
-      </div>
+    setPageIcon(
+      <img
+        src={community?.communityImg}
+        className="nav-left-dropdown-item-icon item-icon-circle"
+        alt="Community"
+      />
     );
-  }, [community, setPageTitle]);
+    setPageTitle(
+      <span className="nav-left-dropdown-item">c/{community?.name}</span>
+    );
+  }, [community, setPageTitle, setPageIcon]);
 
   useEffect(() => {
     if (favoriteCommunities[community?.id]) {

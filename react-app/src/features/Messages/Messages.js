@@ -2,19 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../store/messages";
 import { getThreads } from "../../store/threads";
-import { Modal } from "../../context/Modal";
-import MessageModal from "../../components/Modals/MessageModal";
-import "./Messages.css";
 import { getUsers } from "../../store/users";
+import { readAllNotifications } from "../../store/notifications";
 import MessageThread from "./MessageThread";
-import { useHistory } from "react-router-dom";
 import MessageHead from "./MessageHead";
 import MessageContentMenu from "./MessageContentMenu";
-import { readAllNotifications } from "../../store/notifications";
+import "./Messages.css";
 
-export default function Messages({ setPageTitle }) {
+export default function Messages({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const threads = useSelector((state) => Object.values(state.threads));
   const currentUser = useSelector((state) => state.session.user);
@@ -27,17 +23,15 @@ export default function Messages({ setPageTitle }) {
 
   useEffect(() => {
     document.title = "Messages: Messages";
-    setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <img
-          src={currentUser?.profile_img}
-          className="nav-left-dropdown-item-icon item-icon-circle"
-          alt="User"
-        />
-        <span className="nav-left-dropdown-item">Messages</span>
-      </div>
+    setPageIcon(
+      <img
+        src={currentUser?.profile_img}
+        className="nav-left-dropdown-item-icon item-icon-circle"
+        alt="User"
+      />
     );
-  }, [setPageTitle, currentUser?.profile_img]);
+    setPageTitle(<span className="nav-left-dropdown-item">Messages</span>);
+  }, [setPageTitle, setPageIcon, currentUser?.profile_img]);
 
   useEffect(() => {
     dispatch(readAllNotifications());

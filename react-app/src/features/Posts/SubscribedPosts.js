@@ -1,33 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, NavLink } from "react-router-dom";
-import { getPosts } from "../../store/posts";
-import { getCommunities } from "../../store/communities";
+import { NavLink } from "react-router-dom";
+import { getViewedPosts } from "../../store/viewed_posts";
 import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
 import SinglePost from "./SinglePost/SinglePost";
 import SortingBar from "../../components/SortingBar/SortingBar";
-import "./Posts.css";
 import BackToTop from "../../components/BackToTop";
 import DeveloperLinksBox from "./DeveloperLinksBox/DeveloperLinksBox";
 import AboutBox from "./AboutBox";
 import LoadingEllipsis from "../../components/LoadingEllipsis";
 import SortingFunction from "./SortingFunction";
 import Home from "../../images/navbar/home-icon.png";
-import { getSubscriptions } from "../../store/subscriptions";
-import { addViewedPost, getViewedPosts } from "../../store/viewed_posts";
 import RecentPosts from "./RecentPosts";
-import { getFavoriteCommunities } from "../../store/favorite_communities";
-import { getFavoriteUsers } from "../../store/favorite_users";
-import { getFollowers, getUserFollowers } from "../../store/followers";
+import "./Posts.css";
+import { getSubscriptions } from "../../store/subscriptions";
 
 export default function SubscribedPosts({
   format,
   setPageTitle,
+  setPageIcon,
   setFormat,
   setShowLoginForm,
 }) {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => Object.values(state.posts));
   let postList = [];
 
   const [noPosts, setNoPosts] = useState(false);
@@ -47,16 +42,15 @@ export default function SubscribedPosts({
 
   useEffect(() => {
     dispatch(getViewedPosts());
+    dispatch(getSubscriptions());
   }, [dispatch]);
 
   useEffect(() => {
     document.title = "Ribbit - Splash into anything";
-    setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <img src={Home} className="nav-left-dropdown-item-icon" />
-        <span className="nav-left-dropdown-item">Home</span>
-      </div>
+    setPageIcon(
+      <img src={Home} className="nav-left-dropdown-item-icon" alt="Home" />
     );
+    setPageTitle(<span className="nav-left-dropdown-item">Home</span>);
   }, [dispatch]);
 
   for (let post of subscriptions) {

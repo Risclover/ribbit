@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-
+import { useSelector, useDispatch, batch } from "react-redux";
 import { getFollowers, getUserFollowers } from "../../store/followers";
 import { getSubscriptions } from "../../store/subscriptions";
-
 import Searchbar from "./Searchbar/Searchbar";
 import NavUserDropdown from "./NavUserDropdown";
 import NavLeftDropdownFace from "./NavLeftDropdown/NavLeftDropdownFace";
 import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
-
-import "./NavBar.css";
 import { getFavoriteCommunities } from "../../store/favorite_communities";
 import { getFavoriteUsers } from "../../store/favorite_users";
 import { getCommunities } from "../../store/communities";
@@ -23,12 +19,10 @@ import LoginSignupModal from "../Modals/LoginSignupModal";
 import { useState } from "react";
 import { getUsers } from "../../store/users";
 import { TfiPlus } from "react-icons/tfi";
-import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
 import { BsChatDots } from "react-icons/bs";
-import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import All from "../../images/navbar/all-icon2.png";
-import LoggedOutDropdown from "./LoggedOutDropdown/LoggedOutDropdown";
 import LoggedOutDropdownWrapper from "./LoggedOutDropdown/LoggedOutDropdownWrapper";
+import "./NavBar.css";
 
 const NavBar = ({
   searchQuery,
@@ -36,8 +30,9 @@ const NavBar = ({
   adjustQuery,
   pageTitle,
   setPageTitle,
+  pageIcon,
+  setPageIcon,
   setShowNavSidebar,
-  showNavSidebar,
   setNormalDropdown,
   normalDropdown,
 }) => {
@@ -55,16 +50,18 @@ const NavBar = ({
   const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
-    dispatch(getUsers());
-    dispatch(getSubscriptions());
-    dispatch(getMessages());
-    dispatch(getFavoriteCommunities());
-    dispatch(getFavoriteUsers());
-    dispatch(getUserFollowers(user?.id));
-    dispatch(getFollowers());
-    dispatch(getCommunities());
-    dispatch(getPosts());
-    dispatch(getUserNotifications(user?.id));
+    batch(() => {
+      dispatch(getUsers());
+      dispatch(getSubscriptions());
+      dispatch(getMessages());
+      dispatch(getFavoriteCommunities());
+      dispatch(getFavoriteUsers());
+      dispatch(getUserFollowers(user?.id));
+      dispatch(getFollowers());
+      dispatch(getCommunities());
+      dispatch(getPosts());
+      dispatch(getUserNotifications(user?.id));
+    });
   }, [dispatch, user?.id]);
 
   useEffect(() => {
@@ -103,6 +100,8 @@ const NavBar = ({
             <NavLeftDropdownFace
               pageTitle={pageTitle}
               setPageTitle={setPageTitle}
+              pageIcon={pageIcon}
+              setPageIcon={setPageIcon}
               setShowNavSidebar={setShowNavSidebar}
               setNormalDropdown={setNormalDropdown}
               normalDropdown={normalDropdown}
@@ -129,6 +128,9 @@ const NavBar = ({
                 className="nav-left-dropdown-item-icon"
                 alt="All"
               />
+              {showTooltip && (
+                <span className="navbtn-tooltiptext">/c/All</span>
+              )}
             </div>
             <div
               className="navbar-button"

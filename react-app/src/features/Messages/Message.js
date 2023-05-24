@@ -3,7 +3,6 @@ import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import MessageReply from "./MessageReply";
 import { useDispatch, useSelector } from "react-redux";
-import { readNotification } from "../../store/notifications";
 import { readMessage } from "../../store/threads";
 import { getMessages } from "../../store/messages";
 

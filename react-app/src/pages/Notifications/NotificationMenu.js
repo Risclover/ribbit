@@ -8,8 +8,6 @@ import {
 import HandleClickOutside from "../../components/HandleClickOutside";
 
 export default function NotificationMenu({
-  setHideNotification,
-  setMarkedUnread,
   notification,
   notificationMenu,
   setNotificationMenu,
@@ -24,7 +22,6 @@ export default function NotificationMenu({
     await dispatch(unreadNotification(notification.id));
     dispatch(getUserNotifications(currentUser.id));
     setNotificationMenu(false);
-    setMarkedUnread(true);
   };
 
   const hideANotification = async () => {
@@ -37,7 +34,6 @@ export default function NotificationMenu({
       HandleClickOutside(e, wrapperRef, notificationMenu, setNotificationMenu);
     });
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", function (e) {
         HandleClickOutside(
           e,

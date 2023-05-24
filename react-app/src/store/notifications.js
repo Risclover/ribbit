@@ -1,5 +1,3 @@
-import { request } from "http";
-
 const LOAD = "notifications/LOAD";
 const LOAD_SINGLE = "notifications/LOAD_SINGLE";
 const DELETE = "notifications/DELETE";
@@ -58,7 +56,7 @@ export const addNotification = (payload) => async (dispatch) => {
   }
 };
 
-export const readNotification = (notificationId) => async (dispatch) => {
+export const readNotification = (notificationId) => async () => {
   const response = await fetch(`/api/notifications/${notificationId}/read`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -70,7 +68,7 @@ export const readNotification = (notificationId) => async (dispatch) => {
   }
 };
 
-export const readAllMessageNotifications = () => async (dispatch) => {
+export const readAllMessageNotifications = () => async () => {
   const response = await fetch("/api/notifications/read", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -82,7 +80,7 @@ export const readAllMessageNotifications = () => async (dispatch) => {
   }
 };
 
-export const readAllNotifications = () => async (dispatch) => {
+export const readAllNotifications = () => async () => {
   const response = await fetch("/api/notifications/read-all", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -94,7 +92,7 @@ export const readAllNotifications = () => async (dispatch) => {
   }
 };
 
-export const unreadNotification = (notificationId) => async (dispatch) => {
+export const unreadNotification = (notificationId) => async () => {
   const response = await fetch(`/api/notifications/${notificationId}/unread`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },

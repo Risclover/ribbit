@@ -3,16 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import MessageContentMenu from "../MessageContentMenu";
 import MessageHead from "../MessageHead";
 import { getMessages } from "../../../store/messages";
-import moment from "moment";
-import MessageReply from "../MessageReply";
 import "./Inbox.css";
 import { getThreads } from "../../../store/threads";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import InboxMessage from "./InboxMessage";
 import PostReply from "../PostReplies/PostReply";
-import Message from "../Message";
 
-export default function Inbox({ setPageTitle }) {
+export default function Inbox({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   let messages = useSelector((state) => Object.values(state.messages));
@@ -34,17 +30,15 @@ export default function Inbox({ setPageTitle }) {
 
   useEffect(() => {
     document.title = "inbox-messages: Inbox";
-    setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <img
-          src={currentUser?.profile_img}
-          className="nav-left-dropdown-item-icon item-icon-circle"
-          alt="User"
-        />
-        <span className="nav-left-dropdown-item">Messages</span>
-      </div>
+    setPageIcon(
+      <img
+        src={currentUser?.profile_img}
+        className="nav-left-dropdown-item-icon item-icon-circle"
+        alt="User"
+      />
     );
-  }, [setPageTitle, currentUser?.profile_img]);
+    setPageTitle(<span className="nav-left-dropdown-item">Messages</span>);
+  }, [setPageTitle, setPageIcon, currentUser?.profile_img]);
 
   messageList.sort((a, b) => {
     let msgA = new Date(a.createdAt);

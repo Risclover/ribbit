@@ -10,8 +10,6 @@ export default function NavSidebar({
 }) {
   const [showIcon, setShowIcon] = useState(true);
 
-  // if the sidebar is open, set the className to something vs. something else
-
   return (
     <>
       {showNavSidebar && (

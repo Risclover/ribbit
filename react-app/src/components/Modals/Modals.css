@@ -107,7 +107,6 @@
   resize: vertical;
   margin-bottom: 15px;
   max-height: 65vh;
-  /* max-height: 80vh; */
 }
 
 .modal-content-input:focus {
@@ -154,7 +153,6 @@
 
 .create-community-textarea {
   padding: 10px;
-  /* outline: none; */
   border: 1px solid #eee;
   border-radius: 4px;
   min-height: 122px;
@@ -230,7 +228,6 @@
   align-items: center;
   justify-content: flex-start;
   height: auto;
-  /* margin-bottom: 16px; */
   padding: 3px;
   width: -moz-fit-content;
   width: fit-content;
@@ -279,7 +276,6 @@
 .image-post-img,
 .image-post-preview {
   max-width: 100%;
-  /* width: 100%; */
   display: block;
   max-height: 512px;
   margin: 20px 0;
@@ -368,7 +364,6 @@
   font-family: "Noto Sans", sans-serif;
   font-size: 13px;
   font-weight: 400;
-  /* padding-top: 5px; */
 }
 
 .modal-buttons.alt-buttons {
@@ -383,7 +378,6 @@
 }
 
 .modal-buttons-delete:hover {
-  /* opacity: 0.9 !important; */
   color: rgba(234, 0, 39, 0.8) !important;
   background: #dddddd;
 }
@@ -428,7 +422,6 @@
   display: block;
   margin: 0;
   margin-top: 5px;
-  /* font-size: 1.0769230769230769em; */
   width: 492px;
   padding: 3px;
   border: 1px solid gray;

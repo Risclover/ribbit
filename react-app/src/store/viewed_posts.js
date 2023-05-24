@@ -24,7 +24,7 @@ export const getViewedPosts = () => async (dispatch) => {
   }
 };
 
-export const addViewedPost = (postId) => async (dispatch) => {
+export const addViewedPost = (postId) => async () => {
   const response = await fetch(`/api/viewed_posts`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -32,19 +32,6 @@ export const addViewedPost = (postId) => async (dispatch) => {
   });
   return response;
 };
-
-// export const clearViewedPosts = () => async (dispatch) => {
-//   const response = await fetch("/api/viewed_posts", {
-//     method: "DELETE",
-//     headers: { "Content-Type": "application/json" },
-//   });
-
-//   if (response.ok) {
-//     const data = await response.json();
-//     dispatch(remove());
-//     return data;
-//   }
-// };
 
 const initialState = {};
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import "./Username.css";
-import FollowingBtn from "../../pages/UserProfile/FollowingBtn";
 import { useDispatch, useSelector } from "react-redux";
 import {
   followUser,
@@ -12,7 +11,7 @@ import { Modal } from "../../context/Modal";
 import MessageModal from "../Modals/MessageModal";
 import { NavLink } from "react-router-dom";
 
-export default function UsernamePopup({ user }) {
+export default function UsernamePopup({ setShowUserBox, user }) {
   const dispatch = useDispatch();
   const follows = useSelector((state) => state.followers.follows);
 
@@ -21,7 +20,7 @@ export default function UsernamePopup({ user }) {
 
   useEffect(() => {
     for (let followed of Object.values(follows)) {
-      if (followed.username === user[0].username) {
+      if (followed?.username === user[0]?.username) {
         setFollowing(true);
         break;
       } else {
@@ -32,39 +31,41 @@ export default function UsernamePopup({ user }) {
 
   const handleFollowing = async (e) => {
     e.preventDefault();
-    await dispatch(followUser(user[0].id));
+    await dispatch(followUser(user[0]?.id));
     dispatch(getFollowers());
-    dispatch(getUserFollowers(user[0].id));
+    dispatch(getUserFollowers(user[0]?.id));
     setFollowing(!following);
   };
+
+  if (!follows || !user) return null;
   return (
     <>
       <div className="username-popup">
         <div className="username-popup-user-info">
           <img
-            src={user[0].profile_img}
+            src={user[0]?.profile_img}
             alt="User"
             className="username-popup-user-icon"
           />
           <div className="username-popup-user-info-name">
-            <NavLink to={`/users/${user[0].id}/profile`}>
-              {user[0].displayName}
+            <NavLink to={`/users/${user[0]?.id}/profile`}>
+              {user[0]?.displayName}
             </NavLink>
             <div className="username-popup-user-info-details">
-              {user[0].username} • {moment(user[0].createdAt).fromNow()}
+              {user[0]?.username} • {moment(user[0]?.createdAt).fromNow()}
             </div>
           </div>
         </div>
         <div className="username-popup-karma-info">
           <div className="username-popup-karma-left">
             <div className="username-popup-karma-title">
-              {user[0].postKarma}
+              {user[0]?.postKarma}
             </div>
             <div className="username-popup-karma-body">Post Karma</div>
           </div>
           <div className="username-popup-karma-right">
             <div className="username-popup-karma-title">
-              {user[0].commentKarma}
+              {user[0]?.commentKarma}
             </div>
             <div className="username-popup-karma-body">Comment Karma</div>
           </div>
@@ -73,7 +74,7 @@ export default function UsernamePopup({ user }) {
           className="blue-btn-unfilled btn-long username-popup-btn-top"
           onClick={(e) => {
             e.preventDefault();
-            e.stopPropagation();
+            setShowUserBox(false);
             setShowMsgModal(true);
           }}
         >
@@ -91,10 +92,10 @@ export default function UsernamePopup({ user }) {
         </button>
       </div>
       {showMsgModal && (
-        <Modal onClose={() => setShowMsgModal(false)}>
+        <Modal onClose={() => setShowMsgModal(false)} title="Send a Message">
           <MessageModal
             setShowMessageModal={setShowMsgModal}
-            username={user[0].username}
+            username={user[0]?.username}
           />
         </Modal>
       )}

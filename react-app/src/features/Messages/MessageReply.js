@@ -7,12 +7,11 @@ import {
   getThreads,
   unreadMessage,
 } from "../../store/threads";
-import { addNotification, unreadNotification } from "../../store/notifications";
+import { addNotification } from "../../store/notifications";
 import { getMessages } from "../../store/messages";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function MessageReply({
-  item,
   pageType,
   message,
   threadId,
@@ -27,12 +26,8 @@ export default function MessageReply({
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [areYouSure, setAreYouSure] = useState(false);
   const [error, setError] = useState("");
-  const currentUser = useSelector((state) => state.session.user);
-  const notifications = useSelector((state) =>
-    Object.values(state.notifications)
-  );
 
-  const threads = useSelector((state) => state.threads);
+  const currentUser = useSelector((state) => state.session.user);
 
   const handleReply = async (e) => {
     e.preventDefault();
@@ -60,8 +55,6 @@ export default function MessageReply({
     e.preventDefault();
     await dispatch(unreadMessage(message.id));
     dispatch(getMessages());
-    // dispatch(unreadNotification(notification.id));
-
     setMarkedUnread(true);
   };
 

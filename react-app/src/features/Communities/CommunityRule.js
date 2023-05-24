@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import parse from "html-react-parser";
-
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
-
 import "./CommunityPage.css";
 
 export default function CommunityRule({ idx, rule }) {

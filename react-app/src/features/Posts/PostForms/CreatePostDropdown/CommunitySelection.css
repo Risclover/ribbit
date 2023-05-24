@@ -1,6 +1,5 @@
 .community-selection {
   position: relative;
-  /* border: 1px solid red; */
   margin-bottom: 8px;
   width: min-content;
 }
@@ -107,7 +106,6 @@
   padding: 8px 8px 3px 16px;
   justify-content: space-between;
   align-items: center;
-  /* flex-direction: column; */
 }
 
 .community-selection-dropdown-topbar h5 {

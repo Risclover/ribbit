@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCommunities } from "../../store/communities";
 import { getFollowedPosts, getPosts } from "../../store/posts";
 import UserOwnedCommunities from "./UserOwnedCommunities";
 import UserAboutBox from "./UserAboutBox";
-import "./UserProfile.css";
 import UserProfilePosts from "./UserProfilePosts";
 import { getUsers } from "../../store/users";
+import "./UserProfile.css";
 
-function UserProfile({ setShowLoginForm, setPageTitle }) {
+function UserProfile({ setShowLoginForm, setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const [page, setPage] = useState("Posts");
   const [sortMode, setSortMode] = useState("new");
-  const [communitiesList, setCommunitiesList] = useState([]);
   const user = useSelector((state) => state.users[+userId]);
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => Object.values(state.posts));
@@ -29,44 +27,17 @@ function UserProfile({ setShowLoginForm, setPageTitle }) {
 
   useEffect(() => {
     document.title = user?.displayName + " (u/" + user?.username + ") - Ribbit";
-
+    setPageIcon(
+      <img
+        src={user?.profile_img}
+        className="nav-left-dropdown-item-icon item-icon-circle"
+        alt="User"
+      />
+    );
     setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <img
-          src={user?.profile_img}
-          className="nav-left-dropdown-item-icon item-icon-circle"
-        />
-        <span className="nav-left-dropdown-item">u/{user?.username}</span>
-      </div>
+      <span className="nav-left-dropdown-item">u/{user?.username}</span>
     );
   }, [user]);
-
-  useEffect(() => {
-    let communityList = [];
-    for (let community of Object.values(communities)) {
-      if (community.communityOwner.username === currentUser?.username) {
-        communityList.push(community);
-      }
-    }
-
-    let postsList = [];
-    for (let post of posts) {
-      if (post.postAuthor.id === +userId) {
-        postsList.push(post);
-      }
-    }
-  }, [currentUser?.username, userId]);
-
-  useEffect(() => {
-    let list = [];
-    for (let community of Object.values(communities)) {
-      if (community.communityOwner.id === +userId) {
-        list.push(community);
-      }
-    }
-
-    setCommunitiesList(list);
-  }, [userId, user?.profile_img, communities]);
 
   if (sortMode === "new") {
     posts.sort((a, b) => {
@@ -109,7 +80,9 @@ function UserProfile({ setShowLoginForm, setPageTitle }) {
         />
         {currentUser?.id === +userId && (
           <UserOwnedCommunities
-            communitiesList={communitiesList}
+            communitiesList={Object.values(communities).filter(
+              (community) => community.communityOwner.id === +userId
+            )}
             userId={+userId}
           />
         )}

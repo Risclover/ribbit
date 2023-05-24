@@ -21,6 +21,8 @@ import "./PostForm.css";
 import RibbitRules from "./RibbitRules";
 import CommunityInfoBox from "./CommunityInfoBox";
 import PostTypeBar from "./PostTypeBar";
+import { getCommunities } from "../../../store/communities";
+import { getSubscriptions } from "../../../store/subscriptions";
 
 const modules = {
   toolbar: [
@@ -40,6 +42,7 @@ const modules = {
 
 export default function CreatePost({
   setPageTitle,
+  setPageIcon,
   postType,
   setPostType,
   val,
@@ -69,15 +72,18 @@ export default function CreatePost({
 
   useEffect(() => {
     document.title = `Submit to ${community ? community?.name : "Ribbit"}`;
-    setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <span className="nav-left-dropdown-item-svg">
-          <TfiPlus />
-        </span>
-        <span className="nav-left-dropdown-item">Create Post</span>
-      </div>
+    setPageIcon(
+      <span className="nav-left-dropdown-item-svg">
+        <TfiPlus />
+      </span>
     );
-  }, [community, setPageTitle]);
+    setPageTitle(<span className="nav-left-dropdown-item">Create Post</span>);
+  }, [community, setPageTitle, setPageIcon]);
+
+  useEffect(() => {
+    dispatch(getCommunities());
+    dispatch(getSubscriptions());
+  }, [dispatch]);
 
   useEffect(() => {
     for (let community of communities) {
@@ -203,8 +209,6 @@ export default function CreatePost({
       setTitle("");
       setContent("");
       const postId = posts[posts.length - 1].id + 1;
-
-      // dispatch(addPostVote(postId, "upvote"));
       history.push(`/c/${community_id}`);
       await dispatch(getPosts());
       dispatch(addPostVote(postId, "upvote"));

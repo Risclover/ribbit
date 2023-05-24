@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, useState, memo, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { getPosts } from "../../store/posts";
@@ -19,7 +19,7 @@ import { getFavoriteCommunities } from "../../store/favorite_communities";
 import { getFavoriteUsers } from "../../store/favorite_users";
 import { getFollowers, getUserFollowers } from "../../store/followers";
 
-function Posts({ format, setFormat, setPageTitle }) {
+function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const posts = useSelector((state) => Object.values(state.posts));
@@ -82,13 +82,11 @@ function Posts({ format, setFormat, setPageTitle }) {
     dispatch(getPosts());
 
     document.title = "c/all";
-    setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <img src={All} className="nav-left-dropdown-item-icon" alt="" />
-        <span className="nav-left-dropdown-item">All</span>
-      </div>
+    setPageIcon(
+      <img src={All} className="nav-left-dropdown-item-icon" alt="All" />
     );
-  }, [dispatch, setPageTitle]);
+    setPageTitle(<span className="nav-left-dropdown-item">All</span>);
+  }, [dispatch, setPageTitle, setPageIcon]);
 
   SortingFunction(posts, sortMode);
 

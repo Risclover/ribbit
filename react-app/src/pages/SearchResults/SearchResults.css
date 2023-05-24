@@ -108,7 +108,6 @@
 
 .search-results-main {
   display: flex;
-  /* overflow: hidden; */
   margin: 0 auto;
 }
 
@@ -118,10 +117,6 @@
   cursor: pointer;
   margin-top: -1px;
 }
-/*
-.search-results-post:hover {
-  border-color: #898989;
-} */
 
 .search-results-post-topbar {
   font-size: 12px;
@@ -245,7 +240,6 @@
   position: absolute;
   width: 120px;
   z-index: 10;
-  /* border: 1px solid blue; */
 }
 
 .search-results-sort-dropdown {
@@ -368,7 +362,6 @@
 .search-results-create-community p {
   font-size: 14px;
   text-align: center;
-  /* margin-top: 70px; */
   font-family: "Noto Sans", sans-serif;
 }
 
@@ -377,7 +370,6 @@
   display: flex;
   padding: 16px;
   justify-content: space-between;
-  /* align-items: center; */
   border-bottom: thin solid #ccc;
 }
 
@@ -477,21 +469,6 @@
   font-weight: 400;
 }
 
-/* .back-to-top-box {
-  flex: 1 1 auto;
-  position: relative;
-  width: inherit;
-}
-
-.back-to-top {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 45px;
-  top: calc(100vh - 8px);
-  position: sticky;
-} */
-
 .search-results-create-community img {
   width: 100%;
 }
@@ -510,7 +487,6 @@
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.06);
   margin-bottom: 20px;
-  /* padding: 16px; */
 }
 
 .search-results-comment-community-img {
@@ -564,11 +540,6 @@
   margin-top: -1px;
   border-bottom: thin solid #ccc;
 }
-
-/* .search-results-page-comment:hover {
-  border: thin solid #898989;
-  z-index: 10;
-} */
 
 .search-results-comment-post-title {
   font-size: 12px;

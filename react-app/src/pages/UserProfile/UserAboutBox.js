@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { Modal } from "../../context/Modal";
-import UploadUserImage from "../../components/Modals/UploadUserImageModal";
 import { SlArrowRight } from "react-icons/sl";
-import Camera from "../../images/user-profile-icons/camera.png";
 import Flower from "../../images/user-profile-icons/poinsettia.png";
 import Cakeday from "../../images/user-profile-icons/cakeday.png";
 import moment from "moment";
@@ -48,7 +46,7 @@ export default function UserAboutBox({ currentUser, user, username }) {
     };
 
     if (!following) {
-      const notificationData = await dispatch(addNotification(payload));
+      await dispatch(addNotification(payload));
     }
   };
 

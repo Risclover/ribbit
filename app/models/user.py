@@ -26,10 +26,6 @@ class User(db.Model, UserMixin):
     profile_img = db.Column(db.String(255), default="https://i.imgur.com/OkrlO4H.png")
     banner_img = db.Column(db.String(255), nullable=True)
 
-    message_notifications = db.Column(db.Boolean, default=True, nullable=False)
-    follower_notifications = db.Column(db.Boolean, default=True, nullable=False)
-    post_reply_notifications = db.Column(db.Boolean, default=True, nullable=False)
-
     followed = db.relationship('User', secondary=followers, primaryjoin=(followers.c.follower_id == id), secondaryjoin=(followers.c.followed_id == id), backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
     favorited = db.relationship('User', secondary=favorite_users, primaryjoin=(favorite_users.c.current_id == id), secondaryjoin=(favorite_users.c.user_id == id), backref=db.backref('favorite_users', lazy='dynamic'), lazy='dynamic')

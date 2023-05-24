@@ -6,10 +6,8 @@ import { IoIosMore } from "react-icons/io";
 import { BsArrowReturnRight } from "react-icons/bs";
 import {
   deleteNotification,
-  getAllNotifications,
   getUserNotifications,
   readNotification,
-  unreadNotification,
 } from "../../../store/notifications";
 import NotificationMenu from "../../../pages/Notifications/NotificationMenu";
 

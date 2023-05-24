@@ -20,8 +20,6 @@
 .directory-listings-container {
   border-top: 1px solid #edeff1;
   padding: 16px 0 24px;
-  /* display: flex; */
-  /* flex-wrap: wrap; */
   padding: 16px 0 24px;
 }
 
@@ -32,9 +30,6 @@
   color: #0079d3;
   font-weight: 400;
   line-height: 20px;
-  /* display: inline-block; */
   max-width: 100%;
-  /* overflow: hidden; */
   padding: 0 8px;
-  /* text-overflow: ellipsis; */
 }

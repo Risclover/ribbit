@@ -5,16 +5,19 @@ import { getCommunities } from "../../store/communities";
 import { getPosts } from "../../store/posts";
 import { getAllComments } from "../../store/comments";
 import { search } from "../../store/search";
-import "./SearchResults.css";
+import { BsSearch } from "react-icons/bs";
 import SearchDude from "../../images/search-icon.png";
 import SearchResultsPeople from "./SearchResultsPeople";
 import SearchResultsCommunities from "./SearchResultsCommunities";
 import SearchResultsComments from "./SearchResultsComments";
 import SearchResultsPosts from "./SearchResultsPosts";
-import { BsSearch } from "react-icons/bs";
+import SearchResultsButtons from "./SearchResultsButtons";
+import SearchResultsSorting from "./SearchResultsSorting/SearchResultsSorting";
+import "./SearchResults.css";
 
 export default function SearchResults({
   setPageTitle,
+  setPageIcon,
   searchQuery,
   setSearchQuery,
   setAdjustQuery,
@@ -30,13 +33,13 @@ export default function SearchResults({
 
   useEffect(() => {
     document.title = "Search Results";
+    setPageIcon(
+      <span className="nav-left-dropdown-item-svg">
+        <BsSearch />
+      </span>
+    );
     setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <span className="nav-left-dropdown-item-svg">
-          <BsSearch />
-        </span>
-        <span className="nav-left-dropdown-item">Search Results</span>
-      </div>
+      <span className="nav-left-dropdown-item">Search Results</span>
     );
   }, []);
 
@@ -125,103 +128,13 @@ export default function SearchResults({
     <div className="search-results-page">
       <div className="search-results-wrapper">
         {/* Button bar */}
-        <div className="search-results-btns">
-          <button
-            className={
-              searchPage === "Posts"
-                ? "search-results-btn results-active"
-                : "search-results-btn"
-            }
-            onClick={() => setSearchPage("Posts")}
-          >
-            Posts
-          </button>
-          <button
-            className={
-              searchPage === "Comments"
-                ? "search-results-btn results-active"
-                : "search-results-btn"
-            }
-            onClick={() => setSearchPage("Comments")}
-          >
-            Comments
-          </button>
-          <button
-            className={
-              searchPage === "Communities"
-                ? "search-results-btn results-active"
-                : "search-results-btn"
-            }
-            onClick={() => setSearchPage("Communities")}
-          >
-            Communities
-          </button>
-          <button
-            className={
-              searchPage === "People"
-                ? "search-results-btn results-active"
-                : "search-results-btn"
-            }
-            onClick={() => setSearchPage("People")}
-          >
-            People
-          </button>
-        </div>
+        <SearchResultsButtons
+          searchPage={searchPage}
+          setSearchPage={setSearchPage}
+        />
 
         {/* Sorting bar */}
-        {/* <div className="search-results-sorting">
-          {(searchPage === "Posts" || searchPage === "Comments") && (
-            <button
-              className={
-                !sortOpen
-                  ? "search-results-sort"
-                  : "search-results-sort sort-open"
-              }
-              onClick={(e) => {
-                e.preventDefault();
-                setSortOpen(!sortOpen);
-              }}
-            >
-              Sort {!sortOpen && <VscChevronDown />}{" "}
-              {sortOpen && <VscChevronUp />}
-            </button>
-          )}
-          {searchPage === "Posts" && (
-            <button
-              className={
-                !timeOpen
-                  ? "search-results-time"
-                  : "search-results-time time-open"
-              }
-              onClick={(e) => {
-                e.preventDefault();
-                setTimeOpen(!timeOpen);
-              }}
-            >
-              Time {!timeOpen && <VscChevronDown />}{" "}
-              {timeOpen && <VscChevronUp />}
-            </button>
-          )}
-          {sortOpen && (
-            <div className="search-results-sort-dropdown">
-              <button className="sort-dropdown-btn-active">Relevance</button>
-              <button>Hot</button>
-              <button>Top</button>
-              <button>New</button>
-              <button>Most Comments</button>
-            </div>
-          )}
-          {timeOpen && (
-            <div className="search-results-time-dropdown">
-              <button className="sort-dropdown-btn-active">All Time</button>
-              <button>Past Year</button>
-              <button>Past Month</button>
-              <button>Past Week</button>
-              <button>Past 24 Hours</button>
-              <button>Past Hour</button>
-            </div>
-          )}
-        </div> */}
+        <SearchResultsSorting searchPage={searchPage} />
 
         {/* Search results */}
         <div className="search-results-main">

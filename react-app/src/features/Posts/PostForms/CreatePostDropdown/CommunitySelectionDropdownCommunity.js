@@ -25,20 +25,6 @@ export default function CommunitySelectionDropdownCommunity({
         setShowDropdown(false);
       }
     }
-
-    // if (subscription) {
-    //   setCommunity(subscription);
-    //   history.push(`/c/${subscription.id}/submit`);
-    //   setShowDropdown(false);
-    // } else {
-    //   for (let community of allCommunities) {
-    //     if (community.name === search) {
-    //       setCommunity(community);
-    //       history.push(`/c/${community.id}/submit`);
-    //       setShowDropdown(false);
-    //     }
-    //   }
-    // }
   };
 
   return (

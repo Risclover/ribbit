@@ -9,9 +9,9 @@ import ClassicColored from "../../../images/post-format-icons/classic-colored.pn
 import Card from "../../../images/post-format-icons/card-grey.png";
 import CardBlack from "../../../images/post-format-icons/card.png";
 import CardColored from "../../../images/post-format-icons/card-colored.png";
-import "./PostFormatDropdown.css";
 import PostFormatDropdown from "./PostFormatDropdown";
 import HandleClickOutside from "../../../components/HandleClickOutside";
+import "./PostFormatDropdown.css";
 
 export default function PostFormatFace({ setFormat, format }) {
   const wrapperRef = useRef();
@@ -38,7 +38,6 @@ export default function PostFormatFace({ setFormat, format }) {
       HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
     });
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", function (e) {
         HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
       });

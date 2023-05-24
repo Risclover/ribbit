@@ -35,7 +35,7 @@ export const removeSubscription = (communityId) => {
 
 /* ------------------------- THUNKS ------------------------- */
 
-export const addToSubscriptions = (communityId) => async (dispatch) => {
+export const addToSubscriptions = (communityId) => async () => {
   const response = await fetch("/api/subscriptions", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -44,11 +44,6 @@ export const addToSubscriptions = (communityId) => async (dispatch) => {
     }),
   });
 
-  //   if (response.ok) {
-  //     const data = await response.json();
-  //     dispatch(loadSubscriptions(data));
-  //     return data;
-  //   }
   return response;
 };
 

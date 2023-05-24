@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-
 import { getFollowers } from "../../store/followers";
 import FollowingBtn from "../../pages/UserProfile/FollowingBtn";
-
 import "../../pages/UserProfile/UserProfile.css";
 
 export default function UserProfileFollowers({ setShowFollowersModal }) {

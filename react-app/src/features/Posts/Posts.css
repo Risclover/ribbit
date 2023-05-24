@@ -111,7 +111,6 @@
 }
 
 .posts-author-box ul {
-  /* margin-left: 15pxpx; */
   font-family: "Noto Sans", sans-serif;
   font-size: 12px;
   display: flex;
@@ -150,8 +149,6 @@
 
 .tooltip {
   position: relative;
-  /* display: inline-block; */
-  /* border: 1px solid red; */
   display: flex;
   align-items: center;
 }
@@ -200,14 +197,12 @@
   width: 100%;
   height: 300px;
   border: 1px solid #ccc;
-  /* padding: 40px; */
   font-family: "IBM Plex Sans", sans-serif;
   flex-direction: column;
   text-align: center;
   word-break: break-word;
   display: flex;
   align-items: center;
-  /* opacity: 0.9; */
   font-size: 22px;
   color: #0078d38e;
   justify-content: center;
@@ -396,7 +391,6 @@
 }
 
 .recent-post-dot-spacer {
-  /* margin: 0 3px; */
   font-size: 12px;
 }
 

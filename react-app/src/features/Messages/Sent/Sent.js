@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MessageContentMenu from "../MessageContentMenu";
 import MessageHead from "../MessageHead";
 import { getThreads } from "../../../store/threads";
 import SentMessage from "./SentMessage";
 import "./Sent.css";
 
-export default function Sent({ setPageTitle }) {
+export default function Sent({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const threads = useSelector((state) => Object.values(state.threads));
@@ -17,17 +16,15 @@ export default function Sent({ setPageTitle }) {
 
   useEffect(() => {
     document.title = "Messages: Sent";
-    setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <img
-          src={currentUser?.profile_img}
-          className="nav-left-dropdown-item-icon item-icon-circle"
-          alt="User"
-        />
-        <span className="nav-left-dropdown-item">Messages</span>
-      </div>
+    setPageIcon(
+      <img
+        src={currentUser?.profile_img}
+        className="nav-left-dropdown-item-icon item-icon-circle"
+        alt="User"
+      />
     );
-  }, [setPageTitle, currentUser?.profile_img]);
+    setPageTitle(<span className="nav-left-dropdown-item">Messages</span>);
+  }, [setPageTitle, setPageIcon, currentUser?.profile_img]);
 
   let nothingHere = threads.map((thread) =>
     thread.messages.filter((message) => message.sender.id === currentUser.id)

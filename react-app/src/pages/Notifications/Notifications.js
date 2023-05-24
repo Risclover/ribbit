@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { VscMailRead } from "react-icons/vsc";
 import { VscSettingsGear } from "react-icons/vsc";
-import { NavLink, useHistory } from "react-router-dom";
-import { IoIosMore } from "react-icons/io";
 import SparklyFrog from "../../images/ribbit-frog-sparkly.png";
 import { TfiBell } from "react-icons/tfi";
 import moment from "moment";
-
-import "./Notifications.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getUserNotifications,
   readAllNotifications,
 } from "../../store/notifications";
-import { IoChatbox } from "react-icons/io5";
 import Notification from "./Notification";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import "./Notifications.css";
 
 moment.updateLocale("en-notif", {
   relativeTime: {
@@ -35,7 +32,7 @@ moment.updateLocale("en-notif", {
   },
 });
 
-export default function Notifications({ setPageTitle }) {
+export default function Notifications({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -43,7 +40,6 @@ export default function Notifications({ setPageTitle }) {
     Object.values(state.notifications)
   );
   const user = useSelector((state) => state.session.user);
-  const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
     dispatch(getUserNotifications(user.id));
@@ -56,15 +52,13 @@ export default function Notifications({ setPageTitle }) {
 
   useEffect(() => {
     document.title = "Notifications";
-    setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <span className="nav-left-dropdown-face-icon">
-          <TfiBell />
-        </span>
-        <span className="nav-left-dropdown-item">Notifications</span>
-      </div>
+    setPageIcon(
+      <span className="nav-left-dropdown-face-icon">
+        <TfiBell />
+      </span>
     );
-  }, [dispatch, setPageTitle]);
+    setPageTitle(<span className="nav-left-dropdown-item">Notifications</span>);
+  }, [dispatch, setPageTitle.setPageIcon]);
 
   const today = notifications.filter(
     (item) => new Date(item.createdAt).getDay() === new Date().getDay()

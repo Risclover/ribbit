@@ -15,6 +15,7 @@ import Cake from "../../../images/misc/piece4.png";
 import SinglePost from "./SinglePost";
 import BackToTop from "../../../components/BackToTop";
 import { addViewedPost, getViewedPosts } from "../../../store/viewed_posts";
+
 export default function SinglePostPage({
   setShowLoginForm,
   setRecentPostList,
@@ -53,7 +54,6 @@ export default function SinglePostPage({
     ]);
 
     dispatch(getViewedPosts());
-    // dispatch(getSingleCommunity(post?.communityId));
   }, [dispatch, +postId]);
 
   useEffect(() => {

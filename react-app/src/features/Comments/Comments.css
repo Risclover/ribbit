@@ -12,7 +12,6 @@
   background: white;
   width: 100%;
   margin-bottom: 20px;
-  /* padding: 20px 0; */
 }
 
 .comments-main {
@@ -41,11 +40,6 @@
 .log-in-to-comment:hover {
   text-decoration: underline;
 }
-/*
-.threadline-wrapper {
-  border: 1px solid red;
-  padding: 0 5px;
-} */
 
 .the-actual-comment {
   display: flex;
@@ -115,7 +109,6 @@
   margin-top: 5px;
   margin-bottom: 6px;
   font-size: 12px;
-  /* font-family: "Noto Sans", sans-serif; */
   color: #7c7c7c;
   padding: 0;
   display: flex;
@@ -146,13 +139,8 @@
   align-items: center;
   overflow-wrap: break-word;
   word-wrap: break-word;
-
   -ms-word-break: break-all;
-
-  /* Instead use this non-standard one: */
   word-break: break-word;
-
-  /* Adds a hyphen where the word breaks, if supported (No Blink) */
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
@@ -204,7 +192,6 @@
 .comment-owner-btns .karmabar-votes {
   margin: 0;
   margin-right: 4px;
-  /* text-align: center; */
 }
 
 .upvote-btn-grey,
@@ -307,7 +294,6 @@
   font-size: 12px;
   font-weight: 700;
   margin-left: 4px;
-  /* margin-right: 2px; */
   font-family: "IBM Plex Sans", sans-serif;
 }
 
@@ -338,16 +324,11 @@
 
 .comment-form-container {
   margin: 24px 40px 24px 48px;
-  /* max-width: 650px; */
-  /* width: 100%; */
-  /* border-bottom: 1px solid #eee; */
   border-radius: 4px;
   overflow: hidden;
-  /* padding-bottom: 30px; */
 }
 
 .post-comment-textarea {
-  /* border: 1px solid #edeff1; */
   border: none;
   min-height: 138px;
   width: 100%;
@@ -359,7 +340,6 @@
   font-weight: 400;
   line-height: 21px;
   outline: none;
-  /* margin-top: 7px; */
   resize: vertical;
 }
 

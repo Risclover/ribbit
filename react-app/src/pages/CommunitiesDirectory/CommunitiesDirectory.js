@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import "./CommunitiesDirectory.css";
-
 import { getCommunities } from "../../store/communities";
+import "./CommunitiesDirectory.css";
 
 export default function CommunitiesDirectory({ setPageTitle }) {
   const dispatch = useDispatch();
 
   const communities = useSelector((state) => Object.values(state.communities));
-
-  const [aList, setAList] = useState();
-  const [bList, setBList] = useState();
-  const [cList, setCList] = useState();
 
   useEffect(() => {
     dispatch(getCommunities());
@@ -20,9 +15,7 @@ export default function CommunitiesDirectory({ setPageTitle }) {
 
   useEffect(() => {
     setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <span className="nav-left-dropdown-item">Communities Directory</span>
-      </div>
+      <span className="nav-left-dropdown-item">Communities Directory</span>
     );
   }, []);
 

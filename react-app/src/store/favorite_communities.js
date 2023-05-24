@@ -24,7 +24,7 @@ export const getFavoriteCommunities = () => async (dispatch) => {
   }
 };
 
-export const addFavoriteCommunity = (communityId) => async (dispatch) => {
+export const addFavoriteCommunity = (communityId) => async () => {
   const response = await fetch("/api/favorite_communities", {
     method: "POST",
     headers: { "Content-Type": "application/json" },

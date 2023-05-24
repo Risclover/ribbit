@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { TfiBell } from "react-icons/tfi";
 import "../NavBar.css";
 import "./NotificationsDropdown.css";
-import { useDispatch, useSelector } from "react-redux";
-import { readNotification } from "../../../store/notifications";
+import { useSelector } from "react-redux";
 import NotificationsDropdown from "./NotificationsDropdown";
 import HandleClickOutside from "../../HandleClickOutside";
 
@@ -11,7 +10,6 @@ export default function NotificationsDropdownWrapper({
   msgNum,
   notificationNum,
 }) {
-  const dispatch = useDispatch();
   const wrapperRef = useRef(null);
 
   const notificationsList = useSelector((state) =>
@@ -29,7 +27,6 @@ export default function NotificationsDropdownWrapper({
       HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
     });
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", function (e) {
         HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
       });

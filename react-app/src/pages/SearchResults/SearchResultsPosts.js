@@ -3,12 +3,12 @@ import { NavLink } from "react-router-dom";
 import moment from "moment";
 import SearchDude from "../../images/search-icon.png";
 import RibbitBanner from "../../images/ribbit-banners/ribbit_banner.png";
-import "./SearchResults.css";
 import { Modal } from "../../context/Modal";
 import CreateCommunity from "../../components/Modals/CreateCommunityModal";
 import BackToTop from "../../components/BackToTop";
 import { useSelector } from "react-redux";
 import LoginSignupModal from "../../components/Modals/LoginSignupModal";
+import "./SearchResults.css";
 
 export default function SearchResultsPosts({
   posts,

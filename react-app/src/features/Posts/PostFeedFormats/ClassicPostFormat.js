@@ -6,14 +6,14 @@ import parse from "html-react-parser";
 import cutLink from "../SinglePost/SliceUrl";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
-import { BsArrowsAngleExpand, BsArrowsAngleContract } from "react-icons/bs";
 import { Modal } from "../../../context/Modal";
+import { BsArrowsAngleExpand, BsArrowsAngleContract } from "react-icons/bs";
 import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
 import Bounce from "../../../images/misc/curved-arrow.png";
+import SinglePostKarmabar from "../SinglePost/SinglePostKarmabar";
 import { CgNotes } from "react-icons/cg";
 import "../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
-import SinglePostKarmabar from "../SinglePost/SinglePostKarmabar";
 
 export default function ClassicPostFormat({ isPage, id, userId }) {
   const history = useHistory();

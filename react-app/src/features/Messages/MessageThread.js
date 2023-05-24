@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import Message from "./Message";
 import { useDispatch, useSelector } from "react-redux";
 import { getThreads } from "../../store/threads";
+import Message from "./Message";
 
 export default function MessageThread({ item }) {
   const [allExpanded, setAllExpanded] = useState(true);
@@ -17,8 +17,6 @@ export default function MessageThread({ item }) {
   if (!item) return null;
 
   const users = item.users || [];
-
-  console.log("users:", users);
 
   return (
     <div className="messages-content-item">

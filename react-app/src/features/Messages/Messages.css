@@ -118,7 +118,6 @@
   padding: 1px 5px;
   border-radius: 7px;
   font-weight: bold;
-  /* font-size: larger; */
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 12px;
   height: 21px;
@@ -150,11 +149,8 @@
 }
 
 .messages-content-message {
-  /* margin-left: 10px; */
-  /* border-left: 2px dashed #e7e7e7; */
   padding: 10px;
   padding-left: 0;
-  /* padding-bottom: 5px; */
 }
 
 .messages-content-message-author {
@@ -214,7 +210,6 @@
 .message {
   border-left: 2px dashed #e7e7e7;
   padding-left: 10px;
-  /* background: white; */
   margin-left: 10px;
   padding-bottom: 10px;
 }
@@ -302,10 +297,6 @@
   background: #fff;
   color: #373c3f;
   font-size: 13px;
-}
-
-.messages-content-message-button-bar-spacer {
-  /* margin-bottom: 20px; */
 }
 
 .messages-content-main {

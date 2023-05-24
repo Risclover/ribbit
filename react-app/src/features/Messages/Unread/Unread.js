@@ -1,48 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { readAllMessages } from "../../../store/threads";
 import MessageHead from "../MessageHead";
-import { useHistory } from "react-router-dom";
 import MessageContentMenu from "../MessageContentMenu";
-import MessageReply from "../MessageReply";
-import { getThreads, readAllMessages } from "../../../store/threads";
-import { readAllNotifications } from "../../../store/notifications";
-import { getMessages } from "../../../store/messages";
 import InboxMessage from "../Inbox/InboxMessage";
 import "../Inbox/Inbox.css";
 
-export default function Unread({ setPageTitle }) {
+export default function Unread({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const currentUser = useSelector((state) => state.session.user);
-  const threadsList = useSelector((state) => Object.values(state.threads));
   const messages = useSelector((state) => Object.values(state.messages));
   const unreadMsgs = messages.filter((message) => message.read === false);
-  const notifications = useSelector((state) =>
-    Object.values(state.notifications)
-  );
 
   const [extended, setExtended] = useState(true);
-  const [markUnread, setMarkUnread] = useState(false);
 
   useEffect(() => {
     dispatch(readAllMessages());
-    // dispatch(getThreads());
   }, [dispatch]);
 
   useEffect(() => {
     document.title = "Messages: Unread";
-    setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <img
-          src={currentUser?.profile_img}
-          className="nav-left-dropdown-item-icon item-icon-circle"
-          alt="User"
-        />
-        <span className="nav-left-dropdown-item">Messages</span>
-      </div>
+    setPageIcon(
+      <img
+        src={currentUser?.profile_img}
+        className="nav-left-dropdown-item-icon item-icon-circle"
+        alt="User"
+      />
     );
-  }, [setPageTitle, currentUser?.profile_img]);
+    setPageTitle(<span className="nav-left-dropdown-item">Messages</span>);
+  }, [setPageTitle, setPageIcon, currentUser?.profile_img]);
 
   return (
     <div className="inbox-messages-page">

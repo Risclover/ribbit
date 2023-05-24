@@ -1,7 +1,6 @@
 .compact-post-container {
   display: flex;
   flex-direction: column;
-  /* margin-top: -1px; */
   position: relative;
   border: thin solid rgba(255, 255, 255, 0.8);
 }

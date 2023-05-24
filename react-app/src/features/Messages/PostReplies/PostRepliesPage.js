@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MessageContentMenu from "../MessageContentMenu";
-import MessageHead from "../MessageHead";
 import { getUserNotifications } from "../../../store/notifications";
-import PostReply from "./PostReply";
-import "./PostReplies.css";
 import { getPosts } from "../../../store/posts";
 import { getUsers } from "../../../store/users";
+import MessageContentMenu from "../MessageContentMenu";
+import MessageHead from "../MessageHead";
+import PostReply from "./PostReply";
 
-import "../Inbox/Inbox.css";
 import "./PostReplies.css";
+import "../Inbox/Inbox.css";
 
-export default function PostRepliesPage({ setPageTitle }) {
+export default function PostRepliesPage({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const notifications = useSelector((state) =>
@@ -39,17 +38,15 @@ export default function PostRepliesPage({ setPageTitle }) {
 
   useEffect(() => {
     document.title = "Messages: Post Replies";
-    setPageTitle(
-      <div className="nav-left-dropdown-face-title">
-        <img
-          src={currentUser?.profile_img}
-          className="nav-left-dropdown-item-icon item-icon-circle"
-          alt="User"
-        />
-        <span className="nav-left-dropdown-item">Messages</span>
-      </div>
+    setPageIcon(
+      <img
+        src={currentUser?.profile_img}
+        className="nav-left-dropdown-item-icon item-icon-circle"
+        alt="User"
+      />
     );
-  }, [setPageTitle, currentUser?.profile_img]);
+    setPageTitle(<span className="nav-left-dropdown-item">Messages</span>);
+  }, [setPageTitle, setPageIcon, currentUser?.profile_img]);
 
   return (
     <div className="inbox-messages-page">

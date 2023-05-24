@@ -5,9 +5,9 @@ import { deletePost, getPosts } from "../../store/posts";
 import { removeComment } from "../../store/comments";
 import { deleteCommunity } from "../../store/communities";
 import { deleteRule, getCommunityRules } from "../../store/rules";
-import "./Modals.css";
 import { getUsers } from "../../store/users";
 import { getSingleCommunity } from "../../store/one_community";
+import "./Modals.css";
 
 export default function DeleteConfirmation({
   setShowEditRuleModal,

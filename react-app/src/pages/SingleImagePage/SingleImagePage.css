@@ -1,19 +1,17 @@
 .single-image-page {
-  height: 100%;
-  width: 100%;
+  padding: 20px;
+  height: calc(100vh - 48px);
   background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000001;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 .single-image-page-img {
-  height: auto;
+  height: 100%;
   width: auto;
+}
+
+.image-post-img {
+  cursor: pointer;
 }

@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { updateRule, getCommunityRules } from "../../../store/rules";
 import { getSingleCommunity } from "../../../store/one_community";
-
 import { Modal } from "../../../context/Modal";
-
 import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
-
 import "../../../components/Modals/Modals.css";
 
 export default function AddCommunityRule({
@@ -65,11 +61,8 @@ export default function AddCommunityRule({
   const handleDelete = async (e) => {
     e.preventDefault();
     setShowDeleteModal(true);
-    // await dispatch(deleteRule(rule.id));
-    // setShowEditRuleModal(false);
-    // dispatch(getCommunityRules(communityId));
-    // dispatch(getSingleCommunity(communityId));
   };
+  
   return (
     <div className="modal-container">
       <div className="modal-content">

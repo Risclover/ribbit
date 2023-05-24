@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import moment from "moment";
 import "./Sent.css";
 import { NavLink } from "react-router-dom";
@@ -10,8 +9,6 @@ export default function SentMessage({
   recipient,
   threadId,
 }) {
-  console.log(recipient);
-
   return (
     <div className="sent-message">
       <div className="sent-message-subject">

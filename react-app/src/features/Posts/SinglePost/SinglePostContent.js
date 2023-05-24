@@ -4,8 +4,11 @@ import cutLink from "./SliceUrl";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
 import LazyLoad from "react-lazyload";
+import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function SinglePostContent({ post, isPage }) {
+  const history = useHistory();
   return (
     <div className="single-post-content-box">
       <div className="single-post-content-box-left">
@@ -13,7 +16,15 @@ export default function SinglePostContent({ post, isPage }) {
         {post.imgUrl !== null ? (
           <div className="single-post-content-image">
             <LazyLoad height={700} offset={100}>
-              <img className="image-post-img" src={post.imgUrl} alt="Post" />
+              <img
+                className="image-post-img"
+                src={post.imgUrl}
+                alt="Post"
+                onClick={(e) => {
+                  window.open(`/images/${post.id}`, "_blank");
+                  // history.push(`/images/${post.id}`);
+                }}
+              />
             </LazyLoad>
           </div>
         ) : post.linkUrl !== null ? (

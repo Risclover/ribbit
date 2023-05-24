@@ -24,7 +24,7 @@ export const getFavoriteUsers = () => async (dispatch) => {
   }
 };
 
-export const addFavoriteUser = (userId) => async (dispatch) => {
+export const addFavoriteUser = (userId) => async () => {
   const response = await fetch("/api/favorite_users", {
     method: "POST",
     headers: { "Content-Type": "application/json" },

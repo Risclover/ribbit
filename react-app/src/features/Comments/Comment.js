@@ -231,7 +231,7 @@ export default function Comment({ commentId, postId }) {
           </div>
           {collapsed === false && (
             <div className="comment-right-content">
-              <Text content={comment?.content} />
+              {comment?.content && <Text content={comment?.content} />}
             </div>
           )}
           {collapsed === false && (

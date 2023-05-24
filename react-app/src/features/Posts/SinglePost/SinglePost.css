@@ -1,17 +1,13 @@
 .single-post-page {
-  /* padding: 32px; */
   display: flex;
   justify-content: center;
   margin: 0 auto;
   background: #dae0e6;
   max-width: 1280px;
   z-index: 100;
-  /* width: calc(100% - 160px); */
   min-height: calc(100vh - 49px);
   position: relative;
-  /* top: 48px; */
   padding: 20px 24px;
-  /* padding-top: 80px; */
 }
 
 .single-post-page-topbar {
@@ -35,19 +31,14 @@
   margin-right: 8px;
 }
 
-.comment-threadline:hover {
-  /* border-color: red; */
-  /* cursor: pointer; */
-}
-
 .threadline-wrapper {
   padding: 0 10px;
   cursor: pointer;
   height: 100%;
   display: flex;
   justify-content: flex-end;
-  /* border: 1px solid red; */
 }
+
 .threadline-wrapper:hover > .comment-threadline {
   border-color: blue;
 }
@@ -104,9 +95,7 @@
 .single-post-page .single-post-container {
   max-width: 740px;
   width: 100%;
-  /* border: 1px solid #edeff1; */
   margin: 0 auto;
-  /* cursor: text; */
   z-index: 100;
   cursor: auto;
 }
@@ -171,18 +160,13 @@
 }
 
 .single-post-container {
-  /* width: 100%; */
-  /* max-width: 640px; */
   border-radius: 4px;
   z-index: 100;
-  /* border: 1px solid #ccc; */
-  /* background-color: #fff; */
   cursor: pointer;
   margin: 0 auto;
   margin-bottom: 10px;
   display: flex;
   position: relative;
-  /* padding: 8px; */
   padding-left: 40px;
   overflow: hidden;
 }
@@ -197,12 +181,10 @@
 
 .single-post-main {
   background-color: white;
-  /* margin-left: 40px; */
   display: flex;
   width: 100%;
   flex-direction: column;
   z-index: 1;
-  /* padding: 8px; */
   padding-bottom: 0;
   padding-left: 0;
 }
@@ -239,7 +221,6 @@
   font-size: 12px;
   align-items: center;
   margin: 0 8px 8px;
-  /* width: 100%; */
   padding: 8px;
   padding-bottom: 0;
   padding-left: 0;
@@ -333,7 +314,6 @@
   max-width: 700px;
   margin-top: 12px;
   width: 100%;
-  /* justify-content: center; */
 }
 
 .single-page-content code,
@@ -417,16 +397,6 @@
   align-items: center;
 }
 
-/* .single-post-button {
-  display: flex;
-  align-items: center;
-  color: rgb(135, 138, 140);
-  font-weight: 700;
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 12px;
-  margin-right: 12px;
-} */
-
 .single-post-button svg {
   color: rgb(135, 138, 140);
   font-size: 20px;
@@ -502,7 +472,6 @@
   font-size: 30px;
   color: rgb(135, 138, 140);
   cursor: pointer;
-  /* margin-top: 5px; */
   border-radius: 4px;
 
   display: flex;
@@ -517,7 +486,6 @@
 }
 
 .single-post-karmabar button:hover {
-  /* color: rgb(236, 74, 74); */
   background: rgb(226, 227, 228);
 }
 
@@ -650,8 +618,6 @@ ol {
   padding: 8px 0;
   display: flex;
   flex-direction: column;
-  /* align-items: center;
-  justify-content: space-between; */
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -666,7 +632,6 @@ li {
 }
 
 .single-post-rules ol {
-  /* margin-left: 16px; */
   list-style-type: none;
 }
 
