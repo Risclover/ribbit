@@ -21,7 +21,8 @@ export default function SinglePostContent({ post, isPage }) {
                 src={post.imgUrl}
                 alt="Post"
                 onClick={(e) => {
-                  window.open(`/images/${post.id}`, "_blank");
+                  isPage === "singlepage" &&
+                    window.open(`/images/${post.id}`, "_blank");
                   // history.push(`/images/${post.id}`);
                 }}
               />

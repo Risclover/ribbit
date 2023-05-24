@@ -64,7 +64,7 @@ export default function CommunityPosts({
         >
           <SinglePost
             id={post.id}
-            isPage={isPage}
+            isPage="community"
             format={format}
             setFormat={setFormat}
             setShowLoginForm={setShowLoginForm}
