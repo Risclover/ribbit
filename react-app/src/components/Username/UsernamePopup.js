@@ -14,17 +14,20 @@ import { NavLink } from "react-router-dom";
 export default function UsernamePopup({ setShowUserBox, user }) {
   const dispatch = useDispatch();
   const follows = useSelector((state) => state.followers.follows);
+  const currentUser = useSelector((state) => state.session.user);
 
   const [following, setFollowing] = useState(false);
   const [showMsgModal, setShowMsgModal] = useState(false);
 
   useEffect(() => {
-    for (let followed of Object.values(follows)) {
-      if (followed?.username === user[0]?.username) {
-        setFollowing(true);
-        break;
-      } else {
-        setFollowing(false);
+    if (currentUser) {
+      for (let followed of Object.values(follows)) {
+        if (followed?.username === user[0]?.username) {
+          setFollowing(true);
+          break;
+        } else {
+          setFollowing(false);
+        }
       }
     }
   }, []);

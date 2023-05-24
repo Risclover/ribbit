@@ -18,7 +18,7 @@ import {
 import HandleClickOutside from "../../HandleClickOutside";
 import NavLeftDropdownLink from "./NavLeftDropdownLink";
 
-export default function NavLeftDropdown({ mode, showIcon, setShowIcon }) {
+export default function NavLeftDropdown({ showIcon, setShowIcon }) {
   const dispatch = useDispatch();
   const wrapperRef = useRef(null);
   const history = useHistory();

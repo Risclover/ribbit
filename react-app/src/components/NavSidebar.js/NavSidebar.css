@@ -37,6 +37,76 @@
   background: #edeff1;
 }
 
+.logged-out-sidebar-btn {
+  position: relative;
+  background-color: #ff4500;
+  border: none;
+  font-family: Noto Sans, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: unset;
+  line-height: 17px;
+  text-transform: unset;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 4px 16px;
+  align-items: center;
+  border-radius: 9999px;
+  box-sizing: border-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  width: auto;
+  color: white;
+  height: 40px;
+  width: 100%;
+}
+
+.logged-out-sidebar-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: white;
+  opacity: 0;
+}
+
+.logged-out-sidebar-btn:hover::before {
+  opacity: 0.08;
+}
+
+.logged-out-sidebar {
+  background: white;
+  height: calc(100% - 49px);
+  margin-top: 48px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 270px;
+}
+
+.logged-out-sidebar-bottom {
+  padding: 20px 24px 40px;
+}
+
+.logged-out-sidebar-text {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  font-family: "Noto Sans", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 19px 24px 22px 0;
+}
+
 @media (max-width: 1250px) {
   .nav-sidebar-container {
     display: none;
@@ -44,4 +114,10 @@
   .main-padded {
     padding-left: 0;
   }
+  .logged-out-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 996px) {
 }

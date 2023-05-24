@@ -4,11 +4,8 @@ import cutLink from "./SliceUrl";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
 import LazyLoad from "react-lazyload";
-import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function SinglePostContent({ post, isPage }) {
-  const history = useHistory();
   return (
     <div className="single-post-content-box">
       <div className="single-post-content-box-left">
@@ -23,7 +20,6 @@ export default function SinglePostContent({ post, isPage }) {
                 onClick={(e) => {
                   isPage === "singlepage" &&
                     window.open(`/images/${post.id}`, "_blank");
-                  // history.push(`/images/${post.id}`);
                 }}
               />
             </LazyLoad>

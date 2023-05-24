@@ -38,6 +38,7 @@ import Inbox from "./features/Messages/Inbox/Inbox";
 import PostRepliesPage from "./features/Messages/PostReplies/PostRepliesPage";
 import NavSidebar from "./components/NavSidebar.js/NavSidebar";
 import Permalink from "./features/Messages/Permalink/Permalink";
+import LoggedOutSidebar from "./components/NavSidebar.js/LoggedOutSidebar";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,9 @@ function App() {
   const [pageIcon, setPageIcon] = useState();
   const [recentPostList, setRecentPostList] = useState([]);
   const [showNavSidebar, setShowNavSidebar] = useState();
+  const [showLoggedOutSidebar, setShowLoggedOutSidebar] = useState(
+    !user && true
+  );
   const [normalDropdown, setNormalDropdown] = useState(true);
 
   useEffect(() => {
@@ -84,13 +88,25 @@ function App() {
           normalDropdown={normalDropdown}
           setNormalDropdown={setNormalDropdown}
         />{" "}
-        <div className={showNavSidebar ? "main main-padded" : "main"}>
-          <NavSidebar
-            setShowNavSidebar={setShowNavSidebar}
-            showNavSidebar={showNavSidebar}
-            setNormalDropdown={setNormalDropdown}
-            normalDropdown={normalDropdown}
-          />
+        <div
+          className={
+            showNavSidebar || showLoggedOutSidebar ? "main main-padded" : "main"
+          }
+        >
+          {!user && (
+            <LoggedOutSidebar
+              setShowSignupForm={setShowSignupForm}
+              showLoggedOutSidebar={showLoggedOutSidebar}
+            />
+          )}
+          {user && (
+            <NavSidebar
+              setShowNavSidebar={setShowNavSidebar}
+              showNavSidebar={showNavSidebar}
+              setNormalDropdown={setNormalDropdown}
+              normalDropdown={normalDropdown}
+            />
+          )}
           <Switch>
             {user ? (
               <Route path="/" exact={true}>
@@ -218,7 +234,10 @@ function App() {
             </Route>
 
             <Route path="/directory" exact={true}>
-              <CommunitiesDirectory setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+              <CommunitiesDirectory
+                setPageTitle={setPageTitle}
+                setPageIcon={setPageIcon}
+              />
             </Route>
             <Route path="/chat" exact={true}>
               <Chat />
@@ -258,7 +277,10 @@ function App() {
               <EditCommunity />
             </ProtectedRoute>
             <ProtectedRoute path="/users/:userId/profile/edit" exact={true}>
-              <EditProfile setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+              <EditProfile
+                setPageTitle={setPageTitle}
+                setPageIcon={setPageIcon}
+              />
             </ProtectedRoute>
             <ProtectedRoute path="/posts/:postId/img/edit" exact={true}>
               <UpdateImagePost />
@@ -277,13 +299,22 @@ function App() {
               <UsersList />
             </ProtectedRoute>
             <Route path="/users/:userId/profile" exact={true}>
-              <UserProfile setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+              <UserProfile
+                setPageTitle={setPageTitle}
+                setPageIcon={setPageIcon}
+              />
             </Route>
             <Route path="/profile" exact={true}>
-              <UserProfile setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+              <UserProfile
+                setPageTitle={setPageTitle}
+                setPageIcon={setPageIcon}
+              />
             </Route>
             <ProtectedRoute path="/notifications" exact={true}>
-              <Notifications setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+              <Notifications
+                setPageTitle={setPageTitle}
+                setPageIcon={setPageIcon}
+              />
             </ProtectedRoute>
             <Route>
               <h1>
