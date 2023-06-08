@@ -35,10 +35,14 @@ const NavBar = ({
   setShowNavSidebar,
   setNormalDropdown,
   normalDropdown,
+  setOpenChat,
+  openChat,
+  setSelectedChat,
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const chatThreads = useSelector((state) => state.chatThreads);
   const user = useSelector((state) => state.session.user);
   const notificationsList = useSelector((state) =>
     Object.values(state.notifications)
@@ -50,19 +54,8 @@ const NavBar = ({
   const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
-    batch(() => {
-      dispatch(getUsers());
-      dispatch(getSubscriptions());
-      dispatch(getMessages());
-      dispatch(getFavoriteCommunities());
-      dispatch(getFavoriteUsers());
-      dispatch(getUserFollowers(user?.id));
-      dispatch(getFollowers());
-      dispatch(getCommunities());
-      dispatch(getPosts());
-      dispatch(getUserNotifications(user?.id));
-    });
-  }, [dispatch, user?.id]);
+    dispatch(getUsers());
+  }, [dispatch]);
 
   useEffect(() => {
     let list = messageList.filter((message) => message.read === false);
@@ -78,6 +71,38 @@ const NavBar = ({
 
     setMsgNum(messageList.filter((message) => message.read === false).length);
   });
+
+  const sortedThreads = Object.values(chatThreads).sort((a, b) => {
+    const aMessages = a.messages;
+    const bMessages = b.messages;
+    if (aMessages && bMessages) {
+      const aLastMessage = aMessages[aMessages?.length - 1];
+      const bLastMessage = bMessages[bMessages?.length - 1];
+
+      if (aMessages?.length === 0 && bMessages?.length === 0) {
+        return a.createdAt.localeCompare(b.createdAt);
+      }
+
+      if (aMessages?.length === 0) {
+        return 1;
+      }
+
+      if (bMessages?.length === 0) {
+        return -1;
+      }
+
+      return (
+        new Date(bLastMessage.createdAt) - new Date(aLastMessage.createdAt)
+      );
+    }
+  });
+
+  const handleOpenChat = (e) => {
+    e.preventDefault();
+    setSelectedChat(sortedThreads[0]);
+    console.log(sortedThreads[0], "sorted threads");
+    setOpenChat(!openChat);
+  };
 
   return (
     <nav className="navbar-nav">
@@ -136,6 +161,7 @@ const NavBar = ({
               className="navbar-button"
               onMouseEnter={() => setTimeout(() => setShowTooltip(true), 500)}
               onMouseLeave={() => setShowTooltip(false)}
+              onClick={handleOpenChat}
             >
               <BsChatDots />
               {showTooltip && <span className="navbtn-tooltiptext">Chat</span>}

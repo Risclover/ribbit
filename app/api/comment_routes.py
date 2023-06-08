@@ -26,15 +26,6 @@ def get_single_comment(id):
     comment = Comment.query.get(id)
     return comment.to_dict()
 
-# # GET ALL COMMENTS OF A SPECIFIC USER
-# @comment_routes.route("/users/<int:id>/comments")
-# def get_user_comments(id):
-#     """
-#     Query to get all comments of a specific user
-#     """
-#     comments = Comment.query.filter(Comment.user_id == id).all()
-#     return {"Comments": [comment.to_dict() for comment in comments]}
-
 
 # CREATE A COMMENT FOR A SINGLE POST:
 @comment_routes.route('/<int:id>', methods=["POST"])
@@ -91,9 +82,6 @@ def delete_comment(id):
     db.session.delete(comment)
     db.session.commit()
     return {"message": "Successfully deleted", "status_code": 200}
-
-
-
 
 
 # ADD A COMMENT VOTE

@@ -14,6 +14,8 @@ import Home from "../../images/navbar/home-icon.png";
 import RecentPosts from "./RecentPosts";
 import "./Posts.css";
 import { getSubscriptions } from "../../store/subscriptions";
+import { getCommunities } from "../../store/communities";
+import { getPosts } from "../../store/posts";
 
 export default function SubscribedPosts({
   format,
@@ -41,6 +43,8 @@ export default function SubscribedPosts({
   const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
 
   useEffect(() => {
+    dispatch(getPosts());
+    dispatch(getCommunities());
     dispatch(getViewedPosts());
     dispatch(getSubscriptions());
   }, [dispatch]);

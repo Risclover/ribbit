@@ -15,8 +15,13 @@ import Cake from "../../../images/misc/piece4.png";
 import SinglePost from "./SinglePost";
 import BackToTop from "../../../components/BackToTop";
 import { addViewedPost, getViewedPosts } from "../../../store/viewed_posts";
+import { getPosts } from "../../../store/posts";
+import { getCommunities } from "../../../store/communities";
+import { getUsers } from "../../../store/users";
 
 export default function SinglePostPage({
+  setPageIcon,
+  setPageTitle,
   setShowLoginForm,
   setRecentPostList,
   recentPostList,
@@ -33,6 +38,8 @@ export default function SinglePostPage({
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
+    dispatch(getCommunities());
+    dispatch(getPosts());
     dispatch(getSinglePost(+postId));
     dispatch(addViewedPost(+postId));
     setRecentPostList([
@@ -52,13 +59,22 @@ export default function SinglePostPage({
         date: new Date(),
       },
     ]);
-
-    dispatch(getViewedPosts());
   }, [dispatch, +postId]);
 
   useEffect(() => {
     document.title = post?.title + " : " + post?.communityName;
-  }, [post]);
+
+    setPageIcon(
+      <img
+        src={post?.communityImg}
+        className="nav-left-dropdown-item-icon item-icon-circle"
+        alt="Community"
+      />
+    );
+    setPageTitle(
+      <span className="nav-left-dropdown-item">c/{post?.communityName}</span>
+    );
+  }, [post, setPageTitle, setPageIcon]);
 
   useEffect(() => {
     if (subscriptions[post?.communityId]) setSubscribed(true);

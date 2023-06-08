@@ -27,7 +27,7 @@ import UpdateImagePost from "./features/Posts/ImagePost/UpdateImagePost";
 import CommunitiesDirectory from "./pages/CommunitiesDirectory/CommunitiesDirectory";
 
 import { Modal } from "./context/Modal";
-import Chat from "./features/Messages/Chat";
+import Chat from "./features/Chat/Chat";
 import LoginPage from "./features/auth/LoginPage";
 import SingleImagePage from "./pages/SingleImagePage/SingleImagePage";
 import Notifications from "./pages/Notifications/Notifications";
@@ -39,10 +39,14 @@ import PostRepliesPage from "./features/Messages/PostReplies/PostRepliesPage";
 import NavSidebar from "./components/NavSidebar.js/NavSidebar";
 import Permalink from "./features/Messages/Permalink/Permalink";
 import LoggedOutSidebar from "./components/NavSidebar.js/LoggedOutSidebar";
+import ChatWindow from "./components/Modals/ChatWindow/ChatWindow";
+import { getUserChatThreads } from "./store/chats";
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+
+  const chatThreads = useSelector((state) => Object.values(state.chatThreads));
 
   const [loaded, setLoaded] = useState(false);
   const [, setShowLoginForm] = useState(false);
@@ -54,11 +58,11 @@ function App() {
   const [pageTitle, setPageTitle] = useState();
   const [pageIcon, setPageIcon] = useState();
   const [recentPostList, setRecentPostList] = useState([]);
-  const [showNavSidebar, setShowNavSidebar] = useState();
-  const [showLoggedOutSidebar, setShowLoggedOutSidebar] = useState(
-    !user && true
-  );
+  const [showNavSidebar, setShowNavSidebar] = useState(false);
+  const [showLoggedOutSidebar, setShowLoggedOutSidebar] = useState();
   const [normalDropdown, setNormalDropdown] = useState(true);
+  const [openChat, setOpenChat] = useState(false);
+  const [selectedChat, setSelectedChat] = useState(chatThreads[0]);
 
   useEffect(() => {
     (async () => {
@@ -66,6 +70,18 @@ function App() {
       setLoaded(true);
     })();
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getUserChatThreads());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!user) {
+      setShowLoggedOutSidebar(true);
+    } else {
+      setShowLoggedOutSidebar(false);
+    }
+  }, [user]);
 
   if (!loaded) {
     return null;
@@ -87,10 +103,17 @@ function App() {
           showNavSidebar={showNavSidebar}
           normalDropdown={normalDropdown}
           setNormalDropdown={setNormalDropdown}
+          setOpenChat={setOpenChat}
+          openChat={openChat}
+          setSelectedChat={setSelectedChat}
         />{" "}
         <div
           className={
-            showNavSidebar || showLoggedOutSidebar ? "main main-padded" : "main"
+            showNavSidebar
+              ? "main main-padded"
+              : showLoggedOutSidebar
+              ? "main main-padded"
+              : "main"
           }
         >
           {!user && (
@@ -105,6 +128,14 @@ function App() {
               showNavSidebar={showNavSidebar}
               setNormalDropdown={setNormalDropdown}
               normalDropdown={normalDropdown}
+            />
+          )}
+          {openChat && (
+            <ChatWindow
+              setOpenChat={setOpenChat}
+              setSelectedChat={setSelectedChat}
+              selectedChat={selectedChat}
+              openChat={openChat}
             />
           )}
           <Switch>
@@ -226,6 +257,8 @@ function App() {
               <SinglePostPage
                 setRecentPostList={setRecentPostList}
                 recentPostList={recentPostList}
+                setPageTitle={setPageTitle}
+                setPageIcon={setPageIcon}
                 format={format}
               />
             </Route>
@@ -255,7 +288,10 @@ function App() {
               <Inbox setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
             </ProtectedRoute>
             <ProtectedRoute path="/message/selfreply" exact={true}>
-              <PostRepliesPage setPageTitle={setPageTitle} />
+              <PostRepliesPage
+                setPageTitle={setPageTitle}
+                setPageIcon={setPageIcon}
+              />
             </ProtectedRoute>
             <ProtectedRoute path="/message/messages/:threadId" exact={true}>
               <Permalink />
@@ -302,6 +338,8 @@ function App() {
               <UserProfile
                 setPageTitle={setPageTitle}
                 setPageIcon={setPageIcon}
+                setOpenChat={setOpenChat}
+                setSelectedChat={setSelectedChat}
               />
             </Route>
             <Route path="/profile" exact={true}>
@@ -316,40 +354,7 @@ function App() {
                 setPageIcon={setPageIcon}
               />
             </ProtectedRoute>
-            <Route>
-              <h1>
-                ERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERR
-                ORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERROR
-              </h1>{" "}
-              <h1>
-                ERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERR
-                ORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERROR
-              </h1>{" "}
-              <h1>
-                ERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERR
-                ORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERROR
-              </h1>{" "}
-              <h1>
-                ERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERR
-                ORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERROR
-              </h1>{" "}
-              <h1>
-                ERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERR
-                ORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERROR
-              </h1>{" "}
-              <h1>
-                ERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERR
-                ORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERROR
-              </h1>{" "}
-              <h1>
-                ERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERR
-                ORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERROR
-              </h1>{" "}
-              <h1>
-                ERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERR
-                ORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERRORERROR
-              </h1>
-            </Route>
+            <Route></Route>
           </Switch>
         </div>
       </Suspense>

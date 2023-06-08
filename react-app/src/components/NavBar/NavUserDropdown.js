@@ -76,6 +76,9 @@ export default function NavUserDropdown() {
             <NavLink to={`/directory`}>
               <div className="nav-user-dropdown-btn">Communities Directory</div>
             </NavLink>
+            <NavLink to={`/users/${cuser.id}/profile/edit`}>
+              <div className="nav-user-dropdown-btn">User Settings</div>
+            </NavLink>
           </div>
           <div className="nav-user-dropdown-logout-btn" onClick={onLogout}>
             <div className="door-icon">

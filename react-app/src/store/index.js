@@ -18,6 +18,7 @@ import viewedPostsReducer from "./viewed_posts";
 import threadsReducer from "./threads";
 import messagesReducer from "./messages";
 import notificationsReducer from "./notifications";
+import chatThreadReducer from "./chats";
 
 const rootReducer = combineReducers({
   session,
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   threads: threadsReducer,
   messages: messagesReducer,
   notifications: notificationsReducer,
+  chatThreads: chatThreadReducer,
 });
 
 let enhancer;

@@ -7,12 +7,14 @@ import moment from "moment";
 
 import { getUsers } from "../../store/users";
 import { addCommentVote, removeCommentVote } from "../../store/comments";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { Modal } from "../../context/Modal";
 import DeleteConfirmation from "../../components/Modals/DeleteConfirmation";
 import EditComment from "./EditComment";
 
 import "./Comments.css";
+import { getPosts } from "../../store/posts";
+import { getSinglePost } from "../../store/one_post";
 
 moment.updateLocale("en-comment", {
   relativeTime: {
@@ -60,8 +62,10 @@ function Text({ content }) {
   }
 }
 
-export default function Comment({ commentId, postId }) {
+export default function Comment({ commentId }) {
   const dispatch = useDispatch();
+
+  const { postId } = useParams();
 
   const [showEditCommentModal, setShowEditCommentModal] = useState(false);
   const [wasEdited, setWasEdited] = useState(false);
@@ -71,11 +75,19 @@ export default function Comment({ commentId, postId }) {
   const [collapsed, setCollapsed] = useState(false);
 
   const comments = useSelector((state) => state.comments);
-  const comment = useSelector((state) => state.comments[+commentId]);
+  const comment = comments[+commentId];
   const user = useSelector((state) => state.session.user);
-  const post = useSelector((state) => state.posts[postId]);
+  const post = useSelector((state) => state.singlePost);
+  // const post = useSelector((state) => state.posts[postId]);
+
+  useEffect(() => {
+    dispatch(getSinglePost(postId));
+  }, [dispatch]);
 
   const url = window.location.href;
+
+  console.log("commentId", commentId);
+  console.log(comment?.commentAuthor.username);
 
   useEffect(() => {
     if (comment?.createdAt !== comment?.updatedAt) {
@@ -140,15 +152,20 @@ export default function Comment({ commentId, postId }) {
 
   useEffect(() => {
     if (comments && Object.values(comments).length > 0) {
-      if (Object.values(comment?.commentVoters).length > 0) {
-        for (let voter of Object.values(comment?.commentVoters)) {
-          if (user?.id === voter?.userId) {
-            if (voter.isUpvote) {
-              setUpvote(true);
-              setDownvote(false);
-            } else if (!voter.isUpvote) {
-              setUpvote(false);
-              setDownvote(true);
+      if (
+        comment?.commentVoters &&
+        Object.values(comment.commentVoters).length > 0
+      ) {
+        if (Object.values(comment?.commentVoters).length > 0) {
+          for (let voter of Object.values(comment?.commentVoters)) {
+            if (user?.id === voter?.userId) {
+              if (voter.isUpvote) {
+                setUpvote(true);
+                setDownvote(false);
+              } else if (!voter.isUpvote) {
+                setUpvote(false);
+                setDownvote(true);
+              }
             }
           }
         }
@@ -156,7 +173,7 @@ export default function Comment({ commentId, postId }) {
     }
   }, [upvote, downvote, comment?.commentVoters, user?.id, comments]);
 
-  if (!post) return null;
+  if (!post || !comment) return null;
   return (
     <div className="comment-system" id={`comment-${comment?.id}`}>
       <div
@@ -203,11 +220,11 @@ export default function Comment({ commentId, postId }) {
           )}
         </div>
         <div className="comment-right-col">
-          <div className="comment-right-username">
-            <NavLink to={`/users/${comment?.commentAuthor.id}/profile`}>
-              {comment?.commentAuthor.username}
+          {/* <div className="comment-right-username">
+            <NavLink to={`/users/${comment.commentAuthor.id}/profile`}>
+              {comment.commentAuthor?.username}
             </NavLink>{" "}
-            {post.postAuthor.username === comment?.commentAuthor.username ? (
+            {post.postAuthor.username === comment.commentAuthor.username ? (
               <span className="op-sign">OP</span>
             ) : (
               ""
@@ -228,7 +245,8 @@ export default function Comment({ commentId, postId }) {
                   .fromNow()}
               </span>
             )}
-          </div>
+          </div> */}
+
           {collapsed === false && (
             <div className="comment-right-content">
               {comment?.content && <Text content={comment?.content} />}

@@ -1,11 +1,13 @@
 {
   "dependencies": {
     "@dhaiwat10/react-link-preview": "^1.15.0",
+    "@primer/octicons-react": "^19.1.0",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.11",
     "@types/react-redux": "^7.1.25",
+    "bootstrap-icons": "^1.10.5",
     "moment": "^2.29.4",
     "react-infinite-scroll-component": "^6.1.0",
     "react-link-previewer": "^1.0.8",

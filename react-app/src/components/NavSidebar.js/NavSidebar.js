@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NavSidebar.css";
 import { TfiClose } from "react-icons/tfi";
 import NavLeftDropdown from "../../components/NavBar/NavLeftDropdown/NavLeftDropdown";
+import { useDispatch } from "react-redux";
+import { getFavoriteCommunities } from "../../store/favorite_communities";
+import { getFavoriteUsers } from "../../store/favorite_users";
+import { getFollowers } from "../../store/followers";
+import { getSubscriptions } from "../../store/subscriptions";
 
 export default function NavSidebar({
   setShowNavSidebar,
   showNavSidebar,
   setNormalDropdown,
 }) {
-  const [showIcon, setShowIcon] = useState(true);
+  const dispatch = useDispatch();
+  const [showIcon, setShowIcon] = useState();
+
+  useEffect(() => {
+    dispatch(getFavoriteCommunities());
+    dispatch(getFavoriteUsers());
+    dispatch(getFollowers());
+    dispatch(getSubscriptions());
+  }, [dispatch]);
 
   return (
     <>

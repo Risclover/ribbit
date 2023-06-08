@@ -71,15 +71,6 @@ def send_message(id):
         db.session.add(message)
         db.session.commit()
 
-        print("""
-
-
-
-
-
-        """, message.receiver_id, message.content, message.thread_id)
-
-
         return message.to_dict()
 
     return {"errors": validation_errors_to_error_messages(form.errors)}, 403

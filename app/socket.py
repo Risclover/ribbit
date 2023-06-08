@@ -1,5 +1,7 @@
 from flask_socketio import SocketIO, emit, join_room, leave_room
-from app.models import db
+from app.models import db, User, ChatMessage
+from flask_login import current_user
+from flask import request
 
 import os
 
@@ -15,11 +17,49 @@ else:
 # initialize your socket instance
 socketio = SocketIO(cors_allowed_origins=origins)
 
+chatUsers = []
+
+@socketio.on("connect")
+def on_connect():
+    user = User.query.get(current_user.get_id()).username
+    user_exists = len([user for user in chatUsers if user['username'] == user])
+    if not user_exists:
+        chatUser = {}
+        chatUser['username'] = user
+        chatUser['sid'] = request.sid
+        chatUsers.append(chatUser)
+
+
+@socketio.on("disconnect")
+def on_disconnect():
+    for i in range(len(chatUsers)):
+        if chatUsers[i]['username'] == User.query.get(current_user.get_id()).username:
+            del chatUsers[i]
+            break
 
 # handle chat messages
 @socketio.on("chat")
 def handle_chat(data):
-    emit("chat", data, broadcast=True)
+    if data['threadId']:
+        room = data['threadId']
+        emit("chat", data, broadcast=True, to=room)
+        emit("new_message", data, broadcast=True, to=room)
+
+
+
+# fake delete message (update)
+@socketio.on("delete")
+def fake_delete(data):
+    msg_id = data['id']
+    room = data['room']
+
+    chat_message = ChatMessage.query.get(msg_id)
+    chat_message.content = "[Message deleted]"
+    db.session.commit()
+
+    emit("deleted", {"id": msg_id, "msg": "[Message deleted]"}, broadcast=True, to=room)
+
+
 
 @socketio.on("celebration")
 def celebrate(data):
@@ -28,8 +68,7 @@ def celebrate(data):
 
 @socketio.on('join')
 def on_join(data):
-    user_id = data['user_id']
-    room = f'user_{user_id}'
+    room = data['room']
     join_room(room)
     emit('joined', {'room': room})
 

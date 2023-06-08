@@ -17,12 +17,32 @@ export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
   const [showLoader, setShowLoader] = useState(true);
   const [comment, setComment] = useState(url.slice(-15).includes("comment"));
 
-  let commentIndex = url.indexOf("#");
-  let commentNum = url.slice(commentIndex + 9);
+  const commentIdPattern = /#comment-(\d+)/;
+  const match = url.match(commentIdPattern);
+  const commentUrl = match ? match[1] : null;
+
+  console.log(
+    "commentIdPattern:",
+    commentIdPattern,
+    "match:",
+    match,
+    "commentUrl:",
+    commentUrl
+  );
 
   useEffect(() => {
     dispatch(getComments(+postId));
   }, [dispatch, postId]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     setCommentsNum(comments.length);
@@ -58,10 +78,6 @@ export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
     });
   }
 
-  setTimeout(() => {
-    setShowLoader(false);
-  }, 1000);
-
   return (
     <div className="comments-container">
       <CommentForm setShowLoginForm={setShowLoginForm} postId={postId} />
@@ -88,7 +104,7 @@ export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
               />
             ))}
 
-          {comment && (
+          {commentUrl && (
             <div className="specific-comment">
               <button
                 className="view-all-comments-btn"
@@ -97,8 +113,8 @@ export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
                 View all comments
               </button>
               <Comment
-                key={commentNum}
-                commentId={commentNum}
+                key={+commentUrl}
+                commentId={+commentUrl}
                 postId={+postId}
               />
             </div>

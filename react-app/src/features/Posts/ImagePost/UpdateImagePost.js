@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { putSinglePost } from "../../../store/posts";
 import ImagePostForm from "./ImagePostForm";
 import "../PostForms/PostForm.css";
-import "../../Posts/Posts.css";
+import "../Posts.css";
 
 export default function UpdateImagePost() {
   const { postId } = useParams();

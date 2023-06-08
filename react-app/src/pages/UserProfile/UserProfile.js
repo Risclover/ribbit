@@ -7,8 +7,15 @@ import UserAboutBox from "./UserAboutBox";
 import UserProfilePosts from "./UserProfilePosts";
 import { getUsers } from "../../store/users";
 import "./UserProfile.css";
+import { getCommunities } from "../../store/communities";
 
-function UserProfile({ setShowLoginForm, setPageTitle, setPageIcon }) {
+function UserProfile({
+  setShowLoginForm,
+  setPageTitle,
+  setPageIcon,
+  setOpenChat,
+  setSelectedChat,
+}) {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const [page, setPage] = useState("Posts");
@@ -23,6 +30,7 @@ function UserProfile({ setShowLoginForm, setPageTitle, setPageIcon }) {
     dispatch(getFollowedPosts());
     dispatch(getPosts());
     dispatch(getUsers());
+    dispatch(getCommunities());
   }, [dispatch]);
 
   useEffect(() => {
@@ -73,6 +81,8 @@ function UserProfile({ setShowLoginForm, setPageTitle, setPageIcon }) {
       </div>
       <div className="user-profile-right-col">
         <UserAboutBox
+          setSelectedChat={setSelectedChat}
+          setOpenChat={setOpenChat}
           currentUser={currentUser}
           username={user?.username}
           user={user}

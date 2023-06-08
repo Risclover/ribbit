@@ -16,8 +16,17 @@ import UserBannerModal from "./UploadUserBanner";
 import UserImageModal from "./UploadUserImage";
 import SendMessage from "./SendMessage";
 import { addNotification } from "../../store/notifications";
+import StartChat from "./StartChat";
+import ChatWindow from "../../components/Modals/ChatWindow/ChatWindow";
+import { createChatThread, getUserChatThreads } from "../../store/chats";
 
-export default function UserAboutBox({ currentUser, user, username }) {
+export default function UserAboutBox({
+  currentUser,
+  user,
+  username,
+  setOpenChat,
+  setSelectedChat,
+}) {
   const dispatch = useDispatch();
 
   const { userId } = useParams();
@@ -29,6 +38,11 @@ export default function UserAboutBox({ currentUser, user, username }) {
   const followers = useSelector((state) => state.followers.followers);
   const follows = useSelector((state) => state.followers.follows);
   const userFollowers = useSelector((state) => state.followers.userFollowers);
+  const userChats = useSelector((state) => Object.values(state.chatThreads));
+
+  useEffect(() => {
+    dispatch(getUserChatThreads());
+  }, [dispatch]);
 
   useEffect(() => {
     setBanner(user?.bannerImg);
@@ -60,6 +74,23 @@ export default function UserAboutBox({ currentUser, user, username }) {
       }
     }
   }, []);
+
+  const handleChat = async () => {
+    setOpenChat(true);
+    const existingThread = userChats.find(
+      (thread) =>
+        thread.users?.some((userz) => userz.id === currentUser.id) &&
+        thread.users?.some((userz) => userz.id === user.id)
+    );
+    if (!existingThread) {
+      const newChat = await dispatch(createChatThread(+userId));
+      setSelectedChat(newChat);
+    } else {
+      setSelectedChat(existingThread);
+    }
+
+    await dispatch(getUserChatThreads());
+  };
 
   return (
     <div className="user-profile-about-box">
@@ -124,18 +155,25 @@ export default function UserAboutBox({ currentUser, user, username }) {
           )}
         </div>
 
-        {userFollowers && currentUser?.id !== +userId && (
-          <button
-            className={
-              !follows[+userId]
-                ? "blue-btn-filled btn-long"
-                : "blue-btn-unfilled btn-long"
-            }
-            onClick={handleFollow}
-          >
-            {!follows[+userId] ? "Follow" : "Unfollow"}
-          </button>
-        )}
+        <div className="half-btns">
+          {userFollowers && currentUser?.id !== +userId && (
+            <button
+              className={
+                !follows[+userId]
+                  ? "blue-btn-filled btn-long"
+                  : "blue-btn-unfilled btn-long"
+              }
+              onClick={handleFollow}
+            >
+              {!follows[+userId] ? "Follow" : "Unfollow"}
+            </button>
+          )}
+          {currentUser?.id !== +userId && (
+            <button className="blue-btn-filled btn-long" onClick={handleChat}>
+              Chat
+            </button>
+          )}
+        </div>
         {userFollowers && currentUser?.id !== +userId && (
           <SendMessage userId={+userId} username={username} />
         )}

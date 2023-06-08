@@ -63,24 +63,3 @@ class MessageThread(db.Model):
 
     def __repr__(self):
         return f"<Message Thread {self.id}: {[msg.to_dict() for msg in self.messages]}>"
-
-
-# class Chat(db.Model):
-#     __tablename__ = "chats"
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     created_at = db.Column(db.DateTime, server_default = db.func.now())
-#     chat_users = db.relationship("User", back_populates="user_chats", secondary="user_chat_threads", lazy="joined")
-#     chat_messages = db.relationship("Message", back_populates="message_chat")
-
-#     def to_dict(self):
-#         return {
-#             "id": self.id,
-#             "createdAt": self.created_at,
-#             "chatMessages": [message.to_dict() for message in self.chat_messages],
-#             "chatUsers": [user.to_dict() for user in self.chat_users],
-#             "unreadMessages": len([item for item in self.chat_messages if not item.to_dict()["isRead"]])
-#         }
-
-#     def __repr__(self):
-#         return f"<Chat {self.id}>"

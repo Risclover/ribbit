@@ -4,6 +4,7 @@ from flask_login import UserMixin
 # from ..models.message import Message
 from ..models.post import Post
 from ..models.message import user_threads
+from ..models.chat import user_chat_threads
 from .joins import subscriptions, favorite_communities, followers, favorite_users, viewed_posts
 from datetime import datetime
 import json
@@ -44,6 +45,10 @@ class User(db.Model, UserMixin):
 
     user_threads = db.relationship('MessageThread', back_populates='thread_users', secondary=user_threads, lazy='joined')
     user_messages = db.relationship('Message', back_populates='sender', overlaps="recipient", primaryjoin="User.id==Message.receiver_id", cascade='all, delete')
+
+    chat_threads = db.relationship('ChatMessageThread', back_populates='chat_thread_users', secondary=user_chat_threads, lazy='joined')
+    user_chat_messages = db.relationship('ChatMessage', back_populates='sender', overlaps="recipient", primaryjoin="User.id==ChatMessage.receiver_id", cascade='all, delete')
+
 
 
     @property

@@ -41,6 +41,10 @@ export default function Notifications({ setPageTitle, setPageIcon }) {
   );
   const user = useSelector((state) => state.session.user);
 
+  const notificationsList = notifications.filter(
+    (notification) => notification.type !== "message"
+  );
+
   useEffect(() => {
     dispatch(getUserNotifications(user.id));
   }, []);
@@ -60,7 +64,7 @@ export default function Notifications({ setPageTitle, setPageIcon }) {
     setPageTitle(<span className="nav-left-dropdown-item">Notifications</span>);
   }, [dispatch, setPageTitle.setPageIcon]);
 
-  const today = notifications.filter(
+  const today = notificationsList.filter(
     (item) => new Date(item.createdAt).getDay() === new Date().getDay()
   );
 
@@ -105,7 +109,7 @@ export default function Notifications({ setPageTitle, setPageIcon }) {
         <div className="notifications-main">
           <div className="notifications-spacer"></div>
           <div className="notifications-content">
-            {notifications.length === 0 ? (
+            {notificationsList.length === 0 ? (
               <div className="no-notifications">
                 <img
                   src={SparklyFrog}

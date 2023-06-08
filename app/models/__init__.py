@@ -7,3 +7,4 @@ from .joins import subscriptions, favorite_communities, viewed_posts, PostVote, 
 from .rule import Rule
 from .message import MessageThread, Message, user_threads
 from .notification import Notification
+from .chat import ChatMessage, ChatMessageThread, user_chat_threads

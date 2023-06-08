@@ -18,6 +18,7 @@ import RecentPosts from "./RecentPosts";
 import { getFavoriteCommunities } from "../../store/favorite_communities";
 import { getFavoriteUsers } from "../../store/favorite_users";
 import { getFollowers, getUserFollowers } from "../../store/followers";
+import { getCommunities } from "../../store/communities";
 
 function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
@@ -33,13 +34,11 @@ function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
   const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
 
   useEffect(() => {
+    dispatch(getPosts());
+    dispatch(getCommunities());
     dispatch(getViewedPosts());
     dispatch(getSubscriptions());
-    dispatch(getFavoriteCommunities());
-    dispatch(getFavoriteUsers());
-    dispatch(getUserFollowers(user?.id));
-    dispatch(getFollowers());
-  }, [dispatch, user?.id]);
+  }, [dispatch]);
 
   const loadMore = () => {
     setLoading(true);

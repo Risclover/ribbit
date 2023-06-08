@@ -20,7 +20,7 @@ export default function UsernamePopup({ setShowUserBox, user }) {
   const [showMsgModal, setShowMsgModal] = useState(false);
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && follows && user && user[0]) {
       for (let followed of Object.values(follows)) {
         if (followed?.username === user[0]?.username) {
           setFollowing(true);
@@ -30,7 +30,7 @@ export default function UsernamePopup({ setShowUserBox, user }) {
         }
       }
     }
-  }, []);
+  }, [currentUser, follows, user]);
 
   const handleFollowing = async (e) => {
     e.preventDefault();
@@ -40,7 +40,7 @@ export default function UsernamePopup({ setShowUserBox, user }) {
     setFollowing(!following);
   };
 
-  if (!follows || !user) return null;
+  if (!follows || !user || !user[0]) return null;
   return (
     <>
       <div className="username-popup">

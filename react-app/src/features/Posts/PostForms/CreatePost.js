@@ -81,6 +81,7 @@ export default function CreatePost({
   }, [community, setPageTitle, setPageIcon]);
 
   useEffect(() => {
+    dispatch(getPosts());
     dispatch(getCommunities());
     dispatch(getSubscriptions());
   }, [dispatch]);
@@ -208,7 +209,7 @@ export default function CreatePost({
     } else {
       setTitle("");
       setContent("");
-      const postId = posts[posts.length - 1].id + 1;
+      const postId = posts[posts?.length - 1]?.id + 1;
       history.push(`/c/${community_id}`);
       await dispatch(getPosts());
       dispatch(addPostVote(postId, "upvote"));
