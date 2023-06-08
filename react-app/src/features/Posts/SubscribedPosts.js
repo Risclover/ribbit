@@ -82,8 +82,6 @@ export default function SubscribedPosts({
       setPage(page + 1);
       setLoading(false);
     }, 1000);
-
-    clearTimeout(timer);
   };
 
   useEffect(() => {
