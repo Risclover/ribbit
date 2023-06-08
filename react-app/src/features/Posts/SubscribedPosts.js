@@ -43,8 +43,8 @@ export default function SubscribedPosts({
   const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
 
   useEffect(() => {
-    dispatch(getPosts());
     dispatch(getCommunities());
+    dispatch(getPosts());
     dispatch(getViewedPosts());
     dispatch(getSubscriptions());
   }, [dispatch]);
@@ -82,6 +82,8 @@ export default function SubscribedPosts({
       setPage(page + 1);
       setLoading(false);
     }, 1000);
+
+    clearTimeout(timer);
   };
 
   useEffect(() => {

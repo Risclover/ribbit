@@ -220,11 +220,11 @@ export default function Comment({ commentId }) {
           )}
         </div>
         <div className="comment-right-col">
-          {/* <div className="comment-right-username">
+          <div className="comment-right-username">
             <NavLink to={`/users/${comment.commentAuthor.id}/profile`}>
               {comment.commentAuthor?.username}
             </NavLink>{" "}
-            {post.postAuthor.username === comment.commentAuthor.username ? (
+            {post.postAuthor?.username === comment.commentAuthor?.username ? (
               <span className="op-sign">OP</span>
             ) : (
               ""
@@ -245,7 +245,7 @@ export default function Comment({ commentId }) {
                   .fromNow()}
               </span>
             )}
-          </div> */}
+          </div>
 
           {collapsed === false && (
             <div className="comment-right-content">
