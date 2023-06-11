@@ -128,13 +128,13 @@ const initialState = {};
 export default function chatThreadReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_CHAT_THREADS:
-      return action.chatThreads.ChatThreads.reduce(
-        (chatThreads, chatThread) => {
+      if (action.chatThreads && action.chatThreads.ChatThreads) {
+        return action.chatThreads.ChatThreads.reduce((chatThreads, chatThread) => {
           chatThreads[chatThread.id] = chatThread;
           return chatThreads;
-        },
-        {}
-      );
+        }, {});
+      }
+      return state;
 
     case LOAD_CHAT_THREAD:
       return { ...state, [action.chatThread.id]: action.chatThread };
