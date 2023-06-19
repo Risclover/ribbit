@@ -3,10 +3,10 @@ from flask_login import login_required, current_user
 from app.models import db, User, ChatMessageThread, ChatMessage
 
 
-chat_routes = Blueprint("chats", __name__)
+chat_thread_routes = Blueprint("chat_threads", __name__)
 
 # GET CURRENT USER'S CHATS
-@chat_routes.route("")
+@chat_thread_routes.route("")
 def get_user_chats():
     user = User.query.get(current_user.get_id())
     if user is not None:
@@ -17,7 +17,7 @@ def get_user_chats():
 
 
 # GET SINGLE CHAT BY ID
-@chat_routes.route("/<int:id>")
+@chat_thread_routes.route("/<int:id>")
 def get_user_chat(id):
     chat = ChatMessageThread.query.get(id)
     print(chat)
@@ -28,10 +28,11 @@ def get_user_chat(id):
 
 
 # CREATE A CHAT THREAD
-@chat_routes.route("", methods=["POST"])
+@chat_thread_routes.route("", methods=["POST"])
 @login_required
 def create_thread():
-    receiver = User.query.get(request.json["receiverId"])
+    data = request.get_json()
+    receiver = User.query.get(data.get("receiverId"))
     sender = User.query.get(current_user.get_id())
 
     thread = ChatMessageThread()
@@ -46,7 +47,7 @@ def create_thread():
 
 
 # CREATE A NEW MESSAGE & ADD TO CHAT
-@chat_routes.route("/<int:id>/messages", methods=["POST"])
+@chat_thread_routes.route("/<int:id>/messages", methods=["POST"])
 @login_required
 def create_message(id):
     data = request.get_json()
@@ -65,7 +66,7 @@ def create_message(id):
 
 
 # # ADD A REACTION TO MESSAGE
-# @chat_routes.route("/messages/<int:messageId>/reactions", methods=["POST"])
+# @chat_thread_routes.route("/messages/<int:messageId>/reactions", methods=["POST"])
 # @login_required
 # def create_reaction(messageId):
 #     data = request.get_json()
@@ -90,7 +91,7 @@ def create_message(id):
 
 
 # "DELETE" A MESSAGE (UPDATE TO SAY '[MESSAGE DELETED]')
-@chat_routes.route("/messages/<int:id>", methods=["PUT"])
+@chat_thread_routes.route("/messages/<int:id>", methods=["PUT"])
 @login_required
 def fake_delete_message(id):
     message = ChatMessage.query.get(id)
@@ -101,7 +102,7 @@ def fake_delete_message(id):
 
 
 # READ ALL MESSAGES IN A THREAD
-@chat_routes.route("/<int:id>/read", methods=["PUT"])
+@chat_thread_routes.route("/<int:id>/read", methods=["PUT"])
 def read_messages(id):
     chat_thread = ChatMessageThread.query.get(id)
     messages = chat_thread.messages

@@ -219,6 +219,8 @@ nav ul li {
   display: flex;
   align-items: center;
   padding: 5px;
+  background: none;
+  border: 0;
 }
 
 .chat-btn {

@@ -1,5 +1,3 @@
-import { bindActionCreators } from "redux";
-
 const LOAD_CHAT_THREADS = "chat_threads/LOAD_CHAT_THREADS";
 const LOAD_CHAT_THREAD = "chat_threads/LOAD_CHAT_THREAD";
 
