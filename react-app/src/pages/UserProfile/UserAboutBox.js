@@ -171,7 +171,7 @@ export default function UserAboutBox({
         </div>
 
         <div className="half-btns">
-          {userFollowers && currentUser?.id !== +userId && (
+          {currentUser?.id !== +userId && (
             <button
               className={
                 !follows[+userId]
@@ -189,7 +189,7 @@ export default function UserAboutBox({
             </button>
           )}
         </div>
-        {userFollowers && currentUser?.id !== +userId && (
+        {currentUser?.id !== +userId && (
           <SendMessage userId={+userId} username={username} />
         )}
       </div>
