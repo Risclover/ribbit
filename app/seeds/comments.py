@@ -1450,52 +1450,52 @@ Requires a nonempty array. So, it's not the most general formula.""",
     post71_comment1 = Comment(
         content="My wife and I take turns tucking the dog in each night… then 10 seconds later he kicks the blanket off and nests anyway. Still a fun tradition we both love.",
         user_id=50,
-        post_id=71
+        post_id=31
     )
     post71_comment2 = Comment(
         content="""Every night before bed I tell the dog I hope he had a good day.
 
 I also tell him 'be a good boy, have a good day. Love you & I'll see you after work' every morning as I leave. My toddler has now started saying 'love you bubba!' to him as we leave.""",
         user_id=20,
-        post_id=71
+        post_id=31
     )
     post71_comment3=Comment(
         content="Sounds like good dad stuff.",
         user_id=5,
-        post_id=71
+        post_id=31
     )
     post71_comment4=Comment(
         content="Thazza goodboy",
         user_id=16,
-        post_id=71
+        post_id=31
     )
     post71_comment5=Comment(
         content="My veterinarian says it's the big, tough-looking guys who break down the most when their dog dies. She tells of grungy biker dudes weeping as they carry their sick little fluff-ball into the vet's office.",
         user_id=29,
-        post_id=71
+        post_id=31
     )
 
     post72_comment1=Comment(
         content="Little kids are generous with their positive- and sometimes negative - take on things. They are saying they enjoy your company",
         user_id=2,
-        post_id=72
+        post_id=32
     )
     post72_comment2=Comment(
         content="Not only generous, but also sincere! I adore kids because of this. They're so honest and pure and full of life! Helps me remember the joy of living whenever I get to spend the day with my youngest sister.",
         user_id=9,
-        post_id=72
+        post_id=32
     )
     post72_comment3=Comment(
         content="""I've experienced this! I volunteered for a week with a young elementary school class and had so many compliments from the little kids. I'm not even particularly pretty or anything, it'd be for something as simple as wearing a blouse with butterflies on it lol
 
 Thing is, I don't remember kids doing this back when I was in school. We all seemed like brats 😂 maybe it's just a super casual thing for kids to do without even thinking about it!""",
         user_id=22,
-        post_id=72
+        post_id=32
     )
     post72_comment4=Comment(
         content="Kids will just say what they’re thinking, good or bad. It’s so refreshing. But sometimes it can be brutal lol. Glad you’re getting the good comments!",
         user_id=23,
-        post_id=72
+        post_id=32
     )
 
     post73_comment1=Comment(
@@ -1541,19 +1541,19 @@ Tidy up those build dependencies folks""",
     post75_comment1=Comment(
         content="Cameroon gave $3.77 to the USA in relief aid during the Great Depression",
         user_id=2,
-        post_id=75
+        post_id=33
     )
     post75_comment2=Comment(
         content="""It was a Maasai village, and they didn’t just try, they went ahead and did it. (To be fully accurate, they did give the cows to the US ambassador and they were accepted, but they didn’t get shipped to the US.)
 
 I remember when that happened and honestly I took a lot of comfort in it. It was a very meaningful and valuable gift in that culture and it was nice to know they cared.""",
         user_id=13,
-        post_id=75
+        post_id=33
     )
     post75_comment3=Comment(
         content="Every year Nova Scotia sends the city of Boston a big Christmas tree - always thought that was so wholesome! They started doing this over 100 years ago when Boston sent medical aid and supplies to Nova Scotia after a huge explosion in the Halifax Harbor.",
         user_id=15,
-        post_id=75
+        post_id=33
     )
 
 
