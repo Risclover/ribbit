@@ -1,14 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, batch } from "react-redux";
+import { getFollowers, getUserFollowers } from "../../store/followers";
+import { getSubscriptions } from "../../store/subscriptions";
 import Searchbar from "./Searchbar/Searchbar";
 import NavUserDropdown from "./NavUserDropdown";
 import NavLeftDropdownFace from "./NavLeftDropdown/NavLeftDropdownFace";
 import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
+import { getFavoriteCommunities } from "../../store/favorite_communities";
+import { getFavoriteUsers } from "../../store/favorite_users";
 import { getCommunities } from "../../store/communities";
+import { getPosts } from "../../store/posts";
+import { getMessages } from "../../store/messages";
+import { getUserNotifications } from "../../store/notifications";
 import NotificationsDropdownWrapper from "./NotificationsDropdown/NotificationsDropdownWrapper";
 import RibbitLogoSmall from "../../images/ribbit-banners/ribbit_logo_love_small.png";
 import LoginSignupModal from "../Modals/LoginSignupModal";
+import { useState } from "react";
 import { getUsers } from "../../store/users";
 import { TfiPlus } from "react-icons/tfi";
 import { BsChatDots } from "react-icons/bs";
@@ -93,6 +101,7 @@ const NavBar = ({
   const handleOpenChat = (e) => {
     e.preventDefault();
     setSelectedChat(sortedThreads[0]);
+    console.log(sortedThreads[0], "sorted threads");
     setOpenChat(!openChat);
   };
 
@@ -149,7 +158,7 @@ const NavBar = ({
                 <span className="navbtn-tooltiptext">/c/All</span>
               )}
             </div>
-            <button
+            <div
               className="navbar-button"
               onMouseEnter={() => setTimeout(() => setShowTooltip(true), 500)}
               onMouseLeave={() => setShowTooltip(false)}
@@ -157,7 +166,7 @@ const NavBar = ({
             >
               <BsChatDots />
               {showTooltip && <span className="navbtn-tooltiptext">Chat</span>}
-            </button>
+            </div>
             {user && (
               <div className="notification-wrapper">
                 <NotificationsDropdownWrapper

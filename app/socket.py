@@ -45,6 +45,8 @@ def handle_chat(data):
         emit("chat", data, broadcast=True, to=room)
         emit("new_message", data, broadcast=True, to=room)
 
+
+
 # fake delete message (update)
 @socketio.on("delete")
 def fake_delete(data):
@@ -56,6 +58,13 @@ def fake_delete(data):
     db.session.commit()
 
     emit("deleted", {"id": msg_id, "msg": "[Message deleted]"}, broadcast=True, to=room)
+
+
+
+@socketio.on("celebration")
+def celebrate(data):
+    user = User.query.get(data['user_id'])
+    emit("celebration", data, broadcast=True)
 
 @socketio.on('join')
 def on_join(data):
