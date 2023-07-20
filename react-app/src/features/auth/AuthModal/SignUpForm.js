@@ -123,7 +123,7 @@ const SignUpForm = ({
         for (let user of allUsers) {
           id += 1;
         }
-        history.push(`/users/${id + 1}/profile`);
+        if (val === "loginpage") history.push(`/users/${id + 1}/profile`);
       }
     }
   };

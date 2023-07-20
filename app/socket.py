@@ -1,7 +1,7 @@
-from flask_socketio import SocketIO, emit, join_room, leave_room, disconnect
+from flask_socketio import SocketIO, emit, join_room, leave_room
 from app.models import db, User, ChatMessage
 from flask_login import current_user
-from flask import request, session
+from flask import request
 
 import os
 
@@ -22,7 +22,7 @@ chatUsers = []
 @socketio.on("connect")
 def on_connect():
     user = User.query.get(current_user.get_id()).username
-    user_exists = any(username['username'] == user for username in chatUsers)
+    user_exists = len([user for user in chatUsers if user['username'] == user])
     if not user_exists:
         chatUser = {}
         chatUser['username'] = user
@@ -36,7 +36,6 @@ def on_disconnect():
         if chatUsers[i]['username'] == User.query.get(current_user.get_id()).username:
             del chatUsers[i]
             break
-    disconnect()
 
 # handle chat messages
 @socketio.on("chat")

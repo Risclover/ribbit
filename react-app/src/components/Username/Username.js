@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import UsernamePopup from "./UsernamePopup";
 import { useHistory } from "react-router-dom";
 
-export default function Username({ username, user, source }) {
+export default function Username({ username, user }) {
   const history = useHistory();
 
   const users = useSelector((state) => Object.values(state.users));
@@ -13,6 +13,18 @@ export default function Username({ username, user, source }) {
   const [showUserBox, setShowUserBox] = useState(false);
 
   let foundUser = users.filter((user) => user.username === username);
+
+  const handleShow = () => {
+    setTimeout(() => {
+      setShowUserBox(true);
+    }, 500);
+  };
+
+  const handleLeave = () => {
+    setTimeout(() => {
+      setShowUserBox(false);
+    }, 500);
+  };
 
   const handleUsernameClick = (e) => {
     let isInputClicked = false;
@@ -35,11 +47,11 @@ export default function Username({ username, user, source }) {
   return (
     <div className="username-component-wrapper">
       <div className="username-component" onClick={handleUsernameClick}>
-        {source === "singlepost" ? "u/" + username : username}
+        u/{username}
       </div>
       {foundUser.length > 0 && currentUser && currentUser.id !== foundUser[0].id && (
-        <UsernamePopup user={foundUser} setShowUserBox={setShowUserBox} />
-      )}
+  <UsernamePopup user={foundUser} setShowUserBox={setShowUserBox} />
+)}
     </div>
   );
 }

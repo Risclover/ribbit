@@ -79,7 +79,7 @@ export default function ChatWindowNewChatOverlay({
                 autoFocus
               />
               <label htmlFor="new-chat" className="new-chat-label-text">
-                Type username
+                Type username(s)
               </label>
             </div>
           </div>

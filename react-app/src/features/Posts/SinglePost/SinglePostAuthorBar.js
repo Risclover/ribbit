@@ -41,7 +41,7 @@ export default function SinglePostAuthorBar({ community, post, isPage }) {
 
       <div className="single-post-author-info">
         Posted by
-        <Username username={post.postAuthor.username} user={post.postAuthor} source="singlepost" />
+        <Username username={post.postAuthor.username} user={post.postAuthor} />
         {moment(new Date(post.createdAt)).locale("en-post").fromNow()}
       </div>
     </div>
