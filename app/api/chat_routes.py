@@ -20,11 +20,7 @@ def get_user_chats():
 @chat_routes.route("/<int:id>")
 def get_user_chat(id):
     chat = ChatMessageThread.query.get(id)
-    print(chat)
-    if chat is not None:
-        return chat.to_dict()
-    else:
-        return { "message": "Chat not found" }
+    return chat.to_dict()
 
 
 # CREATE A CHAT THREAD

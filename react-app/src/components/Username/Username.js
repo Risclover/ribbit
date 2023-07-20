@@ -6,9 +6,7 @@ import { useHistory } from "react-router-dom";
 
 export default function Username({ username, user }) {
   const history = useHistory();
-
   const users = useSelector((state) => Object.values(state.users));
-  const currentUser = useSelector(state => state.session.user);
 
   const [showUserBox, setShowUserBox] = useState(false);
 
@@ -38,20 +36,17 @@ export default function Username({ username, user }) {
 
     checkForInput(e.target);
 
-    if (!isInputClicked && user && user.id) {
+    if (!isInputClicked) {
       e.preventDefault();
       history.push(`/users/${user.id}/profile`);
     }
   };
-
   return (
     <div className="username-component-wrapper">
       <div className="username-component" onClick={handleUsernameClick}>
         u/{username}
       </div>
-      {foundUser.length > 0 && currentUser && currentUser.id !== foundUser[0].id && (
-  <UsernamePopup user={foundUser} setShowUserBox={setShowUserBox} />
-)}
+      <UsernamePopup user={foundUser} setShowUserBox={setShowUserBox} />
     </div>
   );
 }

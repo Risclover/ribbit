@@ -54,7 +54,6 @@ const NavBar = ({
   const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
-    dispatch(getCommunities())
     dispatch(getUsers());
   }, [dispatch]);
 

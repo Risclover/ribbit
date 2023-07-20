@@ -27,7 +27,7 @@ import UpdateImagePost from "./features/Posts/ImagePost/UpdateImagePost";
 import CommunitiesDirectory from "./pages/CommunitiesDirectory/CommunitiesDirectory";
 
 import { Modal } from "./context/Modal";
-import Chat from "./components/Modals/Chat/Chat";
+import Chat from "./features/Chat/Chat";
 import LoginPage from "./features/auth/LoginPage";
 import SingleImagePage from "./pages/SingleImagePage/SingleImagePage";
 import Notifications from "./pages/Notifications/Notifications";
