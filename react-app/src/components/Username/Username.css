@@ -3,8 +3,10 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   min-width: 240px;
   position: absolute;
-  z-index: 10000;
+  z-index: 99999;
   background: white;
+  visibility: hidden;
+  cursor: default;
   padding: 12px 12px 0;
 }
 
@@ -15,23 +17,16 @@
   color: rgb(120, 124, 126);
   text-decoration: none;
   line-height: 16px;
-  position: relative;
   margin: auto 4px;
   transition: 0s;
 }
 
 .username-component {
   cursor: pointer;
-  position: relative;
 }
 
 .username-component-wrapper:hover {
   text-decoration: underline;
-}
-
-.username-popup {
-  visibility: hidden;
-  cursor: default;
 }
 
 .username-component-wrapper:hover > .username-popup {

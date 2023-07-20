@@ -1,7 +1,7 @@
-from flask_socketio import SocketIO, emit, join_room, leave_room
+from flask_socketio import SocketIO, emit, join_room, leave_room, disconnect
 from app.models import db, User, ChatMessage
 from flask_login import current_user
-from flask import request
+from flask import request, session
 
 import os
 
@@ -22,7 +22,7 @@ chatUsers = []
 @socketio.on("connect")
 def on_connect():
     user = User.query.get(current_user.get_id()).username
-    user_exists = len([user for user in chatUsers if user['username'] == user])
+    user_exists = any(username['username'] == user for username in chatUsers)
     if not user_exists:
         chatUser = {}
         chatUser['username'] = user
@@ -36,6 +36,7 @@ def on_disconnect():
         if chatUsers[i]['username'] == User.query.get(current_user.get_id()).username:
             del chatUsers[i]
             break
+    disconnect()
 
 # handle chat messages
 @socketio.on("chat")
@@ -44,8 +45,6 @@ def handle_chat(data):
         room = data['threadId']
         emit("chat", data, broadcast=True, to=room)
         emit("new_message", data, broadcast=True, to=room)
-
-
 
 # fake delete message (update)
 @socketio.on("delete")
@@ -58,13 +57,6 @@ def fake_delete(data):
     db.session.commit()
 
     emit("deleted", {"id": msg_id, "msg": "[Message deleted]"}, broadcast=True, to=room)
-
-
-
-@socketio.on("celebration")
-def celebrate(data):
-    user = User.query.get(data['user_id'])
-    emit("celebration", data, broadcast=True)
 
 @socketio.on('join')
 def on_join(data):

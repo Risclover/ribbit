@@ -37,9 +37,10 @@ export default function ChatMessage({
       new Date(message.createdAt) - new Date(previousMessage.createdAt) <=
         60000 ? (
         <div className="chat-thread-message-compact">
-          {msgContent !== "[Message deleted]" && (
+          {msgContent !== "[Message deleted]" &&
+            message.sender?.username === currentUser.username &&
             <div className="chat-message-hover-component">
-              {message.sender?.username === currentUser.username && (
+
                 <button
                   className="chat-message-delete-btn"
                   onClick={() => {
@@ -49,14 +50,8 @@ export default function ChatMessage({
                 >
                   <i className="bi bi-trash3"></i>
                 </button>
-              )}
-              {message.sender?.username !== currentUser.username && (
-                <button className="chat-message-delete-btn">
-                  <i className="bi bi-flag"></i>
-                </button>
-              )}
             </div>
-          )}
+          }
           <div className="chat-thread-message-compact-time">
             {new Date(message.createdAt).toLocaleString("en-US", {
               hour: "numeric",
@@ -72,9 +67,10 @@ export default function ChatMessage({
         </div>
       ) : (
         <div className="chat-thread-message">
-          {msgContent !== "[Message deleted]" && (
+          {msgContent !== "[Message deleted]" &&
+            message.sender?.username === currentUser.username &&
             <div className="chat-message-hover-component">
-              {message.sender?.username === currentUser.username && (
+
                 <button
                   className="chat-message-delete-btn"
                   onClick={() => {
@@ -84,14 +80,8 @@ export default function ChatMessage({
                 >
                   <i className="bi bi-trash3"></i>
                 </button>
-              )}
-              {message.sender?.username !== currentUser.username && (
-                <button className="chat-message-delete-btn">
-                  <i className="bi bi-flag"></i>
-                </button>
-              )}
             </div>
-          )}
+          }
           <div className="chat-thread-message-user-img">
             {message.sender?.id !== currentUser.id ? (
               <img

@@ -77,20 +77,35 @@ export default function UserAboutBox({
 
   const handleChat = async () => {
     setOpenChat(true);
-    const existingThread = userChats.find(
-      (thread) =>
-        thread.users?.some((userz) => userz.id === currentUser.id) &&
-        thread.users?.some((userz) => userz.id === user.id)
-    );
-    if (!existingThread) {
-      const newChat = await dispatch(createChatThread(+userId));
-      setSelectedChat(newChat);
+
+    const existingThread = userChats.find(thread => thread.users?.some((aUser) => aUser.id === currentUser.id) && thread.users?.some(bUser => bUser.id === user.id));
+
+    if(!existingThread) {
+      const newChat = await dispatch(createChatThread(+userId))
+    setSelectedChat('new chat:', newChat);
     } else {
       setSelectedChat(existingThread);
     }
 
-    await dispatch(getUserChatThreads());
-  };
+    dispatch(getUserChatThreads())
+  }
+
+  // const handleChat = async () => {
+  //   setOpenChat(true);
+  //   const existingThread = userChats.find(
+  //     (thread) =>
+  //       thread.users?.some((userz) => userz.id === currentUser.id) &&
+  //       thread.users?.some((userz) => userz.id === user.id)
+  //   );
+  //   if (!existingThread) {
+  //     const newChat = await dispatch(createChatThread(+userId));
+  //     setSelectedChat(newChat);
+  //   } else {
+  //     setSelectedChat(existingThread);
+  //   }
+
+  //   await dispatch(getUserChatThreads());
+  // };
 
   return (
     <div className="user-profile-about-box">
@@ -156,7 +171,7 @@ export default function UserAboutBox({
         </div>
 
         <div className="half-btns">
-          {userFollowers && currentUser?.id !== +userId && (
+          {currentUser?.id !== +userId && (
             <button
               className={
                 !follows[+userId]
@@ -174,7 +189,7 @@ export default function UserAboutBox({
             </button>
           )}
         </div>
-        {userFollowers && currentUser?.id !== +userId && (
+        {currentUser?.id !== +userId && (
           <SendMessage userId={+userId} username={username} />
         )}
       </div>

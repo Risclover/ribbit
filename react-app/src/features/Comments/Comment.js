@@ -15,6 +15,8 @@ import EditComment from "./EditComment";
 import "./Comments.css";
 import { getPosts } from "../../store/posts";
 import { getSinglePost } from "../../store/one_post";
+import UsernamePopup from "../../components/Username/UsernamePopup";
+import Username from "../../components/Username/Username";
 
 moment.updateLocale("en-comment", {
   relativeTime: {
@@ -86,8 +88,6 @@ export default function Comment({ commentId }) {
 
   const url = window.location.href;
 
-  console.log("commentId", commentId);
-  console.log(comment?.commentAuthor.username);
 
   useEffect(() => {
     if (comment?.createdAt !== comment?.updatedAt) {
@@ -220,11 +220,9 @@ export default function Comment({ commentId }) {
           )}
         </div>
         <div className="comment-right-col">
-          {/* <div className="comment-right-username">
-            <NavLink to={`/users/${comment.commentAuthor.id}/profile`}>
-              {comment.commentAuthor?.username}
-            </NavLink>{" "}
-            {post.postAuthor.username === comment.commentAuthor.username ? (
+          <div className="comment-right-username">
+            <Username username={comment.commentAuthor?.username} user={comment?.commentAuthor} />
+            {post.postAuthor?.username === comment.commentAuthor?.username ? (
               <span className="op-sign">OP</span>
             ) : (
               ""
@@ -245,7 +243,7 @@ export default function Comment({ commentId }) {
                   .fromNow()}
               </span>
             )}
-          </div> */}
+          </div>
 
           {collapsed === false && (
             <div className="comment-right-content">

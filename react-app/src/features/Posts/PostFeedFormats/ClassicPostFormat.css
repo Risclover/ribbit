@@ -25,7 +25,7 @@
   color: #878a8c;
   cursor: pointer;
   padding-left: 40px;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
   border: 1px solid #ccc;
   margin-bottom: -1px;
