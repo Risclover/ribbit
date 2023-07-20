@@ -43,8 +43,8 @@ export default function SubscribedPosts({
   const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
 
   useEffect(() => {
-    dispatch(getCommunities());
     dispatch(getPosts());
+    dispatch(getCommunities());
     dispatch(getViewedPosts());
     dispatch(getSubscriptions());
   }, [dispatch]);

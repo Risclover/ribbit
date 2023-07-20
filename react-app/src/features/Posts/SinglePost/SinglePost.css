@@ -34,13 +34,13 @@
 .threadline-wrapper {
   padding: 0 10px;
   cursor: pointer;
-  height: calc(100% - 50px);
+  height: 100%;
   display: flex;
   justify-content: flex-end;
 }
 
 .threadline-wrapper:hover > .comment-threadline {
-  border-color: #0079d3;
+  border-color: blue;
 }
 
 .single-post-right-col {

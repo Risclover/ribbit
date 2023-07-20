@@ -23,10 +23,7 @@ export default function CommunitySelectionDropdown({
   return (
     <div className="community-selection-dropdown">
       <div className="community-selection-dropdown-topbar">
-        {subscriptions.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1))
-        .filter((community) =>
-          community["name"].toLowerCase().includes(search?.toLowerCase())
-        ).length > 0 && <h5>Your Communities</h5>}
+        <h5>Your Communities</h5>
         {/* <button
           className="community-selection-dropdown-new-community"
           onClick={(e) => {
