@@ -833,6 +833,7 @@
   height: 24px;
   object-fit: cover;
   border-radius: 100%;
+  margin-right: 5px;
 }
 
 .new-chat-user-found-right {

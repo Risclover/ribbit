@@ -13,9 +13,9 @@ export default function CreatePostBar({ page, communityId }) {
 
   const users = useSelector((state) => state.users);
 
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getUsers());
+  // }, [dispatch]);
 
   const handleClick = (e) => {
     e.preventDefault();

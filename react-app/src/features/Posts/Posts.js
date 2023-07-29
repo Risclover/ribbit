@@ -34,10 +34,10 @@ function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
   const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
 
   useEffect(() => {
-    dispatch(getPosts());
-    dispatch(getCommunities());
-    dispatch(getViewedPosts());
-    dispatch(getSubscriptions());
+    // dispatch(getPosts());
+    // dispatch(getCommunities());
+    // dispatch(getViewedPosts());
+    // dispatch(getSubscriptions());
   }, [dispatch]);
 
   const loadMore = () => {

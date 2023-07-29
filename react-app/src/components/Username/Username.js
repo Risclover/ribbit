@@ -8,7 +8,7 @@ export default function Username({ username, user, source }) {
   const history = useHistory();
 
   const users = useSelector((state) => Object.values(state.users));
-  const currentUser = useSelector(state => state.session.user);
+  const currentUser = useSelector((state) => state.session.user);
 
   const [showUserBox, setShowUserBox] = useState(false);
 
@@ -16,6 +16,7 @@ export default function Username({ username, user, source }) {
 
   const handleUsernameClick = (e) => {
     let isInputClicked = false;
+
     const checkForInput = (element) => {
       if (element.tagName === "INPUT") {
         isInputClicked = true;
@@ -37,9 +38,11 @@ export default function Username({ username, user, source }) {
       <div className="username-component" onClick={handleUsernameClick}>
         {source === "singlepost" ? "u/" + username : username}
       </div>
-      {foundUser.length > 0 && currentUser && currentUser.id !== foundUser[0].id && (
-        <UsernamePopup user={foundUser} setShowUserBox={setShowUserBox} />
-      )}
+      {foundUser.length > 0 &&
+        currentUser &&
+        currentUser.id !== foundUser[0].id && (
+          <UsernamePopup user={foundUser} setShowUserBox={setShowUserBox} />
+        )}
     </div>
   );
 }

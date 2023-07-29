@@ -4,12 +4,16 @@ import cutLink from "./SliceUrl";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
 import LazyLoad from "react-lazyload";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function SinglePostContent({ post, isPage }) {
   return (
     <div className="single-post-content-box">
       <div className="single-post-content-box-left">
-        <div className="single-post-title-bar">{post.title}</div>
+        <div className="single-post-title-bar">
+          {post.title || <Skeleton />}
+        </div>
         {post.imgUrl !== null ? (
           <div className="single-post-content-image">
             <LazyLoad height={700} offset={100}>
@@ -44,7 +48,7 @@ export default function SinglePostContent({ post, isPage }) {
             }
             style={{ whiteSpace: "pre-line" }}
           >
-            {parse(post.content)}
+            {parse(post.content) || <Skeleton />}
           </div>
         ) : (
           ""

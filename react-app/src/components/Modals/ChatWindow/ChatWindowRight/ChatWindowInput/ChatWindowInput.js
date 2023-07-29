@@ -62,13 +62,12 @@ export default function ChatWindowInput({ socket, selectedChat }) {
           ref={textareaRef}
           onChange={handleChange}
           placeholder="Message"
-          rows={(e) => calculateTextareaRows(e)}
         ></textarea>
         <button
           className="emojis-btn"
           onClick={() => setEmojisOverlay(!emojisOverlay)}
         >
-          <span class="material-symbols-outlined">sentiment_satisfied</span>
+          <span className="material-symbols-outlined">sentiment_satisfied</span>
         </button>
       </div>
       <div

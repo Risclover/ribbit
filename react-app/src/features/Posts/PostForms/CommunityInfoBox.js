@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Cake from "../../../images/misc/piece4.png";
 import moment from "moment";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function CommunityInfoBox({ community }) {
   const [members, setMembers] = useState(0);

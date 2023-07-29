@@ -31,6 +31,10 @@
   margin-right: 8px;
 }
 
+.single-post-community-name span {
+  cursor: pointer;
+}
+
 .threadline-wrapper {
   padding: 0 10px;
   cursor: pointer;

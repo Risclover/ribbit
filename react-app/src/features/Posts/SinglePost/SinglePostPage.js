@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 import { getSinglePost } from "../../../store/one_post";
 import { getSubscriptions } from "../../../store/subscriptions";
@@ -174,9 +176,10 @@ export default function SinglePostPage({
             </div>
             <div className="single-post-rules">
               <ol>
-                {Object.values(post?.communityRules).map((rule, idx) => (
-                  <CommunityRule idx={idx} rule={rule} />
-                ))}
+                {Object.values(post?.communityRules).map(
+                  (rule, idx) =>
+                    <CommunityRule idx={idx} rule={rule} /> || <Skeleton />
+                )}
               </ol>
             </div>
           </div>

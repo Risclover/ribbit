@@ -1,7 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Username from "../../../components/Username/Username";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 moment.updateLocale("en-post", {
   relativeTime: {
@@ -23,6 +24,9 @@ moment.updateLocale("en-post", {
 });
 
 export default function SinglePostAuthorBar({ community, post, isPage }) {
+  const history = useHistory();
+  const communityHref = `/c/${community?.id}`;
+
   return (
     <div className="single-post-author-bar">
       {isPage !== "community" && (
@@ -32,7 +36,15 @@ export default function SinglePostAuthorBar({ community, post, isPage }) {
           </div>
 
           <div className="single-post-community-name">
-            <NavLink to={`/c/${community?.id}`}>c/{community?.name}</NavLink>
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                history.push(communityHref);
+              }}
+            >
+              c/{community?.name}
+            </span>
           </div>
 
           <span className="single-post-dot-spacer">•</span>
@@ -41,7 +53,11 @@ export default function SinglePostAuthorBar({ community, post, isPage }) {
 
       <div className="single-post-author-info">
         Posted by
-        <Username username={post.postAuthor.username} user={post.postAuthor} source="singlepost" />
+        <Username
+          username={post.postAuthor.username}
+          user={post.postAuthor}
+          source="singlepost"
+        />
         {moment(new Date(post.createdAt)).locale("en-post").fromNow()}
       </div>
     </div>

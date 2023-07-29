@@ -6,10 +6,6 @@ export default function ViewedPostsList() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.viewedPosts);
 
-  useEffect(() => {
-    dispatch(getViewedPosts());
-  }, [dispatch]);
-
   return (
     <div>
       {posts.map((post) => (

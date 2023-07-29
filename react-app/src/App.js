@@ -89,275 +89,270 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>
-        <ScrollToTop />
-        <NavBar
-          pageTitle={pageTitle}
-          setPageTitle={setPageTitle}
-          pageIcon={pageIcon}
-          setPageIcon={setPageIcon}
-          adjustQuery={adjustQuery}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          setShowNavSidebar={setShowNavSidebar}
-          showNavSidebar={showNavSidebar}
-          normalDropdown={normalDropdown}
-          setNormalDropdown={setNormalDropdown}
-          setOpenChat={setOpenChat}
-          openChat={openChat}
-          setSelectedChat={setSelectedChat}
-        />{" "}
-        <div
-          className={
-            showNavSidebar
-              ? "main main-padded"
-              : showLoggedOutSidebar
-              ? "main main-padded"
-              : "main"
-          }
-        >
-          {!user && (
-            <LoggedOutSidebar
-              setShowSignupForm={setShowSignupForm}
-              showLoggedOutSidebar={showLoggedOutSidebar}
-            />
-          )}
-          {user && (
-            <NavSidebar
-              setShowNavSidebar={setShowNavSidebar}
-              showNavSidebar={showNavSidebar}
-              setNormalDropdown={setNormalDropdown}
-              normalDropdown={normalDropdown}
-            />
-          )}
-          {openChat && (
-            <ChatWindow
-              setOpenChat={setOpenChat}
-              setSelectedChat={setSelectedChat}
-              selectedChat={selectedChat}
-              openChat={openChat}
-            />
-          )}
-          <Switch>
-            {user ? (
-              <Route path="/" exact={true}>
-                <SubscribedPosts
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
-                  format={format}
-                  setFormat={setFormat}
-                />
-              </Route>
-            ) : (
-              <Route path="/" exact={true}>
-                <Posts
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
-                  format={format}
-                  setFormat={setFormat}
-                  setRecentPostList={setRecentPostList}
-                  recentPostList={recentPostList}
-                />
-              </Route>
-            )}
-            <Route path="/home" exact={true}>
+      <ScrollToTop />
+      <NavBar
+        pageTitle={pageTitle}
+        setPageTitle={setPageTitle}
+        pageIcon={pageIcon}
+        setPageIcon={setPageIcon}
+        adjustQuery={adjustQuery}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        setShowNavSidebar={setShowNavSidebar}
+        showNavSidebar={showNavSidebar}
+        normalDropdown={normalDropdown}
+        setNormalDropdown={setNormalDropdown}
+        setOpenChat={setOpenChat}
+        openChat={openChat}
+        setSelectedChat={setSelectedChat}
+      />{" "}
+      <div
+        className={
+          showNavSidebar
+            ? "main main-padded"
+            : showLoggedOutSidebar
+            ? "main main-padded"
+            : "main"
+        }
+      >
+        {!user && (
+          <LoggedOutSidebar
+            setShowSignupForm={setShowSignupForm}
+            showLoggedOutSidebar={showLoggedOutSidebar}
+          />
+        )}
+        {user && (
+          <NavSidebar
+            setShowNavSidebar={setShowNavSidebar}
+            showNavSidebar={showNavSidebar}
+            setNormalDropdown={setNormalDropdown}
+            normalDropdown={normalDropdown}
+          />
+        )}
+        {openChat && (
+          <ChatWindow
+            setOpenChat={setOpenChat}
+            setSelectedChat={setSelectedChat}
+            selectedChat={selectedChat}
+            openChat={openChat}
+          />
+        )}
+        <Switch>
+          {user ? (
+            <Route path="/" exact={true}>
               <SubscribedPosts
                 setPageTitle={setPageTitle}
                 setPageIcon={setPageIcon}
-                postType={postType}
-                setPostType={setPostType}
                 format={format}
                 setFormat={setFormat}
               />
             </Route>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <Route path="/signup">
-              {showSignupForm && (
-                <Modal
-                  title={"Sign Up"}
-                  onClose={() => setShowSignupForm(false)}
-                >
-                  <SignUpForm
-                    showSignupForm={showSignupForm}
-                    setShowLoginForm={setShowLoginForm}
-                    setShowSignupForm={setShowSignupForm}
-                  />
-                </Modal>
-              )}
-            </Route>
-            <Route path="/c/all" exact={true}>
+          ) : (
+            <Route path="/" exact={true}>
               <Posts
-                setPageIcon={setPageIcon}
                 setPageTitle={setPageTitle}
-                postType={postType}
-                setPostType={setPostType}
+                setPageIcon={setPageIcon}
                 format={format}
                 setFormat={setFormat}
                 setRecentPostList={setRecentPostList}
                 recentPostList={recentPostList}
               />
             </Route>
-            <ProtectedRoute path="/c/submit" exact={true}>
-              <CreatePost
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-                postType={postType}
-                setPostType={setPostType}
-                val="post"
-              />
-            </ProtectedRoute>
-            <ProtectedRoute path="/c/submit/image" exact={true}>
-              <CreatePost
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-                postType={postType}
-                setPostType={setPostType}
-                val="image"
-              />
-            </ProtectedRoute>
-            <ProtectedRoute path="/c/submit/url" exact={true}>
-              <CreatePost
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-                postType={postType}
-                setPostType={setPostType}
-                val="link"
-              />
-            </ProtectedRoute>
-            <ProtectedRoute path="/c/:communityId/submit" exact={true}>
-              <CreatePost
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-                postType={postType}
-                setPostType={setPostType}
-                val="post"
-              />
-            </ProtectedRoute>
-            <ProtectedRoute path="/c/:communityId/submit/image" exact={true}>
-              <CreatePost
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-                postType={postType}
-                setPostType={setPostType}
-                val="image"
-              />
-            </ProtectedRoute>
-            <ProtectedRoute path="/c/:communityId/submit/url" exact={true}>
-              <CreatePost
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-                postType={postType}
-                setPostType={setPostType}
-                val="link"
-              />
-            </ProtectedRoute>
-            <Route path="/posts/:postId" exact={true}>
-              <SinglePostPage
-                setRecentPostList={setRecentPostList}
-                recentPostList={recentPostList}
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-                format={format}
-              />
-            </Route>
-            <Route path="/images/:postId" exact={true}>
-              <SingleImagePage />
-            </Route>
+          )}
+          <Route path="/home" exact={true}>
+            <SubscribedPosts
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              postType={postType}
+              setPostType={setPostType}
+              format={format}
+              setFormat={setFormat}
+            />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          <Route path="/signup">
+            {showSignupForm && (
+              <Modal title={"Sign Up"} onClose={() => setShowSignupForm(false)}>
+                <SignUpForm
+                  showSignupForm={showSignupForm}
+                  setShowLoginForm={setShowLoginForm}
+                  setShowSignupForm={setShowSignupForm}
+                />
+              </Modal>
+            )}
+          </Route>
+          <Route path="/c/all" exact={true}>
+            <Posts
+              setPageIcon={setPageIcon}
+              setPageTitle={setPageTitle}
+              postType={postType}
+              setPostType={setPostType}
+              format={format}
+              setFormat={setFormat}
+              setRecentPostList={setRecentPostList}
+              recentPostList={recentPostList}
+            />
+          </Route>
+          <ProtectedRoute path="/c/submit" exact={true}>
+            <CreatePost
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              postType={postType}
+              setPostType={setPostType}
+              val="post"
+            />
+          </ProtectedRoute>
+          <ProtectedRoute path="/c/submit/image" exact={true}>
+            <CreatePost
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              postType={postType}
+              setPostType={setPostType}
+              val="image"
+            />
+          </ProtectedRoute>
+          <ProtectedRoute path="/c/submit/url" exact={true}>
+            <CreatePost
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              postType={postType}
+              setPostType={setPostType}
+              val="link"
+            />
+          </ProtectedRoute>
+          <ProtectedRoute path="/c/:communityId/submit" exact={true}>
+            <CreatePost
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              postType={postType}
+              setPostType={setPostType}
+              val="post"
+            />
+          </ProtectedRoute>
+          <ProtectedRoute path="/c/:communityId/submit/image" exact={true}>
+            <CreatePost
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              postType={postType}
+              setPostType={setPostType}
+              val="image"
+            />
+          </ProtectedRoute>
+          <ProtectedRoute path="/c/:communityId/submit/url" exact={true}>
+            <CreatePost
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              postType={postType}
+              setPostType={setPostType}
+              val="link"
+            />
+          </ProtectedRoute>
+          <Route path="/posts/:postId" exact={true}>
+            <SinglePostPage
+              setRecentPostList={setRecentPostList}
+              recentPostList={recentPostList}
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              format={format}
+            />
+          </Route>
+          <Route path="/images/:postId" exact={true}>
+            <SingleImagePage />
+          </Route>
 
-            <Route path="/directory" exact={true}>
-              <CommunitiesDirectory
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-              />
-            </Route>
-            <Route path="/chat" exact={true}>
-              <Chat />
-            </Route>
-            <ProtectedRoute path="/message/messages" exact={true}>
-              <Messages setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
-            </ProtectedRoute>
-            <ProtectedRoute path="/message/unread" exact={true}>
-              <Unread setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
-            </ProtectedRoute>
-            <ProtectedRoute path="/message/sent" exact={true}>
-              <Sent setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
-            </ProtectedRoute>
-            <ProtectedRoute path="/message/inbox" exact={true}>
-              <Inbox setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
-            </ProtectedRoute>
-            <ProtectedRoute path="/message/selfreply" exact={true}>
-              <PostRepliesPage
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-              />
-            </ProtectedRoute>
-            <ProtectedRoute path="/message/messages/:threadId" exact={true}>
-              <Permalink />
-            </ProtectedRoute>
-            <ProtectedRoute path="/posts/:postId/edit" exact={true}>
-              <UpdatePost />
-            </ProtectedRoute>
-            <Route path="/c/:communityId" exact={true}>
-              <CommunityPage
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-                postType={postType}
-                setPostType={setPostType}
-                format={format}
-                setFormat={setFormat}
-              />
-            </Route>
-            <ProtectedRoute path="/c/:communityId/edit" exact={true}>
-              <EditCommunity />
-            </ProtectedRoute>
-            <ProtectedRoute path="/users/:userId/profile/edit" exact={true}>
-              <EditProfile
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-              />
-            </ProtectedRoute>
-            <ProtectedRoute path="/posts/:postId/img/edit" exact={true}>
-              <UpdateImagePost />
-            </ProtectedRoute>
-            <Route path="/search/results" exact={true}>
-              <SearchResults
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-                adjustQuery={adjustQuery}
-                setAdjustQuery={setAdjustQuery}
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-              />
-            </Route>
-            <ProtectedRoute path="/users" exact={true}>
-              <UsersList />
-            </ProtectedRoute>
-            <Route path="/users/:userId/profile" exact={true}>
-              <UserProfile
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-                setOpenChat={setOpenChat}
-                setSelectedChat={setSelectedChat}
-              />
-            </Route>
-            <Route path="/profile" exact={true}>
-              <UserProfile
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-              />
-            </Route>
-            <ProtectedRoute path="/notifications" exact={true}>
-              <Notifications
-                setPageTitle={setPageTitle}
-                setPageIcon={setPageIcon}
-              />
-            </ProtectedRoute>
-            <Route></Route>
-          </Switch>
-        </div>
-      </Suspense>
+          <Route path="/directory" exact={true}>
+            <CommunitiesDirectory
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+            />
+          </Route>
+          <Route path="/chat" exact={true}>
+            <Chat />
+          </Route>
+          <ProtectedRoute path="/message/messages" exact={true}>
+            <Messages setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/message/unread" exact={true}>
+            <Unread setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/message/sent" exact={true}>
+            <Sent setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/message/inbox" exact={true}>
+            <Inbox setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+          </ProtectedRoute>
+          <ProtectedRoute path="/message/selfreply" exact={true}>
+            <PostRepliesPage
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+            />
+          </ProtectedRoute>
+          <ProtectedRoute path="/message/messages/:threadId" exact={true}>
+            <Permalink />
+          </ProtectedRoute>
+          <ProtectedRoute path="/posts/:postId/edit" exact={true}>
+            <UpdatePost />
+          </ProtectedRoute>
+          <Route path="/c/:communityId" exact={true}>
+            <CommunityPage
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              postType={postType}
+              setPostType={setPostType}
+              format={format}
+              setFormat={setFormat}
+            />
+          </Route>
+          <ProtectedRoute path="/c/:communityId/edit" exact={true}>
+            <EditCommunity />
+          </ProtectedRoute>
+          <ProtectedRoute path="/users/:userId/profile/edit" exact={true}>
+            <EditProfile
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+            />
+          </ProtectedRoute>
+          <ProtectedRoute path="/posts/:postId/img/edit" exact={true}>
+            <UpdateImagePost />
+          </ProtectedRoute>
+          <Route path="/search/results" exact={true}>
+            <SearchResults
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              adjustQuery={adjustQuery}
+              setAdjustQuery={setAdjustQuery}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          </Route>
+          <ProtectedRoute path="/users" exact={true}>
+            <UsersList />
+          </ProtectedRoute>
+          <Route path="/users/:userId/profile" exact={true}>
+            <UserProfile
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              setOpenChat={setOpenChat}
+              setSelectedChat={setSelectedChat}
+            />
+          </Route>
+          <Route path="/profile" exact={true}>
+            <UserProfile
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+            />
+          </Route>
+          <ProtectedRoute path="/notifications" exact={true}>
+            <Notifications
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+            />
+          </ProtectedRoute>
+          <Route></Route>
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 }
