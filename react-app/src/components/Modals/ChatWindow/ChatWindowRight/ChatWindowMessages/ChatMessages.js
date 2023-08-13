@@ -15,7 +15,7 @@ export default function ChatMessages({
   const containerRef = useRef(null);
   const currentUser = useSelector((state) => state.session.user);
   const [receiver, setReceiver] = useState(null);
-
+  const chatThreads = useSelector((state) => state.chatThreads);
   useLayoutEffect(() => {
     if (containerRef.current) {
       const containerElement = containerRef.current;
@@ -39,7 +39,7 @@ export default function ChatMessages({
     setReceiver(() =>
       selectedChat?.users?.find((user) => user.id !== currentUser.id)
     );
-  }, [selectedChat?.users, currentUser.id]);
+  }, [selectedChat?.users, currentUser.id, chatThreads]);
 
   return (
     <div className="chat-thread-messages" ref={containerRef}>
@@ -105,6 +105,7 @@ export default function ChatMessages({
                 key={idx}
                 setDeleteOverlay={setDeleteOverlay}
                 setMsgId={setMsgId}
+                selectedChat={selectedChat}
               />
             );
           })}

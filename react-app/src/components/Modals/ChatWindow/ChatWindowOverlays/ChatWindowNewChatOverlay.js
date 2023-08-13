@@ -11,6 +11,7 @@ import {
 export default function ChatWindowNewChatOverlay({
   setNewChatOverlay,
   setSelectedChat,
+  setWelcomeOverlay,
 }) {
   const dispatch = useDispatch();
 
@@ -45,17 +46,17 @@ export default function ChatWindowNewChatOverlay({
 
   const handleStartChat = async (e) => {
     e.preventDefault();
-    console.log("hello");
     const existingThread = userChats.find(
       (thread) =>
         thread.users?.some((user) => user.id === currentUser.id) &&
         thread.users?.some((user) => user.id === userFound.id)
     );
-    console.log("existing thread:", existingThread);
+
     if (!existingThread) {
       const newChat = await dispatch(createChatThread(userFound?.id));
       await dispatch(getUserChatThreads());
       setNewChatOverlay(false);
+      setWelcomeOverlay(false);
       setSelectedChat(newChat);
     } else {
       setSelectedChat(existingThread);

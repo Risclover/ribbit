@@ -124,12 +124,13 @@
   flex-flow: row wrap;
   align-items: center;
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 .classic-post-buttons {
   display: flex;
   align-items: center;
+  margin-bottom: 1px;
 }
 
 .classic-post-title {
@@ -223,6 +224,7 @@
 
 .btn-expand {
   transform: rotate(90deg);
+  font-size: 12px;
 }
 
 .classic-post-author-info {

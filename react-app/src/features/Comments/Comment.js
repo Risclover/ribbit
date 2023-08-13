@@ -82,12 +82,17 @@ export default function Comment({ commentId }) {
   const post = useSelector((state) => state.singlePost);
   // const post = useSelector((state) => state.posts[postId]);
 
+  console.log(
+    "post:",
+    post[postId].postAuthor.username,
+    comment.commentAuthor.username
+  );
+
   useEffect(() => {
     dispatch(getSinglePost(postId));
   }, [dispatch]);
 
   const url = window.location.href;
-
 
   useEffect(() => {
     if (comment?.createdAt !== comment?.updatedAt) {
@@ -221,8 +226,12 @@ export default function Comment({ commentId }) {
         </div>
         <div className="comment-right-col">
           <div className="comment-right-username">
-            <Username username={comment.commentAuthor?.username} user={comment?.commentAuthor} />
-            {post.postAuthor?.username === comment.commentAuthor?.username ? (
+            <Username
+              username={comment.commentAuthor?.username}
+              user={comment?.commentAuthor}
+            />
+            {post[postId].postAuthor?.username ===
+            comment.commentAuthor?.username ? (
               <span className="op-sign">OP</span>
             ) : (
               ""

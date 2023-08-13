@@ -121,16 +121,35 @@ export const readAllMessages = (threadId) => async (dispatch) => {
   }
 };
 
+export const reactToMessage = (messageId, reactionType) => async (dispatch) => {
+  const response = await fetch(
+    `/api/chat_threads/messages/${messageId}/reactions`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reactionType }),
+    }
+  );
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  }
+};
+
 const initialState = {};
 
 export default function chatThreadReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_CHAT_THREADS:
       if (action.chatThreads && action.chatThreads.ChatThreads) {
-        return action.chatThreads.ChatThreads.reduce((chatThreads, chatThread) => {
-          chatThreads[chatThread.id] = chatThread;
-          return chatThreads;
-        }, {});
+        return action.chatThreads.ChatThreads.reduce(
+          (chatThreads, chatThread) => {
+            chatThreads[chatThread.id] = chatThread;
+            return chatThreads;
+          },
+          {}
+        );
       }
       return state;
 

@@ -40,7 +40,7 @@ export default function CommentForm({ postId }) {
       const data = dispatch(addNotification(notificationPayload));
       dispatch(getAllNotifications());
       setErrors([]);
-      setContent(" ");
+      setContent("");
     }
   };
 

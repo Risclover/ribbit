@@ -132,6 +132,18 @@
   transform: rotate(90deg);
 }
 
+.single-post-comments-btn svg {
+  width: 18px;
+  margin-right: 8px;
+}
+
+.post-btn-separator {
+  border-right: 1px solid #edeff1;
+  height: 16px;
+  margin-left: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
 .compact-post-icon-btn:hover .compact-post-icon-btn-expand {
   display: block;
 }

@@ -57,3 +57,21 @@ class ChatMessageThread(db.Model):
 
     def __repr__(self):
         return f"<Chat Message Thread {self.id}: {[msg.to_dict() for msg in self.messages]}>"
+
+
+class ChatMessageReaction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    message_id = db.Column(db.Integer, db.ForeignKey('chat_messages.id'), nullable=False)
+    reaction_type = db.Column(db.String, nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "userId": self.user_id,
+            "messageId": self.message_id,
+            "reactionType": self.reaction_type
+        }
+
+    def __repr__(self):
+        return f"<Chat Message Reaction {self.id}: {self.reaction_type}>"

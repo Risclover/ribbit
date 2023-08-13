@@ -118,7 +118,10 @@ export default function ChatNavBtn({
         </div>
         <div className="chat-window-chatnav-last">
           {sender && sender !== "" ? sender + ": " : ""}
-          {lastMessage && lastMessage.slice(-4) === ".png" ? "🖼️" : lastMessage}
+          {(lastMessage && lastMessage.slice(-4) === ".png") ||
+          lastMessage.includes("giphy")
+            ? "🖼️"
+            : lastMessage}
         </div>
       </div>
     </div>

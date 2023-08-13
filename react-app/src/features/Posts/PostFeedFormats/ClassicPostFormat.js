@@ -195,6 +195,7 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
                       <CgNotes />
                     </button>
                   )}
+                <div className="post-btn-separator"></div>
                 <div className="single-post-button">
                   <button
                     className="single-post-comments-btn"

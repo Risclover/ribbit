@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, User, ChatMessageThread, ChatMessage
-
+from app.models import db, User, ChatMessageThread, ChatMessage, ChatMessageReaction
+from flask_socketio import SocketIO, emit, join_room, leave_room, disconnect
 
 chat_thread_routes = Blueprint("chat_threads", __name__)
 
@@ -43,7 +43,7 @@ def create_thread():
     db.session.commit()
 
 
-    return { "chatThread": thread.to_dict() }
+    return { thread.to_dict() }
 
 
 # CREATE A NEW MESSAGE & ADD TO CHAT
@@ -65,29 +65,28 @@ def create_message(id):
     return message.to_dict()
 
 
-# # ADD A REACTION TO MESSAGE
-# @chat_thread_routes.route("/messages/<int:messageId>/reactions", methods=["POST"])
-# @login_required
-# def create_reaction(messageId):
-#     data = request.get_json()
-#     emoji = data.get("emoji")
-#     user_id = data.get("user_id")
+# ADD A REACTION TO A MESSAGE
+@chat_thread_routes.route("/messages/<int:id>/reactions", methods=["POST"])
+def create_reaction(id):
+    reaction_type = request.json.get('reactionType')
 
-#     message = ChatMessage.query.get(messageId)
-#     user = User.query.get(user_id)
+    # Create or update the reaction
+    reaction = ChatMessageReaction.query.filter_by(user_id=current_user.get_id(), message_id=id).first()
+    if reaction:
+        reaction.reaction_type = reaction_type
+    else:
+        reaction = ChatMessageReaction(user_id=current_user.get_id(), message_id=id, reaction_type=reaction_type)
+        db.session.add(reaction)
 
-#     new_reaction = Reaction(
-#         emoji=emoji
-#     )
+    db.session.commit()
 
-#     new_reaction.user = user
+    # Calculate reaction count for the message
+    reaction_count = ChatMessageReaction.query.filter_by(message_id=id, reaction_type=reaction_type).count()
 
-#     message.reactions.append(new_reaction)
+    # Emit a socket event
+    emit("message_reaction", {'messageId': id, 'reactionType': reaction_type, 'reactionCount': reaction_count})
 
-#     db.session.add(new_reaction)
-#     db.session.commit()
-
-#     return new_reaction.to_dict()
+    return jsonify({'reactionCount': reaction_count})
 
 
 # "DELETE" A MESSAGE (UPDATE TO SAY '[MESSAGE DELETED]')
@@ -95,8 +94,7 @@ def create_message(id):
 @login_required
 def fake_delete_message(id):
     message = ChatMessage.query.get(id)
-    setattr(message, "content", "[Message deleted]")
-
+    setattr(message, "content", "Message deleted by user")
     db.session.commit()
     return message.to_dict()
 

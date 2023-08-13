@@ -15,6 +15,7 @@ import { BsChatDots } from "react-icons/bs";
 import All from "../../images/navbar/all-icon2.png";
 import LoggedOutDropdownWrapper from "./LoggedOutDropdown/LoggedOutDropdownWrapper";
 import "./NavBar.css";
+import { getMessages } from "../../store/messages";
 
 const NavBar = ({
   searchQuery,
@@ -46,8 +47,9 @@ const NavBar = ({
   const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
-    dispatch(getCommunities())
+    dispatch(getCommunities());
     dispatch(getUsers());
+    dispatch(getMessages());
   }, [dispatch]);
 
   useEffect(() => {

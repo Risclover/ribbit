@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TfiClose } from "react-icons/tfi";
 import { useSelector } from "react-redux";
+import { GoChevronDown } from "react-icons/go";
 
 export default function ChatWindowTitleBar({
   selectedChat,
@@ -21,12 +22,16 @@ export default function ChatWindowTitleBar({
   return (
     <div className="chat-thread-window-titlebar">
       {newChatOverlay ? "New Chat" : receiver?.username || ""}
-      <span
+      <button className="chat-window-close-btn" title="Minimize chat">
+        <GoChevronDown />
+      </button>
+      <button
+        title="Close chat"
         className="chat-window-close-btn"
         onClick={() => setOpenChat(false)}
       >
         <TfiClose />
-      </span>
+      </button>
     </div>
   );
 }

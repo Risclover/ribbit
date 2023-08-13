@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DateSeparator from "./DateSeparator";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
+import ReactionsMenu from "./ReactionsMenu";
 
 export default function ChatMessage({
   formattedDate,
@@ -10,8 +11,10 @@ export default function ChatMessage({
   message,
   setDeleteOverlay,
   setMsgId,
+  selectedChat,
 }) {
   const [msgContent, setMsgContent] = useState();
+  const [openReactions, setOpenReactions] = useState(false);
 
   const currentUser = useSelector((state) => state.session.user);
 
@@ -23,6 +26,15 @@ export default function ChatMessage({
       setMsgContent(
         `<div className="emoji-container">
           <img src=${message.content} className="emoji" />
+        </div>`
+      );
+    } else if (
+      typeof message.content === "string" &&
+      message.content.includes("giphy")
+    ) {
+      setMsgContent(
+        `<div className="msg-gif">
+          <img src=${message.content} />
         </div>`
       );
     } else {
@@ -37,10 +49,23 @@ export default function ChatMessage({
       new Date(message.createdAt) - new Date(previousMessage.createdAt) <=
         60000 ? (
         <div className="chat-thread-message-compact">
-          {msgContent !== "[Message deleted]" &&
-            message.sender?.username === currentUser.username &&
-            <div className="chat-message-hover-component">
-
+          {msgContent !== "Message deleted by user" &&
+            message.sender?.username === currentUser.username && (
+              <div className="chat-message-hover-component">
+                {openReactions && (
+                  <ReactionsMenu
+                    message={message}
+                    selectedChat={selectedChat}
+                  />
+                )}
+                <button
+                  className="chat-message-reaction-btn"
+                  onClick={() => setOpenReactions(true)}
+                >
+                  <span className="material-symbols-outlined">
+                    sentiment_satisfied
+                  </span>
+                </button>
                 <button
                   className="chat-message-delete-btn"
                   onClick={() => {
@@ -50,8 +75,8 @@ export default function ChatMessage({
                 >
                   <i className="bi bi-trash3"></i>
                 </button>
-            </div>
-          }
+              </div>
+            )}
           <div className="chat-thread-message-compact-time">
             {new Date(message.createdAt).toLocaleString("en-US", {
               hour: "numeric",
@@ -59,7 +84,7 @@ export default function ChatMessage({
               hour12: true,
             })}
           </div>
-          {msgContent === "[Message deleted]" ? (
+          {msgContent === "Message deleted by user" ? (
             <span className="fake-deleted-msg">{msgContent}</span>
           ) : (
             typeof msgContent === "string" && parse(msgContent)
@@ -67,10 +92,24 @@ export default function ChatMessage({
         </div>
       ) : (
         <div className="chat-thread-message">
-          {msgContent !== "[Message deleted]" &&
-            message.sender?.username === currentUser.username &&
-            <div className="chat-message-hover-component">
-
+          {msgContent !== "Message deleted by user" &&
+            message.sender?.username === currentUser.username && (
+              <div
+                className={`${
+                  openReactions
+                    ? "chat-message-hover-component-open"
+                    : "chat-message-hover-component"
+                }`}
+              >
+                {openReactions && <ReactionsMenu />}
+                <button
+                  className="chat-message-reaction-btn"
+                  onClick={() => setOpenReactions(true)}
+                >
+                  <span className="material-symbols-outlined">
+                    sentiment_satisfied
+                  </span>
+                </button>
                 <button
                   className="chat-message-delete-btn"
                   onClick={() => {
@@ -80,8 +119,8 @@ export default function ChatMessage({
                 >
                   <i className="bi bi-trash3"></i>
                 </button>
-            </div>
-          }
+              </div>
+            )}
           <div className="chat-thread-message-user-img">
             {message.sender?.id !== currentUser.id ? (
               <img
@@ -104,7 +143,9 @@ export default function ChatMessage({
             <div className="chat-thread-message-author">
               {message.sender?.id === currentUser.id ? (
                 <span className="chat-thread-author">
-                  {message.sender?.username}{" "}
+                  {message.content === "Message deleted by user"
+                    ? "Removed"
+                    : message.sender?.username}{" "}
                 </span>
               ) : (
                 <span
@@ -117,7 +158,9 @@ export default function ChatMessage({
                   }
                   className="chat-thread-author pointer"
                 >
-                  {message.sender?.username}{" "}
+                  {message.content === "Message deleted by user"
+                    ? "Removed"
+                    : message.sender?.username}
                 </span>
               )}
               <span className="chat-thread-time">
@@ -128,7 +171,7 @@ export default function ChatMessage({
                 })}
               </span>
             </div>
-            {msgContent === "[Message deleted]" ? (
+            {msgContent === "Message deleted by user" ? (
               <span className="fake-deleted-msg">{msgContent}</span>
             ) : (
               typeof msgContent === "string" && parse(msgContent)

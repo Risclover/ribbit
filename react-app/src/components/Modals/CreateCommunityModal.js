@@ -42,7 +42,7 @@ export default function CreateCommunityModal({
   return (
     <>
       {showCreateCommunityModal && (
-        <div className="modal-container-create-community">
+        <div data-test-id="test" className="modal-container-create-community">
           <form className="create-community-form" onSubmit={handleCreation}>
             <div className="modal-content">
               <div className="modal-content-input">

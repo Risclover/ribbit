@@ -21,6 +21,10 @@
   margin-top: 16px;
 }
 
+.comment-system .username-component-wrapper {
+  margin: 0;
+}
+
 .log-in-to-comment {
   color: #0079d3;
   text-decoration: none;

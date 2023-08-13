@@ -23,16 +23,16 @@ export default function ChatWindow({
   const [msgId, setMsgId] = useState();
   const [newChatOverlay, setNewChatOverlay] = useState(false);
   const [welcomeOverlay, setWelcomeOverlay] = useState(
-    Object.values(chatThreads)?.length === 0 || !chatThreads ? true : false
+    Object.keys(chatThreads)?.length === 0 || !chatThreads ? true : false
   );
   const [deleteOverlay, setDeleteOverlay] = useState(false);
+
   const [receiver, setReceiver] = useState(
     selectedChat
       ? selectedChat?.users?.find((user) => user.id !== currentUser.id)
       : ""
   );
   const [lastMessage, setLastMessage] = useState();
-
   const [messages, setMessages] = useState(
     chatThreads &&
       selectedChat &&
@@ -139,6 +139,7 @@ export default function ChatWindow({
       {newChatOverlay && (
         <ChatWindowNewChatOverlay
           setNewChatOverlay={setNewChatOverlay}
+          setWelcomeOverlay={setWelcomeOverlay}
           setSelectedChat={setSelectedChat}
         />
       )}
