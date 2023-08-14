@@ -123,7 +123,7 @@ export const readAllMessages = (threadId) => async (dispatch) => {
 
 export const reactToMessage = (messageId, reactionType) => async (dispatch) => {
   const response = await fetch(
-    `/api/chat_threads/messages/${messageId}/reactions`,
+    `/api/chat_threads/messages/${messageId.id}/reactions`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

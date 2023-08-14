@@ -13,23 +13,22 @@ const reactions = [One, Two, Three, Four, Five];
 
 export default function ReactionsMenu({ message, selectedChat }) {
   const dispatch = useDispatch();
+  const [msgId, setMsgId] = useState(message?.id);
   const [reactionType, setReactionType] = useState("");
 
-  console.log("message:", message);
-
-  const react = async (e, reaction) => {
+  console.log(message);
+  console.log(msgId);
+  const react = (e, reaction) => {
     e.preventDefault();
-    console.log("reaction:", reaction);
     const payload = {
-      messageId: message,
+      messageId: msgId,
       reactionType: reaction,
     };
 
     console.log("payload:", payload);
 
-    const data = await dispatch(reactToMessage(payload));
-    console.log(data);
-    // dispatch(getChatThread(message?.threadId));
+    dispatch(reactToMessage(payload));
+    dispatch(getChatThread(message?.threadId));
   };
 
   return (
