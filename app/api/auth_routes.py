@@ -19,7 +19,22 @@ def validation_errors_to_error_messages(validation_errors):
 
 
 @auth_routes.route('/')
-def authenticate the request cookie and put it into the
+def authenticate():
+    """
+    Authenticates a user.
+    """
+    if current_user.is_authenticated:
+        return current_user.to_dict()
+    return {'errors': ['Unauthorized']}
+
+
+@auth_routes.route('/login', methods=['POST'])
+def login():
+    """
+    Logs a user in
+    """
+    form = LoginForm()
+    # Get the csrf_token from the request cookie and put it into the
     # form manually to validate_on_submit can be used
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
