@@ -115,21 +115,24 @@
 .chat-thread-messages::-webkit-scrollbar,
 .chat-window-chatnav-container::-webkit-scrollbar,
 .chat-thread-window-input-box textarea::-webkit-scrollbar,
-.chat-window-chatnav-container::-webkit-scrollbar {
+.chat-window-chatnav-container::-webkit-scrollbar,
+.reactions-menu-full::-webkit-scrollbar {
   width: 1rem;
 }
 
 .chat-thread-messages::-webkit-scrollbar-track,
 .chat-window-chatnav-container::-webkit-scrollbar-track,
 .chat-thread-window-input-box textarea::-webkit-scroll-track,
-.chat-window-chatnav-container::-webkit-scroll-track {
+.chat-window-chatnav-container::-webkit-scrollbar-track,
+.reactions-menu-full::-webkit-scrollbar-track {
   border: 0px;
 }
 
 .chat-thread-messages::-webkit-scrollbar-thumb,
 .chat-window-chatnav-container::-webkit-scrollbar-thumb,
 .chat-thread-window-input-box textarea::-webkit-scrollbar-thumb,
-.chat-window-chatnav-container::-webkit-scrollbar-thumb {
+.chat-window-chatnav-container::-webkit-scrollbar-thumb,
+.reactions-menu-full::-webkit-scrollbar-thumb {
   min-height: 50px;
   border-radius: calc(5rem / 2);
   border: 3px solid rgba(0, 0, 0, 0);
@@ -1142,32 +1145,65 @@
 }
 
 .reactions-menu {
-  background: white;
   position: absolute;
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto;
   z-index: 9999;
-  right: 20px;
-  top: -60px;
-  width: fit-content;
+  right: 0px;
+  bottom: 40px;
+}
+
+.reactions-menu > div {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.15);
-  border-radius: 100px;
   padding: 5px;
+  background: white;
 }
 
-.reactions-menu img {
-  width: 32px;
-  height: 32px;
+.reactions-menu-small {
+  border-radius: 100px;
+}
+
+.reactions-menu-full {
+  height: 256px;
+  width: 284px;
+  border-radius: 16px;
+  padding: 12px 12px 12px 16px;
+  margin: 0px 0px 4px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.reactions-menu-small,
+.reactions-menu-full-grid {
+  width: fit-content;
+  display: grid;
+}
+
+.reactions-menu-small {
+  grid-template-columns: auto auto auto auto auto auto;
+}
+
+.reactions-menu-full-grid {
+  grid-gap: 12px;
+  grid-template-columns: auto auto auto auto auto;
+}
+
+.reactions-menu-small img,
+.reactions-menu-full-grid img {
+  max-width: 32px;
+  max-height: 32px;
+  height: auto;
   cursor: pointer;
-  transition: transform 0.5s ease;
+  transition: transform 150ms ease;
 }
 
-.reactions-menu img:hover {
-  transform: scale(1.2);
+.reactions-menu-small img:hover,
+.reactions-menu-full-grid img:hover {
+  transform: scale(1.6);
 }
 
 .reactions-menu-square {
   margin: 0 5px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1181,11 +1217,61 @@
   align-items: center;
   width: 32px;
   height: 32px;
-
+  cursor: pointer;
   justify-content: center;
   padding: 0.5rem;
 }
 
 .reactions-menu-plus:hover {
   background: #e2e7e9;
+}
+
+.reaction-picker-animation {
+  animation: 200ms linear 0s 1 normal none running revealAndScaleUp;
+}
+
+@keyframes revealAndScaleUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  80% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.reaction-preview-animation:nth-child(1) {
+  animation: 300ms linear 100ms 1 normal backwards running slideIn;
+  transition: all 0.15s ease-in-out 0s;
+}
+
+.reaction-preview-animation:nth-child(2) {
+  animation: 300ms linear 140ms 1 normal backwards running slideIn;
+  transition: all 0.15s ease-in-out 0s;
+}
+
+.reaction-preview-animation:nth-child(3) {
+  animation: 300ms linear 180ms 1 normal backwards running slideIn;
+  transition: all 0.15s ease-in-out 0s;
+}
+
+.reaction-preview-animation:nth-child(4) {
+  animation: 300ms linear 220ms 1 normal backwards running slideIn;
+  transition: all 0.15s ease-in-out 0s;
+}
+
+.reaction-preview-animation:nth-child(5) {
+  animation: 300ms linear 260ms 1 normal backwards running slideIn;
+  transition: all 0.15s ease-in-out 0s;
+}
+
+.reaction-preview-animation:nth-child(6) {
+  animation: 300ms linear 300ms 1 normal backwards running slideIn;
+  transition: all 0.15s ease-in-out 0s;
 }

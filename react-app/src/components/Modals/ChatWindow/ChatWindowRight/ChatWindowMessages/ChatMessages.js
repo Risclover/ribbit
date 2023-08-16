@@ -11,6 +11,8 @@ export default function ChatMessages({
   setDeleteOverlay,
   setMsgId,
   selectedChat,
+  setSelectedReaction,
+  selectedReaction,
 }) {
   const containerRef = useRef(null);
   const currentUser = useSelector((state) => state.session.user);
@@ -106,6 +108,8 @@ export default function ChatMessages({
                 setDeleteOverlay={setDeleteOverlay}
                 setMsgId={setMsgId}
                 selectedChat={selectedChat}
+                selectedReaction={selectedReaction}
+                setSelectedReaction={setSelectedReaction}
               />
             );
           })}

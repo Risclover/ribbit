@@ -70,22 +70,3 @@ def on_leave(data):
     room = f'user_{user_id}'
     leave_room(room)
     emit('left', {'room': room})
-
-# @socketio.on('send_message')
-# def send_message(data):
-#     sender_id = data['sender_id']
-#     receiver_id = data['receiver_id']
-#     text = data['text']
-#     message = Chat(sender_id=sender_id, receiver_id=receiver_id, text=text)
-#     db.session.add(message)
-#     db.session.commit()
-#     room = f'user_{receiver_id}'
-#     emit('receive_message', {'sender_id': sender_id, 'text': text}, room=room)
-
-
-@socketio.on('message_reaction')
-def react(data):
-    message_id = data['message_id']
-    reaction_type = data['reaction_type']
-    reaction_count = data['reaction_count']
-    emit('message_reaction', {'messageId': message_id, 'reactionType': reaction_type, 'reactionCount': reaction_count})

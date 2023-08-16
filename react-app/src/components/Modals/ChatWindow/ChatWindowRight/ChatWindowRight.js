@@ -13,6 +13,8 @@ export default function ChatWindowRight({
   socket,
   newChatOverlay,
 }) {
+  const [selectedReaction, setSelectedReaction] = useState("");
+
   return (
     <div className="chat-window-right">
       <ChatWindowTitleBar
@@ -26,11 +28,15 @@ export default function ChatWindowRight({
         setDeleteOverlay={setDeleteOverlay}
         setMsgId={setMsgId}
         selectedChat={selectedChat}
+        selectedReaction={selectedReaction}
+        setSelectedReaction={setSelectedReaction}
       />
       <ChatWindowInput
         selectedChat={selectedChat}
         receiver={receiver}
         socket={socket}
+        selectedReaction={selectedReaction}
+        setSelectedReaction={setSelectedReaction}
       />
     </div>
   );

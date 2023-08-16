@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useAutosizeTextArea from "../ChatWindowMessages/useAutosizeTextArea";
+import useAutosizeTextArea from "./useAutosizeTextArea";
 import { createChatMessage, getChatThread } from "../../../../../store/chats";
 import Emojis from "./Emojis";
 import { GiphyFetch } from "@giphy/js-fetch-api";
@@ -10,7 +10,11 @@ import Gifs from "./Gifs";
 
 const giphy = new GiphyFetch(process.env.REACT_APP_GIPHY_KEY);
 
-export default function ChatWindowInput({ socket, selectedChat }) {
+export default function ChatWindowInput({
+  socket,
+  selectedChat,
+  selectedReaction,
+}) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const textareaRef = useRef(null);
@@ -29,8 +33,6 @@ export default function ChatWindowInput({ socket, selectedChat }) {
     setReceiver(() =>
       selectedChat?.users?.find((user) => user.id !== currentUser.id)
     );
-
-    console.log("receiver:", receiver);
   }, [selectedChat?.users, currentUser.id]);
 
   const handleEnterPress = (e) => {
@@ -53,12 +55,10 @@ export default function ChatWindowInput({ socket, selectedChat }) {
       chatThreadId: selectedChat?.id,
     };
 
-    console.log("payload:", payload);
-
     const data = await dispatch(createChatMessage(payload));
-    console.log("data:", data);
     socket.emit("chat", data);
     socket.emit("last", data);
+
     await dispatch(getChatThread(selectedChat?.id));
   };
 

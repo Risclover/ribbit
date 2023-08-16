@@ -50,6 +50,7 @@ export const createChatThread = (receiverId) => async (dispatch) => {
 
 export const createChatMessage = (payload) => async (dispatch) => {
   const { content, receiverId, chatThreadId } = payload;
+  console.log("PAYLOAD:", payload);
   const response = await fetch(`/api/chat_threads/${chatThreadId}/messages`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -58,31 +59,7 @@ export const createChatMessage = (payload) => async (dispatch) => {
       receiver_id: receiverId,
     }),
   });
-
-  if (response.ok) {
-    const data = await response.json();
-    return data;
-  } else if (response.status < 500) {
-    const data = await response.json();
-    if (data.errors) {
-      return data;
-    }
-  } else {
-    return ["An error occurred. Please try again."];
-  }
-};
-
-export const createReaction = (payload) => async (dispatch) => {
-  const { emoji, userId, messageId } = payload;
-
-  const response = await fetch(`/api/messages/${messageId}/reactions`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      emoji,
-      user_id: userId,
-    }),
-  });
+  console.log("RESPONSE:", response);
 
   if (response.ok) {
     const data = await response.json();
@@ -121,16 +98,17 @@ export const readAllMessages = (threadId) => async (dispatch) => {
   }
 };
 
-export const reactToMessage = (messageId, reactionType) => async (dispatch) => {
+export const createReaction = (payload) => async (dispatch) => {
+  const { messageId, emoji } = payload;
+
   const response = await fetch(
-    `/api/chat_threads/messages/${messageId.id}/reactions`,
+    `/api/chat_threads/messages/${messageId}/reactions`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ reactionType }),
+      body: JSON.stringify({ emoji }),
     }
   );
-
   if (response.ok) {
     const data = await response.json();
     return data;

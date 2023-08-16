@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import DateSeparator from "./DateSeparator";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
-import ReactionsMenu from "./ReactionsMenu";
+import ReactionsMenu from "./ReactionsMenu/ReactionsMenuSmall";
+import ReactionsMenuSmall from "./ReactionsMenu/ReactionsMenuSmall";
 
 export default function ChatMessage({
   formattedDate,
@@ -12,6 +13,8 @@ export default function ChatMessage({
   setDeleteOverlay,
   setMsgId,
   selectedChat,
+  selectedReaction,
+  setSelectedReaction,
 }) {
   const [msgContent, setMsgContent] = useState();
   const [openReactions, setOpenReactions] = useState(false);
@@ -53,14 +56,16 @@ export default function ChatMessage({
             message.sender?.username === currentUser.username && (
               <div className="chat-message-hover-component">
                 {openReactions && (
-                  <ReactionsMenu
+                  <ReactionsMenuSmall
                     message={message}
                     selectedChat={selectedChat}
+                    selectedReaction={selectedReaction}
+                    setSelectedReaction={setSelectedReaction}
                   />
                 )}
                 <button
                   className="chat-message-reaction-btn"
-                  onClick={() => setOpenReactions(true)}
+                  onClick={() => setOpenReactions(!openReactions)}
                 >
                   <span className="material-symbols-outlined">
                     sentiment_satisfied

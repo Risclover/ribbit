@@ -20,6 +20,8 @@ class ChatMessage(db.Model):
     chat_message_thread = db.relationship('ChatMessageThread', back_populates="messages")
     sender = db.relationship("User", back_populates="user_chat_messages", primaryjoin="User.id==ChatMessage.sender_id")
     recipient = db.relationship("User", primaryjoin="User.id==ChatMessage.receiver_id")
+    reactions = db.relationship("ChatMessageReaction", back_populates="message")
+
 
     def to_dict(self):
         return {
@@ -28,6 +30,7 @@ class ChatMessage(db.Model):
             "read": self.read,
             "sender": self.sender.to_dict(),
             "receiver": self.recipient.to_dict(),
+            "reactions": [reaction.to_dict() for reaction in self.reactions],
             "threadId": self.thread_id,
             "createdAt": self.created_at,
         }
@@ -60,18 +63,22 @@ class ChatMessageThread(db.Model):
 
 
 class ChatMessageReaction(db.Model):
+    __tablename__ = "chat_message_reactions"
+
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, nullable=False)
-    message_id = db.Column(db.Integer, db.ForeignKey('chat_messages.id'), nullable=False)
-    reaction_type = db.Column(db.String, nullable=False)
+    emoji = db.Column(db.String, nullable=False)
+    message_id = db.Column(db.Integer, db.ForeignKey("chat_messages.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+
+    message = db.relationship("ChatMessage", back_populates="reactions")
 
     def to_dict(self):
         return {
             "id": self.id,
-            "userId": self.user_id,
+            "emoji": self.emoji,
             "messageId": self.message_id,
-            "reactionType": self.reaction_type
+            "userId": self.user_id,
         }
 
     def __repr__(self):
-        return f"<Chat Message Reaction {self.id}: {self.reaction_type}>"
+        return f"<Chat Message Reaction {self.id}: {self.emoji}>"
