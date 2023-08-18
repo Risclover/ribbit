@@ -107,8 +107,6 @@ const LoginForm = ({
               <label
                 htmlFor="password"
                 onClick={(e) => e.target.parentElement.children[0].focus()}
-                // onMouseOver={(e) => e.target.parentElement.children[0].focus()}
-                // onMouseOut={(e) => e.target.parentElement.children[0].blur()}
               >
                 Password
               </label>
