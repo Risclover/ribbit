@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
 import Cake from "../../images/misc/piece4.png";
@@ -10,6 +10,13 @@ import {
 } from "../../store/favorite_communities";
 import { getSubscriptions } from "../../store/subscriptions";
 import LoginSignupModal from "../../components/Modals/LoginSignupModal";
+import { FaPen } from "react-icons/fa";
+import useAutosizeTextArea from "../../components/Modals/ChatWindow/ChatWindowRight/ChatWindowInput/useAutosizeTextArea";
+import {
+  getCommunities,
+  getSingleCommunity,
+  updateCommunity,
+} from "../../store/communities";
 
 export default function CommunityInfoBox({
   setFavorited,
@@ -17,8 +24,14 @@ export default function CommunityInfoBox({
   community,
   user,
 }) {
+  const textareaRef = useRef(null);
+
   const dispatch = useDispatch();
   const [members, setMembers] = useState(0);
+  const [showEditDescription, setShowEditDescription] = useState(false);
+  const [description, setDescription] = useState(community.description);
+
+  useAutosizeTextArea(textareaRef.current, description);
 
   useEffect(() => {
     setMembers(community?.members);
@@ -37,15 +50,111 @@ export default function CommunityInfoBox({
     dispatch(getSubscriptions());
   };
 
+  const handleSaveDescription = async () => {
+    const data = await dispatch(
+      updateCommunity(
+        { display_name: community.display_name, description },
+        community.id
+      )
+    );
+    console.log("data:", data);
+    setDescription(data.description);
+    setShowEditDescription(false);
+  };
   return (
     <div className="community-page-community-info">
       <div className="community-page-box-header">
         <h3>About Community</h3>
       </div>
       <div className="community-page-box-content">
-        <div className="community-page-box-description">
-          <p>{community.description}</p>
-        </div>
+        {user?.id === community.userId && (
+          <div
+            onClick={() => setShowEditDescription(true)}
+            className={`${
+              showEditDescription
+                ? "community-page-edit-description"
+                : !showEditDescription && description.length === 0
+                ? "add-description-box"
+                : ""
+            } community-page-box-description`}
+          >
+            {!showEditDescription && description.length === 0 ? (
+              <div className="edit-community-description-add-description">
+                Add description
+              </div>
+            ) : (
+              !showEditDescription && (
+                <p>
+                  {description} <FaPen />
+                </p>
+              )
+            )}
+            {showEditDescription && (
+              <>
+                <textarea
+                  ref={textareaRef}
+                  id="edit-community-description"
+                  value={description}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                    e.target.rows = Math.min(
+                      10,
+                      Math.max(2, e.target.value.split("\n").length)
+                    );
+                  }}
+                  placeholder={
+                    description.length === 0
+                      ? "Tell us about your community"
+                      : ""
+                  }
+                  autoFocus
+                  onFocus={(e) => {
+                    let val = e.target.value;
+                    e.target.value = "";
+                    e.target.value = val;
+                  }}
+                  maxLength={500}
+                ></textarea>
+                <div className="edit-community-description-bar">
+                  <div
+                    className={
+                      description.length === 500
+                        ? "edit-community-description-red edit-community-description-bar-left"
+                        : "edit-community-description-bar-left"
+                    }
+                  >
+                    {500 - description.length} Characters remaining
+                  </div>
+                  <span
+                    className="edit-community-description-cancel"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setShowEditDescription(false);
+                    }}
+                  >
+                    Cancel
+                  </span>
+                  <span
+                    className="edit-community-description-save"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleSaveDescription();
+                    }}
+                  >
+                    Save
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+        {user?.id !== community.userId && (
+          <div className="community-page-box-description-plain">
+            {community.description}
+          </div>
+        )}
         <div className="community-page-box-date">
           <img src={Cake} className="community-cake-icon" alt="Cake" />
           Created {moment(new Date(community.createdAt)).format("MMM DD, YYYY")}
