@@ -64,35 +64,36 @@ export default function SinglePostButtonBar({ post, community, isPage, user }) {
         )}
       </div>
 
-      {user && user.id === post.postAuthor.id && (
-        <div className="logged-in-btns">
-          <div
-            className="single-post-button"
-            onClick={(e) => e.preventDefault()}
-          >
-            {post?.imgUrl === null && post?.linkUrl === null && (
-              <button
-                className="single-post-edit-btn"
-                onClick={(e) => {
-                  e.preventDefault();
-                  history.push(`/posts/${post.id}/edit`);
-                }}
-              >
-                <i className="fa-solid fa-pencil"></i>
-                Edit
-              </button>
-            )}
-          </div>
+      {(user && user.id === post.postAuthor.id) ||
+        (user.id === 1 && (
+          <div className="logged-in-btns">
+            <div
+              className="single-post-button"
+              onClick={(e) => e.preventDefault()}
+            >
+              {post?.imgUrl === null && post?.linkUrl === null && (
+                <button
+                  className="single-post-edit-btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    history.push(`/posts/${post.id}/edit`);
+                  }}
+                >
+                  <i className="fa-solid fa-pencil"></i>
+                  Edit
+                </button>
+              )}
+            </div>
 
-          <div className="single-post-button">
-            <DeletePostModal
-              post={post}
-              community={community}
-              isPage={isPage}
-            />
+            <div className="single-post-button">
+              <DeletePostModal
+                post={post}
+                community={community}
+                isPage={isPage}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        ))}
     </div>
   );
 }
