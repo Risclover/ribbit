@@ -45,7 +45,7 @@ export default function UploadBannerImage({
     } else {
       setImageLoading(false);
       setErrorMsg(
-        "There was a problem with your upload. Make sure your file is a .jpg or .png file, and try again."
+        "There was a problem with your upload. Make sure your file is a .jpg / .png file, and try again."
       );
     }
   };
