@@ -64,7 +64,7 @@ export default function SinglePostButtonBar({ post, community, isPage, user }) {
         )}
       </div>
 
-      {user && user.id === post.postAuthor.id && (
+      {user && (user.id === post.postAuthor.id || user.id === 1) && (
         <div className="logged-in-btns">
           <div
             className="single-post-button"

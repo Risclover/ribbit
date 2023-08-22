@@ -89,21 +89,22 @@ export default function SinglePostPage({
     "--community-base-color"
   );
 
-  document.documentElement.style.setProperty(
-    "--community-base-color",
-    community.baseColor
-  );
+  if (community) {
+    document.documentElement.style.setProperty(
+      "--community-base-color",
+      community.baseColor
+    );
 
-  document.documentElement.style.setProperty(
-    "--community-highlight",
-    community.highlight
-  );
+    document.documentElement.style.setProperty(
+      "--community-highlight",
+      community.highlight
+    );
 
-  document.documentElement.style.setProperty(
-    "--community-body-background",
-    community.bodyBg
-  );
-
+    document.documentElement.style.setProperty(
+      "--community-body-background",
+      community.bodyBg
+    );
+  }
   console.log(post?.communityId);
 
   console.log("base color:", varColor);
