@@ -56,3 +56,4 @@ export default function getTextColor(hexcolor) {
   // Check contrast
   return yiq >= 128 ? "black" : "white";
 }
+
