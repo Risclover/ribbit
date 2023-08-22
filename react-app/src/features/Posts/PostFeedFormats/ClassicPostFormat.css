@@ -161,7 +161,7 @@
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  color: #0079d3;
+  color: #3f9ad3;
 }
 
 .classic-post-link:hover {
@@ -172,6 +172,14 @@
   color: #3f9ade;
   font-size: 20px;
   padding-left: 4px;
+}
+
+.classic-post-link.community-post {
+  color: var(--community-highlight);
+}
+
+.classic-post-link.community-post svg {
+  color: var(--community-highlight);
 }
 
 .classic-post-community-info {
@@ -278,4 +286,12 @@
 .placeholder-link {
   color: #0079d3;
   margin-top: 3px;
+}
+
+.placeholder-external.community-post {
+  background-color: var(--community-highlight);
+}
+
+.placeholder-link.community-post {
+  color: var(--community-highlight);
 }

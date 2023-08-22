@@ -43,6 +43,7 @@ export default function CommunityPosts({
         />
       )}
       <SortingBar
+        community={true}
         sortMode={sortMode}
         setSortMode={setSortMode}
         format={format}

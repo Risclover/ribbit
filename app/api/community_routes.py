@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import db, Community, User, Rule
+from app.models import db, Community, User
 from .auth_routes import validation_errors_to_error_messages
 from app.forms import CommunityForm, UpdateCommunityForm, RuleForm
 from app.s3_helpers import (
@@ -57,13 +57,18 @@ def create_community():
             name=data["name"],
             description=data["description"],
             display_name=data["name"],
-            user_id = current_user.get_id()
+            user_id = current_user.get_id(),
+            base_color="#0079d3",
+            highlight="#0079d3",
+            body_background="#DAE0E6"
         )
+
+        db.session.add(new_community)
 
         user = User.query.get(current_user.get_id())
         user.user_subscriptions.append(new_community)
 
-        db.session.add(new_community)
+
         db.session.commit()
 
         return new_community.to_dict()
@@ -132,3 +137,16 @@ def upload_image(id):
     setattr(community, "community_img", url)
     db.session.commit()
     return {"url": url}
+
+# EDIT COMMUNITY THEME
+@community_routes.route("/<int:id>/appearance", methods=["PUT"])
+def edit_community_theme(id):
+    community = Community.query.get(id)
+    data = request.get_json()
+    setattr(community, "base_color", data["baseColor"])
+    setattr(community, "highlight", data["highlight"])
+    setattr(community, "body_background", data["bodyBg"])
+
+    db.session.commit()
+
+    return community.to_dict()

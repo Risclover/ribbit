@@ -29,6 +29,7 @@
   width: 54px;
   height: 54px;
   margin-right: 8px;
+  background-color: var(--community-base-color);
 }
 
 .single-post-community-name span {
@@ -140,7 +141,7 @@
 .single-post-box-header {
   width: 100%;
   height: 34px;
-  background: #0079d3;
+  background: var(--community-base-color);
 }
 
 .single-post-community-cake {
@@ -593,7 +594,7 @@ ol {
 }
 
 .single-post-rules-header {
-  background: #0079d3;
+  background: var(--community-base-color);
   color: white;
   padding: 12px;
   font-size: 14px;

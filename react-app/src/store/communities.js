@@ -134,6 +134,22 @@ export const deleteCommunity = (communityId) => async (dispatch) => {
   }
 };
 
+export const editCommunityTheme = (payload) => async (dispatch) => {
+  const { communityId, baseColor, highlight, bodyBg } = payload;
+
+  const response = await fetch(`/api/communities/${communityId}/appearance`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ baseColor, highlight, bodyBg }),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadCommunity(data));
+    return data;
+  }
+};
+
 // #################### REDUCER #################### //
 
 const initialState = {};

@@ -86,7 +86,7 @@ function UserProfile({
           currentUser={currentUser}
           username={user?.username}
           user={user}
-          userId={+userId}
+          userId={userId}
         />
         {currentUser?.id === +userId && (
           <UserOwnedCommunities

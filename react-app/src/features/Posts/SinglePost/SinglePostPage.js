@@ -18,7 +18,7 @@ import SinglePost from "./SinglePost";
 import BackToTop from "../../../components/BackToTop";
 import { addViewedPost, getViewedPosts } from "../../../store/viewed_posts";
 import { getPosts } from "../../../store/posts";
-import { getCommunities } from "../../../store/communities";
+import { getCommunities, getSingleCommunity } from "../../../store/communities";
 import { getUsers } from "../../../store/users";
 
 export default function SinglePostPage({
@@ -35,7 +35,9 @@ export default function SinglePostPage({
   const [commentsNum, setCommentsNum] = useState();
   const [subscribed, setSubscribed] = useState(false);
   const post = useSelector((state) => state.singlePost[+postId]);
-  const community = useSelector((state) => state.singleCommunity);
+  const community = useSelector(
+    (state) => state.communities[post?.communityId]
+  );
   const subscriptions = useSelector((state) => state.subscriptions);
   const user = useSelector((state) => state.session.user);
 
@@ -44,6 +46,7 @@ export default function SinglePostPage({
     dispatch(getPosts());
     dispatch(getSinglePost(+postId));
     dispatch(addViewedPost(+postId));
+    dispatch(getSingleCommunity(post?.communityId));
     setRecentPostList([
       ...recentPostList,
       {
@@ -81,6 +84,29 @@ export default function SinglePostPage({
   useEffect(() => {
     if (subscriptions[post?.communityId]) setSubscribed(true);
   }, [subscribed, subscriptions, post?.communityId]);
+
+  const varColor = getComputedStyle(document.documentElement).getPropertyValue(
+    "--community-base-color"
+  );
+
+  document.documentElement.style.setProperty(
+    "--community-base-color",
+    community.baseColor
+  );
+
+  document.documentElement.style.setProperty(
+    "--community-highlight",
+    community.highlight
+  );
+
+  document.documentElement.style.setProperty(
+    "--community-body-background",
+    community.bodyBg
+  );
+
+  console.log(post?.communityId);
+
+  console.log("base color:", varColor);
 
   if (!post || !postId || !community) return null;
   return (
@@ -129,7 +155,7 @@ export default function SinglePostPage({
               <div className="single-post-right-col-btns">
                 {user && subscribed && (
                   <button
-                    className="blue-btn-unfilled btn-long"
+                    className={`blue-btn-unfilled btn-long community-btn`}
                     onClick={async (e) => {
                       e.preventDefault();
                       await dispatch(deleteSubscription(post?.communityId));
@@ -143,7 +169,7 @@ export default function SinglePostPage({
                 )}
                 {user && !subscribed && (
                   <button
-                    className="blue-btn-filled btn-long"
+                    className="blue-btn-filled btn-long community-btn-filled"
                     onClick={async (e) => {
                       e.preventDefault();
                       await dispatch(addToSubscriptions(post?.communityId));
@@ -156,7 +182,7 @@ export default function SinglePostPage({
                 )}
                 {!user && (
                   <button
-                    className="blue-btn-filled btn-long"
+                    className="blue-btn-filled btn-long community-btn-filled"
                     onClick={(e) => {
                       e.preventDefault();
                       history.push("/login");
@@ -184,7 +210,7 @@ export default function SinglePostPage({
             </div>
           </div>
         )}
-        <BackToTop />
+        <BackToTop community={true} />
       </div>
     </div>
   );

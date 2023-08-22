@@ -8,7 +8,7 @@ import { getCommunities } from "../../store/communities";
 import CommunityWelcome from "./CommunityWelcome";
 import CommunityRulesBox from "./CommunityRulesBox";
 import CommunityImage from "./CommunityImage";
-import CommunityInfoBox from "./CommunityInfoBox";
+import CommunityInfoBox from "./CommunityInfoBox/CommunityInfoBox";
 import CommunitySubscribeBtn from "./CommunitySubscribeBtn";
 import CommunityName from "./CommunityName";
 import CommunityPosts from "./CommunityPosts";
@@ -111,7 +111,7 @@ export default function CommunityPage({
             <CommunityRulesBox community={community} />
           )}
 
-          <BackToTop />
+          <BackToTop community={true} />
         </div>
       </div>
 

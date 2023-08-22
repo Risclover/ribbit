@@ -49,7 +49,7 @@ export default function SearchResultsCommunities({
                 </div>
               </div>
             </NavLink>
-          ) : (
+          ) : (                                                                                                                                                                                                                                                                         
             ""
           )
         )}

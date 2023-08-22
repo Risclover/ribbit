@@ -8,9 +8,13 @@ class Community(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     name = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(500), nullable=True)
-    community_img = db.Column(db.String(255), default="https://i.imgur.com/nfpa9x1.png")
+    community_img = db.Column(db.String(255), default="https://i.imgur.com/9CI9hiO.png")
     display_name = db.Column(db.String(100), nullable=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+    base_color = db.Column(db.String(10), default="#0079d3")
+    highlight = db.Column(db.String(10), default="#0079d3")
+    body_background = db.Column(db.String(10), default="#DAE0E6")
 
     community_posts = db.relationship('Post', back_populates="post_community", cascade="all, delete-orphan")
     subscribers = db.relationship('User', back_populates="user_subscriptions", secondary=subscriptions, lazy="joined")
@@ -33,6 +37,9 @@ class Community(db.Model):
             'communityPosts': {item.to_dict()["id"]: item.to_dict() for item in self.community_posts},
             'communityOwner': self.community_owner.to_dict(),
             "communityRules": {item.to_dict()["id"]: item.to_dict() for item in self.community_rules},
+            "baseColor": self.base_color,
+            "highlight": self.highlight,
+            "bodyBg": self.body_background
         }
 
     def __repr__(self):

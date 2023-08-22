@@ -14,6 +14,7 @@
     "bootstrap-icons": "^1.10.5",
     "moment": "^2.29.4",
     "react-click-away-listener": "^2.2.3",
+    "react-icons": "^4.10.1",
     "react-infinite-scroll-component": "^6.1.0",
     "react-link-previewer": "^1.0.8",
     "react-loading-skeleton": "^3.3.1",

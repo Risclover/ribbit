@@ -3,12 +3,16 @@ import { TbChevronDown } from "react-icons/tb";
 import Compact from "../../../images/post-format-icons/compact-grey.png";
 import CompactBlack from "../../../images/post-format-icons/compact.png";
 import CompactColored from "../../../images/post-format-icons/compact-colored.png";
-import Classic from "../../../images/post-format-icons/classic-grey.png";
-import ClassicBlack from "../../../images/post-format-icons/classic.png";
-import ClassicColored from "../../../images/post-format-icons/classic-colored.png";
-import Card from "../../../images/post-format-icons/card-grey.png";
-import CardBlack from "../../../images/post-format-icons/card.png";
-import CardColored from "../../../images/post-format-icons/card-colored.png";
+
+import {
+  TfiLayoutColumn2Alt,
+  TfiLayoutColumn2,
+  TfiLayoutColumn3Alt,
+  TfiLayoutColumn3,
+  TfiLayoutColumn4Alt,
+  TfiLayoutColumn4,
+} from "react-icons/tfi";
+
 import PostFormatDropdown from "./PostFormatDropdown";
 import HandleClickOutside from "../../../components/HandleClickOutside";
 import "./PostFormatDropdown.css";
@@ -18,18 +22,17 @@ export default function PostFormatFace({ setFormat, format }) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const formats = [
-    { format: "Card", img: Card, colored: CardColored, black: CardBlack },
+    {
+      format: "Card",
+      img: <TfiLayoutColumn2Alt />,
+    },
     {
       format: "Classic",
-      img: Classic,
-      colored: ClassicColored,
-      black: ClassicBlack,
+      img: <TfiLayoutColumn3Alt />,
     },
     {
       format: "Compact",
-      img: Compact,
-      colored: CompactColored,
-      black: CompactBlack,
+      img: <TfiLayoutColumn4Alt />,
     },
   ];
 
@@ -50,9 +53,9 @@ export default function PostFormatFace({ setFormat, format }) {
         className="post-format-face"
         onClick={() => setShowDropdown(!showDropdown)}
       >
-        {format === "Card" && <img src={Card} alt="Card" />}
-        {format === "Classic" && <img src={Classic} alt="Classic" />}
-        {format === "Compact" && <img src={Compact} alt="Compact" />}
+        {format === "Card" && <TfiLayoutColumn2Alt />}
+        {format === "Classic" && <TfiLayoutColumn3Alt />}
+        {format === "Compact" && <TfiLayoutColumn4Alt />}
         <TbChevronDown />
       </button>
       {showDropdown && (

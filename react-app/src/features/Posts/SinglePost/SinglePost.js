@@ -36,6 +36,7 @@ function SinglePost({ id, isPage, userId, format }) {
 
               <div className="single-post-main">
                 <SinglePostAuthorBar
+                  communityPage={isPage === "singlepage"}
                   post={post}
                   community={community}
                   isPage={isPage}

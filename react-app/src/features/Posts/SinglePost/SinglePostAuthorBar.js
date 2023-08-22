@@ -23,7 +23,12 @@ moment.updateLocale("en-post", {
   },
 });
 
-export default function SinglePostAuthorBar({ community, post, isPage }) {
+export default function SinglePostAuthorBar({
+  communityPage,
+  community,
+  post,
+  isPage,
+}) {
   const history = useHistory();
   const communityHref = `/c/${community?.id}`;
 
@@ -54,6 +59,7 @@ export default function SinglePostAuthorBar({ community, post, isPage }) {
       <div className="single-post-author-info">
         Posted by
         <Username
+          community={communityPage}
           username={post.postAuthor.username}
           user={post.postAuthor}
           source="singlepost"

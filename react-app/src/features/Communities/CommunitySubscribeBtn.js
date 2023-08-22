@@ -32,7 +32,7 @@ export default function CommunitySubscribeBtn({
       <div className="community-header-info-subscribe">
         {user && subscribed && (
           <button
-            className="blue-btn-unfilled btn-short join-btn"
+            className="blue-btn-unfilled btn-short join-btn community-btn"
             onClick={async (e) => {
               e.preventDefault();
               await dispatch(deleteSubscription(community.id));
@@ -49,7 +49,7 @@ export default function CommunitySubscribeBtn({
         )}
         {user && !subscribed && (
           <button
-            className="blue-btn-filled btn-short join-btn"
+            className="blue-btn-filled btn-short join-btn community-btn-filled"
             onClick={async (e) => {
               e.preventDefault();
               await dispatch(addToSubscriptions(community.id));

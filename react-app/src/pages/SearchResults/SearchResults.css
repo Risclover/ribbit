@@ -686,6 +686,7 @@
 
 .search-results-page-community-img,
 .search-results-page-person-img {
+  background: var(--community-base-color);
   border-radius: 100%;
   width: 36px;
   height: 36px;

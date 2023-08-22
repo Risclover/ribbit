@@ -227,6 +227,7 @@ export default function Comment({ commentId }) {
         <div className="comment-right-col">
           <div className="comment-right-username">
             <Username
+              community={true}
               username={comment.commentAuthor?.username}
               user={comment?.commentAuthor}
             />

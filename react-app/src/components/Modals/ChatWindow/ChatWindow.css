@@ -409,7 +409,7 @@
   align-items: center;
   background: transparent;
   border: transparent;
-  justify-content: start;
+  justify-content: flex-start;
   color: #0f1a1c;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji",
@@ -1105,7 +1105,7 @@
   margin: 8px 8px 0 0;
   max-height: 256px;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .msg-gif img {

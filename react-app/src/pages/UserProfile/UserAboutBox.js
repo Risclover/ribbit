@@ -42,7 +42,20 @@ export default function UserAboutBox({
 
   useEffect(() => {
     dispatch(getUserChatThreads());
+    dispatch(getFollowers());
+    dispatch(getUserFollowers(user?.id));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (follows) {
+      for (let followed of Object.values(follows)) {
+        if (followed?.username === user?.username) {
+          setFollowing(true);
+          break;
+        }
+      }
+    }
+  }, []);
 
   useEffect(() => {
     setBanner(user?.bannerImg);
@@ -64,17 +77,6 @@ export default function UserAboutBox({
     }
   };
 
-  useEffect(() => {
-    if (follows) {
-      for (let followed of Object.values(follows)) {
-        if (followed?.username === user?.username) {
-          setFollowing(true);
-          break;
-        }
-      }
-    }
-  }, []);
-
   const handleChat = async () => {
     setOpenChat(true);
 
@@ -85,8 +87,8 @@ export default function UserAboutBox({
     );
 
     if (!existingThread) {
-      const newChat = await dispatch(createChatThread(+userId));
-      setSelectedChat("new chat:", newChat);
+      const newChat = await dispatch(createChatThread(userId));
+      setSelectedChat(newChat);
     } else {
       setSelectedChat(existingThread);
     }
@@ -102,18 +104,18 @@ export default function UserAboutBox({
         ) : (
           <img src={banner} className="user-profile-banner" alt="Banner" />
         )}
-        {currentUser?.id === +userId && (
+        {currentUser?.id === userId && (
           <UserBannerModal user={user} currentUser={currentUser} />
         )}
       </div>
       <div className="user-profile-img-box">
-        {currentUser?.id === +userId && (
+        {currentUser?.id === userId && (
           <UserImageModal user={user} currentUser={currentUser} />
         )}
         <img src={user?.profile_img} alt="User" className="user-profile-img" />
       </div>
       <div className="user-profile-about-content">
-        {currentUser?.id === +userId && (
+        {currentUser?.id === userId && (
           <NavLink to={`/users/${userId}/profile/edit`}>
             <i className="fa-solid fa-gear user-settings"></i>
           </NavLink>
@@ -158,26 +160,26 @@ export default function UserAboutBox({
         </div>
 
         <div className="half-btns">
-          {currentUser?.id !== +userId && (
+          {currentUser?.id !== userId && (
             <button
               className={
-                !follows[+userId]
+                !following
                   ? "blue-btn-filled btn-long"
                   : "blue-btn-unfilled btn-long"
               }
               onClick={handleFollow}
             >
-              {!follows[+userId] ? "Follow" : "Unfollow"}
+              {!following ? "Follow" : "Unfollow"}
             </button>
           )}
-          {currentUser?.id !== +userId && (
+          {currentUser?.id !== userId && (
             <button className="blue-btn-filled btn-long" onClick={handleChat}>
               Chat
             </button>
           )}
         </div>
-        {currentUser?.id !== +userId && (
-          <SendMessage userId={+userId} username={username} />
+        {currentUser?.id !== userId && (
+          <SendMessage userId={userId} username={username} />
         )}
       </div>
       {showFollowersModal && (
