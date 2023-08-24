@@ -8,3 +8,4 @@ from .rule import Rule
 from .message import MessageThread, Message, user_threads
 from .notification import Notification
 from .chat import ChatMessage, ChatMessageThread, user_chat_threads, ChatMessageReaction
+from .preview_community import PreviewCommunity

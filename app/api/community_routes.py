@@ -68,7 +68,6 @@ def create_community():
         user = User.query.get(current_user.get_id())
         user.user_subscriptions.append(new_community)
 
-
         db.session.commit()
 
         return new_community.to_dict()

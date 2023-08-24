@@ -35,10 +35,10 @@ export default function CommunityPage({
   let commPosts = posts.filter((post) => post.communityId == communityId);
 
   useEffect(() => {
+    dispatch(getCommunities());
     dispatch(getSubscriptions());
     dispatch(getPosts());
     dispatch(getSingleCommunity(+communityId));
-    dispatch(getCommunities());
   }, [communityId, dispatch]);
 
   useEffect(() => {

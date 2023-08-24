@@ -14,7 +14,7 @@ import SinglePostPage from "./features/Posts/SinglePost/SinglePostPage";
 import UpdatePost from "./features/Posts/PostForms/UpdatePost";
 
 import CommunityPage from "./features/Communities/CommunityPage";
-import EditCommunity from "./features/Communities/CommunityForms/EditCommunity";
+import EditCommunity from "./features/Communities/CommunitySettings/EditCommunity";
 
 import NavBar from "./components/NavBar/NavBar";
 import UsersList from "./components/UsersList";
@@ -41,12 +41,15 @@ import Permalink from "./features/Messages/Permalink/Permalink";
 import LoggedOutSidebar from "./components/NavSidebar.js/LoggedOutSidebar";
 import ChatWindow from "./components/Modals/ChatWindow/ChatWindow";
 import { getUserChatThreads } from "./store/chats";
+import PreviewCommunity from "./features/Communities/CommunitySettings/PreviewCommunity";
+import { getCommunities } from "./store/communities";
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
   const chatThreads = useSelector((state) => Object.values(state.chatThreads));
+  const communities = useSelector((state) => state.communities);
 
   const [loaded, setLoaded] = useState(false);
   const [, setShowLoginForm] = useState(false);
@@ -63,6 +66,7 @@ function App() {
   const [normalDropdown, setNormalDropdown] = useState(true);
   const [openChat, setOpenChat] = useState(false);
   const [selectedChat, setSelectedChat] = useState(chatThreads[0]);
+  const [userCommunities, setUserCommunities] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -73,6 +77,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getUserChatThreads());
+    dispatch(getCommunities());
   }, [dispatch]);
 
   useEffect(() => {
@@ -82,6 +87,17 @@ function App() {
       setShowLoggedOutSidebar(false);
     }
   }, [user]);
+
+  useEffect(() => {
+    let userComs = [];
+    for (let community in communities) {
+      if (communities[community].communityOwner.id === user.id) {
+        userComs.push(communities[community]);
+      }
+    }
+
+    setUserCommunities(userComs);
+  }, [communities]);
 
   if (!loaded) {
     return null;
@@ -305,6 +321,17 @@ function App() {
               setFormat={setFormat}
             />
           </Route>
+          <ProtectedRoute path="/c/:communityId/style" exact={true}>
+            <PreviewCommunity
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              postType={postType}
+              setPostType={setPostType}
+              format={format}
+              setFormat={setFormat}
+              userCommunities={userCommunities}
+            />
+          </ProtectedRoute>
           <ProtectedRoute path="/c/:communityId/edit" exact={true}>
             <EditCommunity />
           </ProtectedRoute>
