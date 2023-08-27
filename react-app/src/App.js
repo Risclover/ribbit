@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { authenticate } from "./store/session";
@@ -41,12 +41,14 @@ import Permalink from "./features/Messages/Permalink/Permalink";
 import LoggedOutSidebar from "./components/NavSidebar.js/LoggedOutSidebar";
 import ChatWindow from "./components/Modals/ChatWindow/ChatWindow";
 import { getUserChatThreads } from "./store/chats";
-import PreviewCommunity from "./features/Communities/CommunitySettings/PreviewCommunity";
+import PreviewCommunity from "./features/Communities/CommunitySettings/PreviewCommunity/PreviewCommunity";
 import { getCommunities } from "./store/communities";
+import PreviewCommunitySidebar from "./features/Communities/CommunitySettings/PreviewCommunity/PreviewCommunitySidebar";
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const location = useLocation();
 
   const chatThreads = useSelector((state) => Object.values(state.chatThreads));
   const communities = useSelector((state) => state.communities);
@@ -67,6 +69,17 @@ function App() {
   const [openChat, setOpenChat] = useState(false);
   const [selectedChat, setSelectedChat] = useState(chatThreads[0]);
   const [userCommunities, setUserCommunities] = useState([]);
+  const [previewPage, setPreviewPage] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname.endsWith("/style")) {
+      document.body.classList.add("scoot-over");
+      setPreviewPage(true);
+    } else {
+      document.body.classList.remove("scoot-over");
+      setPreviewPage(false);
+    }
+  }, [location]);
 
   useEffect(() => {
     (async () => {
@@ -89,9 +102,9 @@ function App() {
   }, [user]);
 
   useEffect(() => {
-    let userComs = [];
+    const userComs = [];
     for (let community in communities) {
-      if (communities[community].communityOwner.id === user.id) {
+      if (communities[community].communityOwner?.id === user?.id) {
         userComs.push(communities[community]);
       }
     }
@@ -104,8 +117,9 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
+      {previewPage && <PreviewCommunitySidebar />}
       <NavBar
         pageTitle={pageTitle}
         setPageTitle={setPageTitle}
@@ -321,7 +335,7 @@ function App() {
               setFormat={setFormat}
             />
           </Route>
-          <ProtectedRoute path="/c/:communityId/style" exact={true}>
+          <ProtectedRoute exact path="/c/:communityId/style">
             <PreviewCommunity
               setPageTitle={setPageTitle}
               setPageIcon={setPageIcon}
@@ -329,7 +343,9 @@ function App() {
               setPostType={setPostType}
               format={format}
               setFormat={setFormat}
+              previewPage={previewPage}
               userCommunities={userCommunities}
+              setPreviewPage={setPreviewPage}
             />
           </ProtectedRoute>
           <ProtectedRoute path="/c/:communityId/edit" exact={true}>
@@ -380,7 +396,7 @@ function App() {
           <Route></Route>
         </Switch>
       </div>
-    </BrowserRouter>
+    </>
   );
 }
 

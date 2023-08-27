@@ -35,6 +35,7 @@
 }
 
 .community-page-main {
+  background: var(--community-body-bg);
   width: auto;
   display: flex;
   justify-content: center;
@@ -885,6 +886,20 @@ li {
   line-height: 16px;
   font-family: "Noto Sans", sans-serif;
 }
+
+.preview-community-page {
+  display: flex;
+  position: relative;
+}
+
+.scoot-over .navbar-nav {
+  padding-left: 320px;
+}
+
+.scoot-over .main {
+  padding-left: 284px;
+}
+
 @media (max-width: 960px) {
   .community-page-right-col {
     display: none;

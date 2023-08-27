@@ -11,6 +11,7 @@ import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
 import AddCommunityRule from "./AddCommunityRule";
 import CommunityEditRule from "../CommunityEditRule";
 import "../CommunityPage.css";
+import { Link } from "react-router-dom";
 
 export default function EditCommunity() {
   const dispatch = useDispatch();
@@ -82,6 +83,8 @@ export default function EditCommunity() {
         {user.id === community.userId && (
           <>
             <h1>Community settings</h1>
+            <Link to={`/c/${community.id}/style`}>Style</Link>
+
             <div className="edit-community-page-section">
               <h2>Community display name (optional)</h2>
               <p className="community-description-details">

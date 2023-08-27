@@ -15,8 +15,7 @@ html {
   line-height: 18px;
   height: 100%;
   background: #dae0e6;
-  /* margin-left: 120px; */
-  /* padding: 15px 14px; */
+  -webkit-font-smoothing: antialiased;
 }
 
 #root {

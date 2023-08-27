@@ -37,7 +37,7 @@ export default function CommentForm({ postId }) {
         type: "post-reply",
         id: commentData.id,
       };
-      const data = dispatch(addNotification(notificationPayload));
+      dispatch(addNotification(notificationPayload));
       dispatch(getAllNotifications());
       setErrors([]);
       setContent("");

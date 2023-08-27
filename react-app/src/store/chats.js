@@ -50,7 +50,6 @@ export const createChatThread = (receiverId) => async (dispatch) => {
 
 export const createChatMessage = (payload) => async (dispatch) => {
   const { content, receiverId, chatThreadId } = payload;
-  console.log("PAYLOAD:", payload);
   const response = await fetch(`/api/chat_threads/${chatThreadId}/messages`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -59,7 +58,6 @@ export const createChatMessage = (payload) => async (dispatch) => {
       receiver_id: receiverId,
     }),
   });
-  console.log("RESPONSE:", response);
 
   if (response.ok) {
     const data = await response.json();

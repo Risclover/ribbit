@@ -105,9 +105,6 @@ export default function SinglePostPage({
       community.bodyBg
     );
   }
-  console.log(post?.communityId);
-
-  console.log("base color:", varColor);
 
   if (!post || !postId || !community) return null;
   return (

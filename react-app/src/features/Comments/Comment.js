@@ -13,9 +13,7 @@ import DeleteConfirmation from "../../components/Modals/DeleteConfirmation";
 import EditComment from "./EditComment";
 
 import "./Comments.css";
-import { getPosts } from "../../store/posts";
 import { getSinglePost } from "../../store/one_post";
-import UsernamePopup from "../../components/Username/UsernamePopup";
 import Username from "../../components/Username/Username";
 
 moment.updateLocale("en-comment", {
@@ -42,7 +40,6 @@ const URL_REGEX =
 
 function Text({ content }) {
   if (typeof parse(content) !== "string") {
-    console.log("error: not a string");
     return content;
   } else if (typeof parse(content) === "string") {
     const words = String(parse(content)).split(" ");
@@ -80,13 +77,6 @@ export default function Comment({ commentId }) {
   const comment = comments[+commentId];
   const user = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.singlePost);
-  // const post = useSelector((state) => state.posts[postId]);
-
-  console.log(
-    "post:",
-    post[postId].postAuthor.username,
-    comment.commentAuthor.username
-  );
 
   useEffect(() => {
     dispatch(getSinglePost(postId));

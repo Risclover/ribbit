@@ -107,7 +107,7 @@ def delete_community(id):
     db.session.commit()
     return {"message": "Successfully deleted", "status_code": 200}
 
-
+# UPLOAD COMMUNITY IMAGE
 @community_routes.route("/<int:id>/img", methods=["POST"])
 @login_required
 def upload_image(id):

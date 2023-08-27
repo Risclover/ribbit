@@ -41,8 +41,6 @@ export default function PostFormatDropdownBtn({
     }
   }, [format, item.format]);
 
-  console.log("img:", img);
-  console.log("format:", format);
 
   useOutsideAlerter(wrapperRef, setActive, active, setImg, item);
 

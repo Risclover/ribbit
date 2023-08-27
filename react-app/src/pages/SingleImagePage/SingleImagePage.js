@@ -7,9 +7,6 @@ export default function SingleImagePage() {
 
   const posts = useSelector((state) => state.posts);
 
-  const image = posts[postId];
-  console.log(image);
-
   return (
     <div className="single-image-page">
       <img

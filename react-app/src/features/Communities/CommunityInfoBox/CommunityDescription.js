@@ -1,17 +1,40 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import useAutosizeTextArea from "../../../components/Modals/ChatWindow/ChatWindowRight/ChatWindowInput/useAutosizeTextArea";
 
 import { updateCommunity } from "../../../store/communities";
 
 import { FaPen } from "react-icons/fa";
+import HandleClickOutside from "../../../components/HandleClickOutside";
 
 export default function CommunityDescription({ community, user }) {
   const textareaRef = useRef(null);
+  const wrapperRef = useRef(null);
 
   const dispatch = useDispatch();
   const [showEditDescription, setShowEditDescription] = useState(false);
   const [description, setDescription] = useState(community.description);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", function (e) {
+      HandleClickOutside(
+        e,
+        wrapperRef,
+        showEditDescription,
+        setShowEditDescription
+      );
+    });
+    return () => {
+      document.removeEventListener("mousedown", function (e) {
+        HandleClickOutside(
+          e,
+          wrapperRef,
+          showEditDescription,
+          setShowEditDescription
+        );
+      });
+    };
+  }, [wrapperRef, showEditDescription]);
 
   useAutosizeTextArea(textareaRef.current, description);
 
@@ -51,7 +74,7 @@ export default function CommunityDescription({ community, user }) {
             )
           )}
           {showEditDescription && (
-            <>
+            <div ref={wrapperRef}>
               <textarea
                 ref={textareaRef}
                 id="edit-community-description"
@@ -105,7 +128,7 @@ export default function CommunityDescription({ community, user }) {
                   Save
                 </span>
               </div>
-            </>
+            </div>
           )}
         </div>
       )}

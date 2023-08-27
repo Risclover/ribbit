@@ -56,7 +56,6 @@ export default function ChatWindow({
 
     socket.on("new_message", (chat) => {
       setLastMessage(chat);
-      console.log("last msg", lastMessage);
     });
 
     if (selectedChat?.id > -1) {

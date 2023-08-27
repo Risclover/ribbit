@@ -63,7 +63,7 @@ export default function CommunityInfoBox({
   );
 
   document.documentElement.style.setProperty(
-    "--community-body-background",
+    "--community-body-bg",
     community.bodyBg
   );
 

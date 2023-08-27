@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { TbChevronDown } from "react-icons/tb";
-import Compact from "../../../images/post-format-icons/compact-grey.png";
-import CompactBlack from "../../../images/post-format-icons/compact.png";
-import CompactColored from "../../../images/post-format-icons/compact-colored.png";
 
 import {
   TfiLayoutColumn2Alt,

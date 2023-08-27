@@ -3,4 +3,9 @@
   --community-base-color-text: #000000;
   --community-highlight: #f34d23;
   --community-body-bg: #dae0e6;
+
+  --preview-community-color-theme-base: #0079d3;
+  --preview-community-color-theme-highlight: #0079d3;
+  --preview-community-color-theme-bodybg: #dae0e6;
+  --preview-community-color-picker-square: #000000;
 }

@@ -155,7 +155,6 @@ export default function Emojis({
       receiverId: receiver.id,
       chatThreadId: selectedChat.id,
     };
-    console.log(payload);
 
     const data = await dispatch(createChatMessage(payload));
     socket.emit("chat", data);

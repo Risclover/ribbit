@@ -45,6 +45,7 @@ export default function CommunityInfoMenu() {
       dispatch(getFavoriteCommunities());
       setBtnState("Add To Favorites");
     }
+    setOpenMenu(false);
   };
 
   useEffect(() => {
