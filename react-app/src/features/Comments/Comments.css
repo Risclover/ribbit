@@ -376,7 +376,7 @@
   font-family: "Noto Sans", sans-serif;
   font-size: 12px;
   font-weight: 400;
-  color: #0079d3;
+  color: var(--community-highlight);
   margin-left: 4px;
 }
 
@@ -387,7 +387,7 @@
 .comment-submit {
   padding: 4px 20px;
   margin: 4px 8px;
-  background-color: #0079d3;
+  background-color: var(--community-highlight);
   border: none;
   border-radius: 50px;
   font-family: "Noto Sans", sans-serif;
@@ -494,7 +494,7 @@
   font-size: 12px;
   font-weight: 700;
   line-height: 16px;
-  color: #0079d3;
+  color: var(--community-highlight);
   cursor: pointer;
   position: relative;
 }

@@ -92,27 +92,19 @@ export default function ReactionsMenuSmall({
   const [openMenu, setOpenMenu] = useState(false);
   const [reactionType, setReactionType] = useState("");
 
-  useEffect(() => {
-    
-  })
+  useEffect(() => {});
 
-  const react = async (e) => {
+  const react = (e) => {
     e.preventDefault();
+
     const payload = {
       messageId: msgId,
       emoji: reactionType,
     };
 
-    console.log("payload:", payload);
-
-    const data = await dispatch(createReaction(payload));
-
-    console.log("data:", data);
-
+    dispatch(createReaction(payload));
     dispatch(getChatThread(message?.threadId));
   };
-
-  console.log("msgId:", message?.id);
 
   return (
     <div className="reactions-menu reaction-picker-animation">

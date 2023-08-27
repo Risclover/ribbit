@@ -11,7 +11,7 @@ import { Modal } from "../../context/Modal";
 import MessageModal from "../Modals/MessageModal";
 import { NavLink } from "react-router-dom";
 
-export default function UsernamePopup({ setShowUserBox, user }) {
+export default function UsernamePopup({ community, setShowUserBox, user }) {
   const dispatch = useDispatch();
   const follows = useSelector((state) => state.followers.follows);
   const currentUser = useSelector((state) => state.session.user);
@@ -74,7 +74,9 @@ export default function UsernamePopup({ setShowUserBox, user }) {
           </div>
         </div>
         <button
-          className="blue-btn-unfilled btn-long username-popup-btn-top"
+          className={`blue-btn-unfilled btn-long username-popup-btn-top ${
+            community ? " community-btn" : ""
+          }`}
           onClick={(e) => {
             e.preventDefault();
             setShowUserBox(false);
@@ -84,11 +86,15 @@ export default function UsernamePopup({ setShowUserBox, user }) {
           Send a Message
         </button>
         <button
-          className={
-            !following
+          className={`${
+            !following && community
+              ? "blue-btn-filled btn-long username-popup-btn-btm community-btn-filled"
+              : !community && !following
               ? "blue-btn-filled btn-long username-popup-btn-btm"
+              : following && community
+              ? "blue-btn-unfilled btn-long username-popup-btn-btm community-btn"
               : "blue-btn-unfilled btn-long username-popup-btn-btm"
-          }
+          }`}
           onClick={handleFollowing}
         >
           {!following ? "Follow" : "Following"}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Modal } from "../../context/Modal";
-import EditCommunityRule from "./CommunityForms/EditCommunityRule";
+import EditCommunityRule from "./CommunitySettings/EditCommunityRule";
 import {
   BsArrowsAngleExpand,
   BsArrowsAngleContract,

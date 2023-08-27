@@ -100,10 +100,18 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
               )}
               {post?.linkUrl && (
                 <div className="classic-post-img-placeholder">
-                  <span className="placeholder-link">
+                  <span
+                    className={`placeholder-link ${
+                      isPage === "community" && "community-post"
+                    }`}
+                  >
                     <FiLink />
                   </span>
-                  <div className="placeholder-external">
+                  <div
+                    className={`placeholder-external ${
+                      isPage === "community" && "community-post"
+                    }`}
+                  >
                     <HiOutlineExternalLink />
                   </div>
                 </div>
@@ -115,10 +123,14 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
                   {post?.title}
                   {post?.linkUrl && (
                     <div
-                      className="classic-post-link"
+                      className={`classic-post-link ${
+                        isPage === "community" && "community-post"
+                      }`}
                       onClick={(e) => {
                         e.preventDefault();
                         window.open(post?.linkUrl);
+                        if (e.target.classList.contains("community-post"))
+                          e.target.classList.remove("community-post");
                       }}
                     >
                       {cutLink(post?.linkUrl)} <HiOutlineExternalLink />

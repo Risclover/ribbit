@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { authenticate } from "./store/session";
@@ -14,7 +14,7 @@ import SinglePostPage from "./features/Posts/SinglePost/SinglePostPage";
 import UpdatePost from "./features/Posts/PostForms/UpdatePost";
 
 import CommunityPage from "./features/Communities/CommunityPage";
-import EditCommunity from "./features/Communities/CommunityForms/EditCommunity";
+import EditCommunity from "./features/Communities/CommunitySettings/EditCommunity";
 
 import NavBar from "./components/NavBar/NavBar";
 import UsersList from "./components/UsersList";
@@ -41,12 +41,17 @@ import Permalink from "./features/Messages/Permalink/Permalink";
 import LoggedOutSidebar from "./components/NavSidebar.js/LoggedOutSidebar";
 import ChatWindow from "./components/Modals/ChatWindow/ChatWindow";
 import { getUserChatThreads } from "./store/chats";
+import PreviewCommunity from "./features/Communities/CommunitySettings/PreviewCommunity/PreviewCommunity";
+import { getCommunities } from "./store/communities";
+import PreviewCommunitySidebar from "./features/Communities/CommunitySettings/PreviewCommunity/PreviewCommunitySidebar";
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const location = useLocation();
 
   const chatThreads = useSelector((state) => Object.values(state.chatThreads));
+  const communities = useSelector((state) => state.communities);
 
   const [loaded, setLoaded] = useState(false);
   const [, setShowLoginForm] = useState(false);
@@ -63,6 +68,18 @@ function App() {
   const [normalDropdown, setNormalDropdown] = useState(true);
   const [openChat, setOpenChat] = useState(false);
   const [selectedChat, setSelectedChat] = useState(chatThreads[0]);
+  const [userCommunities, setUserCommunities] = useState([]);
+  const [previewPage, setPreviewPage] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname.endsWith("/style")) {
+      document.body.classList.add("scoot-over");
+      setPreviewPage(true);
+    } else {
+      document.body.classList.remove("scoot-over");
+      setPreviewPage(false);
+    }
+  }, [location]);
 
   useEffect(() => {
     (async () => {
@@ -73,6 +90,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getUserChatThreads());
+    dispatch(getCommunities());
   }, [dispatch]);
 
   useEffect(() => {
@@ -83,13 +101,25 @@ function App() {
     }
   }, [user]);
 
+  useEffect(() => {
+    const userComs = [];
+    for (let community in communities) {
+      if (communities[community].communityOwner?.id === user?.id) {
+        userComs.push(communities[community]);
+      }
+    }
+
+    setUserCommunities(userComs);
+  }, [communities]);
+
   if (!loaded) {
     return null;
   }
 
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
+      {previewPage && <PreviewCommunitySidebar />}
       <NavBar
         pageTitle={pageTitle}
         setPageTitle={setPageTitle}
@@ -305,6 +335,19 @@ function App() {
               setFormat={setFormat}
             />
           </Route>
+          <ProtectedRoute exact path="/c/:communityId/style">
+            <PreviewCommunity
+              setPageTitle={setPageTitle}
+              setPageIcon={setPageIcon}
+              postType={postType}
+              setPostType={setPostType}
+              format={format}
+              setFormat={setFormat}
+              previewPage={previewPage}
+              userCommunities={userCommunities}
+              setPreviewPage={setPreviewPage}
+            />
+          </ProtectedRoute>
           <ProtectedRoute path="/c/:communityId/edit" exact={true}>
             <EditCommunity />
           </ProtectedRoute>
@@ -353,7 +396,7 @@ function App() {
           <Route></Route>
         </Switch>
       </div>
-    </BrowserRouter>
+    </>
   );
 }
 

@@ -21,7 +21,7 @@
 .community-page-header-top {
   height: 80px;
   width: 100%;
-  background: rgb(51, 168, 255);
+  background: var(--community-base-color);
   padding: 8px 16px;
 }
 
@@ -35,6 +35,7 @@
 }
 
 .community-page-main {
+  background: var(--community-body-bg);
   width: auto;
   display: flex;
   justify-content: center;
@@ -133,13 +134,13 @@
 }
 
 .community-page-box-description:hover {
-  border: 1px solid #0079d3;
+  border: 1px solid var(--community-highlight);
   padding: 4px;
 }
 
 .community-page-box-description svg {
   font-size: 18px;
-  color: #0079d3;
+  color: var(--community-highlight);
   line-height: 20px;
   vertical-align: middle;
   margin-left: 4px;
@@ -154,7 +155,7 @@
   margin-top: 8px;
   cursor: pointer;
   display: block;
-  border: 1px solid #0079d3;
+  border: 1px solid var(--community-highlight);
   transition: none;
 }
 
@@ -212,7 +213,7 @@
 }
 
 .edit-community-description-save {
-  color: #0079d3;
+  color: var(--community-highlight);
 }
 
 .edit-community-description-red {
@@ -224,6 +225,20 @@
   font-size: 12px;
   font-weight: 700;
   line-height: 16px;
+}
+
+.community-btn {
+  border-color: var(--community-highlight);
+  color: var(--community-highlight) !important;
+}
+
+.community-btn-filled {
+  background: var(--community-highlight) !important;
+  border-color: var(--community-highlight) !important;
+}
+
+.community-btn::before {
+  background: var(--community-highlight) !important;
 }
 
 .community-header-info-details-left {
@@ -275,6 +290,11 @@
   color: #1c1c1c;
 }
 
+.community-header-info-img {
+  display: flex;
+  flex-direction: column;
+}
+
 .community-header-info-img img {
   font-size: 70px;
   color: #7c7c7c;
@@ -282,29 +302,144 @@
   border-radius: 1000px;
   height: 80px;
   width: 80px;
-  background: white;
+  background-color: var(--community-base-color);
   object-fit: cover;
+}
+
+.community-update-icon {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  color: var(--community-highlight);
+  cursor: pointer;
+  text-align: center;
+  margin-top: 6px;
 }
 
 .community-header-info-name h2 {
   font-size: 14px;
   font-weight: 500;
   color: #7c7c7c;
+  line-height: 18px;
+  margin-top: 2px;
 }
 
 .community-page-box-header {
-  background: #0079d3;
-  padding: 12px;
+  background: var(--community-base-color);
+  padding: 0 12px 12px;
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0.5px;
+  height: 50px;
+}
+
+.community-page-box-header-left {
+  padding-top: 12px;
+  line-height: 20px;
+}
+
+.community-page-box-header-right {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.community-page-menu {
+  position: relative;
+}
+
+.community-page-menu button {
+  border-radius: 2px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  padding: 0 2px 0 4px;
+  vertical-align: middle;
+  color: inherit;
+  height: auto;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.community-page-menu button:hover {
+  background-color: rgba(26, 26, 27, 0.1);
+}
+
+.community-page-menu svg {
+  color: var(--community-base-color-text);
+  font-size: 20px;
+}
+
+.community-info-menu {
+  border-radius: 4px;
+  border: 1px solid #edeff1;
+  background: white;
+  box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
+  color: #1c1c1c;
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  width: 170px;
+}
+
+.community-info-menu button {
+  height: auto;
+  border-radius: 0;
+  cursor: pointer;
+  background: white;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  display: block;
+  padding: 8px;
+  width: 100%;
+  text-align: left;
+  text-transform: capitalize;
+  border: none;
+  font-family: "IBM Plex Sans", sans-serif;
+  white-space: nowrap;
+  color: #878a8c;
+}
+
+.community-info-menu button:hover {
+  color: #1c1c1c;
+  background-color: #edf5fd;
+  outline: none;
+}
+
+.community-info-menu:not(:first-child) {
+  border-top: 1px solid #edeff1;
+  border-bottom: none;
 }
 
 .community-page-box-header h3 {
-  color: white;
+  color: var(--community-base-color-text);
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.5px;
+}
+
+.community-page-mod-tools {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: "IBM Plex Sans", sans-serif;
+  color: var(--community-base-color-text);
+  cursor: pointer;
+}
+
+.community-page-mod-tools:hover {
+  background-color: rgba(26, 26, 27, 0.1);
+}
+
+.community-page-mod-tools svg {
+  font-size: 24px;
+  color: var(--community-base-color-text);
+  margin-right: 4px;
 }
 
 .community-no-posts {
@@ -453,7 +588,7 @@
 }
 
 .edit-community-top-bar-name a {
-  color: #0079d3;
+  color: var(--community-base-color);
 }
 
 .edit-community-top-bar img {
@@ -515,12 +650,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #0079d3;
+  border: 1px solid var(--community-highlight);
   cursor: pointer;
   z-index: 11;
   width: 30px;
   height: 30px;
   bottom: 0;
+  font-size: 20px;
+  color: var(--community-highlight);
   left: 45px;
 }
 
@@ -539,8 +676,8 @@
 }
 
 .community-page-rules-header {
-  background: #0079d3;
-  color: white;
+  background: var(--community-base-color);
+  color: var(--community-base-color-text);
   padding: 12px;
   font-size: 14px;
   font-weight: 700;
@@ -749,6 +886,20 @@ li {
   line-height: 16px;
   font-family: "Noto Sans", sans-serif;
 }
+
+.preview-community-page {
+  display: flex;
+  position: relative;
+}
+
+.scoot-over .navbar-nav {
+  padding-left: 320px;
+}
+
+.scoot-over .main {
+  padding-left: 284px;
+}
+
 @media (max-width: 960px) {
   .community-page-right-col {
     display: none;

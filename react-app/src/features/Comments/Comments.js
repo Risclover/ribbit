@@ -8,7 +8,7 @@ import "./Comments.css";
 import { getComments } from "../../store/comments";
 import { useParams } from "react-router-dom";
 
-export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
+export default function Comments({ setShowLoginForm, setCommentsNum }) {
   const url = window.location.href;
   const dispatch = useDispatch();
   const { postId } = useParams();
@@ -20,15 +20,6 @@ export default function Comments({ setShowLoginForm, post, setCommentsNum }) {
   const commentIdPattern = /#comment-(\d+)/;
   const match = url.match(commentIdPattern);
   const commentUrl = match ? match[1] : null;
-
-  console.log(
-    "commentIdPattern:",
-    commentIdPattern,
-    "match:",
-    match,
-    "commentUrl:",
-    commentUrl
-  );
 
   useEffect(() => {
     dispatch(getComments(+postId));

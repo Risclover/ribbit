@@ -35,36 +35,39 @@ export default function PostFormatDropdownBtn({
 
   useEffect(() => {
     if (format === item.format) {
-      setImg(item.colored);
+      setImg("active");
     } else {
-      setImg(item.grey);
+      setImg("grey");
     }
-  }, [format, item.colored, item.format, item.grey]);
+  }, [format, item.format]);
+
 
   useOutsideAlerter(wrapperRef, setActive, active, setImg, item);
 
   return (
     <button
-      className="post-format-btn"
+      className={
+        img === item.blacks
+          ? "post-format-btn format-btn-black"
+          : img === "grey"
+          ? "post-format-btn format-btn-grey"
+          : format === item.format
+          ? "post-format-btn format-btn-active"
+          : "post-format-btn"
+      }
       ref={wrapperRef}
-      onMouseEnter={() => {
-        format === item.format ? setImg(item.colored) : setImg(item.black);
-      }}
-      onMouseLeave={() => {
-        format === item.format ? setImg(item.colored) : setImg(item.img);
-      }}
       onClick={() => {
         setActive(true);
         setShowDropdown(false);
         setFormat(item.format);
       }}
     >
-      <img src={img ? img : item.img} alt="Item" />
+      {item.img}
       <span
         className={
-          img === item.black
+          img === item.blacks
             ? "format-btn-black"
-            : img === item.grey
+            : img === "grey"
             ? "format-btn-grey"
             : format === item.format
             ? "format-btn-active"

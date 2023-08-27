@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import UsernamePopup from "./UsernamePopup";
 import { useHistory } from "react-router-dom";
 
-export default function Username({ username, user, source }) {
+export default function Username({ community, username, user, source }) {
   const history = useHistory();
 
   const users = useSelector((state) => Object.values(state.users));
@@ -41,7 +41,11 @@ export default function Username({ username, user, source }) {
       {foundUser.length > 0 &&
         currentUser &&
         currentUser.id !== foundUser[0].id && (
-          <UsernamePopup user={foundUser} setShowUserBox={setShowUserBox} />
+          <UsernamePopup
+            community={community}
+            user={foundUser}
+            setShowUserBox={setShowUserBox}
+          />
         )}
     </div>
   );

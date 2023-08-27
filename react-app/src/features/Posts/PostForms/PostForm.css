@@ -669,6 +669,14 @@ pre.ql-syntax {
   padding-left: 4px;
 }
 
+.single-page-content-link.community-post {
+  color: var(--community-highlight);
+}
+
+.single-page-content-link.community-post:visited {
+  color: #3f9ade;
+}
+
 .single-post-content-box {
   display: flex;
   justify-content: space-between;
@@ -681,8 +689,8 @@ pre.ql-syntax {
 }
 
 .single-post-content-box-right {
-  border: 1px solid rgb(0, 121, 211);
-  color: rgb(0, 121, 211);
+  border: 1px solid #0079d3;
+  color: #0079d3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -698,6 +706,16 @@ pre.ql-syntax {
   cursor: pointer;
 }
 
+.single-post-content-box-right.community-post {
+  color: var(--community-highlight);
+  border-color: var(--community-highlight);
+}
+
+.single-post-content-box-right.community-post:visited {
+  color: #3f9ade;
+  border-color: #3f9ade;
+}
+
 .single-post-external-link-box {
   border-top-left-radius: 4px;
   bottom: 0;
@@ -709,6 +727,14 @@ pre.ql-syntax {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.single-post-external-link-box.community-post {
+  background-color: var(--community-highlight);
+}
+
+.single-post-external-link-box.community-post:visited {
+  background-color: #0079d3;
 }
 
 .single-post-external-link-box svg {

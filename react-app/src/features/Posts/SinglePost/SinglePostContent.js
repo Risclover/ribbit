@@ -6,6 +6,7 @@ import { FiLink } from "react-icons/fi";
 import LazyLoad from "react-lazyload";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { NavLink } from "react-router-dom";
 
 export default function SinglePostContent({ post, isPage }) {
   return (
@@ -29,16 +30,18 @@ export default function SinglePostContent({ post, isPage }) {
             </LazyLoad>
           </div>
         ) : post.linkUrl !== null ? (
-          <div
-            className="single-page-content-link"
-            onClick={(e) => {
-              e.preventDefault();
-              window.open(post.linkUrl);
-            }}
+          <a
+            href={post.linkUrl}
+            className={`single-page-content-link${
+              isPage === "community" || isPage === "singlepage"
+                ? " community-post"
+                : ""
+            }`}
+            target="_blank"
           >
             {cutLink(post.linkUrl)}
             <HiOutlineExternalLink />
-          </div>
+          </a>
         ) : post.imgUrl === null && post.linkUrl === null ? (
           <div
             className={
@@ -61,10 +64,20 @@ export default function SinglePostContent({ post, isPage }) {
             e.preventDefault();
             window.open(post.linkUrl);
           }}
-          className="single-post-content-box-right"
+          className={`single-post-content-box-right${
+            isPage === "community" || isPage === "singlepage"
+              ? " community-post"
+              : ""
+          }`}
         >
           <FiLink />
-          <div className="single-post-external-link-box">
+          <div
+            className={`single-post-external-link-box${
+              isPage === "community" || isPage === "singlepage"
+                ? " community-post"
+                : ""
+            }`}
+          >
             <HiOutlineExternalLink />
           </div>
         </button>

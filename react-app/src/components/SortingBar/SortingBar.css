@@ -43,6 +43,10 @@
   background: #f6f7f8;
 }
 
+.community-sorting-bar-btn.active-sort-btn {
+  color: var(--community-highlight);
+}
+
 .post-sorting-bar-btn:hover,
 .post-sorting-bar.active-sort-btn:hover {
   background: #1c1c1c11;

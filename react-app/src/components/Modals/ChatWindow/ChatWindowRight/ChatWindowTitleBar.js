@@ -22,10 +22,13 @@ export default function ChatWindowTitleBar({
   return (
     <div className="chat-thread-window-titlebar">
       {newChatOverlay ? "New Chat" : receiver?.username || ""}
+<<<<<<< HEAD
       {/* <button className="chat-window-close-btn" title="Minimize chat">
         <GoChevronDown />
       </button> */}
       <div></div>
+=======
+>>>>>>> community-settings
       <button
         title="Close chat"
         className="chat-window-close-btn"

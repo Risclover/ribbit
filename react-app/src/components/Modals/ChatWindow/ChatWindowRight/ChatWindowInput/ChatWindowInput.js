@@ -63,7 +63,6 @@ export default function ChatWindowInput({
   };
 
   const handleOpenGiphy = () => {
-    console.log("gif icon:", gifIcon);
     setEmojisOverlay(false);
     if (openGiphy) {
       setGifIcon(GifIcon);

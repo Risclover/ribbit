@@ -4,6 +4,7 @@ import "./SortingBar.css";
 import PostFormatFace from "../../features/Posts/PostFormatDropdown/PostFormatFace";
 
 export default function SortingBar({
+  community,
   sortMode,
   setSortMode,
   format,
@@ -13,13 +14,19 @@ export default function SortingBar({
     <div className="post-sorting-bar">
       <div className="post-sorting-bar-left">
         {sortMode === "new" ? (
-          <button className="post-sorting-bar-btn active-sort-btn">
+          <button
+            className={`post-sorting-bar-btn active-sort-btn ${
+              community && "community-sorting-bar-btn"
+            }`}
+          >
             <i className="fa-solid fa-certificate"></i>
             New
           </button>
         ) : (
           <button
-            className="post-sorting-bar-btn"
+            className={`post-sorting-bar-btn ${
+              community && "community-sorting-bar-btn"
+            }`}
             onClick={() => setSortMode("new")}
           >
             <i className="fa-solid fa-certificate"></i>
@@ -27,13 +34,19 @@ export default function SortingBar({
           </button>
         )}
         {sortMode === "top" ? (
-          <button className="post-sorting-bar-btn active-sort-btn">
+          <button
+            className={`post-sorting-bar-btn active-sort-btn ${
+              community && "community-sorting-bar-btn"
+            }`}
+          >
             <i className="fa-solid fa-ranking-star"></i>
             Top
           </button>
         ) : (
           <button
-            className="post-sorting-bar-btn"
+            className={`post-sorting-bar-btn ${
+              community && "community-sorting-bar-btn"
+            }`}
             onClick={() => {
               setSortMode("top");
             }}

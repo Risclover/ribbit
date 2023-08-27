@@ -134,6 +134,46 @@ export const deleteCommunity = (communityId) => async (dispatch) => {
   }
 };
 
+export const editCommunityTheme = (payload) => async (dispatch) => {
+  const { communityId, baseColor, highlight, bodyBg } = payload;
+  console.log("redux payload:", payload);
+  const response = await fetch(`/api/communities/${communityId}/appearance`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ baseColor, highlight, bodyBg }),
+  });
+  console.log("redux response:", response);
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadCommunity(data));
+    return data;
+  }
+};
+
+export const getCommunityPreview = (communityId) => async (dispatch) => {
+  const response = await fetch(`/api/communities/${communityId}/style`);
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadCommunity(data));
+    return data;
+  }
+};
+
+export const updateCommunityPreview = (payload) => async (dispatch) => {
+  const { communityId, baseColor, highlight, bodyBackground } = payload;
+
+  const response = await fetch(`/api/communities/${communityId}/style/edit`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ baseColor, highlight, bodyBackground }),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  }
+};
+
 // #################### REDUCER #################### //
 
 const initialState = {};

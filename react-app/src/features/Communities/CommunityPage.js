@@ -8,7 +8,7 @@ import { getCommunities } from "../../store/communities";
 import CommunityWelcome from "./CommunityWelcome";
 import CommunityRulesBox from "./CommunityRulesBox";
 import CommunityImage from "./CommunityImage";
-import CommunityInfoBox from "./CommunityInfoBox";
+import CommunityInfoBox from "./CommunityInfoBox/CommunityInfoBox";
 import CommunitySubscribeBtn from "./CommunitySubscribeBtn";
 import CommunityName from "./CommunityName";
 import CommunityPosts from "./CommunityPosts";
@@ -35,10 +35,10 @@ export default function CommunityPage({
   let commPosts = posts.filter((post) => post.communityId == communityId);
 
   useEffect(() => {
+    dispatch(getCommunities());
     dispatch(getSubscriptions());
     dispatch(getPosts());
     dispatch(getSingleCommunity(+communityId));
-    dispatch(getCommunities());
   }, [communityId, dispatch]);
 
   useEffect(() => {
@@ -111,7 +111,7 @@ export default function CommunityPage({
             <CommunityRulesBox community={community} />
           )}
 
-          <BackToTop />
+          <BackToTop community={true} />
         </div>
       </div>
 
