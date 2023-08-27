@@ -169,6 +169,7 @@
   border-radius: 4px;
   border: 1px solid #edeff1;
   background: white;
+  cursor: default;
   top: 30px;
   /* left: 12px; */
   z-index: 9999;
@@ -285,6 +286,9 @@
 
 .preview-community-browser-color-picker {
   visibility: hidden;
+  position: absolute;
+  left: 10px;
+  bottom: -10px;
 }
 
 .preview-community-browser-color-picker .color-picker-shown {
