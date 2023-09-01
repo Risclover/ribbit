@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useAutosizeTextArea from "./useAutosizeTextArea";
-import { createChatMessage, getChatThread } from "../../../../../store/chats";
+import {
+  createChatMessage,
+  createChatThread,
+  getChatThread,
+  getUserChatThreads,
+} from "../../../../../store/chats";
 import Emojis from "./Emojis";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 import GifIcon from "../../../../../images/gif-icon.png";
@@ -13,7 +18,11 @@ const giphy = new GiphyFetch(process.env.REACT_APP_GIPHY_KEY);
 export default function ChatWindowInput({
   socket,
   selectedChat,
+  setSelectedChat,
   selectedReaction,
+  messageInviteOverlay,
+  setMessageInviteOverlay,
+  userFound,
 }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
@@ -49,6 +58,17 @@ export default function ChatWindowInput({
   const handleSendChatMsg = async (e) => {
     e.preventDefault();
     setContent("");
+
+    if (messageInviteOverlay) {
+      const newChat = await dispatch(createChatThread(userFound?.id));
+      dispatch(getUserChatThreads());
+      setSelectedChat(newChat);
+      setReceiver(() =>
+        selectedChat?.users?.find((user) => user.id !== currentUser.id)
+      );
+      setMessageInviteOverlay(false);
+    }
+
     const payload = {
       content: content,
       receiverId: receiver.id,

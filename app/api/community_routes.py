@@ -95,6 +95,30 @@ def update_community(id):
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
+# DEFAULT COMMUNITY IMAGE
+@community_routes.route("/<int:id>/default-img", methods=["PUT"])
+def default_community_img(id):
+    community = Community.query.get(id)
+    setattr(community, 'community_img', "https://i.imgur.com/9CI9hiO.png")
+
+    print("""
+
+
+
+
+
+
+
+
+
+
+
+
+          """, community)
+    db.session.commit()
+    return community.to_dict()
+
+
 # DELETE A COMMUNITY
 @community_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
@@ -134,6 +158,31 @@ def upload_image(id):
     community = Community.query.get(id)
 
     setattr(community, "community_img", url)
+    db.session.commit()
+    return {"url": url}
+
+# UPLOAD BACKGROUND IMAGE
+@community_routes.route("/<int:id>/bg_img", methods=["POST"])
+def upload_bg_image(id):
+    if "image" not in request.files:
+        return {"errors": "image required"}, 400
+
+    image = request.files["image"]
+
+    if not allowed_file(image.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file_to_s3(image)
+
+    if "url" not in upload:
+        return upload, 400
+
+    url = upload["url"]
+    community = Community.query.get(id)
+
+    setattr(community, "background_img", url)
     db.session.commit()
     return {"url": url}
 

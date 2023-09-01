@@ -7,6 +7,8 @@ import {
   getCommunities,
 } from "../../../../store/communities";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import DropBox from "../../../../components/DragNDropImageUpload/DropBox";
+import BodyBgFormat from "./BodyBgFormat";
 
 export default function PreviewCommunityColorTheme({
   setOpenAppearance,
@@ -17,6 +19,8 @@ export default function PreviewCommunityColorTheme({
   const [base, setBase] = useState(community?.baseColor);
   const [highlight, setHighlight] = useState(community?.highlight);
   const [bodyBg, setBodyBg] = useState(community?.bodyBg);
+  const [bgFormat, setBgFormat] = useState("fill");
+  const [image, setImage] = useState();
 
   useEffect(() => {
     document.documentElement.style.setProperty(
@@ -56,7 +60,13 @@ export default function PreviewCommunityColorTheme({
     const data = await dispatch(editCommunityTheme(payload));
     console.log("data", data);
     dispatch(getCommunities());
-    history.push(`/c/${community?.id}`);
+    setOpenAppearance(false);
+  };
+
+  const handleBgFormat = (format) => {
+    setBgFormat(format);
+
+    console.log("format:", format);
   };
 
   return (
@@ -81,6 +91,26 @@ export default function PreviewCommunityColorTheme({
           community={community}
           setTheme={setBodyBg}
         />
+        <div className="preview-community-theme-background-img">
+          <h3>Image</h3>
+          <DropBox
+            community={community}
+            startingImage={community.backgroundImg}
+            setImage={setImage}
+            image={image}
+          />
+          <div className="body-bg-formats" role="radiogroup">
+            <input type="hidden" value={bgFormat} />
+            {["fill", "tile", "center"].map((format) => (
+              <BodyBgFormat
+                format={format}
+                bgFormat={bgFormat}
+                setBgFormat={setBgFormat}
+                onClick={() => handleBgFormat(format)}
+              />
+            ))}
+          </div>
+        </div>
       </div>
       <div className="preview-community-theme-btns">
         <button className="blue-btn-filled btn-long" onClick={handleSaveTheme}>

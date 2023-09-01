@@ -172,7 +172,7 @@ To run this app locally:
 
 (^ [Back to Top](#ribbit))
 
-- [Developer portfolio](https://risclover.github.io)
+- [Developer portfolio](https://www.saradunlop.dev)
 - [LinkedIn](https://www.linkedin.com/in/sara-dunlop)
 - [Wellfound](https://angel.co/u/sara-dunlop-1)
 - [Github](https://www.github.com/Risclover)

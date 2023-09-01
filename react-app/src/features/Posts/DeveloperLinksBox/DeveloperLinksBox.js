@@ -9,7 +9,7 @@ export default function DeveloperLinksBox() {
   const developerLinks = [
     {
       title: "Developer Portfolio",
-      link: "https://risclover.github.io",
+      link: "https://www.saradunlop.dev",
       imgsrc: Resume,
     },
     {

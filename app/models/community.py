@@ -1,6 +1,9 @@
 from .db import db
 from .joins import subscriptions, favorite_communities
 
+def defaultdisplay(context):
+    return "c/" + context.get_current_parameters()['name']
+
 class Community(db.Model):
     __tablename__ = "communities"
 
@@ -15,6 +18,10 @@ class Community(db.Model):
     base_color = db.Column(db.String(10), default="#0079d3")
     highlight = db.Column(db.String(10), default="#0079d3")
     body_background = db.Column(db.String(10), default="#DAE0E6")
+    background_img = db.Column(db.String(255), nullable=True)
+    background_img_format = db.Column(db.String("10"), nullable=True)
+
+    name_format = db.Column(db.Text, default=defaultdisplay)
 
     community_posts = db.relationship('Post', back_populates="post_community", cascade="all, delete-orphan")
     subscribers = db.relationship('User', back_populates="user_subscriptions", secondary=subscriptions, lazy="joined")
@@ -39,7 +46,8 @@ class Community(db.Model):
             "communityRules": {item.to_dict()["id"]: item.to_dict() for item in self.community_rules},
             "baseColor": self.base_color,
             "highlight": self.highlight,
-            "bodyBg": self.body_background
+            "bodyBg": self.body_background,
+            "backgroundImg": self.background_img
         }
 
     def __repr__(self):

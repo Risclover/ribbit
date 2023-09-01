@@ -174,6 +174,17 @@ export const updateCommunityPreview = (payload) => async (dispatch) => {
   }
 };
 
+export const defaultCommunityImg = (communityId) => async (dispatch) => {
+  const response = await fetch(`/api/communities/${communityId}/default-img`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+  });
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  }
+};
+
 // #################### REDUCER #################### //
 
 const initialState = {};

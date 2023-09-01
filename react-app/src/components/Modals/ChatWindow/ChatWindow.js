@@ -8,6 +8,7 @@ import { io } from "socket.io-client";
 import ChatWindowDeleteOverlay from "./ChatWindowOverlays/ChatWindowDeleteOverlay";
 import ChatWindowWelcomeOverlay from "./ChatWindowOverlays/ChatWindowWelcomeOverlay";
 import ChatWindowNewChatOverlay from "./ChatWindowOverlays/ChatWindowNewChatOverlay";
+import ChatWindowMessageInviteOverlay from "./ChatWindowOverlays/ChatWindowMessageInviteOverlay";
 let socket;
 
 export default function ChatWindow({
@@ -20,12 +21,14 @@ export default function ChatWindow({
   const currentUser = useSelector((state) => state.session.user);
   const chatThreads = useSelector((state) => state.chatThreads);
 
+  const [userFound, setUserFound] = useState(false);
   const [msgId, setMsgId] = useState();
   const [newChatOverlay, setNewChatOverlay] = useState(false);
   const [welcomeOverlay, setWelcomeOverlay] = useState(
     Object.keys(chatThreads)?.length === 0 || !chatThreads ? true : false
   );
   const [deleteOverlay, setDeleteOverlay] = useState(false);
+  const [messageInviteOverlay, setMessageInviteOverlay] = useState(false);
 
   const [receiver, setReceiver] = useState(
     selectedChat
@@ -100,6 +103,7 @@ export default function ChatWindow({
     }
   }, [selectedChat, currentUser.id]);
 
+  console.log("user found:", userFound);
   return (
     <div className="chat-window-container">
       <ChatWindowLeft
@@ -116,12 +120,16 @@ export default function ChatWindow({
       <ChatWindowRight
         setOpenChat={setOpenChat}
         selectedChat={selectedChat}
+        setSelectedChat={setSelectedChat}
         receiver={receiver}
         messages={messages}
         setDeleteOverlay={setDeleteOverlay}
         setMsgId={setMsgId}
         socket={socket}
         newChatOverlay={newChatOverlay}
+        messageInviteOverlay={messageInviteOverlay}
+        setMessageInviteOverlay={setMessageInviteOverlay}
+        userFound={userFound}
       />
 
       {deleteOverlay && (
@@ -140,8 +148,12 @@ export default function ChatWindow({
           setNewChatOverlay={setNewChatOverlay}
           setWelcomeOverlay={setWelcomeOverlay}
           setSelectedChat={setSelectedChat}
+          setMessageInviteOverlay={setMessageInviteOverlay}
+          setUserFound={setUserFound}
+          userFound={userFound}
         />
       )}
+      {messageInviteOverlay && <ChatWindowMessageInviteOverlay />}
     </div>
   );
 }

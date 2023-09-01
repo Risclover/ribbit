@@ -1275,3 +1275,27 @@
   animation: 300ms linear 300ms 1 normal backwards running slideIn;
   transition: all 0.15s ease-in-out 0s;
 }
+
+.message-invite-overlay {
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  background: white;
+  top: 44px;
+  right: 0;
+  bottom: 0;
+  z-index: 999999;
+  width: 410px;
+  height: 405px;
+  position: absolute;
+}
+
+.message-invite-banner {
+  border-radius: 8px;
+  color: #1a1a1b;
+  padding: 8px 12px;
+  background: #e4efff;
+  font-size: 12px;
+  font-weight: 600;
+}

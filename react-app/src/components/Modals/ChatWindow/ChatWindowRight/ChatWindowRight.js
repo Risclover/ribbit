@@ -6,12 +6,16 @@ import ChatMessages from "./ChatWindowMessages/ChatMessages";
 export default function ChatWindowRight({
   setOpenChat,
   selectedChat,
+  setSelectedChat,
   receiver,
   messages,
   setDeleteOverlay,
   setMsgId,
   socket,
+  messageInviteOverlay,
+  setMessageInviteOverlay,
   newChatOverlay,
+  userFound,
 }) {
   const [selectedReaction, setSelectedReaction] = useState("");
 
@@ -37,6 +41,10 @@ export default function ChatWindowRight({
         socket={socket}
         selectedReaction={selectedReaction}
         setSelectedReaction={setSelectedReaction}
+        messageInviteOverlay={messageInviteOverlay}
+        setMessageInviteOverlay={setMessageInviteOverlay}
+        setSelectedChat={setSelectedChat}
+        userFound={userFound}
       />
     </div>
   );

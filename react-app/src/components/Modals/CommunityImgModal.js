@@ -31,7 +31,8 @@ export default function CommunityImgModal({
     formData.append("image", image);
 
     setImageLoading(true);
-
+    console.log("form data:", formData);
+    console.log("image:", image);
     const res = await fetch(`/api/communities/${communityId}/img`, {
       method: "POST",
       body: formData,

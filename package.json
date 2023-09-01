@@ -14,6 +14,7 @@
     "bootstrap-icons": "^1.10.5",
     "moment": "^2.29.4",
     "react-click-away-listener": "^2.2.3",
+    "react-dropzone": "^14.2.3",
     "react-icons": "^4.10.1",
     "react-infinite-scroll-component": "^6.1.0",
     "react-link-previewer": "^1.0.8",
@@ -21,6 +22,7 @@
     "react-onclickoutside": "^6.12.2",
     "react-router-hash-link": "^2.4.3",
     "react-tiny-link": "^3.6.1",
+    "styled-components": "^6.0.7",
     "the-noun-project": "^2.1.0",
     "validator": "^13.9.0"
   },

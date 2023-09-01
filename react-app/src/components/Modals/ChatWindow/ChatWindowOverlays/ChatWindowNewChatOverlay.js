@@ -2,21 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../../../store/users";
 import { RxBox } from "react-icons/rx";
-import {
-  createChatThread,
-  getChatThread,
-  getUserChatThreads,
-} from "../../../../store/chats";
+import { createChatThread, getUserChatThreads } from "../../../../store/chats";
 
 export default function ChatWindowNewChatOverlay({
+  setMessageInviteOverlay,
   setNewChatOverlay,
   setSelectedChat,
   setWelcomeOverlay,
+  setUserFound,
+  userFound,
 }) {
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState();
-  const [userFound, setUserFound] = useState();
   const [isChosen, setIsChosen] = useState(false);
 
   const users = useSelector((state) => Object.values(state.users));
@@ -53,11 +51,9 @@ export default function ChatWindowNewChatOverlay({
     );
 
     if (!existingThread) {
-      const newChat = await dispatch(createChatThread(userFound?.id));
-      await dispatch(getUserChatThreads());
       setNewChatOverlay(false);
       setWelcomeOverlay(false);
-      setSelectedChat(newChat);
+      setMessageInviteOverlay(true);
     } else {
       setSelectedChat(existingThread);
       setNewChatOverlay(false);
