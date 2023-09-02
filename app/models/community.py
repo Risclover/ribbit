@@ -19,7 +19,7 @@ class Community(db.Model):
     highlight = db.Column(db.String(10), default="#0079d3")
     body_background = db.Column(db.String(10), default="#DAE0E6")
     background_img = db.Column(db.String(255), nullable=True)
-    background_img_format = db.Column(db.String("10"), nullable=True)
+    background_img_format = db.Column(db.String(10), nullable=True)
 
     name_format = db.Column(db.Text, default=defaultdisplay)
 
@@ -47,7 +47,8 @@ class Community(db.Model):
             "baseColor": self.base_color,
             "highlight": self.highlight,
             "bodyBg": self.body_background,
-            "backgroundImg": self.background_img
+            "backgroundImg": self.background_img,
+            "backgroundImgFormat": self.background_img_format
         }
 
     def __repr__(self):
