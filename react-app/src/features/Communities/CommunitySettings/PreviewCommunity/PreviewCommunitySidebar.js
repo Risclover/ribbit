@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../CommunityPage.css";
 import "./PreviewCommunity.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import OutsideClickWarning from "./OutsideClickWarning";
 import { Modal } from "../../../../context/Modal";
+import { getCommunitySettings } from "../../../../store/community_settings";
 
 export default function PreviewCommunitySidebar() {
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const community = useSelector(
     (state) => state.communities[Number(location.pathname.slice(3, 5))]
@@ -26,6 +28,10 @@ export default function PreviewCommunitySidebar() {
     "Menu",
     "Posts",
   ];
+
+  useEffect(() => {
+    dispatch(getCommunitySettings(community.id));
+  }, [dispatch]);
 
   const handleOutsideClick = (e) => {
     setShowWarning(true);

@@ -47,6 +47,12 @@ export default function CommunityInfoBox({
   const varColor = getComputedStyle(document.documentElement).getPropertyValue(
     "--community-base-color"
   );
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--community-base-color-text",
+      getTextColor(varColor)
+    );
+  }, [community]);
 
   return (
     <div className="community-page-community-info">

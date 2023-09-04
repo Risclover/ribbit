@@ -57,7 +57,7 @@ export default function CommunityPage({
 
   document.documentElement.style.setProperty(
     "--community-body-bg",
-    community?.communitySettings[communityId]?.bodyBg
+    community?.communitySettings[communityId]?.bgColor
   );
 
   console.log("community settings:", community?.communitySettings[communityId]);

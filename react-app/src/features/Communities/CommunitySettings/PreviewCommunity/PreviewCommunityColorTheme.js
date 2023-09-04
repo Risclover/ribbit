@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./PreviewCommunity.css";
 import PreviewCommunityColorThemeColor from "./PreviewCommunityColorThemeColor";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   editCommunityTheme,
   getCommunities,
@@ -10,7 +10,10 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import DropBox from "../../../../components/DragNDropImageUpload/DropBox";
 import BodyBgFormat from "./BodyBgFormat";
 import { getSingleCommunity } from "../../../../store/one_community";
-import { getCommunitySettings } from "../../../../store/community_settings";
+import {
+  getCommunitySettings,
+  updateSettingsColorTheme,
+} from "../../../../store/community_settings";
 
 export default function PreviewCommunityColorTheme({
   setOpenAppearance,
@@ -18,11 +21,18 @@ export default function PreviewCommunityColorTheme({
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [base, setBase] = useState(community?.baseColor);
-  const [highlight, setHighlight] = useState(community?.highlight);
-  const [bodyBg, setBodyBg] = useState(community?.bodyBg);
-  const [bgFormat, setBgFormat] = useState(community?.backgroundImgFormat);
-  const [bodyBgPreview, setBodyBgPreview] = useState(community.backgroundImg);
+  const communitySettings = useSelector(
+    (state) => state.communitySettings[community.id]
+  );
+  const [base, setBase] = useState(communitySettings.baseColor);
+  const [highlight, setHighlight] = useState(communitySettings.highlight);
+  const [bodyBg, setBodyBg] = useState(communitySettings.bgColor);
+  const [bgFormat, setBgFormat] = useState(
+    communitySettings.backgroundImgFormat
+  );
+  const [bodyBgPreview, setBodyBgPreview] = useState(
+    communitySettings.backgroundImg
+  );
   const [image, setImage] = useState();
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -75,15 +85,15 @@ export default function PreviewCommunityColorTheme({
 
   const handleSaveTheme = async () => {
     const payload = {
-      communityId: community?.id,
+      settingsId: communitySettings.id,
       baseColor: base,
       highlight: highlight,
-      bodyBg: bodyBg,
-      bodyBgImgFormat: bgFormat,
-      nameFormat: community.nameFormat,
+      bgColor: bodyBg,
+      backgroundImg: communitySettings.backgroundImg,
+      backgroundImgFormat: bgFormat,
     };
     console.log("payload:", payload);
-    const data = await dispatch(editCommunityTheme(payload));
+    const data = await dispatch(updateSettingsColorTheme(payload));
     console.log("data", data);
     dispatch(getCommunities());
 
@@ -97,7 +107,6 @@ export default function PreviewCommunityColorTheme({
 
   const handleBgFormat = (format) => {
     setBgFormat(format);
-    console.log("format:", format);
   };
 
   const changeBodyBackground = async () => {
@@ -112,7 +121,6 @@ export default function PreviewCommunityColorTheme({
       await res.json();
       dispatch(getSingleCommunity(community.id));
       setOpenAppearance(false);
-      console.log("community:", community);
     } else {
       setErrorMsg(
         "There was a problem with your upload. Make sure your file is a .jpg or .png file, and try again."
@@ -146,7 +154,7 @@ export default function PreviewCommunityColorTheme({
           <h3>Image</h3>
           <DropBox
             community={community}
-            startingImage={community.backgroundImg}
+            startingImage={community.communitySettings.backgroundImg}
             setImage={setImage}
             image={image}
             bgFormat={bgFormat}

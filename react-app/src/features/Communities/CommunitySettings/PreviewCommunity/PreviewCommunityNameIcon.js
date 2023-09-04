@@ -16,7 +16,9 @@ export default function PreviewCommunityNameIcon({
 }) {
   const dispatch = useDispatch();
   const options = ["c/", "", "Hide"];
-  const [activeRadio, setActiveRadio] = useState(community.nameFormat);
+  const [activeRadio, setActiveRadio] = useState(
+    community.communitySettings.nameFormat
+  );
   const [image, setImage] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -49,14 +51,14 @@ export default function PreviewCommunityNameIcon({
       }
     }
 
-    if (activeRadio !== community.nameFormat) {
+    if (activeRadio !== community.communitySettings.nameFormat) {
       dispatch(
         editCommunityTheme({
           communityId: community.id,
-          baseColor: community.baseColor,
-          highlight: community.highlight,
-          bodyBg: community.bodyBg,
-          bodyBgImgFormat: community.backgroundImgFormat,
+          baseColor: community.communitySettings.baseColor,
+          highlight: community.communitySettings.highlight,
+          bodyBg: community.communitySettings.bgColor,
+          bodyBgImgFormat: community.communitySettings.backgroundImgFormat,
           nameFormat: activeRadio,
         })
       );
@@ -90,7 +92,7 @@ export default function PreviewCommunityNameIcon({
           <DropBox
             community={community}
             setImage={setImage}
-            startingImage={community.communityImg}
+            startingImage={community.communitySettings.communityImg}
           />
           <p>Required size: 256x256px</p>
         </div>
