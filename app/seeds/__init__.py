@@ -7,6 +7,7 @@ from .rules import seed_rules, undo_rules
 from .followers import seed_followers, undo_followers
 from .subscriptions import seed_subscriptions, undo_subscriptions
 from .postvotes import seed_postvotes, undo_postvotes
+from .community_settings import seed_community_settings, undo_community_settings
 
 from app.models.db import db
 
@@ -22,9 +23,11 @@ def seed():
     seed_followers()
     seed_subscriptions()
     seed_postvotes()
+    seed_community_settings()
 
 @seed_commands.command('undo')
 def undo():
+    undo_community_settings()
     undo_postvotes()
     undo_subscriptions()
     undo_followers()

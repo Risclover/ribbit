@@ -5,17 +5,22 @@ import { RiUploadCloudFill } from "react-icons/ri";
 import DropBox from "../../../../components/DragNDropImageUpload/DropBox";
 import { useDispatch } from "react-redux";
 import { getSingleCommunity } from "../../../../store/one_community";
-import { defaultCommunityImg } from "../../../../store/communities";
+import {
+  defaultCommunityImg,
+  editCommunityTheme,
+} from "../../../../store/communities";
 
 export default function PreviewCommunityNameIcon({
   setOpenAppearance,
   community,
 }) {
   const dispatch = useDispatch();
-  const options = ["c/" + community.name, community.name, "Hide"];
-  const [activeRadio, setActiveRadio] = useState(options[0]);
+  const options = ["c/", "", "Hide"];
+  const [activeRadio, setActiveRadio] = useState(community.nameFormat);
   const [image, setImage] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+
+  console.log("activeRadio:", activeRadio);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,6 +48,22 @@ export default function PreviewCommunityNameIcon({
         console.log(errorMsg);
       }
     }
+
+    if (activeRadio !== community.nameFormat) {
+      dispatch(
+        editCommunityTheme({
+          communityId: community.id,
+          baseColor: community.baseColor,
+          highlight: community.highlight,
+          bodyBg: community.bodyBg,
+          bodyBgImgFormat: community.backgroundImgFormat,
+          nameFormat: activeRadio,
+        })
+      );
+
+      dispatch(getSingleCommunity(community.id));
+      setOpenAppearance(false);
+    }
   };
 
   return (
@@ -53,6 +74,7 @@ export default function PreviewCommunityNameIcon({
         <div className="preview-community-name-icon-box">
           {options.map((option) => (
             <CommunityNameOption
+              community={community}
               title={option}
               activeRadio={activeRadio}
               setActiveRadio={setActiveRadio}

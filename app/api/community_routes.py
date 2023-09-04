@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import db, Community, User
+from app.models import db, Community, User, CommunitySettings
 from .auth_routes import validation_errors_to_error_messages
 from app.forms import CommunityForm, UpdateCommunityForm, RuleForm
 from app.s3_helpers import (
@@ -58,15 +58,41 @@ def create_community():
             description=data["description"],
             display_name=data["name"],
             user_id = current_user.get_id(),
-            base_color="#0079d3",
-            highlight="#0079d3",
-            body_background="#DAE0E6"
         )
 
         db.session.add(new_community)
 
+
         user = User.query.get(current_user.get_id())
         user.user_subscriptions.append(new_community)
+
+        new_community_settings = CommunitySettings(
+            community_id=new_community.id,
+            base_color="#0079d3",
+            highlight="#0079d3",
+            bg_color="#dae0e6",
+            background_img_format="fill",
+            name_format="c/",
+            hide_community_icon=False,
+            community_icon="https://i.imgur.com/9CI9hiO.png",
+            banner_height="small",
+            banner_color="#0079d3",
+            banner_img_format="fill",
+            active_link_color="#0079d3",
+            inactive_link_color="#0079d3",
+            hover_link_color="#0079d3",
+            menu_bg_color="#dbf0ff",
+            submenu_bg_color="#dbf0ff",
+            post_title_color="#222222",
+            upvote_count_color="#FF4500",
+            downvote_count_color="#7193FF",
+            post_bg_color="#FFFFFF",
+            post_bg_img_format="fill",
+            link_placeholder_img_format="fill"
+        )
+
+        db.session.add(new_community_settings)
+        new_community.community_settings.append(new_community_settings)
 
         db.session.commit()
 
@@ -194,6 +220,14 @@ def edit_community_theme(id):
     setattr(community, "base_color", data["baseColor"])
     setattr(community, "highlight", data["highlight"])
     setattr(community, "body_background", data["bodyBg"])
+    setattr(community, "name_format", data["nameFormat"])
+
+    if data["bodyBgImgFormat"] == "center":
+        setattr(community, "background_img_format", "center")
+    elif data["bodyBgImgFormat"] == "tile":
+        setattr(community, "background_img_format", "tile")
+    else:
+        setattr(community, "background_img_format", "fill")
 
     db.session.commit()
 

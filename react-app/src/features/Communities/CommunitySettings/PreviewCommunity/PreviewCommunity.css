@@ -327,9 +327,9 @@
   color: var(--preview-community-color-theme-highlight) !important;
 }
 
-.preview-community-page-container .community-page-main {
+/* .preview-community-page-container .community-page-main {
   background: var(--preview-community-color-theme-bodybg);
-}
+} */
 
 .preview-community-name-icon-box {
   padding: 8px 0;
@@ -546,6 +546,24 @@ svg:not(:root) {
   width: 20px !important;
   align-self: flex-start;
   margin-top: 5px;
+}
+
+.community-page-main .preview-community-body-bg-div {
+  min-height: 100%;
+  overflow: hidden;
+  position: relative;
+  flex: none;
+  z-index: -1;
+}
+.community-page-main .preview-community-body-bg-div:before {
+  content: " ";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  background: var(--preview-community-body-bg-img);
 }
 @keyframes slide-down {
   0% {

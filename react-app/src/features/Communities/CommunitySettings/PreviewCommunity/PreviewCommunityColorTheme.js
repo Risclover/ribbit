@@ -9,6 +9,8 @@ import {
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import DropBox from "../../../../components/DragNDropImageUpload/DropBox";
 import BodyBgFormat from "./BodyBgFormat";
+import { getSingleCommunity } from "../../../../store/one_community";
+import { getCommunitySettings } from "../../../../store/community_settings";
 
 export default function PreviewCommunityColorTheme({
   setOpenAppearance,
@@ -19,8 +21,10 @@ export default function PreviewCommunityColorTheme({
   const [base, setBase] = useState(community?.baseColor);
   const [highlight, setHighlight] = useState(community?.highlight);
   const [bodyBg, setBodyBg] = useState(community?.bodyBg);
-  const [bgFormat, setBgFormat] = useState("fill");
+  const [bgFormat, setBgFormat] = useState(community?.backgroundImgFormat);
+  const [bodyBgPreview, setBodyBgPreview] = useState(community.backgroundImg);
   const [image, setImage] = useState();
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     document.documentElement.style.setProperty(
@@ -37,16 +41,36 @@ export default function PreviewCommunityColorTheme({
       "--preview-community-color-theme-bodybg",
       bodyBg
     );
-  }, [base, highlight, bodyBg]);
+
+    if (bgFormat === "fill") {
+      document.documentElement.style.setProperty(
+        "--preview-community-body-bg-img",
+        `${bodyBg} url(${bodyBgPreview}) no-repeat center / cover`
+      );
+    } else if (bgFormat === "tile") {
+      document.documentElement.style.setProperty(
+        "--preview-community-body-bg-img",
+        `${bodyBg} url(${bodyBgPreview}) repeat center top`
+      );
+    } else if (bgFormat === "center") {
+      document.documentElement.style.setProperty(
+        "--preview-community-body-bg-img",
+        `${bodyBg} url(${bodyBgPreview}) no-repeat center top`
+      );
+    }
+
+    const varColor = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--preview-community-body-bg-img");
+
+    console.log(varColor);
+  }, [base, highlight, bodyBg, community, bgFormat]);
 
   const colorThemes = ["Base", "Highlight"];
 
   useEffect(() => {
-    console.log("bodyBg:", bodyBg);
-  }, [bodyBg]);
-
-  useEffect(() => {
     dispatch(getCommunities());
+    dispatch(getCommunitySettings(community.id));
   }, [dispatch]);
 
   const handleSaveTheme = async () => {
@@ -55,18 +79,45 @@ export default function PreviewCommunityColorTheme({
       baseColor: base,
       highlight: highlight,
       bodyBg: bodyBg,
+      bodyBgImgFormat: bgFormat,
+      nameFormat: community.nameFormat,
     };
     console.log("payload:", payload);
     const data = await dispatch(editCommunityTheme(payload));
     console.log("data", data);
     dispatch(getCommunities());
+
+    if (image) {
+      changeBodyBackground();
+    } else {
+    }
+    dispatch(getSingleCommunity(community.id));
     setOpenAppearance(false);
   };
 
   const handleBgFormat = (format) => {
     setBgFormat(format);
-
     console.log("format:", format);
+  };
+
+  const changeBodyBackground = async () => {
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const res = await fetch(`/api/communities/${community.id}/bg_img`, {
+      method: "POST",
+      body: formData,
+    });
+    if (res.ok) {
+      await res.json();
+      dispatch(getSingleCommunity(community.id));
+      setOpenAppearance(false);
+      console.log("community:", community);
+    } else {
+      setErrorMsg(
+        "There was a problem with your upload. Make sure your file is a .jpg or .png file, and try again."
+      );
+    }
   };
 
   return (
@@ -98,6 +149,10 @@ export default function PreviewCommunityColorTheme({
             startingImage={community.backgroundImg}
             setImage={setImage}
             image={image}
+            bgFormat={bgFormat}
+            bodyBgPreview={bodyBgPreview}
+            bodyBg={bodyBg}
+            setBodyBgPreview={setBodyBgPreview}
           />
           <div className="body-bg-formats" role="radiogroup">
             <input type="hidden" value={bgFormat} />

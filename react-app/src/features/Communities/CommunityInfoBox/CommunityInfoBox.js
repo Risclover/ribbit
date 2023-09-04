@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
 import Cake from "../../../images/misc/piece4.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addFavoriteCommunity,
   getFavoriteCommunities,
@@ -25,6 +25,7 @@ export default function CommunityInfoBox({
 }) {
   const dispatch = useDispatch();
   const [members, setMembers] = useState(0);
+  const communitySettings = useSelector((state) => state.communitySettings);
 
   useEffect(() => {
     setMembers(community?.members);
@@ -45,26 +46,6 @@ export default function CommunityInfoBox({
 
   const varColor = getComputedStyle(document.documentElement).getPropertyValue(
     "--community-base-color"
-  );
-
-  document.documentElement.style.setProperty(
-    "--community-base-color-text",
-    getTextColor(varColor)
-  );
-
-  document.documentElement.style.setProperty(
-    "--community-base-color",
-    community.baseColor
-  );
-
-  document.documentElement.style.setProperty(
-    "--community-highlight",
-    community.highlight
-  );
-
-  document.documentElement.style.setProperty(
-    "--community-body-bg",
-    community.bodyBg
   );
 
   return (

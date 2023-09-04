@@ -11,7 +11,10 @@ export default function CommunityName({ community }) {
         </h1>
       </div>
       <div className="community-header-info-name">
-        <h2>c/{community.name}</h2>
+        <h2>
+          {community.nameFormat !== "Hide" && community.nameFormat}
+          {community.nameFormat !== "Hide" && community.name}
+        </h2>
       </div>
     </div>
   );

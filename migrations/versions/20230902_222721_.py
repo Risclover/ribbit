@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 09b2347e449b
+Revision ID: 7c54bd156e53
 Revises: 
-Create Date: 2023-09-01 22:59:42.977967
+Create Date: 2023-09-02 22:27:21.574390
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '09b2347e449b'
+revision = '7c54bd156e53'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -68,12 +68,6 @@ def upgrade():
     sa.Column('community_img', sa.String(length=255), nullable=True),
     sa.Column('display_name', sa.String(length=100), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
-    sa.Column('base_color', sa.String(length=10), nullable=True),
-    sa.Column('highlight', sa.String(length=10), nullable=True),
-    sa.Column('body_background', sa.String(length=10), nullable=True),
-    sa.Column('background_img', sa.String(length=255), nullable=True),
-    sa.Column('background_img_format', sa.String(length=10), nullable=True),
-    sa.Column('name_format', sa.Text(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -124,6 +118,45 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['message_id'], ['chat_messages.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('community_settings',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('community_id', sa.Integer(), nullable=False),
+    sa.Column('base_color', sa.String(length=10), nullable=False),
+    sa.Column('highlight', sa.String(length=10), nullable=False),
+    sa.Column('bg_color', sa.String(length=10), nullable=False),
+    sa.Column('background_img', sa.String(length=255), nullable=True),
+    sa.Column('background_img_format', sa.String(length=10), nullable=False),
+    sa.Column('name_format', sa.String(length=5), nullable=True),
+    sa.Column('hide_community_icon', sa.Boolean(), nullable=False),
+    sa.Column('community_icon', sa.String(length=255), nullable=True),
+    sa.Column('banner_height', sa.String(length=10), nullable=False),
+    sa.Column('banner_color', sa.String(length=10), nullable=False),
+    sa.Column('banner_img', sa.String(length=255), nullable=True),
+    sa.Column('banner_img_format', sa.String(length=10), nullable=False),
+    sa.Column('secondary_banner_img', sa.String(length=255), nullable=True),
+    sa.Column('hover_banner_img', sa.String(length=255), nullable=True),
+    sa.Column('secondary_banner_format', sa.String(length=10), nullable=False),
+    sa.Column('mobile_banner_img', sa.String(length=255), nullable=True),
+    sa.Column('active_link_color', sa.String(length=10), nullable=False),
+    sa.Column('inactive_link_color', sa.String(length=10), nullable=False),
+    sa.Column('hover_link_color', sa.String(length=10), nullable=False),
+    sa.Column('menu_bg_color', sa.String(length=10), nullable=False),
+    sa.Column('submenu_bg_color', sa.String(length=10), nullable=False),
+    sa.Column('post_title_color', sa.String(length=10), nullable=False),
+    sa.Column('upvote_img_active', sa.String(length=255), nullable=True),
+    sa.Column('upvote_img_inactive', sa.String(length=255), nullable=True),
+    sa.Column('downvote_img_active', sa.String(length=255), nullable=True),
+    sa.Column('downvote_img_inactive', sa.String(length=255), nullable=True),
+    sa.Column('upvote_count_color', sa.String(length=10), nullable=False),
+    sa.Column('downvote_count_color', sa.String(length=10), nullable=False),
+    sa.Column('post_bg_color', sa.String(length=10), nullable=False),
+    sa.Column('post_bg_img', sa.String(length=255), nullable=True),
+    sa.Column('post_bg_img_format', sa.String(length=10), nullable=False),
+    sa.Column('link_placeholder_img', sa.String(length=255), nullable=True),
+    sa.Column('link_placeholder_img_format', sa.String(length=10), nullable=False),
+    sa.ForeignKeyConstraint(['community_id'], ['communities.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('favorite_communities',
@@ -242,6 +275,7 @@ def downgrade():
     op.drop_table('rules')
     op.drop_table('posts')
     op.drop_table('favorite_communities')
+    op.drop_table('community_settings')
     op.drop_table('chat_message_reactions')
     op.drop_table('user_threads')
     op.drop_table('user_chat_threads')

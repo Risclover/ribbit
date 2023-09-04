@@ -93,6 +93,8 @@ export default function PreviewCommunity({
       </div>
 
       <div className="community-page-main">
+        <div className="preview-community-body-bg-div"></div>
+
         <CommunityPosts
           commPosts={commPosts}
           format={format}

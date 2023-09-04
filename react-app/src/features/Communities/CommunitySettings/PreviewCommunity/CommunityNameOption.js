@@ -5,6 +5,7 @@ export default function CommunityNameOption({
   title,
   activeRadio,
   setActiveRadio,
+  community,
 }) {
   return (
     <div
@@ -14,7 +15,7 @@ export default function CommunityNameOption({
       onClick={() => setActiveRadio(title)}
     >
       {activeRadio === title ? <FaDotCircle /> : <FaRegCircle />}
-      {title}
+      {title !== "Hide" ? title + community.name : "Hide"}
     </div>
   );
 }

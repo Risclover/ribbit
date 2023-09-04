@@ -14,6 +14,7 @@ import CommunityName from "./CommunityName";
 import CommunityPosts from "./CommunityPosts";
 import BackToTop from "../../components/BackToTop";
 import "./CommunityPage.css";
+import { getCommunitySettings } from "../../store/community_settings";
 
 export default function CommunityPage({
   setPageTitle,
@@ -32,14 +33,34 @@ export default function CommunityPage({
   const user = useSelector((state) => state.session.user);
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
 
+  const communitySettings = useSelector((state) => state.communitySettings);
   let commPosts = posts.filter((post) => post.communityId == communityId);
 
+  console.log("community id:", communityId);
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getSubscriptions());
     dispatch(getPosts());
     dispatch(getSingleCommunity(+communityId));
+    dispatch(getCommunitySettings(community?.id));
   }, [communityId, dispatch]);
+
+  document.documentElement.style.setProperty(
+    "--community-base-color",
+    community?.communitySettings[communityId]?.baseColor
+  );
+
+  document.documentElement.style.setProperty(
+    "--community-highlight",
+    community?.communitySettings[communityId]?.highlight
+  );
+
+  document.documentElement.style.setProperty(
+    "--community-body-bg",
+    community?.communitySettings[communityId]?.bodyBg
+  );
+
+  console.log("community settings:", community?.communitySettings[communityId]);
 
   useEffect(() => {
     document.title = community?.displayName;
@@ -91,6 +112,7 @@ export default function CommunityPage({
       </div>
 
       <div className="community-page-main">
+        <div className="community-body-bg-div"></div>
         <CommunityPosts
           commPosts={commPosts}
           format={format}
