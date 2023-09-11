@@ -1,5 +1,4 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import moment from "moment";
 import Username from "../../../components/Username/Username";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -32,12 +31,27 @@ export default function SinglePostAuthorBar({
   const history = useHistory();
   const communityHref = `/c/${community?.id}`;
 
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--community-base-color",
+      community?.communitySettings[community.id]?.baseColor
+    );
+  }, []);
+
   return (
     <div className="single-post-author-bar">
       {isPage !== "community" && (
         <div className="single-post-community-info">
           <div className="single-post-community-img">
-            <img src={community?.communityImg} alt="Community" />
+            <img
+              style={{
+                backgroundColor: `${
+                  community.communitySettings[community.id].baseColor
+                }`,
+              }}
+              src={community?.communitySettings[community?.id].communityIcon}
+              alt="Community"
+            />
           </div>
 
           <div className="single-post-community-name">

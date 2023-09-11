@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa6";
 
@@ -11,16 +11,20 @@ const DropBox = ({
   setBodyBgPreview,
   bgFormat,
   bodyBg,
+  setBodyBg,
+  setDefaultIcon,
+  dropboxType,
 }) => {
   const [highlight, setHighlight] = React.useState(false);
   const [preview, setPreview] = React.useState(startingImage);
   const [drop, setDrop] = React.useState(false);
-  const [showBar, setShowBar] = useState(
-    community.communityImg &&
-      community.communityImg !== "https://i.imgur.com/9CI9hiO.png"
-      ? true
-      : false
-  );
+  const [showBar, setShowBar] = useState(true);
+
+  useEffect(() => {
+    if (community.communityImg !== "https://i.imgur.com/9CI9hiO.png") {
+      setShowBar(true);
+    }
+  }, [community]);
 
   const handleEnter = (e) => {
     e.preventDefault();
@@ -59,7 +63,6 @@ const DropBox = ({
     uploadFile(file);
   };
 
-  console.log("image:", image);
   const uploadFile = (file) => {
     const reader = new FileReader();
     reader.readAsBinaryString(file);
@@ -67,25 +70,8 @@ const DropBox = ({
       // this is the base64 data
       const fileRes = btoa(reader.result);
       console.log(`data:image/jpg;base64,${fileRes}`);
-      setBodyBgPreview(`data:image/jpg;base64,${fileRes}`);
+      setPreview(`data:image/jpg;base64,${fileRes}`);
       setShowBar(true);
-
-      if (bgFormat === "fill") {
-        document.documentElement.style.setProperty(
-          "--preview-community-body-bg-img",
-          `${bodyBg} url(${bodyBgPreview}) no-repeat center / cover`
-        );
-      } else if (bgFormat === "tile") {
-        document.documentElement.style.setProperty(
-          "--preview-community-body-bg-img",
-          `${bodyBg} url(${bodyBgPreview}) repeat center top`
-        );
-      } else if (bgFormat === "center") {
-        document.documentElement.style.setProperty(
-          "--preview-community-body-bg-img",
-          `${bodyBg} url(${bodyBgPreview}) no-repeat center top`
-        );
-      }
     };
 
     reader.onerror = () => {
@@ -97,23 +83,34 @@ const DropBox = ({
     setDrop(false);
     setHighlight(true);
     setShowBar(false);
-    setImage("https://i.imgur.com/9CI9hiO.png");
-    setBodyBgPreview("");
-
+    setPreview("");
+    if (dropboxType === "community_icon") {
+      setDefaultIcon(true);
+      setImage("https://i.imgur.com/9CI9hiO.png");
+    }
     if (bgFormat === "fill") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bodyBg} url(${bodyBgPreview}) no-repeat center / cover`
+        `${bodyBg} url(${preview}) no-repeat center / cover`
       );
     } else if (bgFormat === "tile") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bodyBg} url(${bodyBgPreview}) repeat center top`
+        `${bodyBg} url(${preview}) repeat center top`
       );
     } else if (bgFormat === "center") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bodyBg} url(${bodyBgPreview}) no-repeat center top`
+        `${bodyBg} url(${preview}) no-repeat center top`
+      );
+    }
+
+    if (dropboxType === "community_bg") {
+      setBodyBgPreview("");
+
+      document.documentElement.style.setProperty(
+        "--preview-community-body-bg-img",
+        `${bodyBg}`
       );
     }
   };
@@ -134,7 +131,7 @@ const DropBox = ({
             ? " is-preview"
             : ""
         }`}
-        style={{ backgroundImage: `url(${bodyBgPreview})` }}
+        style={{ backgroundImage: `url(${preview})` }}
       >
         <label>
           <div className="preview-community-upload-icon">

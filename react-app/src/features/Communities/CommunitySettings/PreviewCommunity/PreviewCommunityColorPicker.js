@@ -7,6 +7,7 @@ export default function PreviewCommunityColorPicker({
   community,
 }) {
   const [showBrowserColorPicker, setShowBrowserColorPicker] = useState(false);
+  console.log("theme:", theme);
 
   const colors = [
     "#EA0027",

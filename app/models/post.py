@@ -46,6 +46,7 @@ class Post(db.Model):
             "communityRules": {item.to_dict()["id"]: item.to_dict() for item in self.post_community.community_rules},
             "communityDesc": self.post_community.description,
             "communityDate": self.post_community.created_at,
+            "communitySettings": {item.to_dict()["id"]: item.to_dict() for item in self.post_community.community_settings},
             "createdAt": self.created_at,
             "updatedAt": self.updated_at,
         }

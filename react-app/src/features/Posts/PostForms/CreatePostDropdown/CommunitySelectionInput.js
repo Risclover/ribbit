@@ -36,6 +36,9 @@ export default function CommunitySelectionInput({
         )}
         {communityId && search && (
           <img
+            style={{
+              backgroundColor: `${communities[communityId].communitySettings[communityId].baseColor}`,
+            }}
             className="community-dropdown-img"
             alt="Community dropdown"
             src={communities[+communityId]?.communityImg}

@@ -12,8 +12,10 @@ export default function CommunityName({ community }) {
       </div>
       <div className="community-header-info-name">
         <h2>
-          {community.nameFormat !== "Hide" && community.nameFormat}
-          {community.nameFormat !== "Hide" && community.name}
+          {community.communitySettings[community.id].nameFormat !== "Hide" &&
+            community.communitySettings[community.id].nameFormat}
+          {community.communitySettings[community.id].nameFormat !== "Hide" &&
+            community.name}
         </h2>
       </div>
     </div>

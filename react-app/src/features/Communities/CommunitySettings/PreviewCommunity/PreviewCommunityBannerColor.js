@@ -3,7 +3,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import PreviewCommunityColorPicker from "./PreviewCommunityColorPicker";
 import HandleClickOutside from "../../../../components/HandleClickOutside";
 
-export default function PreviewCommunityColorThemeColor({
+export default function PreviewCommunityBannerColor({
   name,
   theme,
   setTheme,
@@ -22,17 +22,14 @@ export default function PreviewCommunityColorThemeColor({
       });
     };
   }, [wrapperRef, openPicker]);
+
   return (
     <div
       className="preview-community-color-theme-color"
       onClick={() => setOpenPicker(true)}
     >
       <h3>{name}</h3>
-      <div
-        className={`color-theme-color color-theme-color-${
-          name === "Color" ? "bodybg" : name.toLowerCase()
-        }`}
-      >
+      <div className={`color-theme-color ${"color-theme-color-banner"}`}>
         {!openPicker && (
           <span className="color-theme-color-down">
             <FaChevronDown />

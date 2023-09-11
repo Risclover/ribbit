@@ -116,7 +116,13 @@ export default function SearchResultsPosts({
                   >
                     <div className="search-result-page-community-left">
                       <div className="search-result-page-community-img">
-                        <img src={community.communityImg} alt="Community" />
+                        <img
+                          style={{
+                            backgroundColor: `${community.bgColor}`,
+                          }}
+                          src={community.communityImg}
+                          alt="Community"
+                        />
                         &nbsp;
                       </div>
                       <div className="search-result-community-details">

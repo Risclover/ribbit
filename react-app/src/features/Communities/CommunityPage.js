@@ -32,41 +32,38 @@ export default function CommunityPage({
   const community = useSelector((state) => state.singleCommunity[+communityId]);
   const user = useSelector((state) => state.session.user);
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
-
+  const [bgFormat, setBgFormat] = useState(
+    community?.communitySettings[communityId].backgroundImgFormat
+  );
   const communitySettings = useSelector((state) => state.communitySettings);
   let commPosts = posts.filter((post) => post.communityId == communityId);
 
-  console.log("community id:", communityId);
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getSubscriptions());
     dispatch(getPosts());
     dispatch(getSingleCommunity(+communityId));
-    dispatch(getCommunitySettings(community?.id));
+    dispatch(getCommunitySettings(communityId));
   }, [communityId, dispatch]);
 
-  document.documentElement.style.setProperty(
-    "--community-base-color",
-    community?.communitySettings[communityId]?.baseColor
-  );
-
-  document.documentElement.style.setProperty(
-    "--community-highlight",
-    community?.communitySettings[communityId]?.highlight
-  );
-
-  document.documentElement.style.setProperty(
-    "--community-body-bg",
-    community?.communitySettings[communityId]?.bodyBg
-  );
-
   console.log("community settings:", community?.communitySettings[communityId]);
+
+  const varColor = getComputedStyle(document.documentElement).getPropertyValue(
+    "--community-body-bg-img"
+  );
+
+  console.log("VAR COLOR:", varColor);
 
   useEffect(() => {
     document.title = community?.displayName;
 
     setPageIcon(
       <img
+        style={{
+          backgroundColor: `${
+            community?.communitySettings[community?.id].baseColor
+          }`,
+        }}
         src={community?.communityImg}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"

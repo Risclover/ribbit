@@ -4,6 +4,8 @@
   --community-highlight: #f34d23;
   --community-body-bg: #dae0e6;
   --community-body-bg-img: "";
+  --community-banner-height: 80px;
+  --community-banner-color: #0079d3;
 
   --preview-community-color-theme-base: #0079d3;
   --preview-community-color-theme-highlight: #0079d3;
@@ -11,4 +13,6 @@
   --preview-community-color-picker-square: #000000;
   --preview-community-body-bg-img: "";
   --preview-community-body-bg-img-format: ;
+  --preview-community-banner-height: 80px;
+  --preview-community-banner-color: "#0079d3";
 }

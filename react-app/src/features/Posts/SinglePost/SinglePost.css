@@ -519,8 +519,10 @@
 
 .single-post-community-img img {
   width: 20px;
+  height: 20px;
   border-radius: 100px;
   margin-right: 5px;
+  background-color: var(--community-base-color);
 }
 
 .single-post-community-img {

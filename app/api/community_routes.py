@@ -75,8 +75,9 @@ def create_community():
             name_format="c/",
             hide_community_icon=False,
             community_icon="https://i.imgur.com/9CI9hiO.png",
-            banner_height="small",
-            banner_color="#0079d3",
+            banner_height="80px",
+            banner_color="#33a8ff",
+            custom_banner_color=False,
             banner_img_format="fill",
             active_link_color="#0079d3",
             inactive_link_color="#0079d3",
@@ -181,9 +182,9 @@ def upload_image(id):
 
     url = upload["url"]
     # flask_login allows us to get the current user from the request
-    community = Community.query.get(id)
+    community = CommunitySettings.query.get(id)
 
-    setattr(community, "community_img", url)
+    setattr(community, "community_icon", url)
     db.session.commit()
     return {"url": url}
 
@@ -206,7 +207,7 @@ def upload_bg_image(id):
         return upload, 400
 
     url = upload["url"]
-    community = Community.query.get(id)
+    community = CommunitySettings.query.get(id)
 
     setattr(community, "background_img", url)
     db.session.commit()

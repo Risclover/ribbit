@@ -20,6 +20,7 @@ import { addViewedPost, getViewedPosts } from "../../../store/viewed_posts";
 import { getPosts } from "../../../store/posts";
 import { getCommunities, getSingleCommunity } from "../../../store/communities";
 import { getUsers } from "../../../store/users";
+import CommunityOptions from "../../Communities/CommunityInfoBox/CommunityOptions/CommunityOptions";
 
 export default function SinglePostPage({
   setPageIcon,
@@ -32,8 +33,6 @@ export default function SinglePostPage({
   const { postId } = useParams();
   const dispatch = useDispatch();
 
-  const [commentsNum, setCommentsNum] = useState();
-  const [subscribed, setSubscribed] = useState(false);
   const post = useSelector((state) => state.singlePost[+postId]);
   const community = useSelector(
     (state) => state.communities[post?.communityId]
@@ -41,7 +40,14 @@ export default function SinglePostPage({
   const subscriptions = useSelector((state) => state.subscriptions);
   const user = useSelector((state) => state.session.user);
 
+  const [commentsNum, setCommentsNum] = useState();
+  const [subscribed, setSubscribed] = useState(false);
+  const [members, setMembers] = useState(community?.members || 0);
+  const [checked, setChecked] = useState();
+  const [showCommunityOptions, setShowCommunityOptions] = useState(false);
+
   useEffect(() => {
+    console.log("community:", community);
     dispatch(getCommunities());
     dispatch(getPosts());
     dispatch(getSinglePost(+postId));
@@ -84,27 +90,6 @@ export default function SinglePostPage({
   useEffect(() => {
     if (subscriptions[post?.communityId]) setSubscribed(true);
   }, [subscribed, subscriptions, post?.communityId]);
-
-  const varColor = getComputedStyle(document.documentElement).getPropertyValue(
-    "--community-base-color"
-  );
-
-  if (community) {
-    document.documentElement.style.setProperty(
-      "--community-base-color",
-      community.baseColor
-    );
-
-    document.documentElement.style.setProperty(
-      "--community-highlight",
-      community.highlight
-    );
-
-    document.documentElement.style.setProperty(
-      "--community-body-background",
-      community.bodyBg
-    );
-  }
 
   if (!post || !postId || !community) return null;
   return (
@@ -150,6 +135,10 @@ export default function SinglePostPage({
                 />{" "}
                 Created {moment(post?.communityDate).format("MMM DD, YYYY")}
               </div>
+              <div className="community-page-box-members">
+                <h2>{members}</h2>
+                <span>{members === 1 ? "Member" : "Members"}</span>
+              </div>
               <div className="single-post-right-col-btns">
                 {user && subscribed && (
                   <button
@@ -190,6 +179,7 @@ export default function SinglePostPage({
                   </button>
                 )}
               </div>
+              <CommunityOptions community={community} />
             </div>
           </div>
         </NavLink>

@@ -12,13 +12,8 @@ import AboutBox from "./AboutBox";
 import LoadingEllipsis from "../../components/LoadingEllipsis";
 import SortingFunction from "./SortingFunction";
 import All from "../../images/navbar/all-icon2.png";
-import { getSubscriptions } from "../../store/subscriptions";
 import { addViewedPost, getViewedPosts } from "../../store/viewed_posts";
 import RecentPosts from "./RecentPosts";
-import { getFavoriteCommunities } from "../../store/favorite_communities";
-import { getFavoriteUsers } from "../../store/favorite_users";
-import { getFollowers, getUserFollowers } from "../../store/followers";
-import { getCommunities } from "../../store/communities";
 
 function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
@@ -32,13 +27,6 @@ function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
   const [page, setPage] = useState(2);
 
   const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
-
-  useEffect(() => {
-    // dispatch(getPosts());
-    // dispatch(getCommunities());
-    // dispatch(getViewedPosts());
-    // dispatch(getSubscriptions());
-  }, [dispatch]);
 
   const loadMore = () => {
     setLoading(true);

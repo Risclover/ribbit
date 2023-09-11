@@ -266,8 +266,11 @@
   align-items: center;
 }
 .owned-community-icon img {
+  background-color: var(--community-base-color);
   border-radius: 100%;
   width: 32px;
+  height: 32px;
+  object-fit: cover;
   margin-right: 8px;
 }
 
