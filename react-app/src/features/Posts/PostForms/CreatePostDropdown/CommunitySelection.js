@@ -71,6 +71,10 @@ export default function CommunitySelection({
       members: Object.values(allCommunities)[i].members,
       communityImg: Object.values(allCommunities)[i].communityImg,
       id: Object.values(allCommunities)[i].id,
+      bgColor:
+        Object.values(allCommunities)[i].communitySettings[
+          Object.values(allCommunities)[i].id
+        ].baseColor,
     });
   }
 

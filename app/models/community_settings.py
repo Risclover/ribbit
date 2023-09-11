@@ -17,8 +17,9 @@ class CommunitySettings(db.Model):
     hide_community_icon = db.Column(db.Boolean, default=False, nullable=False)
     community_icon = db.Column(db.String(255), default="https://i.imgur.com/9CI9hiO.png")
 
-    banner_height = db.Column(db.String(10), default="small", nullable=False)
-    banner_color = db.Column(db.String(10), default="#0079d3", nullable=False)
+    banner_height = db.Column(db.String(10), default="64px", nullable=False)
+    banner_color = db.Column(db.String(10), default="#33a8ff", nullable=False)
+    custom_banner_color = db.Column(db.Boolean, default=False)
     banner_img = db.Column(db.String(255), nullable=True)
     banner_img_format = db.Column(db.String(10), default="fill", nullable=False)
 
@@ -62,6 +63,7 @@ class CommunitySettings(db.Model):
             "communityIcon": self.community_icon,
             "bannerHeight": self.banner_height,
             "bannerColor": self.banner_color,
+            "customBannerColor": self.custom_banner_color,
             "bannerImg": self.banner_img,
             "bannerImgFormat": self.banner_img_format,
             "secondaryBannerImg": self.secondary_banner_img,

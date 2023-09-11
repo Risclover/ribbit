@@ -21,6 +21,7 @@ export default function SearchResultsCommunities({
               <div className="search-results-page-community-page">
                 <div className="search-results-page-community-left">
                   <img
+                    style={{ backgroundColor: `${community.bgColor}` }}
                     src={community.communityImg}
                     className="search-results-page-community-img"
                     alt="Community"
@@ -49,7 +50,7 @@ export default function SearchResultsCommunities({
                 </div>
               </div>
             </NavLink>
-          ) : (                                                                                                                                                                                                                                                                         
+          ) : (
             ""
           )
         )}

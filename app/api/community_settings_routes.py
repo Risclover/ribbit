@@ -28,7 +28,6 @@ def update_color_theme(id):
     setattr(settings, "base_color", data["baseColor"])
     setattr(settings, "highlight", data["highlight"])
     setattr(settings, "bg_color", data["bgColor"])
-    setattr(settings, "background_img", data["backgroundImg"])
     setattr(settings, "background_img_format", data["backgroundImgFormat"])
 
     db.session.commit()
@@ -63,6 +62,7 @@ def update_banner_settings(id):
 
     setattr(settings, "banner_height", data["bannerHeight"])
     setattr(settings, "banner_color", data["bannerColor"])
+    setattr(settings, "custom_banner_color", data["customBannerColor"])
     setattr(settings, "banner_img", data["bannerImg"])
     setattr(settings, "banner_img_format", data["bannerImgFormat"])
     setattr(settings, "secondary_banner_img", data["secondaryBannerImg"])
@@ -132,8 +132,9 @@ def reset_community_settings(id):
     setattr(settings, "name_format", "c/")
     setattr(settings, "hide_community_icon", False)
     setattr(settings, "community_icon", "https://i.imgur.com/9CI9hiO.png")
-    setattr(settings, "banner_height", "small")
+    setattr(settings, "banner_height", "80px")
     setattr(settings, "banner_color", "#0079d3")
+    setattr(settings, "custom_banner_color", False)
     setattr(settings, "active_link_color", "#0079d3")
     setattr(settings, "inactive_link_color", "#0079d3")
     setattr(settings, "hover_link_color", "#0079d3")
@@ -148,3 +149,18 @@ def reset_community_settings(id):
 
     db.session.commit()
     return settings.to_dict()
+
+
+
+# RESET TO DEFAULT COMMUNITY ICON
+@community_settings_routes.route("/<int:id>/icon/reset", methods=["PUT"])
+def default_community_icon(id):
+    """
+    Query to reset a community's icon to default icon
+    """
+    community = CommunitySettings.query.get(id)
+
+    setattr(community, "community_icon", "https://i.imgur.com/9CI9hiO.png")
+    db.session.commit()
+
+    return community.to_dict()

@@ -4,6 +4,7 @@ import Cake from "../../../images/misc/piece4.png";
 import moment from "moment";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import CommunityOptions from "../../Communities/CommunityInfoBox/CommunityOptions/CommunityOptions";
 
 export default function CommunityInfoBox({ community }) {
   const [members, setMembers] = useState(0);
@@ -38,6 +39,7 @@ export default function CommunityInfoBox({ community }) {
           <h2>{members}</h2>
           <span>{members === 1 ? "Member" : "Members"}</span>
         </div>
+        <CommunityOptions community={community} />
       </div>
     </div>
   );

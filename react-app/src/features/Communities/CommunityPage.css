@@ -19,9 +19,9 @@
 }
 
 .community-page-header-top {
-  height: 80px;
+  height: var(--community-banner-height);
   width: 100%;
-  background: var(--community-base-color);
+  background: var(--community-banner-color);
   padding: 8px 16px;
 }
 
@@ -58,7 +58,7 @@
   top: 0;
   left: 0;
   will-change: transform;
-  background: var(--community-body-bg);
+  background: var(--community-body-bg-img);
 }
 
 .community-page-left-col {
@@ -290,7 +290,6 @@
   border-top: 1px solid rgba(26, 26, 27, 0.07);
   margin-top: 16px;
   padding-top: 8px;
-  padding-bottom: 8px;
 }
 
 .community-page-box-btn button {

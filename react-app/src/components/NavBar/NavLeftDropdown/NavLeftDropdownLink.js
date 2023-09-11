@@ -78,6 +78,9 @@ export default function NavLeftDropdownLink({
           }}
         >
           <img
+            style={{
+              backgroundColor: `${item.communitySettings[item.id].baseColor}`,
+            }}
             src={item.communityImg}
             className="nav-left-dropdown-item-img"
             alt="Community"
@@ -147,6 +150,9 @@ export default function NavLeftDropdownLink({
           }}
         >
           <img
+            style={{
+              backgroundColor: `${item.communitySettings[item.id].baseColor}`,
+            }}
             src={item.communityImg}
             className="nav-left-dropdown-item-img"
             alt="Community"

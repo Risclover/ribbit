@@ -28,14 +28,8 @@ export const getCommunitySettings = (communityId) => async (dispatch) => {
 };
 
 export const updateSettingsColorTheme = (payload) => async (dispatch) => {
-  const {
-    settingsId,
-    baseColor,
-    highlight,
-    bgColor,
-    backgroundImg,
-    backgroundImgFormat,
-  } = payload;
+  const { settingsId, baseColor, highlight, bgColor, backgroundImgFormat } =
+    payload;
 
   const response = await fetch(
     `/api/community_settings/${settingsId}/color-theme/edit`,
@@ -46,7 +40,6 @@ export const updateSettingsColorTheme = (payload) => async (dispatch) => {
         baseColor,
         highlight,
         bgColor,
-        backgroundImg,
         backgroundImgFormat,
       }),
     }
@@ -87,6 +80,7 @@ export const updateSettingsBanner = (payload) => async (dispatch) => {
     settingsId,
     bannerHeight,
     bannerColor,
+    customBannerColor,
     bannerImg,
     bannerImgFormat,
     secondaryBannerImg,
@@ -103,6 +97,7 @@ export const updateSettingsBanner = (payload) => async (dispatch) => {
       body: JSON.stringify({
         bannerHeight,
         bannerColor,
+        customBannerColor,
         bannerImg,
         bannerImgFormat,
         secondaryBannerImg,
@@ -203,6 +198,21 @@ export const resetToDefault = (settingsId) => async (dispatch) => {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
   });
+
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  }
+};
+
+export const resetToDefaultIcon = (settingsId) => async (dispatch) => {
+  const response = await fetch(
+    `/api/community_settings/${settingsId}/icon/reset`,
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 
   if (response.ok) {
     const data = await response.json();

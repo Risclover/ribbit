@@ -263,8 +263,8 @@
   border-radius: 1000px;
   background: inherit;
   outline: none;
-  border: 1px solid #0079d3;
-  color: #0079d3;
+  border: 1px solid var(--community-highlight);
+  color: var(--community-highlight);
   min-height: 32px;
   min-width: 32px;
   padding: 4px 16px;
@@ -277,15 +277,34 @@
   justify-content: center;
   cursor: pointer;
   margin-right: 10px;
+  position: relative;
+  opacity: 1;
 }
 
-.create-post-form-cancel:hover {
-  background: rgba(0, 121, 211, 0.05);
+.create-post-form-cancel:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--community-highlight);
+  opacity: 0;
 }
+
+.create-post-form-cancel:hover:before {
+  opacity: 0.04;
+}
+
+.create-post-form-cancel:active:before {
+  opacity: 0.16;
+}
+
 .create-post-form-submit {
   font-family: "Noto Sans", sans-serif;
   font-weight: 700;
-  background: #0079d3;
+  background: var(--community-highlight);
   border-radius: 100px;
   color: white;
   outline: none;
@@ -300,6 +319,23 @@
   font-size: 14px;
   text-align: center;
   cursor: pointer;
+  position: relative;
+}
+
+.create-post-form-submit:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: white;
+  opacity: 0;
+}
+
+.create-post-form-submit:active:enabled:before {
+  opacity: 0.24;
 }
 
 .create-post-form-submit:disabled {
@@ -309,8 +345,8 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-.create-post-form-submit:hover:enabled {
-  opacity: 0.9;
+.create-post-form-submit:hover:enabled:before {
+  opacity: 0.08;
 }
 
 .choose-community-dropdown {
@@ -606,10 +642,13 @@ pre.ql-syntax {
 }
 
 .create-post-page-right .community-title-details-img {
-  width: 54px;
+  max-width: 54px;
   height: 54px;
+  width: 100%;
+  overflow: hidden;
   margin-right: 8px;
   border-radius: 100%;
+  background-color: var(--community-base-color);
 }
 
 .create-post-page-right .community-title-details-name {
@@ -624,10 +663,6 @@ pre.ql-syntax {
 
 .create-post-page-right .community-page-box-content {
   padding-top: 8px !important;
-}
-
-.create-post-page-right .community-page-box-members {
-  padding-top: 12px !important;
 }
 
 .create-post-page-right .community-page-community-rules {

@@ -30,6 +30,10 @@ export default function SearchDropdown({
       members: Object.values(allCommunities)[i].members,
       communityImg: Object.values(allCommunities)[i].communityImg,
       id: Object.values(allCommunities)[i].id,
+      bgColor:
+        Object.values(allCommunities)[i].communitySettings[
+          Object.values(allCommunities)[i].id
+        ].baseColor,
     });
   }
 
@@ -72,6 +76,9 @@ export default function SearchDropdown({
                 >
                   <div className="search-result-community-img-box">
                     <img
+                      style={{
+                        backgroundColor: `${community.bgColor}`,
+                      }}
                       src={community.communityImg}
                       className="search-result-community-img"
                       alt="Community"

@@ -18,63 +18,21 @@ import {
 export default function PreviewCommunityColorTheme({
   setOpenAppearance,
   community,
+  base,
+  setBase,
+  highlight,
+  setHighlight,
+  bodyBg,
+  setBodyBg,
+  bodyBgPreview,
+  setBodyBgPreview,
+  bgFormat,
+  setBgFormat,
 }) {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const communitySettings = useSelector(
-    (state) => state.communitySettings[community.id]
-  );
-  const [base, setBase] = useState(communitySettings.baseColor);
-  const [highlight, setHighlight] = useState(communitySettings.highlight);
-  const [bodyBg, setBodyBg] = useState(communitySettings.bgColor);
-  const [bgFormat, setBgFormat] = useState(
-    communitySettings.backgroundImgFormat
-  );
-  const [bodyBgPreview, setBodyBgPreview] = useState(
-    communitySettings.backgroundImg
-  );
+
   const [image, setImage] = useState();
   const [errorMsg, setErrorMsg] = useState("");
-
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--preview-community-color-theme-base",
-      base
-    );
-
-    document.documentElement.style.setProperty(
-      "--preview-community-color-theme-highlight",
-      highlight
-    );
-
-    document.documentElement.style.setProperty(
-      "--preview-community-color-theme-bodybg",
-      bodyBg
-    );
-
-    if (bgFormat === "fill") {
-      document.documentElement.style.setProperty(
-        "--preview-community-body-bg-img",
-        `${bodyBg} url(${bodyBgPreview}) no-repeat center / cover`
-      );
-    } else if (bgFormat === "tile") {
-      document.documentElement.style.setProperty(
-        "--preview-community-body-bg-img",
-        `${bodyBg} url(${bodyBgPreview}) repeat center top`
-      );
-    } else if (bgFormat === "center") {
-      document.documentElement.style.setProperty(
-        "--preview-community-body-bg-img",
-        `${bodyBg} url(${bodyBgPreview}) no-repeat center top`
-      );
-    }
-
-    const varColor = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue("--preview-community-body-bg-img");
-
-    console.log(varColor);
-  }, [base, highlight, bodyBg, community, bgFormat]);
 
   const colorThemes = ["Base", "Highlight"];
 
@@ -83,43 +41,39 @@ export default function PreviewCommunityColorTheme({
     dispatch(getCommunitySettings(community.id));
   }, [dispatch]);
 
-  const handleSaveTheme = async () => {
+  const handleSaveTheme = () => {
     const payload = {
-      settingsId: communitySettings.id,
+      settingsId: community.communitySettings[community?.id].id,
       baseColor: base,
       highlight: highlight,
       bgColor: bodyBg,
-      backgroundImg: communitySettings.backgroundImg,
       backgroundImgFormat: bgFormat,
     };
-    console.log("payload:", payload);
-    const data = await dispatch(updateSettingsColorTheme(payload));
-    console.log("data", data);
+    dispatch(updateSettingsColorTheme(payload));
     dispatch(getCommunities());
 
     if (image) {
       changeBodyBackground();
     } else {
+      setImage(null);
     }
     dispatch(getSingleCommunity(community.id));
     setOpenAppearance(false);
   };
 
-  const handleBgFormat = (format) => {
-    setBgFormat(format);
-  };
+  console.log("BG FORMAT:", bgFormat);
+  console.log("BG IMG:", bodyBgPreview);
 
   const changeBodyBackground = async () => {
     const formData = new FormData();
     formData.append("image", image);
-
-    const res = await fetch(`/api/communities/${community.id}/bg_img`, {
+    const res = await fetch(`/api/communities/${community?.id}/bg_img`, {
       method: "POST",
       body: formData,
     });
     if (res.ok) {
       await res.json();
-      dispatch(getSingleCommunity(community.id));
+      dispatch(getSingleCommunity(community?.id));
       setOpenAppearance(false);
     } else {
       setErrorMsg(
@@ -140,6 +94,7 @@ export default function PreviewCommunityColorTheme({
             community={community}
             setTheme={theme === "Base" ? setBase : setHighlight}
             highlight={highlight}
+            name={theme}
           />
         ))}
       </div>
@@ -149,12 +104,14 @@ export default function PreviewCommunityColorTheme({
           theme={bodyBg}
           community={community}
           setTheme={setBodyBg}
+          name="Color"
         />
         <div className="preview-community-theme-background-img">
           <h3>Image</h3>
           <DropBox
+            dropboxType="community_bg"
             community={community}
-            startingImage={community.communitySettings.backgroundImg}
+            startingImage={bodyBgPreview}
             setImage={setImage}
             image={image}
             bgFormat={bgFormat}
@@ -169,7 +126,8 @@ export default function PreviewCommunityColorTheme({
                 format={format}
                 bgFormat={bgFormat}
                 setBgFormat={setBgFormat}
-                onClick={() => handleBgFormat(format)}
+                backgroundImg={bodyBgPreview}
+                bodyBg={bodyBg}
               />
             ))}
           </div>

@@ -10,7 +10,14 @@ export default function CommunityImage({ user, community }) {
     <>
       <div className="community-img-box">
         <div className="community-header-info-img">
-          <img src={community.communityImg} alt="Community" />
+          <img
+            src={
+              community.communitySettings[community.id].hideCommunityIcon
+                ? "https://i.imgur.com/9CI9hiO.png"
+                : community.communitySettings[community.id].communityIcon
+            }
+            alt="Community"
+          />
           {user?.id === community.userId && (
             <span
               className="community-update-icon"

@@ -76,6 +76,10 @@ export default function SearchResults({
       communityImg: Object.values(allCommunities)[i].communityImg,
       id: Object.values(allCommunities)[i].id,
       description: Object.values(allCommunities)[i].description,
+      bgColor:
+        Object.values(allCommunities)[i].communitySettings[
+          Object.values(allCommunities)[i].id
+        ].baseColor,
     });
   }
 

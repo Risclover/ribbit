@@ -48,6 +48,11 @@ export default function PreviewCommunity({
 
     setPageIcon(
       <img
+        style={{
+          backgroundColor: `${
+            community?.communitySettings[community?.id].baseColor
+          }`,
+        }}
         src={community?.communityImg}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"

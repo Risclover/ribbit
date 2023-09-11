@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 
@@ -9,11 +9,22 @@ export default function CommunitySelectionDropdownCommunity({
   setShowDropdown,
   setSearch,
   setCommunity,
+  community_id,
 }) {
   const history = useHistory();
   const allCommunities = useSelector((state) =>
     Object.values(state.communities)
   );
+
+  const [baseColor, setBaseColor] = useState();
+
+  useEffect(() => {
+    for (let community of allCommunities) {
+      if (community.id === subscription.id) {
+        setBaseColor(community.communitySettings[community.id].baseColor);
+      }
+    }
+  });
 
   const handleClick = (e, name) => {
     e.preventDefault();
@@ -34,6 +45,9 @@ export default function CommunitySelectionDropdownCommunity({
         onClick={(e) => handleClick(e, subscription?.name)}
       >
         <img
+          style={{
+            backgroundColor: `${baseColor}`,
+          }}
           className="community-selection-community-img"
           src={subscription?.communityImg}
           alt="Community"

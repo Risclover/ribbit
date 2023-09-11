@@ -16,6 +16,7 @@ import getTextColor from "../../../utils/getTextColor";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import CommunityDescription from "./CommunityDescription";
 import CommunityInfoMenu from "./CommunityInfoMenu";
+import CommunityOptions from "./CommunityOptions/CommunityOptions";
 
 export default function CommunityInfoBox({
   setFavorited,
@@ -98,6 +99,7 @@ export default function CommunityInfoBox({
             />
           )}
         </div>
+        <CommunityOptions community={community} />
       </div>
     </div>
   );

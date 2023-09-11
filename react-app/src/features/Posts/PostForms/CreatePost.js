@@ -23,6 +23,7 @@ import CommunityInfoBox from "./CommunityInfoBox";
 import PostTypeBar from "./PostTypeBar";
 import { getCommunities } from "../../../store/communities";
 import { getSubscriptions } from "../../../store/subscriptions";
+import getTextColor from "../../../utils/getTextColor";
 
 const modules = {
   toolbar: [
@@ -65,11 +66,13 @@ export default function CreatePost({
   const [linkErrors, setLinkErrors] = useState([]);
   const [imageErrors, setImageErrors] = useState([]);
   const [showDiscardModal, setShowDiscardModal] = useState(false);
+  const [headerText, setHeaderText] = useState();
 
   const posts = useSelector((state) => Object.values(state.posts));
   const communities = useSelector((state) => Object.values(state.communities));
   const user = useSelector((state) => state.session.user);
 
+  console.log("COMMUNITY:", community);
   useEffect(() => {
     document.title = `Submit to ${community ? community?.name : "Ribbit"}`;
     setPageIcon(
