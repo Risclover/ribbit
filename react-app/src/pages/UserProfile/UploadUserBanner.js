@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UploadBannerImageModal from "../../components/Modals/UploadBannerImageModal";
+import UploadBannerImageModal from "../../components/Modals/UploadImageModal/UploadBannerImageModal";
 import { Modal } from "../../context/Modal";
 import Camera from "../../images/user-profile-icons/camera.png";
 

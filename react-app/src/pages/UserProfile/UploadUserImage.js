@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
-import UploadUserImage from "../../components/Modals/UploadUserImageModal";
+import UploadUserImage from "../../components/Modals/UploadImageModal/UploadUserImageModal";
 import Camera from "../../images/user-profile-icons/camera.png";
 
 export default function UserImageModal({ user, currentUser }) {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getUsers } from "../../store/users";
-import "../../components/Modals/Modals.css";
+import { getUsers } from "../../../store/users";
+import "../../../components/Modals/Modals.css";
+import "./UploadImageModal.css";
 
 export default function UploadImage({ img_url, setShowUploadModal, userId }) {
   const dispatch = useDispatch();

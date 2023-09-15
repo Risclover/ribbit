@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getUsers } from "../../store/users";
-import "../../components/Modals/Modals.css";
+import { getUsers } from "../../../store/users";
+import "../Modals.css";
+import "./UploadImageModal.css";
 
-export default function UploadBannerImage({
+export default function UploadBannerImageModal({
   img_url,
   setShowBannerModal,
   userId,
