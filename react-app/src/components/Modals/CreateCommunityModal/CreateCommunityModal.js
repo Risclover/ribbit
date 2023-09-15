@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addCommunity } from "../../store/communities";
-import { addToSubscriptions } from "../../store/subscriptions";
+import { addCommunity } from "../../../store/communities";
+import { addToSubscriptions } from "../../../store/subscriptions";
+import "./CreateCommunityModal.css";
 
 export default function CreateCommunityModal({
   showCreateCommunityModal,
@@ -17,6 +18,7 @@ export default function CreateCommunityModal({
 
   const handleCreation = async (e) => {
     e.preventDefault();
+    console.log("creation");
     let errors = [];
 
     if (name.length < 3 || name.length > 21 || !/^\w+$/.test(name))

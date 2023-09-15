@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CreateCommunityModal from "../../../components/Modals/CreateCommunityModal";
+import CreateCommunityModal from "../../../components/Modals/CreateCommunityModal/CreateCommunityModal";
 import { Modal } from "../../../context/Modal";
 
 export default function CreateCommunity() {

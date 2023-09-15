@@ -4,7 +4,7 @@ import moment from "moment";
 import SearchDude from "../../images/search-icon.png";
 import RibbitBanner from "../../images/ribbit-banners/ribbit_banner.png";
 import { Modal } from "../../context/Modal";
-import CreateCommunity from "../../components/Modals/CreateCommunityModal";
+import CreateCommunity from "../../components/Modals/CreateCommunityModal/CreateCommunityModal";
 import BackToTop from "../../components/BackToTop";
 import { useSelector } from "react-redux";
 import LoginSignupModal from "../../components/Modals/LoginSignupModal";

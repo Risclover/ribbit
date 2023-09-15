@@ -18,7 +18,7 @@ function SinglePost({ id, isPage, userId, format }) {
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[cuser?.id]);
   const community = useSelector(
-    (state) => state.singleCommunity[post?.communityId]
+    (state) => state.communities[post?.communityId]
   );
 
   const [upvote, setUpvote] = useState(false);

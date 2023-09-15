@@ -38,8 +38,6 @@ export default function SinglePostAuthorBar({
     );
   }, []);
 
-  console.log("base color tres");
-
   return (
     <div className="single-post-author-bar">
       {isPage !== "community" && (
