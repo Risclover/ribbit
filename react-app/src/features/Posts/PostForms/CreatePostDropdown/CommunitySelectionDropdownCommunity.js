@@ -16,6 +16,8 @@ export default function CommunitySelectionDropdownCommunity({
     Object.values(state.communities)
   );
 
+  const thisCommunity = useSelector((state) => state.communities[community_id]);
+
   const [baseColor, setBaseColor] = useState();
 
   useEffect(() => {
@@ -26,6 +28,40 @@ export default function CommunitySelectionDropdownCommunity({
     }
   });
 
+  const changeCommunity = (community) => {
+    document.documentElement.style.setProperty(
+      "--community-base-color",
+      community?.communitySettings[community.id]?.baseColor
+    );
+
+    document.documentElement.style.setProperty(
+      "--community-highlight",
+      community?.communitySettings[community.id]?.highlight
+    );
+
+    document.documentElement.style.setProperty(
+      "--community-body-bg",
+      community?.communitySettings[community.id]?.bgColor
+    );
+
+    document.documentElement.style.setProperty(
+      "--community-banner-height",
+      community?.communitySettings[community.id]?.bannerHeight
+    );
+
+    document.documentElement.style.setProperty(
+      "--community-banner-color",
+      community?.communitySettings[community.id]?.customBannerColor
+        ? community?.communitySettings[community.id]?.bannerColor
+        : community?.communitySettings[community.id]?.baseColor
+    );
+
+    document.documentElement.style.setProperty(
+      "--community-banner-img",
+      `url(${community?.communitySettings[community.id]?.bannerImg})`
+    );
+  };
+
   const handleClick = (e, name) => {
     e.preventDefault();
     setSearch(name);
@@ -33,6 +69,7 @@ export default function CommunitySelectionDropdownCommunity({
       if (community.name === name) {
         setCommunity(community);
         history.push(`/c/${community.id}/submit`);
+        changeCommunity(community);
         setShowDropdown(false);
       }
     }

@@ -246,7 +246,8 @@
 }
 
 .preview-community-page-container .community-page-header-top {
-  background-color: var(--preview-community-color-theme-base);
+  background-color: var(--preview-community-banner-color);
+  background-image: var(--preview-community-banner-img);
 }
 
 .preview-community-prevent-outside-click {
@@ -598,6 +599,7 @@ svg:not(:root) {
 .preview-community-page-container .community-page-header-top {
   height: var(--preview-community-banner-height);
   background-color: var(--preview-community-banner-color);
+  background-image: var(--preview-community-banner-img);
 }
 
 @keyframes slide-down {

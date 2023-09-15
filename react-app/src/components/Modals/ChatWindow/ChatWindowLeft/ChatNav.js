@@ -9,6 +9,7 @@ export default function ChatNav({
   receiver,
   setWelcomeOverlay,
   setNewChatOverlay,
+  setMessageInviteOverlay,
   lastMessage,
   socket,
 }) {
@@ -52,6 +53,7 @@ export default function ChatNav({
               receiver={receiver}
               setWelcomeOverlay={setWelcomeOverlay}
               setNewChatOverlay={setNewChatOverlay}
+              setMessageInviteOverlay={setMessageInviteOverlay}
               lastMsg={lastMessage}
               socket={socket}
             />

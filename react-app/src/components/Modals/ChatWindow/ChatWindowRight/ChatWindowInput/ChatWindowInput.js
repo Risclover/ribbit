@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useAutosizeTextArea from "./useAutosizeTextArea";
 import {
+  addMessage,
   createChatMessage,
   createChatThread,
+  getChatMessage,
   getChatThread,
   getUserChatThreads,
 } from "../../../../../store/chats";
@@ -55,31 +57,58 @@ export default function ChatWindowInput({
     setContent(val);
   };
 
+  const handleCreateNewThread = async () => {
+    const newChat = await dispatch(createChatThread(userFound?.id));
+
+    setMessageInviteOverlay(false);
+
+    return newChat;
+  };
+
   const handleSendChatMsg = async (e) => {
     e.preventDefault();
     setContent("");
 
-    if (messageInviteOverlay) {
-      const newChat = await dispatch(createChatThread(userFound?.id));
-      dispatch(getUserChatThreads());
+    let newChat;
+
+    if (messageInviteOverlay === true) {
+      newChat = await handleCreateNewThread();
       setSelectedChat(newChat);
+
       setReceiver(() =>
-        selectedChat?.users?.find((user) => user.id !== currentUser.id)
+        selectedChat?.users.find((user) => user.id !== currentUser.id)
       );
-      setMessageInviteOverlay(false);
+
+      const payload = {
+        content: content,
+        receiverId: receiver.id,
+        chatThreadId: newChat ? newChat.id : selectedChat?.id,
+      };
+
+      const data = await dispatch(createChatMessage(payload));
+
+      socket.emit("chat", data);
+      socket.emit("last", data);
+
+      await dispatch(getChatThread(selectedChat?.id));
+    } else {
+      setReceiver(() =>
+        selectedChat?.users.find((user) => user.id !== currentUser.id)
+      );
+
+      const payload = {
+        content: content,
+        receiverId: receiver.id,
+        chatThreadId: newChat ? newChat.id : selectedChat?.id,
+      };
+
+      const data = await dispatch(createChatMessage(payload));
+
+      socket.emit("chat", data);
+      socket.emit("last", data);
+
+      await dispatch(getChatThread(selectedChat?.id));
     }
-
-    const payload = {
-      content: content,
-      receiverId: receiver.id,
-      chatThreadId: selectedChat?.id,
-    };
-
-    const data = await dispatch(createChatMessage(payload));
-    socket.emit("chat", data);
-    socket.emit("last", data);
-
-    await dispatch(getChatThread(selectedChat?.id));
   };
 
   const handleOpenGiphy = () => {

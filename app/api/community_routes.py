@@ -191,8 +191,12 @@ def upload_image(id):
 # UPLOAD BACKGROUND IMAGE
 @community_routes.route("/<int:id>/bg_img", methods=["POST"])
 def upload_bg_image(id):
+    community = CommunitySettings.query.get(id)
+
     if "image" not in request.files:
-        return {"errors": "image required"}, 400
+        setattr(community, "background_img", "")
+        db.session.commit()
+        return {"url": ""}
 
     image = request.files["image"]
 
@@ -207,29 +211,38 @@ def upload_bg_image(id):
         return upload, 400
 
     url = upload["url"]
-    community = CommunitySettings.query.get(id)
 
     setattr(community, "background_img", url)
     db.session.commit()
     return {"url": url}
 
-# EDIT COMMUNITY THEME
-@community_routes.route("/<int:id>/appearance", methods=["PUT"])
-def edit_community_theme(id):
-    community = Community.query.get(id)
-    data = request.get_json()
-    setattr(community, "base_color", data["baseColor"])
-    setattr(community, "highlight", data["highlight"])
-    setattr(community, "body_background", data["bodyBg"])
-    setattr(community, "name_format", data["nameFormat"])
+# UPLOAD BANNER IMAGE
+# UPLOAD COMMUNITY IMAGE
+@community_routes.route("/<int:id>/banner_img", methods=["POST"])
+@login_required
+def upload_banner(id):
+    if "image" not in request.files:
+        return {"errors": "image required"}, 400
 
-    if data["bodyBgImgFormat"] == "center":
-        setattr(community, "background_img_format", "center")
-    elif data["bodyBgImgFormat"] == "tile":
-        setattr(community, "background_img_format", "tile")
-    else:
-        setattr(community, "background_img_format", "fill")
+    image = request.files["image"]
 
+    if not allowed_file(image.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file_to_s3(image)
+
+    if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message
+        return upload, 400
+
+    url = upload["url"]
+    # flask_login allows us to get the current user from the request
+    community = CommunitySettings.query.get(id)
+
+    setattr(community, "banner_img", url)
     db.session.commit()
-
-    return community.to_dict()
+    return {"url": url}

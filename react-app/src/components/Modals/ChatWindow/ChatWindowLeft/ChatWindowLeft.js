@@ -9,6 +9,7 @@ export default function ChatWindowLeft({
   receiver,
   setNewChatOverlay,
   setWelcomeOverlay,
+  setMessageInviteOverlay,
   lastMessage,
   socket,
 }) {
@@ -21,6 +22,7 @@ export default function ChatWindowLeft({
         handleOpenChatThread={handleOpenChatThread}
         setWelcomeOverlay={setWelcomeOverlay}
         setNewChatOverlay={setNewChatOverlay}
+        setMessageInviteOverlay={setMessageInviteOverlay}
         lastMessage={lastMessage}
         socket={socket}
       />

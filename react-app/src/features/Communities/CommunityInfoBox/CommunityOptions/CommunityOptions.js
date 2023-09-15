@@ -34,10 +34,14 @@ export default function CommunityOptions({ community }) {
         community?.communitySettings[community.id]?.baseColor
       );
 
+      console.log("base color 1");
+
       document.documentElement.style.setProperty(
         "--community-highlight",
         community?.communitySettings[community.id]?.highlight
       );
+
+      console.log("highlight color 1");
 
       document.documentElement.style.setProperty(
         "--community-body-bg",
@@ -54,6 +58,11 @@ export default function CommunityOptions({ community }) {
         community?.communitySettings[community.id]?.customBannerColor
           ? community?.communitySettings[community.id]?.bannerColor
           : community?.communitySettings[community.id]?.baseColor
+      );
+
+      document.documentElement.style.setProperty(
+        "--community-banner-img",
+        `url("${community?.communitySettings[community.id]?.bannerImg}")`
       );
 
       if (
@@ -93,10 +102,14 @@ export default function CommunityOptions({ community }) {
         "#0079d3"
       );
 
+      console.log("base color 2");
+
       document.documentElement.style.setProperty(
         "--community-highlight",
         "#0079d3"
       );
+
+      console.log("highlight 2");
 
       document.documentElement.style.setProperty(
         "--community-base-color-text",
@@ -117,6 +130,8 @@ export default function CommunityOptions({ community }) {
         "--community-banner-color",
         "#0079d3"
       );
+
+      document.documentElement.style.setProperty("--community-banner-img", "");
 
       document.documentElement.style.setProperty("--community-body-bg-img", "");
     }

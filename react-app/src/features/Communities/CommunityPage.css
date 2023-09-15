@@ -21,7 +21,8 @@
 .community-page-header-top {
   height: var(--community-banner-height);
   width: 100%;
-  background: var(--community-banner-color);
+  background-image: var(--community-banner-img);
+  background-color: var(--community-banner-color);
   padding: 8px 16px;
 }
 
@@ -148,12 +149,19 @@
   transition: all 0.1s linear 0s;
   border: 1px solid transparent;
   border-radius: 4px;
+}
+
+.community-page-right-col .community-page-box-description {
   cursor: pointer;
 }
 
-.community-page-box-description:hover {
+.community-page-right-col .community-page-box-description:hover {
   border: 1px solid var(--community-highlight);
   padding: 4px;
+}
+
+.community-page-right-col .community-page-edit-description:hover {
+  padding: 8px;
 }
 
 .community-page-box-description svg {
@@ -342,12 +350,24 @@
 }
 
 .community-page-box-header {
-  background: var(--community-base-color);
+  background-size: cover;
+  background-position-y: center;
+  background-position-x: center;
+  background-repeat: no-repeat;
+  border-radius: 3px 3px 0 0;
+  height: 34px;
+  background-color: var(--community-banner-color);
+  background-image: var(--community-banner-img);
   padding: 0 12px 12px;
   display: flex;
   justify-content: space-between;
   letter-spacing: 0.5px;
   height: 50px;
+}
+
+.community-page-right-col .community-page-box-header {
+  background-color: var(--community-base-color);
+  background-image: none;
 }
 
 .community-page-box-header-left {

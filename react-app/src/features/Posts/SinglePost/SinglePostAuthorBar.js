@@ -38,6 +38,8 @@ export default function SinglePostAuthorBar({
     );
   }, []);
 
+  console.log("base color tres");
+
   return (
     <div className="single-post-author-bar">
       {isPage !== "community" && (
@@ -46,10 +48,10 @@ export default function SinglePostAuthorBar({
             <img
               style={{
                 backgroundColor: `${
-                  community.communitySettings[community.id].baseColor
+                  community?.communitySettings[community.id].baseColor
                 }`,
               }}
-              src={community?.communitySettings[community?.id].communityIcon}
+              src={community?.communityImg}
               alt="Community"
             />
           </div>

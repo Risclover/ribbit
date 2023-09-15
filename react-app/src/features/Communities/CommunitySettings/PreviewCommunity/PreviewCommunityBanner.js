@@ -5,10 +5,10 @@ import {
   getCommunitySettings,
   updateSettingsBanner,
 } from "../../../../store/community_settings";
-import { getSingleCommunity } from "../../../../store/one_community";
-import PreviewCommunityColorThemeColor from "./PreviewCommunityColorThemeColor";
 import PreviewCommunityBannerColor from "./PreviewCommunityBannerColor";
 import { getCommunities } from "../../../../store/communities";
+import DropBox from "../../../../components/DragNDropImageUpload/DropBox";
+import { getSingleCommunity } from "../../../../store/one_community";
 
 export default function PreviewCommunityBanner({
   setOpenAppearance,
@@ -21,8 +21,18 @@ export default function PreviewCommunityBanner({
   setHeight,
   customBannerColor,
   setCustomBannerColor,
+  bannerImg,
+  setBannerImg,
+  bannerImgFormat,
+  setBannerImgFormat,
 }) {
   const dispatch = useDispatch();
+
+  const [errorMsg, setErrorMsg] = useState("");
+  const [preview, setPreview] = useState(
+    community.communitySettings[community.id].bannerImg
+  );
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     if (activeRadio === "small") setHeight("80px");
@@ -39,14 +49,19 @@ export default function PreviewCommunityBanner({
   }, [bannerColor]);
 
   const handleBanner = async () => {
+    if (image) {
+      changeBannerImg();
+    } else {
+      setImage(null);
+    }
+
     const payload = {
       settingsId: community.communitySettings[community.id].id,
       bannerHeight: height,
       bannerColor: bannerColor,
       customBannerColor: customBannerColor,
-      bannerImg: community.communitySettings[community.id].bannerImg,
-      bannerImgFormat:
-        community.communitySettings[community.id].bannerImgFormat,
+      bannerImg: image ? bannerImg : "",
+      bannerImgFormat: bannerImgFormat,
       secondaryBannerImg:
         community.communitySettings[community.id].secondaryBannerImg,
       hoverBannerImg: community.communitySettings[community.id].hoverBannerImg,
@@ -60,7 +75,27 @@ export default function PreviewCommunityBanner({
     console.log("data:", data);
     dispatch(getCommunitySettings(community.id));
     dispatch(getCommunities());
-    setOpenAppearance(false);
+  };
+
+  const changeBannerImg = async () => {
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const res = await fetch(`/api/communities/${community.id}/banner_img`, {
+      method: "POST",
+      body: formData,
+    });
+    if (res.ok) {
+      await res.json();
+      dispatch(getSingleCommunity(community.id));
+      setOpenAppearance(false);
+    } else {
+      setErrorMsg(
+        "There was a problem with your upload. Make sure your file is a .jpg or .png file, and try again."
+      );
+
+      console.log(errorMsg);
+    }
   };
 
   useEffect(() => {
@@ -103,12 +138,25 @@ export default function PreviewCommunityBanner({
         />
         <div className="preview-community-name-icon-box">
           <h3>Custom Image</h3>
-
+          <DropBox
+            dropboxType="banner_img"
+            community={community}
+            setImage={setImage}
+            startingImage={community.communitySettings[community.id].bannerImg}
+            preview={preview}
+            setPreview={setPreview}
+          />
           <p>Required size: 256x256px</p>
         </div>
       </div>
       <div className="preview-community-theme-btns">
-        <button className="blue-btn-filled btn-long" onClick={handleBanner}>
+        <button
+          className="blue-btn-filled btn-long"
+          onClick={() => {
+            setOpenAppearance(false);
+            handleBanner();
+          }}
+        >
           Save
         </button>
         <button

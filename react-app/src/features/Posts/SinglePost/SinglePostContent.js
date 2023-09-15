@@ -6,7 +6,6 @@ import { FiLink } from "react-icons/fi";
 import LazyLoad from "react-lazyload";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { NavLink } from "react-router-dom";
 
 export default function SinglePostContent({ post, isPage }) {
   return (

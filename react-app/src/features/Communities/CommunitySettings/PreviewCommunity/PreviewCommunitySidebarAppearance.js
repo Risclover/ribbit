@@ -27,6 +27,10 @@ export default function PreviewCommunitySidebarAppearance({
   setBannerColor,
   customBannerColor,
   setCustomBannerColor,
+  bannerImg,
+  setBannerImg,
+  bannerImgFormat,
+  setBannerImgFormat,
   communityIcon,
   setCommunityIcon,
   hideCommunityIcon,
@@ -74,6 +78,10 @@ export default function PreviewCommunitySidebarAppearance({
           setBannerColor={setBannerColor}
           customBannerColor={customBannerColor}
           setCustomBannerColor={setCustomBannerColor}
+          bannerImg={bannerImg}
+          setBannerImg={setBannerImg}
+          bannerImgFormat={bannerImgFormat}
+          setBannerImgFormat={setBannerImgFormat}
         />
       )}
     </div>

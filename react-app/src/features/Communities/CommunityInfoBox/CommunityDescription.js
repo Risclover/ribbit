@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useAutosizeTextArea from "../../../components/Modals/ChatWindow/ChatWindowRight/ChatWindowInput/useAutosizeTextArea";
 
-import { updateCommunity } from "../../../store/communities";
+import {
+  getCommunities,
+  getSingleCommunity,
+  updateCommunity,
+} from "../../../store/communities";
 
 import { FaPen } from "react-icons/fa";
 import HandleClickOutside from "../../../components/HandleClickOutside";
@@ -15,6 +19,9 @@ export default function CommunityDescription({ community, user }) {
   const [showEditDescription, setShowEditDescription] = useState(false);
   const [description, setDescription] = useState(community.description);
 
+  const singlecommunity = useSelector(
+    (state) => state.communities[community.id]
+  );
   useEffect(() => {
     document.addEventListener("mousedown", function (e) {
       HandleClickOutside(
@@ -41,11 +48,12 @@ export default function CommunityDescription({ community, user }) {
   const handleSaveDescription = async () => {
     const data = await dispatch(
       updateCommunity(
-        { display_name: community.display_name, description },
+        { display_name: community.display_name, description: description },
         community.id
       )
     );
     setDescription(data.description);
+    dispatch(getCommunities());
     setShowEditDescription(false);
   };
 
@@ -53,14 +61,23 @@ export default function CommunityDescription({ community, user }) {
     <div className="community-page-description">
       {user?.id === community.userId && (
         <div
-          onClick={() => setShowEditDescription(true)}
+          onClick={() => {
+            setShowEditDescription(true);
+            setTimeout(() => {
+              const textareaBox = document.querySelector(
+                "#edit-community-description"
+              );
+              textareaBox.style.height =
+                textareaRef.current.scrollHeight + "px";
+            }, 5);
+          }}
           className={`${
             showEditDescription
-              ? "community-page-edit-description"
+              ? "community-page-edit-description "
               : !showEditDescription && description.length === 0
-              ? "add-description-box"
+              ? "add-description-box "
               : ""
-          } community-page-box-description`}
+          }community-page-box-description`}
         >
           {!showEditDescription && description.length === 0 ? (
             <div className="edit-community-description-add-description">
@@ -107,26 +124,25 @@ export default function CommunityDescription({ community, user }) {
                 >
                   {500 - description.length} Characters remaining
                 </div>
-                <span
+                <button
                   className="edit-community-description-cancel"
                   onClick={(e) => {
-                    e.preventDefault();
                     e.stopPropagation();
+                    setDescription(singlecommunity.description);
                     setShowEditDescription(false);
                   }}
                 >
                   Cancel
-                </span>
-                <span
+                </button>
+                <button
                   className="edit-community-description-save"
                   onClick={(e) => {
-                    e.preventDefault();
                     e.stopPropagation();
                     handleSaveDescription();
                   }}
                 >
                   Save
-                </span>
+                </button>
               </div>
             </div>
           )}

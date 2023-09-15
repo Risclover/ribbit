@@ -104,18 +104,18 @@ export default function UserAboutBox({
         ) : (
           <img src={banner} className="user-profile-banner" alt="Banner" />
         )}
-        {currentUser?.id === userId && (
+        {currentUser?.id === +userId && (
           <UserBannerModal user={user} currentUser={currentUser} />
         )}
       </div>
       <div className="user-profile-img-box">
-        {currentUser?.id === userId && (
+        {currentUser?.id === +userId && (
           <UserImageModal user={user} currentUser={currentUser} />
         )}
         <img src={user?.profile_img} alt="User" className="user-profile-img" />
       </div>
       <div className="user-profile-about-content">
-        {currentUser?.id === userId && (
+        {currentUser?.id === +userId && (
           <NavLink to={`/users/${userId}/profile/edit`}>
             <i className="fa-solid fa-gear user-settings"></i>
           </NavLink>
@@ -160,7 +160,7 @@ export default function UserAboutBox({
         </div>
 
         <div className="half-btns">
-          {currentUser?.id !== userId && (
+          {currentUser?.id !== +userId && (
             <button
               className={
                 !following
@@ -172,13 +172,13 @@ export default function UserAboutBox({
               {!following ? "Follow" : "Unfollow"}
             </button>
           )}
-          {currentUser?.id !== userId && (
+          {currentUser?.id !== +userId && (
             <button className="blue-btn-filled btn-long" onClick={handleChat}>
               Chat
             </button>
           )}
         </div>
-        {currentUser?.id !== userId && (
+        {currentUser?.id !== +userId && (
           <SendMessage userId={userId} username={username} />
         )}
       </div>

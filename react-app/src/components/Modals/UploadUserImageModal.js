@@ -62,7 +62,7 @@ export default function UploadImage({ img_url, setShowUploadModal, userId }) {
                 {imageLoading && <p className="loading">Loading...</p>}
               </div>
             </div>
-            <label for="upload-user-img">
+            <label htmlFor="upload-user-img">
               <input
                 id="upload-user-img"
                 type="file"

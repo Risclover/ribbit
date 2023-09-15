@@ -89,7 +89,7 @@ export default function CommentForm({ postId }) {
       )}
       {!user && (
         <form className="comment-form">
-          <label for="comment-box">
+          <label htmlFor="comment-box">
             <LoginSignupModal btnText="Log in" className="log-in-to-comment" />
             to comment
           </label>

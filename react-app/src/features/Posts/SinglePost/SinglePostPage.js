@@ -16,10 +16,9 @@ import Comments from "../../Comments/Comments";
 import Cake from "../../../images/misc/piece4.png";
 import SinglePost from "./SinglePost";
 import BackToTop from "../../../components/BackToTop";
-import { addViewedPost, getViewedPosts } from "../../../store/viewed_posts";
+import { addViewedPost } from "../../../store/viewed_posts";
 import { getPosts } from "../../../store/posts";
 import { getCommunities, getSingleCommunity } from "../../../store/communities";
-import { getUsers } from "../../../store/users";
 import CommunityOptions from "../../Communities/CommunityInfoBox/CommunityOptions/CommunityOptions";
 
 export default function SinglePostPage({
@@ -43,11 +42,8 @@ export default function SinglePostPage({
   const [commentsNum, setCommentsNum] = useState();
   const [subscribed, setSubscribed] = useState(false);
   const [members, setMembers] = useState(community?.members || 0);
-  const [checked, setChecked] = useState();
-  const [showCommunityOptions, setShowCommunityOptions] = useState(false);
 
   useEffect(() => {
-    console.log("community:", community);
     dispatch(getCommunities());
     dispatch(getPosts());
     dispatch(getSinglePost(+postId));

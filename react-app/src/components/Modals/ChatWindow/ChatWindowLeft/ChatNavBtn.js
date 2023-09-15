@@ -10,6 +10,7 @@ export default function ChatNavBtn({
   handleOpenChatThread,
   setWelcomeOverlay,
   setNewChatOverlay,
+  setMessageInviteOverlay,
   lastMsg,
   socket,
 }) {
@@ -82,12 +83,13 @@ export default function ChatNavBtn({
   }, [chatThread.messages, currentUser.id]);
 
   const handleClick = (e) => {
+    setWelcomeOverlay(false);
+    setNewChatOverlay(false);
+    setMessageInviteOverlay(false);
     setSelectedChat(chatThread);
     handleOpenChatThread(e, chatThread);
     dispatch(readAllMessages(selectedChat?.id));
     dispatch(getChatThread(selectedChat?.id));
-    setWelcomeOverlay(false);
-    setNewChatOverlay(false);
   };
 
   const isActive = selectedChat && selectedChat?.id === chatThread.id;

@@ -141,7 +141,14 @@
 .single-post-box-header {
   width: 100%;
   height: 34px;
-  background: var(--community-base-color);
+  background-color: var(--community-base-color);
+  background-size: cover;
+  background-image: var(--community-banner-img);
+  background-position-y: center;
+  background-position-x: center;
+  background-repeat: no-repeat;
+  border-radius: 3px 3px 0 0;
+  height: 34px;
 }
 
 .single-post-community-cake {

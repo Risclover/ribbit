@@ -103,6 +103,8 @@ export default function ChatWindow({
     }
   }, [selectedChat, currentUser.id]);
 
+  console.log("message invite overlay:", messageInviteOverlay);
+
   console.log("user found:", userFound);
   return (
     <div className="chat-window-container">
@@ -113,6 +115,7 @@ export default function ChatWindow({
         receiver={receiver}
         setNewChatOverlay={setNewChatOverlay}
         setWelcomeOverlay={setWelcomeOverlay}
+        setMessageInviteOverlay={setMessageInviteOverlay}
         lastMessage={lastMessage}
         socket={socket}
       />
