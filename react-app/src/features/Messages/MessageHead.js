@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MessageModal from "../../components/Modals/MessageModal";
+import MessageModal from "../../components/Modals/MessageModal/MessageModal";
 import { Modal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
 

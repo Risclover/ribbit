@@ -8,7 +8,7 @@ import {
   getUserFollowers,
 } from "../../store/followers";
 import { Modal } from "../../context/Modal";
-import MessageModal from "../Modals/MessageModal";
+import MessageModal from "../Modals/MessageModal/MessageModal";
 import { NavLink } from "react-router-dom";
 
 export default function UsernamePopup({ community, setShowUserBox, user }) {

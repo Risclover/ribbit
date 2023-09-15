@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import "./Modals.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createMessage,
   createThread,
   getThread,
   getThreads,
-} from "../../store/threads";
-import { getMessages } from "../../store/messages";
-import { addNotification } from "../../store/notifications";
-import { getCommunities } from "../../store/communities";
+} from "../../../store/threads";
+import { getMessages } from "../../../store/messages";
+import { addNotification } from "../../../store/notifications";
+import { getCommunities } from "../../../store/communities";
+import "./MessageModal.css";
+import "../Modals.css";
 
 export default function MessageModal({ setShowMessageModal, username }) {
   const dispatch = useDispatch();
