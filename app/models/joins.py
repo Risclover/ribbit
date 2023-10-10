@@ -77,10 +77,3 @@ favorite_users = db.Table('favorite_users',
     db.Column('current_id', db.Integer, db.ForeignKey('users.id')),
     db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
 )
-
-# user_chat_threads = db.Table(
-#     "user_chat_threads",
-#     db.Model.metadata,
-#     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-#     db.Column('chat_thread_id', db.Integer, db.ForeignKey('chat_threads.id'), primary_key=True)
-# )

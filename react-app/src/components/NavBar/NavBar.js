@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { getCommunities } from "../../store/communities";
+import { getMessages } from "../../store/messages";
+import { getUsers } from "../../store/users";
+import LoggedOutDropdownWrapper from "./LoggedOutDropdown/LoggedOutDropdownWrapper";
 import Searchbar from "./Searchbar/Searchbar";
 import NavUserDropdown from "./NavUserDropdown";
 import NavLeftDropdownFace from "./NavLeftDropdown/NavLeftDropdownFace";
-import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
-import { getCommunities } from "../../store/communities";
 import NotificationsDropdownWrapper from "./NotificationsDropdown/NotificationsDropdownWrapper";
-import RibbitLogoSmall from "../../images/ribbit-banners/ribbit_logo_love_small.png";
 import LoginSignupModal from "../Modals/LoginSignupModal";
-import { getUsers } from "../../store/users";
 import { TfiPlus } from "react-icons/tfi";
 import { BsChatDots } from "react-icons/bs";
+import RibbitLogo from "../../images/ribbit-banners/ribbit_logo_love.png";
+import RibbitLogoSmall from "../../images/ribbit-banners/ribbit_logo_love_small.png";
 import All from "../../images/navbar/all-icon2.png";
-import LoggedOutDropdownWrapper from "./LoggedOutDropdown/LoggedOutDropdownWrapper";
 import "./NavBar.css";
-import { getMessages } from "../../store/messages";
 
 const NavBar = ({
   searchQuery,

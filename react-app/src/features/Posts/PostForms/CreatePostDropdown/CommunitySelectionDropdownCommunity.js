@@ -86,7 +86,7 @@ export default function CommunitySelectionDropdownCommunity({
             backgroundColor: `${baseColor}`,
           }}
           className="community-selection-community-img"
-          src={subscription?.communityImg}
+          src={subscription.communityImg}
           alt="Community"
         />
         <div className="community-selection-dropdown-community-details">

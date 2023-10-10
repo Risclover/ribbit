@@ -15,7 +15,7 @@ import { CgNotes } from "react-icons/cg";
 import { RxImage } from "react-icons/rx";
 import { BsThreeDots } from "react-icons/bs";
 import { getUsers } from "../../../store/users";
-import HandleClickOutside from "../../../components/HandleClickOutside";
+import HandleClickOutside from "../../../utils/HandleClickOutside";
 import "../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 import "./CompactPostFormat.css";

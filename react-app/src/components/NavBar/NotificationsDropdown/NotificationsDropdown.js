@@ -8,7 +8,7 @@ import {
 } from "../../../store/notifications";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
-import HandleClickOutside from "../../HandleClickOutside";
+import HandleClickOutside from "../../../utils/HandleClickOutside";
 import SparklyFrog from "../../../images/ribbit-frog-sparkly.png";
 import Notification from "./Notification";
 
@@ -66,16 +66,16 @@ export default function NotificationsDropdown({
     dispatch(getUserNotifications(user?.id));
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
-      });
-    };
-  }, [wrapperRef, showDropdown]);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", function (e) {
+  //     HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
+  //   });
+  //   return () => {
+  //     document.removeEventListener("mousedown", function (e) {
+  //       HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
+  //     });
+  //   };
+  // }, [wrapperRef, showDropdown]);
 
   notifications.sort((a, b) => {
     let postA = new Date(a.createdAt);

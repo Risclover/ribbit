@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField, SubmitField, IntegerField
-from wtforms.validators import DataRequired, Length, URL, ValidationError
+from wtforms import StringField, TextAreaField, SubmitField
+from wtforms.validators import DataRequired, Length, ValidationError
 from app.models import Community
 
-def community_exists(form, field):
+def community_exists(field):
     # Checking if community name is already in use
     name = field.data
     community = Community.query.filter(Community.name == name).first()

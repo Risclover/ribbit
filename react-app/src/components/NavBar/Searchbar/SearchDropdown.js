@@ -25,10 +25,15 @@ export default function SearchDropdown({
 
   for (let i = 0; i < Object.values(allCommunities).length; i++) {
     communityList.push({
-      img: Object.values(allCommunities)[i].communityImg,
+      img: Object.values(allCommunities)[i].communitySettings[
+        Object.values(allCommunities)[i].id
+      ].communityIcon,
       name: Object.values(allCommunities)[i].name,
       members: Object.values(allCommunities)[i].members,
-      communityImg: Object.values(allCommunities)[i].communityImg,
+      communityImg:
+        Object.values(allCommunities)[i].communitySettings[
+          Object.values(allCommunities)[i].id
+        ].communityIcon,
       id: Object.values(allCommunities)[i].id,
       bgColor:
         Object.values(allCommunities)[i].communitySettings[
@@ -79,7 +84,10 @@ export default function SearchDropdown({
                       style={{
                         backgroundColor: `${community.bgColor}`,
                       }}
-                      src={community.communityImg}
+                      src={
+                        community?.communitySettings[community?.id]
+                          .communityIcon
+                      }
                       className="search-result-community-img"
                       alt="Community"
                     />

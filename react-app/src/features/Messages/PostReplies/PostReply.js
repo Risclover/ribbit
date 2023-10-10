@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
 import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { HashLink as Link } from "react-router-hash-link";
 import {
   getAllNotifications,
@@ -11,55 +8,27 @@ import {
   readNotification,
   unreadNotification,
 } from "../../../store/notifications";
+import { GoArrowUp, GoArrowDown } from "react-icons/go";
+import moment from "moment";
 
 export default function PostReply({ notification }) {
   const dispatch = useDispatch();
 
   const users = useSelector((state) => state.users);
   const posts = useSelector((state) => state.posts);
-  let comments = useSelector((state) => state.comments);
 
   const community = posts[notification.postId]?.communityName;
   const postReplySender = users[notification.senderId];
 
-  const [markedUnread, setMarkedUnread] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(getAllNotifications());
   }, [dispatch]);
 
-  const handleUpvote = () => {
-    let comment = comments[notification?.commentId];
-  };
-
-  // const handleReply = async (e) => {
-  //   e.preventDefault();
-  //   if (reply === "") {
-  //     setError("we need something here");
-  //   } else {
-  //     const payload = {
-  //       content: reply,
-  //       threadId: threadId,
-  //       receiverId: message.sender.id,
-  //     };
-  //     const msg = await dispatch(createMessage(payload));
-  //     const notificationsPayload = {
-  //       type: "message",
-  //       id: msg.id,
-  //     };
-  //     dispatch(addNotification(notificationsPayload));
-  //     dispatch(getThreads());
-  //     setReply("");
-  //     setShowReplyBox(false);
-  //   }
-  // };
-
   const handleUnread = async () => {
     await dispatch(unreadNotification(notification?.id));
     dispatch(getUserNotifications(currentUser.id));
-
-    setMarkedUnread(true);
   };
 
   const handleRead = async () => {

@@ -19,7 +19,7 @@ export default function CommunityInfoBox({ community }) {
       <div className="community-title-details">
         <img
           className="community-title-details-img"
-          src={community?.communityImg}
+          src={community?.communitySettings[community?.id].communityIcon}
           alt="Community"
         />
         <div className="community-title-details-name">

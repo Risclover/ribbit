@@ -143,7 +143,6 @@ export const editCommunityTheme = (payload) => async (dispatch) => {
     bodyBgImgFormat,
     nameFormat,
   } = payload;
-  console.log("redux payload:", payload);
   const response = await fetch(`/api/communities/${communityId}/appearance`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },

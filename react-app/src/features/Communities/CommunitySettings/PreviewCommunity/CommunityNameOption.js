@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FaDotCircle, FaRegCircle } from "react-icons/fa";
 
 export default function CommunityNameOption({

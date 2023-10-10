@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
-import "../../CommunityPage.css";
-import "./PreviewCommunity.css";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import PreviewCommunitySidebarAppearance from "./PreviewCommunitySidebarAppearance";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import OutsideClickWarning from "./OutsideClickWarning";
-import { Modal } from "../../../../context/Modal";
+import { useLocation, useHistory } from "react-router-dom";
 import {
   getCommunitySettings,
   resetToDefault,
 } from "../../../../store/community_settings";
 import { getCommunities } from "../../../../store/communities";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Modal } from "../../../../context/Modal";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import PreviewCommunitySidebarAppearance from "./PreviewCommunitySidebarAppearance";
+import OutsideClickWarning from "./OutsideClickWarning";
+import "./PreviewCommunity.css";
+import "../../CommunityPage.css";
 
 export default function PreviewCommunitySidebar() {
   const location = useLocation();

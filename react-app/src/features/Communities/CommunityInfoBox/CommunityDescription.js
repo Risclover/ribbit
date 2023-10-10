@@ -1,15 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useAutosizeTextArea from "../../../components/Modals/ChatWindow/ChatWindowRight/ChatWindowInput/useAutosizeTextArea";
-
-import {
-  getCommunities,
-  getSingleCommunity,
-  updateCommunity,
-} from "../../../store/communities";
-
+import { getCommunities, updateCommunity } from "../../../store/communities";
+import useAutosizeTextArea from "../../ChatWindow/ChatWindowRight/ChatWindowInput/useAutosizeTextArea";
+import HandleClickOutside from "../../../utils/HandleClickOutside";
 import { FaPen } from "react-icons/fa";
-import HandleClickOutside from "../../../components/HandleClickOutside";
 
 export default function CommunityDescription({ community, user }) {
   const textareaRef = useRef(null);

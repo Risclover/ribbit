@@ -10,7 +10,7 @@ import {
   readAllNotifications,
 } from "../../store/notifications";
 import Notification from "./Notification";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import "./Notifications.css";
 
 moment.updateLocale("en-notif", {

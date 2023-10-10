@@ -195,7 +195,7 @@ def seed_community_settings():
         base_color="#0079d3",
         highlight="#0079d3",
         bg_color="#dae0e6",
-        community_icon="https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
+        community_icon="https://a.thumbs.redditmedia.com/kIpBoUR8zJLMQlF8azhN-kSBsjVUidHjvZNLuHDONm8.png",
         hide_community_icon=False,
         name_format="c/",
         background_img_format="fill",

@@ -29,10 +29,6 @@ export default function AddCommunityRule({
     let changed = false;
     let originalName = rule?.title;
 
-    // if (rule?.title === title) {
-    //   changed = true;
-    // }
-
     for (let rule of rules) {
       if (rule.title === title) {
         changed = true;
@@ -62,7 +58,7 @@ export default function AddCommunityRule({
     e.preventDefault();
     setShowDeleteModal(true);
   };
-  
+
   return (
     <div className="modal-container">
       <div className="modal-content">

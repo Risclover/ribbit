@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import User, db
 from app.forms import ProfileUpdateForm, EmptyForm
@@ -76,9 +76,6 @@ def upload_image(id, type):
     upload = upload_file_to_s3(image)
 
     if "url" not in upload:
-        # if the dictionary doesn't have a url key
-        # it means that there was an error when we tried to upload
-        # so we send back that error message
         return upload, 400
 
     url = upload["url"]
@@ -92,21 +89,6 @@ def upload_image(id, type):
 
     db.session.commit()
     return {"url": url}
-
-# # UPDATE USER KARMA
-# @user_routes.route('/<int:id>/karma', methods=['POST'])
-# def update_user_karma(id):
-#     if 'username' in db.session:
-#         user = User.query.get(id)
-#         if request.json['action'] == 'increment':
-#             user.karma += 1
-#         elif request.json['action'] == 'decrement':
-#             user.karma -= 1
-#         db.session.commit()
-#         return jsonify({'karma': user.karma})
-#     else:
-#         return jsonify({'error': 'You must be logged in to update karma'})
-
 
 # FOLLOW USER
 @user_routes.route("/follow/<username>", methods=["POST"])

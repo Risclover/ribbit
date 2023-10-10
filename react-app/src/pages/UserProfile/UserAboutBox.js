@@ -16,8 +16,6 @@ import UserBannerModal from "./UploadUserBanner";
 import UserImageModal from "./UploadUserImage";
 import SendMessage from "./SendMessage";
 import { addNotification } from "../../store/notifications";
-import StartChat from "./StartChat";
-import ChatWindow from "../../components/Modals/ChatWindow/ChatWindow";
 import { createChatThread, getUserChatThreads } from "../../store/chats";
 
 export default function UserAboutBox({
@@ -34,11 +32,13 @@ export default function UserAboutBox({
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [banner, setBanner] = useState();
   const [karma, setKarma] = useState();
-  const [following, setFollowing] = useState(false);
   const followers = useSelector((state) => state.followers.followers);
   const follows = useSelector((state) => state.followers.follows);
   const userFollowers = useSelector((state) => state.followers.userFollowers);
   const userChats = useSelector((state) => Object.values(state.chatThreads));
+  const [following, setFollowing] = useState(follows[user?.id]);
+
+  console.log("followingggg:", follows[user?.id]);
 
   useEffect(() => {
     dispatch(getUserChatThreads());
@@ -47,15 +47,17 @@ export default function UserAboutBox({
   }, [dispatch]);
 
   useEffect(() => {
-    if (follows) {
+    if (currentUser && follows && user && user[0]) {
       for (let followed of Object.values(follows)) {
-        if (followed?.username === user?.username) {
+        if (followed?.username === user[0]?.username) {
           setFollowing(true);
           break;
+        } else {
+          setFollowing(false);
         }
       }
     }
-  }, []);
+  }, [currentUser, follows, user]);
 
   useEffect(() => {
     setBanner(user?.bannerImg);

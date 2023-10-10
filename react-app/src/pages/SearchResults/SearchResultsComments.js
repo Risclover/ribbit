@@ -1,5 +1,6 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 export default function SearchResultsComments({
@@ -10,15 +11,19 @@ export default function SearchResultsComments({
 }) {
   const [finishedComments, setFinishedComments] = useState([]);
 
+  const communities = useSelector((state) => state.communities);
+
   useEffect(() => {
     let commentObj = {};
     let unfinishedComments = [];
 
     for (let post of posts) {
       let username = post.author;
+      let community = communities[post?.communityId];
       for (let i = 0; i < Object.values(post.postComments).length; i++) {
         commentObj = {
-          communityImg: post.communityImg,
+          communityImg:
+            community?.communitySettings[community?.id].communityIcon,
           userId: post.userId,
           username: username,
           authorId: Object.values(post.postComments)[i].commentAuthor.id,

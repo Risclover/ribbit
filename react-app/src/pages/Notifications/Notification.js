@@ -3,10 +3,10 @@ import { IoIosMore } from "react-icons/io";
 import { IoChatbox } from "react-icons/io5";
 import moment from "moment";
 import NotificationMenu from "./NotificationMenu";
-import HandleClickOutside from "../../components/HandleClickOutside";
+import HandleClickOutside from "../../utils/HandleClickOutside";
 import { useDispatch, useSelector } from "react-redux";
 import { readNotification } from "../../store/notifications";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import { getUserNotifications } from "../../store/notifications";
 
 export default function Notification({ notification }) {

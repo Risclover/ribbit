@@ -5,7 +5,7 @@ import {
   getUserNotifications,
   unreadNotification,
 } from "../../store/notifications";
-import HandleClickOutside from "../../components/HandleClickOutside";
+import HandleClickOutside from "../../utils/HandleClickOutside";
 
 export default function NotificationMenu({
   notification,

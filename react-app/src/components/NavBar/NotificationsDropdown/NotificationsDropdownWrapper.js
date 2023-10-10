@@ -4,7 +4,7 @@ import "../NavBar.css";
 import "./NotificationsDropdown.css";
 import { useSelector } from "react-redux";
 import NotificationsDropdown from "./NotificationsDropdown";
-import HandleClickOutside from "../../HandleClickOutside";
+import HandleClickOutside from "../../../utils/HandleClickOutside";
 
 export default function NotificationsDropdownWrapper({
   msgNum,
@@ -22,16 +22,16 @@ export default function NotificationsDropdownWrapper({
   );
   const [showDropdown, setShowDropdown] = useState(false);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
-      });
-    };
-  }, [wrapperRef, showDropdown]);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", function (e) {
+  //     HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
+  //   });
+  //   return () => {
+  //     document.removeEventListener("mousedown", function (e) {
+  //       HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
+  //     });
+  //   };
+  // }, [wrapperRef, showDropdown]);
 
   const handleOpenDropdown = (e) => {
     e.preventDefault();

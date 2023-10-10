@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
-import HandleClickOutside from "../../../components/HandleClickOutside";
+import HandleClickOutside from "../../../utils/HandleClickOutside";
 import SearchResultsTimeBtn from "./SearchResultsTimeBtn";
 
 export default function SearchResultsTime({ searchPage }) {

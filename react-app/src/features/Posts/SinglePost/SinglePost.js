@@ -24,9 +24,9 @@ function SinglePost({ id, isPage, userId, format }) {
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
 
-  useEffect(() => {
-    dispatch(getSingleCommunity(post?.communityId));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getSingleCommunity(post?.communityId));
+  // }, [dispatch]);
 
   return (
     <>

@@ -1,0 +1,69 @@
+.chat-window-chatnav-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.chat-window-chatnav {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  align-items: center;
+  justify-content: left;
+  font-size: 12px;
+  grid-column-gap: 8px;
+  cursor: pointer;
+  color: #131313;
+  background: white;
+  padding: 12px;
+}
+
+.chat-window-chatnav:hover {
+  background: #f8f8f8;
+}
+
+.chat-window-chatnav.chatnav-active {
+  background: #f8f8f8;
+}
+
+.chat-window-chatnav-details {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.chat-window-chatnav img {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+}
+
+.chat-window-chatnav-last {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-top: 3px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.chat-window-chatnav-details-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.chat-window-chatnav-date {
+  font-size: 10px;
+}
+
+.chat-window-chatnav-username {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  margin-right: 10px;
+}

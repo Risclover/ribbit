@@ -20,8 +20,6 @@ export default function PreviewCommunity({
   setPageIcon,
   format,
   setFormat,
-  setPreviewPage,
-  previewPage,
 }) {
   const dispatch = useDispatch();
   const { communityId } = useParams();
@@ -53,7 +51,7 @@ export default function PreviewCommunity({
             community?.communitySettings[community?.id].baseColor
           }`,
         }}
-        src={community?.communityImg}
+        src={community?.communitySettings[community?.id].communityIcon}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"
       />

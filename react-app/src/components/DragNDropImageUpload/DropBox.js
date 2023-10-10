@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa6";
 
 const DropBox = ({
-  community,
   setImage,
   image,
   preview,
   setPreview,
   handlePreview,
   handleDelete,
-  handleImgUpload,
 }) => {
   const [highlight, setHighlight] = React.useState(false);
   const [drop, setDrop] = React.useState(false);
@@ -47,8 +45,6 @@ const DropBox = ({
     const [file] = e.target.files || e.dataTransfer.files;
     setImage(file);
     uploadFile(file);
-
-    handlePreview();
   };
 
   const uploadFile = (file) => {
@@ -60,6 +56,7 @@ const DropBox = ({
       console.log(`data:image/jpg;base64,${fileRes}`);
       setPreview(`data:image/jpg;base64,${fileRes}`);
       setShowBar(true);
+      handlePreview();
     };
 
     reader.onerror = () => {

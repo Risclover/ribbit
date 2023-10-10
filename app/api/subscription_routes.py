@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify, request, redirect
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, joins, User, Community
+from app.models import db, User, Community
 
 subscription_routes = Blueprint("subscriptions", __name__)
 
@@ -17,7 +17,6 @@ def add_subscription():
     community = Community.query.filter(Community.id == community_id).one()
 
     queried_user.user_subscriptions.append(community)
-    # queried_subscription.subscribers.append(queried_user)
     db.session.commit()
 
     return jsonify({
@@ -69,8 +68,6 @@ def delete_subscription(id):
 
     if community in user.user_favorite_communities:
         user.user_favorite_communities.remove(community)
-
-
 
     db.session.commit()
 

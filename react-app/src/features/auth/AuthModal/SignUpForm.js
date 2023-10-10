@@ -10,7 +10,6 @@ const SignUpForm = ({
   showSignupForm,
   setShowSignupForm,
   setShowLoginForm,
-  val,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();

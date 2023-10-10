@@ -1,11 +1,7 @@
 import React from "react";
 import "./CommunityOptions.css";
 
-export default function ToggleSwitch({
-  checked,
-  setChecked,
-  handleThemeToggle,
-}) {
+export default function ToggleSwitch({ checked, handleThemeToggle }) {
   return (
     <div className="community-options-switch">
       <input

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import BannerHeight from "./BannerHeight";
 import { useDispatch } from "react-redux";
 import {
   getCommunitySettings,
   updateSettingsBanner,
 } from "../../../../store/community_settings";
-import PreviewCommunityBannerColor from "./PreviewCommunityBannerColor";
+import { getSingleCommunity } from "../../../../store/one_community";
 import { getCommunities } from "../../../../store/communities";
 import DropBox from "../../../../components/DragNDropImageUpload/DropBox";
-import { getSingleCommunity } from "../../../../store/one_community";
+import PreviewCommunityBannerColor from "./PreviewCommunityBannerColor";
+import BannerHeight from "./BannerHeight";
 
 export default function PreviewCommunityBanner({
   setOpenAppearance,
@@ -22,9 +22,7 @@ export default function PreviewCommunityBanner({
   customBannerColor,
   setCustomBannerColor,
   bannerImg,
-  setBannerImg,
   bannerImgFormat,
-  setBannerImgFormat,
 }) {
   const dispatch = useDispatch();
 

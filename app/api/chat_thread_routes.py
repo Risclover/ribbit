@@ -1,7 +1,6 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, User, ChatMessageThread, ChatMessage, ChatMessageReaction
-from flask_socketio import SocketIO, emit, join_room, leave_room, disconnect
 
 chat_thread_routes = Blueprint("chat_threads", __name__)
 
@@ -20,7 +19,6 @@ def get_user_chats():
 @chat_thread_routes.route("/<int:id>")
 def get_user_chat(id):
     chat = ChatMessageThread.query.get(id)
-    print(chat)
     if chat is not None:
         return chat.to_dict()
     else:
@@ -112,3 +110,14 @@ def react(messageId):
     db.session.commit()
 
     return reaction.to_dict()
+
+
+
+# GET REACTION
+@chat_thread_routes.route("/reactions/<int:id>", methods=["GET"])
+def get_reaction(id):
+    reaction = ChatMessageReaction.query.get(id)
+    if reaction is not None:
+        return reaction.to_dict()
+    else:
+        return {"error": "Reaction not found"}

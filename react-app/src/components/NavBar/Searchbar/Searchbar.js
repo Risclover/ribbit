@@ -4,7 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { SlClose } from "react-icons/sl";
 import { useHistory } from "react-router-dom";
 import "./Searchbar.css";
-import HandleClickOutside from "../../HandleClickOutside";
+import HandleClickOutside from "../../../utils/HandleClickOutside";
 
 export default function Searchbar({
   searchQuery,
@@ -18,31 +18,30 @@ export default function Searchbar({
 
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
-
   useEffect(() => {
     if (adjustQuery) ref.current.focus();
   }, [adjustQuery]);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(
-        e,
-        wrapperRef,
-        showSearchDropdown,
-        setShowSearchDropdown
-      );
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(
-          e,
-          wrapperRef,
-          showSearchDropdown,
-          setShowSearchDropdown
-        );
-      });
-    };
-  }, [wrapperRef, showSearchDropdown]);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", function (e) {
+  //     HandleClickOutside(
+  //       e,
+  //       wrapperRef,
+  //       showSearchDropdown,
+  //       setShowSearchDropdown
+  //     );
+  //   });
+  //   return () => {
+  //     document.removeEventListener("mousedown", function (e) {
+  //       HandleClickOutside(
+  //         e,
+  //         wrapperRef,
+  //         showSearchDropdown,
+  //         setShowSearchDropdown
+  //       );
+  //     });
+  //   };
+  // }, [wrapperRef, showSearchDropdown]);
 
   useEffect(() => {
     if (searchQuery?.length === 0) {

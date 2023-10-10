@@ -39,7 +39,7 @@ import PostRepliesPage from "./features/Messages/PostReplies/PostRepliesPage";
 import NavSidebar from "./components/NavSidebar.js/NavSidebar";
 import Permalink from "./features/Messages/Permalink/Permalink";
 import LoggedOutSidebar from "./components/NavSidebar.js/LoggedOutSidebar";
-import ChatWindow from "./components/Modals/ChatWindow/ChatWindow";
+import ChatWindow from "./features/ChatWindow/ChatWindow";
 import { getUserChatThreads } from "./store/chats";
 import PreviewCommunity from "./features/Communities/CommunitySettings/PreviewCommunity/PreviewCommunity";
 import { getCommunities } from "./store/communities";

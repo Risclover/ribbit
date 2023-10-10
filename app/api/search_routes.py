@@ -1,5 +1,5 @@
-from flask import Blueprint, jsonify, request, redirect, render_template
-from app.models import db, Community, User, Post, Comment
+from flask import Blueprint
+from app.models import Community, User, Post, Comment
 from sqlalchemy import or_
 
 search_routes = Blueprint("search", __name__)

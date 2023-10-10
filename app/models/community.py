@@ -8,7 +8,6 @@ class Community(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     name = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(500), nullable=True)
-    community_img = db.Column(db.String(255), default="https://i.imgur.com/9CI9hiO.png")
     display_name = db.Column(db.String(100), nullable=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
@@ -30,7 +29,6 @@ class Community(db.Model):
             'subscribers': {item.to_dict()["id"]: item.to_dict() for item in self.subscribers},
             'usersWhoFavorited': {item.to_dict()["id"]: item.to_dict() for item in self.users_who_favorited},
             'members': len(self.subscribers),
-            "communityImg": self.community_img,
             'communityPosts': {item.to_dict()["id"]: item.to_dict() for item in self.community_posts},
             'communityOwner': self.community_owner.to_dict(),
             "communityRules": {item.to_dict()["id"]: item.to_dict() for item in self.community_rules},

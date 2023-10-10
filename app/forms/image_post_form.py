@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField, SubmitField, IntegerField
-from wtforms.validators import DataRequired, Length, URL
+from wtforms import StringField, TextAreaField, IntegerField
+from wtforms.validators import DataRequired, Length
 
 class ImagePostForm(FlaskForm):
     title = TextAreaField(

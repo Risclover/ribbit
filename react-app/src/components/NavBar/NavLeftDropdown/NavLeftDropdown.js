@@ -15,7 +15,7 @@ import {
   getFavoriteUsers,
   removeFavoriteUser,
 } from "../../../store/favorite_users";
-import HandleClickOutside from "../../HandleClickOutside";
+import HandleClickOutside from "../../../utils/HandleClickOutside";
 import NavLeftDropdownLink from "./NavLeftDropdownLink";
 
 export default function NavLeftDropdown({ showIcon, setShowIcon }) {
@@ -40,16 +40,16 @@ export default function NavLeftDropdown({ showIcon, setShowIcon }) {
     setFollowing(followers);
   }, []);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(e, wrapperRef, showIcon, setShowIcon);
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(e, wrapperRef, showIcon, setShowIcon);
-      });
-    };
-  }, [wrapperRef, setShowIcon, showIcon]);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", function (e) {
+  //     HandleClickOutside(e, wrapperRef, showIcon, setShowIcon);
+  //   });
+  //   return () => {
+  //     document.removeEventListener("mousedown", function (e) {
+  //       HandleClickOutside(e, wrapperRef, showIcon, setShowIcon);
+  //     });
+  //   };
+  // }, [wrapperRef, setShowIcon, showIcon]);
 
   Object.values(favoriteCommunities).sort((a, b) =>
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1

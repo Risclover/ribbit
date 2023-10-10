@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import "./PreviewCommunity.css";
-import PreviewCommunityColorThemeColor from "./PreviewCommunityColorThemeColor";
 import { useDispatch } from "react-redux";
 import { getCommunities } from "../../../../store/communities";
-import DropBox from "../../../../components/DragNDropImageUpload/DropBox";
-import BodyBgFormat from "./BodyBgFormat";
 import { getSingleCommunity } from "../../../../store/one_community";
 import {
   getCommunitySettings,
   updateSettingsColorTheme,
 } from "../../../../store/community_settings";
+import DropBox from "../../../../components/DragNDropImageUpload/DropBox";
+import PreviewCommunityColorThemeColor from "./PreviewCommunityColorThemeColor";
+import BodyBgFormat from "./BodyBgFormat";
+import "./PreviewCommunity.css";
 
 export default function PreviewCommunityColorTheme({
   setOpenAppearance,
@@ -29,19 +29,17 @@ export default function PreviewCommunityColorTheme({
 
   const [image, setImage] = useState();
   const [preview, setPreview] = useState(
-    community?.communitySettings[community.id].backgroundImg
+    community?.communitySettings[community?.id].backgroundImg
   );
-  const [errorMsg, setErrorMsg] = useState("");
 
   const colorThemes = ["Base", "Highlight"];
 
   useEffect(() => {
     dispatch(getCommunities());
-    dispatch(getCommunitySettings(community.id));
+    dispatch(getCommunitySettings(community?.id));
   }, [dispatch]);
 
   const handleSaveTheme = () => {
-    handleUpload();
     const payload = {
       settingsId: community.communitySettings[community?.id].id,
       baseColor: base,
@@ -56,7 +54,7 @@ export default function PreviewCommunityColorTheme({
 
     dispatch(updateSettingsColorTheme(payload));
     dispatch(getCommunities());
-    dispatch(getSingleCommunity(community.id));
+    dispatch(getSingleCommunity(community?.id));
     setOpenAppearance(false);
   };
 
@@ -88,7 +86,11 @@ export default function PreviewCommunityColorTheme({
 
   const handleUpload = async () => {
     const formData = new FormData();
-    formData.append("image", image);
+    if (image !== "") {
+      formData.append("image", image);
+    } else {
+      formData.append("image", "");
+    }
     const res = await fetch(`/api/communities/${community?.id}/bg_img`, {
       method: "POST",
       body: formData,
@@ -98,10 +100,6 @@ export default function PreviewCommunityColorTheme({
       dispatch(getSingleCommunity(community?.id));
       dispatch(getCommunities());
       setOpenAppearance(false);
-    } else {
-      setErrorMsg(
-        "There was a problem with your upload. Make sure your file is a .jpg or .png file, and try again."
-      );
     }
   };
 

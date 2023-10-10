@@ -17,14 +17,6 @@
   margin-bottom: 5px;
 }
 
-.user-img-error {
-  color: red;
-  text-align: center;
-  font-size: 12px;
-  line-height: 1.2;
-  margin-bottom: 15px;
-}
-
 .fake-upload-btn {
   padding: 4px 16px;
   border-radius: 100px;
@@ -71,4 +63,3 @@
   width: fit-content;
   border-radius: 6px;
 }
-

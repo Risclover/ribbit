@@ -59,7 +59,10 @@ export default function SearchResults({
       authorId: Object.values(allPosts)[i].postAuthor.id,
       communityName: Object.values(allPosts)[i].communityName,
       communityId: Object.values(allPosts)[i].communityId,
-      communityImg: Object.values(allPosts)[i].communityImg,
+      communityImg:
+        Object.values(allPosts)[i].communitySettings[
+          Object.values(allPosts)[i].id
+        ].communityIcon,
       id: Object.values(allPosts)[i].id,
       createdAt: Object.values(allPosts)[i].createdAt,
       updatedAt: Object.values(allPosts)[i].updatedAt,
@@ -73,7 +76,10 @@ export default function SearchResults({
     communityList.push({
       name: Object.values(allCommunities)[i].name,
       members: Object.values(allCommunities)[i].members,
-      communityImg: Object.values(allCommunities)[i].communityImg,
+      communityImg:
+        Object.values(allCommunities)[i].communitySettings[
+          Object.values(allCommunities)[i].id
+        ].communityIcon,
       id: Object.values(allCommunities)[i].id,
       description: Object.values(allCommunities)[i].description,
       bgColor:

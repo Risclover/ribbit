@@ -1,7 +1,5 @@
-from flask import Blueprint, jsonify, render_template, request, redirect
-from flask_login import login_required, current_user
+from flask import Blueprint, request
 from app.models import db, CommunitySettings, Community
-from .auth_routes import validation_errors_to_error_messages
 
 community_settings_routes = Blueprint("community_settings", __name__)
 

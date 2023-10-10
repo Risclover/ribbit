@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import moment from "moment";
 import Username from "../../../components/Username/Username";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 
 moment.updateLocale("en-post", {
   relativeTime: {
@@ -49,7 +49,7 @@ export default function SinglePostAuthorBar({
                   community?.communitySettings[community.id].baseColor
                 }`,
               }}
-              src={community?.communityImg}
+              src={community?.communitySettings[community?.id].communityIcon}
               alt="Community"
             />
           </div>

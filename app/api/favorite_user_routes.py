@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify, request, redirect
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, joins, User
+from app.models import db, User
 
 favorite_user_routes = Blueprint("favorite_users", __name__)
 

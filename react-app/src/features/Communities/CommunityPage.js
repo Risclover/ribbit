@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { getSingleCommunity } from "../../store/one_community";
 import { getPosts } from "../../store/posts";
 import { getSubscriptions } from "../../store/subscriptions";
 import { getCommunities } from "../../store/communities";
+import { getCommunitySettings } from "../../store/community_settings";
+
 import CommunityWelcome from "./CommunityWelcome";
 import CommunityRulesBox from "./CommunityRulesBox";
 import CommunityImage from "./CommunityImage";
@@ -13,8 +16,8 @@ import CommunitySubscribeBtn from "./CommunitySubscribeBtn";
 import CommunityName from "./CommunityName";
 import CommunityPosts from "./CommunityPosts";
 import BackToTop from "../../components/BackToTop";
+
 import "./CommunityPage.css";
-import { getCommunitySettings } from "../../store/community_settings";
 
 export default function CommunityPage({
   setPageTitle,
@@ -32,27 +35,16 @@ export default function CommunityPage({
   const community = useSelector((state) => state.singleCommunity[+communityId]);
   const user = useSelector((state) => state.session.user);
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
-  const [bgFormat, setBgFormat] = useState(
-    community?.communitySettings[communityId].backgroundImgFormat
-  );
-  const communitySettings = useSelector((state) => state.communitySettings);
+
   let commPosts = posts.filter((post) => post.communityId == communityId);
 
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getSubscriptions());
     dispatch(getPosts());
-    dispatch(getSingleCommunity(+communityId));
+    dispatch(getSingleCommunity(communityId));
     dispatch(getCommunitySettings(communityId));
-  }, [communityId, dispatch]);
-
-  console.log("community settings:", community?.communitySettings[communityId]);
-
-  const varColor = getComputedStyle(document.documentElement).getPropertyValue(
-    "--community-body-bg-img"
-  );
-
-  console.log("VAR COLOR:", varColor);
+  }, [dispatch]);
 
   useEffect(() => {
     document.title = community?.displayName;
@@ -64,7 +56,7 @@ export default function CommunityPage({
             community?.communitySettings[community?.id].baseColor
           }`,
         }}
-        src={community?.communityImg}
+        src={community?.communitySettings[community?.id].communityIcon}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"
       />

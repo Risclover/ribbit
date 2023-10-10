@@ -120,7 +120,10 @@ export default function SearchResultsPosts({
                           style={{
                             backgroundColor: `${community.bgColor}`,
                           }}
-                          src={community.communityImg}
+                          src={
+                            community?.communitySettings[community?.id]
+                              .communityIcon
+                          }
                           alt="Community"
                         />
                         &nbsp;

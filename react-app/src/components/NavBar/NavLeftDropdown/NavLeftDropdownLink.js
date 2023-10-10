@@ -81,7 +81,7 @@ export default function NavLeftDropdownLink({
             style={{
               backgroundColor: `${item.communitySettings[item.id].baseColor}`,
             }}
-            src={item.communityImg}
+            src={item.communitySettings[item.id].communityIcon}
             className="nav-left-dropdown-item-img"
             alt="Community"
           />
@@ -153,7 +153,7 @@ export default function NavLeftDropdownLink({
             style={{
               backgroundColor: `${item.communitySettings[item.id].baseColor}`,
             }}
-            src={item.communityImg}
+            src={item.communitySettings[item.id].communityIcon}
             className="nav-left-dropdown-item-img"
             alt="Community"
           />

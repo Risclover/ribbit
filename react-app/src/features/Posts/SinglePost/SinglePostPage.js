@@ -48,7 +48,7 @@ export default function SinglePostPage({
     dispatch(getPosts());
     dispatch(getSinglePost(+postId));
     dispatch(addViewedPost(+postId));
-    dispatch(getSingleCommunity(post?.communityId));
+    // dispatch(getSingleCommunity(post?.communityId));
     setRecentPostList([
       ...recentPostList,
       {
@@ -73,7 +73,7 @@ export default function SinglePostPage({
 
     setPageIcon(
       <img
-        src={post?.communityImg}
+        src={community?.communitySettings[community?.id].communityIcon}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"
       />
@@ -114,7 +114,9 @@ export default function SinglePostPage({
             <div className="single-post-community-info-content">
               <div className="single-post-community-info-name">
                 <img
-                  src={post?.communityImg}
+                  src={
+                    community?.communitySettings[community?.id].communityIcon
+                  }
                   alt="Community"
                   className="single-post-community-info-img"
                 />

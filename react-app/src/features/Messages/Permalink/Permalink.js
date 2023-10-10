@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom";
 import { getThreads } from "../../../store/threads";
-import MessageHead from "../MessageHead";
-import MessageContentMenu from "../MessageContentMenu";
-import MessageThread from "../MessageThread";
 import { getUsers } from "../../../store/users";
 import { getMessages } from "../../../store/messages";
+import MessageContentMenu from "../MessageContentMenu";
+import MessageHead from "../MessageHead";
+import MessageThread from "../MessageThread";
 
 export default function Permalink() {
   const { threadId } = useParams();
