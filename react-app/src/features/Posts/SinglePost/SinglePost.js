@@ -1,19 +1,16 @@
-import React, { memo, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { memo, useState } from "react";
+import { useSelector } from "react-redux";
 
-import ClassicPostFormat from "../PostFeedFormats/ClassicPostFormat";
-import CompactPostFormat from "../PostFeedFormats/CompactPostFormat";
+import { ClassicPostFormat } from "../PostFeedFormats";
+import { CompactPostFormat } from "../PostFeedFormats";
 
 import SinglePostKarmabar from "./SinglePostKarmabar";
 import SinglePostAuthorBar from "./SinglePostAuthorBar";
 import SinglePostContent from "./SinglePostContent";
 import SinglePostButtonBar from "./SinglePostButtonBar";
 import "./SinglePost.css";
-import { getSingleCommunity } from "../../../store/one_community";
 
 function SinglePost({ id, isPage, userId, format }) {
-  const dispatch = useDispatch();
-
   const post = useSelector((state) => state.posts[id]);
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[cuser?.id]);
@@ -23,10 +20,6 @@ function SinglePost({ id, isPage, userId, format }) {
 
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
-
-  // useEffect(() => {
-  //   dispatch(getSingleCommunity(post?.communityId));
-  // }, [dispatch]);
 
   return (
     <>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { updateComment } from "../../store/comments";
 
-import "../../components/Modals/Modals.css";
+import "../../assets/styles/Modals.css";
 
 export default function EditComment({
   commentId,

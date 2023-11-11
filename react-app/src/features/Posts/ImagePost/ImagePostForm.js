@@ -1,12 +1,7 @@
 import React, { useState } from "react";
+import "../../../assets/styles/Modals.css";
 
-import "../../../components/Modals/Modals.css";
-
-export default function ImagePostForm({
-  img_url,
-  setimg_url,
-  setShowImgModal,
-}) {
+export function ImagePostForm({ img_url, setimg_url, setShowImgModal }) {
   const [imgPreview, setImgPreview] = useState(img_url);
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);

@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { IoIosPaper } from "react-icons/io";
-import SortingBar from "../../components/SortingBar/SortingBar";
+import { SortingBar } from "../../components";
 import SinglePost from "../../features/Posts/SinglePost/SinglePost";
 
 export default function UserProfilePosts({

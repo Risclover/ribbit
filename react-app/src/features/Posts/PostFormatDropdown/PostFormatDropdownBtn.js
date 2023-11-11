@@ -22,7 +22,7 @@ function useOutsideAlerter(ref, setActive, active, setImg, item) {
   }, [ref, active, item.grey, setActive, setImg]);
 }
 
-export default function PostFormatDropdownBtn({
+export function PostFormatDropdownBtn({
   format,
   setFormat,
   item,
@@ -40,7 +40,6 @@ export default function PostFormatDropdownBtn({
       setImg("grey");
     }
   }, [format, item.format]);
-
 
   useOutsideAlerter(wrapperRef, setActive, active, setImg, item);
 

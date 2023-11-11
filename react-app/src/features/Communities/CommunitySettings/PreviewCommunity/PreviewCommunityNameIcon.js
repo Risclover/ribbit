@@ -8,8 +8,7 @@ import {
   resetToDefaultIcon,
   updateSettingsNameIcon,
 } from "../../../../store/community_settings";
-import ToggleSwitch from "../../../../components/ToggleSwitch/ToggleSwitch";
-import MyDropzone from "../../../../components/DragNDropImageUpload/MyDropzone";
+import { ToggleSwitch } from "../../../../components";
 
 export default function PreviewCommunityNameIcon({
   setOpenAppearance,
@@ -111,7 +110,6 @@ export default function PreviewCommunityNameIcon({
         <h2>Community Icon</h2>
         <div className="preview-community-name-icon-box">
           <h3>Custom Image</h3>
-          <MyDropzone />
           <DropBox
             dropboxType="community_icon"
             community={community}

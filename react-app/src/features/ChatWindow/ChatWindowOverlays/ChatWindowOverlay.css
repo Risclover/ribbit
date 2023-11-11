@@ -353,7 +353,7 @@
   padding: 8px 12px;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
   background: white;
   top: 44px;
   right: 0;

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import LoginSignupModal from "../../../components/Modals/LoginSignupModal";
+import LoginSignupModal from "../../auth/LoginSignupModal";
 import getTextColor from "../../../utils/getTextColor";
 import CommunityDescription from "./CommunityDescription";
 import CommunityInfoMenu from "./CommunityInfoMenu";
 import CommunityOptions from "./CommunityOptions/CommunityOptions";
-import Cake from "../../../images/misc/piece4.png";
+import Cake from "../../../assets/images/misc/piece4.png";
 import { BiShieldAlt } from "react-icons/bi";
 import moment from "moment";
 

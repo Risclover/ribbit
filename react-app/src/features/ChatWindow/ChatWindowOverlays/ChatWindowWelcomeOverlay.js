@@ -1,6 +1,6 @@
 import React from "react";
-import FrogLogo from "../../../images/ribbit-banners/frog-logo1.png";
-import CreateChat from "../../../images/create-chat-white.png";
+import FrogLogo from "../../../assets/images/ribbit-banners/frog-logo1.png";
+import CreateChat from "../../../assets/images/create-chat-white.png";
 import "./ChatWindowOverlay.css";
 
 export default function ChatWindowWelcomeOverlay({ setNewChatOverlay }) {

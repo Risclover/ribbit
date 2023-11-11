@@ -4,10 +4,10 @@ import { useHistory, NavLink, useParams, Link } from "react-router-dom";
 import { updateCommunity } from "../../../store/communities";
 import { getCommunityRules } from "../../../store/rules";
 import { Modal } from "../../../context/Modal";
-import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
+import { DeleteConfirmationModal } from "../../../components";
 
-import AddCommunityRule from "../../../components/Modals/AddCommunityRuleModal/AddCommunityRuleModal";
-import CommunityEditRule from "../CommunityEditRule";
+import AddCommunityRule from "../../../features/CommunityRules/components/AddCommunityRuleModal/AddCommunityRuleModal";
+import CommunityEditRule from "../../CommunityRules/components/CommunityEditRule";
 import "../CommunityPage.css";
 
 export default function EditCommunity() {
@@ -190,7 +190,7 @@ export default function EditCommunity() {
                   onClose={() => setShowDeleteModal(false)}
                   title={`Delete community c/${community.name}?`}
                 >
-                  <DeleteConfirmation
+                  <DeleteConfirmationModal
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
                     item="community"

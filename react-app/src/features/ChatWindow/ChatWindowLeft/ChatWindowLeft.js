@@ -1,6 +1,6 @@
 import React from "react";
 import ChatNav from "./ChatNav/ChatNav";
-import CreateChatIcon from "../../../images/create-chat-icon.png";
+import CreateChatIcon from "../../../assets/images/create-chat-icon.png";
 
 export default function ChatWindowLeft({
   setSelectedChat,

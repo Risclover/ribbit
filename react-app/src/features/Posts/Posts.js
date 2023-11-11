@@ -2,20 +2,22 @@ import React, { useEffect, useState, memo, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { getPosts } from "../../store/posts";
-import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
-import SortingBar from "../../components/SortingBar/SortingBar";
-import SinglePost from "./SinglePost/SinglePost";
-import "./Posts.css";
-import BackToTop from "../../components/BackToTop";
-import DeveloperLinksBox from "./DeveloperLinksBox/DeveloperLinksBox";
-import AboutBox from "./AboutBox";
-import LoadingEllipsis from "../../components/LoadingEllipsis";
-import SortingFunction from "./SortingFunction";
-import All from "../../images/navbar/all-icon2.png";
 import { addViewedPost } from "../../store/viewed_posts";
-import RecentPosts from "./RecentPosts";
+import {
+  SortingBar,
+  CreatePostBar,
+  BackToTop,
+  LoadingEllipsis,
+} from "../../components";
+import SinglePost from "./SinglePost/SinglePost";
+import { DeveloperLinksBox } from "./DeveloperLinksBox";
+import AboutBox from "./AboutBox";
+import SortingFunction from "./utils/SortingFunction";
+import { RecentPosts } from "../RecentPosts";
+import All from "../../assets/images/navbar/all-icon2.png";
+import "./Posts.css";
 
-function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
+export function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const posts = useSelector((state) => Object.values(state.posts));
@@ -163,5 +165,3 @@ function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
     </div>
   );
 }
-
-export default memo(Posts);

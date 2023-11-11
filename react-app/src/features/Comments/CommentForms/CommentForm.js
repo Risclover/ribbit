@@ -6,7 +6,7 @@ import {
   addNotification,
   getAllNotifications,
 } from "../../../store/notifications";
-import LoginSignupModal from "../../../components/Modals/LoginSignupModal";
+import LoginSignupModal from "../../auth/LoginSignupModal";
 import "../Comments.css";
 
 export default function CommentForm({ postId }) {

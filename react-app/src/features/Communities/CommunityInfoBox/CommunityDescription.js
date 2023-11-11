@@ -16,26 +16,26 @@ export default function CommunityDescription({ community, user }) {
   const singlecommunity = useSelector(
     (state) => state.communities[community.id]
   );
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(
-        e,
-        wrapperRef,
-        showEditDescription,
-        setShowEditDescription
-      );
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(
-          e,
-          wrapperRef,
-          showEditDescription,
-          setShowEditDescription
-        );
-      });
-    };
-  }, [wrapperRef, showEditDescription]);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", function (e) {
+  //     HandleClickOutside(
+  //       e,
+  //       wrapperRef,
+  //       showEditDescription,
+  //       setShowEditDescription
+  //     );
+  //   });
+  //   return () => {
+  //     document.removeEventListener("mousedown", function (e) {
+  //       HandleClickOutside(
+  //         e,
+  //         wrapperRef,
+  //         showEditDescription,
+  //         setShowEditDescription
+  //       );
+  //     });
+  //   };
+  // }, [wrapperRef, showEditDescription]);
 
   useAutosizeTextArea(textareaRef.current, description);
 

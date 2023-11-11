@@ -4,22 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-
+import { addViewedPost } from "../../../store/viewed_posts";
 import { getSinglePost } from "../../../store/one_post";
+import { getPosts } from "../../../store/posts";
+import { getCommunities } from "../../../store/communities";
 import { getSubscriptions } from "../../../store/subscriptions";
-import CommunityRule from "../../Communities/CommunityRule";
 import {
   addToSubscriptions,
   deleteSubscription,
 } from "../../../store/subscriptions";
-import Comments from "../../Comments/Comments";
-import Cake from "../../../images/misc/piece4.png";
-import SinglePost from "./SinglePost";
-import BackToTop from "../../../components/BackToTop";
-import { addViewedPost } from "../../../store/viewed_posts";
-import { getPosts } from "../../../store/posts";
-import { getCommunities, getSingleCommunity } from "../../../store/communities";
+import { BackToTop } from "../../../components";
+import CommunityRule from "../../CommunityRules/components/CommunityRule";
 import CommunityOptions from "../../Communities/CommunityInfoBox/CommunityOptions/CommunityOptions";
+import Comments from "../../Comments/Comments";
+import SinglePost from "./SinglePost";
+import Cake from "../../../assets/images/misc/piece4.png";
 
 export default function SinglePostPage({
   setPageIcon,
@@ -48,7 +47,7 @@ export default function SinglePostPage({
     dispatch(getPosts());
     dispatch(getSinglePost(+postId));
     dispatch(addViewedPost(+postId));
-    // dispatch(getSingleCommunity(post?.communityId));
+
     setRecentPostList([
       ...recentPostList,
       {

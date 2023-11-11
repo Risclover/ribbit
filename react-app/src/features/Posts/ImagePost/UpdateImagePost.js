@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { Modal } from "../../../context/Modal";
-import "react-quill/dist/quill.snow.css";
-
 import { useDispatch, useSelector } from "react-redux";
 import { putSinglePost } from "../../../store/posts";
-import ImagePostForm from "./ImagePostForm";
+import { Modal } from "../../../context/Modal";
+import { ImagePostForm } from "./ImagePostForm";
+import "react-quill/dist/quill.snow.css";
 import "../PostForms/PostForm.css";
 import "../Posts.css";
 
-export default function UpdateImagePost() {
+export function UpdateImagePost() {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+
   const post = useSelector((state) => Object.values(state.singlePost));
+
   const [title, setTitle] = useState(post[0]?.title);
   const [content, setContent] = useState(post[0]?.content);
   const [showImgModal, setShowImgModal] = useState(false);

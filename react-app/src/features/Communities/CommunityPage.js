@@ -9,13 +9,13 @@ import { getCommunities } from "../../store/communities";
 import { getCommunitySettings } from "../../store/community_settings";
 
 import CommunityWelcome from "./CommunityWelcome";
-import CommunityRulesBox from "./CommunityRulesBox";
+import CommunityRulesBox from "../CommunityRules/components/CommunityRulesBox";
 import CommunityImage from "./CommunityImage";
 import CommunityInfoBox from "./CommunityInfoBox/CommunityInfoBox";
 import CommunitySubscribeBtn from "./CommunitySubscribeBtn";
 import CommunityName from "./CommunityName";
 import CommunityPosts from "./CommunityPosts";
-import BackToTop from "../../components/BackToTop";
+import { BackToTop } from "../../components";
 
 import "./CommunityPage.css";
 

@@ -48,16 +48,16 @@ export default function CommunityInfoMenu() {
     setOpenMenu(false);
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(e, wrapperRef, openMenu, setOpenMenu);
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(e, wrapperRef, openMenu, setOpenMenu);
-      });
-    };
-  }, [wrapperRef, openMenu]);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", function (e) {
+  //     HandleClickOutside(e, wrapperRef, openMenu, setOpenMenu);
+  //   });
+  //   return () => {
+  //     document.removeEventListener("mousedown", function (e) {
+  //       HandleClickOutside(e, wrapperRef, openMenu, setOpenMenu);
+  //     });
+  //   };
+  // }, [wrapperRef, openMenu]);
 
   return (
     <div className="community-page-menu">

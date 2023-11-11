@@ -10,11 +10,11 @@ import {
   TfiLayoutColumn4,
 } from "react-icons/tfi";
 
-import PostFormatDropdown from "./PostFormatDropdown";
+import { PostFormatDropdown } from "./PostFormatDropdown";
 import HandleClickOutside from "../../../utils/HandleClickOutside";
 import "./PostFormatDropdown.css";
 
-export default function PostFormatFace({ setFormat, format }) {
+export function PostFormatFace({ setFormat, format }) {
   const wrapperRef = useRef();
   const [showDropdown, setShowDropdown] = useState(false);
 

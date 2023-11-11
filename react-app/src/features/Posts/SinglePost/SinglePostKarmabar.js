@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { GoArrowUp, GoArrowDown } from "react-icons/go";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addPostVote, removePostVote } from "../../../store/posts";
 import { getUsers } from "../../../store/users";
-import { useHistory } from "react-router-dom";
+import { GoArrowUp, GoArrowDown } from "react-icons/go";
 
 export default function SinglePostKarmabar({
   upvote,

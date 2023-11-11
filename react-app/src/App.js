@@ -7,8 +7,7 @@ import { authenticate } from "./store/session";
 import SignUpForm from "./features/auth/AuthModal/SignUpForm";
 import ProtectedRoute from "./features/auth/ProtectedRoute";
 
-import Posts from "./features/Posts/Posts";
-import SubscribedPosts from "./features/Posts/SubscribedPosts";
+import { Posts, SubscribedPosts } from "./features/Posts";
 import CreatePost from "./features/Posts/PostForms/CreatePost";
 import SinglePostPage from "./features/Posts/SinglePost/SinglePostPage";
 import UpdatePost from "./features/Posts/PostForms/UpdatePost";
@@ -16,29 +15,27 @@ import UpdatePost from "./features/Posts/PostForms/UpdatePost";
 import CommunityPage from "./features/Communities/CommunityPage";
 import EditCommunity from "./features/Communities/CommunitySettings/EditCommunity";
 
-import NavBar from "./components/NavBar/NavBar";
-import UsersList from "./components/UsersList";
 import ScrollToTop from "./components/ScrollToTop";
 
 import UserProfile from "./pages/UserProfile/UserProfile";
 import EditProfile from "./pages/UserProfile/EditProfile/EditProfile";
-import SearchResults from "./pages/SearchResults/SearchResults";
-import UpdateImagePost from "./features/Posts/ImagePost/UpdateImagePost";
+import SearchResults from "./features/Search/SearchResults/SearchResults";
+import { UpdateImagePost } from "./features/Posts/ImagePost";
 import CommunitiesDirectory from "./pages/CommunitiesDirectory/CommunitiesDirectory";
 
 import { Modal } from "./context/Modal";
 import Chat from "./components/Modals/Chat/Chat";
 import LoginPage from "./features/auth/LoginPage";
 import SingleImagePage from "./pages/SingleImagePage/SingleImagePage";
-import Notifications from "./pages/Notifications/Notifications";
+import Notifications from "./features/Notifications/Notifications/Notifications";
 import Messages from "./features/Messages/Messages";
 import Unread from "./features/Messages/Unread/Unread";
 import Sent from "./features/Messages/Sent/Sent";
 import Inbox from "./features/Messages/Inbox/Inbox";
 import PostRepliesPage from "./features/Messages/PostReplies/PostRepliesPage";
-import NavSidebar from "./components/NavSidebar.js/NavSidebar";
+import { NavBar } from "./layouts/NavBar";
+import { NavSidebar, LoggedOutSidebar } from "./layouts/NavSidebar";
 import Permalink from "./features/Messages/Permalink/Permalink";
-import LoggedOutSidebar from "./components/NavSidebar.js/LoggedOutSidebar";
 import ChatWindow from "./features/ChatWindow/ChatWindow";
 import { getUserChatThreads } from "./store/chats";
 import PreviewCommunity from "./features/Communities/CommunitySettings/PreviewCommunity/PreviewCommunity";
@@ -370,9 +367,6 @@ function App() {
               setSearchQuery={setSearchQuery}
             />
           </Route>
-          <ProtectedRoute path="/users" exact={true}>
-            <UsersList />
-          </ProtectedRoute>
           <Route path="/users/:userId/profile" exact={true}>
             <UserProfile
               setPageTitle={setPageTitle}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-
 import "./CommunitySelection.css";
 
 export default function CommunitySelectionDropdownCommunity({

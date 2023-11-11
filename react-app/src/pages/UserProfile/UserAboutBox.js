@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { Modal } from "../../context/Modal";
 import { SlArrowRight } from "react-icons/sl";
-import Flower from "../../images/user-profile-icons/poinsettia.png";
-import Cakeday from "../../images/user-profile-icons/cakeday.png";
+import Flower from "../../assets/images/user-profile-icons/poinsettia.png";
+import Cakeday from "../../assets/images/user-profile-icons/cakeday.png";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,7 +11,7 @@ import {
   getFollowers,
   getUserFollowers,
 } from "../../store/followers";
-import UserProfileFollowers from "../../components/Modals/UserProfileFollowers";
+import UserProfileFollowers from "../../features/Users/components/UserProfileFollowers";
 import UserBannerModal from "./UploadUserBanner";
 import UserImageModal from "./UploadUserImage";
 import SendMessage from "./SendMessage";

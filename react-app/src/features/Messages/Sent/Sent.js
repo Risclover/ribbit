@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MessageHead from "../MessageHead";
 import { getThreads } from "../../../store/threads";
+import MessageHead from "../MessageHead";
 import SentMessage from "./SentMessage";
 import "./Sent.css";
 

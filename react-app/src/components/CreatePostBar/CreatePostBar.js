@@ -5,7 +5,7 @@ import { RxImage } from "react-icons/rx";
 import { FiLink } from "react-icons/fi";
 import "./CreatePostBar.css";
 
-export default function CreatePostBar({ page, communityId }) {
+export function CreatePostBar({ page, communityId }) {
   const user = useSelector((state) => state.session.user);
   const history = useHistory();
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function BackToTop({ community }) {
+export function BackToTop({ community }) {
   return (
     <div className="back-to-top-box">
       <button

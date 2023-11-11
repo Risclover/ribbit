@@ -7,8 +7,8 @@ import {
 } from "../../../../store/chats";
 import useAutosizeTextArea from "./useAutosizeTextArea";
 import Emojis from "./Emojis";
-import GifIcon from "../../../../images/gif-icon.png";
-import GifIconDark from "../../../../images/gif-icon-dark.png";
+import GifIcon from "../../../../assets/images/gif-icon.png";
+import GifIconDark from "../../../../assets/images/gif-icon-dark.png";
 import Gifs from "./Gifs";
 import "./ChatWindowInput.css";
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function LoadingEllipsis({ loader }) {
+export function LoadingEllipsis({ loader }) {
   return (
     <div className="loading-component">
       {loader && (

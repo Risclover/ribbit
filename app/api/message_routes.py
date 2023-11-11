@@ -11,7 +11,9 @@ def get_user_messages():
     Get user messages
     """
     user = User.query.get(current_user.get_id())
-    messages = user.user_messages
+
+    if user.user_messages is not None:
+        messages = user.user_messages
 
     return {"Messages": [message.to_dict() for message in messages]}
 

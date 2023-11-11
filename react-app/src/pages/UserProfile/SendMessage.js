@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
-import MessageModal from "../../components/Modals/MessageModal/MessageModal";
+import MessageModal from "../../features/Messages/components/MessageModal/MessageModal";
 
 export default function SendMessage({ userId, user, username }) {
   const [showMessageModal, setShowMessageModal] = useState(false);

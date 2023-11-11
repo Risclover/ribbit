@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Modal } from "../../../../context/Modal";
-import "./CommunitySelection.css";
-
-import CreateCommunityModal from "../../../../components/Modals/CreateCommunityModal/CreateCommunityModal";
+import CreateCommunityModal from "../../../../features/Communities/components/CreateCommunityModal/CreateCommunityModal";
 import CommunitySelectionDropdownCommunity from "./CommunitySelectionDropdownCommunity";
+import "./CommunitySelection.css";
 
 export default function CommunitySelectionDropdown({
   subscriptions,
