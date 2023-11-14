@@ -9,7 +9,6 @@ export default function CommunityPosts({
   communityId,
   setFormat,
   user,
-  isPage,
   setShowLoginForm,
 }) {
   const [sortMode, setSortMode] = useState("new");

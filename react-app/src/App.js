@@ -12,7 +12,7 @@ import CreatePost from "./features/Posts/PostForms/CreatePost";
 import SinglePostPage from "./features/Posts/SinglePost/SinglePostPage";
 import UpdatePost from "./features/Posts/PostForms/UpdatePost";
 
-import CommunityPage from "./features/Communities/CommunityPage";
+import CommunityPage from "./pages/CommunityPage";
 import EditCommunity from "./features/Communities/CommunitySettings/EditCommunity";
 
 import ScrollToTop from "./components/ScrollToTop";
@@ -326,8 +326,6 @@ function App() {
             <CommunityPage
               setPageTitle={setPageTitle}
               setPageIcon={setPageIcon}
-              postType={postType}
-              setPostType={setPostType}
               format={format}
               setFormat={setFormat}
             />

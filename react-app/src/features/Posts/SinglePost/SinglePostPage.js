@@ -19,6 +19,7 @@ import CommunityOptions from "../../Communities/CommunityInfoBox/CommunityOption
 import Comments from "../../Comments/Comments";
 import SinglePost from "./SinglePost";
 import Cake from "../../../assets/images/misc/piece4.png";
+import { getComments } from "../../../store/comments";
 
 export default function SinglePostPage({
   setPageIcon,
@@ -47,6 +48,7 @@ export default function SinglePostPage({
     dispatch(getPosts());
     dispatch(getSinglePost(+postId));
     dispatch(addViewedPost(+postId));
+    dispatch(getComments(postId));
 
     setRecentPostList([
       ...recentPostList,
