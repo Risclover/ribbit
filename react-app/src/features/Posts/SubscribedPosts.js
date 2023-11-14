@@ -2,22 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getViewedPosts } from "../../store/viewed_posts";
-import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
 import SinglePost from "./SinglePost/SinglePost";
-import SortingBar from "../../components/SortingBar/SortingBar";
-import BackToTop from "../../components/BackToTop";
-import DeveloperLinksBox from "./DeveloperLinksBox/DeveloperLinksBox";
+import {
+  BackToTop,
+  SortingBar,
+  LoadingEllipsis,
+  CreatePostBar,
+} from "../../components";
+import { DeveloperLinksBox } from "./DeveloperLinksBox";
 import AboutBox from "./AboutBox";
-import LoadingEllipsis from "../../components/LoadingEllipsis";
-import SortingFunction from "./SortingFunction";
-import Home from "../../images/navbar/home-icon.png";
-import RecentPosts from "./RecentPosts";
+import SortingFunction from "./utils/SortingFunction";
+import Home from "../../assets/images/navbar/home-icon.png";
+import { RecentPosts } from "../RecentPosts";
 import "./Posts.css";
 import { getSubscriptions } from "../../store/subscriptions";
 import { getCommunities } from "../../store/communities";
 import { getPosts } from "../../store/posts";
 
-export default function SubscribedPosts({
+export function SubscribedPosts({
   format,
   setPageTitle,
   setPageIcon,

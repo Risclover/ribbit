@@ -1,16 +1,11 @@
-from builtins import print, setattr
-from flask import Blueprint, jsonify, render_template, request, redirect
+from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, Post, User, Comment, PostVote
+from app.models import db, Post, User, PostVote
 from .auth_routes import validation_errors_to_error_messages
 from app.forms import PostForm, PostUpdateForm, ImagePostForm, UpdateImagePostForm, LinkPostForm
-from app.s3_helpers import (
-    upload_file_to_s3, allowed_file, get_unique_filename)
-import datetime
+from app.s3_helpers import (upload_file_to_s3, allowed_file, get_unique_filename)
 
 post_routes = Blueprint("posts", __name__)
-
-
 
 # GET ALL POSTS:
 @post_routes.route("")
@@ -18,12 +13,8 @@ def get_posts():
     """
     Query for all posts and returns them in a list of post dictionaries.
     """
-
     posts = Post.query.all()
     return {"Posts": [post.to_dict() for post in posts]}
-
-
-
 
 # GET A SINGLE POST:
 @post_routes.route("/<int:id>")
@@ -31,11 +22,8 @@ def get_single_post(id):
     """
     Query for a single post by id and return it as a dictionary.
     """
-
     post = Post.query.get(id)
     return post.to_dict()
-
-
 
 # CREATE A SINGLE POST:
 @post_routes.route("/submit", methods=["POST"])
@@ -69,9 +57,6 @@ def create_post():
     new_post.users_who_liked.append(user)
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
-
-
-
 # CREATE AN IMAGE POST:
 @post_routes.route("/img/submit", methods=["POST"])
 @login_required
@@ -101,7 +86,6 @@ def create_image_post():
     user.user_post_votes.append(new_post)
     new_post.users_who_liked.append(user)
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
-
 
 # CREATE A LINK POST
 @post_routes.route("/url/submit", methods=["POST"])
@@ -133,8 +117,6 @@ def create_link_post():
     new_post.users_who_liked.append(user)
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
-
-
 # UPDATE A SINGLE POST
 @post_routes.route("/<int:id>/edit", methods=["PUT"])
 @login_required
@@ -159,8 +141,6 @@ def update_post(id):
     print(validation_errors_to_error_messages(form.errors))
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
-
-
 # UPDATE AN IMAGE POST:
 @post_routes.route("/img/<int:id>/edit", methods=["PUT"])
 @login_required
@@ -184,9 +164,6 @@ def update_image_post(id):
     print(validation_errors_to_error_messages(form.errors))
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
-
-
-
 # DELETE A SINGLE POST:
 @post_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
@@ -200,7 +177,6 @@ def delete_post(id):
     db.session.commit()
     return {"message": "Successfully deleted", "status_code": 200}
 
-
 # GET COMMUNITY POSTS
 @post_routes.route("/communities/<int:community_id>")
 def get_community_posts(community_id):
@@ -210,7 +186,6 @@ def get_community_posts(community_id):
 
     posts = Post.query.filter(Post.community_id == community_id).all()
     return {"CommunityPosts": [post.to_dict() for post in posts]}
-
 
 # GET POSTS FROM FOLLOWED USERS
 @post_routes.route("/followed")
@@ -224,7 +199,6 @@ def get_followed_posts():
     posts = user.followed_posts()
 
     return {"Posts": [post.to_dict() for post in posts]}
-
 
 # ADD A VOTE
 @post_routes.route('/<int:id>/vote/<votetype>', methods=["POST"])
@@ -249,8 +223,6 @@ def add_vote(id, votetype):
     db.session.commit()
     return post.to_dict()
 
-
-
 # DELETE VOTE
 @post_routes.route("/<int:id>/vote", methods=["DELETE"])
 @login_required
@@ -264,18 +236,6 @@ def delete_vote(id):
     db.session.delete(post_vote)
     db.session.commit()
     return post.to_dict()
-
-
-# GET A POST'S COMMENTS
-@post_routes.route("/<int:id>/comments")
-def post_comments(id):
-    """
-    Query to get a post's comments
-    """
-    comments = Comment.query.filter(Comment.post_id == id).all()
-    return {"Comments": [comment.to_dict() for comment in comments]}
-
-
 
 # UPLOAD A POST IMG
 @post_routes.route("/images", methods=["POST"])
@@ -301,26 +261,3 @@ def upload_image():
 
     url = upload["url"]
     return {"url": url}
-
-
-# A USER VIEWS A POST
-@post_routes.route("/<int:id>/view", methods=["POST"])
-def view_post(post_id):
-    # Retrieve the current user's ID from the session or request data
-    user_id = request.form['user_id']
-
-    # Check if the user has already viewed this post
-    viewed_post = ViewedPost.query.filter_by(user_id=user_id, post_id=post_id).first()
-
-    if viewed_post:
-        # If the user has already viewed this post, update the timestamp
-        viewed_post.timestamp = datetime.now()
-    else:
-        # If the user has not yet viewed this post, create a new viewed_post object and add it to the database
-        viewed_post = ViewedPost(user_id=user_id, post_id=post_id)
-        db.session.add(viewed_post)
-
-    db.session.commit()
-
-    # Return a JSON response indicating success
-    return jsonify({'success': True})

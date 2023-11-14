@@ -1,9 +1,8 @@
 import React from "react";
-
+import { PostFormatFace } from "../../features/Posts/PostFormatDropdown";
 import "./SortingBar.css";
-import PostFormatFace from "../../features/Posts/PostFormatDropdown/PostFormatFace";
 
-export default function SortingBar({
+export function SortingBar({
   community,
   sortMode,
   setSortMode,
@@ -13,52 +12,31 @@ export default function SortingBar({
   return (
     <div className="post-sorting-bar">
       <div className="post-sorting-bar-left">
-        {sortMode === "new" ? (
-          <button
-            className={`post-sorting-bar-btn active-sort-btn ${
-              community && "community-sorting-bar-btn"
-            }`}
-          >
-            <i className="fa-solid fa-certificate"></i>
-            New
-          </button>
-        ) : (
-          <button
-            className={`post-sorting-bar-btn ${
-              community && "community-sorting-bar-btn"
-            }`}
-            onClick={() => setSortMode("new")}
-          >
-            <i className="fa-solid fa-certificate"></i>
-            New
-          </button>
-        )}
-        {sortMode === "top" ? (
-          <button
-            className={`post-sorting-bar-btn active-sort-btn ${
-              community && "community-sorting-bar-btn"
-            }`}
-          >
-            <i className="fa-solid fa-ranking-star"></i>
-            Top
-          </button>
-        ) : (
-          <button
-            className={`post-sorting-bar-btn ${
-              community && "community-sorting-bar-btn"
-            }`}
-            onClick={() => {
-              setSortMode("top");
-            }}
-          >
-            <i className="fa-solid fa-ranking-star"></i>
-            Top
-          </button>
-        )}
+        <button
+          className={`post-sorting-bar-btn ${
+            sortMode === "new" && "active-sort-btn"
+          } ${community && "community-sorting-bar-btn"}`}
+          onClick={() => {
+            sortMode !== "new" && setSortMode("new");
+          }}
+        >
+          <i className="fa-solid fa-certificate"></i>
+          New
+        </button>
+
+        <button
+          className={`post-sorting-bar-btn ${
+            sortMode === "top" && "active-sort-btn"
+          } ${community && "community-sorting-bar-btn"}`}
+          onClick={() => {
+            sortMode !== "top" && setSortMode("top");
+          }}
+        >
+          <i className="fa-solid fa-ranking-star"></i>
+          Top
+        </button>
       </div>
-      {format === "none" ? (
-        ""
-      ) : (
+      {format !== "none" && (
         <PostFormatFace setFormat={setFormat} format={format} />
       )}
     </div>

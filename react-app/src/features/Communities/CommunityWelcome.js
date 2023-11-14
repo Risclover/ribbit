@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "../../context/Modal";
-import CommunityWelcomeModal from "../../components/Modals/CommunityWelcomeModal";
+import CommunityWelcomeModal from "../../features/Communities/components/CommunityWelcomeModal";
 
 export default function CommunityWelcome({
   community,

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
-import DeleteConfirmation from "../../components/Modals/DeleteConfirmation";
+import { DeleteConfirmationModal } from "../../components";
+import { deletePost, getPosts } from "../../store/posts";
 
 export default function DeletePostModal({ post, community, isPage }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -19,14 +20,14 @@ export default function DeletePostModal({ post, community, isPage }) {
       </button>
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)} title="Delete post?">
-          <DeleteConfirmation
+          <DeleteConfirmationModal
             showDeleteModal={showDeleteModal}
             setShowDeleteModal={setShowDeleteModal}
-            postId={post.id}
-            communityId={community?.id}
             item="post"
-            post={post}
             isPage={isPage}
+            storeFunction={deletePost}
+            payload={post.id}
+            getFunction={getPosts}
           />
         </Modal>
       )}

@@ -1,0 +1,366 @@
+.chat-thread-window-input {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.chat-thread-window-input-box {
+  box-shadow: none;
+  box-sizing: border-box;
+  font-size: 1rem;
+  display: flex;
+  align-items: flex-end;
+  padding: 0px;
+  height: 40px;
+  margin: 0px;
+  border: 0px;
+  border-radius: 20px;
+  flex-grow: 1;
+  background: #eaedef;
+  color: #0f1a1c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
+  margin-right: 4px;
+}
+
+.chat-thread-window-input-box textarea {
+  border: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
+  background: transparent;
+  outline: none;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+  max-height: 100px;
+  height: 40px;
+  resize: none;
+  padding: 0.65rem 1rem;
+  font-size: 16px;
+  width: 95%;
+}
+
+.input-btns {
+  display: flex;
+}
+
+.zmdi {
+  font-size: 30px;
+  transform: rotate(90deg);
+}
+
+.send-chat-msg-btn {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  color: #00000040;
+  cursor: not-allowed;
+}
+
+.chat-msg-enabled {
+  color: #1870f4;
+  cursor: pointer;
+}
+
+/* ****************** */
+/* *** Emoji Btns *** */
+/* ****************** */
+
+.emojis-container {
+  position: absolute;
+  bottom: 68px;
+  right: 52px;
+}
+
+.emoji-container {
+  max-width: 90%;
+  margin: 10px 10px 0 0;
+  display: flex;
+}
+
+.emoji {
+  max-width: 100%;
+  height: 100%;
+  max-height: 128px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.emojis-btn {
+  border: transparent;
+  background: transparent;
+  height: 40px;
+  padding: 9px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emojis-btn:hover {
+  background: #e2e7e9;
+}
+
+.emojis-btn:active {
+  background: #00000029;
+}
+
+.images-list {
+  width: 304px;
+  height: 372px;
+  overflow-y: auto;
+  border-radius: 16px;
+  border: 1px solid #f2f2f2;
+  background: white;
+  cursor: default;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  position: relative;
+  padding: 12px 10px;
+}
+
+.images-list::-webkit-scrollbar {
+  width: 14px;
+}
+
+.images-list::-webkit-scrollbar-thumb {
+  min-height: 50px;
+  border-radius: 7px;
+  background-clip: padding-box;
+  border: 3px solid rgba(0, 0, 0, 0);
+  background-color: #e4e4e4;
+}
+
+.images-list img {
+  width: 28px;
+  height: 28px;
+}
+
+.images-list button {
+  padding: 4px;
+  border-radius: 16px;
+  height: 40px;
+  cursor: pointer;
+  background: white;
+  width: 40px;
+  border: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.images-list button:hover {
+  background: #f2f2f2;
+}
+
+.images-list-dropdown-tail {
+  border-radius: 0 0 0 7px;
+  border: 1px solid #f2f2f2;
+  transform: rotate(-45deg);
+  clip-path: polygon(0px 0px, 100% 100%, 0px 100%);
+  position: absolute;
+  bottom: -9px;
+  right: 18px;
+  height: 20px;
+  width: 20px;
+  background-color: white;
+}
+
+/* ****************** */
+/* *** Giphy Gifs *** */
+/* ****************** */
+
+.gif-btn {
+  border: none;
+  height: 40px;
+  width: 40px;
+  border-radius: 999px;
+  display: flex;
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+}
+
+.gif-btn:hover {
+  background: #e2e7e9;
+}
+
+.gif-btn:active {
+  background: #00000029;
+}
+
+.gif-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.giphy-box {
+  position: absolute;
+  bottom: 68px;
+  left: 24px;
+  width: 294px;
+  height: 360px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 12px;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #edeff1;
+}
+
+.giphy-box::-webkit-scrollbar {
+  width: 1rem;
+}
+
+.giphy-box::-webkit-scrollbar-thumb {
+  min-height: 50px;
+  border-radius: 99px;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  background-color: #e4e4e4;
+}
+
+.giphy-box::-webkit-scrollbar-thumb:hover {
+  background-color: #acacac;
+}
+
+.giphy-gif {
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.giphy-input-close {
+  height: auto;
+  border: 0px;
+  padding: 0px;
+  background: transparent;
+  position: absolute;
+  right: 8px;
+}
+
+.giphy-search {
+  background: #f2f2f2;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px 0 16px;
+  position: sticky;
+  top: 0px;
+  z-index: 5;
+  border-radius: 999px;
+  margin: 0 10px;
+}
+
+.giphy-search input {
+  background: transparent;
+  outline: 0px;
+  margin: 0 0.5rem;
+  border: 0px;
+  height: 36px;
+  flex: 1 1 0%;
+}
+
+.giphy-search svg {
+  font-size: 20px;
+  margin-left: -4px;
+  color: #434343;
+}
+
+/* ***************** */
+/* *** Reactions *** */
+/* ***************** */
+
+.reactions-menu {
+  position: absolute;
+  z-index: 9999;
+  right: 0px;
+  bottom: 40px;
+}
+
+.reactions-menu > div {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.15);
+  padding: 5px;
+  background: white;
+}
+
+.reactions-menu-small {
+  border-radius: 100px;
+}
+
+.reactions-menu-full {
+  height: 256px;
+  width: 284px;
+  border-radius: 16px;
+  padding: 12px 12px 12px 16px;
+  margin: 0px 0px 4px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.reactions-menu-small,
+.reactions-menu-full-grid {
+  width: fit-content;
+  display: grid;
+}
+
+.reactions-menu-small {
+  grid-template-columns: auto auto auto auto auto auto;
+}
+
+.reactions-menu-full-grid {
+  grid-gap: 12px;
+  grid-template-columns: auto auto auto auto auto;
+}
+
+.reactions-menu-small img,
+.reactions-menu-full-grid img {
+  max-width: 32px;
+  max-height: 32px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 150ms ease;
+}
+
+.reactions-menu-small img:hover,
+.reactions-menu-full-grid img:hover {
+  transform: scale(1.6);
+}
+
+.reactions-menu-square {
+  margin: 0 5px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reactions-menu-plus {
+  border-radius: 999px;
+  font-size: 20px;
+  color: #0f1a1c;
+  display: flex;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.reactions-menu-plus:hover {
+  background: #e2e7e9;
+}
+
+.reaction-picker-animation {
+  animation: 200ms linear 0s 1 normal none running revealAndScaleUp;
+}

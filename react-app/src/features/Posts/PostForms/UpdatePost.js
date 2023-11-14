@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-
 import { useDispatch, useSelector } from "react-redux";
 import { putSinglePost } from "../../../store/posts";
-
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import "./PostForm.css";
 
 const modules = {

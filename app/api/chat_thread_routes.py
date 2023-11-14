@@ -1,7 +1,6 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, User, ChatMessageThread, ChatMessage, ChatMessageReaction
-from flask_socketio import SocketIO, emit, join_room, leave_room, disconnect
 
 chat_thread_routes = Blueprint("chat_threads", __name__)
 
@@ -20,11 +19,21 @@ def get_user_chats():
 @chat_thread_routes.route("/<int:id>")
 def get_user_chat(id):
     chat = ChatMessageThread.query.get(id)
-    print(chat)
     if chat is not None:
         return chat.to_dict()
     else:
         return { "message": "Chat not found" }
+
+
+# GET CHAT MESSAGE
+@chat_thread_routes.route("/messages/<int:id>")
+def get_message(id):
+    message = ChatMessage.query.get(id)
+    if message is not None:
+        return message.to_dict()
+    else:
+        return { "error": "Message not found" }
+
 
 
 # CREATE A CHAT THREAD
@@ -32,7 +41,7 @@ def get_user_chat(id):
 @login_required
 def create_thread():
     data = request.get_json()
-    receiver = User.query.get(data.get("receiverId"))
+    receiver = User.query.get(data["receiverId"])
     sender = User.query.get(current_user.get_id())
 
     thread = ChatMessageThread()
@@ -42,8 +51,7 @@ def create_thread():
     db.session.add(thread)
     db.session.commit()
 
-
-    return { thread.to_dict() }
+    return thread.to_dict()
 
 
 # CREATE A NEW MESSAGE & ADD TO CHAT
@@ -53,7 +61,7 @@ def create_message(id):
     data = request.get_json()
 
     message = ChatMessage(
-        content=data.get("content"), sender_id=current_user.get_id(), receiver_id = data.get("receiver_id"), thread_id = id
+        content=data["content"], sender_id=current_user.get_id(), receiver_id = data["receiver_id"], thread_id = id
     )
 
     chat_thread = ChatMessageThread.query.get(id)
@@ -102,3 +110,14 @@ def react(messageId):
     db.session.commit()
 
     return reaction.to_dict()
+
+
+
+# GET REACTION
+@chat_thread_routes.route("/reactions/<int:id>", methods=["GET"])
+def get_reaction(id):
+    reaction = ChatMessageReaction.query.get(id)
+    if reaction is not None:
+        return reaction.to_dict()
+    else:
+        return {"error": "Reaction not found"}

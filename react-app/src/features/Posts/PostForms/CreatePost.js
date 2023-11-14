@@ -12,9 +12,9 @@ import {
   getPosts,
 } from "../../../store/posts";
 import { addImagePost } from "../../../store/posts";
-import CommunityRule from "../../Communities/CommunityRule";
+import CommunityRule from "../../CommunityRules/components/CommunityRule";
 import { Modal } from "../../../context/Modal";
-import ImagePostForm from "../ImagePost/ImagePostForm";
+import { ImagePostForm } from "../ImagePost";
 import CommunitySelection from "./CreatePostDropdown/CommunitySelection";
 import DiscardPost from "../DiscardPost";
 import "./PostForm.css";

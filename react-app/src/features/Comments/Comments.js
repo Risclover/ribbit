@@ -25,6 +25,9 @@ export default function Comments({ setShowLoginForm, setCommentsNum }) {
     dispatch(getComments(+postId));
   }, [dispatch, postId]);
 
+  console.log("postId:", postId);
+  console.log("comments:", comments);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoader(false);

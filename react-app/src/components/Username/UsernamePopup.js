@@ -8,10 +8,10 @@ import {
   getUserFollowers,
 } from "../../store/followers";
 import { Modal } from "../../context/Modal";
-import MessageModal from "../Modals/MessageModal";
+import MessageModal from "../../features/Messages/components/MessageModal/MessageModal";
 import { NavLink } from "react-router-dom";
 
-export default function UsernamePopup({ community, setShowUserBox, user }) {
+export function UsernamePopup({ community, setShowUserBox, user }) {
   const dispatch = useDispatch();
   const follows = useSelector((state) => state.followers.follows);
   const currentUser = useSelector((state) => state.session.user);

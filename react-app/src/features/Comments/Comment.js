@@ -9,12 +9,12 @@ import { getUsers } from "../../store/users";
 import { addCommentVote, removeCommentVote } from "../../store/comments";
 import { NavLink, useParams } from "react-router-dom";
 import { Modal } from "../../context/Modal";
-import DeleteConfirmation from "../../components/Modals/DeleteConfirmation";
+// import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
 import EditComment from "./EditComment";
 
 import "./Comments.css";
 import { getSinglePost } from "../../store/one_post";
-import Username from "../../components/Username/Username";
+import { Username, DeleteConfirmationModal } from "../../components";
 
 moment.updateLocale("en-comment", {
   relativeTime: {
@@ -296,7 +296,7 @@ export default function Comment({ commentId }) {
                       onClose={() => setShowDeleteModal(false)}
                       title="Delete comment?"
                     >
-                      <DeleteConfirmation
+                      <DeleteConfirmationModal
                         setShowDeleteModal={setShowDeleteModal}
                         showDeleteModal={showDeleteModal}
                         postId={postId}

@@ -1,7 +1,8 @@
 import React from "react";
 import "./SingleImagePage.css";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 export default function SingleImagePage() {
   const { postId } = useParams();
 

@@ -1,11 +1,7 @@
 import React from "react";
 import "./CommunityOptions.css";
 
-export default function ToggleSwitch({
-  checked,
-  setChecked,
-  handleThemeToggle,
-}) {
+export default function ToggleSwitch({ checked, handleThemeToggle }) {
   return (
     <div className="community-options-switch">
       <input
@@ -14,7 +10,7 @@ export default function ToggleSwitch({
         name="switch"
         onChange={handleThemeToggle}
       />
-      <span class="community-options-slider round"></span>
+      <span className="community-options-slider round"></span>
     </div>
   );
 }

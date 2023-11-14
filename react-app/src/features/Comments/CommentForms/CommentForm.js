@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { HashLink as Link } from "react-router-hash-link";
-
 import { createComment } from "../../../store/comments";
-
-import "../Comments.css";
 import {
   addNotification,
   getAllNotifications,
 } from "../../../store/notifications";
-import LoginSignupModal from "../../../components/Modals/LoginSignupModal";
+import LoginSignupModal from "../../auth/LoginSignupModal";
+import "../Comments.css";
 
 export default function CommentForm({ postId }) {
   const dispatch = useDispatch();
@@ -89,7 +86,7 @@ export default function CommentForm({ postId }) {
       )}
       {!user && (
         <form className="comment-form">
-          <label for="comment-box">
+          <label htmlFor="comment-box">
             <LoginSignupModal btnText="Log in" className="log-in-to-comment" />
             to comment
           </label>

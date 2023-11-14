@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Bounce from "../../../images/misc/curved-arrow.png";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Bounce from "../../../assets/images/misc/curved-arrow.png";
 import DeletePostModal from "../DeletePost";
 
 export default function SinglePostButtonBar({ post, community, isPage, user }) {

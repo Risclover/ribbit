@@ -1,7 +1,7 @@
 import React from "react";
-import RibbitBanner from "../../images/ribbit-banners/ribbit_banner.png";
 import { useHistory } from "react-router-dom";
-import CreateCommunity from "./CreateCommunity/CreateCommunity";
+import RibbitBanner from "../../assets/images/ribbit-banners/ribbit_banner.png";
+import { CreateCommunity } from "../../features/Communities/CreateCommunity";
 
 export default function AboutBox({ title, description, user }) {
   const history = useHistory();

@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-
 import { addImagePost } from "../../../store/posts";
-
 import { Modal } from "../../../context/Modal";
-import ImagePostForm from "./ImagePostForm";
+import { ImagePostForm } from "./ImagePostForm";
 
-const ImagePost = ({ img_url, setimg_url }) => {
+export const ImagePost = ({ img_url, setimg_url }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { communityId } = useParams();
+
   const [community_id, setcommunity_id] = useState(+communityId);
   const [showImgModal, setShowImgModal] = useState(false);
   const [title, setTitle] = useState("");
@@ -52,5 +51,3 @@ const ImagePost = ({ img_url, setimg_url }) => {
     </form>
   );
 };
-
-export default ImagePost;

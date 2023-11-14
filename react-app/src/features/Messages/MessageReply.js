@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import {
   createMessage,
   deleteMessage,
@@ -9,7 +10,6 @@ import {
 } from "../../store/threads";
 import { addNotification } from "../../store/notifications";
 import { getMessages } from "../../store/messages";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function MessageReply({
   pageType,

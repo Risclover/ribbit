@@ -1,11 +1,11 @@
 import React from "react";
-import DeveloperLink from "./DeveloperLink";
-import Github from "../../../images/developer-links/github.png";
-import LinkedIn from "../../../images/developer-links/linkedin.png";
-import Resume from "../../../images/developer-links/resume.png";
-import Email from "../../../images/developer-links/mail.png";
+import { DeveloperLink } from "./DeveloperLink";
+import Github from "../../../assets/images/developer-links/github.png";
+import LinkedIn from "../../../assets/images/developer-links/linkedin.png";
+import Resume from "../../../assets/images/developer-links/resume.png";
+import Email from "../../../assets/images/developer-links/mail.png";
 
-export default function DeveloperLinksBox() {
+export function DeveloperLinksBox() {
   const developerLinks = [
     {
       title: "Developer Portfolio",

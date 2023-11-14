@@ -41,7 +41,10 @@ export default function CommunitySelectionInput({
             }}
             className="community-dropdown-img"
             alt="Community dropdown"
-            src={communities[+communityId]?.communityImg}
+            src={
+              communities[communityId]?.communitySettings[communityId]
+                .communityIcon
+            }
           />
         )}
         {search?.length > 0 && (

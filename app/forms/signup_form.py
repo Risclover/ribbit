@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
-from wtforms.validators import Length, DataRequired, Email, ValidationError
+from wtforms.validators import DataRequired, ValidationError
 from app.models import User
 
 
-def user_exists(form, field):
+def user_exists(field):
     # Checking if user exists
     email = field.data
     user = User.query.filter(User.email == email).first()
@@ -12,7 +12,7 @@ def user_exists(form, field):
         raise ValidationError('That email address is already associated with an account.')
 
 
-def username_exists(form, field):
+def username_exists(field):
     # Checking if username is already in use
     username = field.data
     user = User.query.filter(User.username == username).first()

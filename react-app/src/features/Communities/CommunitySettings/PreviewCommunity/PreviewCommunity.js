@@ -6,13 +6,13 @@ import { getPosts } from "../../../../store/posts";
 import { getSubscriptions } from "../../../../store/subscriptions";
 import { getCommunities } from "../../../../store/communities";
 import CommunityWelcome from "../../CommunityWelcome";
-import CommunityRulesBox from "../../CommunityRulesBox";
+import CommunityRulesBox from "../../../CommunityRules/components/CommunityRulesBox";
 import CommunityImage from "../../CommunityImage";
 import CommunityInfoBox from "../../CommunityInfoBox/CommunityInfoBox";
 import CommunitySubscribeBtn from "../../CommunitySubscribeBtn";
 import CommunityName from "../../CommunityName";
 import CommunityPosts from "../../CommunityPosts";
-import BackToTop from "../../../../components/BackToTop";
+import { BackToTop } from "../../../../components";
 import "../../CommunityPage.css";
 
 export default function PreviewCommunity({
@@ -20,8 +20,6 @@ export default function PreviewCommunity({
   setPageIcon,
   format,
   setFormat,
-  setPreviewPage,
-  previewPage,
 }) {
   const dispatch = useDispatch();
   const { communityId } = useParams();
@@ -53,7 +51,7 @@ export default function PreviewCommunity({
             community?.communitySettings[community?.id].baseColor
           }`,
         }}
-        src={community?.communityImg}
+        src={community?.communitySettings[community?.id].communityIcon}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"
       />

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
-import CommunityImgModal from "../../components/Modals/CommunityImgModal";
-import Camera from "../../images/user-profile-icons/camera.png";
-import { PiCameraPlusLight } from "react-icons/pi";
+import CommunityImgModal from "../../features/Communities/components/CommunityImgModal";
+
 export default function CommunityImage({ user, community }) {
   const [showCommunityImgModal, setShowCommunityImgModal] = useState(false);
 

@@ -1,7 +1,5 @@
-from flask import Blueprint, jsonify, render_template, request, redirect
-from flask_login import login_required, current_user
+from flask import Blueprint, request
 from app.models import db, CommunitySettings, Community
-from .auth_routes import validation_errors_to_error_messages
 
 community_settings_routes = Blueprint("community_settings", __name__)
 
@@ -133,8 +131,9 @@ def reset_community_settings(id):
     setattr(settings, "hide_community_icon", False)
     setattr(settings, "community_icon", "https://i.imgur.com/9CI9hiO.png")
     setattr(settings, "banner_height", "80px")
-    setattr(settings, "banner_color", "#0079d3")
+    setattr(settings, "banner_color", "#33a8ff")
     setattr(settings, "custom_banner_color", False)
+    setattr(settings, "banner_img", "")
     setattr(settings, "active_link_color", "#0079d3")
     setattr(settings, "inactive_link_color", "#0079d3")
     setattr(settings, "hover_link_color", "#0079d3")

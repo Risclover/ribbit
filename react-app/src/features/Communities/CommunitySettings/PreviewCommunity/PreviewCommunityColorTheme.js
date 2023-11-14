@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
-import "./PreviewCommunity.css";
-import PreviewCommunityColorThemeColor from "./PreviewCommunityColorThemeColor";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  editCommunityTheme,
-  getCommunities,
-} from "../../../../store/communities";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import DropBox from "../../../../components/DragNDropImageUpload/DropBox";
-import BodyBgFormat from "./BodyBgFormat";
+import { useDispatch } from "react-redux";
+import { getCommunities } from "../../../../store/communities";
 import { getSingleCommunity } from "../../../../store/one_community";
 import {
   getCommunitySettings,
   updateSettingsColorTheme,
 } from "../../../../store/community_settings";
+import DropBox from "../../../../components/DragNDropImageUpload/DropBox";
+import PreviewCommunityColorThemeColor from "./PreviewCommunityColorThemeColor";
+import BodyBgFormat from "./BodyBgFormat";
+import "./PreviewCommunity.css";
 
 export default function PreviewCommunityColorTheme({
   setOpenAppearance,
@@ -32,13 +28,15 @@ export default function PreviewCommunityColorTheme({
   const dispatch = useDispatch();
 
   const [image, setImage] = useState();
-  const [errorMsg, setErrorMsg] = useState("");
+  const [preview, setPreview] = useState(
+    community?.communitySettings[community?.id].backgroundImg
+  );
 
   const colorThemes = ["Base", "Highlight"];
 
   useEffect(() => {
     dispatch(getCommunities());
-    dispatch(getCommunitySettings(community.id));
+    dispatch(getCommunitySettings(community?.id));
   }, [dispatch]);
 
   const handleSaveTheme = () => {
@@ -49,24 +47,50 @@ export default function PreviewCommunityColorTheme({
       bgColor: bodyBg,
       backgroundImgFormat: bgFormat,
     };
-    dispatch(updateSettingsColorTheme(payload));
-    dispatch(getCommunities());
 
     if (image) {
-      changeBodyBackground();
-    } else {
-      setImage(null);
+      handleUpload();
     }
-    dispatch(getSingleCommunity(community.id));
+
+    dispatch(updateSettingsColorTheme(payload));
+    dispatch(getCommunities());
+    dispatch(getSingleCommunity(community?.id));
     setOpenAppearance(false);
   };
 
-  console.log("BG FORMAT:", bgFormat);
-  console.log("BG IMG:", bodyBgPreview);
+  const handlePreview = () => {
+    if (bgFormat === "fill") {
+      document.documentElement.style.setProperty(
+        "--preview-community-body-bg-img",
+        `${bodyBg} url(${preview}) no-repeat center / cover`
+      );
+    } else if (bgFormat === "tile") {
+      document.documentElement.style.setProperty(
+        "--preview-community-body-bg-img",
+        `${bodyBg} url(${preview}) repeat center top`
+      );
+    } else if (bgFormat === "center") {
+      document.documentElement.style.setProperty(
+        "--preview-community-body-bg-img",
+        `${bodyBg} url(${preview}) no-repeat center top`
+      );
+    }
+  };
 
-  const changeBodyBackground = async () => {
+  const handleDelete = () => {
+    setBodyBgPreview("");
+    setImage("");
+
+    console.log("deleted ^_^", image);
+  };
+
+  const handleUpload = async () => {
     const formData = new FormData();
-    formData.append("image", image);
+    if (image !== "") {
+      formData.append("image", image);
+    } else {
+      formData.append("image", "");
+    }
     const res = await fetch(`/api/communities/${community?.id}/bg_img`, {
       method: "POST",
       body: formData,
@@ -74,11 +98,8 @@ export default function PreviewCommunityColorTheme({
     if (res.ok) {
       await res.json();
       dispatch(getSingleCommunity(community?.id));
+      dispatch(getCommunities());
       setOpenAppearance(false);
-    } else {
-      setErrorMsg(
-        "There was a problem with your upload. Make sure your file is a .jpg or .png file, and try again."
-      );
     }
   };
 
@@ -111,13 +132,13 @@ export default function PreviewCommunityColorTheme({
           <DropBox
             dropboxType="community_bg"
             community={community}
-            startingImage={bodyBgPreview}
+            preview={preview}
+            setPreview={setPreview}
             setImage={setImage}
             image={image}
-            bgFormat={bgFormat}
-            bodyBgPreview={bodyBgPreview}
-            bodyBg={bodyBg}
-            setBodyBgPreview={setBodyBgPreview}
+            handlePreview={handlePreview}
+            handleDelete={handleDelete}
+            handleImgUpload={handleUpload}
           />
           <div className="body-bg-formats" role="radiogroup">
             <input type="hidden" value={bgFormat} />

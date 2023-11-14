@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
-import "../../CommunityPage.css";
-import "./PreviewCommunity.css";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import PreviewCommunitySidebarAppearance from "./PreviewCommunitySidebarAppearance";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import OutsideClickWarning from "./OutsideClickWarning";
-import { Modal } from "../../../../context/Modal";
+import { useLocation, useHistory } from "react-router-dom";
 import {
   getCommunitySettings,
   resetToDefault,
 } from "../../../../store/community_settings";
 import { getCommunities } from "../../../../store/communities";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Modal } from "../../../../context/Modal";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import PreviewCommunitySidebarAppearance from "./PreviewCommunitySidebarAppearance";
+import OutsideClickWarning from "./OutsideClickWarning";
+import "./PreviewCommunity.css";
+import "../../CommunityPage.css";
 
 export default function PreviewCommunitySidebar() {
   const location = useLocation();
@@ -27,40 +26,46 @@ export default function PreviewCommunitySidebar() {
   const [openAppearance, setOpenAppearance] = useState(false);
   const [appearanceSidebar, setAppearanceSidebar] = useState("");
   const [base, setBase] = useState(
-    community.communitySettings[community.id].baseColor
+    community?.communitySettings[community?.id]?.baseColor
   );
   const [highlight, setHighlight] = useState(
-    community.communitySettings[community.id].highlight
+    community?.communitySettings[community?.id]?.highlight
   );
   const [bodyBg, setBodyBg] = useState(
-    community.communitySettings[community.id].bgColor
+    community?.communitySettings[community?.id]?.bgColor
   );
   const [backgroundImg, setBackgroundImg] = useState(
-    community.communitySettings[community.id].backgroundImg
+    community?.communitySettings[community?.id]?.backgroundImg
   );
   const [backgroundImgFormat, setBackgroundImgFormat] = useState(
-    community.communitySettings[community.id].backgroundImgFormat
+    community?.communitySettings[community?.id]?.backgroundImgFormat
   );
   const [communityIcon, setCommunityIcon] = useState(
-    community.communitySettings[community.id].communityIcon
+    community?.communitySettings[community?.id]?.communityIcon
   );
   const [hideCommunityIcon, setHideCommunityIcon] = useState(
-    community.communitySettings[community.id].hideCommunityIcon
+    community?.communitySettings[community?.id]?.hideCommunityIcon
   );
   const [nameFormat, setNameFormat] = useState(
-    community.communitySettings[community.id].nameFormat
+    community?.communitySettings[community?.id]?.nameFormat
   );
   const [bannerHeight, setBannerHeight] = useState(
-    community.communitySettings[community.id].bannerHeight
+    community?.communitySettings[community?.id]?.bannerHeight
   );
   const [bannerHeight2, setBannerHeight2] = useState(
-    community.communitySettings[community.id].bannerHeight
+    community?.communitySettings[community?.id]?.bannerHeight
   );
   const [bannerColor, setBannerColor] = useState(
-    community.communitySettings[community.id].bannerColor
+    community?.communitySettings[community?.id]?.bannerColor
+  );
+  const [bannerImg, setBannerImg] = useState(
+    community?.communitySettings[community?.id]?.bannerImg
+  );
+  const [bannerImgFormat, setBannerImgFormat] = useState(
+    community?.communitySettings[community.id]?.bannerImgFormat
   );
   const [customBannerColor, setCustomBannerColor] = useState(
-    community.communitySettings[community.id].customBannerColor
+    community?.communitySettings[community?.id]?.customBannerColor
   );
 
   const appearanceSidebarList = [
@@ -72,7 +77,7 @@ export default function PreviewCommunitySidebar() {
   ];
 
   useEffect(() => {
-    dispatch(getCommunitySettings(community.id));
+    dispatch(getCommunitySettings(community?.id));
   }, [dispatch]);
 
   const handleOutsideClick = (e) => {
@@ -115,6 +120,11 @@ export default function PreviewCommunitySidebar() {
       customBannerColor === true ? bannerColor : base
     );
 
+    document.documentElement.style.setProperty(
+      "--preview-community-banner-img",
+      `url(${bannerImg})`
+    );
+
     if (backgroundImgFormat === "fill") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
@@ -132,7 +142,7 @@ export default function PreviewCommunitySidebar() {
       );
     }
   }, [
-    community.communitySettings[community.id],
+    community?.communitySettings[community?.id],
     base,
     highlight,
     bodyBg,
@@ -140,13 +150,14 @@ export default function PreviewCommunitySidebar() {
     backgroundImgFormat,
     bannerHeight,
     bannerColor,
+    bannerImg,
   ]);
 
   const handleDefaultReset = () => {
-    dispatch(resetToDefault(community.id));
+    dispatch(resetToDefault(community?.id));
     dispatch(getCommunities());
-    dispatch(getCommunitySettings(community.id));
-    history.push(`/c/${community.id}`);
+    dispatch(getCommunitySettings(community?.id));
+    history.push(`/c/${community?.id}`);
   };
 
   return (
@@ -202,6 +213,10 @@ export default function PreviewCommunitySidebar() {
           setBannerColor={setBannerColor}
           customBannerColor={customBannerColor}
           setCustomBannerColor={setCustomBannerColor}
+          bannerImg={bannerImg}
+          setBannerImg={setBannerImg}
+          bannerImgFormat={bannerImgFormat}
+          setBannerImgFormat={setBannerImgFormat}
           communityIcon={communityIcon}
           setCommunityIcon={setCommunityIcon}
           hideCommunityIcon={hideCommunityIcon}

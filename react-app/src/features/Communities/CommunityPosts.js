@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import SinglePost from "../Posts/SinglePost/SinglePost";
 import { NavLink } from "react-router-dom";
-import CreatePostBar from "../../components/CreatePostBar/CreatePostBar";
-import SortingBar from "../../components/SortingBar/SortingBar";
+import { CreatePostBar, SortingBar } from "../../components";
 
 export default function CommunityPosts({
   commPosts,
@@ -10,7 +9,6 @@ export default function CommunityPosts({
   communityId,
   setFormat,
   user,
-  isPage,
   setShowLoginForm,
 }) {
   const [sortMode, setSortMode] = useState("new");

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import MessageReply from "../MessageReply";
-import moment from "moment";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { readNotification } from "../../../store/notifications";
 import { readMessage } from "../../../store/threads";
+import moment from "moment";
+import MessageReply from "../MessageReply";
 
 export default function InboxMessage({
   item,

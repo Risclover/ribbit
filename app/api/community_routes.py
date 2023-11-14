@@ -1,8 +1,8 @@
-from flask import Blueprint, jsonify, render_template, request, redirect
+from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Community, User, CommunitySettings
 from .auth_routes import validation_errors_to_error_messages
-from app.forms import CommunityForm, UpdateCommunityForm, RuleForm
+from app.forms import CommunityForm, UpdateCommunityForm
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 
@@ -14,10 +14,8 @@ def get_communities():
     """
     Query to get all communities
     """
-
     communities = Community.query.all()
     return {"Communities": [community.to_dict() for community in communities]}
-
 
 # GET A USER'S OWNED COMMUNITIES
 @community_routes.route("/users/<int:id>")
@@ -29,7 +27,6 @@ def get_user_communities(id):
     communities = Community.query.filter(Community.user_id == id).all()
     return {"UserCommunities": [community.to_dict() for community in communities]}
 
-
 # GET A SINGLE COMMUNITY
 @community_routes.route("/<int:id>")
 def get_single_community(id):
@@ -39,7 +36,6 @@ def get_single_community(id):
 
     community = Community.query.get(id)
     return community.to_dict()
-
 
 # CREATE A COMMUNITY
 @community_routes.route("", methods=["POST"])
@@ -100,7 +96,6 @@ def create_community():
         return new_community.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
-
 # UPDATE A COMMUNITY
 @community_routes.route("/<int:id>/edit", methods=["PUT"])
 @login_required
@@ -121,30 +116,15 @@ def update_community(id):
         return community.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
-
 # DEFAULT COMMUNITY IMAGE
 @community_routes.route("/<int:id>/default-img", methods=["PUT"])
 def default_community_img(id):
     community = Community.query.get(id)
-    setattr(community, 'community_img', "https://i.imgur.com/9CI9hiO.png")
+    community_settings = CommunitySettings.query.filter(community.id == id)
+    setattr(community_settings, 'community_icon', "https://i.imgur.com/9CI9hiO.png")
 
-    print("""
-
-
-
-
-
-
-
-
-
-
-
-
-          """, community)
     db.session.commit()
     return community.to_dict()
-
 
 # DELETE A COMMUNITY
 @community_routes.route("/<int:id>", methods=["DELETE"])
@@ -175,13 +155,9 @@ def upload_image(id):
     upload = upload_file_to_s3(image)
 
     if "url" not in upload:
-        # if the dictionary doesn't have a url key
-        # it means that there was an error when we tried to upload
-        # so we send back that error message
         return upload, 400
 
     url = upload["url"]
-    # flask_login allows us to get the current user from the request
     community = CommunitySettings.query.get(id)
 
     setattr(community, "community_icon", url)
@@ -191,6 +167,36 @@ def upload_image(id):
 # UPLOAD BACKGROUND IMAGE
 @community_routes.route("/<int:id>/bg_img", methods=["POST"])
 def upload_bg_image(id):
+    community = CommunitySettings.query.get(id)
+
+    if "image" not in request.files:
+        setattr(community, "background_img", "")
+        db.session.commit()
+        return {"url": ""}
+
+    image = request.files["image"]
+
+    if not allowed_file(image.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file_to_s3(image)
+
+    if "url" not in upload:
+        return upload, 400
+
+    url = upload["url"]
+
+    setattr(community, "background_img", url)
+    db.session.commit()
+    return {"url": url}
+
+# UPLOAD BANNER IMAGE
+# UPLOAD COMMUNITY IMAGE
+@community_routes.route("/<int:id>/banner_img", methods=["POST"])
+@login_required
+def upload_banner(id):
     if "image" not in request.files:
         return {"errors": "image required"}, 400
 
@@ -209,27 +215,6 @@ def upload_bg_image(id):
     url = upload["url"]
     community = CommunitySettings.query.get(id)
 
-    setattr(community, "background_img", url)
+    setattr(community, "banner_img", url)
     db.session.commit()
     return {"url": url}
-
-# EDIT COMMUNITY THEME
-@community_routes.route("/<int:id>/appearance", methods=["PUT"])
-def edit_community_theme(id):
-    community = Community.query.get(id)
-    data = request.get_json()
-    setattr(community, "base_color", data["baseColor"])
-    setattr(community, "highlight", data["highlight"])
-    setattr(community, "body_background", data["bodyBg"])
-    setattr(community, "name_format", data["nameFormat"])
-
-    if data["bodyBgImgFormat"] == "center":
-        setattr(community, "background_img_format", "center")
-    elif data["bodyBgImgFormat"] == "tile":
-        setattr(community, "background_img_format", "tile")
-    else:
-        setattr(community, "background_img_format", "fill")
-
-    db.session.commit()
-
-    return community.to_dict()

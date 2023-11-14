@@ -1,49 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import moment from "moment";
-import Cake from "../../../images/misc/piece4.png";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addFavoriteCommunity,
-  getFavoriteCommunities,
-  removeFavoriteCommunity,
-} from "../../../store/favorite_communities";
-
-import { getSubscriptions } from "../../../store/subscriptions";
-import LoginSignupModal from "../../../components/Modals/LoginSignupModal";
-import { BiShieldAlt } from "react-icons/bi";
+import LoginSignupModal from "../../auth/LoginSignupModal";
 import getTextColor from "../../../utils/getTextColor";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import CommunityDescription from "./CommunityDescription";
 import CommunityInfoMenu from "./CommunityInfoMenu";
 import CommunityOptions from "./CommunityOptions/CommunityOptions";
+import Cake from "../../../assets/images/misc/piece4.png";
+import { BiShieldAlt } from "react-icons/bi";
+import moment from "moment";
 
-export default function CommunityInfoBox({
-  setFavorited,
-  favoriteCommunities,
-  community,
-  user,
-}) {
-  const dispatch = useDispatch();
+export default function CommunityInfoBox({ community, user }) {
   const [members, setMembers] = useState(0);
-  const communitySettings = useSelector((state) => state.communitySettings);
 
   useEffect(() => {
     setMembers(community?.members);
   }, [community?.members]);
-
-  const handleFavorite = async (e, community) => {
-    e.preventDefault();
-    if (favoriteCommunities[community.id]) {
-      await dispatch(removeFavoriteCommunity(community.id));
-      setFavorited(false);
-    } else {
-      await dispatch(addFavoriteCommunity(community.id));
-      setFavorited(true);
-    }
-    dispatch(getFavoriteCommunities());
-    dispatch(getSubscriptions());
-  };
 
   const varColor = getComputedStyle(document.documentElement).getPropertyValue(
     "--community-base-color"

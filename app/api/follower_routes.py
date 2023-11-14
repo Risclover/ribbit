@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint
 from flask_login import login_required, current_user
-from app.models import db, User, Post
+from app.models import db, User
 
 follower_routes = Blueprint("followers", __name__)
 

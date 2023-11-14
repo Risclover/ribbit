@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function DeveloperLink({ title, link, imgsrc }) {
+export function DeveloperLink({ title, link, imgsrc }) {
   return (
     <>
       <span className="tooltiptext">{title}</span>

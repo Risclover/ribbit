@@ -1,21 +1,15 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
-import { getUsers } from "../../store/users";
 import { RxImage } from "react-icons/rx";
 import { FiLink } from "react-icons/fi";
 import "./CreatePostBar.css";
 
-export default function CreatePostBar({ page, communityId }) {
-  const dispatch = useDispatch();
+export function CreatePostBar({ page, communityId }) {
   const user = useSelector((state) => state.session.user);
   const history = useHistory();
 
   const users = useSelector((state) => state.users);
-
-  // useEffect(() => {
-  //   dispatch(getUsers());
-  // }, [dispatch]);
 
   const handleClick = (e) => {
     e.preventDefault();

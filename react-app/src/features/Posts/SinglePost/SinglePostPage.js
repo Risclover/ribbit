@@ -4,23 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-
+import { addViewedPost } from "../../../store/viewed_posts";
 import { getSinglePost } from "../../../store/one_post";
+import { getPosts } from "../../../store/posts";
+import { getCommunities } from "../../../store/communities";
 import { getSubscriptions } from "../../../store/subscriptions";
-import CommunityRule from "../../Communities/CommunityRule";
 import {
   addToSubscriptions,
   deleteSubscription,
 } from "../../../store/subscriptions";
-import Comments from "../../Comments/Comments";
-import Cake from "../../../images/misc/piece4.png";
-import SinglePost from "./SinglePost";
-import BackToTop from "../../../components/BackToTop";
-import { addViewedPost, getViewedPosts } from "../../../store/viewed_posts";
-import { getPosts } from "../../../store/posts";
-import { getCommunities, getSingleCommunity } from "../../../store/communities";
-import { getUsers } from "../../../store/users";
+import { BackToTop } from "../../../components";
+import CommunityRule from "../../CommunityRules/components/CommunityRule";
 import CommunityOptions from "../../Communities/CommunityInfoBox/CommunityOptions/CommunityOptions";
+import Comments from "../../Comments/Comments";
+import SinglePost from "./SinglePost";
+import Cake from "../../../assets/images/misc/piece4.png";
+import { getComments } from "../../../store/comments";
 
 export default function SinglePostPage({
   setPageIcon,
@@ -43,16 +42,14 @@ export default function SinglePostPage({
   const [commentsNum, setCommentsNum] = useState();
   const [subscribed, setSubscribed] = useState(false);
   const [members, setMembers] = useState(community?.members || 0);
-  const [checked, setChecked] = useState();
-  const [showCommunityOptions, setShowCommunityOptions] = useState(false);
 
   useEffect(() => {
-    console.log("community:", community);
     dispatch(getCommunities());
     dispatch(getPosts());
     dispatch(getSinglePost(+postId));
     dispatch(addViewedPost(+postId));
-    dispatch(getSingleCommunity(post?.communityId));
+    dispatch(getComments(postId));
+
     setRecentPostList([
       ...recentPostList,
       {
@@ -77,7 +74,7 @@ export default function SinglePostPage({
 
     setPageIcon(
       <img
-        src={post?.communityImg}
+        src={community?.communitySettings[community?.id].communityIcon}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"
       />
@@ -118,7 +115,9 @@ export default function SinglePostPage({
             <div className="single-post-community-info-content">
               <div className="single-post-community-info-name">
                 <img
-                  src={post?.communityImg}
+                  src={
+                    community?.communitySettings[community?.id].communityIcon
+                  }
                   alt="Community"
                   className="single-post-community-info-img"
                 />

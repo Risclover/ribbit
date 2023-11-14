@@ -9,18 +9,18 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import { addPostVote, removePostVote } from "../../../store/posts";
 import { Modal } from "../../../context/Modal";
-import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
-import Bounce from "../../../images/misc/curved-arrow.png";
+import { DeleteConfirmationModal } from "../../../components";
+import Bounce from "../../../assets/images/misc/curved-arrow.png";
 import { CgNotes } from "react-icons/cg";
 import { RxImage } from "react-icons/rx";
 import { BsThreeDots } from "react-icons/bs";
 import { getUsers } from "../../../store/users";
-import HandleClickOutside from "../../../components/HandleClickOutside";
+import HandleClickOutside from "../../../utils/HandleClickOutside";
 import "../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 import "./CompactPostFormat.css";
 
-export default function CompactPostFormat({ id, isPage, userId }) {
+export function CompactPostFormat({ id, isPage, userId }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const wrapperRef = useRef(null);
@@ -381,7 +381,7 @@ export default function CompactPostFormat({ id, isPage, userId }) {
                         onClose={() => setShowDeleteModal(false)}
                         title="Delete post?"
                       >
-                        <DeleteConfirmation
+                        <DeleteConfirmationModal
                           showDeleteModal={showDeleteModal}
                           setShowDeleteModal={setShowDeleteModal}
                           postId={post.id}

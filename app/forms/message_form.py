@@ -1,9 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField, SubmitField, IntegerField
-from wtforms.validators import DataRequired, Length, URL, ValidationError
-from app.models import Message
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 
 class MessageForm(FlaskForm):
     content = StringField("Content", validators=[DataRequired()])
     submit = SubmitField("Submit")
-6

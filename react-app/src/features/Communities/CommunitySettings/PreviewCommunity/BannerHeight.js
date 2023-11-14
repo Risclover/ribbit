@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FaDotCircle, FaRegCircle } from "react-icons/fa";
 
 export default function BannerHeight({
   height,
-  setHeight,
   option,
   activeRadio,
   setActiveRadio,
-  bannerHeight,
 }) {
   useEffect(() => {
     height === "80px" && setActiveRadio("small");
@@ -23,9 +21,6 @@ export default function BannerHeight({
       }`}
       onClick={() => {
         setActiveRadio(option.toLowerCase());
-        // if (activeRadio === "small") setHeight("80px");
-        // if (activeRadio === "medium") setHeight("144px");
-        // if (activeRadio === "large") setHeight("208px");
       }}
     >
       {activeRadio.toLowerCase() === option.toLowerCase() ? (

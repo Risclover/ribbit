@@ -1,5 +1,5 @@
-from flask import Blueprint, request, jsonify
-from flask_login import login_required, current_user
+from flask import Blueprint, request
+from flask_login import current_user
 from app.models import db, User, MessageThread, Message
 from app.forms.message_form import MessageForm
 from .auth_routes import validation_errors_to_error_messages

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { Modal } from "../../context/Modal";
 import { SlArrowRight } from "react-icons/sl";
-import Flower from "../../images/user-profile-icons/poinsettia.png";
-import Cakeday from "../../images/user-profile-icons/cakeday.png";
+import Flower from "../../assets/images/user-profile-icons/poinsettia.png";
+import Cakeday from "../../assets/images/user-profile-icons/cakeday.png";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,13 +11,11 @@ import {
   getFollowers,
   getUserFollowers,
 } from "../../store/followers";
-import UserProfileFollowers from "../../components/Modals/UserProfileFollowers";
+import UserProfileFollowers from "../../features/Users/components/UserProfileFollowers";
 import UserBannerModal from "./UploadUserBanner";
 import UserImageModal from "./UploadUserImage";
 import SendMessage from "./SendMessage";
 import { addNotification } from "../../store/notifications";
-import StartChat from "./StartChat";
-import ChatWindow from "../../components/Modals/ChatWindow/ChatWindow";
 import { createChatThread, getUserChatThreads } from "../../store/chats";
 
 export default function UserAboutBox({
@@ -34,11 +32,13 @@ export default function UserAboutBox({
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [banner, setBanner] = useState();
   const [karma, setKarma] = useState();
-  const [following, setFollowing] = useState(false);
   const followers = useSelector((state) => state.followers.followers);
   const follows = useSelector((state) => state.followers.follows);
   const userFollowers = useSelector((state) => state.followers.userFollowers);
   const userChats = useSelector((state) => Object.values(state.chatThreads));
+  const [following, setFollowing] = useState(follows[user?.id]);
+
+  console.log("followingggg:", follows[user?.id]);
 
   useEffect(() => {
     dispatch(getUserChatThreads());
@@ -47,15 +47,17 @@ export default function UserAboutBox({
   }, [dispatch]);
 
   useEffect(() => {
-    if (follows) {
+    if (currentUser && follows && user && user[0]) {
       for (let followed of Object.values(follows)) {
-        if (followed?.username === user?.username) {
+        if (followed?.username === user[0]?.username) {
           setFollowing(true);
           break;
+        } else {
+          setFollowing(false);
         }
       }
     }
-  }, []);
+  }, [currentUser, follows, user]);
 
   useEffect(() => {
     setBanner(user?.bannerImg);
@@ -104,18 +106,18 @@ export default function UserAboutBox({
         ) : (
           <img src={banner} className="user-profile-banner" alt="Banner" />
         )}
-        {currentUser?.id === userId && (
+        {currentUser?.id === +userId && (
           <UserBannerModal user={user} currentUser={currentUser} />
         )}
       </div>
       <div className="user-profile-img-box">
-        {currentUser?.id === userId && (
+        {currentUser?.id === +userId && (
           <UserImageModal user={user} currentUser={currentUser} />
         )}
         <img src={user?.profile_img} alt="User" className="user-profile-img" />
       </div>
       <div className="user-profile-about-content">
-        {currentUser?.id === userId && (
+        {currentUser?.id === +userId && (
           <NavLink to={`/users/${userId}/profile/edit`}>
             <i className="fa-solid fa-gear user-settings"></i>
           </NavLink>
@@ -160,7 +162,7 @@ export default function UserAboutBox({
         </div>
 
         <div className="half-btns">
-          {currentUser?.id !== userId && (
+          {currentUser?.id !== +userId && (
             <button
               className={
                 !following
@@ -172,13 +174,13 @@ export default function UserAboutBox({
               {!following ? "Follow" : "Unfollow"}
             </button>
           )}
-          {currentUser?.id !== userId && (
+          {currentUser?.id !== +userId && (
             <button className="blue-btn-filled btn-long" onClick={handleChat}>
               Chat
             </button>
           )}
         </div>
-        {currentUser?.id !== userId && (
+        {currentUser?.id !== +userId && (
           <SendMessage userId={userId} username={username} />
         )}
       </div>

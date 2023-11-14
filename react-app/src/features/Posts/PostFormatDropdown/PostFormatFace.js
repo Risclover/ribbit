@@ -10,11 +10,11 @@ import {
   TfiLayoutColumn4,
 } from "react-icons/tfi";
 
-import PostFormatDropdown from "./PostFormatDropdown";
-import HandleClickOutside from "../../../components/HandleClickOutside";
+import { PostFormatDropdown } from "./PostFormatDropdown";
+import HandleClickOutside from "../../../utils/HandleClickOutside";
 import "./PostFormatDropdown.css";
 
-export default function PostFormatFace({ setFormat, format }) {
+export function PostFormatFace({ setFormat, format }) {
   const wrapperRef = useRef();
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -33,16 +33,16 @@ export default function PostFormatFace({ setFormat, format }) {
     },
   ];
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
-      });
-    };
-  }, [wrapperRef, showDropdown]);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", function (e) {
+  //     HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
+  //   });
+  //   return () => {
+  //     document.removeEventListener("mousedown", function (e) {
+  //       HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
+  //     });
+  //   };
+  // }, [wrapperRef, showDropdown]);
 
   return (
     <div className="post-format-face-wrapper" ref={wrapperRef}>

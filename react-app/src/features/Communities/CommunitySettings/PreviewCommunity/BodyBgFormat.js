@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { IoStopSharp, IoGridSharp } from "react-icons/io5";
+import React from "react";
+import { IoGridSharp } from "react-icons/io5";
 
 export default function BodyBgFormat({
   format,

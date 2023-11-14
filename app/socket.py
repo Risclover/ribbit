@@ -44,6 +44,7 @@ def handle_chat(data):
     if data['threadId']:
         room = data['threadId']
         emit("chat", data, broadcast=True, to=room)
+        emit("chat", data, to=request.sid)
         emit("new_message", data, broadcast=True, to=room)
 
 # fake delete message (update)

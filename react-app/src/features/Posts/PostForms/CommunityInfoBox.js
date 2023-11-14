@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import Cake from "../../../images/misc/piece4.png";
-import moment from "moment";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import moment from "moment";
+import Cake from "../../../assets/images/misc/piece4.png";
 import CommunityOptions from "../../Communities/CommunityInfoBox/CommunityOptions/CommunityOptions";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function CommunityInfoBox({ community }) {
   const [members, setMembers] = useState(0);
@@ -19,7 +19,7 @@ export default function CommunityInfoBox({ community }) {
       <div className="community-title-details">
         <img
           className="community-title-details-img"
-          src={community?.communityImg}
+          src={community?.communitySettings[community?.id].communityIcon}
           alt="Community"
         />
         <div className="community-title-details-name">

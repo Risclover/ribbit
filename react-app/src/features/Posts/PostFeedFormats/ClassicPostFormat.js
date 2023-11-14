@@ -8,14 +8,14 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
 import { Modal } from "../../../context/Modal";
 import { BsArrowsAngleExpand, BsArrowsAngleContract } from "react-icons/bs";
-import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
-import Bounce from "../../../images/misc/curved-arrow.png";
+import { DeleteConfirmationModal } from "../../../components";
+import Bounce from "../../../assets/images/misc/curved-arrow.png";
 import SinglePostKarmabar from "../SinglePost/SinglePostKarmabar";
 import { CgNotes } from "react-icons/cg";
 import "../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 
-export default function ClassicPostFormat({ isPage, id, userId }) {
+export function ClassicPostFormat({ isPage, id, userId }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -287,7 +287,7 @@ export default function ClassicPostFormat({ isPage, id, userId }) {
                           onClose={() => setShowDeleteModal(false)}
                           title="Delete post?"
                         >
-                          <DeleteConfirmation
+                          <DeleteConfirmationModal
                             showDeleteModal={showDeleteModal}
                             setShowDeleteModal={setShowDeleteModal}
                             postId={post?.id}

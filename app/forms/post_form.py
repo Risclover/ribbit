@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, FileField, SubmitField, IntegerField
-from wtforms.validators import DataRequired, Length, URL
+from wtforms import StringField, TextAreaField, SubmitField, IntegerField
+from wtforms.validators import DataRequired, Length
 
-
+# FORM FOR CREATING A POST
 class PostForm(FlaskForm):
     title = TextAreaField(
         "Title",
@@ -27,7 +27,7 @@ class PostForm(FlaskForm):
     community_id = IntegerField("CommunityId")
     submit = SubmitField("Submit")
 
-
+# FORM FOR UPDATING A POST
 class PostUpdateForm(FlaskForm):
     title = TextAreaField("Title",
         validators=[
@@ -51,7 +51,7 @@ class PostUpdateForm(FlaskForm):
     )
     submit = SubmitField("Submit")
 
-
+# FORM FOR CREATING AN IMAGE POST
 class ImagePostForm(FlaskForm):
     title = TextAreaField(
         "Title",
@@ -68,7 +68,7 @@ class ImagePostForm(FlaskForm):
     community_id = IntegerField("CommunityId")
     submit = SubmitField("Submit")
 
-
+# FORM FOR UPDATING AN IMAGE POST
 class UpdateImagePostForm(FlaskForm):
     title = TextAreaField(
         "Title",
@@ -84,7 +84,7 @@ class UpdateImagePostForm(FlaskForm):
     img_url = StringField("imgUrl")
     submit = SubmitField("Submit")
 
-
+# FORM FOR CREATING A LINK POST
 class LinkPostForm(FlaskForm):
     title = TextAreaField(
         "Title",

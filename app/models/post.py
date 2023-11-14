@@ -41,7 +41,6 @@ class Post(db.Model):
             "commentNum": len(self.post_comments),
             "communityId": self.community_id,
             "communityName": self.post_community.name,
-            "communityImg": self.post_community.community_img,
             "communityMembers": len(self.post_community.subscribers),
             "communityRules": {item.to_dict()["id"]: item.to_dict() for item in self.post_community.community_rules},
             "communityDesc": self.post_community.description,

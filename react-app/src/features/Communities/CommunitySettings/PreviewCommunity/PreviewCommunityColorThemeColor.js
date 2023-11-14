@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import PreviewCommunityColorPicker from "./PreviewCommunityColorPicker";
-import HandleClickOutside from "../../../../components/HandleClickOutside";
+import HandleClickOutside from "../../../../utils/HandleClickOutside";
 
 export default function PreviewCommunityColorThemeColor({
   name,
@@ -22,6 +22,7 @@ export default function PreviewCommunityColorThemeColor({
       });
     };
   }, [wrapperRef, openPicker]);
+
   return (
     <div
       className="preview-community-color-theme-color"

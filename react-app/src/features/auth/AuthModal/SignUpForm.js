@@ -5,12 +5,12 @@ import { signUp } from "../../../store/session";
 import SignUpFormInput from "./SignUpFormInput";
 import validator from "validator";
 import "./AuthModal.css";
+import GoogleLoginBtn from "./GoogleLoginBtn";
 
 const SignUpForm = ({
   showSignupForm,
   setShowSignupForm,
   setShowLoginForm,
-  val,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -132,6 +132,7 @@ const SignUpForm = ({
     <>
       {showSignupForm && (
         <div className="signup-form-container">
+          <GoogleLoginBtn />
           <form onSubmit={onSignUp} className="signup-form" autoComplete="off">
             <SignUpFormInput
               type="email"

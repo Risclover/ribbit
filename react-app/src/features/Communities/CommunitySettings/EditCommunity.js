@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, NavLink, useParams } from "react-router-dom";
-
-import { getSingleCommunity } from "../../../store/one_community";
+import { useHistory, NavLink, useParams, Link } from "react-router-dom";
 import { updateCommunity } from "../../../store/communities";
 import { getCommunityRules } from "../../../store/rules";
 import { Modal } from "../../../context/Modal";
-import DeleteConfirmation from "../../../components/Modals/DeleteConfirmation";
+import { DeleteConfirmationModal } from "../../../components";
 
-import AddCommunityRule from "./AddCommunityRule";
-import CommunityEditRule from "../CommunityEditRule";
+import AddCommunityRule from "../../../features/CommunityRules/components/AddCommunityRuleModal/AddCommunityRuleModal";
+import CommunityEditRule from "../../CommunityRules/components/CommunityEditRule";
 import "../CommunityPage.css";
-import { Link } from "react-router-dom";
 
 export default function EditCommunity() {
   const dispatch = useDispatch();
@@ -32,7 +29,6 @@ export default function EditCommunity() {
   const [description, setDescription] = useState(community?.description);
 
   useEffect(() => {
-    dispatch(getSingleCommunity(community?.id));
     dispatch(getCommunityRules(communityId));
   }, [community?.id, communityId, dispatch]);
 
@@ -67,7 +63,10 @@ export default function EditCommunity() {
     <div className="edit-community-page">
       <div className="edit-community-page-header">
         <div className="edit-community-top-bar">
-          <img src={community.communityImg} alt="Community" />
+          <img
+            src={community?.communitySettings[community?.id].communityIcon}
+            alt="Community"
+          />
           <span className="edit-community-top-bar-name">
             <NavLink to={`/c/${community.id}`}>c/{community.name}</NavLink> /
             Community Settings
@@ -191,7 +190,7 @@ export default function EditCommunity() {
                   onClose={() => setShowDeleteModal(false)}
                   title={`Delete community c/${community.name}?`}
                 >
-                  <DeleteConfirmation
+                  <DeleteConfirmationModal
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
                     item="community"

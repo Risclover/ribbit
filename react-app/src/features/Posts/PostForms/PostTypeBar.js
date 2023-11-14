@@ -1,8 +1,8 @@
 import React from "react";
-import PostTypeBtn from "./PostTypeBtn";
 import { CgNotes } from "react-icons/cg";
 import { RxImage } from "react-icons/rx";
 import { FiLink } from "react-icons/fi";
+import PostTypeBtn from "./PostTypeBtn";
 
 export default function PostTypeBar({ postType, setPostType }) {
   return (

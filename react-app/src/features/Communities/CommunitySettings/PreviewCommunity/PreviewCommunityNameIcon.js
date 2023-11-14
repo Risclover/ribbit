@@ -1,20 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CommunityNameOption from "./CommunityNameOption";
-import { FaTrash } from "react-icons/fa6";
-import { RiUploadCloudFill } from "react-icons/ri";
 import DropBox from "../../../../components/DragNDropImageUpload/DropBox";
 import { useDispatch } from "react-redux";
 import { getSingleCommunity } from "../../../../store/one_community";
+import { defaultCommunityImg } from "../../../../store/communities";
 import {
-  defaultCommunityImg,
-  editCommunityTheme,
-} from "../../../../store/communities";
-import {
-  resetToDefault,
   resetToDefaultIcon,
   updateSettingsNameIcon,
 } from "../../../../store/community_settings";
-import ToggleSwitch from "../../../../components/ToggleSwitch/ToggleSwitch";
+import { ToggleSwitch } from "../../../../components";
 
 export default function PreviewCommunityNameIcon({
   setOpenAppearance,
@@ -28,9 +22,14 @@ export default function PreviewCommunityNameIcon({
 }) {
   const dispatch = useDispatch();
   const options = ["c/", "", "Hide"];
-  const [image, setImage] = useState(null);
-  const [errorMsg, setErrorMsg] = useState("");
+
+  const [image, setImage] = useState(
+    community.communitySettings[community.id].communityIcon
+  );
   const [defaultIcon, setDefaultIcon] = useState(image === undefined);
+  const [preview, setPreview] = useState(
+    community.communitySettings[community.id].communityIcon
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,30 +38,13 @@ export default function PreviewCommunityNameIcon({
       dispatch(getSingleCommunity(community.id));
       setOpenAppearance(false);
     } else if (image && image !== "https://i.imgur.com/9CI9hiO.png") {
-      const formData = new FormData();
-      formData.append("image", image);
-
-      const res = await fetch(`/api/communities/${community.id}/img`, {
-        method: "POST",
-        body: formData,
-      });
-      if (res.ok) {
-        await res.json();
-        dispatch(getSingleCommunity(community.id));
-        setOpenAppearance(false);
-      } else {
-        setErrorMsg(
-          "There was a problem with your upload. Make sure your file is a .jpg or .png file, and try again."
-        );
-
-        console.log(errorMsg);
-      }
+      handleImgUpload();
     }
 
     if (defaultIcon) {
       defaultCommunityIcon();
     } else {
-      changeCommunityIcon();
+      handleImgUpload();
     }
 
     dispatch(
@@ -84,7 +66,18 @@ export default function PreviewCommunityNameIcon({
     setCommunityIcon("https://i.imgur.com/9CI9hiO.png");
   };
 
-  const changeCommunityIcon = async () => {
+  const handlePreview = () => {
+    return;
+  };
+
+  const handleDelete = (e) => {
+    setDefaultIcon(true);
+    setImage("https://i.imgur.com/9CI9hiO.png");
+
+    handleSubmit(e);
+  };
+
+  const handleImgUpload = async () => {
     const formData = new FormData();
     formData.append("image", image);
     const res = await fetch(`/api/communities/${community?.id}/img`, {
@@ -94,11 +87,6 @@ export default function PreviewCommunityNameIcon({
     if (res.ok) {
       await res.json();
       dispatch(getSingleCommunity(community?.id));
-      setOpenAppearance(false);
-    } else {
-      setErrorMsg(
-        "There was a problem with your upload. Make sure your file is a .jpg or .png file, and try again."
-      );
     }
   };
 
@@ -122,7 +110,6 @@ export default function PreviewCommunityNameIcon({
         <h2>Community Icon</h2>
         <div className="preview-community-name-icon-box">
           <h3>Custom Image</h3>
-
           <DropBox
             dropboxType="community_icon"
             community={community}
@@ -130,7 +117,12 @@ export default function PreviewCommunityNameIcon({
             startingImage={
               community.communitySettings[community.id].communityIcon
             }
+            preview={preview}
+            setPreview={setPreview}
             setDefaultIcon={setDefaultIcon}
+            handlePreview={handlePreview}
+            handleDelete={handleDelete}
+            handleImgUpload={handleImgUpload}
           />
           <p>Required size: 256x256px</p>
         </div>

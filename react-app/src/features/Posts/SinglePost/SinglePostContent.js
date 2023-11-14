@@ -1,12 +1,11 @@
 import React from "react";
-import parse from "html-react-parser";
-import cutLink from "./SliceUrl";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
+import parse from "html-react-parser";
 import LazyLoad from "react-lazyload";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { NavLink } from "react-router-dom";
+import cutLink from "./SliceUrl";
 
 export default function SinglePostContent({ post, isPage }) {
   return (

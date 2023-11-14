@@ -7,7 +7,7 @@ import {
   getFavoriteCommunities,
   removeFavoriteCommunity,
 } from "../../../store/favorite_communities";
-import HandleClickOutside from "../../../components/HandleClickOutside";
+import HandleClickOutside from "../../../utils/HandleClickOutside";
 
 export default function CommunityInfoMenu() {
   const wrapperRef = useRef(null);
@@ -48,16 +48,16 @@ export default function CommunityInfoMenu() {
     setOpenMenu(false);
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(e, wrapperRef, openMenu, setOpenMenu);
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(e, wrapperRef, openMenu, setOpenMenu);
-      });
-    };
-  }, [wrapperRef, openMenu]);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", function (e) {
+  //     HandleClickOutside(e, wrapperRef, openMenu, setOpenMenu);
+  //   });
+  //   return () => {
+  //     document.removeEventListener("mousedown", function (e) {
+  //       HandleClickOutside(e, wrapperRef, openMenu, setOpenMenu);
+  //     });
+  //   };
+  // }, [wrapperRef, openMenu]);
 
   return (
     <div className="community-page-menu">
