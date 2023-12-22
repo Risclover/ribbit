@@ -29,7 +29,7 @@ function getContrast(f, b) {
 //   return whiteContrast > blackContrast ? "#ffffff" : "#000000";
 // }
 
-export default function getTextColor(hexcolor) {
+export function getTextColor(hexcolor) {
   // If a leading # is provided, remove it
   if (hexcolor.slice(0, 1) === "#") {
     hexcolor = hexcolor.slice(1);
@@ -56,4 +56,3 @@ export default function getTextColor(hexcolor) {
   // Check contrast
   return yiq >= 128 ? "black" : "white";
 }
-

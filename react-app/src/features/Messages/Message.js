@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import moment from "moment";
-import MessageReply from "./MessageReply";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import { readMessage } from "../../store/threads";
 import { getMessages } from "../../store/messages";
+import { MessageReply } from "./MessageReply";
 
 moment.updateLocale("en-message", {
   relativeTime: {
@@ -25,7 +25,7 @@ moment.updateLocale("en-message", {
   },
 });
 
-export default function Message({ message, item, allExpanded }) {
+export function Message({ message, item, allExpanded }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const [expanded, setExpanded] = useState(true);

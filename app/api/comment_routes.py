@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, Comment, User, CommentVote
+from app.models import db, Comment, User, CommentVote, Post
 from app.forms.comment_form import CommentForm
 from .auth_routes import validation_errors_to_error_messages
 
@@ -14,7 +14,6 @@ def get_comments():
     """
     comments = Comment.query.all()
     return {"Comments": [comment.to_dict() for comment in comments]}
-
 
 # GET A SINGLE COMMENT:
 @comment_routes.route("/<int:id>")
@@ -46,7 +45,9 @@ def create_comment(id):
             post_id=id
         )
 
+        post = Post.query.get(id)
         db.session.add(new_comment)
+        post.post_comments.append(new_comment)
         db.session.commit()
 
         return new_comment.to_dict()

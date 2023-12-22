@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+
 import { getCommunities } from "../../store/communities";
 import "./CommunitiesDirectory.css";
 
-export default function CommunitiesDirectory({ setPageTitle }) {
+export function CommunitiesDirectory({ setPageTitle }) {
   const dispatch = useDispatch();
 
   const communities = useSelector((state) => Object.values(state.communities));

@@ -1,7 +1,7 @@
 import React from "react";
-import CreatePostBar from "../components/CreatePostBar/CreatePostBar";
+import { CreatePostBar } from "../components";
 
-export default function Homepage() {
+export function Homepage() {
   return (
     <div
       className={format === "Card" ? "posts-container" : "posts-container-alt"}
@@ -16,16 +16,13 @@ export default function Homepage() {
         >
           <CreatePostBar />
           {!noPosts && (
-            <SortingBar
-              sortMode={sortMode}
-              setSortMode={setSortMode}
-              setFormat={setFormat}
-              format={format}
-            />
+            <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
           )}
-          {noPosts && <div className="no-posts-div">
-            <i className="fa-solid fa-people-group"></i>
-            </div>}
+          {noPosts && (
+            <div className="no-posts-div">
+              <i className="fa-solid fa-people-group"></i>
+            </div>
+          )}
         </div>
       )}
     </div>

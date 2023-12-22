@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { putSinglePost } from "../../../store/posts";
 import ReactQuill from "react-quill";
+
+import { putSinglePost } from "../../../store/posts";
 import "react-quill/dist/quill.snow.css";
 import "./PostForm.css";
 
@@ -22,7 +23,7 @@ const modules = {
   ],
 };
 
-export default function UpdatePost() {
+export function UpdatePost() {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();

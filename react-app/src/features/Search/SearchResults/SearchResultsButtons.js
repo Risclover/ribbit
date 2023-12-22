@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function SearchResultsButtons({ searchPage, setSearchPage }) {
+export function SearchResultsButtons({ searchPage, setSearchPage }) {
   return (
     <div className="search-results-btns">
       <button

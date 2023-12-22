@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function CommunityWelcomeModal({
+export function CommunityWelcomeModal({
   showWelcomeModal,
   setShowWelcomeModal,
 }) {

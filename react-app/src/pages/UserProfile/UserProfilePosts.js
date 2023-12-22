@@ -2,15 +2,14 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { IoIosPaper } from "react-icons/io";
 import { SortingBar } from "../../components";
-import SinglePost from "../../features/Posts/SinglePost/SinglePost";
+import { SinglePost } from "../../features";
 
-export default function UserProfilePosts({
+export function UserProfilePosts({
   user,
   posts,
   userId,
   sortMode,
   setSortMode,
-  setShowLoginForm,
 }) {
   return (
     <div className="user-profile-posts-page">
@@ -36,10 +35,7 @@ export default function UserProfilePosts({
               format="Card"
               key={post.id}
               id={post.id}
-              isCommunity={false}
               isPage="profile"
-              userId={+userId}
-              setShowLoginForm={setShowLoginForm}
             />
           </NavLink>
         ) : (

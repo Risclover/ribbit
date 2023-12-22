@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { TfiClose } from "react-icons/tfi";
+import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { TfiClose } from "react-icons/tfi";
+import { SelectedChatContext } from "../../../context/SelectedChat";
 
-export default function ChatWindowTitleBar({
-  selectedChat,
-  setOpenChat,
-  newChatOverlay,
-}) {
+export function ChatWindowTitleBar({ setOpenChat, newChatOverlay }) {
   const currentUser = useSelector((state) => state.session.user);
   const [receiver, setReceiver] = useState(null);
+
+  const { selectedChat } = useContext(SelectedChatContext);
 
   useEffect(() => {
     if (selectedChat && selectedChat.users) {

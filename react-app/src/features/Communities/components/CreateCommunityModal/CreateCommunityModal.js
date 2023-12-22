@@ -5,7 +5,7 @@ import { addCommunity } from "../../../../store/communities";
 import { addToSubscriptions } from "../../../../store/subscriptions";
 import "./CreateCommunityModal.css";
 
-export default function CreateCommunityModal({
+export function CreateCommunityModal({
   showCreateCommunityModal,
   setShowCreateCommunityModal,
 }) {
@@ -30,7 +30,6 @@ export default function CreateCommunityModal({
     } else {
       errors = [];
       const data = await dispatch(addCommunity({ name, description }));
-      console.log("data:", data);
 
       if (data.length > 0) {
         setErrors([...errors, "That name is already taken."]);

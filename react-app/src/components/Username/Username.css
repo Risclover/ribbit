@@ -10,30 +10,6 @@
   padding: 12px 12px 0;
 }
 
-.username-component-wrapper {
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  color: rgb(120, 124, 126);
-  text-decoration: none;
-  line-height: 16px;
-  margin: auto 4px;
-  transition: 0s;
-}
-
-.username-component {
-  cursor: pointer;
-}
-
-.username-component-wrapper:hover {
-  text-decoration: underline;
-}
-
-.username-component-wrapper:hover > .username-popup {
-  visibility: visible;
-  transition-delay: 0.5s;
-}
-
 .username-popup-user-info {
   display: flex;
 }
@@ -99,4 +75,28 @@
 .username-popup-btn-btm {
   margin-top: 4px !important;
   margin-bottom: 8px !important;
+}
+
+.username-component-wrapper {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgb(120, 124, 126);
+  text-decoration: none;
+  line-height: 16px;
+  margin: auto 4px;
+  transition: 0s;
+}
+
+.username-component {
+  cursor: pointer;
+}
+
+.username-component-wrapper:hover {
+  text-decoration: underline;
+}
+
+.username-component-wrapper:hover > .username-popup {
+  visibility: visible;
+  transition-delay: 0.5s;
 }

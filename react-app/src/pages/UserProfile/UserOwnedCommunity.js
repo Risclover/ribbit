@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
-export default function UserOwnedCommunity({ community }) {
+export function UserOwnedCommunity({ community }) {
   return (
     <div className="profile-owned-community">
       <div className="profile-owned-community-left">

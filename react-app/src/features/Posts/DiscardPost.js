@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-export default function DiscardPost({
+export function DiscardPost({
   showDiscardModal,
   setShowDiscardModal,
   community_id,

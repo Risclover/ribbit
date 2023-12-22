@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import HandleClickOutside from "../../utils/HandleClickOutside";
+import { HandleClickOutside } from "../../utils";
 import "./Comments.css";
 
-export default function CommentSorting({ sortType, setSortType }) {
+export function CommentSorting({ sortType, setSortType }) {
   const [showSortingDropdown, setShowSortingDropdown] = useState(false);
   const wrapperRef = useRef(null);
 

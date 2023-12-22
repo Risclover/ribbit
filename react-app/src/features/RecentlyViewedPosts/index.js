@@ -1,0 +1,1 @@
+export { RecentlyViewedPosts } from "./RecentlyViewedPosts";

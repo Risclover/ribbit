@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { TfiBell } from "react-icons/tfi";
+
+import { NotificationsDropdown } from "./NotificationsDropdown";
+import { HandleClickOutside } from "../../../utils/HandleClickOutside";
 import "../NavBar.css";
 import "./NotificationsDropdown.css";
-import { useSelector } from "react-redux";
-import NotificationsDropdown from "./NotificationsDropdown";
-import HandleClickOutside from "../../../utils/HandleClickOutside";
 
-export default function NotificationsDropdownWrapper({
-  msgNum,
-  notificationNum,
-}) {
+export function NotificationsDropdownWrapper({ msgNum, notificationNum }) {
   const wrapperRef = useRef(null);
 
   const notificationsList = useSelector((state) =>

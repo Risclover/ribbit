@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
-import HandleClickOutside from "../../../../utils/HandleClickOutside";
-import SearchResultsSortBtn from "./SearchResultsSortBtn";
+import { SearchResultsSortBtn } from "./SearchResultsSortBtn";
+import { HandleClickOutside } from "../../../../utils";
 
-export default function SearchResultsSort({ searchPage }) {
+export function SearchResultsSort({ searchPage }) {
   const wrapperRef = useRef(null);
 
   const [sortOpen, setSortOpen] = useState(false);

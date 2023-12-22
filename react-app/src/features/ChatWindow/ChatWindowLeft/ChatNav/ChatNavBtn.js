@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getChatThread, readAllMessages } from "../../../../store/chats";
-import formatDate from "../../ChatWindowRight/ChatWindowMessages/formatDate";
+import { formatDate } from "../../ChatWindowRight/ChatWindowMessages/formatDate";
 import "./ChatNav.css";
+import { SelectedChatContext } from "../../../../context/SelectedChat";
 
-export default function ChatNavBtn({
+export function ChatNavBtn({
   chatThread,
-  setSelectedChat,
-  selectedChat,
   handleOpenChatThread,
   setWelcomeOverlay,
   setNewChatOverlay,
@@ -15,6 +14,8 @@ export default function ChatNavBtn({
 }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
+  const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
+
   const [receiver, setReceiver] = useState(null);
   const [sender, setSender] = useState();
   const [time, setTime] = useState(() => {

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { TfiPlus } from "react-icons/tfi";
-
 import { useDispatch } from "react-redux";
+import { TfiPlus } from "react-icons/tfi";
 import { getChatThread, createReaction } from "../../../../../store/chats";
-
 import "./ReactionsMenu.css";
 
 const reactions = [
@@ -79,7 +77,7 @@ const reactions = [
   "/images/frog-reactions-cropped/71.gif",
 ];
 
-export default function ReactionsMenuSmall({ message }) {
+export function ReactionsMenuSmall({ message }) {
   const dispatch = useDispatch();
   const [msgId, setMsgId] = useState(message?.id);
   const [openMenu, setOpenMenu] = useState(false);

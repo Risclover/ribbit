@@ -1,0 +1,1 @@
+export { SingleImagePage } from "./SingleImagePage";

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function PostTypeBtn({ children, type, postType, setPostType }) {
+export function PostTypeBtn({ children, type, postType, setPostType }) {
   const handlePostType = (e, type) => {
     e.preventDefault();
     setPostType(type);

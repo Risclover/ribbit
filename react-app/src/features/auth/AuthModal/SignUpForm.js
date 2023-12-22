@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signUp } from "../../../store/session";
-import SignUpFormInput from "./SignUpFormInput";
+import { SignUpFormInput } from "./SignUpFormInput";
 import validator from "validator";
 import "./AuthModal.css";
-import GoogleLoginBtn from "./GoogleLoginBtn";
+import { getUsers } from "../../../store/users";
 
-const SignUpForm = ({
+export const SignUpForm = ({
   showSignupForm,
   setShowSignupForm,
   setShowLoginForm,
@@ -26,6 +26,10 @@ const SignUpForm = ({
   const [errors, setErrors] = useState([]);
 
   const allUsers = useSelector((state) => Object.values(state.users));
+
+  useEffect(() => {
+    getUsers();
+  }, [dispatch]);
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -128,56 +132,68 @@ const SignUpForm = ({
     }
   };
 
+  const emailInputProps = {
+    type: "email",
+    name: "email",
+    inputValue: email,
+    errors: emailErrors,
+    label: "Email",
+    maxLength: 255,
+    autoCompleteStatus: "off",
+  };
+
+  const usernameInputProps = {
+    type: "text",
+    name: "username",
+    inputValue: username,
+    errors: usernameErrors,
+    maxLength: 20,
+    label: "Username",
+    autoCompleteStatus: "off",
+  };
+
+  const passwordInputProps = {
+    type: "password",
+    name: "password",
+    inputValue: password,
+    errors: passwordErrors,
+    label: "Password",
+    maxLength: 255,
+    autoCompleteStatus: "new-password",
+  };
+
+  const repeatPasswordInputProps = {
+    type: "password",
+    name: "repeat-password",
+    inputValue: repeatPassword,
+    errors: errors,
+    label: "Repeat Password",
+    maxLength: 255,
+    autoCompleteStatus: "new-password",
+  };
+
+  const handleUsername = (e) => {
+    setUsername(e.target.value);
+  };
+
   return (
     <>
       {showSignupForm && (
         <div className="signup-form-container">
-          <GoogleLoginBtn />
           <form onSubmit={onSignUp} className="signup-form" autoComplete="off">
+            <SignUpFormInput props={emailInputProps} onChange={setEmail} />
             <SignUpFormInput
-              type="email"
-              name="email"
-              onChangeValue={setEmail}
-              inputValue={email}
-              errors={emailErrors}
-              label="Email"
-              maxLength={255}
-              autoCompleteStatus="off"
+              props={usernameInputProps}
+              onChange={setUsername}
             />
-
             <SignUpFormInput
-              type="text"
-              name="username"
-              onChangeValue={setUsername}
-              inputValue={username}
-              errors={usernameErrors}
-              maxLength={20}
-              label="Username"
-              autoCompleteStatus="off"
+              props={passwordInputProps}
+              onChange={setPassword}
             />
-
             <SignUpFormInput
-              type="password"
-              name="password"
-              onChangeValue={setPassword}
-              inputValue={password}
-              errors={passwordErrors}
-              label="Password"
-              maxLength={255}
-              autoCompleteStatus="new-password"
+              props={repeatPasswordInputProps}
+              onChange={setRepeatPassword}
             />
-
-            <SignUpFormInput
-              type="password"
-              name="repeat_password"
-              onChangeValue={setRepeatPassword}
-              inputValue={repeatPassword}
-              errors={errors}
-              label="Repeat Password"
-              maxLength={255}
-              autoCompleteStatus="new-password"
-            />
-
             <button className="signup-form-submit">Sign Up</button>
             <p className="sign-in-switch">
               Already a ribbitor?{" "}
@@ -196,5 +212,3 @@ const SignUpForm = ({
     </>
   );
 };
-
-export default SignUpForm;

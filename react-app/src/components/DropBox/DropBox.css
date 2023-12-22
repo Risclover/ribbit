@@ -1,0 +1,106 @@
+.page {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-button {
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 1rem;
+  border: none;
+  font-family: "Oswald", sans-serif;
+  background-color: transparent;
+}
+
+.upload-button:hover {
+  text-decoration-line: underline;
+}
+
+.preview-community-icon-preview {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  height: 100px;
+}
+
+.preview-community-upload-txt {
+  color: #7c7c7c;
+  font-size: 11px;
+}
+
+.upload label {
+  height: 100%;
+  width: 100%;
+  background: #f6f7f8;
+  border: 1px solid #edeff1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 1;
+  text-align: center;
+}
+
+.upload.is-drop label,
+.upload.is-preview label {
+  opacity: 0;
+}
+.preview-community-upload-icon {
+  color: #878a8c;
+  font-size: 40px;
+}
+
+.dropbox {
+  height: 100px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.upload {
+  position: relative;
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: var(--newCommunityTheme-field);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.preview-community-icon-preview-bar {
+  background: rgba(28, 28, 28, 0.9);
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: transform 0.3s;
+  right: 0;
+  padding: 3px;
+}
+
+.icon-preview-hidden {
+  animation-name: slide-down;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.icon-preview-bar-appear {
+  animation-name: slide-up;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.preview-community-icon-preview-bar button {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: white;
+  padding: 0;
+  height: auto;
+  cursor: pointer;
+  line-height: 24px;
+}

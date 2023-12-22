@@ -5,9 +5,14 @@
   border: 1px solid #ccc;
   padding: 10px 12px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
   height: 60px;
+}
+
+.post-sorting-bar-left {
+  display: flex;
 }
 
 .post-sorting-bar-btn {
@@ -50,14 +55,4 @@
 .post-sorting-bar-btn:hover,
 .post-sorting-bar.active-sort-btn:hover {
   background: #1c1c1c11;
-}
-
-.post-sorting-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.post-sorting-bar-left {
-  display: flex;
 }

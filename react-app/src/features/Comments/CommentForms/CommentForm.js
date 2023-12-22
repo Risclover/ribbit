@@ -6,10 +6,11 @@ import {
   addNotification,
   getAllNotifications,
 } from "../../../store/notifications";
-import LoginSignupModal from "../../auth/LoginSignupModal";
+import { LoginSignupModal } from "../../../features";
 import "../Comments.css";
+import { getPostComments } from "../../../store/posts";
 
-export default function CommentForm({ postId }) {
+export function CommentForm({ postId }) {
   const dispatch = useDispatch();
 
   const [content, setContent] = useState("");
@@ -21,6 +22,7 @@ export default function CommentForm({ postId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let errors = [];
+
     if (content.trim().length === 0)
       errors.push("Please add some content to your comment.");
     if (errors.length > 0) {
@@ -38,6 +40,7 @@ export default function CommentForm({ postId }) {
       dispatch(getAllNotifications());
       setErrors([]);
       setContent("");
+      dispatch(getPostComments(postId));
     }
   };
 

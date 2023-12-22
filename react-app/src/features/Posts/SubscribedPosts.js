@@ -1,37 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+
+import { getCommunities } from "../../store/communities";
+import { getFollowers } from "../../store/followers";
+import { getPosts } from "../../store/posts";
+import { getSubscriptions } from "../../store/subscriptions";
 import { getViewedPosts } from "../../store/viewed_posts";
-import SinglePost from "./SinglePost/SinglePost";
+
 import {
   BackToTop,
   SortingBar,
   LoadingEllipsis,
   CreatePostBar,
 } from "../../components";
-import { DeveloperLinksBox } from "./DeveloperLinksBox";
-import AboutBox from "./AboutBox";
-import SortingFunction from "./utils/SortingFunction";
+import {
+  SinglePost,
+  DeveloperLinksBox,
+  AboutBox,
+  RecentlyViewedPosts,
+  PostFeed,
+} from "../../features";
+import { SortingFunction } from "./utils";
 import Home from "../../assets/images/navbar/home-icon.png";
-import { RecentPosts } from "../RecentPosts";
 import "./Posts.css";
-import { getSubscriptions } from "../../store/subscriptions";
-import { getCommunities } from "../../store/communities";
-import { getPosts } from "../../store/posts";
+import { PostFormatContext } from "../../context/PostFormat";
 
 export function SubscribedPosts({
-  format,
   setPageTitle,
   setPageIcon,
-  setFormat,
   setShowLoginForm,
 }) {
   const dispatch = useDispatch();
-  let postList = [];
+  const { format } = useContext(PostFormatContext);
 
-  const [noPosts, setNoPosts] = useState(false);
   const [loader, setLoader] = useState(true);
-  const [items, setItems] = useState(postList.slice(10, 15));
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(2);
   const [sortMode, setSortMode] = useState("new");
@@ -41,14 +45,16 @@ export function SubscribedPosts({
   const subscriptions = useSelector((state) =>
     Object.values(state.subscriptions)
   );
-
+  const follows = useSelector((state) => state.followers);
   const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
+
+  let followedPosts = follows.posts;
 
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getPosts());
-    dispatch(getViewedPosts());
     dispatch(getSubscriptions());
+    dispatch(getFollowers());
   }, [dispatch]);
 
   useEffect(() => {
@@ -59,53 +65,50 @@ export function SubscribedPosts({
     setPageTitle(<span className="nav-left-dropdown-item">Home</span>);
   }, [dispatch]);
 
-  for (let post of subscriptions) {
-    if (post?.subscribers[user?.id]?.id === user?.id) {
-      Object.values(post?.communityPosts).forEach((communityPost) => {
-        postList.push(communityPost);
-      });
+  const postList = subscriptions.reduce((acc, sub) => {
+    if (sub.subscribers[user?.id]?.id === user?.id) {
+      acc.push(...Object.values(sub.communityPosts));
     }
-  }
+    return acc;
+  }, []);
 
   SortingFunction(postList, sortMode);
-
-  useEffect(() => {
-    if (postList.length === 0) {
-      setNoPosts(true);
-    } else {
-      setNoPosts(false);
-    }
-  }, [noPosts, postList, subscriptions, user?.id]);
 
   const loadMore = () => {
     setLoading(true);
     setTimeout(() => {
-      setItems([...items, ...postList.slice(page * 5, page * 5 + 5)]);
-      setPage(page + 1);
+      setItems((prevItems) => [
+        ...prevItems,
+        ...postList.slice(page * 5, page * 5 + 5),
+      ]);
+      setPage((prevPage) => prevPage + 1);
       setLoading(false);
     }, 1000);
   };
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+          document.body.offsetHeight - 500 &&
+        !loading
+      ) {
+        loadMore();
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [items]);
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
-      !loading
-    ) {
-      loadMore();
-    }
-  };
+  }, [items, loading]);
 
   setTimeout(() => {
     setLoader(false);
   }, 3000);
 
+  console.log("Items:", items);
+  console.log("post list:", postList);
   if (!user || !communities) return null;
 
   return (
@@ -122,33 +125,24 @@ export function SubscribedPosts({
             }
           >
             <CreatePostBar />
-            {!noPosts && (
-              <SortingBar
-                sortMode={sortMode}
-                setSortMode={setSortMode}
-                setFormat={setFormat}
-                format={format}
-              />
-            )}
-            {noPosts && (
-              <div className="no-posts-div">
-                <i className="fa-solid fa-people-group"></i>
-                <h1 className="head">No Subscriptions Yet</h1>
-                <p>
-                  Explore the All feed or the Communities Directory to discover
-                  new communities.
-                </p>
-              </div>
-            )}
-            {postList.slice(0, 10).map((post, idx) => (
+            {!postList ||
+              (postList.length === 0 && (
+                <div className="no-posts-div">
+                  <i className="fa-solid fa-people-group"></i>
+                  <h1 className="head">No Subscriptions Yet</h1>
+                  <p>
+                    Explore the All feed or the Communities Directory to
+                    discover new communities.
+                  </p>
+                </div>
+              ))}
+            {/* {postList.slice(0, 10).map((post, idx) => (
               <NavLink key={post.id} to={`/posts/${post.id}`}>
                 <SinglePost
                   key={idx}
-                  setShowLoginForm={setShowLoginForm}
                   id={post.id}
                   postComments={Object.values(post.postComments).length}
                   isCommunity={false}
-                  format={format}
                 />
               </NavLink>
             ))}
@@ -156,14 +150,18 @@ export function SubscribedPosts({
               <NavLink key={post.id} to={`/posts/${post.id}`}>
                 <SinglePost
                   key={idx + 10}
-                  setShowLoginForm={setShowLoginForm}
                   id={post.id}
                   postComments={Object.values(post.postComments).length}
                   isCommunity={false}
-                  format={format}
                 />
               </NavLink>
-            ))}
+            ))} */}
+            {postList && postList.length > 0 && (
+              <>
+                <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+                <PostFeed posts={postList} />
+              </>
+            )}
           </div>
           <div className="posts-right-col">
             <AboutBox
@@ -171,7 +169,7 @@ export function SubscribedPosts({
               description="Your personal Ribbit frontpage. Come here to check in with your favorite communities."
               user={user}
             />
-            {viewedPosts && viewedPosts.length > 0 && <RecentPosts />}
+            {viewedPosts && viewedPosts.length > 0 && <RecentlyViewedPosts />}
             <div className="last-box-wrapper">
               <DeveloperLinksBox />
               <BackToTop />

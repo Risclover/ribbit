@@ -162,3 +162,27 @@
 .nav-user-top-section {
   border-bottom: 1px solid #edeff1;
 }
+
+@media (max-width: 1200px) {
+  .navbar-user-info {
+    display: none;
+  }
+
+  .navbar-user-dropdown {
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .nav-user-dropdown-box {
+    top: 42px;
+    right: 15px;
+  }
+
+  .navbar-user-info-details {
+    width: auto;
+  }
+
+  .navbar-user-dropdown-face {
+    width: 100%;
+  }
+}

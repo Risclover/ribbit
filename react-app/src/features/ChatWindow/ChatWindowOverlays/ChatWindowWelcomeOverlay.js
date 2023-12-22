@@ -3,7 +3,7 @@ import FrogLogo from "../../../assets/images/ribbit-banners/frog-logo1.png";
 import CreateChat from "../../../assets/images/create-chat-white.png";
 import "./ChatWindowOverlay.css";
 
-export default function ChatWindowWelcomeOverlay({ setNewChatOverlay }) {
+export function ChatWindowWelcomeOverlay({ setNewChatOverlay }) {
   return (
     <div className="overlay-container">
       <div className="welcome-overlay">

@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../../store/users";
+import { BsSearch } from "react-icons/bs";
+
+import { getAllComments } from "../../../store/comments";
 import { getCommunities } from "../../../store/communities";
 import { getPosts } from "../../../store/posts";
-import { getAllComments } from "../../../store/comments";
 import { search } from "../../../store/search";
-import { BsSearch } from "react-icons/bs";
+import { getUsers } from "../../../store/users";
+
+import {
+  SearchResultsPeople,
+  SearchResultsCommunities,
+  SearchResultsComments,
+  SearchResultsPosts,
+  SearchResultsButtons,
+  SearchResultsSorting,
+} from "../../../features";
 import SearchDude from "../../../assets/images/search-icon.png";
-import SearchResultsPeople from "./SearchResultsPeople";
-import SearchResultsCommunities from "./SearchResultsCommunities";
-import SearchResultsComments from "./SearchResultsComments";
-import SearchResultsPosts from "./SearchResultsPosts";
-import SearchResultsButtons from "./SearchResultsButtons";
-import SearchResultsSorting from "./SearchResultsSorting/SearchResultsSorting";
 import "./SearchResults.css";
 
-export default function SearchResults({
+export function SearchResults({
   setPageTitle,
   setPageIcon,
   searchQuery,
@@ -24,6 +28,14 @@ export default function SearchResults({
 }) {
   const dispatch = useDispatch();
   const [searchPage, setSearchPage] = useState("Posts");
+
+  const queryParameters = new URLSearchParams(window.location.search);
+  const type = queryParameters.get("type");
+  const name = queryParameters.get("name");
+
+  useEffect(() => {
+    dispatch(getCommunities());
+  }, [dispatch]);
 
   const allCommunities = useSelector((state) => state.communities);
   const allUsers = useSelector((state) => state.users);
@@ -62,7 +74,7 @@ export default function SearchResults({
       communityImg:
         Object.values(allPosts)[i].communitySettings[
           Object.values(allPosts)[i].id
-        ].communityIcon,
+        ]?.communityIcon,
       id: Object.values(allPosts)[i].id,
       createdAt: Object.values(allPosts)[i].createdAt,
       updatedAt: Object.values(allPosts)[i].updatedAt,
@@ -127,12 +139,12 @@ export default function SearchResults({
   }
 
   useEffect(() => {
+    dispatch(getCommunities());
     dispatch(getPosts());
     dispatch(getUsers());
     dispatch(search(searchQuery));
     dispatch(getAllComments());
-    dispatch(getCommunities());
-  }, [dispatch, searchQuery]);
+  }, [dispatch]);
 
   return (
     <div className="search-results-page">

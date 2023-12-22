@@ -5,9 +5,9 @@ import parse from "html-react-parser";
 import LazyLoad from "react-lazyload";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import cutLink from "./SliceUrl";
+import { sliceUrl } from "../../../utils";
 
-export default function SinglePostContent({ post, isPage }) {
+export function SinglePostContent({ post, isPage }) {
   return (
     <div className="single-post-content-box">
       <div className="single-post-content-box-left">
@@ -38,7 +38,7 @@ export default function SinglePostContent({ post, isPage }) {
             }`}
             target="_blank"
           >
-            {cutLink(post.linkUrl)}
+            {sliceUrl(post.linkUrl)}
             <HiOutlineExternalLink />
           </a>
         ) : post.imgUrl === null && post.linkUrl === null ? (

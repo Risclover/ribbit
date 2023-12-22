@@ -1,21 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createChatMessage,
   createChatThread,
   getChatThread,
 } from "../../../../store/chats";
-import useAutosizeTextArea from "./useAutosizeTextArea";
-import Emojis from "./Emojis";
+import { useAutosizeTextArea, Gifs, Emojis } from "../../../../features";
 import GifIcon from "../../../../assets/images/gif-icon.png";
 import GifIconDark from "../../../../assets/images/gif-icon-dark.png";
-import Gifs from "./Gifs";
 import "./ChatWindowInput.css";
+import { SelectedChatContext } from "../../../../context/SelectedChat";
 
-export default function ChatWindowInput({
+export function ChatWindowInput({
   socket,
-  selectedChat,
-  setSelectedChat,
   messageInviteOverlay,
   setMessageInviteOverlay,
   userFound,
@@ -23,6 +20,8 @@ export default function ChatWindowInput({
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const textareaRef = useRef(null);
+
+  const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
 
   const [openGiphy, setOpenGiphy] = useState(false);
   const [gifIcon, setGifIcon] = useState(GifIcon);
@@ -143,7 +142,6 @@ export default function ChatWindowInput({
       {openGiphy && (
         <Gifs
           receiver={receiver}
-          selectedChat={selectedChat}
           setGifIcon={setGifIcon}
           GifIcon={GifIcon}
           gifIcon={gifIcon}
@@ -168,7 +166,6 @@ export default function ChatWindowInput({
       {emojisOverlay && (
         <Emojis
           receiver={receiver}
-          selectedChat={selectedChat}
           setEmojisOverlay={setEmojisOverlay}
           socket={socket}
         />

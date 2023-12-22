@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import moment from "moment";
 import { readNotification } from "../../../store/notifications";
 import { readMessage } from "../../../store/threads";
-import moment from "moment";
-import MessageReply from "../MessageReply";
+import { MessageReply } from "../MessageReply";
 
-export default function InboxMessage({
-  item,
-  marked,
-  message,
-  currentUser,
-  expanded,
-}) {
+export function InboxMessage({ item, marked, message, currentUser, expanded }) {
   const dispatch = useDispatch();
   const [markedUnread, setMarkedUnread] = useState(marked || false);
 

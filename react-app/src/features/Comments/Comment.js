@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useParams } from "react-router-dom";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import parse from "html-react-parser";
 import moment from "moment";
-
+import { Modal } from "../../context";
 import { getUsers } from "../../store/users";
 import { addCommentVote, removeCommentVote } from "../../store/comments";
-import { NavLink, useParams } from "react-router-dom";
-import { Modal } from "../../context/Modal";
-// import DeleteConfirmationModal from "../../components/DeleteConfirmationModal";
-import EditComment from "./EditComment";
-
-import "./Comments.css";
-import { getSinglePost } from "../../store/one_post";
+import { EditComment } from "../../features";
 import { Username, DeleteConfirmationModal } from "../../components";
+import "./Comments.css";
 
 moment.updateLocale("en-comment", {
   relativeTime: {
@@ -61,36 +57,31 @@ function Text({ content }) {
   }
 }
 
-export default function Comment({ commentId }) {
+export function Comment({ commentId, comment }) {
   const dispatch = useDispatch();
 
   const { postId } = useParams();
 
   const [showEditCommentModal, setShowEditCommentModal] = useState(false);
-  const [wasEdited, setWasEdited] = useState(false);
+  const [wasEdited, setWasEdited] = useState(
+    comment?.createdAt !== comment?.updatedAt
+  );
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
   const comments = useSelector((state) => state.comments);
-  const comment = comments[+commentId];
   const user = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.singlePost);
-
-  useEffect(() => {
-    dispatch(getSinglePost(postId));
-  }, [dispatch]);
-
   const url = window.location.href;
 
-  useEffect(() => {
-    if (comment?.createdAt !== comment?.updatedAt) {
-      setWasEdited(true);
-    } else {
-      setWasEdited(false);
-    }
-  }, [dispatch, comment?.createdAt, comment?.updatedAt]);
+  let editedTime = moment(new Date(comment?.updatedAt))
+    .locale("en-comment")
+    .fromNow();
+  let commentTime = moment(new Date(comment?.createdAt))
+    .locale("en-comment")
+    .fromNow();
 
   const handleUpvoteClick = async () => {
     if (user?.id in comment?.commentVoters) {
@@ -168,7 +159,6 @@ export default function Comment({ commentId }) {
     }
   }, [upvote, downvote, comment?.commentVoters, user?.id, comments]);
 
-  if (!post || !comment) return null;
   return (
     <div className="comment-system" id={`comment-${comment?.id}`}>
       <div
@@ -183,10 +173,16 @@ export default function Comment({ commentId }) {
         <div className="comment-left-side">
           <div className="comment-centered">
             {collapsed && (
-              <BsArrowsAngleExpand
-                className="testing"
-                onClick={() => setCollapsed(false)}
-              />
+              <span
+                className={`comment-moving-btn${
+                  collapsed ? " btn-unmoved" : " btn-moved"
+                }`}
+              >
+                <BsArrowsAngleExpand
+                  className="testing"
+                  onClick={() => setCollapsed(false)}
+                />
+              </span>
             )}
             <NavLink to={`/users/${comment?.commentAuthor?.id}/profile`}>
               <div
@@ -221,26 +217,19 @@ export default function Comment({ commentId }) {
               username={comment.commentAuthor?.username}
               user={comment?.commentAuthor}
             />
-            {post[postId].postAuthor?.username ===
+            {post[postId]?.postAuthor?.username ===
             comment.commentAuthor?.username ? (
               <span className="op-sign">OP</span>
             ) : (
               ""
             )}
             <span className="single-post-topbar-dot">•</span>
-            <span className="comment-original-time">
-              {moment(new Date(comment?.createdAt))
-                .locale("en-comment")
-                .fromNow()}
-            </span>{" "}
+            <span className="comment-original-time">{commentTime}</span>{" "}
             {wasEdited && (
               <span className="comment-was-edited">
                 {" "}
                 <span className="single-post-topbar-dot">•</span>
-                edited{" "}
-                {moment(new Date(comment?.updatedAt))
-                  .locale("en-comment")
-                  .fromNow()}
+                edited {editedTime}
               </span>
             )}
           </div>
@@ -282,6 +271,7 @@ export default function Comment({ commentId }) {
                     >
                       <EditComment
                         commentId={comment?.id}
+                        comment={comment}
                         postId={postId}
                         setShowEditCommentModal={setShowEditCommentModal}
                         showEditCommentModal={showEditCommentModal}
@@ -302,6 +292,7 @@ export default function Comment({ commentId }) {
                         postId={postId}
                         commentId={comment?.id}
                         item="comment"
+                        isPage="singlepost"
                       />
                     </Modal>
                   )}

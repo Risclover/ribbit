@@ -4,7 +4,7 @@ import { getUsers } from "../../../../store/users";
 // import "../Modals.css";
 import "./UploadImageModal.css";
 
-export default function UploadBannerImageModal({
+export function UploadBannerImageModal({
   img_url,
   setShowBannerModal,
   userId,

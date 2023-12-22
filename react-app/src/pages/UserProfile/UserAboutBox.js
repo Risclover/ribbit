@@ -1,30 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
-import { Modal } from "../../context/Modal";
-import { SlArrowRight } from "react-icons/sl";
-import Flower from "../../assets/images/user-profile-icons/poinsettia.png";
-import Cakeday from "../../assets/images/user-profile-icons/cakeday.png";
-import moment from "moment";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useParams } from "react-router-dom";
+import { SlArrowRight } from "react-icons/sl";
+import moment from "moment";
+
+import { createChatThread, getUserChatThreads } from "../../store/chats";
 import {
   followUser,
   getFollowers,
   getUserFollowers,
 } from "../../store/followers";
-import UserProfileFollowers from "../../features/Users/components/UserProfileFollowers";
-import UserBannerModal from "./UploadUserBanner";
-import UserImageModal from "./UploadUserImage";
-import SendMessage from "./SendMessage";
 import { addNotification } from "../../store/notifications";
-import { createChatThread, getUserChatThreads } from "../../store/chats";
 
-export default function UserAboutBox({
-  currentUser,
-  user,
-  username,
-  setOpenChat,
-  setSelectedChat,
-}) {
+import { Modal } from "../../context";
+import { UserProfileFollowers } from "../../features";
+import { UploadUserBanner, UploadUserImage, SendMessage } from "../../pages";
+import Cakeday from "../../assets/images/user-profile-icons/cakeday.png";
+import Flower from "../../assets/images/user-profile-icons/poinsettia.png";
+import { SelectedChatContext } from "../../context/SelectedChat";
+import { FollowBtn } from "../../components";
+
+export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const dispatch = useDispatch();
 
   const { userId } = useParams();
@@ -38,7 +34,7 @@ export default function UserAboutBox({
   const userChats = useSelector((state) => Object.values(state.chatThreads));
   const [following, setFollowing] = useState(follows[user?.id]);
 
-  console.log("followingggg:", follows[user?.id]);
+  const { setSelectedChat } = useContext(SelectedChatContext);
 
   useEffect(() => {
     dispatch(getUserChatThreads());
@@ -107,12 +103,12 @@ export default function UserAboutBox({
           <img src={banner} className="user-profile-banner" alt="Banner" />
         )}
         {currentUser?.id === +userId && (
-          <UserBannerModal user={user} currentUser={currentUser} />
+          <UploadUserBanner user={user} currentUser={currentUser} />
         )}
       </div>
       <div className="user-profile-img-box">
         {currentUser?.id === +userId && (
-          <UserImageModal user={user} currentUser={currentUser} />
+          <UploadUserImage user={user} currentUser={currentUser} />
         )}
         <img src={user?.profile_img} alt="User" className="user-profile-img" />
       </div>
@@ -162,18 +158,7 @@ export default function UserAboutBox({
         </div>
 
         <div className="half-btns">
-          {currentUser?.id !== +userId && (
-            <button
-              className={
-                !following
-                  ? "blue-btn-filled btn-long"
-                  : "blue-btn-unfilled btn-long"
-              }
-              onClick={handleFollow}
-            >
-              {!following ? "Follow" : "Unfollow"}
-            </button>
-          )}
+          {currentUser?.id !== +userId && <FollowBtn user={currentUser} />}
           {currentUser?.id !== +userId && (
             <button className="blue-btn-filled btn-long" onClick={handleChat}>
               Chat

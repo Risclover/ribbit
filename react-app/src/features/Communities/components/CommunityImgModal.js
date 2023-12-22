@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-
 import { getSingleCommunity } from "../../../store/one_community";
 import "../../../assets/styles/Modals.css";
 
-export default function CommunityImgModal({
+export function CommunityImgModal({
   img_url,
   setShowCommunityImgModal,
   communityId,
@@ -31,8 +30,7 @@ export default function CommunityImgModal({
     formData.append("image", image);
 
     setImageLoading(true);
-    console.log("form data:", formData);
-    console.log("image:", image);
+
     const res = await fetch(`/api/communities/${communityId}/img`, {
       method: "POST",
       body: formData,

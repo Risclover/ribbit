@@ -1,20 +1,21 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { GiphyFetch } from "@giphy/js-fetch-api";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch } from "react-redux";
-import { createChatMessage, getChatThread } from "../../../../store/chats";
+import { GiphyFetch } from "@giphy/js-fetch-api";
 import { CiSearch } from "react-icons/ci";
 import { SlClose } from "react-icons/sl";
+import { createChatMessage, getChatThread } from "../../../../store/chats";
 import "./ChatWindowInput.css";
+import { SelectedChatContext } from "../../../../context/SelectedChat";
 
 const giphy = new GiphyFetch("fiQieMg1iTSB2Jvd4njUzeY2W3PP99I1");
 
-export default function Gifs({
-  receiver,
-  selectedChat,
-  setOpenGiphy,
-  setGifIcon,
-  GifIcon,
-}) {
+export function Gifs({ receiver, setOpenGiphy, setGifIcon, GifIcon }) {
   const dispatch = useDispatch();
   const [results, setResults] = useState([]);
   const [text, setText] = useState("");
@@ -23,6 +24,7 @@ export default function Gifs({
   const inputRef = useRef(null);
   const [query, setQuery] = useState("");
   const [closeBtn, setCloseBtn] = useState(false);
+  const { selectedChat } = useContext(SelectedChatContext);
 
   const loadMore = useCallback(async () => {
     const res = await giphy.search(query, { offset, limit: 10 });

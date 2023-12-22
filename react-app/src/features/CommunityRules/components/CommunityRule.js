@@ -3,7 +3,7 @@ import parse from "html-react-parser";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 // import "./CommunityPage.css";
 
-export default function CommunityRule({ idx, rule }) {
+export function CommunityRule({ idx, rule }) {
   const [showDesc, setShowDesc] = useState(false);
   const [noDesc, setNoDesc] = useState(false);
 

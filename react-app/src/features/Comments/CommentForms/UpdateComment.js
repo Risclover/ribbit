@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function UpdateComment() {
+export function UpdateComment() {
   const [content, setContent] = useState();
 
   const handleSubmit = (e) => {

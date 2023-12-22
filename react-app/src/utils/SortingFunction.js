@@ -1,4 +1,4 @@
-export default function SortingFunction(posts, sortMode) {
+export function SortingFunction(posts, sortMode) {
   posts.sort((a, b) => {
     let postA = new Date(a.createdAt).getTime();
     let postB = new Date(b.createdAt).getTime();

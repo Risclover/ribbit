@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getThreads } from "../../store/threads";
-import Message from "./Message";
+import { Message } from "./Message";
 
-export default function MessageThread({ item }) {
+export function MessageThread({ item }) {
   const [allExpanded, setAllExpanded] = useState(true);
   const dispatch = useDispatch();
 

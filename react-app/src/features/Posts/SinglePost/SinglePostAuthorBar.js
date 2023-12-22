@@ -22,7 +22,7 @@ moment.updateLocale("en-post", {
   },
 });
 
-export default function SinglePostAuthorBar({
+export function SinglePostAuthorBar({
   communityPage,
   community,
   post,

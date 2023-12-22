@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { putSinglePost } from "../../../store/posts";
-import { Modal } from "../../../context/Modal";
+import { Modal } from "../../../context";
 import { ImagePostForm } from "./ImagePostForm";
 import "react-quill/dist/quill.snow.css";
 import "../PostForms/PostForm.css";

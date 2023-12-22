@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import ChatWindowTitleBar from "./ChatWindowTitleBar";
-import ChatWindowInput from "./ChatWindowInput/ChatWindowInput";
-import ChatMessages from "./ChatWindowMessages/ChatMessages";
+import {
+  ChatWindowTitleBar,
+  ChatWindowInput,
+  ChatMessages,
+} from "../../../features";
 
-export default function ChatWindowRight({
+export function ChatWindowRight({
   setOpenChat,
-  selectedChat,
-  setSelectedChat,
   receiver,
   messages,
   setDeleteOverlay,
@@ -23,7 +23,6 @@ export default function ChatWindowRight({
     <div className="chat-window-right">
       <ChatWindowTitleBar
         setOpenChat={setOpenChat}
-        selectedChat={selectedChat}
         newChatOverlay={newChatOverlay}
       />
       <ChatMessages
@@ -31,19 +30,16 @@ export default function ChatWindowRight({
         messages={messages}
         setDeleteOverlay={setDeleteOverlay}
         setMsgId={setMsgId}
-        selectedChat={selectedChat}
         selectedReaction={selectedReaction}
         setSelectedReaction={setSelectedReaction}
       />
       <ChatWindowInput
-        selectedChat={selectedChat}
         receiver={receiver}
         socket={socket}
         selectedReaction={selectedReaction}
         setSelectedReaction={setSelectedReaction}
         messageInviteOverlay={messageInviteOverlay}
         setMessageInviteOverlay={setMessageInviteOverlay}
-        setSelectedChat={setSelectedChat}
         userFound={userFound}
       />
     </div>

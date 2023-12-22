@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { addImagePost } from "../../../store/posts";
-import { Modal } from "../../../context/Modal";
+import { Modal } from "../../../context";
 import { ImagePostForm } from "./ImagePostForm";
 
 export const ImagePost = ({ img_url, setimg_url }) => {

@@ -261,3 +261,15 @@ def upload_image():
 
     url = upload["url"]
     return {"url": url}
+
+
+# GET A POST'S COMMENTS
+@post_routes.route("/<int:id>/comments")
+def get_post_comments(id):
+    """
+    Query a post's comments
+    """
+    post = Post.query.get(id)
+    post_comments = post.post_comments
+
+    return {"Comments": comment.to_dict() for comment in post_comments}

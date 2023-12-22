@@ -1,7 +1,7 @@
 import React from "react";
 import Frog from "../../../assets/images/ribbit-banners/frog-logo1.png";
 
-export default function RibbitRules() {
+export function RibbitRules() {
   return (
     <div className="ribbit-rules-box">
       <div className="ribbit-rules-title">

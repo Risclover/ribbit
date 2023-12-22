@@ -1,4 +1,12 @@
 export { NavBar } from "./NavBar";
 export { NavUserDropdown } from "./NavUserDropdown";
-export { NavLeftDropdown } from "./NavLeftDropdown";
-export { LoggedOutDropdown } from "./LoggedOutDropdown"
+export {
+  LoggedOutDropdown,
+  LoggedOutDropdownWrapper,
+} from "./LoggedOutDropdown";
+export * from "./NavLeftDropdown";
+export {
+  Notification,
+  NotificationsDropdown,
+  NotificationsDropdownWrapper,
+} from "./NotificationsDropdown";

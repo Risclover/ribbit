@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import moment from "moment";
 import "./Sent.css";
 
-export default function SentMessage({
+export function SentMessage({
   message,
   firstMessage,
   recipient,

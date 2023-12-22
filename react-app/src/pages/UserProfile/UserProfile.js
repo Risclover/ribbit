@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { getFollowedPosts, getPosts } from "../../store/posts";
-import UserOwnedCommunities from "./UserOwnedCommunities";
-import UserAboutBox from "./UserAboutBox";
-import UserProfilePosts from "./UserProfilePosts";
 import { getUsers } from "../../store/users";
-import "./UserProfile.css";
 import { getCommunities } from "../../store/communities";
 
-function UserProfile({
+import {
+  UserOwnedCommunities,
+  UserAboutBox,
+  UserProfilePosts,
+} from "../../pages";
+import "./UserProfile.css";
+
+export function UserProfile({
   setShowLoginForm,
   setPageTitle,
   setPageIcon,
   setOpenChat,
-  setSelectedChat,
 }) {
   const dispatch = useDispatch();
   const { userId } = useParams();
@@ -81,7 +84,6 @@ function UserProfile({
       </div>
       <div className="user-profile-right-col">
         <UserAboutBox
-          setSelectedChat={setSelectedChat}
           setOpenChat={setOpenChat}
           currentUser={currentUser}
           username={user?.username}

@@ -11,7 +11,7 @@ import {
 import { addNotification } from "../../store/notifications";
 import { getMessages } from "../../store/messages";
 
-export default function MessageReply({
+export function MessageReply({
   pageType,
   message,
   threadId,

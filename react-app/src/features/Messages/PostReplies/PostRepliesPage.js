@@ -3,14 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserNotifications } from "../../../store/notifications";
 import { getPosts } from "../../../store/posts";
 import { getUsers } from "../../../store/users";
-import MessageContentMenu from "../MessageContentMenu";
-import MessageHead from "../MessageHead";
-import PostReply from "./PostReply";
-
+import { MessageContentMenu, MessageHead, PostReply } from "../../../features";
 import "./PostReplies.css";
 import "../Inbox/Inbox.css";
 
-export default function PostRepliesPage({ setPageTitle, setPageIcon }) {
+export function PostRepliesPage({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const notifications = useSelector((state) =>

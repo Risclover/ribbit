@@ -20,5 +20,3 @@ export const useIsClickOut = (setter) => {
 
   return [eleCallback];
 };
-
-export default useIsClickOut;

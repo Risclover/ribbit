@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Modal } from "../../context/Modal";
-import MessageModal from "../../features/Messages/components/MessageModal/MessageModal";
+import { Modal } from "../../context";
+import { MessageModal } from "../../features";
 
-export default function MessageHead({ active }) {
+export function MessageHead({ active }) {
   const history = useHistory();
 
   const [showMessageModal, setShowMessageModal] = useState(false);

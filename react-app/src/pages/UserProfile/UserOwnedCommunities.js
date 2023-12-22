@@ -1,8 +1,7 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import UserOwnedCommunity from "./UserOwnedCommunity";
+import { UserOwnedCommunity } from "./UserOwnedCommunity";
 
-export default function UserOwnedCommunities({ communitiesList, userId }) {
+export function UserOwnedCommunities({ communitiesList, userId }) {
   return (
     <div className="user-profile-owned-communities">
       {communitiesList.length > 0 ? (

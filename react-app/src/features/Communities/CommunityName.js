@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CommunityName({ community }) {
+export function CommunityName({ community }) {
   return (
     <div className="community-header-info-details-left">
       <div className="community-header-info-display-name">

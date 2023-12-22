@@ -1,0 +1,171 @@
+.edit-community-page {
+  width: 100%;
+  height: 100%;
+}
+
+.edit-community-page-header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  margin-top: 48px;
+}
+
+.edit-community-top-bar {
+  height: 40px;
+  width: 100%;
+  background: white;
+  padding-left: 24px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 24px;
+  text-transform: uppercase;
+  display: flex;
+  color: #1c1c1c;
+  align-items: center;
+}
+
+.edit-community-top-bar-name a {
+  color: var(--community-base-color);
+}
+
+.edit-community-top-bar img {
+  height: 20px;
+  width: 20px;
+  border-radius: 100px;
+  margin-right: 8px;
+}
+
+.edit-community-save-bar {
+  width: 100%;
+  height: 48px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: #edeff1;
+  padding: 0 24px;
+}
+
+.edit-community-page-settings {
+  max-width: 850px;
+  padding: 24px;
+  border-radius: 4px;
+  background: white;
+  margin: 114px auto;
+  overflow: hidden;
+  height: auto;
+}
+
+.edit-community-page-settings h1 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  color: #1c1c1c;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #edeff1;
+  padding-bottom: 6px;
+}
+
+.edit-community-page-settings h2 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #1c1c1c;
+  margin-bottom: 4px;
+  margin-top: 32px;
+}
+
+.community-description-details {
+  font-size: 12px;
+  font-weight: 400;
+  color: #7c7c7c;
+  line-height: 16px;
+}
+
+.community-name-input {
+  background: white;
+  border: 1px solid #edeff1;
+  border-radius: 4px;
+  padding: 12px 24px 4px 12px;
+  width: 100%;
+  height: 48px;
+  color: #1c1c1c;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  margin-bottom: 13px;
+  margin-top: 12px;
+}
+
+.community-name-char-counter,
+.community-description-char-counter {
+  color: #7c7c7c;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.community-description-input {
+  resize: none;
+  width: 100%;
+  height: 130px;
+  border: 1px solid #edeff1;
+  border-radius: 4px;
+  padding: 8px;
+  color: #1c1c1c;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  font-family: inherit;
+  margin-top: 12px;
+}
+
+.community-rules-container {
+  margin-top: 16px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.community-rules-button-bar {
+  width: 100%;
+  background: #edeff1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 24px;
+  height: 48px;
+}
+
+.community-rules-edit {
+  background: white;
+  width: 100%;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.delete-community-btn {
+  background: #eb001f;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Noto Sans", sans-serif;
+  padding: 4px 16px;
+  border-radius: 100px;
+  height: 32px;
+  color: white;
+  border: 1px solid #eb001f;
+  outline: none;
+  cursor: pointer;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.delete-community-btn:hover {
+  background: #a50016;
+  border: 1px solid #a50016;
+}

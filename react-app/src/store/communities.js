@@ -154,7 +154,7 @@ export const editCommunityTheme = (payload) => async (dispatch) => {
       nameFormat,
     }),
   });
-  console.log("redux response:", response);
+
   if (response.ok) {
     const data = await response.json();
     dispatch(loadCommunity(data));

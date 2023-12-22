@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { getCommunities } from "../store/communities";
 import { getCommunitySettings } from "../store/community_settings";
-import { CommunityPageHeader } from "../features/Communities/components/CommunityPageHeader";
-import CommunityWelcome from "../features/Communities/CommunityWelcome";
-import CommunityPageMain from "../features/Communities/components/CommunityPageMain";
 
-export default function CommunityPage({
-  format,
-  setFormat,
-  setPageTitle,
-  setPageIcon,
-}) {
+import {
+  CommunityPageMain,
+  CommunityPageHeader,
+  CommunityWelcome,
+} from "../features";
+
+export function CommunityPage({ setPageTitle, setPageIcon }) {
   const { communityId } = useParams();
   const dispatch = useDispatch();
 
@@ -42,18 +41,12 @@ export default function CommunityPage({
     );
   }, [community, setPageTitle, setPageIcon]);
 
-  console.log("Community:", community);
-
   if (!community) return null;
 
   return (
     <div className="community-page-container">
       <CommunityPageHeader community={community} />
-      <CommunityPageMain
-        format={format}
-        setFormat={setFormat}
-        community={community}
-      />
+      <CommunityPageMain community={community} />
       {/* <CommunityWelcome /> */}
     </div>
   );

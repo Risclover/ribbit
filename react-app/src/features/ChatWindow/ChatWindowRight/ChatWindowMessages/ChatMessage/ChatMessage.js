@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
-import DateSeparator from "../DateSeparator";
-import ReactionsMenu from "../ReactionsMenu/ReactionsMenuSmall";
-import ReactionsMenuSmall from "../ReactionsMenu/ReactionsMenuSmall";
+import { DateSeparator, ReactionsMenuSmall } from "../../../../../features";
 import "./ChatMessage.css";
 
-export default function ChatMessage({
+export function ChatMessage({
   formattedDate,
   previousMessage,
   showDateBar,
   message,
   setDeleteOverlay,
   setMsgId,
-  selectedChat,
   selectedReaction,
   setSelectedReaction,
 }) {
   const [msgContent, setMsgContent] = useState();
   const [openReactions, setOpenReactions] = useState(false);
-
   const currentUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
@@ -59,7 +55,6 @@ export default function ChatMessage({
                 {openReactions && (
                   <ReactionsMenuSmall
                     message={message}
-                    selectedChat={selectedChat}
                     selectedReaction={selectedReaction}
                     setSelectedReaction={setSelectedReaction}
                   />

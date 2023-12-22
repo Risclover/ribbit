@@ -298,6 +298,14 @@ export const handlePostView = (postId, userId, dispatch) => {
     });
 };
 
+export const getPostComments = (postId) => async (dispatch) => {
+  const response = await fetch(`/api/posts/${postId}/comments`);
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  }
+};
+
 // #################### REDUCER #################### //
 
 const initialState = {};

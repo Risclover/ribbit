@@ -1,45 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { addViewedPost } from "../../../store/viewed_posts";
+
+import { getComments } from "../../../store/comments";
+import { getCommunities } from "../../../store/communities";
 import { getSinglePost } from "../../../store/one_post";
 import { getPosts } from "../../../store/posts";
-import { getCommunities } from "../../../store/communities";
-import { getSubscriptions } from "../../../store/subscriptions";
 import {
+  getSubscriptions,
   addToSubscriptions,
   deleteSubscription,
 } from "../../../store/subscriptions";
-import { BackToTop } from "../../../components";
-import CommunityRule from "../../CommunityRules/components/CommunityRule";
-import CommunityOptions from "../../Communities/CommunityInfoBox/CommunityOptions/CommunityOptions";
-import Comments from "../../Comments/Comments";
-import SinglePost from "./SinglePost";
-import Cake from "../../../assets/images/misc/piece4.png";
-import { getComments } from "../../../store/comments";
+import { addViewedPost } from "../../../store/viewed_posts";
 
-export default function SinglePostPage({
+import { BackToTop } from "../../../components";
+import {
+  Comments,
+  SinglePost,
+  CommunityRule,
+  CommunityOptions,
+} from "../../../features";
+import Cake from "../../../assets/images/misc/piece4.png";
+import "react-loading-skeleton/dist/skeleton.css";
+import { PostFormatContext } from "../../../context/PostFormat";
+
+export function SinglePostPage({
   setPageIcon,
   setPageTitle,
   setShowLoginForm,
-  setRecentPostList,
-  recentPostList,
 }) {
   const history = useHistory();
   const { postId } = useParams();
   const dispatch = useDispatch();
+  const { format, setFormat } = useContext(PostFormatContext);
 
-  const post = useSelector((state) => state.singlePost[+postId]);
+  useEffect(() => {
+    setFormat("Card");
+  }, []);
+
+  const post = useSelector((state) => state.posts[postId]);
   const community = useSelector(
     (state) => state.communities[post?.communityId]
   );
+
   const subscriptions = useSelector((state) => state.subscriptions);
   const user = useSelector((state) => state.session.user);
 
-  const [commentsNum, setCommentsNum] = useState();
   const [subscribed, setSubscribed] = useState(false);
   const [members, setMembers] = useState(community?.members || 0);
 
@@ -49,32 +57,14 @@ export default function SinglePostPage({
     dispatch(getSinglePost(+postId));
     dispatch(addViewedPost(+postId));
     dispatch(getComments(postId));
-
-    setRecentPostList([
-      ...recentPostList,
-      {
-        postId: +postId,
-        post: {
-          id: post?.id,
-          title: post?.title,
-          imgUrl: post?.imgUrl,
-          linkUrl: post?.linkUrl,
-          content: post?.content,
-          comments: post?.postComments,
-          points: post?.votes,
-          date: post?.createdAt,
-        },
-        date: new Date(),
-      },
-    ]);
-  }, [dispatch, +postId]);
+  }, [dispatch]);
 
   useEffect(() => {
     document.title = post?.title + " : " + post?.communityName;
 
     setPageIcon(
       <img
-        src={community?.communitySettings[community?.id].communityIcon}
+        src={post?.communitySettings[post?.communityId].communityIcon}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"
       />
@@ -88,25 +78,12 @@ export default function SinglePostPage({
     if (subscriptions[post?.communityId]) setSubscribed(true);
   }, [subscribed, subscriptions, post?.communityId]);
 
-  if (!post || !postId || !community) return null;
+  if (!post || !postId) return null;
   return (
     <div className="single-post-page">
       <div className="single-post-left-col">
-        <SinglePost
-          commentsNum={commentsNum}
-          post={post}
-          setCommentsNum={setCommentsNum}
-          id={+postId}
-          isPage={"singlepage"}
-          format="Card"
-          postComments={Object.values(post.postComments).length}
-        />
-        <Comments
-          setCommentsNum={setCommentsNum}
-          post={post}
-          postId={+postId}
-          setShowLoginForm={setShowLoginForm}
-        />
+        <SinglePost id={+postId} isPage="singlepage" />
+        <Comments setShowLoginForm={setShowLoginForm} />
       </div>
       <div className="single-post-right-col">
         <NavLink to={`/c/${post?.communityId}`}>
@@ -115,9 +92,7 @@ export default function SinglePostPage({
             <div className="single-post-community-info-content">
               <div className="single-post-community-info-name">
                 <img
-                  src={
-                    community?.communitySettings[community?.id].communityIcon
-                  }
+                  src={post?.communitySettings[post?.communityId].communityIcon}
                   alt="Community"
                   className="single-post-community-info-img"
                 />

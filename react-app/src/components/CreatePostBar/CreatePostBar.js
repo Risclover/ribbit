@@ -5,10 +5,9 @@ import { RxImage } from "react-icons/rx";
 import { FiLink } from "react-icons/fi";
 import "./CreatePostBar.css";
 
-export function CreatePostBar({ page, communityId }) {
-  const user = useSelector((state) => state.session.user);
+export const CreatePostBar = ({ page, communityId }) => {
   const history = useHistory();
-
+  const user = useSelector((state) => state.session.user);
   const users = useSelector((state) => state.users);
 
   const handleClick = (e) => {
@@ -16,34 +15,38 @@ export function CreatePostBar({ page, communityId }) {
     if (page === "community") {
       history.push(`/c/${communityId}/submit`);
     } else {
-      history.push(`/c/submit`);
+      history.push(`/submit`);
     }
   };
 
+  const handleImageClick = () => {
+    history.push(`/c/${communityId}/submit/image`);
+  };
+
+  const handleLinkClick = () => {
+    history.push(`/c/${communityId}/submit/url`);
+  };
   return (
     <div className="create-post-bar">
       {user && (
         <div className="create-post-bar-user-img">
           <NavLink to={`/users/${user.id}/profile`}>
-            <img src={users[user.id]?.profile_img} alt="User" />
+            <img src={user.profile_img} alt="User" />
           </NavLink>
         </div>
       )}
+
       <div className="create-post-bar-create">
         <input type="text" placeholder="Create Post" onClick={handleClick} />
       </div>
-      <button
-        className="create-post-bar-icon"
-        onClick={() => history.push(`/c/${communityId}/submit/image`)}
-      >
+
+      <button className="create-post-bar-icon" onClick={handleImageClick}>
         <RxImage />
       </button>
-      <button
-        className="create-post-bar-icon"
-        onClick={() => history.push(`/c/${communityId}/submit/url`)}
-      >
+
+      <button className="create-post-bar-icon" onClick={handleLinkClick}>
         <FiLink />
       </button>
     </div>
   );
-}
+};

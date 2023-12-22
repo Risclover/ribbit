@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { VscMailRead } from "react-icons/vsc";
 import { VscSettingsGear } from "react-icons/vsc";
-import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+
 import {
   getUserNotifications,
   readAllNotifications,
 } from "../../../store/notifications";
-import moment from "moment";
-import { useHistory } from "react-router-dom";
-import HandleClickOutside from "../../../utils/HandleClickOutside";
+import { Notification } from "../../../layouts";
+import { HandleClickOutside } from "../../../utils";
 import SparklyFrog from "../../../assets/images/ribbit-frog-sparkly.png";
-import Notification from "./Notification";
 
 moment.updateLocale("en-notif", {
   relativeTime: {
@@ -31,7 +32,7 @@ moment.updateLocale("en-notif", {
   },
 });
 
-export default function NotificationsDropdown({
+export function NotificationsDropdown({
   msgNum,
   unread,
   setShowDropdown,

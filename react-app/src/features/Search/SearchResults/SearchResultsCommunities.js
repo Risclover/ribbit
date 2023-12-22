@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export default function SearchResultsCommunities({
+export function SearchResultsCommunities({
   communities,
   searchQuery,
   SearchDude,

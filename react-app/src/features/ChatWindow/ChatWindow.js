@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { getChatThread, getUserChatThreads } from "../../store/chats";
-import ChatWindowLeft from "./ChatWindowLeft/ChatWindowLeft";
-import ChatWindowRight from "./ChatWindowRight/ChatWindowRight";
-import ChatWindowDeleteOverlay from "./ChatWindowOverlays/ChatWindowDeleteOverlay";
-import ChatWindowWelcomeOverlay from "./ChatWindowOverlays/ChatWindowWelcomeOverlay";
-import ChatWindowNewChatOverlay from "./ChatWindowOverlays/ChatWindowNewChatOverlay";
-import ChatWindowMessageInviteOverlay from "./ChatWindowOverlays/ChatWindowMessageInviteOverlay";
+import {
+  ChatWindowLeft,
+  ChatWindowRight,
+  ChatWindowDeleteOverlay,
+  ChatWindowWelcomeOverlay,
+  ChatWindowNewChatOverlay,
+  ChatWindowMessageInviteOverlay,
+} from "../../features";
+import { SelectedChatContext } from "../../context/SelectedChat";
 import "./ChatWindow.css";
 
 let socket;
 
-export default function ChatWindow({
-  selectedChat,
-  setOpenChat,
-  setSelectedChat,
-}) {
+export function ChatWindow({ setOpenChat }) {
   const dispatch = useDispatch();
+
+  const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
 
   const currentUser = useSelector((state) => state.session.user);
   const chatThreads = useSelector((state) => state.chatThreads);
@@ -107,8 +108,6 @@ export default function ChatWindow({
   return (
     <div className="chat-window-container">
       <ChatWindowLeft
-        selectedChat={selectedChat}
-        setSelectedChat={setSelectedChat}
         handleOpenChatThread={handleOpenChatThread}
         receiver={receiver}
         setNewChatOverlay={setNewChatOverlay}
@@ -120,8 +119,6 @@ export default function ChatWindow({
 
       <ChatWindowRight
         setOpenChat={setOpenChat}
-        selectedChat={selectedChat}
-        setSelectedChat={setSelectedChat}
         receiver={receiver}
         messages={messages}
         setDeleteOverlay={setDeleteOverlay}
@@ -138,7 +135,6 @@ export default function ChatWindow({
           socket={socket}
           msgId={msgId}
           setDeleteOverlay={setDeleteOverlay}
-          selectedChat={selectedChat}
         />
       )}
       {welcomeOverlay && (
@@ -148,7 +144,6 @@ export default function ChatWindow({
         <ChatWindowNewChatOverlay
           setNewChatOverlay={setNewChatOverlay}
           setWelcomeOverlay={setWelcomeOverlay}
-          setSelectedChat={setSelectedChat}
           setMessageInviteOverlay={setMessageInviteOverlay}
           setUserFound={setUserFound}
           userFound={userFound}

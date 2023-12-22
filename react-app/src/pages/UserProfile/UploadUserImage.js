@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Modal } from "../../context/Modal";
-import UploadUserImage from "../../features/Users/components/UploadImageModal/UploadUserImageModal";
+import { Modal } from "../../context";
+import { UploadImage } from "../../features";
 import Camera from "../../assets/images/user-profile-icons/camera.png";
 
-export default function UserImageModal({ user, currentUser }) {
+export function UploadUserImage({ user, currentUser }) {
   const [showUploadModal, setShowUploadModal] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ export default function UserImageModal({ user, currentUser }) {
           onClose={() => setShowUploadModal(false)}
           title="Change User Image"
         >
-          <UploadUserImage
+          <UploadImage
             setShowUploadModal={setShowUploadModal}
             showUploadModal={showUploadModal}
             img_url={user?.profile_img}

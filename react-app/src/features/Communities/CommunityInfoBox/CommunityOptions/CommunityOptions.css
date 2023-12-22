@@ -126,9 +126,6 @@ input:checked + .community-options-slider {
   background-color: var(--community-base-color);
 }
 
-input:focus + .community-options-slider {
-}
-
 input:checked + .community-options-slider:before {
   -webkit-transform: translateX(15px);
   -ms-transform: translateX(15px);

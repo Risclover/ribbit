@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { addToSubscriptions } from "../../../store/subscriptions";
 import { useDispatch, useSelector } from "react-redux";
+import { addToSubscriptions } from "../../../store/subscriptions";
 import { deleteSubscription } from "../../../store/subscriptions";
 
-export default function JoinBtn({ community }) {
+export function JoinBtn({ community }) {
   const dispatch = useDispatch();
   const [subscribed, setSubscribed] = useState(false);
   const user = useSelector((state) => state.session.user);

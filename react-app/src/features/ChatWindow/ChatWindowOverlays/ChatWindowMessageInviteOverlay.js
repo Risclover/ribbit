@@ -1,7 +1,7 @@
 import React from "react";
 import "./ChatWindowOverlay.css";
 
-export default function ChatWindowMessageInviteOverlay() {
+export function ChatWindowMessageInviteOverlay() {
   return (
     <div className="message-invite-overlay">
       <div className="message-invite-banner">

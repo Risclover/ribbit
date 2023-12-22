@@ -1,9 +1,9 @@
-import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import moment from "moment";
 
-export default function SearchResultsComments({
+export function SearchResultsComments({
   posts,
   searchQuery,
   SearchDude,

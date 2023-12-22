@@ -1,10 +1,8 @@
 import React from "react";
-import ChatNav from "./ChatNav/ChatNav";
+import { ChatNav } from "../../../features";
 import CreateChatIcon from "../../../assets/images/create-chat-icon.png";
 
-export default function ChatWindowLeft({
-  setSelectedChat,
-  selectedChat,
+export function ChatWindowLeft({
   handleOpenChatThread,
   receiver,
   setNewChatOverlay,
@@ -16,8 +14,6 @@ export default function ChatWindowLeft({
   return (
     <div className="chat-window-left">
       <ChatNav
-        setSelectedChat={setSelectedChat}
-        selectedChat={selectedChat}
         receiver={receiver}
         handleOpenChatThread={handleOpenChatThread}
         setWelcomeOverlay={setWelcomeOverlay}

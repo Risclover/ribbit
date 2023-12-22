@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Modal } from "../../context/Modal";
-import CommunityImgModal from "../../features/Communities/components/CommunityImgModal";
+import { Modal } from "../../context";
+import { CommunityImgModal } from "../../features";
 
-export default function CommunityImage({ user, community }) {
+export function CommunityImage({ user, community }) {
   const [showCommunityImgModal, setShowCommunityImgModal] = useState(false);
 
   return (

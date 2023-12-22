@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import "./Username.css";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { UsernamePopup } from "./UsernamePopup";
 import { useHistory } from "react-router-dom";
+import { UsernamePopup } from "./UsernamePopup";
+import "./Username.css";
 
 export function Username({ community, username, user, source }) {
   const history = useHistory();

@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRule, getCommunityRules } from "../../../store/rules";
+import {
+  updateRule,
+  getCommunityRules,
+  deleteRule,
+} from "../../../store/rules";
 import { getSingleCommunity } from "../../../store/one_community";
-import { Modal } from "../../../context/Modal";
+import { Modal } from "../../../context";
 import { DeleteConfirmationModal } from "../../../components";
 import "../../../assets/styles/Modals.css";
-import { deleteRule } from "../../../store/rules";
 
-export default function AddCommunityRule({
-  setShowEditRuleModal,
-  communityId,
-  rule,
-}) {
+export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState(rule?.title);
@@ -135,6 +134,7 @@ export default function AddCommunityRule({
                 setShowDeleteModal={setShowDeleteModal}
                 payload={rule.id}
                 storeFunction={deleteRule}
+                isPage="community"
               />
             </Modal>
           )}

@@ -7,9 +7,9 @@ import {
   getFavoriteCommunities,
   removeFavoriteCommunity,
 } from "../../../store/favorite_communities";
-import HandleClickOutside from "../../../utils/HandleClickOutside";
+import { HandleClickOutside } from "../../../utils";
 
-export default function CommunityInfoMenu() {
+export function CommunityInfoMenu() {
   const wrapperRef = useRef(null);
   const dispatch = useDispatch();
   const { communityId } = useParams();

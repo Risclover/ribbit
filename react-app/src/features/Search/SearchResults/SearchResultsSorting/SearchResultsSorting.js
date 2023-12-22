@@ -1,8 +1,7 @@
 import React from "react";
-import SearchResultsSort from "./SearchResultsSort";
-import SearchResultsTime from "./SearchResultsTime";
+import { SearchResultsSort, SearchResultsTime } from "../../../../features";
 
-export default function SearchResultsSorting({ searchPage }) {
+export function SearchResultsSorting({ searchPage }) {
   return (
     <div className="search-results-sorting">
       <SearchResultsSort searchPage={searchPage} />

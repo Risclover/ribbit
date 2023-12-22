@@ -1,22 +1,23 @@
 import React from "react";
 
-export default function SignUpFormInput({
-  type,
-  name,
-  onChangeValue,
-  inputValue,
-  errors,
-  label,
-  autoCompleteStatus,
-  maxLength,
-}) {
+export function SignUpFormInput({ props, onChange }) {
+  const {
+    type,
+    name,
+    inputValue,
+    errors,
+    label,
+    autoCompleteStatus,
+    maxLength,
+  } = props;
+
   return (
     <div className="form-field-box">
       <div className="form-field">
         <input
           type={type}
           name={name}
-          onChange={(e) => onChangeValue(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           autoComplete={autoCompleteStatus}
           placeholder=" "
           value={inputValue}
@@ -28,9 +29,9 @@ export default function SignUpFormInput({
         </label>
       </div>
       <div className="signup-form-errors">
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+        {errors &&
+          errors.length > 0 &&
+          errors.map((error, ind) => <div key={ind}>{error}</div>)}
       </div>
     </div>
   );

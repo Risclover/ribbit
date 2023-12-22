@@ -4,11 +4,11 @@ import { useHistory } from "react-router-dom";
 import { login } from "../../../store/session";
 import "./AuthModal.css";
 
-const LoginForm = ({
+export const LoginForm = ({
   showLoginForm,
   setShowLoginForm,
   setShowSignupForm,
-  val,
+  loginPage,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -21,7 +21,7 @@ const LoginForm = ({
     e.preventDefault();
     dispatch(login("demo@aa.io", "password"));
     setShowLoginForm(false);
-    if (val === "loginpage") history.push("/");
+    if (loginPage) history.push("/");
   };
 
   const onLogin = async (e) => {
@@ -37,7 +37,7 @@ const LoginForm = ({
       if (data && data.length > 0) {
         setErrors(["Incorrect email or password."]);
       } else {
-        if (val === "loginpage") history.push("/");
+        if (loginPage) history.push("/");
         setShowLoginForm(false);
       }
     }
@@ -131,5 +131,3 @@ const LoginForm = ({
     </>
   );
 };
-
-export default LoginForm;

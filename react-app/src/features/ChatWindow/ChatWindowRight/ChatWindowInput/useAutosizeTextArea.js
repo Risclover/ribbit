@@ -1,14 +1,22 @@
 import { useEffect } from "react";
 
-const useAutosizeTextArea = (textAreaRef, value) => {
+export const useAutosizeTextArea = (textAreaRef, value) => {
+  let heightNum;
+
+  if (value === "Title") {
+    heightNum = 7;
+  } else {
+    heightNum = 0;
+  }
+
+  console.log("title:", value);
+
   useEffect(() => {
     if (textAreaRef) {
       textAreaRef.style.height = "0px";
-      const scrollHeight = textAreaRef.scrollHeight;
+      const scrollHeight = textAreaRef.scrollHeight + heightNum;
 
       textAreaRef.style.height = scrollHeight + "px";
     }
   }, [textAreaRef, value]);
 };
-
-export default useAutosizeTextArea;
