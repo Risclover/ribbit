@@ -7,9 +7,9 @@ import {
   removeThread,
   getThreads,
   unreadMessage,
-} from "../../store/threads";
-import { addNotification } from "../../store/notifications";
-import { getMessages } from "../../store/messages";
+  addNotification,
+  getMessages,
+} from "../../store";
 
 export function MessageReply({
   pageType,

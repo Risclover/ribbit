@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getThreads } from "../../../store/threads";
-import { getUsers } from "../../../store/users";
-import { getMessages } from "../../../store/messages";
+import { getThreads, getUsers, getMessages } from "../../../store";
 import {
   MessageContentMenu,
   MessageHead,

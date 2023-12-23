@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { addImagePost } from "../../../store/posts";
+import { addImagePost } from "../../../store";
 import { Modal } from "../../../context";
 import { ImagePostForm } from "./ImagePostForm";
 

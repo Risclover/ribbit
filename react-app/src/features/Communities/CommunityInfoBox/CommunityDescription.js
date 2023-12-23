@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaPen } from "react-icons/fa";
-import { getCommunities, updateCommunity } from "../../../store/communities";
+import { getCommunities, updateCommunity } from "../../../store";
 import { useAutosizeTextArea } from "../../../features";
 import { HandleClickOutside } from "../../../utils";
 

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { readMessage } from "../../store/threads";
-import { getMessages } from "../../store/messages";
+import { readMessage, getMessages } from "../../store";
 import { MessageReply } from "./MessageReply";
 
 moment.updateLocale("en-message", {

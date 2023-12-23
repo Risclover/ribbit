@@ -6,7 +6,7 @@ import { SearchDropdown } from "./SearchDropdown";
 import { HandleClickOutside } from "../../../utils/HandleClickOutside";
 import "./Searchbar.css";
 import { useDispatch } from "react-redux";
-import { getCommunities } from "../../../store/communities";
+import { getCommunities } from "../../../store";
 
 export function Searchbar({
   searchQuery,

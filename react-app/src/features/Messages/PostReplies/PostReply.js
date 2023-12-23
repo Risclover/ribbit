@@ -9,7 +9,7 @@ import {
   getUserNotifications,
   readNotification,
   unreadNotification,
-} from "../../../store/notifications";
+} from "../../../store";
 
 export function PostReply({ notification }) {
   const dispatch = useDispatch();

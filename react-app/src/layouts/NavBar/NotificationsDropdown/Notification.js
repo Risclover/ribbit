@@ -9,7 +9,7 @@ import {
   deleteNotification,
   getUserNotifications,
   readNotification,
-} from "../../../store/notifications";
+} from "../../../store";
 import { NotificationMenu } from "../../../features/Notifications/NotificationMenu";
 
 export function Notification({ notification, setShowDropdown }) {

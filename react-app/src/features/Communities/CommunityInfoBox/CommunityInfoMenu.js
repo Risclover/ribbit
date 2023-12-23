@@ -6,7 +6,7 @@ import {
   addFavoriteCommunity,
   getFavoriteCommunities,
   removeFavoriteCommunity,
-} from "../../../store/favorite_communities";
+} from "../../../store";
 import { HandleClickOutside } from "../../../utils";
 
 export function CommunityInfoMenu() {

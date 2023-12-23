@@ -5,8 +5,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import {
   getCommunitySettings,
   resetToDefault,
-} from "../../../store/community_settings";
-import { getCommunities } from "../../../store/communities";
+  getCommunities,
+} from "../../../store";
 import { Modal } from "../../../context";
 import {
   PreviewCommunitySidebarAppearance,

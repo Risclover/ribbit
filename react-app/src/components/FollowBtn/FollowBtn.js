@@ -4,8 +4,8 @@ import {
   followUser,
   getFollowers,
   getUserFollowers,
-} from "../../store/followers";
-import { addNotification } from "../../store/notifications";
+  addNotification,
+} from "../../store";
 
 export function FollowBtn({ user }) {
   const dispatch = useDispatch();

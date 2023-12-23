@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessages } from "../../../store/messages";
-import { getThreads } from "../../../store/threads";
+import { getMessages, getThreads } from "../../../store";
 import {
   MessageContentMenu,
   MessageHead,

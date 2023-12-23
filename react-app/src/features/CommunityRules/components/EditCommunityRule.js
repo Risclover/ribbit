@@ -4,8 +4,8 @@ import {
   updateRule,
   getCommunityRules,
   deleteRule,
-} from "../../../store/rules";
-import { getSingleCommunity } from "../../../store/one_community";
+  getSingleCommunity,
+} from "../../../store";
 import { Modal } from "../../../context";
 import { DeleteConfirmationModal } from "../../../components";
 import "../../../assets/styles/Modals.css";

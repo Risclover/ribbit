@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import {
   getCommunitySettings,
   updateSettingsBanner,
-} from "../../../store/community_settings";
-import { getSingleCommunity } from "../../../store/one_community";
-import { getCommunities } from "../../../store/communities";
+  getSingleCommunity,
+  getCommunities,
+} from "../../../store";
 import { DropBox } from "../../../components";
 import { PreviewCommunityBannerColor, BannerHeight } from "../../../features";
 

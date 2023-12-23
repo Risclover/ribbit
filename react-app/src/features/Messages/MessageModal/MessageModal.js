@@ -5,10 +5,10 @@ import {
   createThread,
   getThread,
   getThreads,
-} from "../../../store/threads";
-import { getMessages } from "../../../store/messages";
-import { addNotification } from "../../../store/notifications";
-import { getCommunities } from "../../../store/communities";
+  getMessages,
+  addNotification,
+  getCommunities,
+} from "../../../store";
 import "./MessageModal.css";
 import "../../../assets/styles/Modals.css";
 

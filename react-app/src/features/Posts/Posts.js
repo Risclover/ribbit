@@ -1,8 +1,7 @@
 import React, { useEffect, useState, memo, lazy, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import { getPosts } from "../../store/posts";
-import { addViewedPost } from "../../store/viewed_posts";
+import { getPosts, addViewedPost } from "../../store";
 import {
   SortingBar,
   CreatePostBar,

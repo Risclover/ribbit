@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { createComment } from "../../../store/comments";
 import {
+  createComment,
   addNotification,
   getAllNotifications,
-} from "../../../store/notifications";
+  getPostComments,
+} from "../../../store";
 import { LoginSignupModal } from "../../../features";
 import "../Comments.css";
-import { getPostComments } from "../../../store/posts";
 
 export function CommentForm({ postId }) {
   const dispatch = useDispatch();

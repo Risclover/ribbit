@@ -4,16 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import Skeleton from "react-loading-skeleton";
 
-import { getComments } from "../../../store/comments";
-import { getCommunities } from "../../../store/communities";
-import { getSinglePost } from "../../../store/one_post";
-import { getPosts } from "../../../store/posts";
 import {
+  getComments,
+  getCommunities,
+  getSinglePost,
+  getPosts,
   getSubscriptions,
   addToSubscriptions,
   deleteSubscription,
-} from "../../../store/subscriptions";
-import { addViewedPost } from "../../../store/viewed_posts";
+  addViewedPost,
+} from "../../../store";
 
 import { BackToTop } from "../../../components";
 import {

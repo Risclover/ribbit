@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getComments } from "../../store/comments";
+import { getComments } from "../../store";
 import { CommentSorting, CommentForm, Comment } from "../../features";
 import "./Comments.css";
 

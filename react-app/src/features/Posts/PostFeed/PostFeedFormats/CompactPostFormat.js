@@ -10,8 +10,7 @@ import { BsThreeDots } from "react-icons/bs";
 import parse from "html-react-parser";
 import moment from "moment";
 
-import { addPostVote, removePostVote } from "../../../../store/posts";
-import { getUsers } from "../../../../store/users";
+import { addPostVote, removePostVote, getUsers } from "../../../../store";
 
 import { Modal } from "../../../../context";
 import { DeleteConfirmationModal } from "../../../../components";

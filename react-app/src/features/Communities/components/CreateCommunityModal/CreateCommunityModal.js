@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addCommunity } from "../../../../store/communities";
-import { addToSubscriptions } from "../../../../store/subscriptions";
+import { addCommunity, addToSubscriptions } from "../../../../store";
 import "./CreateCommunityModal.css";
 
 export function CreateCommunityModal({

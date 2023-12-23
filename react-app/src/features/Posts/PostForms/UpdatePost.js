@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ReactQuill from "react-quill";
 
-import { putSinglePost } from "../../../store/posts";
+import { putSinglePost } from "../../../store";
 import "react-quill/dist/quill.snow.css";
 import "./PostForm.css";
 

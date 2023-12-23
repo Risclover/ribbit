@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createChatMessage, getChatThread } from "../../../../store/chats";
+import { createChatMessage, getChatThread } from "../../../../store";
 import * as emojis from "./emojis";
 // import Angel from "./emojis/angel.png";
 // import Angry from "./emojis/angry.png";

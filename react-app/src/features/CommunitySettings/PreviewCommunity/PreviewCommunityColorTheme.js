@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getCommunities } from "../../../store/communities";
-import { getSingleCommunity } from "../../../store/one_community";
 import {
+  getCommunities,
+  getSingleCommunity,
   getCommunitySettings,
   updateSettingsColorTheme,
-} from "../../../store/community_settings";
+} from "../../../store";
 import { DropBox } from "../../../components";
 import {
   PreviewCommunityColorThemeColor,

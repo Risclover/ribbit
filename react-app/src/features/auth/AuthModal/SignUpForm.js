@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { signUp } from "../../../store/session";
-import { SignUpFormInput } from "./SignUpFormInput";
 import validator from "validator";
+import { getUsers, signUp } from "../../../store";
+import { SignUpFormInput } from "./SignUpFormInput";
 import "./AuthModal.css";
-import { getUsers } from "../../../store/users";
 
 export const SignUpForm = ({
   showSignupForm,

@@ -73,7 +73,6 @@ const updateViewedPosts = (viewedPosts) => ({
 // #################### THUNKS ##################### //
 // ################################################ //
 
-export const getPostById = (id) => (state) => state.posts[id];
 export const getPostsByCommunityId = (communityId) => (state) =>
   state.posts[communityId];
 

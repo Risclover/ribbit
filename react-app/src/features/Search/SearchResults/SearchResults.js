@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 
-import { getAllComments } from "../../../store/comments";
-import { getCommunities } from "../../../store/communities";
-import { getPosts } from "../../../store/posts";
-import { search } from "../../../store/search";
-import { getUsers } from "../../../store/users";
+import {
+  getAllComments,
+  getCommunities,
+  getPosts,
+  search,
+  getUsers,
+} from "../../../store";
 
 import {
   SearchResultsPeople,

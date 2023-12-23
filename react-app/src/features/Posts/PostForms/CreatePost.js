@@ -12,9 +12,9 @@ import {
   addPostVote,
   getPosts,
   addImagePost,
-} from "../../../store/posts";
-import { getCommunities } from "../../../store/communities";
-import { getSubscriptions } from "../../../store/subscriptions";
+  getCommunities,
+  getSubscriptions,
+} from "../../../store";
 
 import { Modal } from "../../../context";
 import {

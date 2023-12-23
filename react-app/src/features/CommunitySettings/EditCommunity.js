@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink, useParams, Link } from "react-router-dom";
-import { updateCommunity } from "../../store/communities";
-import { getCommunityRules } from "../../store/rules";
+import { updateCommunity, getCommunityRules } from "../../store";
 import { Modal } from "../../context";
 import { DeleteConfirmationModal } from "../../components";
-
 import { CommunityEditRule, AddCommunityRuleModal } from "../../features";
 import "./CommunitySettings.css";
 

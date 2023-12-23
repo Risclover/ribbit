@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessages } from "../../store/messages";
-import { getThreads } from "../../store/threads";
-import { getUsers } from "../../store/users";
-import { readAllNotifications } from "../../store/notifications";
+import {
+  getMessages,
+  getThreads,
+  getUsers,
+  readAllNotifications,
+} from "../../store";
 import { MessageThread, MessageHead, MessageContentMenu } from "../../features";
 import "./Messages.css";
 

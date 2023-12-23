@@ -4,7 +4,7 @@ import {
   followUser,
   getFollowers,
   getUserFollowers,
-} from "../../store/followers";
+} from "../../store";
 
 export function FollowingBtn({ user }) {
   const dispatch = useDispatch();

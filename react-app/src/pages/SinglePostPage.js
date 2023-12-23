@@ -2,8 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getSinglePost } from "../store/one_post";
-import { getPosts } from "../store/posts";
+import { getSinglePost, getPosts } from "../store";
 
 import {
   Comments,

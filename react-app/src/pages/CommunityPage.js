@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getCommunities } from "../store/communities";
-import { getCommunitySettings } from "../store/community_settings";
+import { getCommunities, getCommunitySettings } from "../store";
 
 import {
   CommunityPageMain,

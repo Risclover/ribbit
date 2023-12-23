@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  getAllComments,
-  getComments,
-  updateComment,
-} from "../../store/comments";
+import { updateComment, getSingleComment, getPostComments } from "../../store";
 import "../../assets/styles/Modals.css";
-import { getSingleComment } from "../../store/one_comment";
-import { getPostComments } from "../../store/posts";
 
 export function EditComment({ commentId, comment, setShowEditCommentModal }) {
   const dispatch = useDispatch();
@@ -39,7 +33,6 @@ export function EditComment({ commentId, comment, setShowEditCommentModal }) {
       setErrors([]);
       setShowEditCommentModal(false);
       dispatch(getSingleComment(commentId));
-      // dispatch(getAllComments());
       dispatch(getPostComments(comment?.postId));
     }
   };

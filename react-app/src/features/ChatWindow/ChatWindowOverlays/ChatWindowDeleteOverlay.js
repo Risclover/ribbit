@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
-import { fakeDeleteMessage, getChatThread } from "../../../store/chats";
+import { fakeDeleteMessage, getChatThread } from "../../../store";
 import "./ChatWindowOverlay.css";
 import { SelectedChatContext } from "../../../context/SelectedChat";
 

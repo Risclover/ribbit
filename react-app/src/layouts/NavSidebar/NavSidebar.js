@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { TfiClose } from "react-icons/tfi";
 
-import { getFavoriteCommunities } from "../../store/favorite_communities";
-import { getFavoriteUsers } from "../../store/favorite_users";
-import { getFollowers } from "../../store/followers";
-import { getSubscriptions } from "../../store/subscriptions";
+import {
+  getFavoriteCommunities,
+  getFavoriteUsers,
+  getFollowers,
+  getSubscriptions,
+} from "../../store";
 
 import { NavLeftDropdown } from "../../layouts";
 import "./NavSidebar.css";

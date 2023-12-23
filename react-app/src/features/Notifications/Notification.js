@@ -5,8 +5,7 @@ import { IoIosMore } from "react-icons/io";
 import { IoChatbox } from "react-icons/io5";
 import moment from "moment";
 
-import { readNotification } from "../../store/notifications";
-import { getUserNotifications } from "../../store/notifications";
+import { readNotification, getUserNotifications } from "../../store";
 import { NotificationMenu } from "./NotificationMenu";
 import { HandleClickOutside } from "../../utils";
 

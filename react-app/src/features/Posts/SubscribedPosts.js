@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { getCommunities } from "../../store/communities";
-import { getFollowers } from "../../store/followers";
-import { getPosts } from "../../store/posts";
-import { getSubscriptions } from "../../store/subscriptions";
-import { getViewedPosts } from "../../store/viewed_posts";
+import {
+  getCommunities,
+  getFollowers,
+  getPosts,
+  getSubscriptions,
+  getViewedPosts,
+} from "../../store";
 
 import {
   BackToTop,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "../../context";
 import { DeleteConfirmationModal } from "../../components";
-import { deletePost, getPosts } from "../../store/posts";
+import { deletePost, getPosts } from "../../store";
 
 export function DeletePostModal({ post, community }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);

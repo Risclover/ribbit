@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToSubscriptions } from "../../../store/subscriptions";
-import { deleteSubscription } from "../../../store/subscriptions";
+import { addToSubscriptions, deleteSubscription } from "../../../store";
 
 export function JoinBtn({ community }) {
   const dispatch = useDispatch();

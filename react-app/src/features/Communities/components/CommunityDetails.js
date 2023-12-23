@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { deleteSubscription } from "../../../store/subscriptions";
-import Cake from "../../../assets/images/misc/piece4.png";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import communitiesReducer from "../../../store/communities";
+import { deleteSubscription } from "../../../store";
 import { CommunityOptions } from "../CommunityInfoBox";
+import Cake from "../../../assets/images/misc/piece4.png";
 
 export function CommunityDetails({ post, community }) {
   const subscriptions = useSelector((state) => state.subscriptions);

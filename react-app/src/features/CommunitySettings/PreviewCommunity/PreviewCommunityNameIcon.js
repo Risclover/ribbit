@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getSingleCommunity } from "../../../store/one_community";
-import { defaultCommunityImg } from "../../../store/communities";
 import {
+  getSingleCommunity,
+  defaultCommunityImg,
   resetToDefaultIcon,
   updateSettingsNameIcon,
-} from "../../../store/community_settings";
+} from "../../../store";
 import { ToggleSwitch, DropBox } from "../../../components";
 import { CommunityNameOption } from "./CommunityNameOption";
 

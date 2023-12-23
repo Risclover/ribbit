@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createRule, getCommunityRules } from "../../../../store/rules";
-import { getSingleCommunity } from "../../../../store/one_community";
+import {
+  createRule,
+  getCommunityRules,
+  getSingleCommunity,
+} from "../../../../store";
 import "../../../../assets/styles/Modals.css";
 import "./AddCommunityRuleModal.css";
 

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getSingleCommunity } from "../../../store/one_community";
-import { getPosts } from "../../../store/posts";
-import { getSubscriptions } from "../../../store/subscriptions";
-import { getCommunities } from "../../../store/communities";
+import {
+  getSingleCommunity,
+  getPosts,
+  getSubscriptions,
+  getCommunities,
+} from "../../../store";
 import {
   CommunityWelcome,
   CommunityImage,

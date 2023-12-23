@@ -1,12 +1,16 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { deletePost, getPosts } from "../store/posts";
-import { removeComment } from "../store/comments";
-import { deleteCommunity } from "../store/communities";
-import { deleteRule, getCommunityRules } from "../store/rules";
-import { getUsers } from "../store/users";
-import { getSingleCommunity } from "../store/one_community";
+import {
+  deletePost,
+  getPosts,
+  removeComment,
+  deleteCommunity,
+  deleteRule,
+  getCommunityRules,
+  getUsers,
+  getSingleCommunity,
+} from "../store";
 import "../assets/styles/Modals.css";
 
 export function DeleteConfirmationModal({

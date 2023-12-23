@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { TfiPlus } from "react-icons/tfi";
-import { getChatThread, createReaction } from "../../../../../store/chats";
+import { getChatThread, createReaction } from "../../../../../store";
 import "./ReactionsMenu.css";
 
 const reactions = [

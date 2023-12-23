@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getSingleCommunity } from "../../../store/one_community";
+import { getSingleCommunity } from "../../../store";
 import "../../../assets/styles/Modals.css";
 
 export function CommunityImgModal({

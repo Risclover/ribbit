@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getFollowers } from "../../../store/followers";
+import { getFollowers } from "../../../store";
 import { FollowingBtn } from "../../../pages";
 // import "../../pages/UserProfile/UserProfile.css";
 

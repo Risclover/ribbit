@@ -4,13 +4,14 @@ import { NavLink, useParams } from "react-router-dom";
 import { SlArrowRight } from "react-icons/sl";
 import moment from "moment";
 
-import { createChatThread, getUserChatThreads } from "../../store/chats";
 import {
   followUser,
   getFollowers,
   getUserFollowers,
-} from "../../store/followers";
-import { addNotification } from "../../store/notifications";
+  createChatThread,
+  getUserChatThreads,
+  addNotification,
+} from "../../store";
 
 import { Modal } from "../../context";
 import { UserProfileFollowers } from "../../features";

@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 import { CiSearch } from "react-icons/ci";
 import { SlClose } from "react-icons/sl";
-import { createChatMessage, getChatThread } from "../../../../store/chats";
+import { createChatMessage, getChatThread } from "../../../../store";
 import "./ChatWindowInput.css";
 import { SelectedChatContext } from "../../../../context/SelectedChat";
 

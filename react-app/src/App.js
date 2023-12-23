@@ -39,9 +39,7 @@ import {
 } from "./features";
 import { NavBar, NavSidebar, LoggedOutSidebar } from "./layouts";
 
-import { getUserChatThreads } from "./store/chats";
-import { getCommunities } from "./store/communities";
-import { authenticate } from "./store/session";
+import { getUserChatThreads, getCommunities, authenticate } from "./store";
 
 import { PostFormatContext } from "./context/PostFormat";
 import { SelectedChatContext } from "./context/SelectedChat";

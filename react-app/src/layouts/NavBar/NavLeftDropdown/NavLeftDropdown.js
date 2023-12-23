@@ -8,12 +8,10 @@ import {
   addFavoriteCommunity,
   getFavoriteCommunities,
   removeFavoriteCommunity,
-} from "../../../store/favorite_communities";
-import {
   addFavoriteUser,
   getFavoriteUsers,
   removeFavoriteUser,
-} from "../../../store/favorite_users";
+} from "../../../store";
 
 import { NavLeftDropdownLink } from "../../../layouts";
 import All from "../../../assets/images/navbar/all-icon2.png";

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { getCommunities } from "../../store/communities";
+import { getCommunities } from "../../store";
 import "./CommunitiesDirectory.css";
 
 export function CommunitiesDirectory({ setPageTitle }) {

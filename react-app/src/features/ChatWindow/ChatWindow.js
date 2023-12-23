@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
-import { getChatThread, getUserChatThreads } from "../../store/chats";
+import { getChatThread, getUserChatThreads } from "../../store";
 import {
   ChatWindowLeft,
   ChatWindowRight,

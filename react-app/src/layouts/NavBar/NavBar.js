@@ -4,10 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { TfiPlus } from "react-icons/tfi";
 import { BsChatDots } from "react-icons/bs";
 
-import { getCommunities } from "../../store/communities";
-import { getMessages } from "../../store/messages";
-import { getUsers } from "../../store/users";
-
+import { getCommunities, getMessages, getUsers } from "../../store";
 import {
   NavUserDropdown,
   NavLeftDropdownFace,
