@@ -287,7 +287,7 @@ export function CompactPostFormat({ id, isPage, userId }) {
                         className="compact-post-community"
                         onClick={(e) => {
                           e.preventDefault();
-                          history.push(`/c/${post?.communityId}`);
+                          history.push(`/c/${post?.communityName}`);
                         }}
                       >
                         c/{post?.communityName}{" "}

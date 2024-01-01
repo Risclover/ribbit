@@ -115,26 +115,28 @@ function App() {
     return null;
   }
 
+  const navBarProps = {
+    pageTitle: pageTitle,
+    setPageTitle: setPageTitle,
+    pageIcon: pageIcon,
+    setPageIcon: setPageIcon,
+    adjustQuery: adjustQuery,
+    searchQuery: searchQuery,
+    setSearchQuery: setSearchQuery,
+    setShowNavSidebar: setShowNavSidebar,
+    showNavSidebar: showNavSidebar,
+    normalDropdown: normalDropdown,
+    setNormalDropdown: setNormalDropdown,
+    setOpenChat: setOpenChat,
+    openChat: openChat,
+  };
+
   return (
     <PostFormatContext.Provider value={{ format, setFormat }}>
       <SelectedChatContext.Provider value={{ selectedChat, setSelectedChat }}>
         <ScrollToTop />
         {previewPage && <PreviewCommunitySidebar />}
-        <NavBar
-          pageTitle={pageTitle}
-          setPageTitle={setPageTitle}
-          pageIcon={pageIcon}
-          setPageIcon={setPageIcon}
-          adjustQuery={adjustQuery}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          setShowNavSidebar={setShowNavSidebar}
-          showNavSidebar={showNavSidebar}
-          normalDropdown={normalDropdown}
-          setNormalDropdown={setNormalDropdown}
-          setOpenChat={setOpenChat}
-          openChat={openChat}
-        />{" "}
+        <NavBar props={navBarProps} />{" "}
         <div
           className={
             showNavSidebar
@@ -224,7 +226,7 @@ function App() {
                 val="link"
               />
             </ProtectedRoute>
-            <ProtectedRoute path="/c/:communityId/submit" exact={true}>
+            <ProtectedRoute path="/c/:communityName/submit" exact={true}>
               <CreatePost
                 setPageTitle={setPageTitle}
                 setPageIcon={setPageIcon}
@@ -233,7 +235,7 @@ function App() {
                 val="post"
               />
             </ProtectedRoute>
-            <ProtectedRoute path="/c/:communityId/submit/image" exact={true}>
+            <ProtectedRoute path="/c/:communityName/submit/image" exact={true}>
               <CreatePost
                 setPageTitle={setPageTitle}
                 setPageIcon={setPageIcon}
@@ -242,7 +244,7 @@ function App() {
                 val="image"
               />
             </ProtectedRoute>
-            <ProtectedRoute path="/c/:communityId/submit/url" exact={true}>
+            <ProtectedRoute path="/c/:communityName/submit/url" exact={true}>
               <CreatePost
                 setPageTitle={setPageTitle}
                 setPageIcon={setPageIcon}
@@ -294,13 +296,13 @@ function App() {
             <ProtectedRoute path="/posts/:postId/edit" exact={true}>
               <UpdatePost />
             </ProtectedRoute>
-            <Route path="/c/:communityId" exact={true}>
+            <Route path="/c/:communityName" exact={true}>
               <CommunityPage
                 setPageTitle={setPageTitle}
                 setPageIcon={setPageIcon}
               />
             </Route>
-            <ProtectedRoute exact path="/c/:communityId/style">
+            <ProtectedRoute exact path="/c/:communityName/style">
               <PreviewCommunity
                 setPageTitle={setPageTitle}
                 setPageIcon={setPageIcon}
@@ -311,7 +313,7 @@ function App() {
                 setPreviewPage={setPreviewPage}
               />
             </ProtectedRoute>
-            <ProtectedRoute path="/c/:communityId/edit" exact={true}>
+            <ProtectedRoute path="/c/:communityName/edit" exact={true}>
               <EditCommunity />
             </ProtectedRoute>
             <ProtectedRoute path="/users/:userId/profile/edit" exact={true}>
@@ -323,7 +325,7 @@ function App() {
             <ProtectedRoute path="/posts/:postId/img/edit" exact={true}>
               <UpdateImagePost />
             </ProtectedRoute>
-            <Route path="/search/results" exact={true}>
+            <Route path="/search/?q=:searchResults" exact={true}>
               <SearchResults
                 setPageTitle={setPageTitle}
                 setPageIcon={setPageIcon}

@@ -40,12 +40,12 @@
   outline: none;
   cursor: pointer;
   font-size: 30px;
-  height: 24px;
+  /* height: 24px; */
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
+  /* width: 24px; */
   color: #878a8c;
 }
 
@@ -131,7 +131,6 @@
 .compact-post-icon-btn-expand svg {
   transform: rotate(90deg);
 }
-
 
 .single-post-comments-btn svg {
   width: 18px;

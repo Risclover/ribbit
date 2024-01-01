@@ -39,7 +39,7 @@ export function CommunityDetails({ post, community }) {
   };
 
   return (
-    <NavLink to={`/c/${post !== null ? post?.communityId : community?.id}`}>
+    <NavLink to={`/c/${post !== null ? post?.communityName : community?.name}`}>
       <div className="single-post-community-box">
         <div className="single-post-box-header"></div>
         <div className="single-post-community-info-content">

@@ -96,7 +96,7 @@ export function Searchbar({
             placeholder="Search Ribbit"
             className="nav-input"
           />
-          {searchQuery.length > 0 && (
+          {searchQuery && searchQuery.length > 0 && (
             <div
               className="search-close-icon"
               onClick={(e) => {
@@ -111,7 +111,7 @@ export function Searchbar({
           )}
         </div>
       </div>
-      {showSearchDropdown && searchQuery.length > 0 && (
+      {showSearchDropdown && searchQuery && searchQuery.length > 0 && (
         <SearchDropdown
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}

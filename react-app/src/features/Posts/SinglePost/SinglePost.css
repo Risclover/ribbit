@@ -181,6 +181,7 @@
   position: relative;
   padding-left: 40px;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .posts-container .single-post-container {

@@ -11,15 +11,27 @@ import {
 } from "../features";
 
 export function CommunityPage({ setPageTitle, setPageIcon }) {
-  const { communityId } = useParams();
+  // const { communityId } = useParams();
+  const { communityName } = useParams();
   const dispatch = useDispatch();
-
-  const community = useSelector((state) => state.communities[communityId]);
-
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getCommunitySettings(communityId));
-  }, []);
+  }, [dispatch]);
+
+  const communities = useSelector((state) => state.communities);
+
+  const getIdFromName = (name) => {
+    let result = Object.values(communities).find(
+      (community) => community.name === name
+    );
+    console.log("result:", result);
+    return result ? result.id : null;
+  };
+
+  const communityId = getIdFromName(communityName);
+
+  const community = useSelector((state) => state.communities[communityId]);
 
   useEffect(() => {
     document.title = community?.displayName;
@@ -40,7 +52,7 @@ export function CommunityPage({ setPageTitle, setPageIcon }) {
     );
   }, [community, setPageTitle, setPageIcon]);
 
-  if (!community) return null;
+  if (!community || !communities) return null;
 
   return (
     <div className="community-page-container">

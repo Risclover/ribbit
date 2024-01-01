@@ -29,7 +29,7 @@ export function SinglePostAuthorBar({
   isPage,
 }) {
   const history = useHistory();
-  const communityHref = `/c/${community?.id}`;
+  const communityHref = `/c/${community?.name}`;
 
   useEffect(() => {
     document.documentElement.style.setProperty(

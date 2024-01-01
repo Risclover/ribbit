@@ -40,7 +40,7 @@ export function SearchResultsPosts({
                       <img src={post.communityImg} alt="Community" />
                       <NavLink
                         className="results-post-community"
-                        to={`/c/${post.communityId}`}
+                        to={`/c/${post.communityName}`}
                       >
                         c/{post.communityName}
                       </NavLink>{" "}
@@ -107,7 +107,7 @@ export function SearchResultsPosts({
               community["name"]
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase()) ? (
-                <NavLink to={`/c/${community.id}`}>
+                <NavLink to={`/c/${community.name}`}>
                   <div
                     className="search-result-page-community"
                     onClick={() => {

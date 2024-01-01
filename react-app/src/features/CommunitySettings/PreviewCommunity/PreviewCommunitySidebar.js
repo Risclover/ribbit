@@ -159,7 +159,7 @@ export function PreviewCommunitySidebar() {
     dispatch(resetToDefault(community?.id));
     dispatch(getCommunities());
     dispatch(getCommunitySettings(community?.id));
-    history.push(`/c/${community?.id}`);
+    history.push(`/c/${community?.name}`);
   };
 
   return (

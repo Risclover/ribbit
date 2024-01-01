@@ -67,7 +67,7 @@ export function CommunitySelectionDropdownCommunity({
     for (let community of allCommunities) {
       if (community.name === name) {
         setCommunity(community);
-        history.push(`/c/${community.id}/submit`);
+        history.push(`/c/${community.name}/submit`);
         changeCommunity(community);
         setShowDropdown(false);
       }
@@ -75,7 +75,7 @@ export function CommunitySelectionDropdownCommunity({
   };
 
   return (
-    <NavLink to={`/c/${subscription?.id}/submit`}>
+    <NavLink to={`/c/${subscription?.name}/submit`}>
       <div
         className="community-selection-dropdown-community"
         onClick={(e) => handleClick(e, subscription?.name)}

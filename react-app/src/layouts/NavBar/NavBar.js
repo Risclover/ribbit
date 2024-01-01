@@ -10,7 +10,7 @@ import {
   NavLeftDropdownFace,
   NotificationsDropdownWrapper,
   LoggedOutDropdownWrapper,
-} from "../../layouts";
+} from "../NavBar";
 import { Searchbar, LoginSignupModal } from "../../features";
 import RibbitLogo from "../../assets/images/ribbit-banners/ribbit_logo_love.png";
 import RibbitLogoSmall from "../../assets/images/ribbit-banners/ribbit_logo_love_small.png";
@@ -18,20 +18,22 @@ import All from "../../assets/images/navbar/all-icon2.png";
 import "./NavBar.css";
 import { SelectedChatContext } from "../../context/SelectedChat";
 
-export function NavBar({
-  searchQuery,
-  setSearchQuery,
-  adjustQuery,
-  pageTitle,
-  setPageTitle,
-  pageIcon,
-  setPageIcon,
-  setShowNavSidebar,
-  setNormalDropdown,
-  normalDropdown,
-  setOpenChat,
-  openChat,
-}) {
+export function NavBar(props) {
+  const {
+    pageTitle,
+    setPageTitle,
+    pageIcon,
+    setPageIcon,
+    adjustQuery,
+    searchQuery,
+    setSearchQuery,
+    setShowNavSidebar,
+    showNavSidebar,
+    normalDropdown,
+    setNormalDropdown,
+    setOpenChat,
+    openChat,
+  } = props;
   const history = useHistory();
   const dispatch = useDispatch();
 

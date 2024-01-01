@@ -69,11 +69,8 @@ export function PostReply({ notification }) {
             <NavLink to={`/users/${postReplySender?.id}/profile`}>
               /u/{postReplySender?.username}
             </NavLink>{" "}
-            via{" "}
-            <NavLink to={`/c/${posts[notification.postId]?.communityId}`}>
-              /c/{community}
-            </NavLink>{" "}
-            sent {moment(notification.createdAt).fromNow()}
+            via <NavLink to={`/c/${community}`}>/c/{community}</NavLink> sent{" "}
+            {moment(notification.createdAt).fromNow()}
           </div>
           <div className="post-reply-content">{notification.content}</div>
           <div className="post-reply-btn-bar">

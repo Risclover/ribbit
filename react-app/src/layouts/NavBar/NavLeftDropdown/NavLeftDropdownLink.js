@@ -74,7 +74,7 @@ export function NavLeftDropdownLink({
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
-            history.push(`/c/${item.id}`);
+            history.push(`/c/${item.name}`);
           }}
         >
           <img
@@ -146,7 +146,7 @@ export function NavLeftDropdownLink({
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
-            history.push(`/c/${item.id}`);
+            history.push(`/c/${item.name}`);
           }}
         >
           <img

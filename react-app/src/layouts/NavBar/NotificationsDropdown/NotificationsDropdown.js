@@ -143,7 +143,7 @@ export function NotificationsDropdown({
                 className="blue-btn-filled no-notifications-btn"
                 onClick={() => {
                   setShowDropdown(false);
-                  history.push(`/c/22`);
+                  history.push("/c/CasualConversation");
                 }}
               >
                 Visit r/CasualConversation

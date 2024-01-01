@@ -37,7 +37,7 @@ export function CommunityInfoBox({ community, user }) {
         <div className="community-page-box-header-right">
           {user?.id === community?.userId && (
             <NavLink
-              to={`/c/${community?.id}/edit`}
+              to={`/c/${community?.name}/edit`}
               className="community-page-mod-tools"
             >
               <BiShieldAlt /> Mod Tools
@@ -58,7 +58,7 @@ export function CommunityInfoBox({ community, user }) {
         </div>
         <div className="community-page-box-btn">
           {user && (
-            <NavLink to={`/c/${community.id}/submit`}>
+            <NavLink to={`/c/${community.name}/submit`}>
               <button className="blue-btn-filled btn-long community-btn-filled">
                 Create Post
               </button>

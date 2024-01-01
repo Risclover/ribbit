@@ -17,7 +17,7 @@ export function SearchResultsCommunities({
           community["name"]
             .toLowerCase()
             .includes(searchQuery.toLowerCase()) ? (
-            <NavLink key={idx} to={`/c/${community.id}`}>
+            <NavLink key={idx} to={`/c/${community.name}`}>
               <div className="search-results-page-community-page">
                 <div className="search-results-page-community-left">
                   <img

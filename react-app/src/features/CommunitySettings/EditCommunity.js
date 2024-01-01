@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink, useParams, Link } from "react-router-dom";
-import { updateCommunity, getCommunityRules } from "../../store";
+import {
+  updateCommunity,
+  getCommunityRules,
+  getCommunities,
+} from "../../store";
 import { Modal } from "../../context";
 import { DeleteConfirmationModal } from "../../components";
 import { CommunityEditRule, AddCommunityRuleModal } from "../../features";
@@ -10,7 +14,19 @@ import "./CommunitySettings.css";
 export function EditCommunity() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { communityId } = useParams();
+  // const { communityId } = useParams();
+  const { communityName } = useParams();
+  const communities = useSelector((state) => state.communities);
+
+  const getIdFromName = (name) => {
+    let result = Object.values(communities).find(
+      (community) => community.name === name
+    );
+    console.log("result:", result);
+    return result ? result.id : null;
+  };
+
+  const communityId = getIdFromName(communityName);
 
   const user = useSelector((state) => state.session.user);
   const community = useSelector((state) => state.singleCommunity[+communityId]);
@@ -27,6 +43,7 @@ export function EditCommunity() {
 
   useEffect(() => {
     dispatch(getCommunityRules(communityId));
+    dispatch(getCommunities());
   }, [community?.id, communityId, dispatch]);
 
   useEffect(() => {
@@ -52,7 +69,7 @@ export function EditCommunity() {
       updateCommunity({ display_name, description }, community.id)
     );
 
-    history.push(`/c/${data.id}`);
+    history.push(`/c/${data.name}`);
   };
 
   if (!community || !community) return null;
@@ -65,7 +82,7 @@ export function EditCommunity() {
             alt="Community"
           />
           <span className="edit-community-top-bar-name">
-            <NavLink to={`/c/${community.id}`}>c/{community.name}</NavLink> /
+            <NavLink to={`/c/${communityName}`}>c/{community.name}</NavLink> /
             Community Settings
           </span>
         </div>
@@ -79,7 +96,7 @@ export function EditCommunity() {
         {user.id === community.userId && (
           <>
             <h1>Community settings</h1>
-            <Link to={`/c/${community.id}/style`}>Style</Link>
+            <Link to={`/c/${communityName}/style`}>Style</Link>
 
             <div className="edit-community-page-section">
               <h2>Community display name (optional)</h2>

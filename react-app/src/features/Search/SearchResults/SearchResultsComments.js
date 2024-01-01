@@ -45,6 +45,7 @@ export function SearchResultsComments({
           commentCount: Object.values(post.postComments).length,
           commentId: Object.values(post.postComments)[i].id,
           communityId: post.communityId,
+          communityName: post.communityName,
         };
         unfinishedComments.push(commentObj);
       }
@@ -66,14 +67,14 @@ export function SearchResultsComments({
             <NavLink key={idx} to={`/posts/${comment.postId}`}>
               <div className="search-results-page-comment">
                 <div className="search-results-comment-post-header">
-                  <NavLink to={`/c/${comment.communityId}`}>
+                  <NavLink to={`/c/${comment.communityName}`}>
                     <img
                       src={comment.communityImg}
                       className="search-results-comment-community-img"
                       alt="Comment community"
                     />
                   </NavLink>
-                  <NavLink to={`/c/${comment.communityId}`}>
+                  <NavLink to={`/c/${comment.communityName}`}>
                     <span className="search-results-comment-community">
                       c/{comment.community}
                     </span>

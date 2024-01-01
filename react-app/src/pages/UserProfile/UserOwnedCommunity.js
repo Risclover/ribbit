@@ -18,7 +18,7 @@ export function UserOwnedCommunity({ community }) {
         </div>
         <div className="owned-community-info">
           <span className="owned-community-title">
-            <NavLink to={`/c/${community.id}`}>c/{community.name}</NavLink>
+            <NavLink to={`/c/${community.name}`}>c/{community.name}</NavLink>
           </span>
           <span className="owned-community-members">
             {community.members} {community.members === 1 ? "member" : "members"}

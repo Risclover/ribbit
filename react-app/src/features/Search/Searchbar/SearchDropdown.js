@@ -23,7 +23,7 @@ export function SearchDropdown({
   const handleQuery = (e) => {
     e.preventDefault();
     setShowSearchDropdown(false);
-    history.push("/search/results");
+    history.push(`/search/?q=${searchQuery}`);
   };
 
   const filteredCommunities = Object.values(allCommunities)
@@ -50,7 +50,7 @@ export function SearchDropdown({
               onClick={() => {
                 setShowSearchDropdown(false);
                 setSearchQuery("");
-                history.push(`/c/${community.id}`);
+                history.push(`/c/${community.name}`);
               }}
             >
               <div className="search-result-community-img-box">
@@ -67,7 +67,7 @@ export function SearchDropdown({
               <div className="search-result-community-details">
                 <div className="search-result-community-name">
                   c/{community.name}
-                </div>
+                </div>...
                 <div className="search-result-community-members">
                   Community • {community.members} members
                 </div>

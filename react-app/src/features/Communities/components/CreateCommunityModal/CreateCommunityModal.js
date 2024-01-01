@@ -34,7 +34,7 @@ export function CreateCommunityModal({
         setErrors([...errors, "That name is already taken."]);
       } else {
         await dispatch(addToSubscriptions(data.id));
-        history.push(`/c/${data.id}`);
+        history.push(`/c/${data.name}`);
       }
     }
   };

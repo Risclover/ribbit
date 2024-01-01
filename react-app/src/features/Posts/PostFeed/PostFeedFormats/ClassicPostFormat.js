@@ -138,7 +138,7 @@ export function ClassicPostFormat({ isPage, id, userId }) {
                   className="classic-post-community-info"
                   onClick={(e) => {
                     e.preventDefault();
-                    history.push(`/c/${post?.communityId}`);
+                    history.push(`/c/${post?.communityName}`);
                   }}
                 >
                   {isPage !== "community" && (

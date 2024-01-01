@@ -125,7 +125,7 @@ export function Notifications({ setPageTitle, setPageIcon }) {
                 <button
                   className="blue-btn-filled no-notifications-btn"
                   onClick={() => {
-                    history.push(`/c/22`);
+                    history.push("/c/CasualConversation");
                   }}
                 >
                   Visit r/CasualConversation

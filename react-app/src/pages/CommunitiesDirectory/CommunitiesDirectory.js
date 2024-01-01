@@ -32,7 +32,7 @@ export function CommunitiesDirectory({ setPageTitle }) {
           )
           .map((community, idx) => (
             <div className="directory-listing" key={idx}>
-              <NavLink to={`/c/${community.id}`}>{community.name}</NavLink>
+              <NavLink to={`/c/${community.name}`}>{community.name}</NavLink>
             </div>
           ))}
       </div>

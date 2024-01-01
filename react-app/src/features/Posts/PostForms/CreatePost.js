@@ -56,18 +56,21 @@ export function CreatePost({
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { communityId } = useParams();
+  const { communityName } = useParams();
 
   const textareaRef = useRef(null);
+
+  useEffect(() => {
+    dispatch(getPosts());
+    dispatch(getCommunities());
+    dispatch(getSubscriptions());
+  }, [dispatch]);
 
   const [link_url, setlink_url] = useState("");
   const [community, setCommunity] = useState();
   const [title, setTitle] = useState("");
   const [img_url, setimg_url] = useState("");
   const [content, setContent] = useState("");
-  const [community_id, setcommunity_id] = useState(
-    communityId === "undefined" ? "undefined" : +communityId
-  );
   const [disabled, setDisabled] = useState(false);
   const [showImgModal, setShowImgModal] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -79,6 +82,19 @@ export function CreatePost({
   const posts = useSelector((state) => Object.values(state.posts));
   const communities = useSelector((state) => Object.values(state.communities));
   const user = useSelector((state) => state.session.user);
+
+  const getIdFromName = (name) => {
+    let result = Object.values(communities).find(
+      (community) => community.name === name
+    );
+    console.log("result:", result);
+    return result ? result.id : null;
+  };
+
+  const [communityId, setCommunityId] = useState(getIdFromName(communityName));
+  const [community_id, setcommunity_id] = useState(
+    communityId === "undefined" ? "undefined" : +communityId
+  );
 
   useAutosizeTextArea(textareaRef.current, title);
 
@@ -93,12 +109,6 @@ export function CreatePost({
   }, [community, setPageTitle, setPageIcon]);
 
   useEffect(() => {
-    dispatch(getPosts());
-    dispatch(getCommunities());
-    dispatch(getSubscriptions());
-  }, [dispatch]);
-
-  useEffect(() => {
     for (let community of communities) {
       if (community.id === community_id) {
         setCommunity(community);
@@ -109,68 +119,6 @@ export function CreatePost({
   useEffect(() => {
     setPostType(val);
   }, [val]);
-
-  // useEffect(() => {
-  //   let errors = [];
-  //   if (
-  //     postType === "link" &&
-  //     !validator.isURL(link_url) &&
-  //     link_url.length > 0
-  //   ) {
-  //     errors.push("Link doesn't look right.");
-  //   }
-  //   if (link_url.length === 0 || link_url === "" || link_url === null) {
-  //     errors.push("Please enter a url.");
-  //   }
-  //   if (title.length <= 0) {
-  //     errors.push("Please include a title.");
-  //   }
-  //   if (community === undefined) {
-  //     errors.push("Please select a community.");
-  //   }
-
-  //   if (errors.length > 0) {
-  //     setLinkErrors(errors);
-  //   } else {
-  //     setLinkErrors([]);
-  //   }
-  // }, [link_url, title, community, postType]);
-
-  // useEffect(() => {
-  //   let errors = [];
-  //   if (img_url === "" || img_url === null || img_url === undefined) {
-  //     errors.push("Select an image.");
-  //   }
-  //   if (title.length <= 0) {
-  //     errors.push("Please include a title.");
-  //   }
-  //   if (community === undefined) {
-  //     errors.push("Please select a community.");
-  //   }
-
-  //   if (errors.length > 0) {
-  //     setImageErrors(errors);
-  //   } else {
-  //     setImageErrors([]);
-  //   }
-  // }, [img_url, title, community]);
-
-  // useEffect(() => {
-  //   let errors = [];
-
-  //   if (title.trim().length <= 0) {
-  //     errors.push("Please include a title.");
-  //   }
-  //   if (community === undefined) {
-  //     errors.push("Please select a community.");
-  //   }
-
-  //   if (errors.length > 0) {
-  //     setErrors(errors);
-  //   } else {
-  //     setErrors([]);
-  //   }
-  // }, [content, title, community]);
 
   const postErrors = () => {
     let errors = [];
@@ -234,6 +182,12 @@ export function CreatePost({
     }
   };
 
+  const findErrors = () => {
+    linkPostErrors();
+    imgPostErrors();
+    postErrors();
+  }
+
   useEffect(() => {
     if (content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
       setContent("");
@@ -284,7 +238,7 @@ export function CreatePost({
       setTitle("");
       setContent("");
       const postId = posts[posts?.length - 1]?.id + 1;
-      history.push(`/c/${community_id}`);
+      history.push(`/c/${communityName}`);
       await dispatch(getPosts());
       dispatch(addPostVote(postId, "upvote"));
     }
@@ -294,7 +248,7 @@ export function CreatePost({
     e.preventDefault();
     const postId = posts[posts.length - 1].id + 1;
     dispatch(addLinkPost({ title, link_url, community_id }));
-    history.push(`/c/${community_id}`);
+    history.push(`/c/${communityName}`);
     await dispatch(getPosts());
     dispatch(addPostVote(postId, "upvote"));
   };
@@ -304,7 +258,7 @@ export function CreatePost({
     const postId = posts[posts.length - 1].id + 1;
 
     dispatch(addImagePost({ title, img_url, community_id }));
-    history.push(`/c/${community_id}`);
+    history.push(`/c/${communityName}`);
     await dispatch(getPosts());
     dispatch(addPostVote(postId, "upvote"));
   };
@@ -325,12 +279,14 @@ export function CreatePost({
         community_id &&
         !isNaN(community_id)
       ) {
-        history.push(`/c/${community_id}`);
+        history.push(`/c/${communityName}`);
       } else {
         history.push("/home");
       }
     }
   };
+
+  if (!communities) return null;
 
   return (
     <div className="create-post-form-container">

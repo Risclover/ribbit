@@ -86,7 +86,7 @@ export function SinglePostPage({
         <Comments setShowLoginForm={setShowLoginForm} />
       </div>
       <div className="single-post-right-col">
-        <NavLink to={`/c/${post?.communityId}`}>
+        <NavLink to={`/c/${post?.communityName}`}>
           <div className="single-post-community-box">
             <div className="single-post-box-header"></div>
             <div className="single-post-community-info-content">

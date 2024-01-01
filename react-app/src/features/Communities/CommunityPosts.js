@@ -6,7 +6,7 @@ import { PostFormatContext } from "../../context/PostFormat";
 
 export function CommunityPosts({
   commPosts,
-  communityId,
+  communityName,
   user,
   setShowLoginForm,
 }) {
@@ -32,12 +32,7 @@ export function CommunityPosts({
           : "community-page-left-col-alt"
       }
     >
-      {user && (
-        <CreatePostBar
-          page="community"
-          communityId={communityId}
-        />
-      )}
+      {user && <CreatePostBar page="community" communityName={communityName} />}
       <SortingBar
         community={true}
         sortMode={sortMode}

@@ -19,7 +19,7 @@ export function CommunityPageMain({ community }) {
       <div className="community-body-bg-div"></div>
       <CommunityPosts
         commPosts={communityPosts}
-        communityId={community.id}
+        communityName={community.name}
         user={user}
       />
       <div className="community-page-right-col">
