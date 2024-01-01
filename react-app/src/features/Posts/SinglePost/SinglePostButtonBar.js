@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { DeletePostModal } from "../DeletePost";
 import Bounce from "../../../assets/images/misc/curved-arrow.png";
-import DeletePostModal from "../DeletePost";
 
-export default function SinglePostButtonBar({ post, community, isPage, user }) {
+export function SinglePostButtonBar({ post, community, isPage, user }) {
   const dispatch = useDispatch();
   const history = useHistory();
 

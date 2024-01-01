@@ -1,4 +1,5 @@
 const SEARCH = "queries/SEARCH";
+const SET_SEARCH_QUERY = "queries/SET_SEARCH_QUERY";
 
 export const searchQueries = (results) => {
   return {
@@ -6,6 +7,11 @@ export const searchQueries = (results) => {
     results,
   };
 };
+
+export const setSearchQuery = (query) => ({
+  type: SET_SEARCH_QUERY,
+  payload: query,
+});
 
 export const getSearchResults = () => async (dispatch) => {
   const response = await fetch("/api/search/results");
@@ -36,6 +42,11 @@ export default function searchReducer(state = initialState, action) {
         results[result.id] = result;
         return results;
       }, {});
+    case SET_SEARCH_QUERY:
+      return {
+        ...state,
+        searchQuery: action.payload,
+      };
     default:
       return state;
   }

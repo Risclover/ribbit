@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import { logout } from "../../../store/session";
 import { TbChevronDown } from "react-icons/tb";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { SlLogin } from "react-icons/sl";
+import { logout } from "../../../store";
 import Poinsettia from "../../../assets/images/user-profile-icons/poinsettia.png";
 import "./NavUserDropdown.css";
 
@@ -35,24 +35,25 @@ export function NavUserDropdown() {
           <div className="navbar-user-info-details">
             <img
               className="navbar-user-img"
-              src={users[user?.id]?.profile_img}
+              src={cuser.profile_img}
               alt="User"
             />
             <div className="navbar-user-info">
-              {user?.username}
+              {cuser?.username}
               <div className="user-karma-info">
                 <img
                   className="karma-poinsettia"
                   src={Poinsettia}
                   alt="Karma"
                 />
-                {users[user?.id]?.karma} karma
+                {cuser.karma} karma
               </div>
             </div>
           </div>
           <TbChevronDown />
         </div>
       </div>
+
       {showDropdown && (
         <div className="nav-user-dropdown-box">
           <div className="nav-user-top-section">

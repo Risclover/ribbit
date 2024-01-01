@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getCommunities } from "../../store/communities";
+
+import { getCommunities } from "../../store";
 import "./CommunitiesDirectory.css";
 
-export default function CommunitiesDirectory({ setPageTitle }) {
+export function CommunitiesDirectory({ setPageTitle }) {
   const dispatch = useDispatch();
 
   const communities = useSelector((state) => Object.values(state.communities));
@@ -31,7 +32,7 @@ export default function CommunitiesDirectory({ setPageTitle }) {
           )
           .map((community, idx) => (
             <div className="directory-listing" key={idx}>
-              <NavLink to={`/c/${community.id}`}>{community.name}</NavLink>
+              <NavLink to={`/c/${community.name}`}>{community.name}</NavLink>
             </div>
           ))}
       </div>

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import LoginSignupModal from "../../auth/LoginSignupModal";
-import getTextColor from "../../../utils/getTextColor";
-import CommunityDescription from "./CommunityDescription";
-import CommunityInfoMenu from "./CommunityInfoMenu";
-import CommunityOptions from "./CommunityOptions/CommunityOptions";
-import Cake from "../../../assets/images/misc/piece4.png";
 import { BiShieldAlt } from "react-icons/bi";
 import moment from "moment";
+import {
+  CommunityInfoMenu,
+  CommunityDescription,
+  CommunityOptions,
+  LoginSignupModal,
+} from "../../../features";
+import { getTextColor } from "../../../utils";
+import Cake from "../../../assets/images/misc/piece4.png";
 
-export default function CommunityInfoBox({ community, user }) {
+export function CommunityInfoBox({ community, user }) {
   const [members, setMembers] = useState(0);
 
   useEffect(() => {
@@ -33,9 +35,9 @@ export default function CommunityInfoBox({ community, user }) {
           <h3>About Community</h3>
         </div>
         <div className="community-page-box-header-right">
-          {user.id === community?.userId && (
+          {user?.id === community?.userId && (
             <NavLink
-              to={`/c/${community.id}/edit`}
+              to={`/c/${community?.name}/edit`}
               className="community-page-mod-tools"
             >
               <BiShieldAlt /> Mod Tools
@@ -56,7 +58,7 @@ export default function CommunityInfoBox({ community, user }) {
         </div>
         <div className="community-page-box-btn">
           {user && (
-            <NavLink to={`/c/${community.id}/submit`}>
+            <NavLink to={`/c/${community.name}/submit`}>
               <button className="blue-btn-filled btn-long community-btn-filled">
                 Create Post
               </button>

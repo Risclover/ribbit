@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Modal } from "../../context/Modal";
-import LoginForm from "./AuthModal/LoginForm";
-import SignUpForm from "./AuthModal/SignUpForm";
+import { Modal } from "../../context";
+import { LoginForm, SignUpForm } from "./AuthModal";
 
-export default function LoginSignupModal({ btnText, className }) {
+export function LoginSignupModal({ btnText, className }) {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
 

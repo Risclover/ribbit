@@ -1,39 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getCommunities } from "../../store/communities";
-import { getMessages } from "../../store/messages";
-import { getUsers } from "../../store/users";
-import { LoggedOutDropdownWrapper } from "./LoggedOutDropdown";
-import Searchbar from "../../features/Search/Searchbar/Searchbar";
-import { NavUserDropdown } from "./NavUserDropdown";
-import { NavLeftDropdownFace } from "./NavLeftDropdown";
-import NotificationsDropdownWrapper from "./NotificationsDropdown/NotificationsDropdownWrapper";
-import LoginSignupModal from "../../features/auth/LoginSignupModal";
 import { TfiPlus } from "react-icons/tfi";
 import { BsChatDots } from "react-icons/bs";
+
+import { getCommunities, getMessages, getUsers } from "../../store";
+import {
+  NavUserDropdown,
+  NavLeftDropdownFace,
+  NotificationsDropdownWrapper,
+  LoggedOutDropdownWrapper,
+} from "../NavBar";
+import { Searchbar, LoginSignupModal } from "../../features";
 import RibbitLogo from "../../assets/images/ribbit-banners/ribbit_logo_love.png";
 import RibbitLogoSmall from "../../assets/images/ribbit-banners/ribbit_logo_love_small.png";
 import All from "../../assets/images/navbar/all-icon2.png";
 import "./NavBar.css";
+import { SelectedChatContext } from "../../context/SelectedChat";
 
-export function NavBar({
-  searchQuery,
-  setSearchQuery,
-  adjustQuery,
-  pageTitle,
-  setPageTitle,
-  pageIcon,
-  setPageIcon,
-  setShowNavSidebar,
-  setNormalDropdown,
-  normalDropdown,
-  setOpenChat,
-  openChat,
-  setSelectedChat,
-}) {
+export function NavBar(props) {
+  const {
+    pageTitle,
+    setPageTitle,
+    pageIcon,
+    setPageIcon,
+    adjustQuery,
+    searchQuery,
+    setSearchQuery,
+    setShowNavSidebar,
+    showNavSidebar,
+    normalDropdown,
+    setNormalDropdown,
+    setOpenChat,
+    openChat,
+  } = props;
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const { setSelectedChat } = useContext(SelectedChatContext);
 
   const chatThreads = useSelector((state) => state.chatThreads);
   const user = useSelector((state) => state.session.user);
@@ -67,36 +71,36 @@ export function NavBar({
     setMsgNum(messageList.filter((message) => message.read === false).length);
   });
 
-  const sortedThreads = Object.values(chatThreads).sort((a, b) => {
-    const aMessages = a.messages;
-    const bMessages = b.messages;
-    if (aMessages && bMessages) {
-      const aLastMessage = aMessages[aMessages?.length - 1];
-      const bLastMessage = bMessages[bMessages?.length - 1];
+  // const sortedThreads = Object.values(chatThreads).sort((a, b) => {
+  //   const aMessages = a.messages;
+  //   const bMessages = b.messages;
+  //   if (aMessages && bMessages) {
+  //     const aLastMessage = aMessages[aMessages?.length - 1];
+  //     const bLastMessage = bMessages[bMessages?.length - 1];
 
-      if (aMessages?.length === 0 && bMessages?.length === 0) {
-        return a.createdAt.localeCompare(b.createdAt);
-      }
+  //     if (aMessages?.length === 0 && bMessages?.length === 0) {
+  //       return a.createdAt.localeCompare(b.createdAt);
+  //     }
 
-      if (aMessages?.length === 0) {
-        return 1;
-      }
+  //     if (aMessages?.length === 0) {
+  //       return 1;
+  //     }
 
-      if (bMessages?.length === 0) {
-        return -1;
-      }
+  //     if (bMessages?.length === 0) {
+  //       return -1;
+  //     }
 
-      return (
-        new Date(bLastMessage.createdAt) - new Date(aLastMessage.createdAt)
-      );
-    }
-  });
+  //     return (
+  //       new Date(bLastMessage.createdAt) - new Date(aLastMessage.createdAt)
+  //     );
+  //   }
+  // });
 
-  const handleOpenChat = (e) => {
-    e.preventDefault();
-    setSelectedChat(sortedThreads[0]);
-    setOpenChat(!openChat);
-  };
+  // const handleOpenChat = (e) => {
+  //   e.preventDefault();
+  //   setSelectedChat(sortedThreads[0]);
+  //   setOpenChat(!openChat);
+  // };
 
   return (
     <nav className="navbar-nav">
@@ -151,7 +155,7 @@ export function NavBar({
                 <span className="navbtn-tooltiptext">/c/All</span>
               )}
             </div>
-            <div
+            {/* <div
               className="navbar-button"
               onMouseEnter={() => setTimeout(() => setShowTooltip(true), 500)}
               onMouseLeave={() => setShowTooltip(false)}
@@ -159,7 +163,7 @@ export function NavBar({
             >
               <BsChatDots />
               {showTooltip && <span className="navbtn-tooltiptext">Chat</span>}
-            </div>
+            </div> */}
             {user && (
               <div className="notification-wrapper">
                 <NotificationsDropdownWrapper
@@ -170,7 +174,7 @@ export function NavBar({
             )}
             <div
               className="navbar-button"
-              onClick={() => history.push("/c/submit")}
+              onClick={() => history.push("/submit")}
               onMouseEnter={() => setTimeout(() => setShowTooltip(true), 500)}
               onMouseLeave={() => setShowTooltip(false)}
             >

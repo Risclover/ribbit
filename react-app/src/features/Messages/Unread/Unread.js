@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { readAllMessages } from "../../../store/threads";
-import MessageHead from "../MessageHead";
-import MessageContentMenu from "../MessageContentMenu";
-import InboxMessage from "../Inbox/InboxMessage";
+import { readAllMessages } from "../../../store";
+import {
+  MessageHead,
+  MessageContentMenu,
+  InboxMessage,
+} from "../../../features";
 import "../Inbox/Inbox.css";
 
-export default function Unread({ setPageTitle, setPageIcon }) {
+export function Unread({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.session.user);

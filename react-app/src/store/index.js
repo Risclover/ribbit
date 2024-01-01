@@ -55,8 +55,27 @@ if (process.env.NODE_ENV === "production") {
   enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 }
 
-const configureStore = (preloadedState) => {
+export const configureStore = (preloadedState) => {
   return createStore(rootReducer, preloadedState, enhancer);
 };
 
-export default configureStore;
+export * from "./chats";
+export * from "./comments";
+export * from "./communities";
+export * from "./community_settings";
+export * from "./favorite_communities";
+export * from "./favorite_users";
+export * from "./followers";
+export * from "./messages";
+export * from "./notifications";
+export * from "./one_comment";
+export * from "./one_community";
+export * from "./one_post";
+export * from "./posts";
+export * from "./rules";
+export * from "./search";
+export * from "./session";
+export * from "./subscriptions";
+export * from "./threads";
+export * from "./users";
+export * from "./viewed_posts";

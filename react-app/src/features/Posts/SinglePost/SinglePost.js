@@ -1,22 +1,24 @@
-import React, { memo, useState } from "react";
+import React, { memo, useContext, useState } from "react";
 import { useSelector } from "react-redux";
-
-import { ClassicPostFormat } from "../PostFeedFormats";
-import { CompactPostFormat } from "../PostFeedFormats";
-
-import SinglePostKarmabar from "./SinglePostKarmabar";
-import SinglePostAuthorBar from "./SinglePostAuthorBar";
-import SinglePostContent from "./SinglePostContent";
-import SinglePostButtonBar from "./SinglePostButtonBar";
+import { PostFormatContext } from "../../../context/PostFormat";
+import {
+  SinglePostKarmabar,
+  SinglePostAuthorBar,
+  SinglePostContent,
+  SinglePostButtonBar,
+} from "../../../features";
 import "./SinglePost.css";
+import { CompactPostFormat, ClassicPostFormat } from "../PostFeed";
 
-function SinglePost({ id, isPage, userId, format }) {
-  const post = useSelector((state) => state.posts[id]);
+export const SinglePost = ({ id, isPage, post }) => {
+  // const post = useSelector((state) => state.posts[id]);
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[cuser?.id]);
   const community = useSelector(
     (state) => state.communities[post?.communityId]
   );
+
+  const { format } = useContext(PostFormatContext);
 
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
@@ -43,7 +45,7 @@ function SinglePost({ id, isPage, userId, format }) {
                   isPage={isPage}
                 />
 
-                <SinglePostContent post={post} isPage={isPage} />
+                <SinglePostContent post={post} isPage="singlepage" />
 
                 <SinglePostButtonBar
                   post={post}
@@ -57,22 +59,11 @@ function SinglePost({ id, isPage, userId, format }) {
         </div>
       )}
       {format === "Classic" && (
-        <ClassicPostFormat
-          id={id}
-          isPage={isPage}
-          userId={userId}
-          post={post}
-        />
+        <ClassicPostFormat id={id} isPage={isPage} post={post} />
       )}
       {format === "Compact" && (
-        <CompactPostFormat
-          id={id}
-          isPage={isPage}
-          userId={userId}
-          post={post}
-        />
+        <CompactPostFormat id={id} isPage={isPage} post={post} />
       )}
     </>
   );
-}
-export default memo(SinglePost);
+};

@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-export default function MessageContentMenu({ active }) {
+export function MessageContentMenu({ active }) {
   const history = useHistory();
 
   return (

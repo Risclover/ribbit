@@ -4,12 +4,12 @@ import {
   addToSubscriptions,
   deleteSubscription,
   getSubscriptions,
-} from "../../store/subscriptions";
-import { getFavoriteCommunities } from "../../store/favorite_communities";
-import { getSingleCommunity } from "../../store/communities";
-import LoginSignupModal from "../auth/LoginSignupModal";
+  getFavoriteCommunities,
+  getSingleCommunity,
+} from "../../store";
+import { LoginSignupModal } from "../auth/LoginSignupModal";
 
-export default function CommunitySubscribeBtn({
+export function CommunitySubscribeBtn({
   user,
   community,
   communityId,

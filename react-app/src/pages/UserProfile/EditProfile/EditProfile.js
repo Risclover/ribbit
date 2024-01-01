@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { editProfile, getUsers } from "../../../store/users";
-
+import { editProfile, getUsers } from "../../../store";
 import "./EditProfile.css";
 
-export default function EditProfile({ setPageTitle, setPageIcon }) {
+export function EditProfile({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const user1 = useSelector((state) => state.session.user);
@@ -28,11 +27,11 @@ export default function EditProfile({ setPageTitle, setPageIcon }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = dispatch(editProfile(user.id, { display_name, about }));
+    const data = dispatch(editProfile(user?.id, { display_name, about }));
     if (data.length > 0) {
     } else {
       dispatch(getUsers());
-      history.push(`/users/${user.id}/profile`);
+      history.push(`/users/${user?.id}/profile`);
     }
   };
 

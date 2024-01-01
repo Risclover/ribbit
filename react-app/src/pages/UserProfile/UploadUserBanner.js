@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import UploadBannerImageModal from "../../features/Users/components/UploadImageModal/UploadBannerImageModal";
-import { Modal } from "../../context/Modal";
+import { Modal } from "../../context";
+import { UploadBannerImageModal } from "../../features";
 import Camera from "../../assets/images/user-profile-icons/camera.png";
 
-export default function UploadUserBanner({ user, currentUser }) {
+export function UploadUserBanner({ user, currentUser }) {
   const [showBannerModal, setShowBannerModal] = useState(false);
 
   return (

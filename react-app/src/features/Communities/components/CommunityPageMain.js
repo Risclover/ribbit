@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import CommunityPosts from "../CommunityPosts";
-import CommunityInfoBox from "../CommunityInfoBox/CommunityInfoBox";
-import CommunityRulesBox from "../../CommunityRules/components/CommunityRulesBox";
+import {
+  CommunityPosts,
+  CommunityInfoBox,
+  CommunityRulesBox,
+} from "../../../features";
 import { BackToTop } from "../../../components";
 
-export default function CommunityPageMain({ community, format, setFormat }) {
+export function CommunityPageMain({ community }) {
   const posts = useSelector((state) => Object.values(state.posts));
   const communityPosts = posts.filter(
     (post) => post.communityId === community.id
@@ -17,9 +19,7 @@ export default function CommunityPageMain({ community, format, setFormat }) {
       <div className="community-body-bg-div"></div>
       <CommunityPosts
         commPosts={communityPosts}
-        format={format}
-        setFormat={setFormat}
-        communityId={community.id}
+        communityName={community.name}
         user={user}
       />
       <div className="community-page-right-col">

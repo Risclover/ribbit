@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import moment from "moment";
+import { useHistory } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
 import { BsArrowReturnRight } from "react-icons/bs";
+import moment from "moment";
+
 import {
   deleteNotification,
   getUserNotifications,
   readNotification,
-} from "../../../store/notifications";
-import NotificationMenu from "../../../features/Notifications/Notifications/NotificationMenu";
+} from "../../../store";
+import { NotificationMenu } from "../../../features/Notifications/NotificationMenu";
 
-export default function Notification({ notification, setShowDropdown }) {
+export function Notification({ notification, setShowDropdown }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.session.user);

@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
-import CommunityName from "../CommunityName";
-import CommunitySubscribeBtn from "../CommunitySubscribeBtn";
-import { Modal } from "../../../context/Modal";
-import CommunityImgModal from "./CommunityImgModal";
+import {
+  CommunityName,
+  CommunitySubscribeBtn,
+  CommunityImgModal,
+} from "../../../features";
+import { Modal } from "../../../context";
+import { PostFormatContext } from "../../../context/PostFormat";
 
 export function CommunityPageHeader({ community }) {
   const user = useSelector((state) => state.session.user);
 
-  let format = "Card";
+  const { format } = useContext(PostFormatContext);
 
   if (!community) return null;
+
   return (
     <div className="community-page-header">
       <div className="community-page-header-top"></div>

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addCommunity } from "../../../../store/communities";
-import { addToSubscriptions } from "../../../../store/subscriptions";
+import { addCommunity, addToSubscriptions } from "../../../../store";
 import "./CreateCommunityModal.css";
 
-export default function CreateCommunityModal({
+export function CreateCommunityModal({
   showCreateCommunityModal,
   setShowCreateCommunityModal,
 }) {
@@ -30,13 +29,12 @@ export default function CreateCommunityModal({
     } else {
       errors = [];
       const data = await dispatch(addCommunity({ name, description }));
-      console.log("data:", data);
 
       if (data.length > 0) {
         setErrors([...errors, "That name is already taken."]);
       } else {
         await dispatch(addToSubscriptions(data.id));
-        history.push(`/c/${data.id}`);
+        history.push(`/c/${data.name}`);
       }
     }
   };

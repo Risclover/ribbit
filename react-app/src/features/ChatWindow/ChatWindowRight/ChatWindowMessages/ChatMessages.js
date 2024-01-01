@@ -1,17 +1,24 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import ChatMessage from "./ChatMessage/ChatMessage";
-import formatDate from "./formatDate";
+import { ChatMessage } from "../../../../features";
+import { formatDate } from "./formatDate";
+import { SelectedChatContext } from "../../../../context/SelectedChat";
 
-export default function ChatMessages({
+export function ChatMessages({
   messages,
   setDeleteOverlay,
   setMsgId,
-  selectedChat,
   setSelectedReaction,
   selectedReaction,
 }) {
+  const { selectedChat } = useContext(SelectedChatContext);
   const containerRef = useRef(null);
   const currentUser = useSelector((state) => state.session.user);
   const [receiver, setReceiver] = useState(null);
@@ -103,7 +110,6 @@ export default function ChatMessages({
                 key={idx}
                 setDeleteOverlay={setDeleteOverlay}
                 setMsgId={setMsgId}
-                selectedChat={selectedChat}
                 selectedReaction={selectedReaction}
                 setSelectedReaction={setSelectedReaction}
               />

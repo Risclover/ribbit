@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Modal } from "../../context/Modal";
+import { Modal } from "../../context";
 import { DeleteConfirmationModal } from "../../components";
-import { deletePost, getPosts } from "../../store/posts";
+import { deletePost, getPosts } from "../../store";
 
-export default function DeletePostModal({ post, community, isPage }) {
+export function DeletePostModal({ post, community }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   return (
@@ -24,10 +24,10 @@ export default function DeletePostModal({ post, community, isPage }) {
             showDeleteModal={showDeleteModal}
             setShowDeleteModal={setShowDeleteModal}
             item="post"
-            isPage={isPage}
             storeFunction={deletePost}
             payload={post.id}
             getFunction={getPosts}
+            isPage="singlepost"
           />
         </Modal>
       )}

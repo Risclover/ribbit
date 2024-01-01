@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Modal } from "../../context/Modal";
-import LoginForm from "./AuthModal/LoginForm";
-import SignUpForm from "./AuthModal/SignUpForm";
+import React, { useState } from "react";
+import { Modal } from "../../context";
+import { LoginForm, SignUpForm } from "./AuthModal";
 
-export default function LoginPage() {
-  const [showLoginForm, setShowLoginForm] = useState(false);
+export function LoginPage() {
+  const [showLoginForm, setShowLoginForm] = useState(true);
   const [showSignupForm, setShowSignupForm] = useState(false);
-
-  useEffect(() => {
-    setShowLoginForm(true);
-  }, []);
 
   return (
     <div>
@@ -20,7 +15,7 @@ export default function LoginPage() {
             setShowLoginForm={setShowLoginForm}
             showSignupForm={showSignupForm}
             setShowSignupForm={setShowSignupForm}
-            val="loginpage"
+            loginPage
           />
         </Modal>
       )}
@@ -31,7 +26,7 @@ export default function LoginPage() {
             setShowSignupForm={setShowSignupForm}
             showLoginForm={showLoginForm}
             setShowLoginForm={setShowLoginForm}
-            val="loginpage"
+            loginPage
           />
         </Modal>
       )}

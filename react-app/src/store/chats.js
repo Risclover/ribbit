@@ -84,7 +84,7 @@ export const fakeDeleteMessage = (messageId) => async (dispatch) => {
   }
 };
 
-export const readAllMessages = (threadId) => async (dispatch) => {
+export const readAllChatMessages = (threadId) => async (dispatch) => {
   const response = await fetch(`/api/chat_threads/${threadId}/read`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },

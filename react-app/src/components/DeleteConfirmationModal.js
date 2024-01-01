@@ -1,12 +1,16 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { deletePost, getPosts } from "../store/posts";
-import { removeComment } from "../store/comments";
-import { deleteCommunity } from "../store/communities";
-import { deleteRule, getCommunityRules } from "../store/rules";
-import { getUsers } from "../store/users";
-import { getSingleCommunity } from "../store/one_community";
+import {
+  deletePost,
+  getPosts,
+  removeComment,
+  deleteCommunity,
+  deleteRule,
+  getCommunityRules,
+  getUsers,
+  getSingleCommunity,
+} from "../store";
 import "../assets/styles/Modals.css";
 
 export function DeleteConfirmationModal({
@@ -19,38 +23,31 @@ export function DeleteConfirmationModal({
   rule,
   item,
   isPage,
-  storeFunction,
-  payload,
-  getFunction,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleDeletePost = async (e) => {
-    e.preventDefault();
-    if (isPage === "singlepage") {
-      history.push("/c/all");
-    }
+  const handleDeletePost = async () => {
     await dispatch(deletePost(postId));
     setShowDeleteModal(false);
     await dispatch(getUsers());
+    if (isPage === "singlepage") {
+      history.push("/c/all");
+    }
   };
 
-  const handleDeleteComment = async (e) => {
-    e.preventDefault();
+  const handleDeleteComment = async () => {
     setShowDeleteModal(false);
     await dispatch(removeComment(commentId));
     dispatch(getPosts());
   };
 
-  const handleDeleteCommunity = async (e) => {
-    e.preventDefault();
+  const handleDeleteCommunity = async () => {
     await dispatch(deleteCommunity(communityId));
     history.push(`/`);
   };
 
-  const handleDeleteRule = async (e) => {
-    e.preventDefault();
+  const handleDeleteRule = async () => {
     await dispatch(deleteRule(rule.id));
     setShowDeleteModal(false);
     setShowEditRuleModal(false);
@@ -58,25 +55,21 @@ export function DeleteConfirmationModal({
     dispatch(getSingleCommunity(communityId));
   };
 
-  const handleDeleteItem = async (e) => {
+  const handleCancelClick = (e) => {
     e.preventDefault();
-
-    console.log("Let's delete this bitch");
-    if (isPage === "singlepage") {
-      history.push("/c/all");
-    }
-
-    if (item === "rule") {
-      setShowEditRuleModal(false);
-    }
-
     setShowDeleteModal(false);
+  };
 
-    const data = await dispatch(storeFunction(payload));
-    const data2 = await dispatch(getFunction());
-
-    console.log("data:", data);
-    console.log("data2:", data2);
+  const handleDeleteClick = (e) => {
+    e.preventDefault();
+    if (item === "post") {
+      handleDeletePost();
+    } else if (item === "community") {
+      handleDeleteCommunity();
+    } else if (item === "comment") {
+      handleDeleteComment();
+      handleDeleteRule();
+    }
   };
   return (
     <>
@@ -89,24 +82,13 @@ export function DeleteConfirmationModal({
           <div className="modal-buttons">
             <button
               className="delete-modal-btn-left"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowDeleteModal(false);
-              }}
+              onClick={(e) => handleCancelClick(e)}
             >
               Cancel
             </button>
             <button
               className="delete-modal-btn-right"
-              onClick={
-                item === "post"
-                  ? handleDeletePost
-                  : item === "community"
-                  ? handleDeleteCommunity
-                  : item === "comment"
-                  ? handleDeleteComment
-                  : handleDeleteRule
-              }
+              onClick={(e) => handleDeleteClick(e)}
             >
               Delete
             </button>

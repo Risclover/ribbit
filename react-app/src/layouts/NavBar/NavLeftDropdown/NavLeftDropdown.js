@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { TfiPlus } from "react-icons/tfi";
 import { TfiBell } from "react-icons/tfi";
-import Home from "../../../assets/images/navbar/home-icon.png";
-import All from "../../../assets/images/navbar/all-icon2.png";
+
 import {
   addFavoriteCommunity,
   getFavoriteCommunities,
   removeFavoriteCommunity,
-} from "../../../store/favorite_communities";
-import {
   addFavoriteUser,
   getFavoriteUsers,
   removeFavoriteUser,
-} from "../../../store/favorite_users";
-import HandleClickOutside from "../../../utils/HandleClickOutside";
-import { NavLeftDropdownLink } from "./NavLeftDropdownLink";
+} from "../../../store";
+
+import { NavLeftDropdownLink } from "../../../layouts";
+import All from "../../../assets/images/navbar/all-icon2.png";
+import Home from "../../../assets/images/navbar/home-icon.png";
+import { HandleClickOutside } from "../../../utils/HandleClickOutside";
 
 export function NavLeftDropdown({ showIcon, setShowIcon }) {
   const dispatch = useDispatch();
@@ -325,7 +325,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon }) {
           onClick={(e) => {
             e.preventDefault();
             setShowIcon(false);
-            history.push("/c/submit");
+            history.push("/submit");
           }}
         >
           <TfiPlus />

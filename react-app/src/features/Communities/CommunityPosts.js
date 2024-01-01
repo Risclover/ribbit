@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import SinglePost from "../Posts/SinglePost/SinglePost";
+import React, { useContext, useState } from "react";
+import { SinglePost } from "../../features";
 import { NavLink } from "react-router-dom";
 import { CreatePostBar, SortingBar } from "../../components";
+import { PostFormatContext } from "../../context/PostFormat";
 
-export default function CommunityPosts({
+export function CommunityPosts({
   commPosts,
-  format,
-  communityId,
-  setFormat,
+  communityName,
   user,
   setShowLoginForm,
 }) {
   const [sortMode, setSortMode] = useState("new");
+  const { format } = useContext(PostFormatContext);
 
   commPosts.sort((a, b) => {
     let postA = new Date(a.createdAt).getTime();
@@ -32,20 +32,11 @@ export default function CommunityPosts({
           : "community-page-left-col-alt"
       }
     >
-      {user && (
-        <CreatePostBar
-          page="community"
-          communityId={communityId}
-          format={format}
-          setFormat={setFormat}
-        />
-      )}
+      {user && <CreatePostBar page="community" communityName={communityName} />}
       <SortingBar
         community={true}
         sortMode={sortMode}
         setSortMode={setSortMode}
-        format={format}
-        setFormat={setFormat}
       />
 
       {commPosts.length === 0 && (
@@ -64,8 +55,6 @@ export default function CommunityPosts({
           <SinglePost
             id={post.id}
             isPage="community"
-            format={format}
-            setFormat={setFormat}
             setShowLoginForm={setShowLoginForm}
             post={post}
           />

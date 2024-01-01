@@ -1,9 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { CreateCommunity } from "../../features";
 import RibbitBanner from "../../assets/images/ribbit-banners/ribbit_banner.png";
-import { CreateCommunity } from "../../features/Communities/CreateCommunity";
 
-export default function AboutBox({ title, description, user }) {
+export function AboutBox({ title, description, user }) {
   const history = useHistory();
 
   return (
@@ -16,7 +16,7 @@ export default function AboutBox({ title, description, user }) {
           <div className="posts-home-box-buttons">
             <button
               className="blue-btn-filled btn-long"
-              onClick={() => history.push("/c/submit")}
+              onClick={() => history.push("/submit")}
             >
               Create Post
             </button>

@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { HashLink as Link } from "react-router-hash-link";
+import { GoArrowUp, GoArrowDown } from "react-icons/go";
+import moment from "moment";
 import {
   getAllNotifications,
   getUserNotifications,
   readNotification,
   unreadNotification,
-} from "../../../store/notifications";
-import { GoArrowUp, GoArrowDown } from "react-icons/go";
-import moment from "moment";
+} from "../../../store";
 
-export default function PostReply({ notification }) {
+export function PostReply({ notification }) {
   const dispatch = useDispatch();
 
   const users = useSelector((state) => state.users);
@@ -69,11 +69,8 @@ export default function PostReply({ notification }) {
             <NavLink to={`/users/${postReplySender?.id}/profile`}>
               /u/{postReplySender?.username}
             </NavLink>{" "}
-            via{" "}
-            <NavLink to={`/c/${posts[notification.postId]?.communityId}`}>
-              /c/{community}
-            </NavLink>{" "}
-            sent {moment(notification.createdAt).fromNow()}
+            via <NavLink to={`/c/${community}`}>/c/{community}</NavLink> sent{" "}
+            {moment(notification.createdAt).fromNow()}
           </div>
           <div className="post-reply-content">{notification.content}</div>
           <div className="post-reply-btn-bar">

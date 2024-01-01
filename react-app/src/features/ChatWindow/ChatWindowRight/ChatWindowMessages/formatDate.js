@@ -1,4 +1,4 @@
-const formatDate = (date) => {
+export const formatDate = (date) => {
   const today = new Date().setHours(0, 0, 0, 0);
   const messageDate = new Date(date).setHours(0, 0, 0, 0);
 
@@ -15,5 +15,3 @@ const formatDate = (date) => {
   const options = { month: "short", day: "numeric" };
   return new Date(date).toLocaleDateString("en-US", options);
 };
-
-export default formatDate;

@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessages } from "../../store/messages";
-import { getThreads } from "../../store/threads";
-import { getUsers } from "../../store/users";
-import { readAllNotifications } from "../../store/notifications";
-import MessageThread from "./MessageThread";
-import MessageHead from "./MessageHead";
-import MessageContentMenu from "./MessageContentMenu";
+import {
+  getMessages,
+  getThreads,
+  getUsers,
+  readAllNotifications,
+} from "../../store";
+import { MessageThread, MessageHead, MessageContentMenu } from "../../features";
 import "./Messages.css";
 
-export default function Messages({ setPageTitle, setPageIcon }) {
+export function Messages({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
 
   const threads = useSelector((state) => Object.values(state.threads));
@@ -19,6 +19,7 @@ export default function Messages({ setPageTitle, setPageIcon }) {
     dispatch(getMessages());
     dispatch(getThreads());
     dispatch(getUsers());
+    dispatch(readAllNotifications());
   }, [dispatch]);
 
   useEffect(() => {
@@ -32,10 +33,6 @@ export default function Messages({ setPageTitle, setPageIcon }) {
     );
     setPageTitle(<span className="nav-left-dropdown-item">Messages</span>);
   }, [setPageTitle, setPageIcon, currentUser?.profile_img]);
-
-  useEffect(() => {
-    dispatch(readAllNotifications());
-  }, []);
 
   threads.sort((a, b) => {
     let aThread = new Date(a.updatedAt);

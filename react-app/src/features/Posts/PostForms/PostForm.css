@@ -205,14 +205,12 @@
 }
 
 .create-post-input {
-  height: 60px;
+  height: 39px;
   overflow-wrap: break-word;
-  overflow-x: hidden;
   color: #1c1c1c;
   padding: 8px 68px 8px 16px;
-  line-height: 18px;
+  line-height: 21px;
   overflow: hidden;
-  overflow-y: auto;
   font-size: 14px;
   border: 1px solid #edeff1;
   outline: none;
@@ -243,8 +241,8 @@
 
 .create-post-form-title-length {
   position: absolute;
-  top: 22px;
-  right: 22px;
+  bottom: 20px;
+  right: 12px;
   font-size: 10px;
   font-weight: 700;
   color: #878a8c;
@@ -780,12 +778,21 @@ pre.ql-syntax {
 
 .create-post-form-errors {
   color: red;
-  font-family: "Noto Sans", sans-serif;
   font-size: 12px;
   margin-bottom: 10px;
 }
 
 @media (max-width: 960px) {
+  .create-post-form {
+    max-width: 100%;
+    width: 100%;
+    padding: 0 8px;
+  }
+
+  .create-post-page-left {
+    max-width: 100%;
+  }
+
   .create-post-page-right {
     display: none;
   }

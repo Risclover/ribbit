@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-
-import { Modal } from "../../../context/Modal";
-import EditCommunityRule from "./EditCommunityRule";
 import {
   BsArrowsAngleExpand,
   BsArrowsAngleContract,
   BsPencilFill,
 } from "react-icons/bs";
 import parse from "html-react-parser";
+import { Modal } from "../../../context";
+import { EditCommunityRule } from "./EditCommunityRule";
 
-export default function CommunityEditRule({ idx, rule, community }) {
+export function CommunityEditRule({ idx, rule, community }) {
   const [showEditRuleModal, setShowEditRuleModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
 

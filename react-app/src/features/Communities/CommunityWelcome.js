@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Modal } from "../../context/Modal";
-import CommunityWelcomeModal from "../../features/Communities/components/CommunityWelcomeModal";
+import { Modal } from "../../context";
+import { CommunityWelcomeModal } from "../../features";
 
-export default function CommunityWelcome({
-  community,
-  user,
-  posts,
-  commPosts,
-}) {
+export function CommunityWelcome({ community, user, posts, commPosts }) {
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (community?.userId === user?.id) {
         if (posts.length === 0 || posts === undefined || !posts) {
           setShowWelcomeModal(true);
@@ -20,6 +15,10 @@ export default function CommunityWelcome({
         }
       }
     }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [commPosts, community?.userId, user?.id, posts]);
 
   return (

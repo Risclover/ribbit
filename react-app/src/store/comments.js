@@ -5,42 +5,42 @@ const LOAD_ALL_COMMENTS = "comments/LOAD_ALL";
 const ADD_COMMENT_VOTE = "comments/ADD_VOTE";
 const REMOVE_COMMENT_VOTE = "comments/REMOVE_VOTE";
 
-export const addComment = (comment) => {
+const addComment = (comment) => {
   return {
     type: ADD_COMMENT,
     comment,
   };
 };
 
-export const loadAllComments = (comments) => {
+const loadAllComments = (comments) => {
   return {
     type: LOAD_ALL_COMMENTS,
     comments,
   };
 };
 
-export const loadComments = (comments) => {
+const loadComments = (comments) => {
   return {
     type: LOAD_COMMENTS,
     comments,
   };
 };
 
-export const deleteComment = (commentId) => {
+const deleteComment = (commentId) => {
   return {
     type: DELETE_COMMENT,
     commentId,
   };
 };
 
-export const addVote = (comment) => {
+const addVote = (comment) => {
   return {
     type: ADD_COMMENT_VOTE,
     comment,
   };
 };
 
-export const removeVote = (comment) => {
+const removeVote = (comment) => {
   return {
     type: REMOVE_COMMENT_VOTE,
     comment,
@@ -58,7 +58,7 @@ export const getAllComments = () => async (dispatch) => {
 };
 
 export const getComments = (postId) => async (dispatch) => {
-  const response = await fetch(`/api/posts/${postId}/comments`);
+  const response = await fetch(`/api/comments/${postId}/comments`);
 
   if (response.ok) {
     const data = await response.json();

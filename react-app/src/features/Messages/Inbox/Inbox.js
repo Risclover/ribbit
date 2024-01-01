@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessages } from "../../../store/messages";
-import { getThreads } from "../../../store/threads";
-import MessageContentMenu from "../MessageContentMenu";
-import MessageHead from "../MessageHead";
-import InboxMessage from "./InboxMessage";
-import PostReply from "../PostReplies/PostReply";
+import { getMessages, getThreads } from "../../../store";
+import {
+  MessageContentMenu,
+  MessageHead,
+  InboxMessage,
+  PostReply,
+} from "../../../features";
 import "./Inbox.css";
 
-export default function Inbox({ setPageTitle, setPageIcon }) {
+export function Inbox({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
-  
+
   const currentUser = useSelector((state) => state.session.user);
   let messages = useSelector((state) => Object.values(state.messages));
   const threads = useSelector((state) => state.threads);

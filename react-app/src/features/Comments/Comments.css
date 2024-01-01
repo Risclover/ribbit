@@ -203,6 +203,8 @@
 .vote-btn-red,
 .vote-btn-blue {
   padding: 0 !important;
+  height: 20px;
+  font-size: 20px;
 }
 
 .upvote-btn-grey:hover {
@@ -586,14 +588,36 @@
   align-items: center;
 }
 
-.comment-centered svg {
-  transform: rotate(90deg);
+.comment-moving-btn {
   font-size: 12px;
-
   color: #0079d3;
-  margin: 0 8px;
   cursor: pointer;
 }
+
+.comment-moving-btn svg {
+  transform: rotate(90deg);
+}
+
+.comment-moving-btn {
+  transition: width 0.05s, transform 0.05s;
+  transition-timing-function: ease-out;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.comment-moving-btn.btn-moved {
+  transform: translateX(-12px);
+  opacity: 0;
+  margin: 0;
+  width: 0;
+}
+
+.comment-moving-btn.btn-unmoved {
+  opacity: 1;
+  transition-timing-function: ease-in;
+  transform: translateX(0);
+}
+
 .collapsed-comment-username {
   font-family: "IBM Plex Sans", sans-serif;
   color: #1a1a1b;

@@ -59,7 +59,8 @@ export const followerPosts = () => async (dispatch) => {
   const response = await fetch("/api/followers/posts");
   if (response.ok) {
     const posts = await response.json();
-    dispatch(loadPosts());
+    dispatch(loadPosts(posts));
+    return posts;
   }
 };
 

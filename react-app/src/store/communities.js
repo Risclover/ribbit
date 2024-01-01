@@ -4,35 +4,35 @@ const LOAD_SUBSCRIBERS = "communities/LOAD_SUBSCRIBERS";
 const CREATE_COMMUNITY = "communities/CREATE";
 const DELETE_COMMUNITY = "communities/DELETE";
 
-export const loadCommunities = (communities) => {
+const loadCommunities = (communities) => {
   return {
     type: LOAD_COMMUNITIES,
     communities,
   };
 };
 
-export const loadCommunity = (community) => {
+const loadCommunity = (community) => {
   return {
     type: LOAD_COMMUNITY,
     community,
   };
 };
 
-export const createCommunity = (community) => {
+const createCommunity = (community) => {
   return {
     type: CREATE_COMMUNITY,
     community,
   };
 };
 
-export const removeCommunity = (communityId) => {
+const removeCommunity = (communityId) => {
   return {
     type: DELETE_COMMUNITY,
     communityId,
   };
 };
 
-export const loadSubscribers = (subscribers) => {
+const loadSubscribers = (subscribers) => {
   return {
     type: LOAD_SUBSCRIBERS,
     subscribers,
@@ -52,15 +52,15 @@ export const getCommunities = () => async (dispatch) => {
   }
 };
 
-export const getSingleCommunity = (communityId) => async (dispatch) => {
-  const response = await fetch(`/api/communities/${communityId}`);
+// export const getSingleCommunity = (communityId) => async (dispatch) => {
+//   const response = await fetch(`/api/communities/${communityId}`);
 
-  if (response.ok) {
-    const community = await response.json();
-    dispatch(loadCommunity(community));
-    return community;
-  }
-};
+//   if (response.ok) {
+//     const community = await response.json();
+//     dispatch(loadCommunity(community));
+//     return community;
+//   }
+// };
 
 export const getCommunitySubscribers = (communityId) => async (dispatch) => {
   const response = await fetch(`/api/communities/${communityId}/subscribers`);
@@ -154,7 +154,7 @@ export const editCommunityTheme = (payload) => async (dispatch) => {
       nameFormat,
     }),
   });
-  console.log("redux response:", response);
+
   if (response.ok) {
     const data = await response.json();
     dispatch(loadCommunity(data));

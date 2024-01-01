@@ -1,14 +1,14 @@
 const LOAD_COMMUNITY = "communities/LOAD_SINGLE_COMMUNITY";
 const LOAD_RULES = "communities/LOAD_RULES";
 
-export const loadCommunity = (community) => {
+const loadCommunity = (community) => {
   return {
     type: LOAD_COMMUNITY,
     community,
   };
 };
 
-export const loadRules = (rules) => {
+const loadRules = (rules) => {
   return {
     type: LOAD_RULES,
     rules,

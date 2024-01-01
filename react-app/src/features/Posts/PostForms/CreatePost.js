@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import validator from "validator";
 import { TfiPlus } from "react-icons/tfi";
+
 import {
   addLinkPost,
   addPost,
   addPostVote,
   getPosts,
-} from "../../../store/posts";
-import { addImagePost } from "../../../store/posts";
-import CommunityRule from "../../CommunityRules/components/CommunityRule";
-import { Modal } from "../../../context/Modal";
-import { ImagePostForm } from "../ImagePost";
-import CommunitySelection from "./CreatePostDropdown/CommunitySelection";
-import DiscardPost from "../DiscardPost";
-import "./PostForm.css";
-import RibbitRules from "./RibbitRules";
-import CommunityInfoBox from "./CommunityInfoBox";
-import PostTypeBar from "./PostTypeBar";
-import { getCommunities } from "../../../store/communities";
-import { getSubscriptions } from "../../../store/subscriptions";
+  addImagePost,
+  getCommunities,
+  getSubscriptions,
+} from "../../../store";
+
+import { Modal } from "../../../context";
+import {
+  CommunitySelection,
+  PostTypeBar,
+  RibbitRules,
+  CommunityInfoBox,
+  DiscardPost,
+  CommunityRule,
+  ImagePostForm,
+  CommunityDetails,
+  useAutosizeTextArea,
+} from "../../../features";
 import getTextColor from "../../../utils/getTextColor";
+import "./PostForm.css";
 
 const modules = {
   toolbar: [
@@ -41,7 +47,7 @@ const modules = {
   ],
 };
 
-export default function CreatePost({
+export function CreatePost({
   setPageTitle,
   setPageIcon,
   postType,
@@ -50,16 +56,21 @@ export default function CreatePost({
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { communityId } = useParams();
+  const { communityName } = useParams();
+
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    dispatch(getPosts());
+    dispatch(getCommunities());
+    dispatch(getSubscriptions());
+  }, [dispatch]);
 
   const [link_url, setlink_url] = useState("");
   const [community, setCommunity] = useState();
   const [title, setTitle] = useState("");
   const [img_url, setimg_url] = useState("");
   const [content, setContent] = useState("");
-  const [community_id, setcommunity_id] = useState(
-    communityId === "undefined" ? "undefined" : +communityId
-  );
   const [disabled, setDisabled] = useState(false);
   const [showImgModal, setShowImgModal] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -72,7 +83,21 @@ export default function CreatePost({
   const communities = useSelector((state) => Object.values(state.communities));
   const user = useSelector((state) => state.session.user);
 
-  console.log("COMMUNITY:", community);
+  const getIdFromName = (name) => {
+    let result = Object.values(communities).find(
+      (community) => community.name === name
+    );
+    console.log("result:", result);
+    return result ? result.id : null;
+  };
+
+  const [communityId, setCommunityId] = useState(getIdFromName(communityName));
+  const [community_id, setcommunity_id] = useState(
+    communityId === "undefined" ? "undefined" : +communityId
+  );
+
+  useAutosizeTextArea(textareaRef.current, title);
+
   useEffect(() => {
     document.title = `Submit to ${community ? community?.name : "Ribbit"}`;
     setPageIcon(
@@ -84,12 +109,6 @@ export default function CreatePost({
   }, [community, setPageTitle, setPageIcon]);
 
   useEffect(() => {
-    dispatch(getPosts());
-    dispatch(getCommunities());
-    dispatch(getSubscriptions());
-  }, [dispatch]);
-
-  useEffect(() => {
     for (let community of communities) {
       if (community.id === community_id) {
         setCommunity(community);
@@ -99,9 +118,45 @@ export default function CreatePost({
 
   useEffect(() => {
     setPostType(val);
-  }, [val, setPostType]);
+  }, [val]);
 
-  useEffect(() => {
+  const postErrors = () => {
+    let errors = [];
+
+    if (title.trim().length <= 0) {
+      errors.push("Please include a title.");
+    }
+    if (community === undefined) {
+      errors.push("Please select a community.");
+    }
+
+    if (errors.length > 0) {
+      setErrors(errors);
+    } else {
+      setErrors([]);
+    }
+  };
+
+  const imgPostErrors = () => {
+    let errors = [];
+    if (img_url === "" || img_url === null || img_url === undefined) {
+      errors.push("Select an image.");
+    }
+    if (title.length <= 0) {
+      errors.push("Please include a title.");
+    }
+    if (community === undefined) {
+      errors.push("Please select a community.");
+    }
+
+    if (errors.length > 0) {
+      setImageErrors(errors);
+    } else {
+      setImageErrors([]);
+    }
+  };
+
+  const linkPostErrors = () => {
     let errors = [];
     if (
       postType === "link" &&
@@ -125,43 +180,13 @@ export default function CreatePost({
     } else {
       setLinkErrors([]);
     }
-  }, [link_url, title, community, postType]);
+  };
 
-  useEffect(() => {
-    let errors = [];
-    if (img_url === "" || img_url === null || img_url === undefined) {
-      errors.push("Select an image.");
-    }
-    if (title.length <= 0) {
-      errors.push("Please include a title.");
-    }
-    if (community === undefined) {
-      errors.push("Please select a community.");
-    }
-
-    if (errors.length > 0) {
-      setImageErrors(errors);
-    } else {
-      setImageErrors([]);
-    }
-  }, [img_url, title, community]);
-
-  useEffect(() => {
-    let errors = [];
-
-    if (title.trim().length <= 0) {
-      errors.push("Please include a title.");
-    }
-    if (community === undefined) {
-      errors.push("Please select a community.");
-    }
-
-    if (errors.length > 0) {
-      setErrors(errors);
-    } else {
-      setErrors([]);
-    }
-  }, [content, title, community]);
+  const findErrors = () => {
+    linkPostErrors();
+    imgPostErrors();
+    postErrors();
+  }
 
   useEffect(() => {
     if (content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
@@ -213,7 +238,7 @@ export default function CreatePost({
       setTitle("");
       setContent("");
       const postId = posts[posts?.length - 1]?.id + 1;
-      history.push(`/c/${community_id}`);
+      history.push(`/c/${communityName}`);
       await dispatch(getPosts());
       dispatch(addPostVote(postId, "upvote"));
     }
@@ -223,7 +248,7 @@ export default function CreatePost({
     e.preventDefault();
     const postId = posts[posts.length - 1].id + 1;
     dispatch(addLinkPost({ title, link_url, community_id }));
-    history.push(`/c/${community_id}`);
+    history.push(`/c/${communityName}`);
     await dispatch(getPosts());
     dispatch(addPostVote(postId, "upvote"));
   };
@@ -233,7 +258,7 @@ export default function CreatePost({
     const postId = posts[posts.length - 1].id + 1;
 
     dispatch(addImagePost({ title, img_url, community_id }));
-    history.push(`/c/${community_id}`);
+    history.push(`/c/${communityName}`);
     await dispatch(getPosts());
     dispatch(addPostVote(postId, "upvote"));
   };
@@ -254,12 +279,14 @@ export default function CreatePost({
         community_id &&
         !isNaN(community_id)
       ) {
-        history.push(`/c/${community_id}`);
+        history.push(`/c/${communityName}`);
       } else {
         history.push("/home");
       }
     }
   };
+
+  if (!communities) return null;
 
   return (
     <div className="create-post-form-container">
@@ -291,6 +318,7 @@ export default function CreatePost({
                 <div className="create-post-form-inputs">
                   <div className="create-post-form-input">
                     <textarea
+                      ref={textareaRef}
                       placeholder="Title"
                       className="create-post-input title-input"
                       onChange={(e) => setTitle(e.target.value)}
@@ -312,7 +340,7 @@ export default function CreatePost({
                         theme="snow"
                         modules={modules}
                         onChange={setContent}
-                        placeholder="Content"
+                        placeholder="Text (required)"
                       />
                     </div>
                   )}
@@ -425,8 +453,7 @@ export default function CreatePost({
       <div className="create-post-page-right">
         {community && (
           <>
-            <CommunityInfoBox community={community} />
-
+            <CommunityDetails community={community} post={null} />
             {Object.values(community?.communityRules).length > 0 && (
               <div className="community-page-community-rules">
                 <div className="community-page-rules-header">

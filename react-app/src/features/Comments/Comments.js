@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import CommentSorting from "./CommentSorting";
-import CommentForm from "./CommentForms/CommentForm";
-import Comment from "./Comment";
-import "./Comments.css";
-import { getComments } from "../../store/comments";
 import { useParams } from "react-router-dom";
+import { getComments } from "../../store";
+import { CommentSorting, CommentForm, Comment } from "../../features";
+import "./Comments.css";
 
-export default function Comments({ setShowLoginForm, setCommentsNum }) {
+export function Comments({ post }) {
   const url = window.location.href;
   const dispatch = useDispatch();
   const { postId } = useParams();
-  const comments = useSelector((state) => Object.values(state.comments));
+  const comments = Object.values(post.postComments);
   const [sortType, setSortType] = useState("Best");
   const [showLoader, setShowLoader] = useState(true);
   const [comment, setComment] = useState(url.slice(-15).includes("comment"));
@@ -25,9 +22,6 @@ export default function Comments({ setShowLoginForm, setCommentsNum }) {
     dispatch(getComments(+postId));
   }, [dispatch, postId]);
 
-  console.log("postId:", postId);
-  console.log("comments:", comments);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoader(false);
@@ -37,10 +31,6 @@ export default function Comments({ setShowLoginForm, setCommentsNum }) {
       clearTimeout(timer);
     };
   }, []);
-
-  useEffect(() => {
-    setCommentsNum(comments.length);
-  }, [setCommentsNum, comments.length]);
 
   if (sortType === "New") {
     comments.sort((a, b) => {
@@ -74,7 +64,7 @@ export default function Comments({ setShowLoginForm, setCommentsNum }) {
 
   return (
     <div className="comments-container">
-      <CommentForm setShowLoginForm={setShowLoginForm} postId={postId} />
+      <CommentForm postId={postId} />
       <CommentSorting sortType={sortType} setSortType={setSortType} />
       {showLoader && (
         <div className="comments-loading">
@@ -92,6 +82,7 @@ export default function Comments({ setShowLoginForm, setCommentsNum }) {
             !comment &&
             comments.map((comment) => (
               <Comment
+                comment={comment}
                 key={comment.id}
                 commentId={comment.id}
                 postId={+postId}

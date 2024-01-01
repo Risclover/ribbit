@@ -1,27 +1,37 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCommunities } from "../store/communities";
-import { getCommunitySettings } from "../store/community_settings";
-import { CommunityPageHeader } from "../features/Communities/components/CommunityPageHeader";
-import CommunityWelcome from "../features/Communities/CommunityWelcome";
-import CommunityPageMain from "../features/Communities/components/CommunityPageMain";
 
-export default function CommunityPage({
-  format,
-  setFormat,
-  setPageTitle,
-  setPageIcon,
-}) {
-  const { communityId } = useParams();
+import { getCommunities, getCommunitySettings } from "../store";
+
+import {
+  CommunityPageMain,
+  CommunityPageHeader,
+  CommunityWelcome,
+} from "../features";
+
+export function CommunityPage({ setPageTitle, setPageIcon }) {
+  // const { communityId } = useParams();
+  const { communityName } = useParams();
   const dispatch = useDispatch();
-
-  const community = useSelector((state) => state.communities[communityId]);
-
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getCommunitySettings(communityId));
-  }, []);
+  }, [dispatch]);
+
+  const communities = useSelector((state) => state.communities);
+
+  const getIdFromName = (name) => {
+    let result = Object.values(communities).find(
+      (community) => community.name === name
+    );
+    console.log("result:", result);
+    return result ? result.id : null;
+  };
+
+  const communityId = getIdFromName(communityName);
+
+  const community = useSelector((state) => state.communities[communityId]);
 
   useEffect(() => {
     document.title = community?.displayName;
@@ -42,18 +52,12 @@ export default function CommunityPage({
     );
   }, [community, setPageTitle, setPageIcon]);
 
-  console.log("Community:", community);
-
-  if (!community) return null;
+  if (!community || !communities) return null;
 
   return (
     <div className="community-page-container">
       <CommunityPageHeader community={community} />
-      <CommunityPageMain
-        format={format}
-        setFormat={setFormat}
-        community={community}
-      />
+      <CommunityPageMain community={community} />
       {/* <CommunityWelcome /> */}
     </div>
   );

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
+
+import { BackToTop } from "../../../components";
+import { Modal } from "../../../context";
+import { CreateCommunityModal, LoginSignupModal } from "../../../features";
 import SearchDude from "../../../assets/images/search-icon.png";
 import RibbitBanner from "../../../assets/images/ribbit-banners/ribbit_banner.png";
-import { Modal } from "../../../context/Modal";
-import CreateCommunity from "../../Communities/components/CreateCommunityModal/CreateCommunityModal";
-import { BackToTop } from "../../../components";
-import { useSelector } from "react-redux";
-import LoginSignupModal from "../../auth/LoginSignupModal";
 import "./SearchResults.css";
 
-export default function SearchResultsPosts({
+export function SearchResultsPosts({
   posts,
   searchQuery,
   setSearchQuery,
@@ -40,7 +40,7 @@ export default function SearchResultsPosts({
                       <img src={post.communityImg} alt="Community" />
                       <NavLink
                         className="results-post-community"
-                        to={`/c/${post.communityId}`}
+                        to={`/c/${post.communityName}`}
                       >
                         c/{post.communityName}
                       </NavLink>{" "}
@@ -107,7 +107,7 @@ export default function SearchResultsPosts({
               community["name"]
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase()) ? (
-                <NavLink to={`/c/${community.id}`}>
+                <NavLink to={`/c/${community.name}`}>
                   <div
                     className="search-result-page-community"
                     onClick={() => {
@@ -122,7 +122,7 @@ export default function SearchResultsPosts({
                           }}
                           src={
                             community?.communitySettings[community?.id]
-                              .communityIcon
+                              ?.communityIcon
                           }
                           alt="Community"
                         />
@@ -247,7 +247,7 @@ export default function SearchResultsPosts({
               onClose={() => setShowCommunityModal(false)}
               title="Create a community"
             >
-              <CreateCommunity
+              <CreateCommunityModal
                 showCreateCommunityModal={showCommunityModal}
                 setShowCreateCommunityModal={setShowCommunityModal}
               />

@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../../store/users";
+import { getUsers } from "../../../store";
 import "./ChatWindowOverlay.css";
+import { SelectedChatContext } from "../../../context/SelectedChat";
 
-export default function ChatWindowNewChatOverlay({
+export function ChatWindowNewChatOverlay({
   setMessageInviteOverlay,
   setNewChatOverlay,
-  setSelectedChat,
   setWelcomeOverlay,
   setUserFound,
   userFound,
 }) {
   const dispatch = useDispatch();
+  const { setSelectedChat } = useContext(SelectedChatContext);
 
   const [username, setUsername] = useState();
   const [isChosen, setIsChosen] = useState(false);
@@ -64,7 +65,7 @@ export default function ChatWindowNewChatOverlay({
       <div className="new-chat-overlay">
         <div className="new-chat-overlay-main">
           <div className="new-chat-username-input">
-            <div className={"new-chat-input-bar"}>
+            <div className="new-chat-input-bar">
               <input
                 type="text"
                 name="new-chat"

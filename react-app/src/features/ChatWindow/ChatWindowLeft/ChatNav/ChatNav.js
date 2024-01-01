@@ -1,11 +1,9 @@
 import React from "react";
-import ChatNavBtn from "./ChatNavBtn";
 import { useSelector } from "react-redux";
+import { ChatNavBtn } from "./ChatNavBtn";
 import "./ChatNav.css";
 
-export default function ChatNav({
-  setSelectedChat,
-  selectedChat,
+export function ChatNav({
   handleOpenChatThread,
   receiver,
   setWelcomeOverlay,
@@ -48,8 +46,6 @@ export default function ChatNav({
           .map((chatThread) => (
             <ChatNavBtn
               chatThread={chatThread}
-              selectedChat={selectedChat}
-              setSelectedChat={setSelectedChat}
               handleOpenChatThread={handleOpenChatThread}
               receiver={receiver}
               setWelcomeOverlay={setWelcomeOverlay}

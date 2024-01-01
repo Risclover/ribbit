@@ -1,27 +1,33 @@
-import React, { useEffect, useState, memo, lazy } from "react";
+import React, { useEffect, useState, memo, lazy, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import { getPosts } from "../../store/posts";
-import { addViewedPost } from "../../store/viewed_posts";
+import { getPosts, addViewedPost } from "../../store";
 import {
   SortingBar,
   CreatePostBar,
   BackToTop,
   LoadingEllipsis,
 } from "../../components";
-import SinglePost from "./SinglePost/SinglePost";
-import { DeveloperLinksBox } from "./DeveloperLinksBox";
-import AboutBox from "./AboutBox";
-import SortingFunction from "./utils/SortingFunction";
-import { RecentPosts } from "../RecentPosts";
+import {
+  SinglePost,
+  DeveloperLinksBox,
+  AboutBox,
+  RecentlyViewedPosts,
+  PostFeed,
+} from "../../features";
+import { SortingFunction } from "./utils";
 import All from "../../assets/images/navbar/all-icon2.png";
 import "./Posts.css";
+import { PostFormatContext } from "../../context/PostFormat";
 
-export function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
+export function Posts({ setPageTitle, setPageIcon }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const posts = useSelector((state) => Object.values(state.posts));
   const user = useSelector((state) => state.session.user);
+
+  const { format, setFormat } = useContext(PostFormatContext);
+
   const [sortMode, setSortMode] = useState("new");
   const [isLoaded, setIsLoaded] = useState(true);
   const [items, setItems] = useState(posts.slice(10, 15));
@@ -39,6 +45,7 @@ export function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
     setTimeout(() => {
       setItems([...items, ...posts.slice(page * 5, page * 5 + 5)]);
       setPage(page + 1);
+
       setLoading(false);
     }, 1000);
   };
@@ -96,13 +103,8 @@ export function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
             }
           >
             {user && <CreatePostBar />}
-            <SortingBar
-              setFormat={setFormat}
-              format={format}
-              sortMode={sortMode}
-              setSortMode={setSortMode}
-            />
-            {posts &&
+            <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+            {/* {posts &&
               format === "Card" &&
               posts.slice(0, 10).map((post, idx) => (
                 <NavLink key={idx} to={`/posts/${post.id}`}>
@@ -111,7 +113,6 @@ export function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
                     id={post.id}
                     postComments={Object.values(post.postComments).length}
                     isCommunity={false}
-                    format={format}
                     isPage="all"
                     post={post}
                   />
@@ -125,7 +126,6 @@ export function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
                     id={post.id}
                     postComments={Object.values(post.postComments).length}
                     isCommunity={false}
-                    format={format}
                     isPage="all"
                     post={post}
                     onClick={() => handleViewPost(post.id)}
@@ -140,12 +140,12 @@ export function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
                     id={post.id}
                     postComments={Object.values(post.postComments).length}
                     isCommunity={false}
-                    format={format}
                     isPage="all"
                     post={post}
                   />
                 </NavLink>
-              ))}
+              ))} */}
+            {<PostFeed posts={posts} />}
           </div>
           <div className="posts-right-col">
             <AboutBox
@@ -154,7 +154,7 @@ export function Posts({ format, setFormat, setPageTitle, setPageIcon }) {
           rising and be a part of the conversation."
               user={user}
             />
-            {viewedPosts && viewedPosts.length > 0 && <RecentPosts />}
+            {viewedPosts && viewedPosts.length > 0 && <RecentlyViewedPosts />}
             <div className="last-box-wrapper">
               <DeveloperLinksBox />
               <BackToTop />
