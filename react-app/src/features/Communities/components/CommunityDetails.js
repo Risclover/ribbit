@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import { deleteSubscription } from "../../../store";
+import { addToSubscriptions, deleteSubscription } from "../../../store";
 import { CommunityOptions } from "../CommunityInfoBox";
 import Cake from "../../../assets/images/misc/piece4.png";
 

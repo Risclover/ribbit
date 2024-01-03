@@ -17,15 +17,9 @@ export function SinglePostContent({ post, isPage }) {
         {post.imgUrl !== null ? (
           <div className="single-post-content-image">
             <LazyLoad height={700} offset={100}>
-              <img
-                className="image-post-img"
-                src={post.imgUrl}
-                alt="Post"
-                onClick={(e) => {
-                  isPage === "singlepage" &&
-                    window.open(`/images/${post.id}`, "_blank");
-                }}
-              />
+              <a href={post.imgUrl} target="_blank">
+                <img className="image-post-img" src={post.imgUrl} alt="Post" />
+              </a>
             </LazyLoad>
           </div>
         ) : post.linkUrl !== null ? (
