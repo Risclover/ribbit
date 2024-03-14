@@ -65,60 +65,78 @@ export const followerPosts = () => async (dispatch) => {
 };
 
 const initialState = {};
-
 const followersReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case LOAD_FOLLOWERS:
-      newState.followers = action.followers.Followers.reduce(
-        (follows, follow) => {
-          follows[follow.id] = follow;
-          return follows;
-        },
-        {}
-      );
-      newState.follows = action.followers.Follows.reduce((follows, follow) => {
-        follows[follow.id] = follow;
-        return follows;
-      }, {});
-      newState.posts = action.followers.FollowedPosts.reduce(
-        (follows, follow) => {
-          follows[follow.id] = follow;
-          return follows;
-        },
-        {}
-      );
+      if (action.followers && action.followers.Followers) {
+        newState.followers = action.followers.Followers.reduce(
+          (follows, follow) => {
+            follows[follow.id] = follow;
+            return follows;
+          },
+          {}
+        );
+      }
+      if (action.followers && action.followers.Follows) {
+        newState.follows = action.followers.Follows.reduce(
+          (follows, follow) => {
+            follows[follow.id] = follow;
+            return follows;
+          },
+          {}
+        );
+      }
+      if (action.followers && action.followers.FollowedPosts) {
+        newState.posts = action.followers.FollowedPosts.reduce(
+          (follows, follow) => {
+            follows[follow.id] = follow;
+            return follows;
+          },
+          {}
+        );
+      }
       return newState;
     case LOAD_USER_FOLLOWERS:
-      newState.userFollowers = action.followers.Followers.reduce(
-        (follows, follow) => {
-          follows[follow.id] = follow;
-          return follows;
-        },
-        {}
-      );
-      newState.userFollows = action.followers.Follows.reduce(
-        (follows, follow) => {
-          follows[follow.id] = follow;
-          return follows;
-        },
-        {}
-      );
-      newState.followedPosts = action.followers.FollowedPosts.reduce(
-        (follows, follow) => {
-          follows[follow.id] = follow;
-          return follows;
-        },
-        {}
-      );
+      if (action.followers && action.followers.Followers) {
+        newState.userFollowers = action.followers.Followers.reduce(
+          (follows, follow) => {
+            follows[follow.id] = follow;
+            return follows;
+          },
+          {}
+        );
+      }
+      if (action.followers && action.followers.Follows) {
+        newState.userFollows = action.followers.Follows.reduce(
+          (follows, follow) => {
+            follows[follow.id] = follow;
+            return follows;
+          },
+          {}
+        );
+      }
+      if (action.followers && action.followers.FollowedPosts) {
+        newState.followedPosts = action.followers.FollowedPosts.reduce(
+          (follows, follow) => {
+            follows[follow.id] = follow;
+            return follows;
+          },
+          {}
+        );
+      }
       return newState;
     case LOAD_POSTS:
-      newState.followerPosts = action.followers.followedPosts.reduce(
-        (posts, post) => {
-          posts[post.id] = post;
-          return posts;
-        }
-      );
+      if (action.followers && action.followers.followedPosts) {
+        newState.followerPosts = action.followers.followedPosts.reduce(
+          (posts, post) => {
+            posts[post.id] = post;
+            return posts;
+          },
+          {}
+        );
+      }
+      return newState; // Add return statement here
     default:
       return state;
   }

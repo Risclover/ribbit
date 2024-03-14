@@ -97,12 +97,12 @@ export function SearchResultsPosts({
         <div className="search-results-right-box">
           <h4>Communities</h4>
           {communityList
-            .filter((community) =>
+            ?.filter((community) =>
               community["name"]
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase())
             )
-            .map((community, idx) =>
+            ?.map((community, idx) =>
               idx < 5 &&
               community["name"]
                 .toLowerCase()

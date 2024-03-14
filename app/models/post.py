@@ -40,12 +40,15 @@ class Post(db.Model):
             "postComments": {item.to_dict()["id"]: item.to_dict() for item in self.post_comments},
             "commentNum": len(self.post_comments),
             "communityId": self.community_id,
-            "communityName": self.post_community.name,
-            "communityMembers": len(self.post_community.subscribers),
-            "communityRules": {item.to_dict()["id"]: item.to_dict() for item in self.post_community.community_rules},
-            "communityDesc": self.post_community.description,
-            "communityDate": self.post_community.created_at,
-            "communitySettings": {item.to_dict()["id"]: item.to_dict() for item in self.post_community.community_settings},
+            "communityName": self.post_community.name if self.post_community else None,
+            "communityMembers": len(self.post_community.subscribers) if self.post_community else 0,
+            "communityRules": {item.to_dict()["id"]: item.to_dict() for item in (self.post_community.community_rules if self.post_community else [])},
+            "communityDesc": self.post_community.description if self.post_community else None,
+
+            "communityDate": self.post_community.created_at if self.post_community else None,
+
+            "communitySettings": {item.to_dict()["id"]: item.to_dict() for item in (self.post_community.community_settings if self.post_community else [])},
+
             "createdAt": self.created_at,
             "updatedAt": self.updated_at,
         }

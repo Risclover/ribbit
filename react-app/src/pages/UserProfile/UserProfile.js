@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { PageTitleContext } from "../../context";
 import {
   getFollowedPosts,
   getPosts,
@@ -14,12 +15,8 @@ import {
 } from "../../pages";
 import "./UserProfile.css";
 
-export function UserProfile({
-  setShowLoginForm,
-  setPageTitle,
-  setPageIcon,
-  setOpenChat,
-}) {
+export function UserProfile({ setShowLoginForm, setPageIcon, setOpenChat }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const { userId } = useParams();
   const [page, setPage] = useState("Posts");

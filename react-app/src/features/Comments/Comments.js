@@ -9,6 +9,7 @@ export function Comments({ post }) {
   const url = window.location.href;
   const dispatch = useDispatch();
   const { postId } = useParams();
+
   const comments = Object.values(post.postComments);
   const [sortType, setSortType] = useState("Best");
   const [showLoader, setShowLoader] = useState(true);

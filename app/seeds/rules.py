@@ -569,7 +569,7 @@ This is not a complete list of what isn't IAF""",
     )
     community12_rule2 = Rule(
         title="Rule 2: Post doesn't have a descriptive title",
-        description="""Make sure your title is descriptive. Users should be able to know what the post is generally about or if it's a pun they should get the joke after viewing the content of the post. If needed you can add additional information in the comment section. "This <thing>" is not an adequate title.
+        description="""Make sure your title is descriptive. Users should be able to know what the post is generally about or if it's a pun they should get the joke after viewing the content of the post. If needed you can add additional information in the comment section. "This thing" is not an adequate title.
 
 Titles should not be the only thing interesting about the post.
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 
@@ -18,16 +18,17 @@ import {
   SearchResultsButtons,
   SearchResultsSorting,
 } from "../../../features";
+import { PageTitleContext } from "../../../context";
 import SearchDude from "../../../assets/images/search-icon.png";
 import "./SearchResults.css";
 
 export function SearchResults({
-  setPageTitle,
   setPageIcon,
   searchQuery,
   setSearchQuery,
   setAdjustQuery,
 }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const [searchPage, setSearchPage] = useState("Posts");
 
@@ -146,7 +147,7 @@ export function SearchResults({
     dispatch(getUsers());
     dispatch(search(searchQuery));
     dispatch(getAllComments());
-  }, [dispatch]);
+  }, [dispatch, searchQuery]);
 
   return (
     <div className="search-results-page">

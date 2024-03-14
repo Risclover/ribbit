@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
@@ -16,7 +16,7 @@ import {
   getSubscriptions,
 } from "../../../store";
 
-import { Modal } from "../../../context";
+import { Modal, PageTitleContext } from "../../../context";
 import {
   CommunitySelection,
   PostTypeBar,
@@ -47,13 +47,8 @@ const modules = {
   ],
 };
 
-export function CreatePost({
-  setPageTitle,
-  setPageIcon,
-  postType,
-  setPostType,
-  val,
-}) {
+export function CreatePost({ setPageIcon, postType, setPostType, val }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const history = useHistory();
   const { communityName } = useParams();
@@ -87,7 +82,6 @@ export function CreatePost({
     let result = Object.values(communities).find(
       (community) => community.name === name
     );
-    console.log("result:", result);
     return result ? result.id : null;
   };
 
@@ -186,7 +180,7 @@ export function CreatePost({
     linkPostErrors();
     imgPostErrors();
     postErrors();
-  }
+  };
 
   useEffect(() => {
     if (content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {

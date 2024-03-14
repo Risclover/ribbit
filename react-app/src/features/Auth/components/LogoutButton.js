@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { logout } from "../../store";
+import { logout } from "../../../store";
 
 export const LogoutButton = () => {
   const history = useHistory();

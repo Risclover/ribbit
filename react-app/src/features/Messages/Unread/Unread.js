@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { PageTitleContext } from "../../../context";
 import { readAllMessages } from "../../../store";
 import {
   MessageHead,
@@ -8,7 +9,8 @@ import {
 } from "../../../features";
 import "../Inbox/Inbox.css";
 
-export function Unread({ setPageTitle, setPageIcon }) {
+export function Unread({ setPageIcon }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.session.user);

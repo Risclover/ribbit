@@ -30,6 +30,7 @@
   height: 54px;
   margin-right: 8px;
   background-color: var(--community-base-color);
+  object-fit: cover;
 }
 
 .single-post-community-name span {
@@ -532,6 +533,7 @@
   border-radius: 100px;
   margin-right: 5px;
   background-color: var(--community-base-color);
+  object-fit: cover;
 }
 
 .single-post-community-img {

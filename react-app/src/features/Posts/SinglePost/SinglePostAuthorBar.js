@@ -29,13 +29,16 @@ export function SinglePostAuthorBar({
   isPage,
 }) {
   const history = useHistory();
-  const communityHref = `/c/${community?.name}`;
+  const communityHref = `/c/${post.communityName}`;
 
   useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--community-base-color",
-      community?.communitySettings[community.id]?.baseColor
-    );
+    const communitySettings = post.communitySettings[post.communityId];
+    if (communitySettings) {
+      document.documentElement.style.setProperty(
+        "--community-base-color",
+        communitySettings.baseColor
+      );
+    }
   }, []);
 
   return (
@@ -46,10 +49,10 @@ export function SinglePostAuthorBar({
             <img
               style={{
                 backgroundColor: `${
-                  community?.communitySettings[community.id].baseColor
+                  post.communitySettings[post.communityId]?.baseColor
                 }`,
               }}
-              src={community?.communitySettings[community?.id].communityIcon}
+              src={post.communitySettings[post.communityId]?.communityIcon}
               alt="Community"
             />
           </div>
@@ -62,7 +65,7 @@ export function SinglePostAuthorBar({
                 history.push(communityHref);
               }}
             >
-              c/{community?.name}
+              c/{post.communityName}
             </span>
           </div>
 

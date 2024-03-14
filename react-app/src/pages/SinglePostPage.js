@@ -18,9 +18,8 @@ export function SinglePostPage() {
   const dispatch = useDispatch();
   const { setFormat } = useContext(PostFormatContext);
 
-  setFormat("Card");
-
   useEffect(() => {
+    setFormat("Card");
     dispatch(getSinglePost(postId));
     dispatch(getPosts());
   }, [dispatch]);

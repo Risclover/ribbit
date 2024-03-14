@@ -1,5 +1,5 @@
-export { Posts } from "./Posts";
-export { SubscribedPosts } from "./SubscribedPosts";
+export { AllPostsFeed } from "./AllPostsFeed";
+export { HomepageFeed } from "./HomepageFeed";
 export { DeveloperLinksBox } from "./DeveloperLinksBox";
 export { ImagePost, ImagePostForm, UpdateImagePost } from "./ImagePost";
 export { HomepagePosts } from "./HomepagePosts";

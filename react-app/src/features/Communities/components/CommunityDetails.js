@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import { deleteSubscription } from "../../../store";
+import {
+  addToSubscriptions,
+  deleteSubscription,
+  getSubscriptions,
+} from "../../../store";
 import { CommunityOptions } from "../CommunityInfoBox";
 import Cake from "../../../assets/images/misc/piece4.png";
 
 export function CommunityDetails({ post, community }) {
+  const dispatch = useDispatch();
   const subscriptions = useSelector((state) => state.subscriptions);
   const user = useSelector((state) => state.session.user);
 
@@ -47,8 +52,8 @@ export function CommunityDetails({ post, community }) {
             <img
               src={
                 post !== null
-                  ? post?.communitySettings[post?.communityId].communityIcon
-                  : community?.communitySettings[community?.id].communityIcon
+                  ? post?.communitySettings[post?.communityId]?.communityIcon
+                  : community?.communitySettings[community?.id]?.communityIcon
               }
               alt="Community"
               className="single-post-community-info-img"

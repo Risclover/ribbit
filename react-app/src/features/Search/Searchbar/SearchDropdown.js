@@ -23,7 +23,7 @@ export function SearchDropdown({
   const handleQuery = (e) => {
     e.preventDefault();
     setShowSearchDropdown(false);
-    history.push(`/search/?q=${searchQuery}`);
+    history.push("/search/results");
   };
 
   const filteredCommunities = Object.values(allCommunities)
@@ -67,7 +67,7 @@ export function SearchDropdown({
               <div className="search-result-community-details">
                 <div className="search-result-community-name">
                   c/{community.name}
-                </div>...
+                </div>
                 <div className="search-result-community-members">
                   Community • {community.members} members
                 </div>

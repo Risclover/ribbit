@@ -207,10 +207,17 @@ export default function communitiesReducer(state = initialState, action) {
     case CREATE_COMMUNITY:
       return { ...state, [action.communities.id]: action.communities };
     case LOAD_COMMUNITIES:
-      return action.communities.Communities.reduce((communities, community) => {
-        communities[community.id] = community;
-        return communities;
-      }, {});
+      if (action.communities && action.communities.Communities) {
+        return action.communities.Communities.reduce(
+          (communities, community) => {
+            communities[community.id] = community;
+            return communities;
+          },
+          {}
+        );
+      } else {
+        return state;
+      }
     case LOAD_SUBSCRIBERS:
       return action.communities.Subscribers.reduce(
         (subscribers, subscriber) => {

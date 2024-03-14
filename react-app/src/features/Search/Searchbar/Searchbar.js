@@ -22,10 +22,6 @@ export function Searchbar({
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
   useEffect(() => {
-    dispatch(getCommunities());
-  }, [dispatch]);
-
-  useEffect(() => {
     if (adjustQuery) ref.current.focus();
   }, [adjustQuery]);
 

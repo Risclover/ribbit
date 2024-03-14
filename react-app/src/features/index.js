@@ -1,4 +1,4 @@
-export * from "./auth";
+export * from "./Auth";
 export * from "./ChatWindow";
 export * from "./Comments";
 export * from "./Communities";
@@ -6,7 +6,7 @@ export * from "./CommunityRules";
 export * from "./CommunitySettings";
 export * from "./Messages";
 export * from "./Notifications";
-export * from "./Posts";
 export * from "./RecentlyViewedPosts";
 export * from "./Search";
 export * from "./Users";
+export * from "./Posts";

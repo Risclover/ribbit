@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
+import { PageTitleContext } from "../../context";
 import { getCommunities } from "../../store";
 import "./CommunitiesDirectory.css";
 
-export function CommunitiesDirectory({ setPageTitle }) {
+export function CommunitiesDirectory() {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
 
   const communities = useSelector((state) => Object.values(state.communities));

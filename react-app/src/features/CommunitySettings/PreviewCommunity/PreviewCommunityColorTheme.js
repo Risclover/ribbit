@@ -116,6 +116,7 @@ export function PreviewCommunityColorTheme({
             setTheme={theme === "Base" ? setBase : setHighlight}
             highlight={highlight}
             name={theme}
+            key={theme}
           />
         ))}
       </div>

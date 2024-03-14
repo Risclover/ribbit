@@ -3,6 +3,7 @@ from app.models import User, db, Community, Notification
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy import func
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -53,6 +54,17 @@ def logout():
     logout_user()
     return {'message': 'User logged out'}
 
+@auth_routes.route("/signup/<string:username>", methods=["POST"])
+def check_username(username):
+    """
+    Checks if username is taken
+    """
+    username_lower = username.lower()
+    user = User.query.filter(func.lower(User.username) == username_lower).first()
+    if user:
+        return {"Message": True}
+    else:
+        return {"Message": False}
 
 @auth_routes.route('/signup', methods=['POST'])
 def sign_up():

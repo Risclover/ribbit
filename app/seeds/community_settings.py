@@ -90,7 +90,7 @@ def seed_community_settings():
         base_color="#3d9494",
         highlight="#008080",
         bg_color="#ebebeb",
-        community_icon="https://styles.redditmedia.com/t5_2qh1o/styles/communityIcon_p20mxkvgsafb1.jpg",
+        community_icon="https://styles.redditmedia.com/t5_2qh1o/styles/communityIcon_x9kigzi7dqbc1.jpg",
         hide_community_icon=False,
         name_format="c/",
         background_img_format="fill",

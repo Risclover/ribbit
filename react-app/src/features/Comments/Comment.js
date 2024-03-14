@@ -7,8 +7,8 @@ import parse from "html-react-parser";
 import moment from "moment";
 import { Modal } from "../../context";
 import { getUsers, addCommentVote, removeCommentVote } from "../../store";
-import { EditComment } from "../../features";
-import { Username, DeleteConfirmationModal } from "../../components";
+import { EditComment, DeleteCommentConfirmation } from "../../features";
+import { Username } from "../../components";
 import "./Comments.css";
 
 moment.updateLocale("en-comment", {
@@ -283,15 +283,12 @@ export function Comment({ commentId, comment }) {
                   {showDeleteModal && (
                     <Modal
                       onClose={() => setShowDeleteModal(false)}
-                      title="Delete comment?"
+                      title="Delete comment"
                     >
-                      <DeleteConfirmationModal
+                      <DeleteCommentConfirmation
                         setShowDeleteModal={setShowDeleteModal}
                         showDeleteModal={showDeleteModal}
-                        postId={postId}
                         commentId={comment?.id}
-                        item="comment"
-                        isPage="singlepost"
                       />
                     </Modal>
                   )}

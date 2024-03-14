@@ -1,0 +1,287 @@
+.form-field {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: #eaedef;
+  border-radius: 1.4rem;
+  height: 56px;
+  padding-left: 16px;
+  padding-right: 8px;
+  border: 2px solid transparent;
+}
+
+.form-field-box.h-100 {
+  min-height: 100px;
+  margin-bottom: 0px;
+}
+
+.form-field label {
+  position: absolute;
+  z-index: 2;
+  font-size: 16px;
+  transition: all 150ms ease-out 0s;
+  transform: translateY(0px);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #576f76;
+  cursor: default;
+}
+
+.form-field input {
+  font-size: 16px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  transform-origin: 0 50%;
+  outline: none;
+  transition: all 150ms ease-out 0s;
+  border-color: transparent;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #0f1a1c;
+  transform: translateY(7px);
+}
+
+.form-field:hover {
+  background-color: #e2e7e9;
+}
+
+.form-field.errors-true {
+  box-shadow: 0 0 0 0.125rem #a50016;
+}
+
+.form-field input:focus + label,
+.form-field input:not(:placeholder-shown) ~ label {
+  font-size: 12px;
+  transform: translateY(-9px);
+}
+/*
+.form-field input:hover + label {
+  font-size: 12px;
+  transform: translateY(0);
+} */
+
+/* .form-field label:hover {
+  font-size: 12px;
+  transform: translateY(0);
+} */
+
+.login-form-container,
+.signup-form-container {
+  background: white;
+  border-radius: 12px;
+  color: #1c1c1c;
+}
+
+.login-form,
+.signup-form {
+  position: relative;
+  width: 100%;
+  color: inherit;
+}
+
+.login-form-title,
+.signup-form-title {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
+  margin: 24px 0;
+  color: #1a1a1b;
+}
+
+.or-dividers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 24px;
+  margin-top: 24px;
+}
+
+.or-line {
+  border-style: none;
+  flex-grow: 1;
+  height: 1px;
+  margin: 0px;
+  background-color: #d6d6d6;
+}
+
+.or-label {
+  color: #434343;
+  font-size: 12px;
+  padding: 0 16px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.demo-btn {
+  width: 100%;
+  background: white;
+  border: 1px solid #dadce0;
+  margin-top: 1.5rem;
+  height: 40px;
+  outline: none;
+  padding: 0 12px;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: all 0.3s;
+  white-space: nowrap;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #3c4043;
+  letter-spacing: 0.25px;
+  text-overflow: ellipsis;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.demo-btn svg {
+  font-size: 18px;
+  margin: 2px 8px 0 0;
+}
+
+.demo-btn:hover {
+  background: rgba(66, 133, 244, 0.04);
+}
+
+.login-form-errors,
+.signup-form-errors {
+  color: #a50016;
+}
+
+.error-container {
+  min-height: 20px;
+  padding-top: 4px;
+  width: 100%;
+  font-size: 12px;
+  line-height: 14px;
+  padding-left: 16px;
+  margin-top: 2px;
+  transition: all 0.2s ease-in-out;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.login-form-submit,
+.signup-form-submit {
+  border-radius: 1000px;
+  height: 48px;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background: #d93a00;
+  width: 100%;
+  font-weight: 600;
+  padding: 0 16px;
+  border: 0;
+  outline: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.login-form-submit:hover,
+.signup-form-submit:hover {
+  background: #962900;
+}
+
+.login-form-submit:disabled,
+.signup-form-submit:disabled {
+  background: #0000000d;
+  color: #00000040;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.sign-in-switch,
+.log-in-switch {
+  font-size: 14px;
+  color: #131313;
+  margin-top: 8px;
+}
+
+.sign-in-switch span,
+.log-in-switch span {
+  color: #0045ac;
+  letter-spacing: 0.05em;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.sign-in-switch span:hover,
+.log-in-switch span:hover {
+  color: #003584;
+}
+
+.alert-icon {
+  color: #a50016;
+  font-size: 24px;
+}
+
+.check-icon svg {
+  color: #0e8a00;
+  font-size: 24px;
+}
+
+.asterisk {
+  color: #a50016;
+}
+
+.generate-username-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: active;
+  padding: 0 12px;
+  pointer-events: auto;
+}
+
+.generate-username-btn:active {
+  background: #00000029;
+}
+
+.input-trailing-icons {
+  display: flex;
+  align-items: center;
+}
+
+.username-accepted {
+  color: #0a6000;
+}
+
+.input-trailing-icons .valid-pass {
+  margin-right: 8px;
+}
+
+.form-field-username {
+  margin-top: 30px;
+  margin-bottom: 8px;
+}
+
+.auth-modal-back {
+  border: 0px;
+  background: transparent;
+  height: 40px;
+  width: 40px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-modal-back:hover {
+  background-color: #e2e7e9;
+}
+
+.auth-modal-back:active {
+  background: linear-gradient(#00000029, #00000029);
+}

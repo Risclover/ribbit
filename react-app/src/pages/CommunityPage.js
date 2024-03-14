@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,11 +9,14 @@ import {
   CommunityPageHeader,
   CommunityWelcome,
 } from "../features";
+import { PageTitleContext } from "../context";
 
-export function CommunityPage({ setPageTitle, setPageIcon }) {
+export function CommunityPage({ setPageIcon }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   // const { communityId } = useParams();
   const { communityName } = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getCommunitySettings(communityId));
@@ -25,7 +28,6 @@ export function CommunityPage({ setPageTitle, setPageIcon }) {
     let result = Object.values(communities).find(
       (community) => community.name === name
     );
-    console.log("result:", result);
     return result ? result.id : null;
   };
 

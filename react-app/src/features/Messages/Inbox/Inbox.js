@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { PageTitleContext } from "../../../context";
 import { getMessages, getThreads } from "../../../store";
 import {
   MessageContentMenu,
@@ -9,7 +10,8 @@ import {
 } from "../../../features";
 import "./Inbox.css";
 
-export function Inbox({ setPageTitle, setPageIcon }) {
+export function Inbox({ setPageIcon }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.session.user);

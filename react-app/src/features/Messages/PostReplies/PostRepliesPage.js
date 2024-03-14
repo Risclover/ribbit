@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { PageTitleContext } from "../../../context";
 import { getUserNotifications, getPosts, getUsers } from "../../../store";
 import { MessageContentMenu, MessageHead, PostReply } from "../../../features";
 import "./PostReplies.css";
 import "../Inbox/Inbox.css";
 
-export function PostRepliesPage({ setPageTitle, setPageIcon }) {
+export function PostRepliesPage({ setPageIcon }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const notifications = useSelector((state) =>

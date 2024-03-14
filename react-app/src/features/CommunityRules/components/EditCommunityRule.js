@@ -134,6 +134,7 @@ export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
                 setShowDeleteModal={setShowDeleteModal}
                 payload={rule.id}
                 storeFunction={deleteRule}
+                item="rule"
                 isPage="community"
               />
             </Modal>

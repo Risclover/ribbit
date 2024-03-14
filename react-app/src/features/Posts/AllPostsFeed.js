@@ -19,8 +19,10 @@ import { SortingFunction } from "./utils";
 import All from "../../assets/images/navbar/all-icon2.png";
 import "./Posts.css";
 import { PostFormatContext } from "../../context/PostFormat";
+import { PageTitleContext } from "../../context";
 
-export function Posts({ setPageTitle, setPageIcon }) {
+export function AllPostsFeed({ setPageIcon }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const history = useHistory();
   const posts = useSelector((state) => Object.values(state.posts));

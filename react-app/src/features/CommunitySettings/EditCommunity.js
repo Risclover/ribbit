@@ -22,7 +22,6 @@ export function EditCommunity() {
     let result = Object.values(communities).find(
       (community) => community.name === name
     );
-    console.log("result:", result);
     return result ? result.id : null;
   };
 

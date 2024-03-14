@@ -25,6 +25,7 @@ export function AddCommunityRuleModal({ setShowRuleModal, communityId }) {
 
     dispatch(getCommunityRules(communityId));
     let changed = false;
+
     for (let rule of rules) {
       if (rule.title === title) {
         changed = true;

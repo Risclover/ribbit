@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Modal } from "../../context";
-import { LoginForm, SignUpForm } from "./AuthModal";
+import { Modal } from "../../../context";
+import { LoginForm } from "./LoginForm";
+import { SignUpForm } from "./SignUpForm";
 
 export function LoginPage() {
   const [showLoginForm, setShowLoginForm] = useState(true);

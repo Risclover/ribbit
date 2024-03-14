@@ -24,13 +24,10 @@ import {
 } from "../../../features";
 import Cake from "../../../assets/images/misc/piece4.png";
 import "react-loading-skeleton/dist/skeleton.css";
-import { PostFormatContext } from "../../../context/PostFormat";
+import { PostFormatContext, PageTitleContext } from "../../../context";
 
-export function SinglePostPage({
-  setPageIcon,
-  setPageTitle,
-  setShowLoginForm,
-}) {
+export function SinglePostPage({ setPageIcon, setShowLoginForm }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const history = useHistory();
   const { postId } = useParams();
   const dispatch = useDispatch();
@@ -53,10 +50,10 @@ export function SinglePostPage({
 
   useEffect(() => {
     dispatch(getCommunities());
+    dispatch(getComments(+postId));
     dispatch(getPosts());
     dispatch(getSinglePost(+postId));
     dispatch(addViewedPost(+postId));
-    dispatch(getComments(postId));
   }, [dispatch]);
 
   useEffect(() => {
