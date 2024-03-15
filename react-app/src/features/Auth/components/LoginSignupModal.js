@@ -27,14 +27,14 @@ export function LoginSignupModal({ btnText, className }) {
   const allUsers = useSelector((state) => state.users);
 
   const handleSignUp = () => {
-    dispatch(signUp(username, email, password));
+    dispatch(signUp(username, email.toLowerCase(), password));
     setShowSignupForm(false);
     const id = Object.values(allUsers).length + 1;
     history.push(`/users/${id}/profile`);
   };
 
   const handleLogIn = async () => {
-    const data = await dispatch(login(loginEmail, loginPassword));
+    const data = await dispatch(login(loginEmail.toLowerCase(), loginPassword));
     if (data && data.length > 0) {
       let errors = [];
       errors.push("incorrect email or password");

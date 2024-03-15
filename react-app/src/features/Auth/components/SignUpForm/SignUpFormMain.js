@@ -20,7 +20,9 @@ export const SignUpForm = ({
   const users = useSelector((state) => state.users);
   const [emailErrors, setEmailErrors] = useState([]);
 
-  const emailTaken = Object.values(users).find((user) => user.email === email);
+  const emailTaken = Object.values(users).find(
+    (user) => user.email.toLowerCase() === email.toLowerCase()
+  );
 
   useEffect(() => {
     dispatch(getUsers());

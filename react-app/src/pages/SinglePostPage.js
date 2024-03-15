@@ -12,19 +12,35 @@ import {
 } from "../features";
 import { BackToTop } from "../components";
 import { PostFormatContext } from "../context/PostFormat";
+import { PageTitleContext } from "../context";
 
-export function SinglePostPage() {
+export function SinglePostPage({ setPageIcon }) {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const { setFormat } = useContext(PostFormatContext);
+  const { setPageTitle } = useContext(PageTitleContext);
+  const post = useSelector((state) => state.posts[postId]);
+
+  useEffect(() => {
+    document.title = post?.title + " : " + post?.communityName;
+
+    setPageIcon(
+      <img
+        src={post?.communitySettings[post?.communityId].communityIcon}
+        className="nav-left-dropdown-item-icon item-icon-circle"
+        alt="Community"
+      />
+    );
+    setPageTitle(
+      <span className="nav-left-dropdown-item">c/{post?.communityName}</span>
+    );
+  }, [post, setPageTitle, setPageIcon]);
 
   useEffect(() => {
     setFormat("Card");
     dispatch(getSinglePost(postId));
     dispatch(getPosts());
   }, [dispatch]);
-
-  const post = useSelector((state) => state.posts[postId]);
 
   if (!post) return null;
   return (
