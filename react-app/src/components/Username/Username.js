@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { UsernamePopup } from "./UsernamePopup";
@@ -9,8 +9,6 @@ export function Username({ community, username, user, source }) {
 
   const users = useSelector((state) => Object.values(state.users));
   const currentUser = useSelector((state) => state.session.user);
-
-  const [showUserBox, setShowUserBox] = useState(false);
 
   let foundUser = users.filter((user) => user.username === username);
 
@@ -38,14 +36,11 @@ export function Username({ community, username, user, source }) {
       <div className="username-component" onClick={handleUsernameClick}>
         {source === "singlepost" ? "u/" + username : username}
       </div>
+
       {foundUser.length > 0 &&
         currentUser &&
         currentUser.id !== foundUser[0].id && (
-          <UsernamePopup
-            community={community}
-            user={foundUser}
-            setShowUserBox={setShowUserBox}
-          />
+          <UsernamePopup community={community} user={foundUser} />
         )}
     </div>
   );

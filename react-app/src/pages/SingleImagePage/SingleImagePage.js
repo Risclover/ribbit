@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./SingleImagePage.css";
+import { getPosts } from "../../store";
 
 export function SingleImagePage() {
   const { postId } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
 
   const posts = useSelector((state) => state.posts);
+
+  if (!posts) return null;
 
   return (
     <div className="single-image-page">

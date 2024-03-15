@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { VscChevronDown } from "react-icons/vsc";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { NavLeftDropdown } from "./NavLeftDropdown";
+import { PageTitleContext } from "../../../context";
 import "./NavLeftDropdown.css";
 
 export function NavLeftDropdownFace({
-  pageTitle,
-  setPageTitle,
   pageIcon,
   setPageIcon,
   setShowNavSidebar,
@@ -14,6 +13,7 @@ export function NavLeftDropdownFace({
   setNormalDropdown,
   normalDropdown,
 }) {
+  const { pageTitle, setPageTitle } = useContext(PageTitleContext);
   const [showIcon, setShowIcon] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 

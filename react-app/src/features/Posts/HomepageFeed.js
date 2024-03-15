@@ -1,21 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-
-import {
-  getCommunities,
-  getFollowers,
-  getPosts,
-  getSubscriptions,
-  getViewedPosts,
-} from "../../store";
-
 import {
   BackToTop,
   SortingBar,
   LoadingEllipsis,
   CreatePostBar,
 } from "../../components";
+import { PostFormatContext, PageTitleContext } from "../../context";
 import {
   SinglePost,
   DeveloperLinksBox,
@@ -23,16 +15,19 @@ import {
   RecentlyViewedPosts,
   PostFeed,
 } from "../../features";
+import {
+  getCommunities,
+  getFollowers,
+  getPosts,
+  getSubscriptions,
+  getViewedPosts,
+} from "../../store";
 import { SortingFunction } from "./utils";
 import Home from "../../assets/images/navbar/home-icon.png";
 import "./Posts.css";
-import { PostFormatContext } from "../../context/PostFormat";
 
-export function SubscribedPosts({
-  setPageTitle,
-  setPageIcon,
-  setShowLoginForm,
-}) {
+export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const { format } = useContext(PostFormatContext);
 
@@ -65,6 +60,10 @@ export function SubscribedPosts({
       <img src={Home} className="nav-left-dropdown-item-icon" alt="Home" />
     );
     setPageTitle(<span className="nav-left-dropdown-item">Home</span>);
+
+    return () => {
+      setPageTitle("");
+    };
   }, [dispatch]);
 
   const postList = subscriptions.reduce((acc, sub) => {
@@ -100,6 +99,7 @@ export function SubscribedPosts({
     };
 
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -109,8 +109,6 @@ export function SubscribedPosts({
     setLoader(false);
   }, 3000);
 
-  console.log("Items:", items);
-  console.log("post list:", postList);
   if (!user || !communities) return null;
 
   return (

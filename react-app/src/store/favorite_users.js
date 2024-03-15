@@ -53,10 +53,14 @@ const initialState = {};
 export default function favoriteUsersReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD:
-      return action.favoriteUsers.users.reduce((users, user) => {
-        users[user.id] = user;
-        return users;
-      }, {});
+      if (action.favoriteUsers && action.favoriteUsers.users) {
+        return action.favoriteUsers.users.reduce((users, user) => {
+          users[user.id] = user;
+          return users;
+        }, {});
+      } else {
+        return state;
+      }
     case DELETE:
       let removeState = { ...state };
       delete removeState[action.userId];

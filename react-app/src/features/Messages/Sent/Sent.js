@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getThreads } from "../../../store";
 import { MessageHead, SentMessage } from "../../../features";
 import "./Sent.css";
+import { PageTitleContext } from "../../../context";
 
-export function Sent({ setPageTitle, setPageIcon }) {
+export function Sent({ setPageIcon }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const threads = useSelector((state) => Object.values(state.threads));

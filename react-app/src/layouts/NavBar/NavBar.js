@@ -11,29 +11,25 @@ import {
   NotificationsDropdownWrapper,
   LoggedOutDropdownWrapper,
 } from "../NavBar";
+import { SelectedChatContext, PageTitleContext } from "../../context";
 import { Searchbar, LoginSignupModal } from "../../features";
 import RibbitLogo from "../../assets/images/ribbit-banners/ribbit_logo_love.png";
 import RibbitLogoSmall from "../../assets/images/ribbit-banners/ribbit_logo_love_small.png";
 import All from "../../assets/images/navbar/all-icon2.png";
 import "./NavBar.css";
-import { SelectedChatContext } from "../../context/SelectedChat";
 
-export function NavBar(props) {
-  const {
-    pageTitle,
-    setPageTitle,
-    pageIcon,
-    setPageIcon,
-    adjustQuery,
-    searchQuery,
-    setSearchQuery,
-    setShowNavSidebar,
-    showNavSidebar,
-    normalDropdown,
-    setNormalDropdown,
-    setOpenChat,
-    openChat,
-  } = props;
+export function NavBar({
+  pageIcon,
+  setPageIcon,
+  adjustQuery,
+  searchQuery,
+  setSearchQuery,
+  setShowNavSidebar,
+  normalDropdown,
+  setNormalDropdown,
+}) {
+  const { pageTitle, setPageTitle } = useContext(PageTitleContext);
+
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -50,11 +46,11 @@ export function NavBar(props) {
   const [msgNum, setMsgNum] = useState(0);
   const [showTooltip, setShowTooltip] = useState(false);
 
-  useEffect(() => {
-    dispatch(getCommunities());
-    dispatch(getUsers());
-    dispatch(getMessages());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getCommunities());
+  //   dispatch(getUsers());
+  //   dispatch(getMessages());
+  // }, [dispatch]);
 
   useEffect(() => {
     let list = messageList.filter((message) => message.read === false);

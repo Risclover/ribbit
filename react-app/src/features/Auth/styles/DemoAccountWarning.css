@@ -1,0 +1,139 @@
+.warning-container {
+  box-shadow: rgba(26, 26, 27, 0.3) 0px 2px 15px 0px,
+    0 0 0 max(100vw, 100vh) #00000099;
+  max-width: min(90%, 656px);
+  display: block;
+  z-index: 999;
+  position: fixed;
+  background: white;
+  left: 0px;
+  right: 0px;
+  width: fit-content;
+  margin: auto;
+  pointer-events: all;
+  max-height: 95vh;
+  top: 50%;
+  transform: translateY(-50%);
+  position: fixed;
+  border-radius: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
+  overflow: hidden;
+}
+
+.warning-content {
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+  position: relative;
+  padding: 16px;
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: inherit;
+  min-height: inherit;
+  overflow: hidden;
+}
+
+.warning-icon {
+  height: 48px;
+  width: 48px;
+}
+
+.warning-content-title {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 3rem 0 0;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.warning-content-title h3 {
+  font-size: 18px;
+  color: #0f1a1c;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.warning-content-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  padding: 0.5rem 0;
+  font-size: 14px;
+}
+
+.warning-content-body p {
+  margin-bottom: 1rem;
+  color: #2a3c42;
+}
+.warning-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  gap: 0.75rem;
+  width: 100%;
+  background: white;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.warning-buttons button {
+  padding: 0 14px;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  font: normal 600 14px / 18px -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
+}
+
+.warning-button-left {
+  margin-right: auto;
+  color: #1870f4;
+  background: white;
+}
+
+.warning-button-left:hover {
+  text-decoration: underline;
+}
+
+.warning-button-left:active {
+  background: linear-gradient(#00000029, #00000029),
+    linear-gradient(transparent, transparent);
+}
+
+.warning-button-middle {
+  background: #eaedef;
+  color: black;
+}
+
+.warning-button-middle:hover {
+  background: #e2e7e9;
+}
+
+.warning-button-middle:active {
+  background: #d2dadd;
+}
+
+.warning-button-right {
+  background: #0045ac;
+  color: white;
+}
+
+.warning-button-right:hover {
+  background: #003584;
+}
+
+.warning-button-right:active {
+  background: #00255d;
+}
+@media (min-width: 640) {
+}

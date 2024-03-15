@@ -12,13 +12,13 @@ import moment from "moment";
 
 import { addPostVote, removePostVote, getUsers } from "../../../../store";
 
-import { Modal } from "../../../../context";
-import { DeleteConfirmationModal } from "../../../../components";
 import Bounce from "../../../../assets/images/misc/curved-arrow.png";
+import { DeleteConfirmationModal } from "../../../../components";
+import { Modal } from "../../../../context";
+import { sliceUrl, HandleClickOutside } from "../../../../utils";
 import "../../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 import "./CompactPostFormat.css";
-import { sliceUrl, HandleClickOutside } from "../../../../utils";
 
 export function CompactPostFormat({ id, isPage, userId }) {
   const history = useHistory();

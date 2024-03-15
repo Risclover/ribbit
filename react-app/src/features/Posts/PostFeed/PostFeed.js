@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { SinglePost } from "../../../features";
-import { getPosts } from "../../../store";
+import { getCommunities, getPosts } from "../../../store";
 
 export function PostFeed({ posts }) {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ export function PostFeed({ posts }) {
 
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getCommunities());
   }, [dispatch]);
 
   const loadMore = () => {
@@ -50,7 +51,7 @@ export function PostFeed({ posts }) {
     <div>
       {posts.slice(0, 10).map((post) => (
         <NavLink key={post.id} to={`/posts/${post.id}`}>
-          <SinglePost key={post.id} id={post.id} />
+          <SinglePost key={post.id} id={post.id} post={post} />
         </NavLink>
       ))}
     </div>

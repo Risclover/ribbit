@@ -1,39 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   followUser,
   getFollowers,
   getUserFollowers,
   addNotification,
-} from "../../store";
+} from "../store";
 
 export function FollowBtn({ user }) {
   const dispatch = useDispatch();
   const follows = useSelector((state) => state.followers.follows);
 
-  const isFollowing = Object.values(follows).some(
-    (followed) => followed?.username === user?.username
-  );
+  const findIsFollowing = () =>
+    Object.values(follows).some(
+      (followed) => followed.username === user.username
+    );
 
-  const [following, setFollowing] = useState(isFollowing);
+  const [following, setFollowing] = useState(findIsFollowing());
+
+  useEffect(() => {
+    setFollowing(findIsFollowing());
+  }, [follows, user.username]);
 
   const handleFollow = async (e) => {
     e.preventDefault();
-    const data = await dispatch(followUser(user?.id));
+    await dispatch(followUser(user.id));
     dispatch(getFollowers());
-    dispatch(getUserFollowers(user?.id));
-    setFollowing(!following);
-    const payload = {
-      type: "follower",
-      id: data.id,
-    };
-
-    if (!following) {
-      await dispatch(addNotification(payload));
-    }
+    dispatch(getUserFollowers(user.id));
+    // After the follow action, the follow state is expected to be updated in your Redux store,
+    // so there's no need to manually toggle the 'following' state here.
   };
-
-  //   if (!follows || !user) return null;
 
   return (
     <button

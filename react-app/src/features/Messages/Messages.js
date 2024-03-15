@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getMessages,
@@ -6,10 +6,12 @@ import {
   getUsers,
   readAllNotifications,
 } from "../../store";
+import { PageTitleContext } from "../../context";
 import { MessageThread, MessageHead, MessageContentMenu } from "../../features";
 import "./Messages.css";
 
-export function Messages({ setPageTitle, setPageIcon }) {
+export function Messages({ setPageIcon }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
 
   const threads = useSelector((state) => Object.values(state.threads));

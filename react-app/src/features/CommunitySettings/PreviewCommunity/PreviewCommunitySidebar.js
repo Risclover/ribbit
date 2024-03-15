@@ -177,6 +177,7 @@ export function PreviewCommunitySidebar() {
                 setAppearanceSidebar(item);
                 setOpenAppearance(true);
               }}
+              key={item}
             >
               <span>{item}</span> <FaChevronRight />
             </div>

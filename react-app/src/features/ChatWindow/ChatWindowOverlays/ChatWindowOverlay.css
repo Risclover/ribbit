@@ -216,7 +216,7 @@
 }
 
 .new-chat-username-input input.errors-true {
-  border: 1px solid #ea0027;
+  border: 1px solid #a50016;
 }
 
 .new-chat-input-bar input:focus + label,

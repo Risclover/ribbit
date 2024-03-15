@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { VscMailRead } from "react-icons/vsc";
@@ -6,6 +6,7 @@ import { VscSettingsGear } from "react-icons/vsc";
 import { TfiBell } from "react-icons/tfi";
 import moment from "moment";
 
+import { PageTitleContext } from "../../context";
 import { getUserNotifications, readAllNotifications } from "../../store";
 import { Notification } from "./Notification";
 import SparklyFrog from "../../assets/images/ribbit-frog-sparkly.png";
@@ -30,7 +31,8 @@ moment.updateLocale("en-notif", {
   },
 });
 
-export function Notifications({ setPageTitle, setPageIcon }) {
+export function Notifications({ setPageIcon }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const history = useHistory();
 

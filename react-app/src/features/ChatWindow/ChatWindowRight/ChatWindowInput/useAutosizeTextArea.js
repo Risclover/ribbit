@@ -9,8 +9,6 @@ export const useAutosizeTextArea = (textAreaRef, value) => {
     heightNum = 0;
   }
 
-  console.log("title:", value);
-
   useEffect(() => {
     if (textAreaRef) {
       textAreaRef.style.height = "0px";

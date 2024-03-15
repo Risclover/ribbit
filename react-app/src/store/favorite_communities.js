@@ -56,13 +56,23 @@ export default function favoriteCommunitiesReducer(
 ) {
   switch (action.type) {
     case LOAD:
-      return action.favoriteCommunities.communities.reduce(
-        (communities, community) => {
-          communities[community.id] = community;
-          return communities;
-        },
-        {}
-      );
+      // Check if action.favoriteCommunities is defined
+      if (
+        action.favoriteCommunities &&
+        action.favoriteCommunities.communities
+      ) {
+        // Use reduce only if action.favoriteCommunities.communities is defined
+        return action.favoriteCommunities.communities.reduce(
+          (communities, community) => {
+            communities[community.id] = community;
+            return communities;
+          },
+          {}
+        );
+      } else {
+        // Return current state if action.favoriteCommunities or communities is undefined
+        return state;
+      }
     case DELETE:
       let removeState = { ...state };
       delete removeState[action.communityId];

@@ -314,15 +314,23 @@ export default function postsReducer(state = initialState, action) {
     case CREATE_POST:
       return { ...state, [action.posts.id]: action.posts };
     case LOAD_POSTS:
-      return action.posts.Posts.reduce((posts, post) => {
-        posts[post.id] = post;
-        return posts;
-      }, {});
+      if (action.posts && action.posts.Posts) {
+        return action.posts.Posts.reduce((posts, post) => {
+          posts[post.id] = post;
+          return posts;
+        }, {});
+      } else {
+        return state;
+      }
     case LOAD_COMMUNITY_POSTS:
-      return action.posts.CommunityPosts.reduce((posts, post) => {
-        posts[post.id] = post;
-        return posts;
-      }, {});
+      if (action.posts && action.posts.CommunityPosts) {
+        return action.posts.CommunityPosts.reduce((posts, post) => {
+          posts[post.id] = post;
+          return posts;
+        }, {});
+      } else {
+        return state;
+      }
     case LOAD_POST:
       return {
         ...state,

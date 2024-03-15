@@ -17,7 +17,7 @@ def username_exists(form, field):
     username = field.data
     user = User.query.filter(User.username == username).first()
     if user:
-        raise ValidationError('That username is already taken.')
+        raise ValidationError('that username is already taken')
 
 
 class SignUpForm(FlaskForm):

@@ -46,9 +46,9 @@ export function CommunityPosts({
         </div>
       )}
 
-      {commPosts.map((post, idx) => (
+      {commPosts.map((post) => (
         <NavLink
-          key={idx}
+          key={post.id}
           activeClassName="single-post-active"
           to={`/posts/${post.id}`}
         >

@@ -56,7 +56,7 @@ export function SearchResultsPeople({
       ).length === 0 && (
         <div className="no-search-results">
           <img src={SearchDude} alt="Search Dude" />
-          <h2>Hm... we couldn't find any results for “{searchQuery}”</h2>
+          <h2>Hm... we couldn't find any results for "{searchQuery}"</h2>
           <p>
             Double-check your spelling or try different keywords to{" "}
             <span onClick={() => setAdjustQuery(true)}>adjust your search</span>

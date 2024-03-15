@@ -18,10 +18,11 @@ import {
   CommunityPageHeader,
 } from "../../../features";
 import { BackToTop } from "../../../components";
+import { PageTitleContext, PostFormatContext } from "../../../context";
 import "../../Communities/CommunityPage.css";
-import { PostFormatContext } from "../../../context/PostFormat";
 
-export function PreviewCommunity({ setPageTitle, setPageIcon }) {
+export function PreviewCommunity({ setPageIcon }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const { communityId } = useParams();
 

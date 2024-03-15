@@ -88,21 +88,27 @@ const allSubscriptionsReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case LOAD_SUBSCRIPTIONS:
-      return action.subscriptions.Subscriptions.reduce(
-        (subscriptions, subscription) => {
-          subscriptions[subscription.id] = subscription;
-          return subscriptions;
-        },
-        {}
-      );
+      if (action.subscriptions && action.subscriptions.Subscriptions) {
+        return action.subscriptions.Subscriptions.reduce(
+          (subscriptions, subscription) => {
+            subscriptions[subscription.id] = subscription;
+            return subscriptions;
+          },
+          {}
+        );
+      }
+      return state; // Return the previous state if subscriptions are undefined
     case LOAD_SUBSCRIBERS:
-      return action.subscriptions.Subscribers.reduce(
-        (subscribers, subscriber) => {
-          subscribers[subscriber.id] = subscriber;
-          return subscriber;
-        },
-        {}
-      );
+      if (action.subscriptions && action.subscriptions.Subscribers) {
+        return action.subscriptions.Subscribers.reduce(
+          (subscribers, subscriber) => {
+            subscribers[subscriber.id] = subscriber;
+            return subscriber;
+          },
+          {}
+        );
+      }
+      return state; // Return the previous state if subscribers are undefined
     case DELETE_SUBSCRIPTION:
       delete newState[action.communityId];
       return newState;

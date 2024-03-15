@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { PageTitleContext } from "../../../context";
 import { editProfile, getUsers } from "../../../store";
 import "./EditProfile.css";
 
-export function EditProfile({ setPageTitle, setPageIcon }) {
+export function EditProfile({ setPageIcon }) {
+  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const history = useHistory();
   const user1 = useSelector((state) => state.session.user);

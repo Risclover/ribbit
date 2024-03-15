@@ -30,10 +30,11 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const [banner, setBanner] = useState();
   const [karma, setKarma] = useState();
   const followers = useSelector((state) => state.followers.followers);
-  const follows = useSelector((state) => state.followers.follows);
+  const follows = useSelector((state) => state.followers?.follows);
   const userFollowers = useSelector((state) => state.followers.userFollowers);
   const userChats = useSelector((state) => Object.values(state.chatThreads));
-  const [following, setFollowing] = useState(follows[user?.id]);
+
+  const isFollowing = () => follows && user && follows[user.id];
 
   const { setSelectedChat } = useContext(SelectedChatContext);
 
@@ -41,20 +42,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
     dispatch(getUserChatThreads());
     dispatch(getFollowers());
     dispatch(getUserFollowers(user?.id));
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (currentUser && follows && user && user[0]) {
-      for (let followed of Object.values(follows)) {
-        if (followed?.username === user[0]?.username) {
-          setFollowing(true);
-          break;
-        } else {
-          setFollowing(false);
-        }
-      }
-    }
-  }, [currentUser, follows, user]);
+  }, [dispatch, user?.id]);
 
   useEffect(() => {
     setBanner(user?.bannerImg);
@@ -159,7 +147,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
         </div>
 
         <div className="half-btns">
-          {currentUser?.id !== +userId && <FollowBtn user={currentUser} />}
+          {currentUser?.id !== +userId && <FollowBtn user={user} />}
           {currentUser?.id !== +userId && (
             <button className="blue-btn-filled btn-long" onClick={handleChat}>
               Chat

@@ -1,4 +1,5 @@
-#modal {
+#modal,
+.auth-modal {
   position: fixed;
   top: 0;
   right: 0;
@@ -10,32 +11,62 @@
   z-index: 1000;
 }
 
-#modal-background {
-  position: fixed;
+.auth-modal {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
+  height: 100%;
+}
+
+#modal-background,
+.auth-modal-background {
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background: rgb(26, 26, 27);
+  opacity: 0.5;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
 }
 
-#modal-content {
+#modal-content,
+.auth-modal-content {
   position: absolute;
   background-color: white;
-  border-radius: 12px;
-  box-shadow: 1px 7px 20px 2px rgb(0 0 0 / 40%);
+  border-radius: 16px;
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000,
+    0 0.0625rem 0.25rem 0 #00000026, 0 0.25rem 0.25rem 0 #00000026;
   overflow: hidden;
   width: auto;
 }
 
-#modal-topbar {
+.auth-modal-content {
+  max-height: 640px;
+  min-height: 400px;
+  height: 100%;
+  left: 0px;
+  right: 0px;
+  position: fixed;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 320px;
+  width: 528px;
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#modal-topbar,
+.auth-modal-topbar {
   display: flex;
   width: 100%;
   text-align: center;
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  margin-bottom: 16px;
   color: rgba(0, 0, 0, 0.4);
   border-bottom: 1px solid #edeff1;
 }
@@ -49,9 +80,114 @@
   color: inherit;
 }
 
-#modal-topbar h1 {
+#modal-topbar h1,
+.auth-modal-topbar h1 {
   margin: 0;
   margin-left: 16px;
   flex: 1;
   font-size: 18px;
+}
+
+.auth-modal-close {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  color: black;
+  background-color: #eaedef;
+  width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-modal-close:hover {
+  background: #e2e7e9;
+}
+
+.auth-modal-topbar {
+  padding: 24px 24px 8px;
+  border-bottom: 2px solid transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-border {
+  border-bottom: 1px solid #00000033; /* Replace #yourColor with your desired color */
+}
+
+.footer-border {
+  border-top: 1px solid #00000033; /* Replace #yourColor with your desired color */
+}
+
+.auth-modal-titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.auth-modal-form-container {
+  padding: 0 80px;
+  width: 528px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.auth-modal-title {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 24px;
+  color: #0f1a1c;
+  margin: 0 0 8px;
+  line-height: 28px;
+}
+
+.auth-modal-agreement {
+  color: #131313;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
+  margin: 10px 0 8px 0;
+  line-height: 1.4rem;
+}
+
+.auth-modal-footer {
+  padding: 24px 80px;
+}
+
+@media (max-width: 528px) {
+  .auth-modal-content {
+    border-radius: 0;
+    height: 100%;
+    max-height: 100%;
+    width: 100%;
+  }
+  .auth-modal-form-container {
+    padding: 0 16px;
+    width: 100%;
+  }
+
+  .auth-modal-topbar {
+    padding-right: 16px;
+  }
+
+  .auth-modal-footer {
+    padding: 24px 16px;
+  }
+
+  .auth-modal-agreement {
+    margin-top: 8px;
+  }
+}
+
+.justify-left {
+  justify-content: start;
 }
