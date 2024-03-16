@@ -3,7 +3,7 @@ import { Modal } from "../../../../context";
 import {
   CreateCommunityModal,
   CommunitySelectionDropdownCommunity,
-} from "../../../../features";
+} from "../../..";
 import "./CommunitySelection.css";
 
 export function CommunitySelectionDropdown({

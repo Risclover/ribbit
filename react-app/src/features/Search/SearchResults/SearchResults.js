@@ -17,7 +17,7 @@ import {
   SearchResultsPosts,
   SearchResultsButtons,
   SearchResultsSorting,
-} from "../../../features";
+} from "../..";
 import { PageTitleContext } from "../../../context";
 import SearchDude from "../../../assets/images/search-icon.png";
 import "./SearchResults.css";

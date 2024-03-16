@@ -7,7 +7,7 @@ import {
   getAllNotifications,
   getPostComments,
 } from "../../../store";
-import { LoginSignupModal } from "../../../features";
+import { LoginSignupModal } from "../..";
 import "../Comments.css";
 
 export function CommentForm({ postId }) {

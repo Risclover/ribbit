@@ -1,5 +1,5 @@
 import React from "react";
-import { ChatNav } from "../../../features";
+import { ChatNav } from "../..";
 import CreateChatIcon from "../../../assets/images/create-chat-icon.png";
 
 export function ChatWindowLeft({

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { AuthFormInput } from "../AuthFormInput";
-import { useDispatch } from "react-redux";
-import { checkUsername } from "../../../../store";
 import {
   validatePassword,
   validateUsername,

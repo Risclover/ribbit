@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  ChatWindowTitleBar,
-  ChatWindowInput,
-  ChatMessages,
-} from "../../../features";
+import { ChatWindowTitleBar, ChatWindowInput, ChatMessages } from "../..";
 
 export function ChatWindowRight({
   setOpenChat,

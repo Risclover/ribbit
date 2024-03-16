@@ -27,7 +27,7 @@ import {
   ImagePostForm,
   CommunityDetails,
   useAutosizeTextArea,
-} from "../../../features";
+} from "../..";
 import getTextColor from "../../../utils/getTextColor";
 import "./PostForm.css";
 

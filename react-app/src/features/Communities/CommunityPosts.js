@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { SinglePost } from "../../features";
+import { SinglePost } from "..";
 import { NavLink } from "react-router-dom";
 import { CreatePostBar, SortingBar } from "../../components";
 import { PostFormatContext } from "../../context/PostFormat";

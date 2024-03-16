@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { SinglePost } from "../../../features";
+import { SinglePost } from "../..";
 import { getCommunities, getPosts } from "../../../store";
 
 export function PostFeed({ posts }) {

@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import { ChatMessage } from "../../../../features";
+import { ChatMessage } from "../../..";
 import { formatDate } from "./formatDate";
 import { SelectedChatContext } from "../../../../context/SelectedChat";
 

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getThreads } from "../../../store";
-import { MessageHead, SentMessage } from "../../../features";
+import { MessageHead, SentMessage } from "../..";
 import "./Sent.css";
 import { PageTitleContext } from "../../../context";
 

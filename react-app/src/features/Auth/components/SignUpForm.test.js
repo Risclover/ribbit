@@ -1,6 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { render, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { SignUpForm } from "./SignUpForm/SignUpFormMain";
 
 import { configureStore } from "../../../store";
@@ -22,6 +23,7 @@ describe("SignUpForm", () => {
   });
 
   it("displays error messages for duplicate username and email", async () => {
+    const user = userEvent.setup();
     const checkAvailabilityMock = jest.fn((field, value) => {
       if (field === "username" && value === "demo") {
         return Promise.resolve(false); // Username is taken

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { LoginForm, SignUpForm } from ".";
 import { AuthModal } from "../../../context";
-import { adjectives } from "../data/adjectivesList";
-import { nouns } from "../data/nounsList";
 import { SignUpFormSecond } from "./SignUpForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";

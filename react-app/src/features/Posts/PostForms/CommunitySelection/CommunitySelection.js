@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import {
-  CommunitySelectionDropdown,
-  CommunitySelectionInput,
-} from "../../../../features";
+import { CommunitySelectionDropdown, CommunitySelectionInput } from "../../..";
 import "./CommunitySelection.css";
 
 function useOutsideAlerter(

@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { login } from "../../../store";
+import React, { useEffect } from "react";
 import { AuthFormInput } from "./AuthFormInput";
 import { handleErrors } from "../utils/loginFormValidation";
 import { FormHeader } from "./FormHeader";

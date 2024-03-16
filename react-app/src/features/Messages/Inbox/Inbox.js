@@ -7,7 +7,7 @@ import {
   MessageHead,
   InboxMessage,
   PostReply,
-} from "../../../features";
+} from "../..";
 import "./Inbox.css";
 
 export function Inbox({ setPageIcon }) {

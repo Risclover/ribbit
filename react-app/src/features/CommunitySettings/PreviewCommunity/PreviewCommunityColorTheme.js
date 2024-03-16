@@ -7,10 +7,7 @@ import {
   updateSettingsColorTheme,
 } from "../../../store";
 import { DropBox } from "../../../components";
-import {
-  PreviewCommunityColorThemeColor,
-  BodyBgFormat,
-} from "../../../features";
+import { PreviewCommunityColorThemeColor, BodyBgFormat } from "../..";
 import "./PreviewCommunity.css";
 
 export function PreviewCommunityColorTheme({

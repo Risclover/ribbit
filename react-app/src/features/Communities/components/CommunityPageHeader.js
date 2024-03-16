@@ -1,10 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  CommunityName,
-  CommunitySubscribeBtn,
-  CommunityImgModal,
-} from "../../../features";
+import { CommunityName, CommunitySubscribeBtn, CommunityImgModal } from "../..";
 import { Modal } from "../../../context";
 import { PostFormatContext } from "../../../context/PostFormat";
 

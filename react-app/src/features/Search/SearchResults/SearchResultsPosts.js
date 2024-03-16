@@ -5,7 +5,7 @@ import moment from "moment";
 
 import { BackToTop } from "../../../components";
 import { Modal } from "../../../context";
-import { CreateCommunityModal, LoginSignupModal } from "../../../features";
+import { CreateCommunityModal, LoginSignupModal } from "../..";
 import SearchDude from "../../../assets/images/search-icon.png";
 import RibbitBanner from "../../../assets/images/ribbit-banners/ribbit_banner.png";
 import "./SearchResults.css";

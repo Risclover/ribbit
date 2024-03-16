@@ -9,7 +9,7 @@ import {
   ChatWindowWelcomeOverlay,
   ChatWindowNewChatOverlay,
   ChatWindowMessageInviteOverlay,
-} from "../../features";
+} from "..";
 import { SelectedChatContext } from "../../context/SelectedChat";
 import "./ChatWindow.css";
 

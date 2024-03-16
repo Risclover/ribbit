@@ -16,12 +16,7 @@ import {
 } from "../../../store";
 
 import { BackToTop } from "../../../components";
-import {
-  Comments,
-  SinglePost,
-  CommunityRule,
-  CommunityOptions,
-} from "../../../features";
+import { Comments, SinglePost, CommunityRule, CommunityOptions } from "../..";
 import Cake from "../../../assets/images/misc/piece4.png";
 import "react-loading-skeleton/dist/skeleton.css";
 import { PostFormatContext, PageTitleContext } from "../../../context";

@@ -7,7 +7,7 @@ import {
   CommunityDescription,
   CommunityOptions,
   LoginSignupModal,
-} from "../../../features";
+} from "../..";
 import { getTextColor } from "../../../utils";
 import Cake from "../../../assets/images/misc/piece4.png";
 

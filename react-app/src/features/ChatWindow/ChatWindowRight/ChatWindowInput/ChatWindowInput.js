@@ -5,7 +5,7 @@ import {
   createChatThread,
   getChatThread,
 } from "../../../../store";
-import { useAutosizeTextArea, Gifs, Emojis } from "../../../../features";
+import { useAutosizeTextArea, Gifs, Emojis } from "../../..";
 import GifIcon from "../../../../assets/images/gif-icon.png";
 import GifIconDark from "../../../../assets/images/gif-icon-dark.png";
 import "./ChatWindowInput.css";

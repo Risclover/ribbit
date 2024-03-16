@@ -7,7 +7,7 @@ import {
   getCommunities,
 } from "../../../store";
 import { DropBox } from "../../../components";
-import { PreviewCommunityBannerColor, BannerHeight } from "../../../features";
+import { PreviewCommunityBannerColor, BannerHeight } from "../..";
 
 export function PreviewCommunityBanner({
   setOpenAppearance,

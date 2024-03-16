@@ -16,7 +16,7 @@ import {
   CommunityName,
   CommunityPosts,
   CommunityPageHeader,
-} from "../../../features";
+} from "../..";
 import { BackToTop } from "../../../components";
 import { PageTitleContext, PostFormatContext } from "../../../context";
 import "../../Communities/CommunityPage.css";

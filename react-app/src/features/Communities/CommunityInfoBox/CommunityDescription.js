@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaPen } from "react-icons/fa";
 import { getCommunities, updateCommunity } from "../../../store";
-import { useAutosizeTextArea } from "../../../features";
+import { useAutosizeTextArea } from "../..";
 import { HandleClickOutside } from "../../../utils";
 
 export function CommunityDescription({ community, user }) {

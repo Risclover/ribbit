@@ -2,11 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PageTitleContext } from "../../../context";
 import { readAllMessages } from "../../../store";
-import {
-  MessageHead,
-  MessageContentMenu,
-  InboxMessage,
-} from "../../../features";
+import { MessageHead, MessageContentMenu, InboxMessage } from "../..";
 import "../Inbox/Inbox.css";
 
 export function Unread({ setPageIcon }) {

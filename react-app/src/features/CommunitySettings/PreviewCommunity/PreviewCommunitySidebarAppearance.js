@@ -3,7 +3,7 @@ import {
   PreviewCommunityColorTheme,
   PreviewCommunityNameIcon,
   PreviewCommunityBanner,
-} from "../../../features";
+} from "../..";
 
 export function PreviewCommunitySidebarAppearance({
   community,

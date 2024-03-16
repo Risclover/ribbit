@@ -6,7 +6,7 @@ import {
   SinglePostAuthorBar,
   SinglePostContent,
   SinglePostButtonBar,
-} from "../../../features";
+} from "../..";
 import "./SinglePost.css";
 import { CompactPostFormat, ClassicPostFormat } from "../PostFeed";
 import { getCommunitySettings } from "../../../store";
@@ -30,7 +30,7 @@ export const SinglePost = ({ id, isPage, post }) => {
   }, [dispatch]);
 
   return (
-    <>
+    <article>
       {format === "Card" && (
         <div className="post-card-format">
           {post && (
@@ -70,6 +70,6 @@ export const SinglePost = ({ id, isPage, post }) => {
       {format === "Compact" && (
         <CompactPostFormat id={id} isPage={isPage} post={post} />
       )}
-    </>
+    </article>
   );
 };

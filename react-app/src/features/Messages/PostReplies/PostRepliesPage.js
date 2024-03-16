@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PageTitleContext } from "../../../context";
 import { getUserNotifications, getPosts, getUsers } from "../../../store";
-import { MessageContentMenu, MessageHead, PostReply } from "../../../features";
+import { MessageContentMenu, MessageHead, PostReply } from "../..";
 import "./PostReplies.css";
 import "../Inbox/Inbox.css";
 

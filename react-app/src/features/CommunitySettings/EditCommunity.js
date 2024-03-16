@@ -8,7 +8,7 @@ import {
 } from "../../store";
 import { Modal } from "../../context";
 import { DeleteConfirmationModal } from "../../components";
-import { CommunityEditRule, AddCommunityRuleModal } from "../../features";
+import { CommunityEditRule, AddCommunityRuleModal } from "..";
 import "./CommunitySettings.css";
 
 export function EditCommunity() {

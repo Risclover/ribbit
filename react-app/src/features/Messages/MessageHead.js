@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Modal } from "../../context";
-import { MessageModal } from "../../features";
+import { MessageModal } from "..";
 
 export function MessageHead({ active }) {
   const history = useHistory();

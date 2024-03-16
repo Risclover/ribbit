@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
-import { DateSeparator, ReactionsMenuSmall } from "../../../../../features";
+import { DateSeparator, ReactionsMenuSmall } from "../../../..";
 import "./ChatMessage.css";
 
 export function ChatMessage({

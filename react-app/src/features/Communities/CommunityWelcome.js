@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "../../context";
-import { CommunityWelcomeModal } from "../../features";
+import { CommunityWelcomeModal } from "..";
 
 export function CommunityWelcome({ community, user, posts, commPosts }) {
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { checkEmail, getUsers, signUp } from "../../../../store";
+import { getUsers } from "../../../../store";
 import { AuthFormInput } from "../AuthFormInput";
-import DemoAccountWarning from "../../components/DemoAccountWarning/DemoAccountWarning";
-import { AuthModal } from "../../../../context/AuthModal";
 import { handleEmailErrors } from "../../utils/signupFormValidation";
 import { FormHeader } from "../FormHeader";
 import "../../styles/AuthModal.css";

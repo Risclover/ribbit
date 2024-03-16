@@ -2,11 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getThreads, getUsers, getMessages } from "../../../store";
-import {
-  MessageContentMenu,
-  MessageHead,
-  MessageThread,
-} from "../../../features";
+import { MessageContentMenu, MessageHead, MessageThread } from "../..";
 
 export function Permalink() {
   const { threadId } = useParams();

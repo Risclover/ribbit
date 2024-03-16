@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  CommunityPosts,
-  CommunityInfoBox,
-  CommunityRulesBox,
-} from "../../../features";
+import { CommunityPosts, CommunityInfoBox, CommunityRulesBox } from "../..";
 import { BackToTop } from "../../../components";
 
 export function CommunityPageMain({ community }) {

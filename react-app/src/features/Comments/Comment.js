@@ -7,7 +7,7 @@ import parse from "html-react-parser";
 import moment from "moment";
 import { Modal } from "../../context";
 import { getUsers, addCommentVote, removeCommentVote } from "../../store";
-import { EditComment, DeleteCommentConfirmation } from "../../features";
+import { EditComment, DeleteCommentConfirmation } from "..";
 import { Username } from "../../components";
 import "./Comments.css";
 

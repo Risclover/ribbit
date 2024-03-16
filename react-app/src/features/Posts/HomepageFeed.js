@@ -14,7 +14,7 @@ import {
   AboutBox,
   RecentlyViewedPosts,
   PostFeed,
-} from "../../features";
+} from "..";
 import {
   getCommunities,
   getFollowers,

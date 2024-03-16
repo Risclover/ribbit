@@ -8,10 +8,7 @@ import {
   getCommunities,
 } from "../../../store";
 import { Modal } from "../../../context";
-import {
-  PreviewCommunitySidebarAppearance,
-  OutsideClickWarning,
-} from "../../../features";
+import { PreviewCommunitySidebarAppearance, OutsideClickWarning } from "../..";
 
 import "./PreviewCommunity.css";
 

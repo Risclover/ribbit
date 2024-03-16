@@ -7,7 +7,7 @@ import {
   readAllNotifications,
 } from "../../store";
 import { PageTitleContext } from "../../context";
-import { MessageThread, MessageHead, MessageContentMenu } from "../../features";
+import { MessageThread, MessageHead, MessageContentMenu } from "..";
 import "./Messages.css";
 
 export function Messages({ setPageIcon }) {

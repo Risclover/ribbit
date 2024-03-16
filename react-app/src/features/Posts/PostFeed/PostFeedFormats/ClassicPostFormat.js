@@ -11,7 +11,7 @@ import moment from "moment";
 import Bounce from "../../../../assets/images/misc/curved-arrow.png";
 import { DeleteConfirmationModal } from "../../../../components";
 import { Modal } from "../../../../context";
-import { SinglePostKarmabar } from "../../../../features";
+import { SinglePostKarmabar } from "../../..";
 import { sliceUrl } from "../../../../utils";
 import "../../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";

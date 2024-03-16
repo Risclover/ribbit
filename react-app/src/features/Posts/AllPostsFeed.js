@@ -14,7 +14,7 @@ import {
   AboutBox,
   RecentlyViewedPosts,
   PostFeed,
-} from "../../features";
+} from "..";
 import { SortingFunction } from "./utils";
 import All from "../../assets/images/navbar/all-icon2.png";
 import "./Posts.css";
