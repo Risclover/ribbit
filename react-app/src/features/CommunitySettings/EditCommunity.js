@@ -5,6 +5,7 @@ import {
   updateCommunity,
   getCommunityRules,
   getCommunities,
+  getSingleCommunity,
 } from "../../store";
 import { Modal } from "../../context";
 import { DeleteConfirmationModal } from "../../components";
@@ -20,7 +21,7 @@ export function EditCommunity() {
 
   const getIdFromName = (name) => {
     let result = Object.values(communities).find(
-      (community) => community.name === name
+      (community) => community?.name === name
     );
     return result ? result.id : null;
   };
@@ -36,13 +37,13 @@ export function EditCommunity() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [rulesNum, setRulesNum] = useState(0);
   const [display_name, setdisplay_name] = useState(
-    community ? community.displayName : ""
+    community ? community?.displayName : ""
   );
   const [description, setDescription] = useState(community?.description);
 
   useEffect(() => {
     dispatch(getCommunityRules(communityId));
-    dispatch(getCommunities());
+    dispatch(getSingleCommunity(communityId));
   }, [community?.id, communityId, dispatch]);
 
   useEffect(() => {
@@ -65,13 +66,13 @@ export function EditCommunity() {
     e.preventDefault();
 
     const data = await dispatch(
-      updateCommunity({ display_name, description }, community.id)
+      updateCommunity({ display_name, description }, community?.id)
     );
 
     history.push(`/c/${data.name}`);
   };
 
-  if (!community || !community) return null;
+  // if (!community || !community) return null;
   return (
     <div className="edit-community-page">
       <div className="edit-community-page-header">
@@ -81,7 +82,7 @@ export function EditCommunity() {
             alt="Community"
           />
           <span className="edit-community-top-bar-name">
-            <NavLink to={`/c/${communityName}`}>c/{community.name}</NavLink> /
+            <NavLink to={`/c/${communityName}`}>c/{community?.name}</NavLink> /
             Community Settings
           </span>
         </div>
@@ -92,7 +93,7 @@ export function EditCommunity() {
         </div>
       </div>
       <div className="edit-community-page-settings">
-        {user.id === community.userId && (
+        {user.id === community?.userId && (
           <>
             <h1>Community settings</h1>
             <Link to={`/c/${communityName}/style`}>Style</Link>
@@ -117,13 +118,13 @@ export function EditCommunity() {
                     : "community-name-char-counter"
                 }
               >
-                {100 - display_name.length} Characters remaining
+                {100 - display_name?.length} Characters remaining
               </span>
             </div>
             <div className="edit-community-page-section">
               <h2>Community description (optional)</h2>
               <p className="community-description-details">
-                This is how new members come to understand your community.
+                This is how new members come to understand your community?.
               </p>
               <textarea
                 className="community-description-input"
@@ -168,7 +169,7 @@ export function EditCommunity() {
                   )}
                 </div>
                 <div className="community-rules-edit">
-                  {Object.values(community.communityRules).map((rule, idx) => (
+                  {Object.values(community?.communityRules).map((rule, idx) => (
                     <CommunityEditRule
                       community={community}
                       idx={idx}
@@ -180,8 +181,9 @@ export function EditCommunity() {
               {showRuleModal && (
                 <Modal onClose={() => setShowRuleModal(false)} title="Add rule">
                   <AddCommunityRuleModal
-                    communityId={community?.id}
+                    communityId={communityId}
                     setShowRuleModal={setShowRuleModal}
+                    communityName={communityName}
                   />
                 </Modal>
               )}
@@ -189,26 +191,26 @@ export function EditCommunity() {
             <div className="edit-community-page-section">
               <h2>Delete Community</h2>
               <p className="community-description-details">
-                Click the button below to delete this community. Please note
+                Click the button below to delete this community?. Please note
                 that once you confirm deletion, you cannot undo this action.
               </p>
               <button
                 className="delete-community-btn"
                 onClick={() => setShowDeleteModal(true)}
               >
-                Delete c/{community.name}
+                Delete c/{community?.name}
               </button>
               {showDeleteModal && (
                 <Modal
                   onClose={() => setShowDeleteModal(false)}
-                  title={`Delete community c/${community.name}?`}
+                  title={`Delete community c/${community?.name}?`}
                 >
                   <DeleteConfirmationModal
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
                     item="community"
-                    communityId={community.id}
-                    communityName={community.name}
+                    communityId={community?.id}
+                    communityName={community?.name}
                     isPage="community"
                   />
                 </Modal>

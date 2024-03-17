@@ -51,7 +51,9 @@ export function SinglePostPage({ setPageIcon }) {
       </div>
       <div className="single-post-right-col">
         <CommunityDetails post={post} pageType="singlepage" />
-        <CommunityRulesBox post={post} />
+        {Object.values(post.communityRules).length > 0 && (
+          <CommunityRulesBox post={post} />
+        )}
         <BackToTop />
       </div>
     </div>

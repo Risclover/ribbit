@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
@@ -9,8 +9,11 @@ import {
 } from "../../../store";
 import { CommunityOptions } from "../CommunityInfoBox";
 import Cake from "../../../assets/images/misc/piece4.png";
+import { useHistory } from "react-router-dom";
+import { LoginSignupModal } from "../../Auth";
 
 export function CommunityDetails({ post, community }) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const subscriptions = useSelector((state) => state.subscriptions);
   const user = useSelector((state) => state.session.user);
@@ -18,17 +21,14 @@ export function CommunityDetails({ post, community }) {
   const [subscribed, setSubscribed] = useState(
     subscriptions[post?.communityId]
   );
-  const [members, setMembers] = useState(
-    post?.communityMembers || community?.members || 0
-  );
-
   const [subscribeBtnText, setSubscribeBtnText] = useState("Leave");
-  const handleCreatePostClick = (e) => {};
+
+  const members = post?.communityMembers || community?.members || 0;
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
     await dispatch(addToSubscriptions(post?.communityId));
-    !user ? history.push("/login") : setSubscribed(true);
+    setSubscribed(true);
     dispatch(getSubscriptions());
   };
 
@@ -91,14 +91,14 @@ export function CommunityDetails({ post, community }) {
               </button>
             )}
             {!user && (
-              <button
+              <LoginSignupModal
+                btnText="Join"
                 className="blue-btn-filled btn-long community-btn-filled"
-                onClick={handleLoggedOutClick}
-              >
-                Join
-              </button>
+                formType="signup"
+              />
             )}
           </div>
+
           <CommunityOptions community={community} />
         </div>
       </div>

@@ -9,7 +9,11 @@ import {
 import "../../../../assets/styles/Modals.css";
 import "./AddCommunityRuleModal.css";
 
-export function AddCommunityRuleModal({ setShowRuleModal, communityId }) {
+export function AddCommunityRuleModal({
+  setShowRuleModal,
+  communityId,
+  communityName,
+}) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -59,7 +63,7 @@ export function AddCommunityRuleModal({ setShowRuleModal, communityId }) {
       setShowRuleModal(false);
       await dispatch(getCommunityRules(communityId));
       dispatch(getSingleCommunity(communityId));
-      history.push(`/c/${communityId}/edit`);
+      history.push(`/c/${communityName}/edit`);
     }
   };
   return (
