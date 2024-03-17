@@ -90,7 +90,11 @@ export function CommentForm({ postId }) {
       {!user && (
         <form className="comment-form">
           <label htmlFor="comment-box">
-            <LoginSignupModal btnText="Log in" className="log-in-to-comment" />
+            <LoginSignupModal
+              btnText="Log in"
+              className="log-in-to-comment"
+              formType="login"
+            />
             to comment
           </label>
           <textarea

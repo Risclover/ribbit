@@ -67,6 +67,7 @@ export function CommunitySubscribeBtn({
           <LoginSignupModal
             btnText="Join"
             className="blue-btn-filled btn-short join-btn"
+            formType="signup"
           />
         )}
       </div>

@@ -182,7 +182,11 @@ export function NavBar({
           </div>
         )}
         {!user && (
-          <LoginSignupModal btnText="Log In" className="navbar-login-btn" />
+          <LoginSignupModal
+            btnText="Log In"
+            className="navbar-login-btn"
+            formType="login"
+          />
         )}
         {!user && <LoggedOutDropdownWrapper />}
         {user && <NavUserDropdown />}

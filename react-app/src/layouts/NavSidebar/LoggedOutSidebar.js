@@ -6,6 +6,7 @@ import Home from "../../assets/images/navbar/home-icon.png";
 import All from "../../assets/images/navbar/all-icon2.png";
 
 import "./NavSidebar.css";
+import { LoginSignupModal } from "../../features";
 
 export function LoggedOutSidebar({ setShowSignupForm, showLoggedOutSidebar }) {
   const history = useHistory();
@@ -50,15 +51,12 @@ export function LoggedOutSidebar({ setShowSignupForm, showLoggedOutSidebar }) {
               Create an account to follow your favorite communities and start
               taking part in conversations.
             </div>
-            <button
+
+            <LoginSignupModal
+              btnText="Join Ribbit"
               className="logged-out-sidebar-btn"
-              onClick={() => {
-                setShowSignupForm(true);
-                history.push("/signup");
-              }}
-            >
-              Join Ribbit
-            </button>
+              formType="signup"
+            />
           </div>
         </div>
       )}

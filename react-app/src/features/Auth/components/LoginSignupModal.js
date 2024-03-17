@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login, signUp } from "../../../store";
 
-export function LoginSignupModal({ btnText, className }) {
+export function LoginSignupModal({ btnText, className, formType }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -49,7 +49,9 @@ export function LoginSignupModal({ btnText, className }) {
         className={className}
         onClick={(e) => {
           e.preventDefault();
-          setShowLoginForm(true);
+          formType === "signup"
+            ? setShowSignupForm(true)
+            : setShowLoginForm(true);
         }}
       >
         {btnText}

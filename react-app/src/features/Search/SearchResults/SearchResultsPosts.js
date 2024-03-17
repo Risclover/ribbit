@@ -238,6 +238,7 @@ export function SearchResultsPosts({
                 <LoginSignupModal
                   btnText="Log In/Sign Up"
                   className="blue-btn-filled btn-long"
+                  formType="login"
                 />
               )}
             </div>

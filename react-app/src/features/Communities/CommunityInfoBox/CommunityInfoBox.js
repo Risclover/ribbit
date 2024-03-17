@@ -69,6 +69,7 @@ export function CommunityInfoBox({ community, user }) {
             <LoginSignupModal
               btnText="Log In/Sign Up"
               className="blue-btn-filled btn-long community-btn-filled"
+              formType="login"
             />
           )}
         </div>

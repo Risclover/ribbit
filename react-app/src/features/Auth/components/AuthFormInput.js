@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { generateUsername } from "../utils/generateUsername";
 import { IconComponent } from "./IconComponent";
+import { ErrorsDisplay } from "./ErrorsDisplay";
 
 export function AuthFormInput({ props, onChange, onBlur, icon }) {
   const {
@@ -18,27 +19,12 @@ export function AuthFormInput({ props, onChange, onBlur, icon }) {
 
   const [classValue, setClassValue] = useState("errors-true");
   const [focused, setFocused] = useState(false);
-  const [usernameAvailable, setUsernameAvailable] = useState(
-    name === "username" &&
-      errors.length === 0 &&
-      inputValue.length > 2 &&
-      !focused
-  );
   const [showIcon, setShowIcon] = useState(false);
 
   useEffect(() => {
     setErrors(errors);
     setClassValue(errors && errors.length > 0 ? " errors-true" : "");
   }, [errors]);
-
-  useEffect(() => {
-    setUsernameAvailable(
-      name === "username" &&
-        errors.length === 0 &&
-        inputValue.length > 2 &&
-        !focused
-    );
-  }, [errors, name, inputValue, focused]);
 
   const pickRandomUsername = () => {
     setInputValue(generateUsername());
@@ -102,16 +88,12 @@ export function AuthFormInput({ props, onChange, onBlur, icon }) {
           )}
         </div>
       </div>
-      <div className="error-container">
-        <div className="signup-form-errors">
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
-        {usernameAvailable && (
-          <div className="username-accepted">Nice! Username available </div>
-        )}
-      </div>
+      <ErrorsDisplay
+        errors={errors}
+        inputValue={inputValue}
+        focused={focused}
+        name={name}
+      />
     </div>
   );
 }
