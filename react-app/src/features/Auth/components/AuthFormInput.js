@@ -3,7 +3,7 @@ import { generateUsername } from "../utils/generateUsername";
 import { IconComponent } from "./IconComponent";
 import { ErrorsDisplay } from "./ErrorsDisplay";
 
-export function AuthFormInput({ props, onChange, onBlur, icon }) {
+export function AuthFormInput({ props, onBlur, icon }) {
   const {
     type,
     name,
@@ -47,7 +47,7 @@ export function AuthFormInput({ props, onChange, onBlur, icon }) {
           data-testid={testId}
           type={type}
           name={name}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => setInputValue(e.target.value)}
           autoComplete={autoCompleteStatus}
           placeholder=" "
           value={inputValue}

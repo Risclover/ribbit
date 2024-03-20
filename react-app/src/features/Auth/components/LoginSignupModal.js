@@ -24,14 +24,16 @@ export function LoginSignupModal({ btnText, className, formType }) {
 
   const allUsers = useSelector((state) => state.users);
 
-  const handleSignUp = () => {
+  const handleSignUp = (e) => {
+    e.preventDefault();
     dispatch(signUp(username, email.toLowerCase(), password));
     setShowSignupForm(false);
     const id = Object.values(allUsers).length + 1;
     history.push(`/users/${id}/profile`);
   };
 
-  const handleLogIn = async () => {
+  const handleLogIn = async (e) => {
+    e.preventDefault();
     const data = await dispatch(login(loginEmail.toLowerCase(), loginPassword));
     if (data && data.length > 0) {
       let errors = [];
@@ -45,35 +47,36 @@ export function LoginSignupModal({ btnText, className, formType }) {
 
   return (
     <div style={{ color: "white" }}>
-      <button
-        className={className}
-        onClick={(e) => {
-          e.preventDefault();
-          formType === "signup"
-            ? setShowSignupForm(true)
-            : setShowLoginForm(true);
-        }}
-      >
-        {btnText}
-      </button>
-      {showLoginForm && (
+      {formType !== "protected" && (
+        <button
+          className={className}
+          onClick={(e) => {
+            e.preventDefault();
+            formType === "signup"
+              ? setShowSignupForm(true)
+              : setShowLoginForm(true);
+          }}
+        >
+          {btnText}
+        </button>
+      )}
+      {(formType === "protected" || showLoginForm) && (
         <AuthModal
           title="Log In"
           onClose={() => setShowLoginForm(false)}
-          topbarBtn="close"
+          topbarBtn={formType === "protected" ? "none" : "close"}
           footerBtn={
             <>
               <button
                 className="login-form-submit"
-                onClick={() => {
-                  handleLogIn();
-                }}
                 disabled={disabled}
+                type="submit"
               >
                 Log In
               </button>
             </>
           }
+          onSubmit={(e) => handleLogIn(e)}
         >
           <LoginForm
             setShowLoginForm={setShowLoginForm}
@@ -92,7 +95,7 @@ export function LoginSignupModal({ btnText, className, formType }) {
       )}
       {showSignupForm && (
         <AuthModal
-          topbarBtn="close"
+          topbarBtn={formType === "protected" ? "none" : "close"}
           title="Sign Up"
           onClose={() => setShowSignupForm(false)}
           setOpenSecondPage={setOpenSecondPage}
@@ -101,16 +104,18 @@ export function LoginSignupModal({ btnText, className, formType }) {
             <>
               <button
                 className="signup-form-submit"
-                onClick={() => {
-                  setOpenSecondPage(true);
-                  setShowSignupForm(false);
-                }}
                 disabled={disabled}
+                type="submit"
               >
                 Continue
               </button>
             </>
           }
+          onSubmit={(e) => {
+            e.preventDefault();
+            setOpenSecondPage(true);
+            setShowSignupForm(false);
+          }}
         >
           <SignUpForm
             setShowLoginForm={setShowLoginForm}
@@ -128,18 +133,19 @@ export function LoginSignupModal({ btnText, className, formType }) {
             setOpenSecondPage(false);
             setShowSignupForm(true);
           }}
-          topbarBtn="back"
+          topbarBtn={formType === "protected" ? "none" : "back"}
           footerBtn={
             <>
               <button
                 className="signup-form-submit"
-                onClick={() => handleSignUp()}
                 disabled={disabled}
+                type="submit"
               >
                 Sign Up
               </button>
             </>
           }
+          onSubmit={(e) => handleSignUp(e)}
         >
           <SignUpFormSecond
             setDisabled={setDisabled}

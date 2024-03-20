@@ -3,49 +3,48 @@ import { useSelector } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { RxImage } from "react-icons/rx";
 import { FiLink } from "react-icons/fi";
-import "./CreatePostBar.css";
+import styles from "./CreatePostBar.module.css";
+
+const PostBarButton = ({ icon: Icon, onClick }) => (
+  <button className={styles.iconButton} onClick={onClick}>
+    <Icon />
+  </button>
+);
 
 export const CreatePostBar = ({ page, communityName }) => {
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    if (page === "community") {
-      history.push(`/c/${communityName}/submit`);
-    } else {
-      history.push(`/submit`);
-    }
-  };
+  const navigate = (path) => () => history.push(path);
 
-  const handleImageClick = () => {
-    history.push(`/c/${communityName}/submit/image`);
-  };
-
-  const handleLinkClick = () => {
-    history.push(`/c/${communityName}/submit/url`);
-  };
   return (
-    <div className="create-post-bar">
+    <div className={styles.createPostBar}>
       {user && (
-        <div className="create-post-bar-user-img">
+        <div className={styles.userImg}>
           <NavLink to={`/users/${user.id}/profile`}>
             <img src={user.profile_img} alt="User" />
           </NavLink>
         </div>
       )}
 
-      <div className="create-post-bar-create">
-        <input type="text" placeholder="Create Post" onClick={handleClick} />
+      <div className={styles.create}>
+        <input
+          type="text"
+          placeholder="Create Post"
+          onClick={navigate(
+            page === "community" ? `/c/${communityName}/submit` : `/submit`
+          )}
+        />
       </div>
 
-      <button className="create-post-bar-icon" onClick={handleImageClick}>
-        <RxImage />
-      </button>
-
-      <button className="create-post-bar-icon" onClick={handleLinkClick}>
-        <FiLink />
-      </button>
+      <PostBarButton
+        icon={RxImage}
+        onClick={navigate(`/c/${communityName}/submit/image`)}
+      />
+      <PostBarButton
+        icon={FiLink}
+        onClick={navigate(`/c/${communityName}/submit/url`)}
+      />
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { AuthFormInput } from "../AuthFormInput";
+import { useUsernameTaken } from "../../hooks/useUsernameTaken";
 import {
   validatePassword,
   validateUsername,
 } from "../../utils/signupFormValidation";
-import { useUsernameTaken } from "../../hooks/useUsernameTaken";
 
 export function SignUpFormSecond({
   setDisabled,

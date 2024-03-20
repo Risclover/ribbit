@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { TfiClose } from "react-icons/tfi";
+import { useHistory } from "react-router-dom";
 
 const AuthModalContext = React.createContext();
 
@@ -22,7 +23,15 @@ export function AuthModalProvider({ children }) {
   );
 }
 
-export function AuthModal({ onClose, children, title, topbarBtn, footerBtn }) {
+export function AuthModal({
+  onClose,
+  children,
+  title,
+  topbarBtn,
+  footerBtn,
+  onSubmit,
+}) {
+  const history = useHistory();
   const modalNode = useContext(AuthModalContext);
   if (!modalNode) return null;
 
@@ -54,7 +63,12 @@ export function AuthModal({ onClose, children, title, topbarBtn, footerBtn }) {
           } ${topbarBtn === "back" ? "justify-left" : ""}`}
         >
           <span></span>
-          {topbarBtn === "close" ? (
+          {topbarBtn === "none" && (
+            <div className="sign-in-switch">
+              <span onClick={() => history.push("/")}>Go home</span>
+            </div>
+          )}
+          {topbarBtn === "close" && topbarBtn !== "none" ? (
             <button className="auth-modal-close" onClick={onClose}>
               <svg
                 rpl=""
@@ -68,7 +82,7 @@ export function AuthModal({ onClose, children, title, topbarBtn, footerBtn }) {
                 <path d="m18.442 2.442-.884-.884L10 9.116 2.442 1.558l-.884.884L9.116 10l-7.558 7.558.884.884L10 10.884l7.558 7.558.884-.884L10.884 10l7.558-7.558Z"></path>
               </svg>
             </button>
-          ) : (
+          ) : topbarBtn === "back" && topbarBtn !== "none" ? (
             <button className="auth-modal-back" onClick={onClose}>
               <svg
                 rpl=""
@@ -82,23 +96,31 @@ export function AuthModal({ onClose, children, title, topbarBtn, footerBtn }) {
                 <path d="M19 9.375H2.51l7.932-7.933-.884-.884-9 9a.625.625 0 0 0 0 .884l9 9 .884-.884-7.933-7.933H19v-1.25Z"></path>
               </svg>
             </button>
+          ) : (
+            ""
           )}
         </div>
-        <div
-          className="auth-modal-form-container"
-          onScroll={handleScroll}
-          ref={containerRef}
+        <form
+          className="auth-form"
+          autoComplete="off"
+          onSubmit={onSubmit}
         >
-          <form className="form" autoComplete="off">
+          <div
+            className="auth-modal-form-container"
+            onScroll={handleScroll}
+            ref={containerRef}
+          >
             <h1 className="auth-modal-title">{title}</h1>
             {children}
-          </form>
-        </div>
-        <div
-          className={`auth-modal-footer ${footerBorder ? "footer-border" : ""}`}
-        >
-          {footerBtn}
-        </div>
+          </div>
+          <div
+            className={`auth-modal-footer ${
+              footerBorder ? "footer-border" : ""
+            }`}
+          >
+            {footerBtn}
+          </div>
+        </form>
       </div>
     </div>,
     modalNode

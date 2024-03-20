@@ -37,7 +37,7 @@ export const validatePassword = (password) => {
 export function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!email.includes("@")) {
+  if (!email?.includes("@")) {
     if (email === "") {
       return "Please enter an email address.";
     } else {

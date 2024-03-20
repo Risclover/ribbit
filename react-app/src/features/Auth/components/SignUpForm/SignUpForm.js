@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../../../store";
 import { AuthFormInput } from "../AuthFormInput";
-import { handleEmailErrors } from "../../utils/signupFormValidation";
 import { FormHeader } from "../FormHeader";
+import { handleEmailErrors } from "../../utils/signupFormValidation";
 import "../../styles/AuthModal.css";
 
 export const SignUpForm = ({
@@ -31,10 +31,11 @@ export const SignUpForm = ({
     inputValue: email,
     errors: emailErrors,
     setErrors: setEmailErrors,
-    label: "Email ",
+    label: "Email",
     maxLength: 255,
     autoCompleteStatus: "off",
     testId: "Email",
+    setInputValue: setEmail,
   };
 
   useEffect(() => {
@@ -52,7 +53,6 @@ export const SignUpForm = ({
           />
           <AuthFormInput
             props={emailInputProps}
-            onChange={setEmail}
             testId="Email"
             onBlur={() => handleEmailErrors(email, emailTaken)}
           />

@@ -1,4 +1,4 @@
-.create-post-bar {
+.createPostBar {
   padding: 8px;
   width: 100%;
   background: white;
@@ -9,19 +9,19 @@
   align-items: center;
 }
 
-.create-post-bar-user-img {
+.userImg {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.create-post-bar-user-img a {
+.userImg a {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.create-post-bar-user-img img {
+.userImg img {
   width: 40px;
   height: 40px;
   color: #878a8c;
@@ -30,12 +30,12 @@
   object-fit: cover;
 }
 
-.create-post-bar-create {
+.create {
   flex-grow: 1;
   margin-right: 8px;
 }
 
-.create-post-bar-create input {
+.create input {
   background: #f6f7f8;
   outline: none;
   border: 1px solid #edeff1;
@@ -48,17 +48,12 @@
   width: 100%;
 }
 
-.create-post-bar-create input:hover {
+.create input:hover {
   background: white;
   border-color: #0079d3;
 }
 
-.create-post-bar svg {
-  font-size: 20px;
-  color: #878a8c;
-}
-
-.create-post-bar-icon {
+.iconButton {
   cursor: pointer;
   min-height: 40px;
   min-width: 40px;
@@ -75,7 +70,7 @@
   padding: 0;
 }
 
-.create-post-bar-icon:before {
+.iconButton:before {
   background: #1c1c1c;
   opacity: 0;
   content: "";
@@ -87,10 +82,15 @@
   border-radius: 4px;
 }
 
-.create-post-bar-icon:hover:before {
+.iconButton:hover:before {
   opacity: 0.08;
 }
 
-.create-post-bar-icon:active:before {
+.iconButton:active:before {
   opacity: 0.24;
+}
+
+.iconButton svg {
+  font-size: 20px;
+  color: #878a8c;
 }

@@ -20,6 +20,10 @@ export const getUsers = () => async (dispatch) => {
 
   if (response.ok) {
     const users = await response.json();
+    if (!users.Users || !Array.isArray(users.Users)) {
+      console.warn("Expected users.Users to be an array", users);
+      return; // Early return if the data is not in the expected format
+    }
     dispatch(loadUsers(users));
     return users;
   }
@@ -51,6 +55,10 @@ const initialState = {};
 export default function usersReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_USERS:
+      if (!Array.isArray(action.users.Users)) {
+        console.warn("Action users.Users is not an array", action.users);
+        return state; // Return current state if not an array
+      }
       return action.users.Users.reduce((users, user) => {
         users[user.id] = user;
         return users;
