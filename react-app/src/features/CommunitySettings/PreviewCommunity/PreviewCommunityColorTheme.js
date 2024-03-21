@@ -7,7 +7,10 @@ import {
   updateSettingsColorTheme,
 } from "../../../store";
 import { DropBox } from "../../../components";
-import { PreviewCommunityColorThemeColor, BodyBgFormat } from "../..";
+import {
+  PreviewCommunityColorThemeColor,
+  BodyBgFormat,
+} from "../../../features";
 import "./PreviewCommunity.css";
 
 export function PreviewCommunityColorTheme({
@@ -40,7 +43,7 @@ export function PreviewCommunityColorTheme({
 
   const handleSaveTheme = () => {
     const payload = {
-      settingsId: community.communitySettings[community?.id].id,
+      settingsId: community?.communitySettings[community?.id].id,
       baseColor: base,
       highlight: highlight,
       bgColor: bodyBg,

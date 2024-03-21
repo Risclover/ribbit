@@ -58,6 +58,9 @@
   height: 100px;
   margin-top: 4px;
   margin-bottom: 4px;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
 }
 
 .upload {
@@ -82,16 +85,36 @@
   padding: 3px;
 }
 
-.icon-preview-hidden {
-  animation-name: slide-down;
-  animation-duration: 0.5s;
+.icon-preview-appear {
+  animation-name: slide-in;
+  animation-duration: 0.3s;
   animation-fill-mode: forwards;
+  transform: translateY(100%); /* Start hidden (below visible area) */
 }
 
-.icon-preview-bar-appear {
-  animation-name: slide-up;
-  animation-duration: 0.5s;
+.icon-preview-hidden {
+  animation-name: slide-out;
+  animation-duration: 0.3s;
   animation-fill-mode: forwards;
+  transform: translateY(0); /* Start visible */
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
 }
 
 .preview-community-icon-preview-bar button {
@@ -103,4 +126,11 @@
   height: auto;
   cursor: pointer;
   line-height: 24px;
+}
+
+.preview-img {
+  height: 100%;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

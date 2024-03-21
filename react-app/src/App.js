@@ -320,7 +320,7 @@ function App() {
                   setPageIcon={setPageIcon}
                 />
               </Route>
-              <ProtectedRoute exact path="/c/:communityName/style">
+              <ProtectedRoute exact path="/c/:communityId/style">
                 <PreviewCommunity
                   setPageTitle={setPageTitle}
                   setPageIcon={setPageIcon}

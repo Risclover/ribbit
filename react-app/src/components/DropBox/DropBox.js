@@ -1,128 +1,59 @@
 import React, { useState } from "react";
-import { FaCloudUploadAlt } from "react-icons/fa";
-import { FaTrash } from "react-icons/fa6";
+import { UploadZone } from "./UploadZone";
+import { PreviewBar } from "./PreviewBar";
+import { useFileHandler } from "./useFileHandler";
 import "./DropBox.css";
 
-export const DropBox = ({
-  setImage,
-  image,
-  preview,
-  setPreview,
-  handlePreview,
-  handleDelete,
-}) => {
-  const [highlight, setHighlight] = React.useState(false);
-  const [drop, setDrop] = React.useState(false);
-  const [showBar, setShowBar] = useState(image !== null || image !== "");
+export const DropBox = ({ setImage, image, preview, setPreview }) => {
+  const [highlight, setHighlight] = useState(false);
+  const [showBar, setShowBar] = useState(false);
 
-  const handleEnter = (e) => {
+  const { handleUpload } = useFileHandler(
+    setImage,
+    setPreview,
+    setShowBar,
+    showBar
+  );
+
+  const handleDragEvents = (highlight) => (e) => {
     e.preventDefault();
     e.stopPropagation();
-
-    preview === "" && setHighlight(true);
+    setHighlight(highlight);
   };
 
-  const handleOver = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    preview === "" && setHighlight(true);
-  };
-
-  const handleLeave = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    setHighlight(false);
-  };
-
-  const handleUpload = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    setHighlight(false);
-    setDrop(true);
-
-    const [file] = e.target.files || e.dataTransfer.files;
-    setImage(file);
-    uploadFile(file);
-  };
-
-  const uploadFile = (file) => {
-    const reader = new FileReader();
-    reader.readAsBinaryString(file);
-
-    reader.onload = () => {
-      // this is the base64 data
-      const fileRes = btoa(reader.result);
-      setPreview(`data:image/jpg;base64,${fileRes}`);
-      setShowBar(true);
-      handlePreview();
-    };
-
-    reader.onerror = () => {
-      console.log("There is a problem while uploading...");
-    };
-  };
-
-  const handleErase = (e) => {
-    setDrop(false);
-    setHighlight(true);
-    setShowBar(false);
+  const handleErase = () => {
     setPreview("");
-
-    handleDelete(e);
+    setImage(null);
+    setShowBar(false);
   };
 
   return (
     <div className="dropbox">
-      <div
-        onDragEnter={(e) => handleEnter(e)}
-        onDragLeave={(e) => handleLeave(e)}
-        onDragOver={(e) => handleOver(e)}
-        onDrop={(e) => handleUpload(e)}
-        className={`upload${
-          highlight
-            ? " is-highlight"
-            : drop
-            ? " is-drop"
-            : preview
-            ? " is-preview"
-            : ""
-        }`}
-        style={{ backgroundImage: `url(${preview})` }}
-      >
-        <label>
-          <div className="preview-community-upload-icon">
-            <FaCloudUploadAlt />
-          </div>
-
-          <div className="preview-community-upload-txt">
-            Drag and Drop or Upload Image
-          </div>
-
-          <div className="upload-button">
-            <input
-              type="file"
-              className="upload-file"
-              accept="image/*"
-              onChange={(e) => handleUpload(e)}
-              hidden
-            />
-          </div>
-        </label>
-
+      {!showBar && (
         <div
-          className={`preview-community-icon-preview-bar ${
-            showBar ? "icon-preview-appear" : "icon-preview-hidden"
+          onDragEnter={handleDragEvents(true)}
+          onDragOver={handleDragEvents(true)}
+          onDragLeave={handleDragEvents(false)}
+          onDrop={(e) => {
+            handleDragEvents(false)(e);
+            handleUpload(e);
+          }}
+          className={`upload${
+            highlight ? " is-highlight" : preview ? " is-preview" : ""
           }`}
-          onClick={(e) => handleErase(e)}
+          style={{ backgroundImage: `url(${preview})` }}
         >
-          <button>
-            <FaTrash />
-          </button>
+          <UploadZone onFileSelect={handleUpload} highlight={highlight} />
         </div>
-      </div>
+      )}
+      {showBar && (
+        <PreviewBar
+          highlight={highlight}
+          showBar={showBar}
+          preview={preview}
+          onErase={handleErase}
+        />
+      )}
     </div>
   );
 };

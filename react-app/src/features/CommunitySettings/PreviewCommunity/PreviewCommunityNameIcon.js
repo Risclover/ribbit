@@ -23,18 +23,18 @@ export function PreviewCommunityNameIcon({
   const options = ["c/", "", "Hide"];
 
   const [image, setImage] = useState(
-    community.communitySettings[community.id].communityIcon
+    community?.communitySettings[community?.id].communityIcon
   );
   const [defaultIcon, setDefaultIcon] = useState(image === undefined);
   const [preview, setPreview] = useState(
-    community.communitySettings[community.id].communityIcon
+    community?.communitySettings[community?.id].communityIcon
   );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (image === "https://i.imgur.com/9CI9hiO.png") {
-      dispatch(defaultCommunityImg(community.id));
-      dispatch(getSingleCommunity(community.id));
+      dispatch(defaultCommunityImg(community?.id));
+      dispatch(getSingleCommunity(community?.id));
       setOpenAppearance(false);
     } else if (image && image !== "https://i.imgur.com/9CI9hiO.png") {
       handleImgUpload();
@@ -48,19 +48,21 @@ export function PreviewCommunityNameIcon({
 
     dispatch(
       updateSettingsNameIcon({
-        settingsId: community.id,
+        settingsId: community?.id,
         nameFormat: activeRadio,
         communityIcon: communityIcon,
         hideCommunityIcon: checked,
       })
     );
 
-    dispatch(getSingleCommunity(community.id));
+    dispatch(getSingleCommunity(community?.id));
     setOpenAppearance(false);
   };
 
   const defaultCommunityIcon = () => {
-    dispatch(resetToDefaultIcon(community.communitySettings[community.id].id));
+    dispatch(
+      resetToDefaultIcon(community?.communitySettings[community?.id].id)
+    );
 
     setCommunityIcon("https://i.imgur.com/9CI9hiO.png");
   };
@@ -114,7 +116,7 @@ export function PreviewCommunityNameIcon({
             community={community}
             setImage={setImage}
             startingImage={
-              community.communitySettings[community.id].communityIcon
+              community?.communitySettings[community?.id].communityIcon
             }
             preview={preview}
             setPreview={setPreview}

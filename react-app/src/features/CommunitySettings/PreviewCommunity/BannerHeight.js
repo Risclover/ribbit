@@ -11,24 +11,24 @@ export function BannerHeight({ height, option, activeRadio, setActiveRadio }) {
   return (
     <div
       className={`preview-community-radio ${
-        activeRadio.toLowerCase() !== option.toLowerCase() &&
+        activeRadio?.toLowerCase() !== option?.toLowerCase() &&
         "community-name-radio-gray"
       }`}
       onClick={() => {
-        setActiveRadio(option.toLowerCase());
+        setActiveRadio(option?.toLowerCase());
       }}
     >
-      {activeRadio.toLowerCase() === option.toLowerCase() ? (
+      {activeRadio?.toLowerCase() === option?.toLowerCase() ? (
         <FaDotCircle />
       ) : (
         <FaRegCircle />
       )}
       {option}{" "}
-      {option.toLowerCase() === "small"
+      {option?.toLowerCase() === "small"
         ? " • 64px"
-        : option.toLowerCase() === "medium"
+        : option?.toLowerCase() === "medium"
         ? " • 128px"
-        : option.toLowerCase() === "large"
+        : option?.toLowerCase() === "large"
         ? " • 192px"
         : ""}
     </div>

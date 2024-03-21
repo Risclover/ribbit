@@ -7,7 +7,7 @@ import {
   getCommunities,
 } from "../../../store";
 import { DropBox } from "../../../components";
-import { PreviewCommunityBannerColor, BannerHeight } from "../..";
+import { PreviewCommunityBannerColor, BannerHeight } from "../PreviewCommunity";
 
 export function PreviewCommunityBanner({
   setOpenAppearance,
@@ -27,7 +27,7 @@ export function PreviewCommunityBanner({
 
   const [errorMsg, setErrorMsg] = useState("");
   const [preview, setPreview] = useState(
-    community.communitySettings[community.id].bannerImg
+    community?.communitySettings[community?.id]?.bannerImg
   );
   const [image, setImage] = useState(null);
 
@@ -53,22 +53,23 @@ export function PreviewCommunityBanner({
     }
 
     const payload = {
-      settingsId: community.communitySettings[community.id].id,
+      settingsId: community?.communitySettings[community?.id].id,
       bannerHeight: height,
       bannerColor: bannerColor,
       customBannerColor: customBannerColor,
       bannerImg: image ? bannerImg : "",
       bannerImgFormat: bannerImgFormat,
       secondaryBannerImg:
-        community.communitySettings[community.id].secondaryBannerImg,
-      hoverBannerImg: community.communitySettings[community.id].hoverBannerImg,
+        community?.communitySettings[community?.id].secondaryBannerImg,
+      hoverBannerImg:
+        community?.communitySettings[community?.id].hoverBannerImg,
       secondaryBannerFormat:
-        community.communitySettings[community.id].secondaryBannerFormat,
+        community?.communitySettings[community?.id].secondaryBannerFormat,
       mobileBannerImg:
-        community.communitySettings[community.id].mobileBannerImg,
+        community?.communitySettings[community?.id].mobileBannerImg,
     };
     const data = await dispatch(updateSettingsBanner(payload));
-    dispatch(getCommunitySettings(community.id));
+    dispatch(getCommunitySettings(community?.id));
     dispatch(getCommunities());
   };
 
@@ -76,13 +77,13 @@ export function PreviewCommunityBanner({
     const formData = new FormData();
     formData.append("image", image);
 
-    const res = await fetch(`/api/communities/${community.id}/banner_img`, {
+    const res = await fetch(`/api/communities/${community?.id}/banner_img`, {
       method: "POST",
       body: formData,
     });
     if (res.ok) {
       await res.json();
-      dispatch(getSingleCommunity(community.id));
+      dispatch(getSingleCommunity(community?.id));
       setOpenAppearance(false);
     } else {
       setErrorMsg(
@@ -99,9 +100,9 @@ export function PreviewCommunityBanner({
 
     document.documentElement.style.setProperty(
       "--preview-community-banner-color",
-      community.communitySettings[community.id].customBannerColor
+      community?.communitySettings[community?.id].customBannerColor
         ? bannerColor
-        : community.communitySettings[community.id].baseColor
+        : community?.communitySettings[community?.id].baseColor
     );
   }, [height, bannerColor]);
 
@@ -135,7 +136,9 @@ export function PreviewCommunityBanner({
             dropboxType="banner_img"
             community={community}
             setImage={setImage}
-            startingImage={community.communitySettings[community.id].bannerImg}
+            startingImage={
+              community?.communitySettings[community?.id].bannerImg
+            }
             preview={preview}
             setPreview={setPreview}
           />

@@ -113,7 +113,7 @@ export function EditCommunity() {
               />
               <span
                 className={
-                  display_name.length === 100
+                  display_name?.length === 100
                     ? "community-name-char-counter red-counter"
                     : "community-name-char-counter"
                 }

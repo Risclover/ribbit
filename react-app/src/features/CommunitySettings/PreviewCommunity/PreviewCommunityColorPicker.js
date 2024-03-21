@@ -40,7 +40,7 @@ export function PreviewCommunityColorPicker({ theme, setTheme, community }) {
   ];
 
   useEffect(() => {
-    if (theme.length === 6 && !theme.startsWith("#")) {
+    if (theme?.length === 6 && !theme?.startsWith("#")) {
       setTheme("#" + theme);
     }
   }, [theme]);

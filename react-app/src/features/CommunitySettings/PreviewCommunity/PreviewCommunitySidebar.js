@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, useParams } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import {
   getCommunitySettings,
@@ -17,10 +17,15 @@ export function PreviewCommunitySidebar() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const { communityId } = useParams();
+
+  console.log("communityId:", communityId);
+
   const community = useSelector(
     (state) => state.singleCommunity[Number(location.pathname.slice(3, 5))]
   );
 
+  console.log("community:", community);
   const [showWarning, setShowWarning] = useState(false);
   const [openAppearance, setOpenAppearance] = useState(false);
   const [appearanceSidebar, setAppearanceSidebar] = useState("");
