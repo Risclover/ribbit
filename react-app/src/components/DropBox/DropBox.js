@@ -4,15 +4,23 @@ import { PreviewBar } from "./PreviewBar";
 import { useFileHandler } from "./useFileHandler";
 import "./DropBox.css";
 
-export const DropBox = ({ setImage, image, preview, setPreview }) => {
+export const DropBox = ({
+  setImage,
+  image,
+  preview,
+  setPreview,
+  handlePreview,
+  handleDelete,
+}) => {
   const [highlight, setHighlight] = useState(false);
-  const [showBar, setShowBar] = useState(false);
+  const [showBar, setShowBar] = useState(image !== null && image !== "");
 
   const { handleUpload } = useFileHandler(
     setImage,
     setPreview,
     setShowBar,
-    showBar
+    showBar,
+    handlePreview
   );
 
   const handleDragEvents = (highlight) => (e) => {
@@ -21,10 +29,11 @@ export const DropBox = ({ setImage, image, preview, setPreview }) => {
     setHighlight(highlight);
   };
 
-  const handleErase = () => {
+  const handleErase = (e) => {
     setPreview("");
     setImage(null);
     setShowBar(false);
+    handleDelete(e);
   };
 
   return (

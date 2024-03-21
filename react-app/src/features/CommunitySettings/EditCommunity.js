@@ -134,12 +134,12 @@ export function EditCommunity() {
               ></textarea>
               <span
                 className={
-                  description.length === 500
+                  description?.length === 500
                     ? "community-description-char-counter red-counter"
                     : "community-description-char-counter"
                 }
               >
-                {500 - description.length} Characters remaining
+                {500 - description?.length} Characters remaining
               </span>
             </div>
             <div className="edit-community-page-section">

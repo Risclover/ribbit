@@ -19,8 +19,6 @@ export function PreviewCommunitySidebar() {
 
   const { communityId } = useParams();
 
-  console.log("communityId:", communityId);
-
   const community = useSelector(
     (state) => state.singleCommunity[Number(location.pathname.slice(3, 5))]
   );
@@ -166,7 +164,10 @@ export function PreviewCommunitySidebar() {
 
   return (
     <div className="preview-community-sidebar">
-      <button className="back-to-community">
+      <button
+        className="back-to-community"
+        onClick={() => history.push(`/c/${community?.name}`)}
+      >
         <FaChevronLeft /> Back to community
       </button>
       {!openAppearance && (
