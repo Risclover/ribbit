@@ -39,11 +39,19 @@ export const CreatePostBar = ({ page, communityName }) => {
 
       <PostBarButton
         icon={RxImage}
-        onClick={navigate(`/c/${communityName}/submit/image`)}
+        onClick={navigate(
+          page === "community"
+            ? `/c/${communityName}/submit/image`
+            : `/c/submit/image`
+        )}
       />
       <PostBarButton
         icon={FiLink}
-        onClick={navigate(`/c/${communityName}/submit/url`)}
+        onClick={navigate(
+          page === "community"
+            ? `/c/${communityName}/submit/url`
+            : `/c/submit/url`
+        )}
       />
     </div>
   );
