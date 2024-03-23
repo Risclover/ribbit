@@ -1,77 +1,47 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { PostFormatContext } from "../../../../context/PostFormat";
-
-function useOutsideAlerter(ref, setActive, active, setImg, item) {
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setActive(false);
-        setImg(item.grey);
-      }
-    }
-
-    if (document.querySelector(".post-format-dropdown")) {
-      document
-        .querySelector(".post-format-dropdown")
-        .addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document
-          .querySelector(".post-format-face-wrapper")
-          .removeEventListener("mousedown", handleClickOutside);
-      };
-    }
-  }, [ref, active, item.grey, setActive, setImg]);
-}
 
 export function PostFormatDropdownBtn({ item, setShowDropdown }) {
   const wrapperRef = useRef(null);
   const { format, setFormat } = useContext(PostFormatContext);
 
-  const [img, setImg] = useState();
-  const [active, setActive] = useState(false);
-
-  useEffect(() => {
-    if (format === item.format) {
-      setImg("active");
-    } else {
-      setImg("grey");
-    }
-  }, [format, item.format]);
-
-  useOutsideAlerter(wrapperRef, setActive, active, setImg, item);
+  const [active, setActive] = useState(item.format === format);
+  const [highlight, setHighlight] = useState(false);
 
   return (
     <button
       className={
-        img === item.blacks
+        !active && highlight
           ? "post-format-btn format-btn-black"
-          : img === "grey"
+          : !active && !highlight
           ? "post-format-btn format-btn-grey"
-          : format === item.format
+          : active && !highlight
           ? "post-format-btn format-btn-active"
           : "post-format-btn"
       }
-      ref={wrapperRef}
       onClick={() => {
         setActive(true);
         setShowDropdown(false);
         setFormat(item.format);
       }}
+      onMouseOver={() => {
+        !active ? setHighlight(true) : setHighlight(false);
+      }}
+      onMouseLeave={() => setHighlight(false)}
+      ref={wrapperRef}
     >
-      {item.img}
-      <span
-        className={
-          img === item.blacks
-            ? "format-btn-black"
-            : img === "grey"
-            ? "format-btn-grey"
-            : format === item.format
-            ? "format-btn-active"
-            : ""
+      <img
+        alt={`${item.format.toLowerCase()} format icon`}
+        src={
+          active
+            ? item.icons.blue
+            : !active && !highlight
+            ? item.icons.grey
+            : item.icons.black
         }
-      >
-        {item.format}
-      </span>
+      />
+
+      {item.format}
     </button>
   );
 }

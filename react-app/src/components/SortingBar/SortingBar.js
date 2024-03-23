@@ -3,39 +3,42 @@ import { PostFormatFace } from "../../features";
 import { PostFormatContext } from "../../context/PostFormat";
 import "./SortingBar.css";
 
+const SortButton = ({ active, onClick, community, icon, label }) => {
+  const buttonClass = `post-sorting-bar-btn ${
+    active ? "active-sort-btn" : ""
+  } ${community ? "community-sorting-bar-btn" : ""}`;
+  return (
+    <button className={buttonClass} onClick={onClick}>
+      <i className={icon}></i>
+      {label}
+    </button>
+  );
+};
+
 export function SortingBar({ community, sortMode, setSortMode }) {
   const { format } = useContext(PostFormatContext);
+  const sortModes = [
+    { key: "new", label: "New", icon: "fa-solid fa-certificate" },
+    { key: "top", label: "Top", icon: "fa-solid fa-ranking-star" },
+  ];
 
-  const handleNewClick = () => {
-    setSortMode("new");
-  };
-
-  const handleTopClick = () => {
-    setSortMode("top");
+  const handleSortClick = (mode) => () => {
+    setSortMode(mode);
   };
 
   return (
     <div className="post-sorting-bar">
       <div className="post-sorting-bar-left">
-        <button
-          className={`post-sorting-bar-btn ${
-            sortMode === "new" && "active-sort-btn"
-          } ${community && "community-sorting-bar-btn"}`}
-          onClick={handleNewClick}
-        >
-          <i className="fa-solid fa-certificate"></i>
-          New
-        </button>
-
-        <button
-          className={`post-sorting-bar-btn ${
-            sortMode === "top" && "active-sort-btn"
-          } ${community && "community-sorting-bar-btn"}`}
-          onClick={handleTopClick}
-        >
-          <i className="fa-solid fa-ranking-star"></i>
-          Top
-        </button>
+        {sortModes.map((mode) => (
+          <SortButton
+            key={mode.key}
+            active={sortMode === mode.key}
+            onClick={handleSortClick(mode.key)}
+            community={community}
+            icon={mode.icon}
+            label={mode.label}
+          />
+        ))}
       </div>
       {format !== "none" && <PostFormatFace />}
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
-import "./PostFormatDropdown.css";
 import { PostFormatDropdownBtn } from "./PostFormatDropdownBtn";
+import "./PostFormatDropdown.css";
 
 export function PostFormatDropdown({ setShowDropdown, formats }) {
   return (

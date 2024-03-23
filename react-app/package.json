@@ -7,6 +7,7 @@
     "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/react": "^11.2.7",
+    "@testing-library/react-hooks": "^8.0.1",
     "draft-js": "^0.11.7",
     "eslint": "^8.41.0",
     "eslint-config-react-app": "^7.0.1",
