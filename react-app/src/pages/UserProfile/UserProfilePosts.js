@@ -18,6 +18,7 @@ export function UserProfilePosts({
           sortMode={sortMode}
           setSortMode={setSortMode}
           format="none"
+          page="user-profile"
         />
       )}
       {user?.userPosts === 0 && (
