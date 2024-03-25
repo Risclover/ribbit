@@ -5,9 +5,10 @@ import "@testing-library/jest-dom";
 import { SortingBar } from "./SortingBar";
 import { PostFormatContext } from "../../context";
 
-// Mock the PostFormatContext
 const mockSetSortMode = jest.fn();
 const setSortModeMock = jest.fn();
+
+// Mock the PostFormatContext
 const renderWithPostFormatContext = (
   ui,
   { providerProps, ...renderOptions }
@@ -22,7 +23,7 @@ const renderWithPostFormatContext = (
 
 const mockContextValue = {
   format: "Card",
-  setFormat: jest.fn(), // Assuming there's a function to update the format in your context
+  setFormat: jest.fn(),
 };
 
 describe("SortingBar interactions", () => {
@@ -51,7 +52,7 @@ describe("SortingBar interactions", () => {
   });
 
   test("clicking Top sorts the posts by votes, highest on top", () => {
-    renderComponentWithMockedContext("new"); // Initial sort mode is 'new'
+    renderComponentWithMockedContext("new");
     fireEvent.click(screen.getByText("Top"));
     expect(setSortModeMock).toHaveBeenCalledWith("top");
   });
@@ -59,16 +60,13 @@ describe("SortingBar interactions", () => {
   test("clicking the post format dropdown face opens the dropdown", () => {
     renderComponentWithMockedContext("new");
     fireEvent.click(screen.getByTestId("post-format-face-button"));
-    expect(screen.getByText("Card")).toBeVisible(); // Verify dropdown is now showing
+    expect(screen.getByText("Card")).toBeVisible();
   });
 
   test("dropdown closes on outside click", () => {
     renderComponentWithMockedContext("new");
-    // Open the dropdown for the test
     fireEvent.click(screen.getByTestId("post-format-face-button"));
-    // Simulate an outside click
     fireEvent.mouseDown(document);
-    // Verify the dropdown is not showing. This depends on how you can detect its presence, such as checking if it's in the document.
     expect(screen.queryByText("Card")).not.toBeInTheDocument();
   });
 });

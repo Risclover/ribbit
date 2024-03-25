@@ -1,47 +1,43 @@
-import React, { useState, useRef, useContext } from "react";
-import { PostFormatContext } from "../../../../context/PostFormat";
+import React from "react";
+import { useButtonState } from "../../../../hooks/useButtonState";
 
-export function PostFormatDropdownBtn({ item, setShowDropdown }) {
-  const wrapperRef = useRef(null);
-  const { format, setFormat } = useContext(PostFormatContext);
+export const PostFormatDropdownBtn = React.forwardRef(
+  ({ item, setShowDropdown }, ref) => {
+    const { active, setActive, highlight, setHighlight, setFormat } =
+      useButtonState(item);
 
-  const [active, setActive] = useState(item.format === format);
-  const [highlight, setHighlight] = useState(false);
+    const className = `post-format-btn ${
+      active
+        ? "format-btn-active"
+        : highlight
+        ? "format-btn-black"
+        : "format-btn-grey"
+    }`;
 
-  return (
-    <button
-      className={
-        !active && highlight
-          ? "post-format-btn format-btn-black"
-          : !active && !highlight
-          ? "post-format-btn format-btn-grey"
-          : active && !highlight
-          ? "post-format-btn format-btn-active"
-          : "post-format-btn"
-      }
-      onClick={() => {
-        setActive(true);
-        setShowDropdown(false);
-        setFormat(item.format);
-      }}
-      onMouseOver={() => {
-        !active ? setHighlight(true) : setHighlight(false);
-      }}
-      onMouseLeave={() => setHighlight(false)}
-      ref={wrapperRef}
-    >
-      <img
-        alt={`${item.format.toLowerCase()} format icon`}
-        src={
-          active
-            ? item.icons.blue
-            : !active && !highlight
-            ? item.icons.grey
-            : item.icons.black
-        }
-      />
-
-      {item.format}
-    </button>
-  );
-}
+    return (
+      <button
+        ref={ref}
+        className={className}
+        onClick={() => {
+          setActive(true);
+          setShowDropdown(false);
+          setFormat(item.format);
+        }}
+        onMouseOver={() => setHighlight(!active)}
+        onMouseLeave={() => setHighlight(false)}
+      >
+        <img
+          alt={`${item.format.toLowerCase()} format icon`}
+          src={
+            active
+              ? item.icons.blue
+              : highlight
+              ? item.icons.black
+              : item.icons.grey
+          }
+        />
+        {item.format}
+      </button>
+    );
+  }
+);
