@@ -22,6 +22,6 @@ export const formatIcons = {
   Compact: {
     blue: CompactBlue,
     grey: CompactGrey,
-    black: CompactBlack,
+    black: CompactBlack
   },
 };

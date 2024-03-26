@@ -4,11 +4,21 @@ import { PostFormatContext } from "../../../../context/PostFormat";
 import { PostFormatFace } from "./PostFormatFace";
 
 const renderWithPostFormatContext = (ui, { format } = {}) => {
-  return render(
+  const result = render(
     <PostFormatContext.Provider value={{ format }}>
       {ui}
     </PostFormatContext.Provider>
   );
+
+  const rerender = (newUi, newFormat = format) => {
+    result.rerender(
+      <PostFormatContext.Provider value={{ format: newFormat }}>
+        {newUi}
+      </PostFormatContext.Provider>
+    );
+  };
+
+  return { ...result, rerender };
 };
 
 describe("PostFormatFace", () => {
@@ -38,17 +48,15 @@ describe("PostFormatFace", () => {
   });
 
   it("displays the correct icon based on the context", () => {
-    renderWithPostFormatContext(<PostFormatFace />, { format: "Compact" });
-
-    expect(screen.getByAltText("Compact format icon")).toBeInTheDocument();
-
-    // Change the context value and re-render
-    rerender(
-      <PostFormatContext.Provider value={{ format: "Card" }}>
-        <PostFormatFace />
-      </PostFormatContext.Provider>
+    const { rerender, getByAltText } = renderWithPostFormatContext(
+      <PostFormatFace />,
+      { format: "Compact" }
     );
 
-    expect(screen.getByAltText("Card format icon")).toBeInTheDocument();
+    expect(getByAltText("Compact format icon")).toBeInTheDocument();
+
+    rerender(<PostFormatFace />, "Card");
+
+    expect(getByAltText("Card format icon")).toBeInTheDocument();
   });
 });

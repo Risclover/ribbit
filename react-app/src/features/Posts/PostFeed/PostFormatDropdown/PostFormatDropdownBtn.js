@@ -25,6 +25,7 @@ export const PostFormatDropdownBtn = React.forwardRef(
         }}
         onMouseOver={() => setHighlight(!active)}
         onMouseLeave={() => setHighlight(false)}
+        data-testid={`dropdown-btn-${item.format}`}
       >
         <img
           alt={`${item.format.toLowerCase()} format icon`}
