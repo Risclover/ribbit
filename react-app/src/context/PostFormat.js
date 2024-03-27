@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-export const PostFormatContext = React.createContext();
+export const PostFormatContext = React.createContext({ format: "Card" });
 
 export default function PostFormatProvider() {
   return <div>PostFormat</div>;

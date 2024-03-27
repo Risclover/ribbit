@@ -1,5 +1,6 @@
 import React from "react";
 import Frog from "../../../assets/images/ribbit-banners/frog-logo1.png";
+import "./RibbitRules.css";
 
 export function RibbitRules() {
   return (

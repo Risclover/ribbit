@@ -9,12 +9,14 @@ import {
 
 export function FollowBtn({ user }) {
   const dispatch = useDispatch();
-  const follows = useSelector((state) => state.followers.follows);
+  const follows = useSelector((state) => state.followers?.follows);
 
   const findIsFollowing = () =>
-    Object.values(follows).some(
-      (followed) => followed.username === user.username
-    );
+    follows
+      ? Object.values(follows).some(
+          (followed) => followed.username === user.username
+        )
+      : null;
 
   const [following, setFollowing] = useState(findIsFollowing());
 

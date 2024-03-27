@@ -103,7 +103,7 @@ describe("SortingBar", () => {
     expect(mockSetSortMode).toHaveBeenCalledWith("top");
   });
 
-  test('renders PostFormatFace when format is not "none"', () => {
+  test('renders PostFormatDropdownFace when format is not "none"', () => {
     renderWithPostFormatContext(
       <SortingBar sortMode="new" setSortMode={mockSetSortMode} />,
       { providerProps: { format: "standard" } }
@@ -112,7 +112,7 @@ describe("SortingBar", () => {
     expect(screen.getByTestId("post-format-face-button")).toBeInTheDocument();
   });
 
-  test('does not render PostFormatFace when format is "none"', () => {
+  test('does not render PostFormatDropdownFace when format is "none"', () => {
     renderWithPostFormatContext(
       <SortingBar sortMode="new" setSortMode={mockSetSortMode} />,
       { providerProps: { format: "none" } }

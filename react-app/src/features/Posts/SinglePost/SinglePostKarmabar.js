@@ -24,28 +24,30 @@ export function SinglePostKarmabar({
   useEffect(() => {
     setUpvote(false);
     setDownvote(false);
-    if (
-      Object.values(posts) &&
-      post?.postVoters &&
-      post?.postVoters !== undefined &&
-      post?.postVoters !== null
-    ) {
-      if (Object.values(posts)?.length > 0) {
-        if (Object.values(post?.postVoters)?.length > 0) {
-          setVoted(true);
-          for (let voter of Object.values(post?.postVoters)) {
-            if (user?.id === voter?.userID) {
-              if (voter.isUpvote) {
-                setUpvote(true);
-                setDownvote(false);
-              } else if (!voter.isUpvote) {
-                setUpvote(false);
-                setDownvote(true);
+    if (posts) {
+      if (
+        Object.values(posts) &&
+        post?.postVoters &&
+        post?.postVoters !== undefined &&
+        post?.postVoters !== null
+      ) {
+        if (Object.values(posts)?.length > 0) {
+          if (Object.values(post?.postVoters)?.length > 0) {
+            setVoted(true);
+            for (let voter of Object.values(post?.postVoters)) {
+              if (user?.id === voter?.userID) {
+                if (voter.isUpvote) {
+                  setUpvote(true);
+                  setDownvote(false);
+                } else if (!voter.isUpvote) {
+                  setUpvote(false);
+                  setDownvote(true);
+                }
               }
             }
+          } else {
+            setVoted(false);
           }
-        } else {
-          setVoted(false);
         }
       }
     }

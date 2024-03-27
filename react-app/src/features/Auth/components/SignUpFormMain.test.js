@@ -45,13 +45,13 @@ describe("SignUpFormMain", () => {
   });
 
   it("renders the Sign Up form", () => {
-    expect(screen.getByLabelText("Email *")).toBeInTheDocument();
+    expect(screen.getByLabelText("Email*")).toBeInTheDocument();
   });
 
   it("displays error for taken email address", async () => {
     const user = userEvent.setup();
 
-    const input = screen.getByLabelText("Email *");
+    const input = screen.getByLabelText("Email*");
     await user.type(input, "demo@aa.io");
 
     await waitFor(() => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { PostFormatDropdownBtn } from "./PostFormatDropdownBtn";
+import { PostFormatDropdownBtn } from "./PostFormatDropdownBtn/PostFormatDropdownBtn";
 import "./PostFormatDropdown.css";
 
 export function PostFormatDropdown({ setShowDropdown, formats }) {

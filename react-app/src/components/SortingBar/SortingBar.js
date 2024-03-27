@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PostFormatFace } from "../../features";
+import { PostFormatDropdownFace } from "./PostFormatDropdown";
 import { PostFormatContext } from "../../context/PostFormat";
 import "./SortingBar.css";
 
@@ -40,7 +40,9 @@ export function SortingBar({ community, sortMode, setSortMode, page }) {
           />
         ))}
       </div>
-      {format !== "none" && page !== "user-profile" && <PostFormatFace />}
+      {format !== "none" && page !== "user-profile" && (
+        <PostFormatDropdownFace />
+      )}
     </div>
   );
 }

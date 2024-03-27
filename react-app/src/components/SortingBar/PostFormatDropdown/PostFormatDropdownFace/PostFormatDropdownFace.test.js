@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { PostFormatContext } from "../../../../context/PostFormat";
-import { PostFormatFace } from "./PostFormatFace";
+import { PostFormatDropdownFace } from "./PostFormatDropdownFace";
 
 const renderWithPostFormatContext = (ui, { format } = {}) => {
   const result = render(
@@ -21,9 +21,9 @@ const renderWithPostFormatContext = (ui, { format } = {}) => {
   return { ...result, rerender };
 };
 
-describe("PostFormatFace", () => {
+describe("PostFormatDropdownFace", () => {
   it("renders the component correctly", () => {
-    renderWithPostFormatContext(<PostFormatFace />, { format: "Card" });
+    renderWithPostFormatContext(<PostFormatDropdownFace />, { format: "Card" });
 
     const button = screen.getByTestId("post-format-face-button");
     expect(button).toBeInTheDocument();
@@ -31,7 +31,9 @@ describe("PostFormatFace", () => {
   });
 
   it("toggles the dropdown on button click", () => {
-    renderWithPostFormatContext(<PostFormatFace />, { format: "Classic" });
+    renderWithPostFormatContext(<PostFormatDropdownFace />, {
+      format: "Classic",
+    });
     const button = screen.getByTestId("post-format-face-button");
 
     expect(
@@ -49,13 +51,13 @@ describe("PostFormatFace", () => {
 
   it("displays the correct icon based on the context", () => {
     const { rerender, getByAltText } = renderWithPostFormatContext(
-      <PostFormatFace />,
+      <PostFormatDropdownFace />,
       { format: "Compact" }
     );
 
     expect(getByAltText("Compact format icon")).toBeInTheDocument();
 
-    rerender(<PostFormatFace />, "Card");
+    rerender(<PostFormatDropdownFace />, "Card");
 
     expect(getByAltText("Card format icon")).toBeInTheDocument();
   });

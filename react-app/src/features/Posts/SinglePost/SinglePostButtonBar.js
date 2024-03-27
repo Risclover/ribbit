@@ -27,7 +27,9 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
           <i className="fa-regular fa-message"></i>{" "}
           <span className="single-post-comments-num">
             {commentNum}{" "}
-            {Object.values(post.postComments).length === 1
+            {post.postComments
+              ? Object.values(post.postComments).length === 1
+              : null
               ? "Comment"
               : "Comments"}
           </span>
@@ -64,7 +66,7 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
         )}
       </div>
 
-      {user && (user.id === post.postAuthor.id || user.id === 1) && (
+      {user && (user.id === post.postAuthor?.id || user?.id === 1) && (
         <div className="logged-in-btns">
           <div
             className="single-post-button"

@@ -15,9 +15,9 @@ export const SinglePost = ({ id, isPage, post }) => {
   // const post = useSelector((state) => state.posts[id]);
   const dispatch = useDispatch();
   const cuser = useSelector((state) => state.session.user);
-  const user = useSelector((state) => state.users[cuser?.id]);
+  const user = useSelector((state) => state.users?.[cuser?.id]);
   const community = useSelector(
-    (state) => state.communities[post?.communityId]
+    (state) => state.communities?.[post?.communityId]
   );
 
   const { format } = useContext(PostFormatContext);

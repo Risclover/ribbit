@@ -29,10 +29,10 @@ export function SinglePostAuthorBar({
   isPage,
 }) {
   const history = useHistory();
-  const communityHref = `/c/${post.communityName}`;
+  const communityHref = `/c/${post?.communityName}`;
 
   useEffect(() => {
-    const communitySettings = post.communitySettings[post.communityId];
+    const communitySettings = post?.communitySettings?.[post?.communityId];
     if (communitySettings) {
       document.documentElement.style.setProperty(
         "--community-base-color",
@@ -49,10 +49,10 @@ export function SinglePostAuthorBar({
             <img
               style={{
                 backgroundColor: `${
-                  post.communitySettings[post.communityId]?.baseColor
+                  post?.communitySettings?.[post?.communityId]?.baseColor
                 }`,
               }}
-              src={post.communitySettings[post.communityId]?.communityIcon}
+              src={post?.communitySettings?.[post?.communityId]?.communityIcon}
               alt="Community"
             />
           </div>
@@ -65,7 +65,7 @@ export function SinglePostAuthorBar({
                 history.push(communityHref);
               }}
             >
-              c/{post.communityName}
+              c/{post?.communityName}
             </span>
           </div>
 
@@ -77,11 +77,11 @@ export function SinglePostAuthorBar({
         Posted by
         <Username
           community={communityPage}
-          username={post.postAuthor.username}
-          user={post.postAuthor}
+          username={post?.postAuthor?.username}
+          user={post?.postAuthor}
           source="singlepost"
         />
-        {moment(new Date(post.createdAt)).locale("en-post").fromNow()}
+        {moment(new Date(post?.createdAt)).locale("en-post").fromNow()}
       </div>
     </div>
   );

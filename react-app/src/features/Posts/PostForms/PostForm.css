@@ -585,39 +585,6 @@ pre.ql-syntax {
   padding-left: 0.5rem;
 }
 
-.ribbit-rules-box {
-  background: white;
-  border-radius: 4px;
-  padding: 12px;
-  max-width: 312px;
-  width: 100%;
-  border: 1px solid #ccc;
-}
-
-.ribbit-rules-title {
-  font-size: 16px;
-  line-height: 20px;
-  border-bottom: 1px solid #edeff1;
-  align-items: center;
-  display: flex;
-  color: #1c1c1c;
-  font-weight: 500;
-}
-
-.ribbit-rules-rule {
-  padding: 10px 5px;
-  border-bottom: 1px solid #edeff1;
-  color: #1c1c1c;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.ribbit-rules-frog {
-  width: 40px;
-  margin-right: 8px;
-  padding-bottom: 5px;
-}
-
 .community-page-community-info {
   width: 100%;
   border-radius: 4px;
