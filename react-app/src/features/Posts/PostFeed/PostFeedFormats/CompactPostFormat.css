@@ -10,7 +10,7 @@
 }
 
 .compact-post-container:hover {
-  border: 1px solid #898989;
+  border: thin solid #898989;
   z-index: 1;
 }
 
