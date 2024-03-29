@@ -390,7 +390,7 @@
   padding: 4px 20px;
   margin: 4px 8px;
   background-color: var(--community-highlight);
-  border: none;
+  border: 1px solid transparent;
   border-radius: 50px;
   font-family: "Noto Sans", sans-serif;
   font-weight: 700;

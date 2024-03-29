@@ -5,6 +5,7 @@ import { CommunityThemeToggle } from "./CommunityThemeToggle";
 import "./CommunityOptions.css";
 
 export function CommunityOptions({ community }) {
+  console.log("community:", community);
   const [checked, setChecked] = useState(
     localStorage.getItem(`community-${community?.id}-theme`) === "true"
       ? true
@@ -24,13 +25,13 @@ export function CommunityOptions({ community }) {
     }
   }, [localStorage]);
 
-  // useEffect(() => {
-  //   if (localStorage.getItem(`community-${community?.id}-theme`) === "true") {
-  //     setChecked(true);
-  //   } else {
-  //     setChecked(false);
-  //   }
-  // }, [localStorage]);
+  useEffect(() => {
+    if (localStorage.getItem(`community-${community?.id}-theme`) === "true") {
+      setChecked(true);
+    } else {
+      setChecked(false);
+    }
+  }, [localStorage]);
 
   if (checked) {
     document.documentElement.style.setProperty(
@@ -38,12 +39,10 @@ export function CommunityOptions({ community }) {
       community?.communitySettings[community?.id]?.baseColor
     );
 
-
     document.documentElement.style.setProperty(
       "--community-highlight",
       community?.communitySettings[community?.id]?.highlight
     );
-
 
     document.documentElement.style.setProperty(
       "--community-body-bg",

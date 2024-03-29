@@ -17,6 +17,7 @@ import {
 } from "..";
 import {
   getCommunities,
+  getCommunitySettings,
   getFollowers,
   getPosts,
   getSubscriptions,
@@ -52,6 +53,7 @@ export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
     dispatch(getPosts());
     dispatch(getSubscriptions());
     dispatch(getFollowers());
+    dispatch(getCommunitySettings());
   }, [dispatch]);
 
   useEffect(() => {

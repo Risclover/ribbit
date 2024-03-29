@@ -13,6 +13,7 @@ import {
   addToSubscriptions,
   deleteSubscription,
   addViewedPost,
+  getCommunitySettings,
 } from "../../../store";
 
 import { BackToTop } from "../../../components";
@@ -45,6 +46,7 @@ export function SinglePostPage({ setPageIcon, setShowLoginForm }) {
 
   useEffect(() => {
     dispatch(getCommunities());
+    dispatch(getCommunitySettings(post?.communityId));
     dispatch(getComments(+postId));
     dispatch(getPosts());
     dispatch(getSinglePost(+postId));

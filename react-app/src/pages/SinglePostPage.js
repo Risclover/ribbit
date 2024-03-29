@@ -20,7 +20,11 @@ export function SinglePostPage({ setPageIcon }) {
   const { setFormat } = useContext(PostFormatContext);
   const { setPageTitle } = useContext(PageTitleContext);
   const post = useSelector((state) => state.posts[postId]);
+  const community = useSelector(
+    (state) => state.communities[post?.communityId]
+  );
 
+  console.log("COMMUNIY:", post.communityId);
   useEffect(() => {
     document.title = post?.title + " : " + post?.communityName;
 
@@ -50,7 +54,11 @@ export function SinglePostPage({ setPageIcon }) {
         <Comments post={post} />
       </div>
       <div className="single-post-right-col">
-        <CommunityDetails post={post} pageType="singlepage" />
+        <CommunityDetails
+          post={post}
+          pageType="singlepage"
+          community={community}
+        />
         {Object.values(post.communityRules).length > 0 && (
           <CommunityRulesBox post={post} />
         )}

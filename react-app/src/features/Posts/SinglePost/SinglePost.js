@@ -26,7 +26,7 @@ export const SinglePost = ({ id, isPage, post }) => {
   const [downvote, setDownvote] = useState(false);
 
   useEffect(() => {
-    dispatch(getCommunitySettings());
+    dispatch(getCommunitySettings(post?.communityId));
   }, [dispatch]);
 
   return (

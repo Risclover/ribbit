@@ -1,22 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const useInfiniteScroll = (fetchFunc) => {
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight ||
-      loading ||
-      !hasMore
-    ) {
-      return;
-    }
-
-    setLoading(true);
-  };
+export const useInfiniteScroll = (callback) => {
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -24,25 +9,19 @@ const useInfiniteScroll = (fetchFunc) => {
   }, []);
 
   useEffect(() => {
-    const fetchMoreData = async () => {
-      try {
-        const newPosts = await fetchFunc(page);
-        setPage(page + 1);
-        setLoading(false);
-        if (newPosts.length === 0) {
-          setHasMore(false);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    if (!isFetching) return;
+    callback(() => setIsFetching(false));
+  }, [isFetching, callback]);
 
-    if (loading) {
-      fetchMoreData();
-    }
-  }, [loading, page, fetchFunc]);
+  function handleScroll() {
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+        document.documentElement.offsetHeight ||
+      isFetching
+    )
+      return;
+    setIsFetching(true);
+  }
 
-  return [hasMore, loading];
+  return [isFetching, setIsFetching];
 };
-
-export default useInfiniteScroll;
