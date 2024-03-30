@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { PostFormatDropdownBtn } from "./PostFormatDropdownBtn/PostFormatDropdownBtn";
 import "./PostFormatDropdown.css";
 
-export function PostFormatDropdown({ setShowDropdown, formats }) {
+export function PostFormatDropdown({ setShowDropdown, formats, page }) {
   const buttonRefs = useRef([]);
 
   useEffect(() => {
@@ -41,6 +41,7 @@ export function PostFormatDropdown({ setShowDropdown, formats }) {
         {formats.map((item, index) => (
           <li key={item.format}>
             <PostFormatDropdownBtn
+              page={page}
               setShowDropdown={setShowDropdown}
               item={item}
               ref={(el) => (buttonRefs.current[index] = el)}

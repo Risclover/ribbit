@@ -28,7 +28,7 @@ export const PostFormatDropdownBtn = React.forwardRef(
         data-testid={`dropdown-btn-${item.format}`}
       >
         {active ? (
-          <div className="testing">
+          <div className={`format-icon-bg`}>
             <img
               alt={`${item.format.toLowerCase()} format icon`}
               src={
@@ -52,16 +52,6 @@ export const PostFormatDropdownBtn = React.forwardRef(
             }
           />
         )}
-        {/* <img
-          alt={`${item.format.toLowerCase()} format icon`}
-          src={
-            active
-              ? item.icons.blue
-              : highlight
-              ? item.icons.black
-              : item.icons.grey
-          }
-        /> */}
         {item.format}
       </button>
     );

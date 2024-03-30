@@ -42,6 +42,10 @@ export function AllPostsFeed({ setPageIcon }) {
     dispatch(getPosts());
   }, [dispatch]);
 
+  document.documentElement.style.setProperty(
+    "--community-highlight",
+    "#0079d3"
+  );
   const loadMore = () => {
     setLoading(true);
     setTimeout(() => {

@@ -56,6 +56,11 @@ export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
     dispatch(getCommunitySettings());
   }, [dispatch]);
 
+  document.documentElement.style.setProperty(
+    "--community-highlight",
+    "#0079d3"
+  );
+
   useEffect(() => {
     document.title = "Ribbit - Splash into anything";
     setPageIcon(
@@ -160,7 +165,11 @@ export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
             ))} */}
             {postList && postList.length > 0 && (
               <>
-                <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
+                <SortingBar
+                  sortMode={sortMode}
+                  setSortMode={setSortMode}
+                  page="general-feed"
+                />
                 <PostFeed posts={postList} />
               </>
             )}

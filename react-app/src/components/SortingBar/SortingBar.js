@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { PostFormatDropdownFace } from "./PostFormatDropdown";
 import { PostFormatContext } from "../../context/PostFormat";
 import "./SortingBar.css";
+import { PageTitleContext } from "../../context";
 
 const SortButton = ({ active, onClick, community, icon, label }) => {
   const buttonClass = `post-sorting-bar-btn ${
@@ -41,7 +42,7 @@ export function SortingBar({ community, sortMode, setSortMode, page }) {
         ))}
       </div>
       {format !== "none" && page !== "user-profile" && (
-        <PostFormatDropdownFace />
+        <PostFormatDropdownFace page={page} />
       )}
     </div>
   );
