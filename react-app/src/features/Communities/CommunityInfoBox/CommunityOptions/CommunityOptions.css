@@ -83,12 +83,15 @@
   margin-right: 8px;
 }
 
+.community-options-theme label {
+  margin-right: 8px;
+}
+
 .community-options-switch {
   position: relative;
   display: inline-block;
   min-width: 37.5px;
   height: 24px;
-  margin-right: 8px;
 }
 
 .community-options-switch input {
