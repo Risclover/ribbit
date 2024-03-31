@@ -1,13 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { PageTitleContext } from "../../context";
 import { getCommunities } from "../../store";
 import "./CommunitiesDirectory.css";
+import { usePageSettings } from "../../hooks/usePageSettings";
 
 export function CommunitiesDirectory() {
-  const { setPageTitle } = useContext(PageTitleContext);
   const dispatch = useDispatch();
 
   const communities = useSelector((state) => Object.values(state.communities));
@@ -16,11 +15,10 @@ export function CommunitiesDirectory() {
     dispatch(getCommunities());
   }, [dispatch]);
 
-  useEffect(() => {
-    setPageTitle(
-      <span className="nav-left-dropdown-item">Communities Directory</span>
-    );
-  }, []);
+  usePageSettings({
+    documentTitle: "Communities",
+    pageTitle: "Communities Directory",
+  });
 
   return (
     <div className="communities-directory-container">

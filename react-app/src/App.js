@@ -118,10 +118,6 @@ function App() {
   }
 
   const navBarProps = {
-    pageTitle: pageTitle,
-    setPageTitle: setPageTitle,
-    pageIcon: pageIcon,
-    setPageIcon: setPageIcon,
     adjustQuery: adjustQuery,
     searchQuery: searchQuery,
     setSearchQuery: setSearchQuery,
@@ -171,24 +167,15 @@ function App() {
             <Switch>
               {user ? (
                 <Route path="/" exact={true}>
-                  <HomepageFeed
-                    setPageTitle={setPageTitle}
-                    setPageIcon={setPageIcon}
-                  />
+                  <HomepageFeed />
                 </Route>
               ) : (
                 <Route path="/" exact={true}>
-                  <AllPostsFeed
-                    setPageTitle={setPageTitle}
-                    setPageIcon={setPageIcon}
-                  />
+                  <AllPostsFeed />
                 </Route>
               )}
               <Route path="/home" exact={true}>
-                <HomepageFeed
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
-                />
+                <HomepageFeed />
               </Route>
               <Route path="/login">
                 <LoginPage />
@@ -208,15 +195,10 @@ function App() {
                 )}
               </Route>
               <Route path="/c/all" exact={true}>
-                <AllPostsFeed
-                  setPageIcon={setPageIcon}
-                  setPageTitle={setPageTitle}
-                />
+                <AllPostsFeed />
               </Route>
               <ProtectedRoute path="/submit" exact={true}>
                 <CreatePost
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
                   postType={postType}
                   setPostType={setPostType}
                   val="post"
@@ -224,8 +206,6 @@ function App() {
               </ProtectedRoute>
               <ProtectedRoute path="/c/submit/image" exact={true}>
                 <CreatePost
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
                   postType={postType}
                   setPostType={setPostType}
                   val="image"
@@ -233,8 +213,6 @@ function App() {
               </ProtectedRoute>
               <ProtectedRoute path="/c/submit/url" exact={true}>
                 <CreatePost
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
                   postType={postType}
                   setPostType={setPostType}
                   val="link"
@@ -242,8 +220,6 @@ function App() {
               </ProtectedRoute>
               <ProtectedRoute path="/c/:communityName/submit" exact={true}>
                 <CreatePost
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
                   postType={postType}
                   setPostType={setPostType}
                   val="post"
@@ -254,8 +230,6 @@ function App() {
                 exact={true}
               >
                 <CreatePost
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
                   postType={postType}
                   setPostType={setPostType}
                   val="image"
@@ -263,52 +237,38 @@ function App() {
               </ProtectedRoute>
               <ProtectedRoute path="/c/:communityName/submit/url" exact={true}>
                 <CreatePost
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
                   postType={postType}
                   setPostType={setPostType}
                   val="link"
                 />
               </ProtectedRoute>
               <Route path="/posts/:postId" exact={true}>
-                <SinglePostPage
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
-                />
+                <SinglePostPage />
               </Route>
               <Route path="/images/:postId" exact={true}>
                 <SingleImagePage />
               </Route>
 
               <Route path="/directory" exact={true}>
-                <CommunitiesDirectory
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
-                />
+                <CommunitiesDirectory />
               </Route>
               <Route path="/chat" exact={true}>
                 <Chat />
               </Route>
               <ProtectedRoute path="/message/messages" exact={true}>
-                <Messages
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
-                />
+                <Messages />
               </ProtectedRoute>
               <ProtectedRoute path="/message/unread" exact={true}>
-                <Unread setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+                <Unread />
               </ProtectedRoute>
               <ProtectedRoute path="/message/sent" exact={true}>
-                <Sent setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+                <Sent />
               </ProtectedRoute>
               <ProtectedRoute path="/message/inbox" exact={true}>
-                <Inbox setPageTitle={setPageTitle} setPageIcon={setPageIcon} />
+                <Inbox />
               </ProtectedRoute>
               <ProtectedRoute path="/message/selfreply" exact={true}>
-                <PostRepliesPage
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
-                />
+                <PostRepliesPage />
               </ProtectedRoute>
               <ProtectedRoute path="/message/messages/:threadId" exact={true}>
                 <Permalink />
@@ -317,15 +277,10 @@ function App() {
                 <UpdatePost />
               </ProtectedRoute>
               <Route path="/c/:communityName" exact={true}>
-                <CommunityPage
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
-                />
+                <CommunityPage />
               </Route>
               <ProtectedRoute exact path="/c/:communityId/style">
                 <PreviewCommunity
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
                   postType={postType}
                   setPostType={setPostType}
                   previewPage={previewPage}
@@ -337,18 +292,13 @@ function App() {
                 <EditCommunity />
               </ProtectedRoute>
               <ProtectedRoute path="/users/:userId/profile/edit" exact={true}>
-                <EditProfile
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
-                />
+                <EditProfile />
               </ProtectedRoute>
               <ProtectedRoute path="/posts/:postId/img/edit" exact={true}>
                 <UpdateImagePost />
               </ProtectedRoute>
               <Route path="/search/results" exact={true}>
                 <SearchResults
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
                   adjustQuery={adjustQuery}
                   setAdjustQuery={setAdjustQuery}
                   searchQuery={searchQuery}
@@ -356,22 +306,13 @@ function App() {
                 />
               </Route>
               <Route path="/users/:userId/profile" exact={true}>
-                <UserProfile
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
-                  setOpenChat={setOpenChat}
-                />
+                <UserProfile setOpenChat={setOpenChat} />
               </Route>
               <Route path="/profile" exact={true}>
-                <UserProfile
-                  setPageTitle={setPageTitle}
-                  setPageIcon={setPageIcon}
-                />
+                <UserProfile />
               </Route>
               {/* <ProtectedRoute path="/notifications" exact={true}>
             <Notifications
-              setPageTitle={setPageTitle}
-              setPageIcon={setPageIcon}
             />
           </ProtectedRoute> */}
               <Route></Route>

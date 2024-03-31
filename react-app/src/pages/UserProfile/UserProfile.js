@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { PageTitleContext } from "../../context";
 import {
   getFollowedPosts,
   getPosts,
@@ -14,9 +13,9 @@ import {
   UserProfilePosts,
 } from "../../pages";
 import "./UserProfile.css";
+import { usePageSettings } from "../../hooks/usePageSettings";
 
-export function UserProfile({ setShowLoginForm, setPageIcon, setOpenChat }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function UserProfile({ setShowLoginForm, setOpenChat }) {
   const dispatch = useDispatch();
   const { userId } = useParams();
   const [page, setPage] = useState("Posts");
@@ -34,19 +33,17 @@ export function UserProfile({ setShowLoginForm, setPageIcon, setOpenChat }) {
     dispatch(getCommunities());
   }, [dispatch]);
 
-  useEffect(() => {
-    document.title = user?.displayName + " (u/" + user?.username + ") - Ribbit";
-    setPageIcon(
+  usePageSettings({
+    documentTitle: user?.displayName + " (u/" + user?.username + ") - Ribbit",
+    icon: (
       <img
         src={user?.profile_img}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="User"
       />
-    );
-    setPageTitle(
-      <span className="nav-left-dropdown-item">u/{user?.username}</span>
-    );
-  }, [user]);
+    ),
+    pageTitle: `u/${user?.username}`,
+  });
 
   if (sortMode === "new") {
     posts.sort((a, b) => {

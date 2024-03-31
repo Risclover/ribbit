@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PageTitleContext } from "../../../context";
 import { getUserNotifications, getPosts, getUsers } from "../../../store";
 import { MessageContentMenu, MessageHead, PostReply } from "../..";
 import "./PostReplies.css";
 import "../Inbox/Inbox.css";
+import { usePageSettings } from "../../../hooks/usePageSettings";
 
-export function PostRepliesPage({ setPageIcon }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function PostRepliesPage() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const notifications = useSelector((state) =>
@@ -33,17 +32,17 @@ export function PostRepliesPage({ setPageIcon }) {
     dispatch(getUsers());
   }, [dispatch]);
 
-  useEffect(() => {
-    document.title = "Messages: Post Replies";
-    setPageIcon(
+  usePageSettings({
+    documentTitle: "Messages: Post Replies",
+    icon: (
       <img
         src={currentUser?.profile_img}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="User"
       />
-    );
-    setPageTitle(<span className="nav-left-dropdown-item">Messages</span>);
-  }, [setPageTitle, setPageIcon, currentUser?.profile_img]);
+    ),
+    pageTitle: "Messages",
+  });
 
   return (
     <div className="inbox-messages-page">

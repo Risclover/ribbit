@@ -6,14 +6,12 @@ import { PageTitleContext } from "../../../context";
 import "./NavLeftDropdown.css";
 
 export function NavLeftDropdownFace({
-  pageIcon,
-  setPageIcon,
   setShowNavSidebar,
   showNavSidebar,
   setNormalDropdown,
   normalDropdown,
 }) {
-  const { pageTitle, setPageTitle } = useContext(PageTitleContext);
+  const { pageTitle, pageIcon } = useContext(PageTitleContext);
   const [showIcon, setShowIcon] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -89,7 +87,6 @@ export function NavLeftDropdownFace({
           {showIcon && !showNavSidebar && (
             <div className="nav-left-dropdown">
               <NavLeftDropdown
-                setPageTitle={setPageTitle}
                 showIcon={showIcon}
                 setShowIcon={() => setShowIcon()}
               />

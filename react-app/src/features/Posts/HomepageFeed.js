@@ -28,8 +28,7 @@ import Home from "../../assets/images/navbar/home-icon.png";
 import "./Posts.css";
 import { usePageSettings } from "../../hooks/usePageSettings";
 
-export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function HomepageFeed() {
   const dispatch = useDispatch();
   const { format } = useContext(PostFormatContext);
 
@@ -63,9 +62,8 @@ export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
 
   usePageSettings({
     documentTitle: "Ribbit - Splash into anything",
-    iconSrc: Home,
-    iconAlt: "Home",
-    pageTitleContent: "Home",
+    icon: <img src={Home} className="nav-left-dropdown-item-icon" alt="Home" />,
+    pageTitle: "Home",
   });
 
   const postList = subscriptions.reduce((acc, sub) => {

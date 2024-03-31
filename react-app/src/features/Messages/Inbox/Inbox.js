@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PageTitleContext } from "../../../context";
 import { getMessages, getThreads } from "../../../store";
 import {
   MessageContentMenu,
@@ -9,9 +8,9 @@ import {
   PostReply,
 } from "../..";
 import "./Inbox.css";
+import { usePageSettings } from "../../../hooks/usePageSettings";
 
-export function Inbox({ setPageIcon }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function Inbox() {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.session.user);
@@ -32,17 +31,17 @@ export function Inbox({ setPageIcon }) {
     dispatch(getMessages());
   }, [dispatch]);
 
-  useEffect(() => {
-    document.title = "inbox-messages: Inbox";
-    setPageIcon(
+  usePageSettings({
+    documentTitle: "inbox-messages: Inbox",
+    icon: (
       <img
         src={currentUser?.profile_img}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="User"
       />
-    );
-    setPageTitle(<span className="nav-left-dropdown-item">Messages</span>);
-  }, [setPageTitle, setPageIcon, currentUser?.profile_img]);
+    ),
+    pageTitle: "Messages",
+  });
 
   messageList.sort((a, b) => {
     let msgA = new Date(a.createdAt);

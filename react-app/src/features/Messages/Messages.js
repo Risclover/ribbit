@@ -6,12 +6,11 @@ import {
   getUsers,
   readAllNotifications,
 } from "../../store";
-import { PageTitleContext } from "../../context";
 import { MessageThread, MessageHead, MessageContentMenu } from "..";
 import "./Messages.css";
+import { usePageSettings } from "../../hooks/usePageSettings";
 
-export function Messages({ setPageIcon }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function Messages() {
   const dispatch = useDispatch();
 
   const threads = useSelector((state) => Object.values(state.threads));
@@ -24,17 +23,17 @@ export function Messages({ setPageIcon }) {
     dispatch(readAllNotifications());
   }, [dispatch]);
 
-  useEffect(() => {
-    document.title = "Messages: Messages";
-    setPageIcon(
+  usePageSettings({
+    documentTitle: "Messages: Messages",
+    icon: (
       <img
         src={currentUser?.profile_img}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="User"
       />
-    );
-    setPageTitle(<span className="nav-left-dropdown-item">Messages</span>);
-  }, [setPageTitle, setPageIcon, currentUser?.profile_img]);
+    ),
+    pageTitle: "Messages",
+  });
 
   threads.sort((a, b) => {
     let aThread = new Date(a.updatedAt);

@@ -18,11 +18,11 @@ import {
   CommunityPageHeader,
 } from "../..";
 import { BackToTop } from "../../../components";
-import { PageTitleContext, PostFormatContext } from "../../../context";
+import { PostFormatContext } from "../../../context";
 import "../../Communities/CommunityPage.css";
+import { usePageSettings } from "../../../hooks/usePageSettings";
 
-export function PreviewCommunity({ setPageIcon }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function PreviewCommunity() {
   const dispatch = useDispatch();
   const { communityId } = useParams();
 
@@ -44,10 +44,9 @@ export function PreviewCommunity({ setPageIcon }) {
     dispatch(getSingleCommunity(+communityId));
   }, [communityId, dispatch]);
 
-  useEffect(() => {
-    document.title = community?.displayName;
-
-    setPageIcon(
+  usePageSettings({
+    documentTitle: community?.displayName,
+    icon: (
       <img
         style={{
           backgroundColor: `${
@@ -58,11 +57,9 @@ export function PreviewCommunity({ setPageIcon }) {
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"
       />
-    );
-    setPageTitle(
-      <span className="nav-left-dropdown-item">c/{community?.name}</span>
-    );
-  }, [community, setPageTitle, setPageIcon]);
+    ),
+    pageTitle: `c/${community?.name}`,
+  });
 
   useEffect(() => {
     if (favoriteCommunities[community?.id]) {

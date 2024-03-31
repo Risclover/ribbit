@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 
@@ -18,17 +18,11 @@ import {
   SearchResultsButtons,
   SearchResultsSorting,
 } from "../..";
-import { PageTitleContext } from "../../../context";
 import SearchDude from "../../../assets/images/search-icon.png";
 import "./SearchResults.css";
+import { usePageSettings } from "../../../hooks/usePageSettings";
 
-export function SearchResults({
-  setPageIcon,
-  searchQuery,
-  setSearchQuery,
-  setAdjustQuery,
-}) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
   const dispatch = useDispatch();
   const [searchPage, setSearchPage] = useState("Posts");
 
@@ -46,17 +40,15 @@ export function SearchResults({
   const allComments = useSelector((state) => state.comments);
   const allPosts = useSelector((state) => state.posts);
 
-  useEffect(() => {
-    document.title = "Search Results";
-    setPageIcon(
+  usePageSettings({
+    documentTitle: "Search Results",
+    icon: (
       <span className="nav-left-dropdown-item-svg">
         <BsSearch />
       </span>
-    );
-    setPageTitle(
-      <span className="nav-left-dropdown-item">Search Results</span>
-    );
-  }, []);
+    ),
+    pageTitle: "Search Results",
+  });
 
   const posts = results.filter(
     (post) =>

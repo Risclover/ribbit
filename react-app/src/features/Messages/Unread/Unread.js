@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PageTitleContext } from "../../../context";
 import { readAllMessages } from "../../../store";
 import { MessageHead, MessageContentMenu, InboxMessage } from "../..";
 import "../Inbox/Inbox.css";
+import { usePageSettings } from "../../../hooks/usePageSettings";
 
-export function Unread({ setPageIcon }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function Unread() {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.session.user);
@@ -19,17 +18,17 @@ export function Unread({ setPageIcon }) {
     dispatch(readAllMessages());
   }, [dispatch]);
 
-  useEffect(() => {
-    document.title = "Messages: Unread";
-    setPageIcon(
+  usePageSettings({
+    documentTitle: "Messages: Unread",
+    icon: (
       <img
         src={currentUser?.profile_img}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="User"
       />
-    );
-    setPageTitle(<span className="nav-left-dropdown-item">Messages</span>);
-  }, [setPageTitle, setPageIcon, currentUser?.profile_img]);
+    ),
+    pageTitle: "Messages",
+  });
 
   return (
     <div className="inbox-messages-page">

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,10 +9,9 @@ import {
   CommunityPageHeader,
   CommunityWelcome,
 } from "../features";
-import { PageTitleContext } from "../context";
+import { usePageSettings } from "../hooks/usePageSettings";
 
-export function CommunityPage({ setPageIcon }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function CommunityPage() {
   // const { communityId } = useParams();
   const { communityName } = useParams();
   const dispatch = useDispatch();
@@ -35,9 +34,9 @@ export function CommunityPage({ setPageIcon }) {
 
   const community = useSelector((state) => state.communities[communityId]);
 
-  useEffect(() => {
-    document.title = community?.displayName;
-    setPageIcon(
+  usePageSettings({
+    documentTitle: community?.displayName,
+    icon: (
       <img
         style={{
           backgroundColor: `${
@@ -48,11 +47,9 @@ export function CommunityPage({ setPageIcon }) {
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"
       />
-    );
-    setPageTitle(
-      <span className="nav-left-dropdown-item">c/{community?.name}</span>
-    );
-  }, [community, setPageTitle, setPageIcon]);
+    ),
+    pageTitle: `c/${community?.name}`,
+  });
 
   if (!community || !communities) return null;
 

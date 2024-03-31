@@ -1,25 +1,12 @@
 import { useContext, useEffect } from "react";
 import { PageTitleContext } from "../context";
 
-export function usePageSettings({
-  documentTitle,
-  iconSrc,
-  iconAlt,
-  pageTitleContent,
-}) {
+export function usePageSettings({ documentTitle, icon, pageTitle }) {
   const { setPageTitle, setPageIcon } = useContext(PageTitleContext);
 
   useEffect(() => {
     document.title = documentTitle;
-    setPageIcon(
-      <img
-        src={iconSrc}
-        className="nav-left-dropdown-item-icon"
-        alt={iconAlt}
-      />
-    );
-    setPageTitle(
-      <span className="nav-left-dropdown-item">{pageTitleContent}</span>
-    );
+    setPageIcon(icon);
+    setPageTitle(<span className="nav-left-dropdown-item">{pageTitle}</span>);
   }, [documentTitle, setPageTitle, setPageIcon]);
 }

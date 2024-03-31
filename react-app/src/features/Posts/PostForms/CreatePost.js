@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
@@ -16,7 +16,7 @@ import {
   getSubscriptions,
 } from "../../../store";
 
-import { Modal, PageTitleContext } from "../../../context";
+import { Modal } from "../../../context";
 import {
   CommunitySelection,
   PostTypeBar,
@@ -30,6 +30,7 @@ import {
 } from "../..";
 import getTextColor from "../../../utils/getTextColor";
 import "./PostForm.css";
+import { usePageSettings } from "../../../hooks/usePageSettings";
 
 const modules = {
   toolbar: [
@@ -47,8 +48,7 @@ const modules = {
   ],
 };
 
-export function CreatePost({ setPageIcon, postType, setPostType, val }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function CreatePost({ postType, setPostType, val }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { communityName } = useParams();
@@ -92,15 +92,15 @@ export function CreatePost({ setPageIcon, postType, setPostType, val }) {
 
   useAutosizeTextArea(textareaRef.current, title);
 
-  useEffect(() => {
-    document.title = `Submit to ${community ? community?.name : "Ribbit"}`;
-    setPageIcon(
+  usePageSettings({
+    documentTitle: `Submit to ${community ? community?.name : "Ribbit"}`,
+    icon: (
       <span className="nav-left-dropdown-item-svg">
         <TfiPlus />
       </span>
-    );
-    setPageTitle(<span className="nav-left-dropdown-item">Create Post</span>);
-  }, [community, setPageTitle, setPageIcon]);
+    ),
+    pageTitle: "Create Post",
+  });
 
   useEffect(() => {
     for (let community of communities) {

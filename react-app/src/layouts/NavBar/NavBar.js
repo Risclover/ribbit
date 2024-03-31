@@ -11,7 +11,7 @@ import {
   NotificationsDropdownWrapper,
   LoggedOutDropdownWrapper,
 } from "../NavBar";
-import { SelectedChatContext, PageTitleContext } from "../../context";
+import { SelectedChatContext } from "../../context";
 import { Searchbar, LoginSignupModal } from "../../features";
 import RibbitLogo from "../../assets/images/ribbit-banners/ribbit_logo_love.png";
 import RibbitLogoSmall from "../../assets/images/ribbit-banners/ribbit_logo_love_small.png";
@@ -19,8 +19,6 @@ import All from "../../assets/images/navbar/all-icon2.png";
 import "./NavBar.css";
 
 export function NavBar({
-  pageIcon,
-  setPageIcon,
   adjustQuery,
   searchQuery,
   setSearchQuery,
@@ -28,8 +26,6 @@ export function NavBar({
   normalDropdown,
   setNormalDropdown,
 }) {
-  const { pageTitle, setPageTitle } = useContext(PageTitleContext);
-
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -117,10 +113,6 @@ export function NavBar({
         <li>
           {user && (
             <NavLeftDropdownFace
-              pageTitle={pageTitle}
-              setPageTitle={setPageTitle}
-              pageIcon={pageIcon}
-              setPageIcon={setPageIcon}
               setShowNavSidebar={setShowNavSidebar}
               setNormalDropdown={setNormalDropdown}
               normalDropdown={normalDropdown}

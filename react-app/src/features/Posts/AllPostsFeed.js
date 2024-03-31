@@ -19,10 +19,9 @@ import { SortingFunction } from "./utils";
 import All from "../../assets/images/navbar/all-icon2.png";
 import "./Posts.css";
 import { PostFormatContext } from "../../context/PostFormat";
-import { PageTitleContext } from "../../context";
+import { usePageSettings } from "../../hooks/usePageSettings";
 
 export function AllPostsFeed() {
-  const { setPageTitle, setPageIcon } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const history = useHistory();
   const posts = useSelector((state) => Object.values(state.posts));
@@ -41,13 +40,11 @@ export function AllPostsFeed() {
     "#0079d3"
   );
 
-  useEffect(() => {
-    document.title = "c/all";
-    setPageIcon(
-      <img src={All} className="nav-left-dropdown-item-icon" alt="All" />
-    );
-    setPageTitle(<span className="nav-left-dropdown-item">All</span>);
-  }, [setPageTitle, setPageIcon]);
+  usePageSettings({
+    documentTitle: "c/all",
+    icon: <img src={All} className="nav-left-dropdown-item-icon" alt="All" />,
+    pageTitle: "All",
+  });
 
   SortingFunction(posts, sortMode);
 

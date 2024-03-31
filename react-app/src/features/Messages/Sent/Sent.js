@@ -1,12 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getThreads } from "../../../store";
 import { MessageHead, SentMessage } from "../..";
 import "./Sent.css";
-import { PageTitleContext } from "../../../context";
+import { usePageSettings } from "../../../hooks/usePageSettings";
 
-export function Sent({ setPageIcon }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function Sent() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const threads = useSelector((state) => Object.values(state.threads));
@@ -15,17 +14,17 @@ export function Sent({ setPageIcon }) {
     dispatch(getThreads());
   }, [dispatch]);
 
-  useEffect(() => {
-    document.title = "Messages: Sent";
-    setPageIcon(
+  usePageSettings({
+    documentTitle: "Messages: Sent",
+    icon: (
       <img
         src={currentUser?.profile_img}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="User"
       />
-    );
-    setPageTitle(<span className="nav-left-dropdown-item">Messages</span>);
-  }, [setPageTitle, setPageIcon, currentUser?.profile_img]);
+    ),
+    pageTitle: "Messages",
+  });
 
   let nothingHere = threads.map((thread) =>
     thread.messages.filter((message) => message.sender.id === currentUser.id)

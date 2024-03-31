@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { VscMailRead } from "react-icons/vsc";
@@ -6,11 +6,11 @@ import { VscSettingsGear } from "react-icons/vsc";
 import { TfiBell } from "react-icons/tfi";
 import moment from "moment";
 
-import { PageTitleContext } from "../../context";
 import { getUserNotifications, readAllNotifications } from "../../store";
 import { Notification } from "./Notification";
 import SparklyFrog from "../../assets/images/ribbit-frog-sparkly.png";
 import "./Notifications.css";
+import { usePageSettings } from "../../hooks/usePageSettings";
 
 moment.updateLocale("en-notif", {
   relativeTime: {
@@ -31,8 +31,7 @@ moment.updateLocale("en-notif", {
   },
 });
 
-export function Notifications({ setPageIcon }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function Notifications() {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -54,15 +53,15 @@ export function Notifications({ setPageIcon }) {
     dispatch(getUserNotifications(user.id));
   };
 
-  useEffect(() => {
-    document.title = "Notifications";
-    setPageIcon(
+  usePageSettings({
+    documentTitle: "Notifications",
+    icon: (
       <span className="nav-left-dropdown-face-icon">
         <TfiBell />
       </span>
-    );
-    setPageTitle(<span className="nav-left-dropdown-item">Notifications</span>);
-  }, [dispatch, setPageTitle.setPageIcon]);
+    ),
+    pageTitle: "Notifications",
+  });
 
   const today = notificationsList.filter(
     (item) => new Date(item.createdAt).getDay() === new Date().getDay()

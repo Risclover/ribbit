@@ -20,10 +20,10 @@ import { BackToTop } from "../../../components";
 import { Comments, SinglePost, CommunityRule, CommunityOptions } from "../..";
 import Cake from "../../../assets/images/misc/piece4.png";
 import "react-loading-skeleton/dist/skeleton.css";
-import { PostFormatContext, PageTitleContext } from "../../../context";
+import { PostFormatContext } from "../../../context";
+import { usePageSettings } from "../../../hooks/usePageSettings";
 
-export function SinglePostPage({ setPageIcon, setShowLoginForm }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function SinglePostPage({ setShowLoginForm }) {
   const history = useHistory();
   const { postId } = useParams();
   const dispatch = useDispatch();
@@ -53,20 +53,17 @@ export function SinglePostPage({ setPageIcon, setShowLoginForm }) {
     dispatch(addViewedPost(+postId));
   }, [dispatch]);
 
-  useEffect(() => {
-    document.title = post?.title + " : " + post?.communityName;
-
-    setPageIcon(
+  usePageSettings({
+    documentTitle: post?.title + " : " + post?.communityName,
+    icon: (
       <img
         src={post?.communitySettings[post?.communityId].communityIcon}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"
       />
-    );
-    setPageTitle(
-      <span className="nav-left-dropdown-item">c/{post?.communityName}</span>
-    );
-  }, [post, setPageTitle, setPageIcon]);
+    ),
+    pageTitle: `c/${post?.communityName}`,
+  });
 
   useEffect(() => {
     if (subscriptions[post?.communityId]) setSubscribed(true);
