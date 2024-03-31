@@ -53,7 +53,6 @@ export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
     dispatch(getPosts());
     dispatch(getSubscriptions());
     dispatch(getFollowers());
-    dispatch(getCommunitySettings());
   }, [dispatch]);
 
   document.documentElement.style.setProperty(
@@ -79,8 +78,6 @@ export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
     }
     return acc;
   }, []);
-
-  SortingFunction(postList, sortMode);
 
   const loadMore = () => {
     setLoading(true);
@@ -116,34 +113,30 @@ export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
     setLoader(false);
   }, 3000);
 
+  SortingFunction(postList, sortMode);
+
   if (!user || !communities) return null;
 
   return (
     <div
       className={format === "Card" ? "posts-container" : "posts-container-alt"}
     >
-      {loader && <LoadingEllipsis loader={loader} />}
-
-      {!loader && (
-        <>
-          <div
-            className={
-              format === "Card" ? "posts-left-col" : "posts-left-col-alt"
-            }
-          >
-            <CreatePostBar />
-            {!postList ||
-              (postList.length === 0 && (
-                <div className="no-posts-div">
-                  <i className="fa-solid fa-people-group"></i>
-                  <h1 className="head">No Subscriptions Yet</h1>
-                  <p>
-                    Explore the All feed or the Communities Directory to
-                    discover new communities.
-                  </p>
-                </div>
-              ))}
-            {/* {postList.slice(0, 10).map((post, idx) => (
+      <div
+        className={format === "Card" ? "posts-left-col" : "posts-left-col-alt"}
+      >
+        <CreatePostBar />
+        {!postList ||
+          (postList.length === 0 && (
+            <div className="no-posts-div">
+              <i className="fa-solid fa-people-group"></i>
+              <h1 className="head">No Subscriptions Yet</h1>
+              <p>
+                Explore the All feed or the Communities Directory to discover
+                new communities.
+              </p>
+            </div>
+          ))}
+        {/* {postList.slice(0, 10).map((post, idx) => (
               <NavLink key={post.id} to={`/posts/${post.id}`}>
                 <SinglePost
                   key={idx}
@@ -163,31 +156,29 @@ export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
                 />
               </NavLink>
             ))} */}
-            {postList && postList.length > 0 && (
-              <>
-                <SortingBar
-                  sortMode={sortMode}
-                  setSortMode={setSortMode}
-                  page="general-feed"
-                />
-                <PostFeed posts={postList} />
-              </>
-            )}
-          </div>
-          <div className="posts-right-col">
-            <AboutBox
-              title="Home"
-              description="Your personal Ribbit frontpage. Come here to check in with your favorite communities."
-              user={user}
+        {postList && postList.length > 0 && (
+          <>
+            <SortingBar
+              sortMode={sortMode}
+              setSortMode={setSortMode}
+              page="general-feed"
             />
-            {viewedPosts && viewedPosts.length > 0 && <RecentlyViewedPosts />}
-            <div className="last-box-wrapper">
-              <DeveloperLinksBox />
-              <BackToTop />
-            </div>
-          </div>
-        </>
-      )}
+            <PostFeed posts={postList} sortMode={sortMode} />
+          </>
+        )}
+      </div>
+      <div className="posts-right-col">
+        <AboutBox
+          title="Home"
+          description="Your personal Ribbit frontpage. Come here to check in with your favorite communities."
+          user={user}
+        />
+        {viewedPosts && viewedPosts.length > 0 && <RecentlyViewedPosts />}
+        <div className="last-box-wrapper">
+          <DeveloperLinksBox />
+          <BackToTop />
+        </div>
+      </div>
     </div>
   );
 }
