@@ -107,7 +107,7 @@ export function PreviewCommunity({ setPageIcon }) {
           communityId={communityId}
           user={user}
         />
-        <div className="community-page-right-col">
+        <div className="preview-community-page-right-col">
           <CommunityInfoBox
             setFavorited={setFavorited}
             user={user}

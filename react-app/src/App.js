@@ -134,7 +134,9 @@ function App() {
   };
 
   return (
-    <PageTitleContext.Provider value={{ pageTitle, setPageTitle }}>
+    <PageTitleContext.Provider
+      value={{ pageTitle, setPageTitle, pageIcon, setPageIcon }}
+    >
       <PostFormatContext.Provider value={{ format, setFormat }}>
         <SelectedChatContext.Provider value={{ selectedChat, setSelectedChat }}>
           <ScrollToTop />

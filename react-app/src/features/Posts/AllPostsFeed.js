@@ -21,8 +21,8 @@ import "./Posts.css";
 import { PostFormatContext } from "../../context/PostFormat";
 import { PageTitleContext } from "../../context";
 
-export function AllPostsFeed({ setPageIcon }) {
-  const { setPageTitle } = useContext(PageTitleContext);
+export function AllPostsFeed() {
+  const { setPageTitle, setPageIcon } = useContext(PageTitleContext);
   const dispatch = useDispatch();
   const history = useHistory();
   const posts = useSelector((state) => Object.values(state.posts));

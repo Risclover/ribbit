@@ -34,6 +34,7 @@ export function CommunityOptions({ community }) {
   }, [localStorage]);
 
   if (checked) {
+    console.log("checked:", checked);
     document.documentElement.style.setProperty(
       "--community-base-color",
       community?.communitySettings[community?.id]?.baseColor
@@ -132,6 +133,8 @@ export function CommunityOptions({ community }) {
 
     document.documentElement.style.setProperty("--community-body-bg-img", "");
   }
+
+  console.log("CHECEKD:", checked);
 
   const handleThemeToggle = (e) => {
     setChecked(!checked);

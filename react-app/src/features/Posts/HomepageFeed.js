@@ -26,6 +26,7 @@ import {
 import { SortingFunction } from "./utils";
 import Home from "../../assets/images/navbar/home-icon.png";
 import "./Posts.css";
+import { usePageSettings } from "../../hooks/usePageSettings";
 
 export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
   const { setPageTitle } = useContext(PageTitleContext);
@@ -60,17 +61,12 @@ export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
     "#0079d3"
   );
 
-  useEffect(() => {
-    document.title = "Ribbit - Splash into anything";
-    setPageIcon(
-      <img src={Home} className="nav-left-dropdown-item-icon" alt="Home" />
-    );
-    setPageTitle(<span className="nav-left-dropdown-item">Home</span>);
-
-    return () => {
-      setPageTitle("");
-    };
-  }, [dispatch]);
+  usePageSettings({
+    documentTitle: "Ribbit - Splash into anything",
+    iconSrc: Home,
+    iconAlt: "Home",
+    pageTitleContent: "Home",
+  });
 
   const postList = subscriptions.reduce((acc, sub) => {
     if (sub.subscribers[user?.id]?.id === user?.id) {
@@ -78,40 +74,6 @@ export function HomepageFeed({ setPageIcon, setShowLoginForm }) {
     }
     return acc;
   }, []);
-
-  const loadMore = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setItems((prevItems) => [
-        ...prevItems,
-        ...postList.slice(page * 5, page * 5 + 5),
-      ]);
-      setPage((prevPage) => prevPage + 1);
-      setLoading(false);
-    }, 1000);
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + window.scrollY >=
-          document.body.offsetHeight - 500 &&
-        !loading
-      ) {
-        loadMore();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [items, loading]);
-
-  setTimeout(() => {
-    setLoader(false);
-  }, 3000);
 
   SortingFunction(postList, sortMode);
 
