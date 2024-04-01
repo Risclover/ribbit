@@ -3,6 +3,7 @@ import { SinglePost } from "..";
 import { NavLink } from "react-router-dom";
 import { CreatePostBar, SortingBar } from "../../components";
 import { PostFormatContext } from "../../context/PostFormat";
+import { SortingFunction } from "../../utils";
 
 export function CommunityPosts({
   commPosts,
@@ -13,16 +14,7 @@ export function CommunityPosts({
   const [sortMode, setSortMode] = useState("new");
   const { format } = useContext(PostFormatContext);
 
-  commPosts.sort((a, b) => {
-    let postA = new Date(a.createdAt).getTime();
-    let postB = new Date(b.createdAt).getTime();
-
-    return sortMode === "top"
-      ? b.votes - a.votes || postB - postA
-      : sortMode === "new"
-      ? postB - postA
-      : null;
-  });
+  SortingFunction(commPosts, sortMode);
 
   return (
     <div

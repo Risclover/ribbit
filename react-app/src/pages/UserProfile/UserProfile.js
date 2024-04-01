@@ -45,22 +45,6 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
     pageTitle: `u/${user?.username}`,
   });
 
-  if (sortMode === "new") {
-    posts.sort((a, b) => {
-      let postA = new Date(a.createdAt).getTime();
-      let postB = new Date(b.createdAt).getTime();
-      return postB - postA;
-    });
-  }
-
-  if (sortMode === "top") {
-    posts.sort((a, b) => {
-      let postA = new Date(a.createdAt).getTime();
-      let postB = new Date(b.createdAt).getTime();
-      return b.votes - a.votes || postB - postA;
-    });
-  }
-
   if (!user) return null;
 
   return (

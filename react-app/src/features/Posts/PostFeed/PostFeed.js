@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { SinglePost } from "../SinglePost";
 import { getCommunities, getPosts } from "../../../store";
-import { SortingFunction } from "../utils";
 
 export function PostFeed({ posts, sortMode }) {
   const dispatch = useDispatch();

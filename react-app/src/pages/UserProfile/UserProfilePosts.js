@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { IoIosPaper } from "react-icons/io";
 import { SortingBar } from "../../components";
 import { SinglePost } from "../../features";
+import { SortingFunction } from "../../utils";
 
 export function UserProfilePosts({
   user,
@@ -11,6 +12,7 @@ export function UserProfilePosts({
   sortMode,
   setSortMode,
 }) {
+  SortingFunction(posts, sortMode);
   return (
     <div className="user-profile-posts-page">
       {user?.userPosts > 0 && (

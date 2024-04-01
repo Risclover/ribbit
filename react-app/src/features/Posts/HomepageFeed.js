@@ -9,19 +9,16 @@ import {
   getPosts,
   getSubscriptions,
 } from "../../store";
-import { SortingFunction } from "./utils";
+
 import Home from "../../assets/images/navbar/home-icon.png";
 import "./Posts.css";
 import { usePageSettings } from "../../hooks/usePageSettings";
+import { SortingFunction } from "../../utils";
 
 export function HomepageFeed() {
   const dispatch = useDispatch();
   const { format } = useContext(PostFormatContext);
 
-  const [loader, setLoader] = useState(true);
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(2);
   const [sortMode, setSortMode] = useState("new");
 
   const user = useSelector((state) => state.session.user);
@@ -84,26 +81,6 @@ export function HomepageFeed() {
               </p>
             </div>
           ))}
-        {/* {postList.slice(0, 10).map((post, idx) => (
-              <NavLink key={post.id} to={`/posts/${post.id}`}>
-                <SinglePost
-                  key={idx}
-                  id={post.id}
-                  postComments={Object.values(post.postComments).length}
-                  isCommunity={false}
-                />
-              </NavLink>
-            ))}
-            {items.map((post, idx) => (
-              <NavLink key={post.id} to={`/posts/${post.id}`}>
-                <SinglePost
-                  key={idx + 10}
-                  id={post.id}
-                  postComments={Object.values(post.postComments).length}
-                  isCommunity={false}
-                />
-              </NavLink>
-            ))} */}
         {postList && postList.length > 0 && (
           <>
             <SortingBar

@@ -15,11 +15,11 @@ import {
   RecentlyViewedPosts,
   PostFeed,
 } from "..";
-import { SortingFunction } from "./utils";
 import All from "../../assets/images/navbar/all-icon2.png";
 import "./Posts.css";
 import { PostFormatContext } from "../../context/PostFormat";
 import { usePageSettings } from "../../hooks/usePageSettings";
+import { SortingFunction } from "../../utils";
 
 export function AllPostsFeed() {
   const dispatch = useDispatch();

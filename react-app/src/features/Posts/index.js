@@ -7,5 +7,4 @@ export * from "./SinglePost";
 export { DiscardPost } from "./DiscardPost";
 export { AboutBox } from "./AboutBox";
 export { DeletePostModal } from "./DeletePost";
-export { SortingFunction } from "./utils";
 export * from "./PostFeed";

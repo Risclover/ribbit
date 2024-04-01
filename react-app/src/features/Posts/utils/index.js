@@ -1,1 +1,0 @@
-export { SortingFunction } from "./SortingFunction";
