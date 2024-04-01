@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { SinglePost } from "../SinglePost";
 import { getCommunities, getPosts } from "../../../store";
 
-export function PostFeed({ posts, sortMode }) {
+export function PostFeed({ posts, sortMode, isPage, format }) {
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -52,7 +52,13 @@ export function PostFeed({ posts, sortMode }) {
     <div>
       {items.map((post) => (
         <NavLink key={post.id} to={`/posts/${post.id}`}>
-          <SinglePost key={post.id} id={post.id} post={post} />
+          <SinglePost
+            key={post.id}
+            id={post.id}
+            post={post}
+            isPage={isPage}
+            format={format}
+          />
         </NavLink>
       ))}
       {loading && <div>Loading more posts...</div>}

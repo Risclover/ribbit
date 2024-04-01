@@ -19,19 +19,17 @@ export const SinglePost = ({ id, isPage, post }) => {
   const community = useSelector(
     (state) => state.communities?.[post?.communityId]
   );
-
+  const [tempFormat, setTempFormat] = useState(
+    isPage === "profile" ? "Card" : ""
+  );
   const { format } = useContext(PostFormatContext);
 
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
 
-  useEffect(() => {
-    dispatch(getCommunitySettings(post?.communityId));
-  }, [dispatch]);
-
   return (
     <article>
-      {format === "Card" && (
+      {(tempFormat === "Card" || format === "Card") && (
         <div className="post-card-format">
           {post && (
             <div className="single-post-container">
@@ -64,10 +62,10 @@ export const SinglePost = ({ id, isPage, post }) => {
           )}
         </div>
       )}
-      {format === "Classic" && (
+      {tempFormat !== "Card" && format === "Classic" && (
         <ClassicPostFormat id={id} isPage={isPage} post={post} />
       )}
-      {format === "Compact" && (
+      {tempFormat !== "Card" && format === "Compact" && (
         <CompactPostFormat id={id} isPage={isPage} post={post} />
       )}
     </article>

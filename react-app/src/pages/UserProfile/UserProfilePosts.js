@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { IoIosPaper } from "react-icons/io";
 import { SortingBar } from "../../components";
-import { SinglePost } from "../../features";
+import { PostFeed, SinglePost } from "../../features";
 import { SortingFunction } from "../../utils";
 
 export function UserProfilePosts({
@@ -30,21 +30,18 @@ export function UserProfilePosts({
           <p>This user hasn't created any posts yet. Perhaps they're shy?</p>
         </div>
       )}
-      {posts.map((post) =>
-        post.postAuthor.id === +userId ? (
-          <NavLink key={post.id} to={`/posts/${post.id}`}>
-            <SinglePost
-              post={post}
-              format="Card"
-              key={post.id}
-              id={post.id}
-              isPage="profile"
-            />
-          </NavLink>
-        ) : (
-          ""
-        )
-      )}
+      <PostFeed posts={posts} isPage="profile" sortMode={sortMode} />
+      {/* {posts.map((post) => (
+        <NavLink key={post.id} to={`/posts/${post.id}`}>
+          <SinglePost
+            post={post}
+            format="Card"
+            key={post.id}
+            id={post.id}
+            isPage="profile"
+          />
+        </NavLink>
+      ))} */}
     </div>
   );
 }

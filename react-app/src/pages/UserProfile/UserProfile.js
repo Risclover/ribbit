@@ -14,19 +14,19 @@ import {
 } from "../../pages";
 import "./UserProfile.css";
 import { usePageSettings } from "../../hooks/usePageSettings";
+import { SortingFunction } from "../../utils";
 
 export function UserProfile({ setShowLoginForm, setOpenChat }) {
   const dispatch = useDispatch();
   const { userId } = useParams();
-  const [page, setPage] = useState("Posts");
   const [sortMode, setSortMode] = useState("new");
   const user = useSelector((state) => state.users[+userId]);
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => Object.values(state.posts));
+  const profilePosts = posts.filter((post) => post.postAuthor.id === +userId);
   const currentUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
-    setPage("Posts");
     dispatch(getFollowedPosts());
     dispatch(getPosts());
     dispatch(getUsers());
@@ -44,22 +44,19 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
     ),
     pageTitle: `u/${user?.username}`,
   });
-
   if (!user) return null;
 
   return (
     <div className="user-profile-page">
       <div className="user-profile-left-col">
-        {page === "Posts" && (
-          <UserProfilePosts
-            posts={posts}
-            user={user}
-            userId={userId}
-            sortMode={sortMode}
-            setSortMode={setSortMode}
-            setShowLoginForm={setShowLoginForm}
-          />
-        )}
+        <UserProfilePosts
+          posts={profilePosts}
+          user={user}
+          userId={userId}
+          sortMode={sortMode}
+          setSortMode={setSortMode}
+          setShowLoginForm={setShowLoginForm}
+        />
       </div>
       <div className="user-profile-right-col">
         <UserAboutBox
