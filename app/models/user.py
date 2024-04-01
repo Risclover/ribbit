@@ -78,8 +78,9 @@ class User(db.Model, UserMixin):
         followed_posts = Post.query.join(
             followers, (followers.c.followed_id == Post.user_id)).filter(
                 followers.c.follower_id == self.id)
-        user_posts = Post.query.filter_by(user_id=self.id)
-        return followed_posts.union(user_posts)
+        # user_posts = Post.query.filter_by(user_id=self.id)
+        # return followed_posts.union(user_posts)
+        return followed_posts
 
     def followed_users(self):
         followed = User.query.join(

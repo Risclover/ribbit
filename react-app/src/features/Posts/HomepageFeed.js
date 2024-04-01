@@ -1,27 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import {
-  BackToTop,
-  SortingBar,
-  LoadingEllipsis,
-  CreatePostBar,
-} from "../../components";
-import { PostFormatContext, PageTitleContext } from "../../context";
-import {
-  SinglePost,
-  DeveloperLinksBox,
-  AboutBox,
-  RecentlyViewedPosts,
-  PostFeed,
-} from "..";
+import { BackToTop, SortingBar, CreatePostBar } from "../../components";
+import { PostFormatContext } from "../../context";
+import { DeveloperLinksBox, AboutBox, RecentlyViewedPosts, PostFeed } from "..";
 import {
   getCommunities,
-  getCommunitySettings,
   getFollowers,
   getPosts,
   getSubscriptions,
-  getViewedPosts,
 } from "../../store";
 import { SortingFunction } from "./utils";
 import Home from "../../assets/images/navbar/home-icon.png";
@@ -46,7 +32,7 @@ export function HomepageFeed() {
   const follows = useSelector((state) => state.followers);
   const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
 
-  let followedPosts = follows.posts;
+  let followedPosts = follows?.posts;
 
   useEffect(() => {
     dispatch(getCommunities());
@@ -73,9 +59,11 @@ export function HomepageFeed() {
     return acc;
   }, []);
 
+  if (followedPosts) postList.push(...Object.values(followedPosts));
+
   SortingFunction(postList, sortMode);
 
-  if (!user || !communities) return null;
+  if (!user || !communities || !followedPosts || !follows) return null;
 
   return (
     <div
