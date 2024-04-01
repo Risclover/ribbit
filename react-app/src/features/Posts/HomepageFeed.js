@@ -1,42 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext } from "react";
 import { BackToTop, SortingBar, CreatePostBar } from "../../components";
 import { PostFormatContext } from "../../context";
-import { DeveloperLinksBox, AboutBox, RecentlyViewedPosts, PostFeed } from "..";
 import {
-  getCommunities,
-  getFollowers,
-  getPosts,
-  getSubscriptions,
-} from "../../store";
-
+  DeveloperLinksBox,
+  AboutBox,
+  RecentlyViewedPosts,
+  PostFeed,
+} from "../../features";
 import Home from "../../assets/images/navbar/home-icon.png";
-import "./Posts.css";
 import { usePageSettings } from "../../hooks/usePageSettings";
-import { SortingFunction } from "../../utils";
+import { usePosts } from "./hooks/usePosts";
+import "./Posts.css";
 
 export function HomepageFeed() {
-  const dispatch = useDispatch();
+  const { sortedPosts, sortMode, setSortMode, user, viewedPosts } =
+    usePosts(false);
   const { format } = useContext(PostFormatContext);
-
-  const [sortMode, setSortMode] = useState("new");
-
-  const user = useSelector((state) => state.session.user);
-  const communities = useSelector((state) => Object.values(state.communities));
-  const subscriptions = useSelector((state) =>
-    Object.values(state.subscriptions)
-  );
-  const follows = useSelector((state) => state.followers);
-  const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
-
-  let followedPosts = follows?.posts;
-
-  useEffect(() => {
-    dispatch(getCommunities());
-    dispatch(getPosts());
-    dispatch(getSubscriptions());
-    dispatch(getFollowers());
-  }, [dispatch]);
 
   document.documentElement.style.setProperty(
     "--community-highlight",
@@ -49,19 +28,6 @@ export function HomepageFeed() {
     pageTitle: "Home",
   });
 
-  const postList = subscriptions.reduce((acc, sub) => {
-    if (sub.subscribers[user?.id]?.id === user?.id) {
-      acc.push(...Object.values(sub.communityPosts));
-    }
-    return acc;
-  }, []);
-
-  if (followedPosts) postList.push(...Object.values(followedPosts));
-
-  SortingFunction(postList, sortMode);
-
-  if (!user || !communities || !followedPosts || !follows) return null;
-
   return (
     <div
       className={format === "Card" ? "posts-container" : "posts-container-alt"}
@@ -70,8 +36,8 @@ export function HomepageFeed() {
         className={format === "Card" ? "posts-left-col" : "posts-left-col-alt"}
       >
         <CreatePostBar />
-        {!postList ||
-          (postList.length === 0 && (
+        {!sortedPosts ||
+          (sortedPosts.length === 0 && (
             <div className="no-posts-div">
               <i className="fa-solid fa-people-group"></i>
               <h1 className="head">No Subscriptions Yet</h1>
@@ -81,14 +47,14 @@ export function HomepageFeed() {
               </p>
             </div>
           ))}
-        {postList && postList.length > 0 && (
+        {sortedPosts && sortedPosts.length > 0 && (
           <>
             <SortingBar
               sortMode={sortMode}
               setSortMode={setSortMode}
               page="general-feed"
             />
-            <PostFeed posts={postList} sortMode={sortMode} />
+            <PostFeed posts={sortedPosts} sortMode={sortMode} />
           </>
         )}
       </div>

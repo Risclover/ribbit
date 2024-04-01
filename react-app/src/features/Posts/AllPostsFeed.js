@@ -1,39 +1,21 @@
-import React, { useEffect, useState, memo, lazy, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
-import { getPosts, addViewedPost } from "../../store";
+import React, { useContext } from "react";
+import { SortingBar, CreatePostBar, BackToTop } from "../../components";
 import {
-  SortingBar,
-  CreatePostBar,
-  BackToTop,
-  LoadingEllipsis,
-} from "../../components";
-import {
-  SinglePost,
   DeveloperLinksBox,
   AboutBox,
   RecentlyViewedPosts,
   PostFeed,
-} from "..";
+} from "../../features";
 import All from "../../assets/images/navbar/all-icon2.png";
-import "./Posts.css";
 import { PostFormatContext } from "../../context/PostFormat";
 import { usePageSettings } from "../../hooks/usePageSettings";
-import { SortingFunction } from "../../utils";
+import { usePosts } from "./hooks/usePosts";
+import "./Posts.css";
 
 export function AllPostsFeed() {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const posts = useSelector((state) => Object.values(state.posts));
-  const user = useSelector((state) => state.session.user);
-  const { format, setFormat } = useContext(PostFormatContext);
-  const [sortMode, setSortMode] = useState("new");
-
-  const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
-
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
+  const { sortedPosts, sortMode, setSortMode, user, viewedPosts } =
+    usePosts(true);
+  const { format } = useContext(PostFormatContext);
 
   document.documentElement.style.setProperty(
     "--community-highlight",
@@ -46,9 +28,6 @@ export function AllPostsFeed() {
     pageTitle: "All",
   });
 
-  SortingFunction(posts, sortMode);
-
-  if (!posts) return null;
   return (
     <div
       className={format === "Card" ? "posts-container" : "posts-container-alt"}
@@ -61,7 +40,7 @@ export function AllPostsFeed() {
         >
           {user && <CreatePostBar />}
           <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
-          <PostFeed posts={posts} sortMode={sortMode} />
+          <PostFeed posts={sortedPosts} sortMode={sortMode} />
         </div>
         <div className="posts-right-col">
           <AboutBox

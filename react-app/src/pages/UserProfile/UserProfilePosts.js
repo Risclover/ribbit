@@ -1,18 +1,17 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { IoIosPaper } from "react-icons/io";
 import { SortingBar } from "../../components";
-import { PostFeed, SinglePost } from "../../features";
+import { PostFeed } from "../../features";
 import { SortingFunction } from "../../utils";
 
-export function UserProfilePosts({
-  user,
-  posts,
-  userId,
-  sortMode,
-  setSortMode,
-}) {
-  SortingFunction(posts, sortMode);
+export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
+  const [sortedPosts, setSortedPosts] = useState([]);
+
+  useEffect(() => {
+    const sorted = SortingFunction(posts, sortMode);
+    setSortedPosts(sorted);
+  }, [posts, sortMode]);
+
   return (
     <div className="user-profile-posts-page">
       {user?.userPosts > 0 && (
@@ -30,18 +29,12 @@ export function UserProfilePosts({
           <p>This user hasn't created any posts yet. Perhaps they're shy?</p>
         </div>
       )}
-      <PostFeed posts={posts} isPage="profile" sortMode={sortMode} />
-      {/* {posts.map((post) => (
-        <NavLink key={post.id} to={`/posts/${post.id}`}>
-          <SinglePost
-            post={post}
-            format="Card"
-            key={post.id}
-            id={post.id}
-            isPage="profile"
-          />
-        </NavLink>
-      ))} */}
+      <PostFeed
+        posts={sortedPosts}
+        isPage="profile"
+        sortMode={sortMode}
+        format="Card"
+      />
     </div>
   );
 }

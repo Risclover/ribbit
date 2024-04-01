@@ -1,37 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getFollowedPosts,
-  getPosts,
-  getUsers,
-  getCommunities,
-} from "../../store";
+import { getPosts, getUsers, getCommunities } from "../../store";
 import {
   UserOwnedCommunities,
   UserAboutBox,
   UserProfilePosts,
 } from "../../pages";
-import "./UserProfile.css";
 import { usePageSettings } from "../../hooks/usePageSettings";
-import { SortingFunction } from "../../utils";
+import "./UserProfile.css";
 
 export function UserProfile({ setShowLoginForm, setOpenChat }) {
   const dispatch = useDispatch();
   const { userId } = useParams();
+
   const [sortMode, setSortMode] = useState("new");
+
   const user = useSelector((state) => state.users[+userId]);
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => Object.values(state.posts));
-  const profilePosts = posts.filter((post) => post.postAuthor.id === +userId);
   const currentUser = useSelector((state) => state.session.user);
 
+  const profilePosts = posts.filter((post) => post.postAuthor.id === +userId);
+
   useEffect(() => {
-    dispatch(getFollowedPosts());
     dispatch(getPosts());
     dispatch(getUsers());
     dispatch(getCommunities());
-  }, [dispatch]);
+  }, []);
 
   usePageSettings({
     documentTitle: user?.displayName + " (u/" + user?.username + ") - Ribbit",
@@ -44,6 +40,7 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
     ),
     pageTitle: `u/${user?.username}`,
   });
+
   if (!user) return null;
 
   return (

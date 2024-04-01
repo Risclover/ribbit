@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { SinglePost } from "../SinglePost";
-import { getCommunities, getPosts } from "../../../store";
 
 export function PostFeed({ posts, sortMode, isPage, format }) {
-  const dispatch = useDispatch();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getPosts());
-    dispatch(getCommunities());
-  }, [dispatch]);
-
-  useEffect(() => {
-    // Initialize or reset items on posts or sortMode change
     setItems(posts.slice(0, 10 * page));
   }, [posts, page, sortMode]);
 
@@ -46,8 +37,6 @@ export function PostFeed({ posts, sortMode, isPage, format }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [items, loading, posts.length]);
 
-  if (!posts) return null;
-
   return (
     <div>
       {items.map((post) => (
@@ -61,7 +50,6 @@ export function PostFeed({ posts, sortMode, isPage, format }) {
           />
         </NavLink>
       ))}
-      {loading && <div>Loading more posts...</div>}
     </div>
   );
 }
