@@ -95,9 +95,9 @@ export function CreatePost({ postType, setPostType, val }) {
   usePageSettings({
     documentTitle: `Submit to ${community ? community?.name : "Ribbit"}`,
     icon: (
-      <span className="nav-left-dropdown-item-svg">
+      <div className="nav-left-dropdown-item-icon">
         <TfiPlus />
-      </span>
+      </div>
     ),
     pageTitle: "Create Post",
   });

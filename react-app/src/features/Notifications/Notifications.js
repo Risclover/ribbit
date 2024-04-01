@@ -56,9 +56,9 @@ export function Notifications() {
   usePageSettings({
     documentTitle: "Notifications",
     icon: (
-      <span className="nav-left-dropdown-face-icon">
+      <div className="nav-left-dropdown-item-icon">
         <TfiBell />
-      </span>
+      </div>
     ),
     pageTitle: "Notifications",
   });

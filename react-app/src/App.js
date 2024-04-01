@@ -36,6 +36,7 @@ import {
   SignUpForm,
   ProtectedRoute,
   EditCommunity,
+  Notifications,
 } from "./features";
 import { NavBar, NavSidebar, LoggedOutSidebar } from "./layouts";
 
@@ -153,6 +154,7 @@ function App() {
                 showLoggedOutSidebar={showLoggedOutSidebar}
               />
             )}
+
             {user && (
               <NavSidebar
                 setShowNavSidebar={setShowNavSidebar}
@@ -161,9 +163,11 @@ function App() {
                 normalDropdown={normalDropdown}
               />
             )}
+
             {openChat && (
               <ChatWindow setOpenChat={setOpenChat} openChat={openChat} />
             )}
+
             <Switch>
               {user ? (
                 <Route path="/" exact={true}>
@@ -174,12 +178,15 @@ function App() {
                   <AllPostsFeed />
                 </Route>
               )}
+
               <Route path="/home" exact={true}>
                 <HomepageFeed />
               </Route>
+
               <Route path="/login">
                 <LoginPage />
               </Route>
+
               <Route path="/signup">
                 {showSignupForm && (
                   <Modal
@@ -194,9 +201,11 @@ function App() {
                   </Modal>
                 )}
               </Route>
+
               <Route path="/c/all" exact={true}>
                 <AllPostsFeed />
               </Route>
+
               <ProtectedRoute path="/submit" exact={true}>
                 <CreatePost
                   postType={postType}
@@ -204,6 +213,7 @@ function App() {
                   val="post"
                 />
               </ProtectedRoute>
+
               <ProtectedRoute path="/c/submit/image" exact={true}>
                 <CreatePost
                   postType={postType}
@@ -211,6 +221,7 @@ function App() {
                   val="image"
                 />
               </ProtectedRoute>
+
               <ProtectedRoute path="/c/submit/url" exact={true}>
                 <CreatePost
                   postType={postType}
@@ -218,6 +229,7 @@ function App() {
                   val="link"
                 />
               </ProtectedRoute>
+
               <ProtectedRoute path="/c/:communityName/submit" exact={true}>
                 <CreatePost
                   postType={postType}
@@ -225,6 +237,7 @@ function App() {
                   val="post"
                 />
               </ProtectedRoute>
+
               <ProtectedRoute
                 path="/c/:communityName/submit/image"
                 exact={true}
@@ -235,6 +248,7 @@ function App() {
                   val="image"
                 />
               </ProtectedRoute>
+
               <ProtectedRoute path="/c/:communityName/submit/url" exact={true}>
                 <CreatePost
                   postType={postType}
@@ -242,9 +256,11 @@ function App() {
                   val="link"
                 />
               </ProtectedRoute>
+
               <Route path="/posts/:postId" exact={true}>
                 <SinglePostPage />
               </Route>
+
               <Route path="/images/:postId" exact={true}>
                 <SingleImagePage />
               </Route>
@@ -252,33 +268,43 @@ function App() {
               <Route path="/directory" exact={true}>
                 <CommunitiesDirectory />
               </Route>
+
               <Route path="/chat" exact={true}>
                 <Chat />
               </Route>
+
               <ProtectedRoute path="/message/messages" exact={true}>
                 <Messages />
               </ProtectedRoute>
+
               <ProtectedRoute path="/message/unread" exact={true}>
                 <Unread />
               </ProtectedRoute>
+
               <ProtectedRoute path="/message/sent" exact={true}>
                 <Sent />
               </ProtectedRoute>
+
               <ProtectedRoute path="/message/inbox" exact={true}>
                 <Inbox />
               </ProtectedRoute>
+
               <ProtectedRoute path="/message/selfreply" exact={true}>
                 <PostRepliesPage />
               </ProtectedRoute>
+
               <ProtectedRoute path="/message/messages/:threadId" exact={true}>
                 <Permalink />
               </ProtectedRoute>
+
               <ProtectedRoute path="/posts/:postId/edit" exact={true}>
                 <UpdatePost />
               </ProtectedRoute>
+
               <Route path="/c/:communityName" exact={true}>
                 <CommunityPage />
               </Route>
+
               <ProtectedRoute exact path="/c/:communityId/style">
                 <PreviewCommunity
                   postType={postType}
@@ -288,15 +314,19 @@ function App() {
                   setPreviewPage={setPreviewPage}
                 />
               </ProtectedRoute>
+
               <ProtectedRoute path="/c/:communityName/edit" exact={true}>
                 <EditCommunity />
               </ProtectedRoute>
+
               <ProtectedRoute path="/users/:userId/profile/edit" exact={true}>
                 <EditProfile />
               </ProtectedRoute>
+
               <ProtectedRoute path="/posts/:postId/img/edit" exact={true}>
                 <UpdateImagePost />
               </ProtectedRoute>
+
               <Route path="/search/results" exact={true}>
                 <SearchResults
                   adjustQuery={adjustQuery}
@@ -305,16 +335,18 @@ function App() {
                   setSearchQuery={setSearchQuery}
                 />
               </Route>
+
               <Route path="/users/:userId/profile" exact={true}>
                 <UserProfile setOpenChat={setOpenChat} />
               </Route>
+
               <Route path="/profile" exact={true}>
                 <UserProfile />
               </Route>
-              {/* <ProtectedRoute path="/notifications" exact={true}>
-            <Notifications
-            />
-          </ProtectedRoute> */}
+
+              <ProtectedRoute path="/notifications" exact={true}>
+                <Notifications />
+              </ProtectedRoute>
               <Route></Route>
             </Switch>
           </div>

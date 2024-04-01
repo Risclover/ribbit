@@ -29,6 +29,10 @@
   color: #1a1a1b;
 }
 
+.nav-left-dropdown-item-icon svg {
+  left: 10px;
+}
+
 .nav-left-dropdown-face-title {
   display: flex;
   align-items: center;

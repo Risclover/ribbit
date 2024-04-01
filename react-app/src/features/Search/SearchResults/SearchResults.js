@@ -43,9 +43,9 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
   usePageSettings({
     documentTitle: "Search Results",
     icon: (
-      <span className="nav-left-dropdown-item-svg">
+      <div className="nav-left-dropdown-item-icon">
         <BsSearch />
-      </span>
+      </div>
     ),
     pageTitle: "Search Results",
   });
