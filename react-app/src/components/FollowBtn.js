@@ -35,11 +35,9 @@ export function FollowBtn({ user }) {
 
   return (
     <button
-      className={
-        "username-popup-btn-btm" && !following
-          ? "blue-btn-filled btn-long"
-          : "blue-btn-unfilled btn-long"
-      }
+      className={`username-popup-btn-btm ${
+        !following ? "blue-btn-filled btn-long" : "blue-btn-unfilled btn-long"
+      }`}
       onClick={handleFollow}
     >
       {!following ? "Follow" : "Unfollow"}

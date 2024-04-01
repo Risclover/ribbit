@@ -1,13 +1,14 @@
 .username-popup {
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  min-width: 240px;
+  width: 240px;
+  max-width: 380px;
   position: absolute;
   z-index: 99999;
   background: white;
   visibility: hidden;
   cursor: default;
-  padding: 12px 12px 0;
+  padding: 12px 12px 0px;
 }
 
 .username-popup-user-info {
