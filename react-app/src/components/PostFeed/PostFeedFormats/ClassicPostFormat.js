@@ -8,12 +8,12 @@ import { CgNotes } from "react-icons/cg";
 import parse from "html-react-parser";
 import moment from "moment";
 
-import Bounce from "../../../../assets/images/misc/curved-arrow.png";
-import { DeleteConfirmationModal } from "../../../../components";
-import { Modal } from "../../../../context";
-import { SinglePostKarmabar } from "../../..";
-import { sliceUrl } from "../../../../utils";
-import "../../SinglePost/SinglePost.css";
+import Bounce from "../../../assets/images/misc/curved-arrow.png";
+import { DeleteConfirmationModal } from "../../../components";
+import { Modal } from "../../../context";
+import { SinglePostKarmabar } from "../../../features";
+import { sliceUrl } from "../../../utils";
+import "../../../features/Posts/SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 
 export function ClassicPostFormat({ isPage, id, userId }) {

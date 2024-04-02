@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
-import { BackToTop, SortingBar, CreatePostBar } from "../../components";
+import { BackToTop, CreatePostBar, PostFeed } from "../../components";
 import { PostFormatContext } from "../../context";
 import {
-  DeveloperLinksBox,
   AboutBox,
+  DeveloperLinksBox,
   RecentlyViewedPosts,
-  PostFeed,
 } from "../../features";
-import Home from "../../assets/images/navbar/home-icon.png";
 import { usePageSettings } from "../../hooks/usePageSettings";
 import { usePosts } from "./hooks/usePosts";
+import Home from "../../assets/images/navbar/home-icon.png";
 import "./Posts.css";
 
 export function HomepageFeed() {
@@ -48,14 +47,11 @@ export function HomepageFeed() {
             </div>
           ))}
         {sortedPosts && sortedPosts.length > 0 && (
-          <>
-            <SortingBar
-              sortMode={sortMode}
-              setSortMode={setSortMode}
-              page="general-feed"
-            />
-            <PostFeed posts={sortedPosts} sortMode={sortMode} />
-          </>
+          <PostFeed
+            posts={sortedPosts}
+            sortMode={sortMode}
+            setSortMode={setSortMode}
+          />
         )}
       </div>
       <div className="posts-right-col">

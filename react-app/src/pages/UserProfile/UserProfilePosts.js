@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IoIosPaper } from "react-icons/io";
 import { SortingBar } from "../../components";
-import { PostFeed } from "../../features";
+import { PostFeed } from "../../components";
 import { SortingFunction } from "../../utils";
 
 export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
@@ -14,14 +14,6 @@ export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
 
   return (
     <div className="user-profile-posts-page">
-      {user?.userPosts > 0 && (
-        <SortingBar
-          sortMode={sortMode}
-          setSortMode={setSortMode}
-          format="none"
-          page="user-profile"
-        />
-      )}
       {user?.userPosts === 0 && (
         <div className="no-posts-div">
           <IoIosPaper />
@@ -34,6 +26,8 @@ export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
         isPage="profile"
         sortMode={sortMode}
         format="Card"
+        setSortMode={setSortMode}
+        user={user}
       />
     </div>
   );

@@ -7,4 +7,3 @@ export * from "./SinglePost";
 export { DiscardPost } from "./DiscardPost";
 export { AboutBox } from "./AboutBox";
 export { DeletePostModal } from "./DeletePost";
-export * from "./PostFeed";

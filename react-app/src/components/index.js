@@ -7,3 +7,4 @@ export { DeleteConfirmationModal } from "./DeleteConfirmationModal";
 export { LoadingEllipsis } from "./LoadingEllipsis";
 export { BackToTop } from "./BackToTop";
 export * from "./FollowBtn";
+export * from "./PostFeed";

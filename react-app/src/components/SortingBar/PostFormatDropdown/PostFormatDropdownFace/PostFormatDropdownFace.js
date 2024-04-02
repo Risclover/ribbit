@@ -6,7 +6,7 @@ import { PostFormatContext } from "../../../../context/PostFormat";
 import { useOutsideClick } from "../../../../hooks/useOutsideClick";
 import "../PostFormatDropdown.css";
 
-export function PostFormatDropdownFace({ page }) {
+export function PostFormatDropdownFace() {
   const { format } = useContext(PostFormatContext);
   const [showDropdown, setShowDropdown] = useState(false);
   const wrapperRef = useRef(null);
@@ -40,7 +40,6 @@ export function PostFormatDropdownFace({ page }) {
       </button>
       {showDropdown && (
         <PostFormatDropdown
-          page={page}
           setShowDropdown={setShowDropdown}
           formats={formats}
         />

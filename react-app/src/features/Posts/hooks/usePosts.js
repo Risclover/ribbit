@@ -47,8 +47,7 @@ export function usePosts(isAllPosts) {
       posts = posts.filter((post) => subbedPostsIds.has(post.id));
     }
 
-    return SortingFunction(posts, sortMode); 
+    return SortingFunction(posts, sortMode);
   }, [userPosts, subscriptions, follows, sortMode, isAllPosts, user?.id]);
-
   return { sortedPosts, sortMode, setSortMode, user, viewedPosts };
 }

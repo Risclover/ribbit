@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { SinglePost } from "../SinglePost";
+import { SinglePost } from "../../features";
+import { SortingBar } from "../SortingBar";
 
-export function PostFeed({ posts, sortMode, isPage, format }) {
+export function PostFeed({
+  posts,
+  sortMode,
+  isPage,
+  format,
+  setSortMode,
+  community,
+  pageType,
+  user,
+}) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -39,6 +49,17 @@ export function PostFeed({ posts, sortMode, isPage, format }) {
 
   return (
     <div>
+      {((isPage === "profile" && user?.userPosts > 0) ||
+        isPage !== "profile") && (
+        <SortingBar
+          sortMode={sortMode}
+          setSortMode={setSortMode}
+          page={pageType}
+          community={community}
+          isPage={isPage}
+          user={user}
+        />
+      )}
       {items.map((post) => (
         <NavLink key={post.id} to={`/posts/${post.id}`}>
           <SinglePost

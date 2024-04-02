@@ -10,13 +10,13 @@ import { BsThreeDots } from "react-icons/bs";
 import parse from "html-react-parser";
 import moment from "moment";
 
-import { addPostVote, removePostVote, getUsers } from "../../../../store";
+import { addPostVote, removePostVote, getUsers } from "../../../store";
 
-import Bounce from "../../../../assets/images/misc/curved-arrow.png";
-import { DeleteConfirmationModal } from "../../../../components";
-import { Modal } from "../../../../context";
-import { sliceUrl, HandleClickOutside } from "../../../../utils";
-import "../../SinglePost/SinglePost.css";
+import Bounce from "../../../assets/images/misc/curved-arrow.png";
+import { DeleteConfirmationModal } from "../../../components";
+import { Modal } from "../../../context";
+import { sliceUrl, HandleClickOutside } from "../../../utils";
+import "../../../features/Posts/SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 import "./CompactPostFormat.css";
 

@@ -57,7 +57,7 @@ export function SinglePostPage({ setShowLoginForm }) {
     documentTitle: post?.title + " : " + post?.communityName,
     icon: (
       <img
-        src={post?.communitySettings[post?.communityId].communityIcon}
+        src={post?.communitySettings?.[post?.communityId].communityIcon}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"
       />

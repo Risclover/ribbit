@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
-import { SortingBar, CreatePostBar, BackToTop } from "../../components";
+import { CreatePostBar, BackToTop, PostFeed } from "../../components";
 import {
   DeveloperLinksBox,
   AboutBox,
   RecentlyViewedPosts,
-  PostFeed,
 } from "../../features";
-import All from "../../assets/images/navbar/all-icon2.png";
 import { PostFormatContext } from "../../context/PostFormat";
 import { usePageSettings } from "../../hooks/usePageSettings";
 import { usePosts } from "./hooks/usePosts";
+import All from "../../assets/images/navbar/all-icon2.png";
 import "./Posts.css";
 
 export function AllPostsFeed() {
@@ -39,8 +38,11 @@ export function AllPostsFeed() {
           }
         >
           {user && <CreatePostBar />}
-          <SortingBar sortMode={sortMode} setSortMode={setSortMode} />
-          <PostFeed posts={sortedPosts} sortMode={sortMode} />
+          <PostFeed
+            posts={sortedPosts}
+            sortMode={sortMode}
+            setSortMode={setSortMode}
+          />
         </div>
         <div className="posts-right-col">
           <AboutBox

@@ -1,20 +1,14 @@
 import React, { useContext, useState } from "react";
-import { SinglePost } from "..";
-import { NavLink } from "react-router-dom";
-import { CreatePostBar, SortingBar } from "../../components";
+import { PostFeed } from "../../components";
+import { CreatePostBar } from "../../components";
 import { PostFormatContext } from "../../context/PostFormat";
 import { SortingFunction } from "../../utils";
 
-export function CommunityPosts({
-  commPosts,
-  communityName,
-  user,
-  setShowLoginForm,
-}) {
+export function CommunityPosts({ commPosts, communityName, user }) {
   const [sortMode, setSortMode] = useState("new");
   const { format } = useContext(PostFormatContext);
 
-  SortingFunction(commPosts, sortMode);
+  const posts = SortingFunction(commPosts, sortMode);
 
   return (
     <div
@@ -25,10 +19,12 @@ export function CommunityPosts({
       }
     >
       {user && <CreatePostBar page="community" communityName={communityName} />}
-      <SortingBar
-        community={true}
-        sortMode={sortMode}
+
+      <PostFeed
         setSortMode={setSortMode}
+        community={true}
+        posts={posts}
+        sortMode={sortMode}
       />
 
       {commPosts.length === 0 && (
@@ -37,21 +33,6 @@ export function CommunityPosts({
           give visitors something to read?
         </div>
       )}
-
-      {commPosts.map((post) => (
-        <NavLink
-          key={post.id}
-          activeClassName="single-post-active"
-          to={`/posts/${post.id}`}
-        >
-          <SinglePost
-            id={post.id}
-            isPage="community"
-            setShowLoginForm={setShowLoginForm}
-            post={post}
-          />
-        </NavLink>
-      ))}
     </div>
   );
 }

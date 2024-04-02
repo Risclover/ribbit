@@ -1,5 +1,5 @@
-import React, { memo, useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useState } from "react";
+import { useSelector } from "react-redux";
 import { PostFormatContext } from "../../../context/PostFormat";
 import {
   SinglePostKarmabar,
@@ -8,12 +8,10 @@ import {
   SinglePostButtonBar,
 } from "../..";
 import "./SinglePost.css";
-import { CompactPostFormat, ClassicPostFormat } from "../PostFeed";
-import { getCommunitySettings } from "../../../store";
+import { CompactPostFormat, ClassicPostFormat } from "../../../components";
 
 export const SinglePost = ({ id, isPage, post }) => {
   // const post = useSelector((state) => state.posts[id]);
-  const dispatch = useDispatch();
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users?.[cuser?.id]);
   const community = useSelector(

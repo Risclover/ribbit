@@ -69,15 +69,15 @@ export function SinglePostKarmabar({
       if (user?.id in post?.postVoters) {
         if (voteType === "upvote") {
           if (!post?.postVoters[user?.id].isUpvote) {
-            await dispatch(removePostVote(post.id));
-            await dispatch(addPostVote(post.id, "upvote"));
+            await dispatch(removePostVote(post?.id));
+            await dispatch(addPostVote(post?.id, "upvote"));
           } else if (upvote) {
             handleRemoveVote();
           }
         } else if (voteType === "downvote") {
           if (post?.postVoters[user?.id].isUpvote) {
-            await dispatch(removePostVote(post.id));
-            await dispatch(addPostVote(post.id, "downvote"));
+            await dispatch(removePostVote(post?.id));
+            await dispatch(addPostVote(post?.id, "downvote"));
           } else if (downvote) {
             handleRemoveVote();
           }
@@ -90,14 +90,14 @@ export function SinglePostKarmabar({
   };
 
   const handleAddVote = async (voteType) => {
-    await dispatch(addPostVote(post.id, voteType));
+    await dispatch(addPostVote(post?.id, voteType));
     if (voteType === "upvote") setUpvote(true);
     if (voteType === "downvote") setDownvote(true);
     dispatch(getUsers());
   };
 
   const handleRemoveVote = async () => {
-    await dispatch(removePostVote(post.id));
+    await dispatch(removePostVote(post?.id));
     if (upvote) {
       setUpvote(false);
     }
