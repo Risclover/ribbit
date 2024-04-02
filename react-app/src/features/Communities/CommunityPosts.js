@@ -3,8 +3,10 @@ import { PostFeed } from "../../components";
 import { CreatePostBar } from "../../components";
 import { PostFormatContext } from "../../context/PostFormat";
 import { SortingFunction } from "../../utils";
+import { useHistory } from "react-router-dom";
 
 export function CommunityPosts({ commPosts, communityName, user }) {
+  const history = useHistory();
   const [sortMode, setSortMode] = useState("new");
   const { format } = useContext(PostFormatContext);
 
@@ -28,9 +30,24 @@ export function CommunityPosts({ commPosts, communityName, user }) {
       />
 
       {commPosts.length === 0 && (
-        <div className="community-no-posts">
-          Welcome to your new community! Why don't you write your first post to
-          give visitors something to read?
+        <div className="community-no-posts-container">
+          <div className="community-no-posts-div"></div>
+          <div className="community-no-posts-notice">
+            <div className="community-no-posts">
+              <div className="community-no-posts-title">
+                There are no posts in this community
+              </div>
+              <div className="community-no-posts-content">
+                Be the first to till this fertile land.
+              </div>
+              <button
+                className="community-btn-filled blue-btn-filled community-no-posts-btn"
+                onClick={() => history.push(`/c/${communityName}/submit`)}
+              >
+                Add a post
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
