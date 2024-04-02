@@ -280,7 +280,7 @@
 
 .no-comments-msg svg {
   opacity: 0.6;
-  color: #0079d3;
+  color: var(--community-highlight);
 }
 
 .no-comments-yet {
