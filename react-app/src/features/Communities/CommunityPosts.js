@@ -1,25 +1,16 @@
-import React, { useContext, useState } from "react";
-import { PostFeed } from "../../components";
-import { CreatePostBar } from "../../components";
-import { PostFormatContext } from "../../context/PostFormat";
+import React, { useState } from "react";
+import { PostFeed, CreatePostBar } from "../../components";
 import { SortingFunction } from "../../utils";
 import { useHistory } from "react-router-dom";
 
 export function CommunityPosts({ commPosts, communityName, user }) {
   const history = useHistory();
   const [sortMode, setSortMode] = useState("new");
-  const { format } = useContext(PostFormatContext);
 
   const posts = SortingFunction(commPosts, sortMode);
 
   return (
-    <div
-      className={
-        format === "Card"
-          ? "community-page-left-col"
-          : "community-page-left-col-alt"
-      }
-    >
+    <>
       {user && <CreatePostBar page="community" communityName={communityName} />}
 
       <PostFeed
@@ -50,6 +41,6 @@ export function CommunityPosts({ commPosts, communityName, user }) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

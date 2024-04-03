@@ -376,10 +376,10 @@
   background: white;
 }
 
-.single-page-content .single-post-left-col:hover {
+/* .single-page-content .single-post-left-col:hover {
   border: 1px solid #edeff1;
   width: 100%;
-}
+} */
 
 .logged-in-btns {
   display: flex;

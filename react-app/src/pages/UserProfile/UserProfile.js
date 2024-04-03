@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, getUsers, getCommunities } from "../../store";
@@ -9,10 +9,17 @@ import {
 } from "../../pages";
 import { usePageSettings } from "../../hooks/usePageSettings";
 import "./UserProfile.css";
+import {
+  FeedContainer,
+  FeedLeftColContainer,
+  FeedRightColContainer,
+} from "../../layouts";
+import { PostFormatContext } from "../../context";
 
 export function UserProfile({ setShowLoginForm, setOpenChat }) {
   const dispatch = useDispatch();
   const { userId } = useParams();
+  const { setFormat } = useContext(PostFormatContext);
 
   const [sortMode, setSortMode] = useState("new");
 
@@ -27,6 +34,7 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
     dispatch(getPosts());
     dispatch(getUsers());
     dispatch(getCommunities());
+    setFormat("Card");
   }, []);
 
   usePageSettings({
@@ -44,8 +52,8 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
   if (!user) return null;
 
   return (
-    <div className="user-profile-page">
-      <div className="user-profile-left-col">
+    <FeedContainer>
+      <FeedLeftColContainer>
         <UserProfilePosts
           posts={profilePosts}
           user={user}
@@ -54,8 +62,8 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
           setSortMode={setSortMode}
           setShowLoginForm={setShowLoginForm}
         />
-      </div>
-      <div className="user-profile-right-col">
+      </FeedLeftColContainer>
+      <FeedRightColContainer>
         <UserAboutBox
           setOpenChat={setOpenChat}
           currentUser={currentUser}
@@ -71,8 +79,8 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
             userId={+userId}
           />
         )}
-      </div>
-    </div>
+      </FeedRightColContainer>
+    </FeedContainer>
   );
 }
 export default UserProfile;

@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { CommunityPosts, CommunityInfoBox, CommunityRulesBox } from "../..";
 import { BackToTop } from "../../../components";
+import {
+  FeedContainer,
+  FeedLeftColContainer,
+  FeedRightColContainer,
+} from "../../../layouts";
 
 export function CommunityPageMain({ community }) {
   const posts = useSelector((state) => Object.values(state.posts));
@@ -11,14 +16,16 @@ export function CommunityPageMain({ community }) {
   const user = useSelector((state) => state.session.user);
 
   return (
-    <div className="community-page-main">
+    <FeedContainer>
       <div className="community-body-bg-div"></div>
-      <CommunityPosts
-        commPosts={communityPosts}
-        communityName={community.name}
-        user={user}
-      />
-      <div className="community-page-right-col">
+      <FeedLeftColContainer>
+        <CommunityPosts
+          commPosts={communityPosts}
+          communityName={community.name}
+          user={user}
+        />
+      </FeedLeftColContainer>
+      <FeedRightColContainer>
         <CommunityInfoBox user={user} community={community} />
 
         {Object.values(community.communityRules).length > 0 && (
@@ -26,7 +33,7 @@ export function CommunityPageMain({ community }) {
         )}
 
         <BackToTop community={true} />
-      </div>
-    </div>
+      </FeedRightColContainer>
+    </FeedContainer>
   );
 }

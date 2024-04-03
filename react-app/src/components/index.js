@@ -8,3 +8,5 @@ export { LoadingEllipsis } from "./LoadingEllipsis";
 export { BackToTop } from "./BackToTop";
 export * from "./FollowBtn";
 export * from "./PostFeed";
+export * from "../layouts/FeedContainer";
+export { NoPostsMessage } from "./NoPostsMessage";
