@@ -1,14 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { CreateCommunity } from "..";
-import RibbitBanner from "../../assets/images/ribbit-banners/ribbit_banner.png";
+import { CreateCommunity } from "../../features";
+import { ribbitBanners } from "../../assets";
 
 export function AboutBox({ title, description, user }) {
   const history = useHistory();
 
   return (
     <div className="posts-home-box">
-      <img src={RibbitBanner} alt="Ribbit banner" />
+      <img src={ribbitBanners.RibbitBanner} alt="Ribbit banner" />
       <div className="posts-home-box-content">
         <h1>{title}</h1>
         <p>{description}</p>
