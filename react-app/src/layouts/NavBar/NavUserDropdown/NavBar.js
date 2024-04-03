@@ -13,11 +13,11 @@ import {
 } from "../NavBar";
 import { SelectedChatContext } from "../../context";
 import { Searchbar, LoginSignupModal } from "../../features";
-import All from "../../assets/images/navbar/all-icon2.png";
-
-import { ribbitBanners, ribbitLogos } from "../../assets";
+import RibbitLogo from "../../FeedRightColContainerribbit-banners/ribbit_logo_love.png";
+import RibbitLogoSmall from "../../FeedRightColContainerribbit-banners/ribbit_logo_love_small.png";
+import All from "../../FeedRightColContainernavbar/all-icon2.png";
+import { ribbitBanners } from "../../assets";
 import "./NavBar.css";
-import { RandomLogo } from "../RandomLogo";
 
 export function NavBar({
   adjustQuery,
@@ -100,13 +100,13 @@ export function NavBar({
       <ul>
         <li>
           <NavLink to="/" exact={true}>
-            <RandomLogo logos={Object.values(ribbitLogos)} />
+            <img className="ribbit-logo-large" src={RibbitLogo} alt="Ribbit" />
           </NavLink>
 
           <NavLink to="/" exact={true}>
             <img
               className="ribbit-logo-small"
-              src={ribbitBanners.RibbitLogoSmall}
+              src={RibbitLogoSmall}
               alt="Ribbit small"
             />
           </NavLink>

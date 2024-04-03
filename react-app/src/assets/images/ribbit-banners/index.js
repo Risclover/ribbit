@@ -10,10 +10,12 @@ import RibbitBannerSad from "./ribbit_logo_sad.png";
 export const ribbitBanners = {
   FrogLogo,
   RibbitBanner,
+};
+
+export const ribbitLogos = {
   RibbitBannerAngry,
   RibbitBannerHappy,
   RibbitBannerLaugh,
-  RibbitLogoLove,
   RibbitBannerLove,
   RibbitBannerSad,
 };

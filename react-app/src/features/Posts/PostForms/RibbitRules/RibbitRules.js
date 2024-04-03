@@ -1,12 +1,16 @@
 import React from "react";
-import Frog from "../../../../assets/images/ribbit-banners/frog-logo1.png";
+import { ribbitBanners } from "../../../../assets";
 import "./RibbitRules.css";
 
 export function RibbitRules() {
   return (
     <div className="ribbit-rules-box">
       <div className="ribbit-rules-title">
-        <img className="ribbit-rules-frog" src={Frog} alt="Frog" />
+        <img
+          className="ribbit-rules-frog"
+          src={ribbitBanners.FrogLogo}
+          alt="Frog"
+        />
         Posting to Ribbit
       </div>
       <div className="ribbit-rules-rule">1. Remember the human</div>
