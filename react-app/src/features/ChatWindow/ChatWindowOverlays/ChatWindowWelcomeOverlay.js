@@ -1,6 +1,6 @@
 import React from "react";
 import FrogLogo from "../../../assets/images/ribbit-banners/frog-logo1.png";
-import CreateChat from "../../../assets/images/create-chat-white.png";
+import { liveChatIcons } from "../../../assets";
 import "./ChatWindowOverlay.css";
 
 export function ChatWindowWelcomeOverlay({ setNewChatOverlay }) {
@@ -16,7 +16,11 @@ export function ChatWindowWelcomeOverlay({ setNewChatOverlay }) {
           className="welcome-overlay-btn"
           onClick={() => setNewChatOverlay(true)}
         >
-          <img src={CreateChat} alt="Chat" className="create-chat-white" />{" "}
+          <img
+            src={liveChatIcons.CreateChat}
+            alt="Chat"
+            className="create-chat-white"
+          />{" "}
           Start new chat
         </button>
       </div>

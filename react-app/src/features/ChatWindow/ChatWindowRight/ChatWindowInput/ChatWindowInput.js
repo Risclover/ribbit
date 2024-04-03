@@ -6,8 +6,7 @@ import {
   getChatThread,
 } from "../../../../store";
 import { useAutosizeTextArea, Gifs, Emojis } from "../../..";
-import GifIcon from "../../../../assets/images/gif-icon.png";
-import GifIconDark from "../../../../assets/images/gif-icon-dark.png";
+import { liveChatIcons } from "../../../../assets";
 import "./ChatWindowInput.css";
 import { SelectedChatContext } from "../../../../context/SelectedChat";
 
@@ -103,9 +102,9 @@ export function ChatWindowInput({
   const handleOpenGiphy = () => {
     setEmojisOverlay(false);
     if (openGiphy) {
-      setGifIcon(GifIcon);
+      setGifIcon(liveChatIcons.GifIcon);
     } else {
-      setGifIcon(GifIconDark);
+      setGifIcon(liveChatIcons.GifIconDark);
     }
     setOpenGiphy(!openGiphy);
   };
@@ -130,7 +129,7 @@ export function ChatWindowInput({
             onClick={() => {
               setOpenGiphy(false);
               setEmojisOverlay(!emojisOverlay);
-              setGifIcon(GifIcon);
+              setGifIcon(liveChatIcons.GifIcon);
             }}
           >
             <span className="material-symbols-outlined">
@@ -143,9 +142,9 @@ export function ChatWindowInput({
         <Gifs
           receiver={receiver}
           setGifIcon={setGifIcon}
-          GifIcon={GifIcon}
+          GifIcon={liveChatIcons.GifIcon}
           gifIcon={gifIcon}
-          GifIconDark={GifIconDark}
+          GifIconDark={liveChatIcons.GifIconDark}
           setOpenGiphy={setOpenGiphy}
         />
       )}

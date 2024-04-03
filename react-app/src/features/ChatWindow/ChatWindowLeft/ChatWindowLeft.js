@@ -1,6 +1,6 @@
 import React from "react";
 import { ChatNav } from "../..";
-import CreateChatIcon from "../../../assets/images/create-chat-icon.png";
+import { liveChatIcons } from "../../../assets";
 
 export function ChatWindowLeft({
   handleOpenChatThread,
@@ -24,7 +24,11 @@ export function ChatWindowLeft({
       />
       <div className="chat-window-create-chat">
         <button onClick={() => setNewChatOverlay(true)}>
-          <img src={CreateChatIcon} className="create-chat-icon" /> Create chat
+          <img
+            src={liveChatIcons.CreateChatIcon}
+            className="create-chat-icon"
+          />{" "}
+          Create chat
         </button>
       </div>
     </div>
