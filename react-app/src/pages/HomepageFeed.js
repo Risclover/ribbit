@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   BackToTop,
   CreatePostBar,
@@ -8,9 +9,10 @@ import {
 } from "../components";
 import { FeedContainer, FeedLeftColContainer } from "../layouts";
 import { AboutBox, DeveloperLinksBox, RecentlyViewedPosts } from "../features";
-import { usePageSettings } from "../hooks/";
+import { usePageSettings } from "../hooks";
 import { usePosts } from "../features/Posts/hooks/usePosts";
-import Home from "../assets/images/navbar/home-icon.png";
+
+import { HomeIcon } from "../assets";
 import "../features/Posts/Posts.css";
 
 export function HomepageFeed() {
@@ -24,7 +26,9 @@ export function HomepageFeed() {
 
   usePageSettings({
     documentTitle: "Ribbit - Splash into anything",
-    icon: <img src={Home} className="nav-left-dropdown-item-icon" alt="Home" />,
+    icon: (
+      <img src={HomeIcon} className="nav-left-dropdown-item-icon" alt="Home" />
+    ),
     pageTitle: "Home",
   });
 

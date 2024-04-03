@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
+
 import { CreatePostBar, BackToTop, PostFeed } from "../components";
 import {
   FeedContainer,
@@ -6,16 +7,15 @@ import {
   FeedRightColContainer,
 } from "../layouts";
 import { DeveloperLinksBox, AboutBox, RecentlyViewedPosts } from "../features";
-import { PostFormatContext } from "../context";
 import { usePageSettings } from "../hooks";
 import { usePosts } from "../features/Posts/hooks/usePosts";
-import All from "../assets/images/navbar/all-icon2.png";
+
+import { AllIcon } from "../assets";
 import "../features/Posts/Posts.css";
 
 export function AllPostsFeed() {
   const { sortedPosts, sortMode, setSortMode, user, viewedPosts } =
     usePosts(true);
-  const { format } = useContext(PostFormatContext);
 
   document.documentElement.style.setProperty(
     "--community-highlight",
@@ -24,7 +24,9 @@ export function AllPostsFeed() {
 
   usePageSettings({
     documentTitle: "c/all",
-    icon: <img src={All} className="nav-left-dropdown-item-icon" alt="All" />,
+    icon: (
+      <img src={AllIcon} className="nav-left-dropdown-item-icon" alt="All" />
+    ),
     pageTitle: "All",
   });
 

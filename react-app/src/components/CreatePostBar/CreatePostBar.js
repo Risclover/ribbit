@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { RxImage } from "react-icons/rx";
 import { FiLink } from "react-icons/fi";
+
 import styles from "./CreatePostBar.module.css";
 
 const PostBarButton = ({ icon: Icon, onClick, testId }) => (

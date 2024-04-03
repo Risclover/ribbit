@@ -4,6 +4,7 @@ import { FaPen } from "react-icons/fa";
 import { getCommunities, updateCommunity } from "../../../store";
 import { useAutosizeTextArea } from "../..";
 import { HandleClickOutside } from "../../../utils";
+import { useOutsideClick } from "../../../hooks";
 
 export function CommunityDescription({ community, user }) {
   const textareaRef = useRef(null);
@@ -16,27 +17,8 @@ export function CommunityDescription({ community, user }) {
   const singlecommunity = useSelector(
     (state) => state.communities[community.id]
   );
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", function (e) {
-  //     HandleClickOutside(
-  //       e,
-  //       wrapperRef,
-  //       showEditDescription,
-  //       setShowEditDescription
-  //     );
-  //   });
-  //   return () => {
-  //     document.removeEventListener("mousedown", function (e) {
-  //       HandleClickOutside(
-  //         e,
-  //         wrapperRef,
-  //         showEditDescription,
-  //         setShowEditDescription
-  //       );
-  //     });
-  //   };
-  // }, [wrapperRef, showEditDescription]);
 
+  useOutsideClick(wrapperRef, () => setShowEditDescription(false));
   useAutosizeTextArea(textareaRef.current, description);
 
   const handleSaveDescription = async () => {

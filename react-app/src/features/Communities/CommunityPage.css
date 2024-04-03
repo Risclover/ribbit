@@ -149,18 +149,15 @@
   transition: all 0.1s linear 0s;
   border: 1px solid transparent;
   border-radius: 4px;
-}
-
-.community-page-right-col .community-page-box-description {
   cursor: pointer;
 }
 
-.community-page-right-col .community-page-box-description:hover {
+.community-page-box-description:hover {
   border: 1px solid var(--community-highlight);
+  padding: 4px;
 }
 
-.community-page-right-col .community-page-edit-description:hover {
-  padding: 8px;
+.community-page-edit-description:hover {
 }
 
 .community-page-box-description svg {

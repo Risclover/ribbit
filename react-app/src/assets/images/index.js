@@ -4,6 +4,7 @@ export * from "./ribbit-banners";
 export { liveChatIcons } from "./live-chat-icons";
 export { userProfileIcons } from "./user-profile-icons";
 export * from "./navbar";
+export { AllIcon, HomeIcon } from "./navbar";
 
 import WarningIcon from "./warning-icon.png";
 import SearchIcon from "./search-icon.png";
