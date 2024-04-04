@@ -6,8 +6,8 @@ class CommunitySettings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     community_id = db.Column(db.Integer, db.ForeignKey("communities.id"), nullable=False)
 
-    base_color = db.Column(db.String(10), default="#0079d3", nullable=False)
-    highlight = db.Column(db.String(10), default="#0079d3", nullable=False)
+    base_color = db.Column(db.String(10), default="var(--highlight-color)", nullable=False)
+    highlight = db.Column(db.String(10), default="var(--highlight-color)", nullable=False)
     bg_color = db.Column(db.String(10), default="#dae0e6", nullable=False)
 
     background_img = db.Column(db.String(255), nullable=True)
@@ -28,9 +28,9 @@ class CommunitySettings(db.Model):
     secondary_banner_format = db.Column(db.String(10), default="left", nullable=False)
     mobile_banner_img = db.Column(db.String(255), nullable=True)
 
-    active_link_color = db.Column(db.String(10), default="#0079d3", nullable=False)
-    inactive_link_color = db.Column(db.String(10), default="#0079d3", nullable=False)
-    hover_link_color = db.Column(db.String(10), default="#0079d3", nullable=False)
+    active_link_color = db.Column(db.String(10), default="var(--highlight-color)", nullable=False)
+    inactive_link_color = db.Column(db.String(10), default="var(--highlight-color)", nullable=False)
+    hover_link_color = db.Column(db.String(10), default="var(--highlight-color)", nullable=False)
     menu_bg_color = db.Column(db.String(10), default="#dbf0ff", nullable=False)
     submenu_bg_color = db.Column(db.String(10), default="#dbf0ff", nullable=False)
 

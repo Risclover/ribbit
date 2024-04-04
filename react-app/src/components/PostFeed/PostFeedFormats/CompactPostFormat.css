@@ -54,7 +54,7 @@
 }
 
 .karmabar-votes {
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .compact-post-title {
@@ -161,7 +161,7 @@
 
 .compact-post-community {
   font-weight: 700;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .compact-post-community:hover {
@@ -188,7 +188,7 @@
   justify-content: center;
   color: rgb(120, 124, 126);
   border: transparent;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   background: white;
 }
 
@@ -246,7 +246,7 @@
   border: 1px solid #edeff1;
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
-  color: #1c1c1c;
+  color: var(--main-text-color);
   overflow: hidden;
   background-color: #fff;
   position: absolute;
@@ -269,7 +269,7 @@
   white-space: nowrap;
   color: #878a8c;
   border-radius: 0;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   border: none;
   border-top: 1px solid #edeff1;
   background: white;
@@ -296,7 +296,7 @@
 
 .compact-post-menu-btn:hover {
   background: #e9f5fd;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .compact-post-container .tooltiptext {

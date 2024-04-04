@@ -47,14 +47,14 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   padding: 16px 16px 0;
 }
 
 .search-results-right-box p {
   padding: 16px;
   font-size: 16px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .search-results-community {
@@ -73,9 +73,9 @@
   margin-right: 3px;
   background: transparent;
   opacity: 1;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   font-weight: 700;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   padding: 20px;
   min-height: 32px;
   font-size: 14px;
@@ -123,7 +123,7 @@
   font-weight: 400;
   line-height: 16px;
   padding-bottom: 4px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   display: flex;
   align-items: center;
 }
@@ -154,7 +154,7 @@
 
 .search-results-post-title {
   font-size: 16px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   font-weight: 500;
   padding-right: 4px;
   line-height: 20px;
@@ -191,7 +191,7 @@
 
 .search-results-sort,
 .search-results-time {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 12px;
   line-height: 16px;
   border-radius: 1000px;
@@ -205,7 +205,7 @@
   align-items: center;
   min-width: 32px;
   cursor: pointer;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   justify-content: space-between;
   background: transparent;
 }
@@ -234,7 +234,7 @@
   margin-top: 4px;
   box-shadow: 0 4px 12px hsl(0deg 0% 44% / 15%);
   border-radius: 4px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   overflow: hidden;
   background: white;
   position: absolute;
@@ -254,7 +254,7 @@
 
 .search-results-sort-dropdown button,
 .search-results-time-dropdown button {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
@@ -275,16 +275,16 @@
 .search-results-sort-dropdown button:hover,
 .search-results-time-dropdown button:hover {
   background: #e9f5fd;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .sort-dropdown-btn-active {
-  color: #0079d3 !important;
+  color: var(--highlight-color) !important;
 }
 
 .sort-dropdown-btn-active:hover {
   background: #e9f5fd !important;
-  color: #0079d3 !important;
+  color: var(--highlight-color) !important;
 }
 
 .results-post-author:hover,
@@ -303,11 +303,11 @@
   overflow: hidden;
   word-wrap: break-word;
   padding: 24px 16px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .no-search-results p {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -321,7 +321,7 @@
 }
 
 .no-search-results h2 {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-size: 20px;
   font-weight: 500;
   line-height: 24px;
@@ -333,7 +333,7 @@
 }
 
 .no-search-results span {
-  color: #0079d3;
+  color: var(--highlight-color);
   cursor: pointer;
 }
 
@@ -362,7 +362,7 @@
 .search-results-create-community p {
   font-size: 14px;
   text-align: center;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
 }
 
 .search-result-page-community,
@@ -438,7 +438,7 @@
   width: 86px;
   background: #f6f7f8;
   border-color: #f6f7f8;
-  color: #0079d3;
+  color: var(--highlight-color);
 }
 
 .search-results-page-community-right button:hover,
@@ -453,9 +453,9 @@
 
 .see-more-btn {
   font-size: 14px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   padding: 16px;
-  color: #0079d3;
+  color: var(--highlight-color);
   font-weight: 500;
   line-height: 15px;
   cursor: pointer;
@@ -463,9 +463,9 @@
 
 .no-results {
   padding: 16px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   font-size: 16px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-weight: 400;
 }
 
@@ -527,7 +527,7 @@
 }
 
 .search-results-comment-community {
-  color: #1c1c1c !important;
+  color: var(--main-text-color) !important;
 }
 
 .search-results-comment-community:hover {
@@ -608,7 +608,7 @@
 }
 
 .search-results-comment-author-date {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
@@ -618,14 +618,14 @@
 
 .search-results-comment {
   font-size: 14px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 400;
   line-height: 21px;
   word-break: break-word;
   overflow: auto;
   padding-bottom: 1px;
   margin-bottom: -1px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .search-results-comment-upvotes {
@@ -642,8 +642,8 @@
   margin: 0 0 4px 8px;
   min-height: 0;
   padding: 0;
-  font-family: "Noto Sans", sans-serif;
-  color: #0079d3;
+  font-family: var(--font-family-noto);
+  color: var(--highlight-color);
 }
 
 .search-results-comment-post-link:hover {
@@ -710,7 +710,7 @@
 .search-results-page-community-name {
   font-size: 12px;
   font-weight: 700;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   line-height: 16px;
 }
 
@@ -733,7 +733,7 @@
 }
 
 .search-results-page-community-details-bottom {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
@@ -744,7 +744,7 @@
 .search-results-page-person-join {
   border-color: transparent;
   background: #f6f7f8 !important;
-  color: #0079d3;
+  color: var(--highlight-color);
   width: 86px;
 }
 

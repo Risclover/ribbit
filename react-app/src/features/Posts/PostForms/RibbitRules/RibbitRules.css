@@ -13,14 +13,14 @@
   border-bottom: 1px solid #edeff1;
   align-items: center;
   display: flex;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   font-weight: 500;
 }
 
 .ribbit-rules-rule {
   padding: 10px 5px;
   border-bottom: 1px solid #edeff1;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   font-weight: 500;
   font-size: 14px;
 }

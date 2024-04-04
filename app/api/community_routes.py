@@ -64,8 +64,8 @@ def create_community():
 
         new_community_settings = CommunitySettings(
             community_id=new_community.id,
-            base_color="#0079d3",
-            highlight="#0079d3",
+            base_color="var(--highlight-color)",
+            highlight="var(--highlight-color)",
             bg_color="#dae0e6",
             background_img_format="fill",
             name_format="c/",
@@ -75,9 +75,9 @@ def create_community():
             banner_color="#33a8ff",
             custom_banner_color=False,
             banner_img_format="fill",
-            active_link_color="#0079d3",
-            inactive_link_color="#0079d3",
-            hover_link_color="#0079d3",
+            active_link_color="var(--highlight-color)",
+            inactive_link_color="var(--highlight-color)",
+            hover_link_color="var(--highlight-color)",
             menu_bg_color="#dbf0ff",
             submenu_bg_color="#dbf0ff",
             post_title_color="#222222",

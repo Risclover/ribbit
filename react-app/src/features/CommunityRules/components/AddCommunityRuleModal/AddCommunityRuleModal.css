@@ -1,14 +1,14 @@
 .rule-modal-section-title {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   font-weight: 400;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   line-height: 18px;
   padding-bottom: 8px;
 }
 
 .rule-modal-rule-input {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -28,14 +28,14 @@
 .rule-modal-rule-input:focus,
 .rule-modal-rule-input:active {
   outline: none;
-  border: 1px solid #0079d3;
+  border: 1px solid var(--highlight-color);
 }
 
 .rule-modal-rule-input-chars {
   font-size: 12px;
   color: #7c7c7c;
   padding-top: 5px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-weight: 400;
   line-height: 16px;
 }

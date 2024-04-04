@@ -23,7 +23,7 @@
   background: none;
   outline: none;
   border: none;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   font-weight: 700;
   line-height: 17px;
@@ -35,7 +35,7 @@
 }
 
 .post-sorting-bar-btn:hover {
-  background: #1c1c1c11;
+  background: var(--main-text-color) 11;
 }
 
 .post-sorting-bar-btn svg {
@@ -44,7 +44,7 @@
 }
 
 .post-sorting-bar-btn.active-sort-btn {
-  color: #0079d3;
+  color: var(--highlight-color);
   background: #f6f7f8;
 }
 
@@ -54,5 +54,5 @@
 
 .post-sorting-bar-btn:hover,
 .post-sorting-bar.active-sort-btn:hover {
-  background: #1c1c1c11;
+  background: var(--main-text-color) 11;
 }

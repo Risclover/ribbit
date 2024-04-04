@@ -11,12 +11,12 @@
 .post-img-btn {
   cursor: pointer;
   border-radius: 100px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 700;
   font-size: 14px;
   color: white;
-  background: #0079d3;
-  border: 1px solid #0079d3;
+  background: var(--highlight-color);
+  border: 1px solid var(--highlight-color);
   padding: 4px 16px;
   height: 32px;
   outline: none;

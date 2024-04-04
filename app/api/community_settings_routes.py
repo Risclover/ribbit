@@ -123,8 +123,8 @@ def reset_community_settings(id):
     """
     settings = CommunitySettings.query.get(id)
 
-    setattr(settings, "base_color", "#0079d3")
-    setattr(settings, "highlight", "#0079d3")
+    setattr(settings, "base_color", "var(--highlight-color)")
+    setattr(settings, "highlight", "var(--highlight-color)")
     setattr(settings, "bg_color", "#dae0e6")
     setattr(settings, "background_img_format", "fill")
     setattr(settings, "name_format", "c/")
@@ -134,9 +134,9 @@ def reset_community_settings(id):
     setattr(settings, "banner_color", "#33a8ff")
     setattr(settings, "custom_banner_color", False)
     setattr(settings, "banner_img", "")
-    setattr(settings, "active_link_color", "#0079d3")
-    setattr(settings, "inactive_link_color", "#0079d3")
-    setattr(settings, "hover_link_color", "#0079d3")
+    setattr(settings, "active_link_color", "var(--highlight-color)")
+    setattr(settings, "inactive_link_color", "var(--highlight-color)")
+    setattr(settings, "hover_link_color", "var(--highlight-color)")
     setattr(settings, "menu_bg_color", "#dbf0ff")
     setattr(settings, "submenu_bg_color", "#dbf0ff")
     setattr(settings, "post_title_color", "#222222")

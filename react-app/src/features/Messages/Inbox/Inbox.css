@@ -79,7 +79,7 @@
 }
 
 .inbox-message-sender a {
-  color: #0079d3;
+  color: var(--highlight-color);
   cursor: pointer;
 }
 
@@ -110,7 +110,7 @@
 }
 
 .post-reply-author-line a {
-  color: #0079d3;
+  color: var(--highlight-color);
 }
 
 .post-reply-author-line a:hover {

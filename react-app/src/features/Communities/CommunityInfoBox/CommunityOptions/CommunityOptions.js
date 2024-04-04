@@ -101,12 +101,12 @@ export function CommunityOptions({ community }) {
   } else if (!checked) {
     document.documentElement.style.setProperty(
       "--community-base-color",
-      "#0079d3"
+      "var(--highlight-color)"
     );
 
     document.documentElement.style.setProperty(
       "--community-highlight",
-      "#0079d3"
+      "var(--highlight-color)"
     );
 
     document.documentElement.style.setProperty(
@@ -126,7 +126,7 @@ export function CommunityOptions({ community }) {
 
     document.documentElement.style.setProperty(
       "--community-banner-color",
-      "#0079d3"
+      "var(--highlight-color)"
     );
 
     document.documentElement.style.setProperty("--community-banner-img", "");

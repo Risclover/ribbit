@@ -47,7 +47,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 22px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   outline: none;
   margin-left: 8px;
   width: 100%;
@@ -58,13 +58,13 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 22px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .community-selection-span {
   font-size: 14px;
   font-weight: 500;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   margin-left: 8px;
   margin-right: -8px;
 }
@@ -121,11 +121,11 @@
 }
 
 .community-selection-dropdown-new-community {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 700;
   text-transform: capitalize;
   background: white;
-  color: #0079d3;
+  color: var(--highlight-color);
   padding: 4px 8px;
   border-radius: 100px;
   border: 1px solid white;
@@ -163,7 +163,7 @@
 .community-selection-community-name {
   font-size: 14px;
   font-weight: 500;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   line-height: 18px;
   width: 230px;
   white-space: nowrap;

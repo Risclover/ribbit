@@ -21,7 +21,7 @@ export function PreviewCommunityColorPicker({ theme, setTheme, community }) {
     "#349E48",
     "#0AA18F",
     "#007373",
-    "#0079d3",
+    "var(--highlight-color)",
     "#014980",
     "#7193FF",
     "#FF66AC",

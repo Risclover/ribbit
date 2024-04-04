@@ -34,7 +34,7 @@
   border: 1px solid #edeff1;
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
-  color: #1c1c1c;
+  color: var(--main-text-color);
   overflow: hidden;
   background-color: white;
   position: absolute;
@@ -58,7 +58,7 @@
   color: var(--community-highlight);
   border-bottom: 1px solid #edeff1;
   height: 37px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   width: 100%;
 }
 
@@ -107,7 +107,7 @@
   color: var(--community-highlight);
   border-bottom: 1px solid #edeff1;
   height: 37px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   width: 100%;
 }
 

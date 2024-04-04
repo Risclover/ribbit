@@ -69,7 +69,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   margin-bottom: 4px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -118,14 +118,14 @@
   margin-top: -10px !important;
   background: white;
   border: none;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   border-radius: 0;
   height: auto;
 }
 
 .recent-post-type.type-link {
-  color: #0079d3;
-  border-color: #0079d3;
+  color: var(--highlight-color);
+  border-color: var(--highlight-color);
   position: relative;
 }
 
@@ -141,7 +141,7 @@
 }
 
 .recent-post-type-link-box {
-  background: #0079d3;
+  background: var(--highlight-color);
   border-top-left-radius: 4px;
   bottom: 0;
   height: 18px;

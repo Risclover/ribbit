@@ -39,7 +39,7 @@
 
 .sent-message-author a {
   cursor: pointer;
-  color: #0079d3;
+  color: var(--highlight-color);
 }
 
 .sent-message-author a:hover {

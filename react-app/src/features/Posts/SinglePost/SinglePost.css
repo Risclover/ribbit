@@ -46,7 +46,7 @@
 }
 
 .threadline-wrapper:hover > .comment-threadline {
-  border-color: #0079d3;
+  border-color: var(--highlight-color);
 }
 
 .single-post-right-col {
@@ -76,7 +76,7 @@
   min-height: 24px;
   min-width: 24px;
   line-height: 16px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   cursor: pointer;
   background: inherit;
   outline: none;
@@ -129,7 +129,7 @@
   margin-bottom: 8px;
   font-size: 16px;
   font-weight: 500;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   color: #1a1a1b;
   word-wrap: break-word;
   display: flex;
@@ -162,7 +162,7 @@
 .single-post-community-date {
   font-size: 14px;
   line-height: 21px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   word-wrap: break-word;
 }
 
@@ -240,7 +240,7 @@
 }
 
 .single-post-community-name {
-  color: #1c1c1c;
+  color: var(--main-text-color);
   font-weight: 700;
   line-height: 20px;
 }
@@ -271,10 +271,10 @@
 }
 
 .single-post-content {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   line-height: 21px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   overflow: hidden;
   padding-bottom: 1px;
   margin-bottom: -1px;
@@ -316,10 +316,10 @@
 }
 
 .single-page-content {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   line-height: 21px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   overflow: hidden;
   margin-bottom: -1px;
   padding: 5px 8px 10px 8px;
@@ -351,7 +351,7 @@
   font-family: "Noto Sans Mono", monospace;
   font-size: 13px;
   font-weight: 400;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   overflow: auto;
   max-width: 100%;
   word-break: break-word;
@@ -365,7 +365,7 @@
 .single-page-content a,
 .single-post-content a {
   text-decoration: underline;
-  color: #0079d3 !important;
+  color: var(--highlight-color) !important;
 }
 
 .single-post-left-col {
@@ -400,7 +400,7 @@
   font-weight: 700;
   font-size: 12px;
   color: rgb(135, 138, 140);
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   cursor: pointer;
   border-radius: 2px;
   margin-right: 4px;
@@ -452,7 +452,7 @@
   text-align: center;
   border-radius: 4px;
   font-weight: 700;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 12px;
   position: absolute;
   left: -55px;
@@ -638,7 +638,7 @@ ol {
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   width: 100%;
 }
 

@@ -129,7 +129,7 @@ export function PreviewCommunityNameIcon({
         </div>
       </div>
       <div className="preview-community-theme-colors-box">
-        <h2 style={{ color: "#1c1c1c" }}>Community Icon</h2>
+        <h2 style={{ color: "var(--main-text-color)" }}>Community Icon</h2>
         <label className="preview-community-toggle-switch" name="switch">
           <ToggleSwitch
             checked={checked}

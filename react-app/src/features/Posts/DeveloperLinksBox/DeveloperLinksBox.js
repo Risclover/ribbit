@@ -30,8 +30,8 @@ export function DeveloperLinksBox() {
     <div className="posts-author-box">
       <h1>Developer Links</h1>
       <ul>
-        {developerLinks.map((link, idx) => (
-          <li key={idx} className="tooltip">
+        {developerLinks.map((link) => (
+          <li key={link.title} className="tooltip">
             <DeveloperLink
               title={link.title}
               link={link.link}

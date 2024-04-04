@@ -21,7 +21,7 @@ export function HomepageFeed() {
 
   document.documentElement.style.setProperty(
     "--community-highlight",
-    "#0079d3"
+    "var(--highlight-color)"
   );
 
   usePageSettings({

@@ -99,7 +99,7 @@ nav ul li {
   top: 125%;
   left: 50%;
   margin-left: -25px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-size: 12px;
   overflow-wrap: normal;
 }

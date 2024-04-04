@@ -1,10 +1,8 @@
 :root {
   --border-color: #ccc;
-  --font-family-sans: "Noto Sans", sans-serif;
-  --font-family-plex: "IBM Plex Sans", sans-serif;
   --main-bg-color: white;
-  --main-text-color: #1c1c1c;
-  --highlight-color: #0079d3;
+  --main-text-color: var(--main-text-color);
+  --highlight-color: var(--highlight-color);
   --highlight-color-light: #0078d38e;
   --error-color: #7c7c7c8e;
   --padding-standard: 20px 24px;
@@ -49,11 +47,22 @@
   border: 1px solid var(--border-color);
 }
 
+.posts-home-box-buttons {
+  border-top: 1px solid #eee;
+  margin-top: 15px;
+  padding-top: 5px;
+}
+
 .posts-home-box-content,
 .posts-home-box-buttons button,
 .posts-author-box h1,
 .no-posts-div {
-  font-family: var(--font-family-plex);
+  font-family: var(--font-family-ibm);
+}
+
+.posts-home-box-buttons button {
+  margin-top: 10px;
+  font-family: var(--font-family-noto);
 }
 
 .posts-home-box-content {
@@ -69,7 +78,7 @@
 
 .posts-home-box p,
 .posts-author-box ul {
-  font-family: var(--font-family-sans);
+  font-family: var(--font-family-noto);
   font-size: 14px;
   line-height: 20px;
   color: var(--main-text-color);
@@ -117,10 +126,11 @@
   position: absolute;
   z-index: 1;
   bottom: 50px;
-  font-family: var(--font-family-plex);
+  font-family: var(--font-family-ibm);
   font-size: 13px;
   font-weight: 500;
   left: -23px;
+  width: 85px;
 }
 
 .tooltip:hover .tooltiptext {
@@ -131,6 +141,42 @@
   flex: 1 1 auto;
   position: relative;
   width: inherit;
+}
+
+.tooltip a {
+  height: 40px;
+}
+
+.posts-author-box img {
+  height: 45px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.posts-author-box h1 {
+  font-size: 16px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  font-weight: 500;
+  padding-left: 3px;
+  margin-bottom: 18px;
+}
+
+.posts-home-box img {
+  width: 100%;
+}
+
+.posts-author-box {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 16px;
+  color: #1a1a1b;
+  word-wrap: break-word;
+  padding: 8px 12px;
+  position: sticky;
+  top: 57px;
 }
 
 @media (max-width: 960px) {

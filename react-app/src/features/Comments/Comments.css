@@ -26,7 +26,7 @@
 }
 
 .log-in-to-comment {
-  color: #0079d3;
+  color: var(--highlight-color);
   text-decoration: none;
   margin-right: 5px;
   cursor: pointer;
@@ -61,7 +61,7 @@
   font-size: 12px;
   font-weight: 700;
   line-height: 16px;
-  color: #0079d3;
+  color: var(--highlight-color);
   display: block;
   cursor: pointer;
   border: 0;
@@ -70,7 +70,7 @@
   height: auto;
   padding: 0;
   line-height: 20px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   margin: 4px 30px 0;
 }
 
@@ -121,7 +121,7 @@
 
 .comment-right-username a {
   font-size: 12px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   color: #1a1a1b;
   text-decoration: none;
   font-weight: 500;
@@ -136,7 +136,7 @@
 
 .comment-right-content {
   font-size: 14px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   line-height: 21px;
   margin-top: 2px;
   display: flex;
@@ -153,20 +153,20 @@
 
 .comment-right-content a {
   text-decoration: underline;
-  color: #0079d3;
+  color: var(--highlight-color);
 }
 
 .comment-right-username .single-post-topbar-dot {
   font-size: 10px;
   margin-right: 4px;
   margin-left: 4px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
 }
 
 .comment-owner-btns {
   display: flex;
   align-items: center;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-size: 12px;
   margin-top: 8px;
   margin-left: -10px;
@@ -185,7 +185,7 @@
   border-radius: 4px;
   height: 24px;
   font-size: 12px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
 }
 
 .comment-owner-btns button svg {
@@ -285,22 +285,22 @@
 
 .no-comments-yet {
   font-size: 18px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   margin-bottom: 12px;
   margin-top: 20px;
 }
 
 .no-comments-msg p {
   font-size: 14px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
 }
 
 .op-sign {
-  color: #0079d3;
+  color: var(--highlight-color);
   font-size: 12px;
   font-weight: 700;
   margin-left: 4px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
 }
 
 .insert-link-modal {
@@ -340,7 +340,7 @@
   width: 100%;
   max-width: 650px;
   padding: 8px 16px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   border-radius: 4px 4px 0 0;
   font-weight: 400;
@@ -364,7 +364,7 @@
 }
 
 .comment-form label {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
@@ -375,7 +375,7 @@
 
 .comment-form label a {
   text-decoration: none;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 12px;
   font-weight: 400;
   color: var(--community-highlight);
@@ -392,7 +392,7 @@
   background-color: var(--community-highlight);
   border: 1px solid transparent;
   border-radius: 50px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 700;
   line-height: 16px;
   font-size: 12px;
@@ -430,9 +430,9 @@
 }
 
 .comments-sort-btn-container button {
-  color: #0079d3;
+  color: var(--highlight-color);
   background: white;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-size: 12px;
   font-weight: 700;
   border: none;
@@ -463,12 +463,12 @@
 
 .comment-was-edited {
   font-style: italic;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   display: flex;
 }
 
 .comment-original-time {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
 }
 
 .all-comments {
@@ -516,7 +516,7 @@
   border: 1px solid #edeff1;
   position: absolute;
   overflow: hidden;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   top: 17px;
   border-radius: 4px;
   display: flex;
@@ -534,7 +534,7 @@
   color: #878a8c;
   background: white;
   border: none;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   cursor: pointer;
   width: 100%;
   text-align: left;
@@ -542,16 +542,16 @@
 }
 
 .comment-sorting-dropdown-btn:hover {
-  color: #1c1c1c;
+  color: var(--main-text-color);
   background: #e9f5fd;
 }
 
 .sorting-active-btn {
-  color: #0079d3;
+  color: var(--highlight-color);
 }
 
 .sorting-active-btn:hover {
-  color: #0079d3;
+  color: var(--highlight-color);
 }
 
 .collapsed-comment {
@@ -564,7 +564,7 @@
   cursor: pointer;
   margin: 0 8px;
   font-size: 12px;
-  color: #0079d3;
+  color: var(--highlight-color);
   transform: rotate(90deg);
 }
 .collapsed-comment-user-img img {
@@ -590,7 +590,7 @@
 
 .comment-moving-btn {
   font-size: 12px;
-  color: #0079d3;
+  color: var(--highlight-color);
   cursor: pointer;
 }
 
@@ -619,19 +619,19 @@
 }
 
 .collapsed-comment-username {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   color: #1a1a1b;
 }
 
 .collapsed-comment-date {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   color: #7c7c7c;
   font-weight: 400;
 }
 
 .collapsed-comment-dot {
   font-size: 10px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   color: #7c7c7c;
   font-weight: 400;
   margin: 0 2px;
@@ -653,7 +653,7 @@
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #0079d3;
+  background: var(--highlight-color);
   opacity: 0.3;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }

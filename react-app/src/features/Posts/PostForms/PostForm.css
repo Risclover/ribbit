@@ -34,7 +34,7 @@
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   border-bottom: 1px solid #edeff1;
   margin: 16px 0;
   padding: 4px;
@@ -71,9 +71,9 @@
 
 .ql-editor {
   min-height: 122px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .ql-snow .ql-editor blockquote {
@@ -123,7 +123,7 @@
   border: none;
   border-bottom: 1px solid #edeff1;
   border-right: 1px solid #edeff1;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -140,13 +140,13 @@
 }
 
 .post-type-bar .active-type {
-  color: #0079d3;
+  color: var(--highlight-color);
 }
 
 .active-type:after {
   content: " ";
   position: absolute;
-  background-color: #0079d3;
+  background-color: var(--highlight-color);
   left: 0;
   right: 0;
   bottom: -1px;
@@ -207,7 +207,7 @@
 .create-post-input {
   height: 39px;
   overflow-wrap: break-word;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   padding: 8px 68px 8px 16px;
   line-height: 21px;
   overflow: hidden;
@@ -215,7 +215,7 @@
   border: 1px solid #edeff1;
   outline: none;
   margin-bottom: 8px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   border-radius: 4px;
   font-size: 14px;
 }
@@ -229,7 +229,7 @@
 }
 
 .content-input {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   min-height: 122px;
   resize: vertical;
   padding-right: 15px;
@@ -267,7 +267,7 @@
   min-width: 32px;
   padding: 4px 16px;
   font-weight: 700;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   line-height: 17px;
   display: flex;
@@ -300,7 +300,7 @@
 }
 
 .create-post-form-submit {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 700;
   background: var(--community-highlight);
   border-radius: 100px;
@@ -352,7 +352,7 @@
   background: white;
   border-radius: 4px;
   min-width: 300px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   height: 40px;
   border: 1px solid #edeff1;
   font-weight: 500;
@@ -385,7 +385,7 @@
 
 .update-post-form-header {
   font-size: 18px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-weight: 500;
   border-bottom: 1px solid #edeff1;
   padding-bottom: 15px;
@@ -415,7 +415,7 @@
 .textarea {
   border: 1px solid #edeff1;
   border-radius: 4px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-size: 14px;
   outline: none;
   padding: 8px 64px 8px 16px;
@@ -438,7 +438,7 @@
 }
 
 .textarea:focus {
-  border-color: #1c1c1c;
+  border-color: var(--main-text-color);
 }
 
 .update-post-form-input textarea {
@@ -447,7 +447,7 @@
   height: 60px;
   border: 1px solid #edeff1;
   border-radius: 4px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-size: 14px;
   overflow-wrap: break-word;
   outline: none;
@@ -460,7 +460,7 @@
 }
 
 .update-post-form-input textarea:focus {
-  border-color: #1c1c1c;
+  border-color: var(--main-text-color);
 }
 
 .update-post-form-input {
@@ -488,17 +488,17 @@
 .update-post-form-buttons button {
   border-radius: 100px;
   outline: none;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 700;
   min-width: 32px;
   min-height: 32px;
   padding: 4px 16px;
   cursor: pointer;
-  border: 1px solid #0079d3;
+  border: 1px solid var(--highlight-color);
 }
 
 .update-post-submit {
-  background: #0079d3;
+  background: var(--highlight-color);
   color: white;
 }
 
@@ -509,7 +509,7 @@
 .update-post-cancel {
   background: white;
   margin-right: 10px;
-  color: #0079d3;
+  color: var(--highlight-color);
 }
 
 .update-post-cancel:hover {
@@ -539,7 +539,7 @@ pre.ql-syntax {
   font-family: "Noto Sans Mono", monospace;
   font-size: 13px;
   font-weight: 400;
-  color: #1c1c1c !important;
+  color: var(--main-text-color) !important;
   overflow: auto;
   max-width: 100%;
   word-break: break-word;
@@ -551,7 +551,7 @@ pre.ql-syntax {
 }
 
 .ql-editor a {
-  color: #0079d3;
+  color: var(--highlight-color);
 }
 
 .ql-snow .ql-editor h1 {
@@ -689,8 +689,8 @@ pre.ql-syntax {
 }
 
 .single-post-content-box-right {
-  border: 1px solid #0079d3;
-  color: #0079d3;
+  border: 1px solid var(--highlight-color);
+  color: var(--highlight-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -723,7 +723,7 @@ pre.ql-syntax {
   position: absolute;
   right: 0;
   width: 18px;
-  background-color: #0079d3;
+  background-color: var(--highlight-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -734,7 +734,7 @@ pre.ql-syntax {
 }
 
 .single-post-external-link-box.community-post:visited {
-  background-color: #0079d3;
+  background-color: var(--highlight-color);
 }
 
 .single-post-external-link-box svg {

@@ -45,7 +45,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         1: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#33a8ff",
@@ -53,7 +53,7 @@ const store = mockStore({
           bannerImg:
             "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
           bannerImgFormat: "center",
-          baseColor: "#0079d3",
+          baseColor: "var(--highlight-color)",
           bgColor: "#edeff1",
           communityIcon:
             "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
@@ -63,9 +63,9 @@ const store = mockStore({
           downvoteImgActive: null,
           downvoteImgInactive: null,
           hideCommunityIcon: false,
-          highlight: "#0079d3",
+          highlight: "var(--highlight-color)",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 1,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -150,7 +150,7 @@ const store = mockStore({
           communityRules: {},
           communitySettings: {
             1: {
-              activeLinkColor: "#0079d3",
+              activeLinkColor: "var(--highlight-color)",
               backgroundImg: null,
               backgroundImgFormat: "fill",
               bannerColor: "#33a8ff",
@@ -158,7 +158,7 @@ const store = mockStore({
               bannerImg:
                 "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
               bannerImgFormat: "center",
-              baseColor: "#0079d3",
+              baseColor: "var(--highlight-color)",
               bgColor: "#edeff1",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
@@ -168,9 +168,9 @@ const store = mockStore({
               downvoteImgActive: null,
               downvoteImgInactive: null,
               hideCommunityIcon: false,
-              highlight: "#0079d3",
+              highlight: "var(--highlight-color)",
               hoverBannerImg: null,
-              hoverLinkColor: "#0079d3",
+              hoverLinkColor: "var(--highlight-color)",
               id: 1,
               inactiveLinkColor: "#c7c7c7",
               linkPlaceholderImg: null,
@@ -235,7 +235,7 @@ const store = mockStore({
           communityRules: {},
           communitySettings: {
             1: {
-              activeLinkColor: "#0079d3",
+              activeLinkColor: "var(--highlight-color)",
               backgroundImg: null,
               backgroundImgFormat: "fill",
               bannerColor: "#33a8ff",
@@ -243,7 +243,7 @@ const store = mockStore({
               bannerImg:
                 "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
               bannerImgFormat: "center",
-              baseColor: "#0079d3",
+              baseColor: "var(--highlight-color)",
               bgColor: "#edeff1",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
@@ -253,9 +253,9 @@ const store = mockStore({
               downvoteImgActive: null,
               downvoteImgInactive: null,
               hideCommunityIcon: false,
-              highlight: "#0079d3",
+              highlight: "var(--highlight-color)",
               hoverBannerImg: null,
-              hoverLinkColor: "#0079d3",
+              hoverLinkColor: "var(--highlight-color)",
               id: 1,
               inactiveLinkColor: "#c7c7c7",
               linkPlaceholderImg: null,
@@ -313,7 +313,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         1: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#33a8ff",
@@ -321,7 +321,7 @@ const store = mockStore({
           bannerImg:
             "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
           bannerImgFormat: "center",
-          baseColor: "#0079d3",
+          baseColor: "var(--highlight-color)",
           bgColor: "#edeff1",
           communityIcon:
             "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
@@ -331,9 +331,9 @@ const store = mockStore({
           downvoteImgActive: null,
           downvoteImgInactive: null,
           hideCommunityIcon: false,
-          highlight: "#0079d3",
+          highlight: "var(--highlight-color)",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 1,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -634,7 +634,7 @@ const store = mockStore({
           communityRules: {},
           communitySettings: {
             1: {
-              activeLinkColor: "#0079d3",
+              activeLinkColor: "var(--highlight-color)",
               backgroundImg: null,
               backgroundImgFormat: "fill",
               bannerColor: "#33a8ff",
@@ -642,7 +642,7 @@ const store = mockStore({
               bannerImg:
                 "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
               bannerImgFormat: "center",
-              baseColor: "#0079d3",
+              baseColor: "var(--highlight-color)",
               bgColor: "#edeff1",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
@@ -652,9 +652,9 @@ const store = mockStore({
               downvoteImgActive: null,
               downvoteImgInactive: null,
               hideCommunityIcon: false,
-              highlight: "#0079d3",
+              highlight: "var(--highlight-color)",
               hoverBannerImg: null,
-              hoverLinkColor: "#0079d3",
+              hoverLinkColor: "var(--highlight-color)",
               id: 1,
               inactiveLinkColor: "#c7c7c7",
               linkPlaceholderImg: null,
@@ -719,7 +719,7 @@ const store = mockStore({
           communityRules: {},
           communitySettings: {
             1: {
-              activeLinkColor: "#0079d3",
+              activeLinkColor: "var(--highlight-color)",
               backgroundImg: null,
               backgroundImgFormat: "fill",
               bannerColor: "#33a8ff",
@@ -727,7 +727,7 @@ const store = mockStore({
               bannerImg:
                 "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
               bannerImgFormat: "center",
-              baseColor: "#0079d3",
+              baseColor: "var(--highlight-color)",
               bgColor: "#edeff1",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
@@ -737,9 +737,9 @@ const store = mockStore({
               downvoteImgActive: null,
               downvoteImgInactive: null,
               hideCommunityIcon: false,
-              highlight: "#0079d3",
+              highlight: "var(--highlight-color)",
               hoverBannerImg: null,
-              hoverLinkColor: "#0079d3",
+              hoverLinkColor: "var(--highlight-color)",
               id: 1,
               inactiveLinkColor: "#c7c7c7",
               linkPlaceholderImg: null,
@@ -797,7 +797,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         1: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#33a8ff",
@@ -805,7 +805,7 @@ const store = mockStore({
           bannerImg:
             "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
           bannerImgFormat: "center",
-          baseColor: "#0079d3",
+          baseColor: "var(--highlight-color)",
           bgColor: "#edeff1",
           communityIcon:
             "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
@@ -815,9 +815,9 @@ const store = mockStore({
           downvoteImgActive: null,
           downvoteImgInactive: null,
           hideCommunityIcon: false,
-          highlight: "#0079d3",
+          highlight: "var(--highlight-color)",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 1,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -1107,14 +1107,14 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         3: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#33a8ff",
           bannerHeight: "80px",
           bannerImg: "",
           bannerImgFormat: "center",
-          baseColor: "#0079d3",
+          baseColor: "var(--highlight-color)",
           bgColor: "#dae0e6",
           communityIcon:
             "https://a.thumbs.redditmedia.com/zDOFJTXd6fmlD58VDGypiV94Leflz11woxmgbGY6p_4.png",
@@ -1126,7 +1126,7 @@ const store = mockStore({
           hideCommunityIcon: false,
           highlight: "#cc8b00",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 3,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -1455,7 +1455,7 @@ const store = mockStore({
           communityRules: {},
           communitySettings: {
             7: {
-              activeLinkColor: "#0079d3",
+              activeLinkColor: "var(--highlight-color)",
               backgroundImg: null,
               backgroundImgFormat: "fill",
               bannerColor: "#33a8ff",
@@ -1475,7 +1475,7 @@ const store = mockStore({
               hideCommunityIcon: false,
               highlight: "#ff885b",
               hoverBannerImg: null,
-              hoverLinkColor: "#0079d3",
+              hoverLinkColor: "var(--highlight-color)",
               id: 7,
               inactiveLinkColor: "#c7c7c7",
               linkPlaceholderImg: null,
@@ -1533,7 +1533,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         7: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#33a8ff",
@@ -1553,7 +1553,7 @@ const store = mockStore({
           hideCommunityIcon: false,
           highlight: "#ff885b",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 7,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -1763,7 +1763,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         11: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#d75b5b",
@@ -1783,7 +1783,7 @@ const store = mockStore({
           hideCommunityIcon: false,
           highlight: "#be2f2f",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 11,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -1986,14 +1986,14 @@ const store = mockStore({
           communityRules: {},
           communitySettings: {
             14: {
-              activeLinkColor: "#0079d3",
+              activeLinkColor: "var(--highlight-color)",
               backgroundImg: null,
               backgroundImgFormat: "fill",
               bannerColor: "#33a8ff",
               bannerHeight: "80px",
               bannerImg: "",
               bannerImgFormat: "center",
-              baseColor: "#0079d3",
+              baseColor: "var(--highlight-color)",
               bgColor: "#dae0e6",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2tycb/styles/communityIcon_uadq4hbj2k451.png",
@@ -2003,9 +2003,9 @@ const store = mockStore({
               downvoteImgActive: null,
               downvoteImgInactive: null,
               hideCommunityIcon: false,
-              highlight: "#0079d3",
+              highlight: "var(--highlight-color)",
               hoverBannerImg: null,
-              hoverLinkColor: "#0079d3",
+              hoverLinkColor: "var(--highlight-color)",
               id: 14,
               inactiveLinkColor: "#c7c7c7",
               linkPlaceholderImg: null,
@@ -2064,14 +2064,14 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         14: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#33a8ff",
           bannerHeight: "80px",
           bannerImg: "",
           bannerImgFormat: "center",
-          baseColor: "#0079d3",
+          baseColor: "var(--highlight-color)",
           bgColor: "#dae0e6",
           communityIcon:
             "https://styles.redditmedia.com/t5_2tycb/styles/communityIcon_uadq4hbj2k451.png",
@@ -2081,9 +2081,9 @@ const store = mockStore({
           downvoteImgActive: null,
           downvoteImgInactive: null,
           hideCommunityIcon: false,
-          highlight: "#0079d3",
+          highlight: "var(--highlight-color)",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 14,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -2283,7 +2283,7 @@ const store = mockStore({
           communityRules: {},
           communitySettings: {
             15: {
-              activeLinkColor: "#0079d3",
+              activeLinkColor: "var(--highlight-color)",
               backgroundImg: null,
               backgroundImgFormat: "fill",
               bannerColor: "#33a8ff",
@@ -2303,7 +2303,7 @@ const store = mockStore({
               hideCommunityIcon: false,
               highlight: "#646d73",
               hoverBannerImg: null,
-              hoverLinkColor: "#0079d3",
+              hoverLinkColor: "var(--highlight-color)",
               id: 15,
               inactiveLinkColor: "#c7c7c7",
               linkPlaceholderImg: null,
@@ -2362,7 +2362,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         15: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#33a8ff",
@@ -2382,7 +2382,7 @@ const store = mockStore({
           hideCommunityIcon: false,
           highlight: "#646d73",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 15,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -2542,7 +2542,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         16: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#014980",
@@ -2561,7 +2561,7 @@ const store = mockStore({
           hideCommunityIcon: false,
           highlight: "#cc3600",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 16,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -2732,7 +2732,7 @@ const store = mockStore({
           communityRules: {},
           communitySettings: {
             17: {
-              activeLinkColor: "#0079d3",
+              activeLinkColor: "var(--highlight-color)",
               backgroundImg:
                 "https://styles.redditmedia.com/t5_2s1s3/styles/backgroundImage_6sn0pqqdrnw41.jpg",
               backgroundImgFormat: "tile",
@@ -2752,7 +2752,7 @@ const store = mockStore({
               hideCommunityIcon: false,
               highlight: "#6d4100",
               hoverBannerImg: null,
-              hoverLinkColor: "#0079d3",
+              hoverLinkColor: "var(--highlight-color)",
               id: 17,
               inactiveLinkColor: "#c7c7c7",
               linkPlaceholderImg: null,
@@ -2819,7 +2819,7 @@ const store = mockStore({
           communityRules: {},
           communitySettings: {
             17: {
-              activeLinkColor: "#0079d3",
+              activeLinkColor: "var(--highlight-color)",
               backgroundImg:
                 "https://styles.redditmedia.com/t5_2s1s3/styles/backgroundImage_6sn0pqqdrnw41.jpg",
               backgroundImgFormat: "tile",
@@ -2839,7 +2839,7 @@ const store = mockStore({
               hideCommunityIcon: false,
               highlight: "#6d4100",
               hoverBannerImg: null,
-              hoverLinkColor: "#0079d3",
+              hoverLinkColor: "var(--highlight-color)",
               id: 17,
               inactiveLinkColor: "#c7c7c7",
               linkPlaceholderImg: null,
@@ -2899,7 +2899,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         17: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg:
             "https://styles.redditmedia.com/t5_2s1s3/styles/backgroundImage_6sn0pqqdrnw41.jpg",
           backgroundImgFormat: "tile",
@@ -2919,7 +2919,7 @@ const store = mockStore({
           hideCommunityIcon: false,
           highlight: "#6d4100",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 17,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -3083,7 +3083,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         18: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#7193ff",
@@ -3103,7 +3103,7 @@ const store = mockStore({
           hideCommunityIcon: false,
           highlight: "#005ba1",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 18,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -3346,14 +3346,14 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         19: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#3376ab",
           bannerHeight: "80px",
           bannerImg: "",
           bannerImgFormat: "center",
-          baseColor: "#0079d3",
+          baseColor: "var(--highlight-color)",
           bgColor: "#dae0e6",
           communityIcon:
             "https://styles.redditmedia.com/t5_2r8ot/styles/communityIcon_jwr5s7l5ici61.png",
@@ -3365,7 +3365,7 @@ const store = mockStore({
           hideCommunityIcon: true,
           highlight: "#0266b3",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 19,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -3519,7 +3519,7 @@ const store = mockStore({
           communityRules: {},
           communitySettings: {
             20: {
-              activeLinkColor: "#0079d3",
+              activeLinkColor: "var(--highlight-color)",
               backgroundImg: null,
               backgroundImgFormat: "fill",
               bannerColor: "#66cc79",
@@ -3539,7 +3539,7 @@ const store = mockStore({
               hideCommunityIcon: false,
               highlight: "#46d160",
               hoverBannerImg: null,
-              hoverLinkColor: "#0079d3",
+              hoverLinkColor: "var(--highlight-color)",
               id: 20,
               inactiveLinkColor: "#c7c7c7",
               linkPlaceholderImg: null,
@@ -3625,7 +3625,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         20: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#66cc79",
@@ -3645,7 +3645,7 @@ const store = mockStore({
           hideCommunityIcon: false,
           highlight: "#46d160",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 20,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -3855,7 +3855,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         21: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#efd843",
@@ -3872,9 +3872,9 @@ const store = mockStore({
           downvoteImgActive: null,
           downvoteImgInactive: null,
           hideCommunityIcon: false,
-          highlight: "#0079d3",
+          highlight: "var(--highlight-color)",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 21,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -4100,7 +4100,7 @@ const store = mockStore({
         communityRules: {},
         communitySettings: {
           4: {
-            activeLinkColor: "#0079d3",
+            activeLinkColor: "var(--highlight-color)",
             backgroundImg: null,
             backgroundImgFormat: "fill",
             bannerColor: "#0aa18f",
@@ -4119,7 +4119,7 @@ const store = mockStore({
             hideCommunityIcon: false,
             highlight: "#007373",
             hoverBannerImg: null,
-            hoverLinkColor: "#0079d3",
+            hoverLinkColor: "var(--highlight-color)",
             id: 4,
             inactiveLinkColor: "#c7c7c7",
             linkPlaceholderImg: null,
@@ -4205,7 +4205,7 @@ const store = mockStore({
           communityRules: {},
           communitySettings: {
             20: {
-              activeLinkColor: "#0079d3",
+              activeLinkColor: "var(--highlight-color)",
               backgroundImg: null,
               backgroundImgFormat: "fill",
               bannerColor: "#66cc79",
@@ -4225,7 +4225,7 @@ const store = mockStore({
               hideCommunityIcon: false,
               highlight: "#46d160",
               hoverBannerImg: null,
-              hoverLinkColor: "#0079d3",
+              hoverLinkColor: "var(--highlight-color)",
               id: 20,
               inactiveLinkColor: "#c7c7c7",
               linkPlaceholderImg: null,
@@ -4311,7 +4311,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         20: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#66cc79",
@@ -4331,7 +4331,7 @@ const store = mockStore({
           hideCommunityIcon: false,
           highlight: "#46d160",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 20,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,
@@ -4541,7 +4541,7 @@ const store = mockStore({
       communityRules: {},
       communitySettings: {
         21: {
-          activeLinkColor: "#0079d3",
+          activeLinkColor: "var(--highlight-color)",
           backgroundImg: null,
           backgroundImgFormat: "fill",
           bannerColor: "#efd843",
@@ -4558,9 +4558,9 @@ const store = mockStore({
           downvoteImgActive: null,
           downvoteImgInactive: null,
           hideCommunityIcon: false,
-          highlight: "#0079d3",
+          highlight: "var(--highlight-color)",
           hoverBannerImg: null,
-          hoverLinkColor: "#0079d3",
+          hoverLinkColor: "var(--highlight-color)",
           id: 21,
           inactiveLinkColor: "#c7c7c7",
           linkPlaceholderImg: null,

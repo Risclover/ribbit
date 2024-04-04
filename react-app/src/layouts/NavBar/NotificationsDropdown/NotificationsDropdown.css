@@ -129,7 +129,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 12px;
   line-height: 16px;
   border-radius: 0;
@@ -193,9 +193,9 @@
 .notification-message {
   font-size: 14px;
   line-height: 21px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 400;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   overflow-wrap: anywhere;
 }
 
@@ -211,12 +211,12 @@
   color: #7c7c7c;
   font-size: 14px;
   font-weight: 400;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   line-height: 19px;
 }
 
 .notification-content {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 400;
   text-overflow: ellipsis;
   white-space: normal;
@@ -299,7 +299,7 @@
 }
 
 .notification-reply-back {
-  color: #0079d3;
+  color: var(--highlight-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -332,17 +332,17 @@
 }
 
 .no-notifications-title {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   margin-top: 24px;
   margin-bottom: 8px;
 }
 
 .no-notifications p {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -359,7 +359,7 @@
   height: 40px;
   font-family: "IBMPlexSans", sans-serif;
   color: #fff;
-  background: #0079d3;
+  background: var(--highlight-color);
   border-radius: 999px;
   margin-right: 8px;
   margin-top: 32px;

@@ -19,7 +19,7 @@ export function AllPostsFeed() {
 
   document.documentElement.style.setProperty(
     "--community-highlight",
-    "#0079d3"
+    "var(--highlight-color)"
   );
 
   usePageSettings({

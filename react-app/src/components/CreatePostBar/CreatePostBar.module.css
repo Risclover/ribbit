@@ -50,7 +50,7 @@
 
 .create input:hover {
   background: white;
-  border-color: #0079d3;
+  border-color: var(--highlight-color);
 }
 
 .iconButton {
@@ -71,7 +71,7 @@
 }
 
 .iconButton:before {
-  background: #1c1c1c;
+  background: var(--main-text-color);
   opacity: 0;
   content: "";
   position: absolute;

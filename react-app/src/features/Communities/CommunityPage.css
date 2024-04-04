@@ -115,7 +115,7 @@
 .community-page-box-date {
   display: flex;
   color: #7c7c7c;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   font-weight: 400;
   align-items: center;
@@ -131,7 +131,7 @@
 }
 
 .community-page-box-description-plain {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -140,7 +140,7 @@
 }
 
 .community-page-box-description {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -183,7 +183,7 @@
 
 .community-page-edit-description textarea {
   cursor: auto;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   line-height: 21px;
   font-weight: 400;
@@ -223,7 +223,7 @@
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   align-self: flex-end;
   user-select: none;
   line-height: 16px;
@@ -429,7 +429,7 @@
   text-align: left;
   text-transform: capitalize;
   border: none;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   white-space: nowrap;
   color: #878a8c;
 }
@@ -460,7 +460,7 @@
   text-transform: uppercase;
   font-size: 10px;
   font-weight: 700;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   color: var(--community-base-color-text);
   cursor: pointer;
 }
@@ -509,7 +509,7 @@
 
 .community-no-posts-title,
 .community-no-posts-content {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-weight: 500;
   margin: 16px;
   color: #1c1c1c;
@@ -548,7 +548,7 @@
 
 .community-page-box-members h2 {
   font-weight: 400;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   margin-bottom: 7px;
 }
 
@@ -636,7 +636,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   width: 100%;
 }
 
@@ -679,7 +679,7 @@ li {
 }
 
 .rule-description {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 400;
   font-size: 14px;
   padding: 8px 8px 0 16px;
@@ -692,7 +692,7 @@ li {
 }
 
 .community-rule {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -779,7 +779,7 @@ li {
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   text-transform: uppercase;
 }
 
@@ -787,7 +787,7 @@ li {
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
 }
 
 .preview-community-page {

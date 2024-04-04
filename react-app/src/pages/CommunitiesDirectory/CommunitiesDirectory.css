@@ -13,7 +13,7 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   margin: 0 0 16px;
 }
 
@@ -25,9 +25,9 @@
 
 .directory-listing {
   width: 25%;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-size: 16px;
-  color: #0079d3;
+  color: var(--highlight-color);
   font-weight: 400;
   line-height: 20px;
   max-width: 100%;

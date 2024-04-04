@@ -77,7 +77,7 @@
 .signup-form-container {
   background: white;
   border-radius: 12px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .login-form,

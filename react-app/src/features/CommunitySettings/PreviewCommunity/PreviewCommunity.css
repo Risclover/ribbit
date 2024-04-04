@@ -8,14 +8,14 @@
   z-index: 999;
   padding: 12px 12px 40px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
 }
 
 .back-to-community {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-size: 16px;
   font-weight: 500;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   margin-bottom: 30px;
   padding-top: 4px;
   text-align: left;
@@ -29,12 +29,12 @@
 }
 
 .preview-community-appearance h1 {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
   border-bottom: 2px solid #edeff1;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   padding-top: 10px;
   margin-bottom: 8px;
   padding-bottom: 8px;
@@ -42,11 +42,11 @@
 
 .preview-community-appearance-btn {
   font-size: 13px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   padding: 11px 0;
   line-height: 22px;
   cursor: pointer;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   border-bottom: 1px solid #edeff1;
   display: flex;
   justify-content: space-between;
@@ -262,9 +262,9 @@
 
 .outside-click-warning p {
   padding: 16px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 400;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   font-size: 14px;
   max-width: 540px;
   line-height: 21px;
@@ -286,7 +286,7 @@
 
 .use-browser-color-picker {
   cursor: pointer;
-  color: #0079d3;
+  color: var(--highlight-color);
   font-family: inherit;
   font-size: 12px;
   line-height: 24px;

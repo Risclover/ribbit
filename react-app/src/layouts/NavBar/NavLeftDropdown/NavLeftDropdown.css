@@ -88,7 +88,7 @@
   background: transparent;
   border-color: transparent;
   outline: 0;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   border-radius: 0;
   display: flex;
   align-items: center;
@@ -147,7 +147,7 @@
   border: 1px solid #edeff1;
   border-radius: 0 0 4px 4px;
   border-top: 0;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   margin-top: -2px;
   left: 1px;
   background: white;
@@ -173,13 +173,13 @@
   width: calc(100% - 32px);
   background: #f6f7f8;
   border: 1px solid #edeff1;
-  color: #1c1c1c;
-  font-family: "Noto Sans", sans-serif;
+  color: var(--main-text-color);
+  font-family: var(--font-family-noto);
 }
 
 .nav-left-dropdown-filter:focus {
   background: white;
-  border: 1px solid #0079d3;
+  border: 1px solid var(--highlight-color);
 }
 
 .nav-left-dropdown-title {
@@ -261,7 +261,7 @@
 }
 
 .nav-left-dropdown-star.star-filled {
-  color: #0079d3;
+  color: var(--highlight-color);
 }
 
 .nav-left-dropdown-arrow {

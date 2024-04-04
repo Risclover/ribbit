@@ -31,7 +31,7 @@
 }
 
 .post-reply-author-line-unread a {
-  color: #0079d3;
+  color: var(--highlight-color);
 }
 
 .post-reply-author-line-unread a:visited {

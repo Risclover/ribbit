@@ -28,7 +28,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 600;
   font-size: 14px;
   background: #f6f7f8;

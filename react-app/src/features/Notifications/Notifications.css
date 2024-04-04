@@ -17,7 +17,7 @@
   font-size: 22px;
   font-weight: 500;
   line-height: 26px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .notifications-button-bar {
@@ -51,12 +51,12 @@
 }
 
 .notifications-button-bar-item:hover {
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .notifications-button-bar-active {
-  border-bottom: 3px solid #0079d3;
-  color: #1c1c1c;
+  border-bottom: 3px solid var(--highlight-color);
+  color: var(--main-text-color);
   padding-right: 17px;
   height: 44px;
 }
@@ -132,11 +132,11 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-family-noto);
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   margin-bottom: 4px;
 }
 
@@ -256,9 +256,9 @@
 }
 
 .notification-menu-item {
-  color: #1c1c1c;
+  color: var(--main-text-color);
   font-size: 14px;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: var(--font-family-ibm);
   font-weight: 500;
   line-height: 18px;
   display: block;
