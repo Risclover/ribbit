@@ -1,16 +1,42 @@
 import React, { useEffect, useState } from "react";
 
 export const RandomLogo = ({ logos }) => {
-  const [currentLogo, setCurrentLogo] = useState("");
+  const [currentImage, setCurrentImage] = useState("");
+  const [currentEmotion, setCurrentEmotion] = useState("");
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1070);
 
   useEffect(() => {
-    const pickRandomLogo = () => {
-      const randomIndex = Math.floor(Math.random() * logos.length);
-      setCurrentLogo(logos[randomIndex]);
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 1070);
     };
 
-    pickRandomLogo();
-  }, [window.location.pathname]);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  return <img className="ribbit-logo-large" src={currentLogo} alt="Logo" />;
+  // Effect to handle page navigation
+  useEffect(() => {
+    // Only pick a random emotion when navigating to a new page
+    const emotions = Object.keys(logos);
+    const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
+    setCurrentEmotion(randomEmotion);
+  }, [window.location.pathname, logos]);
+
+  // Effect to handle currentEmotion or screen size changes
+  useEffect(() => {
+    if (currentEmotion) {
+      const imageToShow = isLargeScreen
+        ? logos[currentEmotion].banner
+        : logos[currentEmotion].logo;
+      setCurrentImage(imageToShow);
+    }
+  }, [isLargeScreen, currentEmotion, logos]);
+
+  return (
+    <img
+      className={`${isLargeScreen ? "ribbit-banner" : "ribbit-logo"}`}
+      src={currentImage}
+      alt={`Ribbit ${isLargeScreen ? "banner" : "logo"} - ${currentEmotion}`}
+    />
+  );
 };

@@ -31,15 +31,18 @@ nav ul li {
   /* margin-right: 20px; */
 }
 
-.ribbit-logo-large,
-.ribbit-logo-small {
+.ribbit-banner,
+.ribbit-logo {
   height: 28px;
   display: inline-block;
+}
+
+.ribbit-banner {
   margin-right: 20px;
 }
 
-.ribbit-logo-small {
-  display: none;
+.ribbit-logo {
+  margin-right: 8px;
 }
 
 .navbar-button {
@@ -159,15 +162,6 @@ nav ul li {
 }
 
 @media (max-width: 995px) {
-  .ribbit-logo-large {
-    display: none;
-  }
-
-  .ribbit-logo-small {
-    display: inline-block;
-    margin-right: 8px;
-  }
-
   .navbar-user-dropdown {
     margin-left: 5px;
   }

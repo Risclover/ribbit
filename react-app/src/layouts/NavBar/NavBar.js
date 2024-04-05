@@ -13,7 +13,7 @@ import {
 } from "../NavBar";
 import { SelectedChatContext } from "../../context";
 import { Searchbar, LoginSignupModal } from "../../features";
-import All from "../../assets/images/navbar/all-icon2.png";
+import { AllIcon } from "../../assets";
 
 import { ribbitBanners, ribbitLogos } from "../../assets";
 import "./NavBar.css";
@@ -100,15 +100,7 @@ export function NavBar({
       <ul>
         <li>
           <NavLink to="/" exact={true}>
-            <RandomLogo logos={Object.values(ribbitLogos)} />
-          </NavLink>
-
-          <NavLink to="/" exact={true}>
-            <img
-              className="ribbit-logo-small"
-              src={ribbitBanners.RibbitLogoSmall}
-              alt="Ribbit small"
-            />
+            <RandomLogo banners={ribbitBanners} logos={ribbitLogos} />
           </NavLink>
         </li>
         <li>
@@ -136,7 +128,7 @@ export function NavBar({
               onClick={() => history.push("/c/all")}
             >
               <img
-                src={All}
+                src={AllIcon}
                 className="nav-left-dropdown-item-icon"
                 alt="All"
               />
