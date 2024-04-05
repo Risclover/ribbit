@@ -1,3 +1,5 @@
+import React from "react";
+
 export function NoPostsMessage({ sortedPosts }) {
   if (!sortedPosts || sortedPosts.length === 0)
     return (
