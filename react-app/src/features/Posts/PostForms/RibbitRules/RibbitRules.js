@@ -9,7 +9,7 @@ export function RibbitRules() {
         <img
           className="ribbit-rules-frog"
           src={ribbitBanners.FrogLogo}
-          alt="Frog"
+          alt="Frog logo"
         />
         Posting to Ribbit
       </div>
