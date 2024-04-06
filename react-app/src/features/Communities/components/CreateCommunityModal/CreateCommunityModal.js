@@ -1,16 +1,12 @@
 import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-
 import {
   addCommunity,
   addToSubscriptions,
   getSubscriptions,
 } from "../../../../store";
-
 import { CreateCommunityForm } from "./CreateCommunityForm";
-import { validateCommunityName } from "../../utils/validateCommunityName";
-
 import "./CreateCommunityModal.css";
 
 export function CreateCommunityModal({
@@ -22,12 +18,10 @@ export function CreateCommunityModal({
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [errors, setErrors] = useState([]);
 
   const handleCreation = useCallback(
     async (e) => {
       e.preventDefault();
-
       const data = await dispatch(addCommunity({ name, description }));
       dispatch(addToSubscriptions(data.id));
       dispatch(getSubscriptions());
@@ -53,7 +47,6 @@ export function CreateCommunityModal({
             setName={setName}
             description={description}
             setDescription={setDescription}
-            errors={errors}
           />
         </div>
       )}

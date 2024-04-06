@@ -151,8 +151,8 @@
 
 .auth-modal-form-container {
   padding: 0 80px;
-  max-width: 528px;
   overflow-y: auto;
+  max-width: 528px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;

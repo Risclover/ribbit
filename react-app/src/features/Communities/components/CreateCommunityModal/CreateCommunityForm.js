@@ -1,11 +1,8 @@
-import React, { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { addCommunity, addToSubscriptions } from "../../../../store";
-import "./CreateCommunityModal.css";
+import React, { useState, useCallback, useEffect } from "react";
 import { Tooltip } from "../../../../components/Tooltip/Tooltip";
 import { validateCommunityName } from "../../utils/validateCommunityName";
 import { useCommunityNameTaken } from "../../hooks/useCommunityNameTaken";
+import "./CreateCommunityModal.css";
 
 const TextInput = ({
   label,
@@ -18,7 +15,6 @@ const TextInput = ({
   handleTooltip,
   error,
   setError,
-  focused,
   setFocused,
   usernameTaken,
 }) => (
@@ -100,7 +96,6 @@ export const CreateCommunityForm = ({
   setName,
   description,
   setDescription,
-  errors,
 }) => {
   const handleNameChange = useCallback(
     (e) => setName(e.target.value),
@@ -114,11 +109,20 @@ export const CreateCommunityForm = ({
   const [showTooltip, setShowTooltip] = useState(false);
   const [error, setError] = useState("");
   const [focused, setFocused] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const usernameTaken = useCommunityNameTaken(name);
 
   const handleTooltip = () => {
     setShowTooltip(true);
   };
+
+  useEffect(() => {
+    if (error.length > 0 || name.length === 0) {
+      setDisabled(true);
+    } else if (error.length === 0) {
+      setDisabled(false);
+    }
+  }, [error]);
 
   return (
     <form className="create-community-forma" onSubmit={onFormSubmit.submit}>
@@ -137,6 +141,7 @@ export const CreateCommunityForm = ({
           setFocused={setFocused}
           focused={focused}
           usernameTaken={usernameTaken}
+          setDisabled={setDisabled}
         />
         {error.length > 0 && (
           <div className="create-community-errors">{error}</div>
@@ -157,7 +162,11 @@ export const CreateCommunityForm = ({
         >
           Cancel
         </button>
-        <button type="submit" className="blue-btn-filled btn-short">
+        <button
+          type="submit"
+          className={`blue-btn-filled btn-short ${disabled && "btn-disabled"}`}
+          disabled={disabled}
+        >
           Create Community
         </button>
       </div>

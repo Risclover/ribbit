@@ -51,7 +51,7 @@ export function HomepageFeed() {
           description="Your personal Ribbit frontpage. Come here to check in with your favorite communities."
           user={user}
         />
-        {viewedPosts && viewedPosts.length > 0 && <RecentlyViewedPosts />}
+        {viewedPosts || (viewedPosts.length > 0 && <RecentlyViewedPosts />)}
         <div className="last-box-wrapper">
           <DeveloperLinksBox />
           <BackToTop />

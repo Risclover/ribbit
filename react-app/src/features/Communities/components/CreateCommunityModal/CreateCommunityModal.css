@@ -42,7 +42,9 @@
   font-size: 12px;
   font-family: var(--font-family-ibm);
   line-height: 15px;
-  margin-top: 5px;
+  margin-left: 10px;
+  margin-top: -23px;
+  margin-bottom: 5px;
 }
 
 .charcount-red {
