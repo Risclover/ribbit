@@ -22,22 +22,21 @@ export function ModalProvider({ children }) {
 }
 
 export function Modal({ onClose, children, title, open }) {
-  useDisableBodyScroll(open);
+  useDisableBodyScroll(open === true);
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;
 
   return ReactDOM.createPortal(
     <div id="modal">
-      <div id="modal-background" onClick={onClose}>
-        <div id="modal-content">
-          <div id="modal-topbar">
-            <h1 className="login-form-title">{title}</h1>
-            <button onClick={onClose}>
-              <i className="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          {children}
+      <div id="modal-background" onClick={onClose}></div>
+      <div id="modal-content">
+        <div id="modal-topbar">
+          <h1 className="login-form-title">{title}</h1>
+          <button onClick={onClose}>
+            <i className="fa-solid fa-xmark"></i>
+          </button>
         </div>
+        {children}
       </div>
     </div>,
     modalNode
