@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./Modal.css";
+import { useDisableBodyScroll } from "../hooks/useDisableBodyScroll";
 
 const ModalContext = React.createContext();
 
@@ -20,21 +21,23 @@ export function ModalProvider({ children }) {
   );
 }
 
-export function Modal({ onClose, children, title }) {
+export function Modal({ onClose, children, title, open }) {
+  useDisableBodyScroll(open);
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;
 
   return ReactDOM.createPortal(
     <div id="modal">
-      <div id="modal-background" onClick={onClose} />
-      <div id="modal-content">
-        <div id="modal-topbar">
-          <h1 className="login-form-title">{title}</h1>
-          <button onClick={onClose}>
-            <i className="fa-solid fa-xmark"></i>
-          </button>
+      <div id="modal-background" onClick={onClose}>
+        <div id="modal-content">
+          <div id="modal-topbar">
+            <h1 className="login-form-title">{title}</h1>
+            <button onClick={onClose}>
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          {children}
         </div>
-        {children}
       </div>
     </div>,
     modalNode

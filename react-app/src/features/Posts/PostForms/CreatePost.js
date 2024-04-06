@@ -377,7 +377,10 @@ export function CreatePost({ postType, setPostType, val }) {
                     </div>
                   )}
                   {showImgModal && (
-                    <Modal onClose={() => setShowImgModal(false)}>
+                    <Modal
+                      onClose={() => setShowImgModal(false)}
+                      open={() => setShowImgModal(true)}
+                    >
                       <ImagePostForm
                         setShowImgModal={setShowImgModal}
                         setimg_url={setimg_url}
@@ -422,6 +425,7 @@ export function CreatePost({ postType, setPostType, val }) {
                       <Modal
                         title="Discard post?"
                         onClose={() => setShowDiscardModal(false)}
+                        open={() => setShowDiscardModal(true)}
                       >
                         <DiscardPost
                           community_id={community_id}

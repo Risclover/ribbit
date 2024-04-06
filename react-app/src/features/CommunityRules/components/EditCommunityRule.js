@@ -127,6 +127,7 @@ export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
             <Modal
               onClose={() => setShowDeleteModal(false)}
               title="Delete rule?"
+              open={() => setShowDeleteModal(true)}
             >
               <DeleteConfirmationModal
                 showDeleteModal={showDeleteModal}

@@ -18,6 +18,7 @@ export function UploadUserBanner({ user, currentUser }) {
         <Modal
           onClose={() => setShowBannerModal(false)}
           title="Change Profile Banner"
+          open={() => setShowBannerModal(true)}
         >
           <UploadBannerImageModal
             setShowBannerModal={setShowBannerModal}

@@ -159,7 +159,11 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
         )}
       </div>
       {showFollowersModal && (
-        <Modal onClose={() => setShowFollowersModal(false)} title="Followers">
+        <Modal
+          onClose={() => setShowFollowersModal(false)}
+          title="Followers"
+          open={() => setShowFollowersModal(true)}
+        >
           <UserProfileFollowers setShowFollowersModal={setShowFollowersModal} />
         </Modal>
       )}

@@ -238,6 +238,7 @@ export function PreviewCommunitySidebar() {
         <Modal
           onClose={() => setShowWarning(false)}
           title="Discard unsaved changes before leaving?"
+          open={() => setShowWarning(true)}
         >
           <OutsideClickWarning setShowWarning={setShowWarning} />
         </Modal>

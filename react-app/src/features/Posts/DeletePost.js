@@ -19,7 +19,11 @@ export function DeletePostModal({ post, community }) {
         Delete
       </button>
       {showDeleteModal && (
-        <Modal onClose={() => setShowDeleteModal(false)} title="Delete post?">
+        <Modal
+          onClose={() => setShowDeleteModal(false)}
+          title="Delete post?"
+          open={() => setShowDeleteModal(true)}
+        >
           <DeleteConfirmationModal
             showDeleteModal={showDeleteModal}
             setShowDeleteModal={setShowDeleteModal}

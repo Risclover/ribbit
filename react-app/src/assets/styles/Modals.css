@@ -11,6 +11,10 @@
   max-height: 90vh;
 }
 
+.modal-buttons {
+  width: 100%;
+}
+
 .modal-buttons,
 .message-modal-buttons {
   padding: 16px;

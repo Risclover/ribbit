@@ -24,22 +24,40 @@
   right: 0;
   left: 0;
   bottom: 0;
-  background: rgb(26, 26, 27);
-  opacity: 0.5;
   height: 100vh;
   width: 100vw;
-  position: absolute;
+  position: fixed;
+}
+
+#modal-background {
+  background: rgba(28, 28, 28, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 75px 30px 20px;
+  z-index: 50;
+}
+
+.auth-modal-background {
+  background: rgb(26, 26, 27);
+  opacity: 0.5;
 }
 
 #modal-content,
 .auth-modal-content {
-  position: absolute;
+  position: relative;
   background-color: white;
   border-radius: 16px;
   box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000,
     0 0.0625rem 0.25rem 0 #00000026, 0 0.25rem 0.25rem 0 #00000026;
   overflow: hidden;
   width: auto;
+}
+
+#modal-content {
+  max-width: 568px;
+  width: 100%;
+  margin: auto;
 }
 
 .auth-modal-content {
@@ -164,6 +182,10 @@
 }
 
 @media (max-width: 528px) {
+  #modal-background {
+    padding: 75px 30px 20px;
+  }
+
   .auth-modal-content {
     border-radius: 0;
     height: 100%;

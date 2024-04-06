@@ -192,6 +192,7 @@ function App() {
                   <Modal
                     title="Sign Up"
                     onClose={() => setShowSignupForm(false)}
+                    open={() => setShowSignupForm(true)}
                   >
                     <SignUpForm
                       showSignupForm={showSignupForm}

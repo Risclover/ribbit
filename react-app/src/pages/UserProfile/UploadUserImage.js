@@ -18,6 +18,7 @@ export function UploadUserImage({ user, currentUser }) {
         <Modal
           onClose={() => setShowUploadModal(false)}
           title="Change User Image"
+          open={() => setShowUploadModal(true)}
         >
           <UploadImage
             setShowUploadModal={setShowUploadModal}

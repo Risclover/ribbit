@@ -14,7 +14,11 @@ export function SendMessage({ userId, user, username }) {
         Send Message
       </button>
       {showMessageModal && (
-        <Modal title="Send Message" onClose={() => setShowMessageModal(false)}>
+        <Modal
+          title="Send Message"
+          onClose={() => setShowMessageModal(false)}
+          open={() => setShowMessageModal(true)}
+        >
           <MessageModal
             userId={userId}
             setShowMessageModal={setShowMessageModal}

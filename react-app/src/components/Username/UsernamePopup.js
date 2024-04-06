@@ -56,7 +56,11 @@ export function UsernamePopup({ community, user }) {
         <FollowBtn user={user[0]} />
       </div>
       {showMsgModal && (
-        <Modal onClose={() => setShowMsgModal(false)} title="Send a Message">
+        <Modal
+          onClose={() => setShowMsgModal(false)}
+          title="Send a Message"
+          open={() => setShowMsgModal(true)}
+        >
           <MessageModal
             setShowMessageModal={setShowMsgModal}
             username={username}

@@ -67,6 +67,7 @@ function CommunityImage({ user, community }) {
         <Modal
           onClose={() => setShowCommunityImgModal(false)}
           title="Change community image"
+          open={() => setShowCommunityImgModal(true)}
         >
           <CommunityImgModal
             setShowCommunityImgModal={setShowCommunityImgModal}

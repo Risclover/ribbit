@@ -44,6 +44,7 @@ export function CommunitySelectionDropdown({
           <Modal
             onClose={() => setShowCreateCommunityModal(false)}
             title="Create community"
+            open={() => setShowCreateCommunityModal(true)}
           >
             <CreateCommunityModal
               setShowCreateCommunityModal={setShowCreateCommunityModal}

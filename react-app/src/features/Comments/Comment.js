@@ -267,6 +267,7 @@ export function Comment({ commentId, comment }) {
                     <Modal
                       onClose={() => setShowEditCommentModal(false)}
                       title="Edit comment"
+                      open={() => setShowEditCommentModal(true)}
                     >
                       <EditComment
                         commentId={comment?.id}
@@ -284,6 +285,7 @@ export function Comment({ commentId, comment }) {
                     <Modal
                       onClose={() => setShowDeleteModal(false)}
                       title="Delete comment"
+                      open={() => setShowDeleteModal(true)}
                     >
                       <DeleteCommentConfirmation
                         setShowDeleteModal={setShowDeleteModal}

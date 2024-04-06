@@ -247,6 +247,7 @@ export function SearchResultsPosts({
             <Modal
               onClose={() => setShowCommunityModal(false)}
               title="Create a community"
+              open={() => setShowCommunityModal(true)}
             >
               <CreateCommunityModal
                 showCreateCommunityModal={showCommunityModal}
