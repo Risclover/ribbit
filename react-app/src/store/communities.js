@@ -198,6 +198,21 @@ export const defaultCommunityImg = (communityId) => async (dispatch) => {
   }
 };
 
+export const checkCommunityName = (name) => async (dispatch) => {
+  const response = await fetch(`/api/communities/${name}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+    }),
+  });
+
+  if (!response.ok) throw new Error("Error");
+  return response;
+};
+
 // #################### REDUCER #################### //
 
 const initialState = {};

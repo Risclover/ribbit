@@ -2,7 +2,11 @@ import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { addCommunity, addToSubscriptions } from "../../../../store";
+import {
+  addCommunity,
+  addToSubscriptions,
+  getSubscriptions,
+} from "../../../../store";
 
 import { CreateCommunityForm } from "./CreateCommunityForm";
 import { validateCommunityName } from "../../utils/validateCommunityName";
@@ -23,20 +27,10 @@ export function CreateCommunityModal({
   const handleCreation = useCallback(
     async (e) => {
       e.preventDefault();
-      const validationErrors = validateCommunityName(name);
-
-      if (validationErrors.length > 0) {
-        setErrors(validationErrors);
-        return;
-      }
 
       const data = await dispatch(addCommunity({ name, description }));
-      if (data.length > 0) {
-        setErrors(["That name is already taken."]);
-        return;
-      }
-
-      await dispatch(addToSubscriptions(data.id));
+      dispatch(addToSubscriptions(data.id));
+      dispatch(getSubscriptions());
       history.push(`/c/${data.name}`);
     },
     [name, description, dispatch, history]

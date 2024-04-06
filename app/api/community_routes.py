@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import db, Community, User, CommunitySettings
 from .auth_routes import validation_errors_to_error_messages
 from app.forms import CommunityForm, UpdateCommunityForm
+from sqlalchemy import func
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 
@@ -218,3 +219,16 @@ def upload_banner(id):
     setattr(community, "banner_img", url)
     db.session.commit()
     return {"url": url}
+
+
+@community_routes.route("/<string:name>", methods=["POST"])
+def check_username(name):
+    """
+    Checks if given community name is taken
+    """
+    name_lower = name.lower()
+    community = Community.query.filter(func.lower(Community.name) == name_lower).first()
+    if community:
+        return {"Message": True}
+    else:
+        return {"Message": False}

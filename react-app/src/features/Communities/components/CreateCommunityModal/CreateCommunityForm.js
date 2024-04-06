@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import { addCommunity, addToSubscriptions } from "../../../../store";
 import "./CreateCommunityModal.css";
 import { Tooltip } from "../../../../components/Tooltip/Tooltip";
+import { validateCommunityName } from "../../utils/validateCommunityName";
+import { useCommunityNameTaken } from "../../hooks/useCommunityNameTaken";
 
 const TextInput = ({
   label,
@@ -14,6 +16,11 @@ const TextInput = ({
   showTooltip,
   setShowTooltip,
   handleTooltip,
+  error,
+  setError,
+  focused,
+  setFocused,
+  usernameTaken,
 }) => (
   <div className="modal-content-input">
     <h2>{label}</h2>
@@ -50,6 +57,13 @@ const TextInput = ({
         onChange={onChange}
         value={value}
         maxLength={maxLength}
+        onFocus={() => setFocused(true)}
+        onBlur={() => {
+          setFocused(false);
+          setError(validateCommunityName(value, usernameTaken));
+          console.log("error:", error);
+          console.log("validate:", validateCommunityName(value, usernameTaken));
+        }}
       />
       {label === "Name" && <span className="create-community-input-r">c/</span>}
     </div>
@@ -98,6 +112,9 @@ export const CreateCommunityForm = ({
   );
 
   const [showTooltip, setShowTooltip] = useState(false);
+  const [error, setError] = useState("");
+  const [focused, setFocused] = useState(false);
+  const usernameTaken = useCommunityNameTaken(name);
 
   const handleTooltip = () => {
     setShowTooltip(true);
@@ -115,9 +132,14 @@ export const CreateCommunityForm = ({
           maxLength={21}
           value={name}
           onChange={handleNameChange}
+          setError={setError}
+          error={error}
+          setFocused={setFocused}
+          focused={focused}
+          usernameTaken={usernameTaken}
         />
-        {errors[0] && (
-          <div className="create-community-errors">{errors[0]}</div>
+        {error.length > 0 && (
+          <div className="create-community-errors">{error}</div>
         )}
         <TextArea
           label="Community description"
