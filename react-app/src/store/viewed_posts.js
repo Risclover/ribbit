@@ -1,3 +1,4 @@
+const ADD = "viewed_posts/ADD";
 const LOAD = "viewed_posts/LOAD";
 const DELETE = "viewed_posts/DELETE";
 
@@ -5,6 +6,13 @@ const load = (viewedPosts) => {
   return {
     type: LOAD,
     viewedPosts,
+  };
+};
+
+export const add = (post) => {
+  return {
+    type: ADD,
+    post,
   };
 };
 
@@ -24,13 +32,23 @@ export const getViewedPosts = () => async (dispatch) => {
   }
 };
 
-export const addViewedPost = (postId) => async () => {
-  const response = await fetch(`/api/viewed_posts`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ postId: postId }),
-  });
-  return response;
+export const addViewedPost = (postId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/viewed_posts`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ postId: postId }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(add(data)); // Assuming 'add' updates your Redux store
+      return Promise.resolve(data); // Explicitly return a resolved promise
+    } else {
+      return Promise.reject("Failed to add viewed post");
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
 };
 
 const initialState = {};
@@ -48,6 +66,11 @@ export default function viewedPostsReducer(state = initialState, action) {
       return {
         ...state,
         posts: [],
+      };
+    case ADD:
+      return {
+        ...state,
+        posts: [...state.posts, action.post],
       };
     default:
       return state;

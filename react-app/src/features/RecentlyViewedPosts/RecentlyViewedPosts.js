@@ -29,9 +29,32 @@ moment.updateLocale("en-cust", {
   },
 });
 
+const PostTypeIcon = ({ post }) => {
+  if (post.imgUrl) {
+    return (
+      <button className="recent-post-type">
+        <img src={post.imgUrl} className="recent-post-type-img" alt="Post" />
+      </button>
+    );
+  }
+  if (post.linkUrl) {
+    return (
+      <button className="recent-post-type type-link">
+        <FiLink />
+        <HiOutlineExternalLink />
+      </button>
+    );
+  }
+  return (
+    <button className="recent-post-type">
+      <CgNotes />
+    </button>
+  );
+};
+
 export function RecentlyViewedPosts() {
   const dispatch = useDispatch();
-  const viewedPosts = useSelector((state) => state.viewedPosts.posts || []);
+  const { posts = [] } = useSelector((state) => state.viewedPosts);
 
   useEffect(() => {
     dispatch(getViewedPosts());
@@ -50,57 +73,22 @@ export function RecentlyViewedPosts() {
     <div className="recent-posts-box">
       <div className="recent-posts-head">Recent Posts</div>
       <ul className="recent-post-list">
-        {viewedPosts.slice(-5).map((post, idx) => (
+        {posts.slice(-5).map((post, idx) => (
           <li
-            className={
-              (Object.values(viewedPosts).length < 5 &&
-                idx === Object.values(viewedPosts).length - 1) ||
-              (Object.values(viewedPosts).length >= 5 && idx === 4)
-                ? "recent-post-li li-last"
-                : "recent-post-li"
-            }
             key={idx}
+            className={`recent-post-li ${idx === 4 ? "li-last" : ""}`}
           >
             <NavLink to={`/posts/${post.id}`}>
               <div className="recent-post">
-                {post.imgUrl !== null && (
-                  <button className="recent-post-type">
-                    <img
-                      src={post.imgUrl}
-                      className="recent-post-type-img"
-                      alt="Post"
-                    />
-                  </button>
-                )}
-                {post.linkUrl !== null && (
-                  <button className="recent-post-type type-link">
-                    <div className="recent-post-type-link">
-                      <FiLink />
-                    </div>
-                    <div className="recent-post-type-link-box">
-                      <HiOutlineExternalLink />
-                    </div>
-                  </button>
-                )}
-                {post.linkUrl === null && post.imgUrl === null && (
-                  <button className="recent-post-type">
-                    <div className="recent-post-type-post">
-                      <CgNotes />
-                    </div>{" "}
-                  </button>
-                )}
+                <PostTypeIcon post={post} />
                 <div className="recent-post-content">
                   <div className="recent-post-title">{post.title}</div>
                   <div className="recent-post-info-bar">
                     {post.votes} points
                     <span className="recent-post-dot-spacer"></span>
-                    {post.postComments &&
-                      Object.values(post.postComments).length}{" "}
-                    comments
+                    {post.postComments?.length || 0} comments
                     <span className="recent-post-dot-spacer"></span>
-                    {moment(new Date(post.createdAt))
-                      .locale("en-cust")
-                      .fromNow()}
+                    {moment(post.createdAt).fromNow()}
                   </div>
                 </div>
               </div>
@@ -108,7 +96,6 @@ export function RecentlyViewedPosts() {
           </li>
         ))}
       </ul>
-
       <button onClick={handleClear} className="recent-posts-foot">
         Clear
       </button>
