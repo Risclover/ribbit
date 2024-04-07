@@ -23,7 +23,7 @@ export function ChatWindowInput({
   const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
 
   const [openGiphy, setOpenGiphy] = useState(false);
-  const [gifIcon, setGifIcon] = useState(GifIcon);
+  const [gifIcon, setGifIcon] = useState(liveChatIcons.GifIcon);
   const [content, setContent] = useState();
   const [receiver, setReceiver] = useState(null);
   const [emojisOverlay, setEmojisOverlay] = useState(false);

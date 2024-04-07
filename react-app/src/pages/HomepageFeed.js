@@ -15,9 +15,13 @@ import { usePosts } from "../features/Posts/hooks/usePosts";
 import { HomeIcon } from "../assets";
 import "../features/Posts/Posts.css";
 
+import { ChatWindowEmojis } from "../features/ChatWindow/ChatWindowRight/ChatWindowInput/emojis";
+
 export function HomepageFeed() {
   const { sortedPosts, sortMode, setSortMode, user, viewedPosts } =
     usePosts(false);
+
+  console.log(ChatWindowEmojis.map((emoji) => emoji));
 
   document.documentElement.style.setProperty(
     "--community-highlight",
