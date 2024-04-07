@@ -38,12 +38,17 @@ const initialState = {};
 export default function viewedPostsReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD:
-      return action.viewedPosts.posts.reduce((posts, post) => {
-        posts[post.id] = post;
-        return posts;
-      }, {});
+      // Assuming action.viewedPosts.posts is an array and you want to maintain its order
+      return {
+        ...state,
+        posts: action.viewedPosts.posts,
+      };
     case DELETE:
-      return initialState;
+      // Assuming you want to clear the list of viewed posts
+      return {
+        ...state,
+        posts: [],
+      };
     default:
       return state;
   }

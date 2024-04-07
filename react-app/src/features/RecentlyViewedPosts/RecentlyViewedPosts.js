@@ -31,82 +31,82 @@ moment.updateLocale("en-cust", {
 
 export function RecentlyViewedPosts() {
   const dispatch = useDispatch();
-  const viewedPosts = useSelector((state) => state.viewedPosts);
+  const viewedPosts = useSelector((state) => state.viewedPosts.posts || []);
 
   useEffect(() => {
     dispatch(getViewedPosts());
   }, [dispatch]);
 
   const handleClear = () => {
+    // Update this to dispatch an action that clears the viewed posts
     fetch("/api/viewed_posts/delete", { method: "DELETE" })
       .then(() => {
-        dispatch(removeViewedPosts());
+        dispatch(removeViewedPosts()); // Make sure this action clears the state appropriately
       })
       .catch((error) => console.error(error));
   };
+
   return (
     <div className="recent-posts-box">
       <div className="recent-posts-head">Recent Posts</div>
       <ul className="recent-post-list">
-        {Object.values(viewedPosts)
-          .slice(-5)
-          .map((post, idx) => (
-            <li
-              className={
-                (Object.values(viewedPosts).length < 5 &&
-                  idx === Object.values(viewedPosts).length - 1) ||
-                (Object.values(viewedPosts).length >= 5 && idx === 4)
-                  ? "recent-post-li li-last"
-                  : "recent-post-li"
-              }
-              key={idx}
-            >
-              <NavLink to={`/posts/${post.id}`}>
-                <div className="recent-post">
-                  {post.imgUrl !== null && (
-                    <button className="recent-post-type">
-                      <img
-                        src={post.imgUrl}
-                        className="recent-post-type-img"
-                        alt="Post"
-                      />
-                    </button>
-                  )}
-                  {post.linkUrl !== null && (
-                    <button className="recent-post-type type-link">
-                      <div className="recent-post-type-link">
-                        <FiLink />
-                      </div>
-                      <div className="recent-post-type-link-box">
-                        <HiOutlineExternalLink />
-                      </div>
-                    </button>
-                  )}
-                  {post.linkUrl === null && post.imgUrl === null && (
-                    <button className="recent-post-type">
-                      <div className="recent-post-type-post">
-                        <CgNotes />
-                      </div>{" "}
-                    </button>
-                  )}
-                  <div className="recent-post-content">
-                    <div className="recent-post-title">{post.title}</div>
-                    <div className="recent-post-info-bar">
-                      {post.votes} points
-                      <span className="recent-post-dot-spacer"></span>
-                      {post.postComments &&
-                        Object.values(post.postComments).length}{" "}
-                      comments
-                      <span className="recent-post-dot-spacer"></span>
-                      {moment(new Date(post.createdAt))
-                        .locale("en-cust")
-                        .fromNow()}
+        {viewedPosts.slice(-5).map((post, idx) => (
+          <li
+            className={
+              (Object.values(viewedPosts).length < 5 &&
+                idx === Object.values(viewedPosts).length - 1) ||
+              (Object.values(viewedPosts).length >= 5 && idx === 4)
+                ? "recent-post-li li-last"
+                : "recent-post-li"
+            }
+            key={idx}
+          >
+            <NavLink to={`/posts/${post.id}`}>
+              <div className="recent-post">
+                {post.imgUrl !== null && (
+                  <button className="recent-post-type">
+                    <img
+                      src={post.imgUrl}
+                      className="recent-post-type-img"
+                      alt="Post"
+                    />
+                  </button>
+                )}
+                {post.linkUrl !== null && (
+                  <button className="recent-post-type type-link">
+                    <div className="recent-post-type-link">
+                      <FiLink />
                     </div>
+                    <div className="recent-post-type-link-box">
+                      <HiOutlineExternalLink />
+                    </div>
+                  </button>
+                )}
+                {post.linkUrl === null && post.imgUrl === null && (
+                  <button className="recent-post-type">
+                    <div className="recent-post-type-post">
+                      <CgNotes />
+                    </div>{" "}
+                  </button>
+                )}
+                <div className="recent-post-content">
+                  <div className="recent-post-title">{post.title}</div>
+                  <div className="recent-post-info-bar">
+                    {post.votes} points
+                    <span className="recent-post-dot-spacer"></span>
+                    {post.postComments &&
+                      Object.values(post.postComments).length}{" "}
+                    comments
+                    <span className="recent-post-dot-spacer"></span>
+                    {moment(new Date(post.createdAt))
+                      .locale("en-cust")
+                      .fromNow()}
                   </div>
                 </div>
-              </NavLink>
-            </li>
-          ))}
+              </div>
+            </NavLink>
+          </li>
+        ))}
       </ul>
 
       <button onClick={handleClear} className="recent-posts-foot">

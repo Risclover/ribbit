@@ -23,7 +23,6 @@ export function PreviewCommunitySidebar() {
     (state) => state.singleCommunity[Number(location.pathname.slice(3, 5))]
   );
 
-  console.log("community:", community);
   const [showWarning, setShowWarning] = useState(false);
   const [openAppearance, setOpenAppearance] = useState(false);
   const [appearanceSidebar, setAppearanceSidebar] = useState("");

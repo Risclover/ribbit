@@ -14,6 +14,7 @@ import {
   deleteSubscription,
   addViewedPost,
   getCommunitySettings,
+  getViewedPosts,
 } from "../../../store";
 
 import { BackToTop } from "../../../components";
@@ -45,12 +46,13 @@ export function SinglePostPage({ setShowLoginForm }) {
   const [members, setMembers] = useState(community?.members || 0);
 
   useEffect(() => {
+    dispatch(addViewedPost(postId));
+    dispatch(getViewedPosts());
     dispatch(getCommunities());
     dispatch(getCommunitySettings(post?.communityId));
     dispatch(getComments(+postId));
     dispatch(getPosts());
     dispatch(getSinglePost(+postId));
-    dispatch(addViewedPost(+postId));
   }, [dispatch]);
 
   usePageSettings({

@@ -5,6 +5,7 @@ import {
   getCommunities,
   getFollowers,
   getSubscriptions,
+  getViewedPosts,
 } from "../../../store";
 import { SortingFunction } from "../../../utils";
 
@@ -20,6 +21,7 @@ export function usePosts(isAllPosts) {
   const [sortMode, setSortMode] = useState("new");
 
   useEffect(() => {
+    dispatch(getViewedPosts());
     dispatch(getPosts());
     dispatch(getCommunities());
     dispatch(getSubscriptions());

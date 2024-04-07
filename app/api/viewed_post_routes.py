@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user
-from app.models import db, Post, User
+from app.models import db, Post, User, ViewedPost
+from datetime import datetime, timezone
 
 viewed_post_routes = Blueprint("viewed_posts", __name__)
 
@@ -8,37 +9,36 @@ viewed_post_routes = Blueprint("viewed_posts", __name__)
 @viewed_post_routes.route("")
 def viewed_posts():
     user_id = current_user.get_id()
-    queried_user = User.query.get(user_id)
-    user_viewed_posts = queried_user.user_viewed_posts
+    viewed_posts_with_timestamps = ViewedPost.query.filter_by(user_id=user_id).order_by(ViewedPost.viewed_at.desc()).all()
+    posts_data = [viewed_post.post.to_dict() for viewed_post in viewed_posts_with_timestamps]
+    return jsonify(posts=posts_data)
 
-    return {"posts": [post.to_dict() for post in user_viewed_posts]}
-
-
-# VIEW A POST
 @viewed_post_routes.route("", methods=["POST"])
 def view_post():
     user_id = current_user.get_id()
-    queried_user = User.query.get(user_id)
     post_id = request.json["postId"]
-    post = Post.query.filter(Post.id == post_id).one()
 
-    if post not in queried_user.user_viewed_posts:
-        queried_user.user_viewed_posts.append(post)
+    existing_view = ViewedPost.query.filter_by(user_id=user_id, post_id=post_id).first()
+
+    if existing_view:
+        # If the post has already been viewed, update the `viewed_at` timestamp to the current time
+        existing_view.viewed_at = datetime.now(timezone.utc)
+    else:
+        # If this is a new view, create a new ViewedPost record
+        new_view = ViewedPost(user_id=user_id, post_id=post_id)
+        db.session.add(new_view)
 
     db.session.commit()
 
-    return jsonify({
-        "status_code": 201,
-        "message": "Successfully viewed post"
-    })
+    return jsonify({"status_code": 201, "message": "Post view updated successfully"})
 
 
-# CLEAR ALL VIEWED POSTS
 @viewed_post_routes.route("/delete", methods=["DELETE"])
 def clear_viewed_posts():
     user_id = current_user.get_id()
-    queried_user = User.query.get(user_id)
-    queried_user.user_viewed_posts = []
+
+    # Instead of setting the user's viewed_posts to an empty list, delete the relevant records from ViewedPost
+    ViewedPost.query.filter_by(user_id=user_id).delete()
 
     db.session.commit()
 

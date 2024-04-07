@@ -2,7 +2,12 @@ import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getSinglePost, getPosts } from "../store";
+import {
+  getSinglePost,
+  getPosts,
+  addViewedPost,
+  getViewedPosts,
+} from "../store";
 
 import {
   Comments,
@@ -41,6 +46,8 @@ export function SinglePostPage() {
     setFormat("Card");
     dispatch(getSinglePost(postId));
     dispatch(getPosts());
+    dispatch(addViewedPost(postId));
+    dispatch(getViewedPosts());
   }, [dispatch]);
 
   if (!post) return null;

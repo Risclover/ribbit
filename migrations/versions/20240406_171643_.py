@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 7c54bd156e53
+Revision ID: df24f3d8b17b
 Revises: 
-Create Date: 2023-09-02 22:27:21.574390
+Create Date: 2024-04-06 17:16:43.738290
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '7c54bd156e53'
+revision = 'df24f3d8b17b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -65,7 +65,6 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=20), nullable=False),
     sa.Column('description', sa.String(length=500), nullable=True),
-    sa.Column('community_img', sa.String(length=255), nullable=True),
     sa.Column('display_name', sa.String(length=100), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
@@ -133,6 +132,7 @@ def upgrade():
     sa.Column('community_icon', sa.String(length=255), nullable=True),
     sa.Column('banner_height', sa.String(length=10), nullable=False),
     sa.Column('banner_color', sa.String(length=10), nullable=False),
+    sa.Column('custom_banner_color', sa.Boolean(), nullable=True),
     sa.Column('banner_img', sa.String(length=255), nullable=True),
     sa.Column('banner_img_format', sa.String(length=10), nullable=False),
     sa.Column('secondary_banner_img', sa.String(length=255), nullable=True),
@@ -219,11 +219,13 @@ def upgrade():
     sa.PrimaryKeyConstraint('user_id', 'post_id')
     )
     op.create_table('viewed_posts',
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('post_id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('post_id', sa.Integer(), nullable=True),
+    sa.Column('viewed_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['post_id'], ['posts.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('user_id', 'post_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('CommentVotes',
     sa.Column('user_id', sa.Integer(), nullable=False),
