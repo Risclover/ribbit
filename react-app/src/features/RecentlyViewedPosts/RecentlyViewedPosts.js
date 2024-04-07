@@ -61,10 +61,9 @@ export function RecentlyViewedPosts() {
   }, [dispatch]);
 
   const handleClear = () => {
-    // Update this to dispatch an action that clears the viewed posts
     fetch("/api/viewed_posts/delete", { method: "DELETE" })
       .then(() => {
-        dispatch(removeViewedPosts()); // Make sure this action clears the state appropriately
+        dispatch(removeViewedPosts());
       })
       .catch((error) => console.error(error));
   };

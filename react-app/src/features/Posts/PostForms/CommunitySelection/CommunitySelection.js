@@ -2,33 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { CommunitySelectionDropdown, CommunitySelectionInput } from "../../..";
 import "./CommunitySelection.css";
-
-function useOutsideAlerter(
-  ref,
-  setShowDropdown,
-  communityModalOpen,
-  setCommunityModalOpen
-) {
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (communityModalOpen) {
-        return;
-      }
-      if (!communityModalOpen) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setShowDropdown(false);
-          setCommunityModalOpen(false);
-        }
-      } else {
-        setCommunityModalOpen(true);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref, setShowDropdown, communityModalOpen, setCommunityModalOpen]);
-}
+import { useOutsideClick } from "../../../../hooks";
 
 export function CommunitySelection({
   setcommunity_id,
@@ -47,12 +21,7 @@ export function CommunitySelection({
   const [name, setName] = useState("");
   const [communityModalOpen, setCommunityModalOpen] = useState(false);
 
-  useOutsideAlerter(
-    wrapperRef,
-    setShowDropdown,
-    communityModalOpen,
-    setCommunityModalOpen
-  );
+  useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
   useEffect(() => {
     for (let community of Object.values(allCommunities)) {

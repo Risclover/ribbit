@@ -1,3 +1,8 @@
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect";
+import { DeveloperLinksBox } from "./DeveloperLinksBox";
+
 jest.mock("../data/developerLinksData", () => ({
   developerLinks: [
     {
@@ -14,11 +19,6 @@ jest.mock("../data/developerLinksData", () => ({
     },
   ],
 }));
-
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
-import { DeveloperLinksBox } from "./DeveloperLinksBox";
 
 describe("DeveloperLinksBox Component", () => {
   it("renders the correct number of links", () => {

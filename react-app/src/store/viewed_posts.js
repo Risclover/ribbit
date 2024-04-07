@@ -33,21 +33,15 @@ export const getViewedPosts = () => async (dispatch) => {
 };
 
 export const addViewedPost = (postId) => async (dispatch) => {
-  try {
-    const response = await fetch(`/api/viewed_posts`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ postId: postId }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(add(data)); // Assuming 'add' updates your Redux store
-      return Promise.resolve(data); // Explicitly return a resolved promise
-    } else {
-      return Promise.reject("Failed to add viewed post");
-    }
-  } catch (error) {
-    return Promise.reject(error);
+  const response = await fetch(`/api/viewed_posts`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ postId: postId }),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(add(data));
+    return data;
   }
 };
 
