@@ -15,11 +15,19 @@ export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
   return (
     <div className="user-profile-posts-page">
       {user?.userPosts === 0 && (
-        <div className="no-posts-div">
-          <IoIosPaper />
-          <h1 className="head">No Posts Yet</h1>
-          <p>This user hasn't created any posts yet. Perhaps they're shy?</p>
-        </div>
+        <>
+          <SortingBar
+            sortMode={sortMode}
+            setSortMode={setSortMode}
+            isPage="profile"
+          />
+          <div className="no-posts-div-profile-container">
+            <div className="no-posts-div-profile"></div>
+            <span className="no-posts-div-profile-txt">
+              hmm...u/{user.username} hasn't posted anything
+            </span>
+          </div>
+        </>
       )}
       <PostFeed
         posts={sortedPosts}
