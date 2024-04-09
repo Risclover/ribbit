@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../../../assets/styles/Modals.css";
 
-export function ImagePostForm({ img_url, setimg_url, setShowImgModal }) {
-  const [imgPreview, setImgPreview] = useState(img_url);
+export function ImagePostForm({ imgUrl, setImgUrl, setShowImgModal }) {
+  const [imgPreview, setImgPreview] = useState(imgUrl);
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -32,7 +32,7 @@ export function ImagePostForm({ img_url, setimg_url, setShowImgModal }) {
     if (res.ok) {
       const data = await res.json();
       setImageLoading(false);
-      setimg_url(data.url);
+      setImgUrl(data.url);
       setShowImgModal(false);
     } else {
       setImageLoading(false);

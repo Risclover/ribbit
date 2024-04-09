@@ -9,6 +9,7 @@ export function CommunitySelectionDropdownCommunity({
   setSearch,
   setCommunity,
   community_id,
+  otherComms,
 }) {
   const history = useHistory();
   const allCommunities = useSelector((state) =>
@@ -22,7 +23,7 @@ export function CommunitySelectionDropdownCommunity({
   useEffect(() => {
     for (let community of allCommunities) {
       if (community.id === subscription.id) {
-        setBaseColor(community.communitySettings[community.id].baseColor);
+        setBaseColor(community.communitySettings[community?.id].baseColor);
       }
     }
   });
@@ -85,7 +86,11 @@ export function CommunitySelectionDropdownCommunity({
             backgroundColor: `${baseColor}`,
           }}
           className="community-selection-community-img"
-          src={subscription?.communitySettings[subscription?.id].communityIcon}
+          src={
+            otherComms
+              ? subscription.img
+              : subscription.communitySettings?.[subscription?.id].communityIcon
+          }
           alt="Community"
         />
         <div className="community-selection-dropdown-community-details">

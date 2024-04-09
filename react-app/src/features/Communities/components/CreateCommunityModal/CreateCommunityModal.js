@@ -37,7 +37,7 @@ export function CreateCommunityModal({
   return (
     <>
       {showCreateCommunityModal && (
-        <div data-test-id="test" className="modal-container-create-community">
+        <div data-test-id="test" data-testid="create-community-modal" className="modal-container-create-community">
           <CreateCommunityForm
             onFormSubmit={{
               submit: handleCreation,

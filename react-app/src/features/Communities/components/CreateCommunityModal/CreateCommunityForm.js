@@ -19,7 +19,7 @@ const TextInput = ({
   usernameTaken,
 }) => (
   <div className="modal-content-input">
-    <h2>{label}</h2>
+    <label htmlFor="Name">{label}</label>
     <p>
       {hint}
       {label === "Name" && (
@@ -48,7 +48,9 @@ const TextInput = ({
 
     <div className="create-community-input-box">
       <input
+        id={label}
         type="text"
+        name={label}
         className="create-community-input"
         onChange={onChange}
         value={value}
@@ -79,9 +81,10 @@ const CharacterCount = ({ count, limit }) => (
 
 const TextArea = ({ label, hint, maxLength, value, onChange }) => (
   <div className="modal-content-input">
-    <h2>{label}</h2>
+    <label htmlFor={label}>{label}</label>
     <p>{hint}</p>
     <textarea
+      id={label}
       className="create-community-textarea"
       maxLength={maxLength}
       value={value}

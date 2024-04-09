@@ -27,6 +27,7 @@ import {
   ImagePostForm,
   CommunityDetails,
   useAutosizeTextArea,
+  CommunityRulesBox,
 } from "../..";
 import getTextColor from "../../../utils/getTextColor";
 import "./PostForm.css";
@@ -283,191 +284,176 @@ export function CreatePost({ postType, setPostType, val }) {
   if (!communities) return null;
 
   return (
-    <div className="create-post-form-container">
+    <div className="create-post-page">
       <div className="create-post-page-left">
-        <div className="flex-maker">
-          {user && (
-            <form
-              className="create-post-form"
-              onSubmit={
-                postType === "post"
-                  ? handlePostSubmit
-                  : postType === "image"
-                  ? handleImageSubmit
-                  : postType === "link"
-                  ? handleLinkSubmit
-                  : ""
-              }
-            >
-              <div className="create-post-header">Create a post</div>
-              <CommunitySelection
-                community_id={community_id}
-                community={community}
-                setCommunity={setCommunity}
-                setcommunity_id={setcommunity_id}
-              />
+        {user && (
+          <form
+            className="create-post-form"
+            onSubmit={
+              postType === "post"
+                ? handlePostSubmit
+                : postType === "image"
+                ? handleImageSubmit
+                : postType === "link"
+                ? handleLinkSubmit
+                : ""
+            }
+          >
+            <div className="create-post-header">Create a post</div>
+            <CommunitySelection
+              communityId={community_id}
+              community={community}
+              setCommunity={setCommunity}
+              setCommunityId={setcommunity_id}
+            />
 
-              <div className="create-post-content">
-                <PostTypeBar postType={postType} setPostType={setPostType} />
-                <div className="create-post-form-inputs">
-                  <div className="create-post-form-input">
-                    <textarea
-                      ref={textareaRef}
-                      placeholder="Title"
-                      className="create-post-input title-input"
-                      onChange={(e) => setTitle(e.target.value)}
-                      value={title}
-                      maxLength={300}
-                    ></textarea>
-                    <div className="create-post-form-title-length">
-                      <span className="create-post-title-length">
-                        {title === "" || title === null || title.length === 0
-                          ? 0
-                          : title.length}
-                        /300
-                      </span>
-                    </div>
-                  </div>
-                  {postType === "post" && (
-                    <div className="create-post-form-input">
-                      <ReactQuill
-                        theme="snow"
-                        modules={modules}
-                        onChange={setContent}
-                        placeholder="Text (required)"
-                      />
-                    </div>
-                  )}
-                  {postType === "image" && (
-                    <div className="image-post-box">
-                      {!img_url && (
-                        <button
-                          className="blue-btn-unfilled btn-short"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setShowImgModal(true);
-                          }}
-                        >
-                          Choose Image
-                        </button>
-                      )}
-                      {img_url && (
-                        <div
-                          className="image-post-preview-box"
-                          onClick={() => setShowImgModal(true)}
-                        >
-                          <div
-                            className="image-preview-box"
-                            style={{
-                              backgroundImage: `url(${img_url}`,
-                              backgroundSize: "cover",
-                              backgroundPosition: "center",
-                              backgroundRepeat: "no-repeat",
-                            }}
-                          >
-                            <button
-                              className="close-preview-btn"
-                              onClick={handleDeletePreview}
-                            >
-                              <i className="fa-solid fa-circle-xmark close-preview-img"></i>
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  {showImgModal && (
-                    <Modal
-                      onClose={() => setShowImgModal(false)}
-                      open={() => setShowImgModal(true)}
-                    >
-                      <ImagePostForm
-                        setShowImgModal={setShowImgModal}
-                        setimg_url={setimg_url}
-                        img_url={img_url}
-                      />
-                    </Modal>
-                  )}
-                  {postType === "link" && (
-                    <div className="create-post-form-input">
-                      <textarea
-                        placeholder="Url"
-                        className="create-post-input link-input"
-                        onChange={(e) => setlink_url(e.target.value)}
-                        value={link_url}
-                      ></textarea>
-                    </div>
-                  )}
-                  <div className="create-post-form-errors">
-                    {postType === "link" &&
-                      linkErrors.length > 0 &&
-                      linkErrors.map((error, idx) => (
-                        <div key={idx}>{error}</div>
-                      ))}
-                    {postType === "image" &&
-                      imageErrors.length > 0 &&
-                      imageErrors.map((error, idx) => (
-                        <div key={idx}>{error}</div>
-                      ))}
-
-                    {postType === "post" &&
-                      errors.length > 0 &&
-                      errors.map((error, idx) => <div key={idx}>{error}</div>)}
-                  </div>
-                  <div className="create-post-form-buttons">
-                    <button
-                      className="create-post-form-cancel"
-                      onClick={cancelPost}
-                    >
-                      Cancel
-                    </button>
-                    {showDiscardModal && (
-                      <Modal
-                        title="Discard post?"
-                        onClose={() => setShowDiscardModal(false)}
-                        open={() => setShowDiscardModal(true)}
-                      >
-                        <DiscardPost
-                          community_id={community_id}
-                          setShowDiscardModal={setShowDiscardModal}
-                          showDiscardModal={showDiscardModal}
-                        />
-                      </Modal>
-                    )}
-                    <button
-                      disabled={disabled}
-                      type="submit"
-                      className="create-post-form-submit"
-                    >
-                      Post
-                    </button>
+            <div className="create-post-content">
+              <PostTypeBar postType={postType} setPostType={setPostType} />
+              <div className="create-post-form-inputs">
+                <div className="create-post-form-input">
+                  <textarea
+                    ref={textareaRef}
+                    placeholder="Title"
+                    className="create-post-input title-input"
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                    maxLength={300}
+                  ></textarea>
+                  <div className="create-post-form-title-length">
+                    <span className="create-post-title-length">
+                      {title === "" || title === null || title.length === 0
+                        ? 0
+                        : title.length}
+                      /300
+                    </span>
                   </div>
                 </div>
+                {postType === "post" && (
+                  <div className="create-post-form-input">
+                    <ReactQuill
+                      theme="snow"
+                      modules={modules}
+                      onChange={setContent}
+                      placeholder="Text (required)"
+                    />
+                  </div>
+                )}
+                {postType === "image" && (
+                  <div className="image-post-box">
+                    {!img_url && (
+                      <button
+                        className="blue-btn-unfilled btn-short"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setShowImgModal(true);
+                        }}
+                      >
+                        Choose Image
+                      </button>
+                    )}
+                    {img_url && (
+                      <div
+                        className="image-post-preview-box"
+                        onClick={() => setShowImgModal(true)}
+                      >
+                        <div
+                          className="image-preview-box"
+                          style={{
+                            backgroundImage: `url(${img_url}`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                          }}
+                        >
+                          <button
+                            className="close-preview-btn"
+                            onClick={handleDeletePreview}
+                          >
+                            <i className="fa-solid fa-circle-xmark close-preview-img"></i>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {showImgModal && (
+                  <Modal
+                    onClose={() => setShowImgModal(false)}
+                    open={() => setShowImgModal(true)}
+                  >
+                    <ImagePostForm
+                      setShowImgModal={setShowImgModal}
+                      setimg_url={setimg_url}
+                      img_url={img_url}
+                    />
+                  </Modal>
+                )}
+                {postType === "link" && (
+                  <div className="create-post-form-input">
+                    <textarea
+                      placeholder="Url"
+                      className="create-post-input link-input"
+                      onChange={(e) => setlink_url(e.target.value)}
+                      value={link_url}
+                    ></textarea>
+                  </div>
+                )}
+                <div className="create-post-form-errors">
+                  {postType === "link" &&
+                    linkErrors.length > 0 &&
+                    linkErrors.map((error, idx) => (
+                      <div key={idx}>{error}</div>
+                    ))}
+                  {postType === "image" &&
+                    imageErrors.length > 0 &&
+                    imageErrors.map((error, idx) => (
+                      <div key={idx}>{error}</div>
+                    ))}
+
+                  {postType === "post" &&
+                    errors.length > 0 &&
+                    errors.map((error, idx) => <div key={idx}>{error}</div>)}
+                </div>
+                <div className="create-post-form-buttons">
+                  <button
+                    className="create-post-form-cancel"
+                    onClick={cancelPost}
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    disabled={disabled}
+                    type="submit"
+                    className="create-post-form-submit"
+                  >
+                    Post
+                  </button>
+                </div>
+                {showDiscardModal && (
+                  <Modal
+                    title="Discard post?"
+                    onClose={() => setShowDiscardModal(false)}
+                    open={() => setShowDiscardModal(true)}
+                  >
+                    <DiscardPost
+                      community_id={community_id}
+                      setShowDiscardModal={setShowDiscardModal}
+                      showDiscardModal={showDiscardModal}
+                    />
+                  </Modal>
+                )}
               </div>
-            </form>
-          )}
-        </div>
+            </div>
+          </form>
+        )}
       </div>
       <div className="create-post-page-right">
         {community && (
           <>
             <CommunityDetails community={community} post={null} />
-            {Object.values(community?.communityRules).length > 0 && (
-              <div className="community-page-community-rules">
-                <div className="community-page-rules-header">
-                  c/{community?.name} Rules
-                </div>
-                <div className="community-page-rules">
-                  <ol>
-                    {Object.values(community?.communityRules).map(
-                      (rule, idx) => (
-                        <CommunityRule idx={idx} rule={rule} />
-                      )
-                    )}
-                  </ol>
-                </div>
-              </div>
-            )}
+            <CommunityRulesBox community={community} />
+            
           </>
         )}
         <RibbitRules />

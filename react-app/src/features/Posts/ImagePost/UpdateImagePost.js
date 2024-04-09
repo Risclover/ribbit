@@ -5,7 +5,7 @@ import { putSinglePost } from "../../../store";
 import { Modal } from "../../../context";
 import { ImagePostForm } from "./ImagePostForm";
 import "react-quill/dist/quill.snow.css";
-import "../PostForms/PostForm.css";
+import "../CreatePost/PostForm.css";
 import "../Posts.css";
 
 export function UpdateImagePost() {

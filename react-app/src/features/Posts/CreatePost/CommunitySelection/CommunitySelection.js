@@ -16,7 +16,11 @@ export function CommunitySelection({
   const subscriptions = useSelector((state) => state.subscriptions);
   const allCommunities = useSelector((state) => state.communities);
 
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState(
+    Object.values(allCommunities).find((comm) =>
+      comm.id === community_id ? community.name : ""
+    )
+  );
   const [showDropdown, setShowDropdown] = useState(false);
   const [name, setName] = useState("");
   const [communityModalOpen, setCommunityModalOpen] = useState(false);
@@ -39,7 +43,7 @@ export function CommunitySelection({
       ].communityIcon,
       name: Object.values(allCommunities)[i].name,
       members: Object.values(allCommunities)[i].members,
-      communityImg: community?.communitySettings[community?.id].communityIcon,
+      communityIcon: community?.communitySettings[community?.id].communityIcon,
       id: Object.values(allCommunities)[i].id,
       bgColor:
         Object.values(allCommunities)[i].communitySettings[
@@ -59,6 +63,7 @@ export function CommunitySelection({
         setName={setName}
         communityList={communityList}
         communityId={community_id}
+        community={community}
       />
       {showDropdown && (
         <CommunitySelectionDropdown

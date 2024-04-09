@@ -50,7 +50,6 @@ export function ChatWindowInput({
   const handleCreateNewThread = () => {
     dispatch(createChatThread(userFound?.id));
     setMessageInviteOverlay(false);
-    return newChat;
   };
 
   const handleSendChatMsg = async (e) => {

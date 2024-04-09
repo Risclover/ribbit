@@ -46,6 +46,7 @@ import {
   SelectedChatContext,
   PageTitleContext,
 } from "./context";
+import { CreatePostPage } from "./pages/CreatePostPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -207,7 +208,7 @@ function App() {
               </Route>
 
               <ProtectedRoute path="/submit" exact={true}>
-                <CreatePost
+                <CreatePostPage
                   postType={postType}
                   setPostType={setPostType}
                   val="post"
@@ -215,7 +216,7 @@ function App() {
               </ProtectedRoute>
 
               <ProtectedRoute path="/c/submit/image" exact={true}>
-                <CreatePost
+                <CreatePostPage
                   postType={postType}
                   setPostType={setPostType}
                   val="image"
@@ -223,7 +224,7 @@ function App() {
               </ProtectedRoute>
 
               <ProtectedRoute path="/c/submit/url" exact={true}>
-                <CreatePost
+                <CreatePostPage
                   postType={postType}
                   setPostType={setPostType}
                   val="link"
@@ -231,7 +232,7 @@ function App() {
               </ProtectedRoute>
 
               <ProtectedRoute path="/c/:communityName/submit" exact={true}>
-                <CreatePost
+                <CreatePostPage
                   postType={postType}
                   setPostType={setPostType}
                   val="post"
@@ -242,7 +243,7 @@ function App() {
                 path="/c/:communityName/submit/image"
                 exact={true}
               >
-                <CreatePost
+                <CreatePostPage
                   postType={postType}
                   setPostType={setPostType}
                   val="image"
@@ -250,7 +251,7 @@ function App() {
               </ProtectedRoute>
 
               <ProtectedRoute path="/c/:communityName/submit/url" exact={true}>
-                <CreatePost
+                <CreatePostPage
                   postType={postType}
                   setPostType={setPostType}
                   val="link"
@@ -347,7 +348,6 @@ function App() {
               <ProtectedRoute path="/notifications" exact={true}>
                 <Notifications />
               </ProtectedRoute>
-              <Route></Route>
             </Switch>
           </div>
         </SelectedChatContext.Provider>

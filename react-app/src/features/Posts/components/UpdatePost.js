@@ -5,7 +5,7 @@ import ReactQuill from "react-quill";
 
 import { putSinglePost } from "../../../store";
 import "react-quill/dist/quill.snow.css";
-import "./PostForm.css";
+import "../CreatePost/PostForm.css";
 
 const modules = {
   toolbar: [

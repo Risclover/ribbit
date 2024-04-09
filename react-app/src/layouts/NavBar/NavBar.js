@@ -26,6 +26,8 @@ export function NavBar({
   setShowNavSidebar,
   normalDropdown,
   setNormalDropdown,
+  setOpenChat,
+  openChat,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -64,36 +66,36 @@ export function NavBar({
     setMsgNum(messageList.filter((message) => message.read === false).length);
   });
 
-  // const sortedThreads = Object.values(chatThreads).sort((a, b) => {
-  //   const aMessages = a.messages;
-  //   const bMessages = b.messages;
-  //   if (aMessages && bMessages) {
-  //     const aLastMessage = aMessages[aMessages?.length - 1];
-  //     const bLastMessage = bMessages[bMessages?.length - 1];
+  const sortedThreads = Object.values(chatThreads).sort((a, b) => {
+    const aMessages = a.messages;
+    const bMessages = b.messages;
+    if (aMessages && bMessages) {
+      const aLastMessage = aMessages[aMessages?.length - 1];
+      const bLastMessage = bMessages[bMessages?.length - 1];
 
-  //     if (aMessages?.length === 0 && bMessages?.length === 0) {
-  //       return a.createdAt.localeCompare(b.createdAt);
-  //     }
+      if (aMessages?.length === 0 && bMessages?.length === 0) {
+        return a.createdAt.localeCompare(b.createdAt);
+      }
 
-  //     if (aMessages?.length === 0) {
-  //       return 1;
-  //     }
+      if (aMessages?.length === 0) {
+        return 1;
+      }
 
-  //     if (bMessages?.length === 0) {
-  //       return -1;
-  //     }
+      if (bMessages?.length === 0) {
+        return -1;
+      }
 
-  //     return (
-  //       new Date(bLastMessage.createdAt) - new Date(aLastMessage.createdAt)
-  //     );
-  //   }
-  // });
+      return (
+        new Date(bLastMessage.createdAt) - new Date(aLastMessage.createdAt)
+      );
+    }
+  });
 
-  // const handleOpenChat = (e) => {
-  //   e.preventDefault();
-  //   setSelectedChat(sortedThreads[0]);
-  //   setOpenChat(!openChat);
-  // };
+  const handleOpenChat = (e) => {
+    e.preventDefault();
+    setSelectedChat(sortedThreads[0]);
+    setOpenChat(!openChat);
+  };
 
   return (
     <nav className="navbar-nav">
@@ -136,7 +138,7 @@ export function NavBar({
                 <span className="navbtn-tooltiptext">/c/All</span>
               )}
             </div>
-            {/* <div
+            <div
               className="navbar-button"
               onMouseEnter={() => setTimeout(() => setShowTooltip(true), 500)}
               onMouseLeave={() => setShowTooltip(false)}
@@ -144,7 +146,7 @@ export function NavBar({
             >
               <BsChatDots />
               {showTooltip && <span className="navbtn-tooltiptext">Chat</span>}
-            </div> */}
+            </div>
             {user && (
               <div className="notification-wrapper">
                 <NotificationsDropdownWrapper

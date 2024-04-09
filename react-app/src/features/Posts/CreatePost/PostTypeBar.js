@@ -9,12 +9,12 @@ export function PostTypeBar({ postType, setPostType }) {
     {
       type: "post",
       icon: <CgNotes />,
-      txt: "Post",
+      text: "Post",
     },
     {
       type: "image",
       icon: <RxImage />,
-      txt: "Image",
+      text: "Image",
     },
     {
       type: "link",
