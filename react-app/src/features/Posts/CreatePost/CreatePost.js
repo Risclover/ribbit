@@ -453,7 +453,6 @@ export function CreatePost({ postType, setPostType, val }) {
           <>
             <CommunityDetails community={community} post={null} />
             <CommunityRulesBox community={community} />
-            
           </>
         )}
         <RibbitRules />

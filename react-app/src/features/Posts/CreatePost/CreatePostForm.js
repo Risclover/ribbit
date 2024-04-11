@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import {
   addImagePost,
   addLinkPost,
+  addPost,
   addPostVote,
   getPosts,
 } from "../../../store";
@@ -16,6 +17,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { CommunitySelection } from "./CommunitySelection";
 import { PostTypeBar } from "./PostTypeBar";
 import { CreatePostFormErrors } from "./CreatePostFormErrors";
+import { Modal } from "../../../context";
+import { DiscardPost } from "../DiscardPost";
+import validator from "validator";
 
 export function CreatePostForm({
   postType,
@@ -49,12 +53,20 @@ export function CreatePostForm({
 
   const [communityId, setCommunityId] = useState(getIdFromName(communityName));
 
-  console.log("communityId:", communityName);
+  console.log("communityId:", getIdFromName(communityName));
+
+  useEffect(() => {
+    if (communityName !== "") {
+      communities.find(
+        (comm) => comm.name === communityName && setCommunity(comm)
+      );
+    }
+  }, [communityName]);
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
 
-    const data = dispatch(addPost({ title, content, communityId }));
+    const data = await dispatch(addPost({ title, content, communityId }));
     if (data.errors) {
       setErrors(data.errors);
     } else {
@@ -78,12 +90,18 @@ export function CreatePostForm({
 
   const handleImageSubmit = async (e) => {
     e.preventDefault();
-    const postId = posts[posts.length - 1].id + 1;
-
-    dispatch(addImagePost({ title, imgUrl, communityId }));
+    const postId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1;
+    const payload = {
+      title,
+      imgUrl,
+      communityId,
+    };
+    console.log("payload:", payload);
+    const data = await dispatch(addImagePost(payload));
+    console.log("data:", data);
     history.push(`/c/${communityName}`);
-    await dispatch(getPosts());
-    dispatch(addPostVote(postId, "upvote"));
+    dispatch(getPosts());
+    dispatch(addPostVote(data.id, "upvote"));
   };
 
   const handleErrors = () => {
@@ -134,14 +152,6 @@ export function CreatePostForm({
       setDisabled(true);
     } else {
       setDisabled(false);
-    }
-
-    for (let community of communities) {
-      if (community.id === +communityId) {
-        setCommunityId(community.id);
-      } else {
-        setCommunityId(+communityId);
-      }
     }
   }, [
     dispatch,
@@ -216,7 +226,7 @@ export function CreatePostForm({
               open={() => setShowDiscardModal(true)}
             >
               <DiscardPost
-                community_id={community_id}
+                communityName={communityName}
                 setShowDiscardModal={setShowDiscardModal}
                 showDiscardModal={showDiscardModal}
               />

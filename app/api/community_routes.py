@@ -220,7 +220,7 @@ def upload_banner(id):
     db.session.commit()
     return {"url": url}
 
-
+# CHECK IF COMMUNITY NAME IS AVAILABLE (TAKEN)
 @community_routes.route("/<string:name>", methods=["POST"])
 def check_username(name):
     """

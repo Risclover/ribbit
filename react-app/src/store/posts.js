@@ -108,15 +108,15 @@ export const getCommunityPosts = (communityId) => async (dispatch) => {
 
 // Add a post to a subcommunity
 export const addCommunityPost = (payload) => async (dispatch) => {
-  const { title, content, community_id } = payload;
+  const { title, content, communityId } = payload;
 
-  const response = await fetch(`/api/c/${community_id}/submit`, {
+  const response = await fetch(`/api/c/${communityId}/submit`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       title,
       content,
-      community_id,
+      communityId,
     }),
   });
 
@@ -129,7 +129,7 @@ export const addCommunityPost = (payload) => async (dispatch) => {
 };
 
 export const addPost = (payload) => async (dispatch) => {
-  const { title, content, community_id } = payload;
+  const { title, content, communityId } = payload;
 
   const response = await fetch(`/api/posts/submit`, {
     method: "POST",
@@ -137,7 +137,7 @@ export const addPost = (payload) => async (dispatch) => {
     body: JSON.stringify({
       title,
       content,
-      community_id,
+      communityId,
     }),
   });
 
@@ -170,15 +170,15 @@ export const putSinglePost = (post, postId) => async (dispatch) => {
 };
 
 export const addImagePost = (payload) => async (dispatch) => {
-  const { title, img_url, community_id } = payload;
+  const { title, imgUrl, communityId } = payload;
 
   const response = await fetch(`/api/posts/img/submit`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       title,
-      img_url,
-      community_id,
+      imgUrl,
+      communityId,
     }),
   });
 
@@ -190,13 +190,13 @@ export const addImagePost = (payload) => async (dispatch) => {
 };
 
 export const putImagePost = (post, postId) => async (dispatch) => {
-  const { title, img_url } = post;
+  const { title, imgUrl } = post;
   const response = await fetch(`/api/posts/img/${postId}/edit`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       title,
-      img_url,
+      imgUrl,
     }),
   });
 
@@ -210,15 +210,15 @@ export const putImagePost = (post, postId) => async (dispatch) => {
 };
 
 export const addLinkPost = (payload) => async (dispatch) => {
-  const { title, link_url, community_id } = payload;
+  const { title, linkUrl, communityId } = payload;
 
   const response = await fetch(`/api/posts/url/submit`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       title,
-      link_url,
-      community_id,
+      linkUrl,
+      communityId,
     }),
   });
 

@@ -53,7 +53,7 @@ export function CommunityDetails({ post, community }) {
               src={
                 post !== null
                   ? post?.communitySettings[post?.communityId]?.communityIcon
-                  : community?.communitySettings[community?.id]?.communityIcon
+                  : community?.communitySettings?.[community?.id]?.communityIcon
               }
               alt="Community"
               className="single-post-community-info-img"

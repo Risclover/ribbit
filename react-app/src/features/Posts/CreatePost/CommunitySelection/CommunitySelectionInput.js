@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 import { TbChevronDown } from "react-icons/tb";
 import "./CommunitySelection.css";
+import { useHistory } from "react-router-dom";
 
 export function CommunitySelectionInput({
   setShowDropdown,
@@ -11,19 +12,41 @@ export function CommunitySelectionInput({
   communityId,
   community,
   communityList,
+  setCommunity,
 }) {
+  const history = useHistory();
   const [inputState, setInputState] = useState("choose");
   const communitySettings = useSelector((state) =>
     communityId
       ? state.communities[communityId]?.communitySettings[communityId]
       : null
   );
-  console.log("communitySettings:", community);
+  console.log("communitySettings:", inputState);
+
+  const communities = useSelector((state) => Object.values(state.communities));
 
   const handleFocus = () => {
     setInputState("search");
     setShowDropdown(true);
   };
+
+  useEffect(() => {
+    if (inputState === "choose" && search === "") {
+      setCommunity(null);
+      history.push("/submit");
+    }
+  }, [inputState, search, history, community]);
+
+  useEffect(() => {
+    // If there's a communityId, find and set the initial community
+    if (communityId) {
+      const initialCommunity = communities.find((c) => c.id === communityId);
+      if (initialCommunity) {
+        setCommunity(initialCommunity);
+        setSearch(initialCommunity.name); // Consider setting search to the community name if needed
+      }
+    }
+  }, [communityId, communities, setCommunity, setSearch]);
 
   return (
     <div
@@ -35,7 +58,7 @@ export function CommunitySelectionInput({
         {!search && inputState === "choose" && (
           <div className="dotted-circle"></div>
         )}
-        {community && search && (
+        {community && communityId && +communityId > 0 && (
           <img
             style={{
               backgroundColor:
@@ -63,6 +86,18 @@ export function CommunitySelectionInput({
           onChange={(e) => setSearch(e.target.value)}
           value={search}
           onFocus={handleFocus}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              const foundCommunity = communities.find(
+                (comm) => comm.name === e.target.value
+              );
+              if (foundCommunity) {
+                history.push(`/c/${foundCommunity.name}/submit`);
+                setCommunity(foundCommunity);
+              }
+            }
+          }}
         />
         <button
           className="chevron-down-icon"

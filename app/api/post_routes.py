@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.models import db, Post, User, PostVote
 from .auth_routes import validation_errors_to_error_messages
@@ -41,7 +41,7 @@ def create_post():
             title=data["title"],
             content=data["content"],
             user_id=current_user.get_id(),
-            community_id=data["community_id"]
+            community_id=data["communityId"]
         )
 
         db.session.add(new_post)
@@ -71,9 +71,9 @@ def create_image_post():
 
         new_post = Post(
             title=data["title"],
-            img_url=data["img_url"],
+            img_url=data["imgUrl"],
             user_id=current_user.get_id(),
-            community_id=data["community_id"]
+            community_id=data["communityId"]
         )
 
         db.session.add(new_post)
@@ -101,9 +101,9 @@ def create_link_post():
 
         new_post = Post(
             title=data["title"],
-            link_url=data["link_url"],
+            link_url=data["linkUrl"],
             user_id=current_user.get_id(),
-            community_id=data["community_id"]
+            community_id=data["communityId"]
         )
 
         db.session.add(new_post)
@@ -156,7 +156,7 @@ def update_image_post(id):
         data = form.data
 
         setattr(post, 'title', data['title'])
-        setattr(post, 'img_url', data['img_url'])
+        setattr(post, 'img_url', data['imgUrl'])
 
         db.session.commit()
         return post.to_dict()
@@ -205,23 +205,33 @@ def get_followed_posts():
 @login_required
 def add_vote(id, votetype):
     """
-    Query to like a post
+    Query to like or dislike a post
     """
     post = Post.query.get(id)
-    user = User.query.get(current_user.get_id())
+    if not post:
+        return jsonify({"error": "Post not found"}), 404
 
+    user = User.query.get(current_user.get_id())
+    existing_vote = PostVote.query.filter_by(user_id=user.id, post_id=id).first()
+
+    if existing_vote:
+        # If you prefer to update the vote instead of doing nothing, you can handle it here.
+        return jsonify({"message": "User has already voted on this post."}), 400
+
+    # Handle vote creation
     if votetype == "upvote":
         post_vote = PostVote(user_id=user.id, post_id=id, is_upvote=True)
-
     elif votetype == "downvote":
         post_vote = PostVote(user_id=user.id, post_id=id, is_upvote=False)
+    else:
+        return jsonify({"error": "Invalid vote type"}), 400
 
-    post_vote.user_who_liked = user
-    post_vote.post = post
+    # Assuming you have relationships set up correctly in your SQLAlchemy models
     post.users_who_liked.append(post_vote)
-
+    db.session.add(post_vote)
     db.session.commit()
-    return post.to_dict()
+
+    return jsonify(post.to_dict()), 201  # Assuming `post.to_dict()` serializes your post object correctly
 
 # DELETE VOTE
 @post_routes.route("/<int:id>/vote", methods=["DELETE"])

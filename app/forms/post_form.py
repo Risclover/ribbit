@@ -64,8 +64,8 @@ class ImagePostForm(FlaskForm):
             ),
         ],
     )
-    img_url = StringField("imgUrl")
-    community_id = IntegerField("CommunityId")
+    imgUrl = StringField("imgUrl")
+    communityId = IntegerField("CommunityId")
     submit = SubmitField("Submit")
 
 # FORM FOR UPDATING AN IMAGE POST

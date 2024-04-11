@@ -4,19 +4,19 @@ import { useHistory } from "react-router-dom";
 export function DiscardPost({
   showDiscardModal,
   setShowDiscardModal,
-  community_id,
+  communityName,
 }) {
   const history = useHistory();
 
   const discard = (e) => {
     e.preventDefault();
     if (
-      community_id !== undefined &&
-      community_id !== "undefined" &&
-      community_id &&
-      !isNaN(community_id)
+      communityName !== undefined &&
+      communityName !== "undefined" &&
+      communityName &&
+      communityName !== ""
     ) {
-      history.push(`/c/${community_id}`);
+      history.push(`/c/${communityName}`);
     } else {
       history.push("/home");
     }
