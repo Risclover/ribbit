@@ -9,13 +9,13 @@ viewed_post_routes = Blueprint("viewed_posts", __name__)
 @viewed_post_routes.route("")
 def viewed_posts():
     user_id = current_user.get_id()
-    viewed_posts_with_timestamps = ViewedPost.query.filter_by(user_id=user_id).order_by(ViewedPost.viewed_at.desc()).all()
+    viewed_posts_with_timestamps = ViewedPost.query.filter_by(user_id=user_id).order_by(ViewedPost.timestamp.desc()).all()
     posts_data = [viewed_post.post.to_dict() for viewed_post in viewed_posts_with_timestamps]
     return jsonify(posts=posts_data)
 
 @viewed_post_routes.route("/<int:post_id>", methods=["POST"])
 def view_post(post_id):
-    user_id = request.json.get('user_id')
+    user_id = current_user.get_id()
     if not user_id:
         return jsonify({'error': 'User ID is required'}), 400
 

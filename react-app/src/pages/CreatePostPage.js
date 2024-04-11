@@ -9,8 +9,10 @@ import { useParams } from "react-router-dom";
 export function CreatePostPage({ postType, setPostType, val }) {
   const { communityName } = useParams();
   const dispatch = useDispatch();
-  const [community, setCommunity] = useState();
   const communities = useSelector((state) => state.communities);
+  const [community, setCommunity] = useState(
+    Object.values(communities).find((comm) => comm.name === communityName)
+  );
 
   useEffect(() => {
     dispatch(getPosts());

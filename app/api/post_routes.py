@@ -45,11 +45,9 @@ def create_post():
         )
 
         db.session.add(new_post)
-
-
         db.session.commit()
-
         return new_post.to_dict()
+
     print(form.errors)
 
     user = User.query.get(current_user.get_id())

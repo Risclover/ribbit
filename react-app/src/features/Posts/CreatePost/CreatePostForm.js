@@ -56,12 +56,17 @@ export function CreatePostForm({
   console.log("communityId:", getIdFromName(communityName));
 
   useEffect(() => {
-    if (communityName !== "") {
-      communities.find(
-        (comm) => comm.name === communityName && setCommunity(comm)
-      );
-    }
+    setCommunityId(getIdFromName(communityName));
+    console.log("commmss:", communityId);
   }, [communityName]);
+
+  //   useEffect(() => {
+  //     if (communityName !== "") {
+  //       communities.find(
+  //         (comm) => comm.name === communityName && setCommunity(comm)
+  //       );
+  //     }
+  //   }, [communityName]);
 
   const handleGeneralSubmit = (data) => {
     history.push(`/c/${communityName}`);
@@ -89,7 +94,9 @@ export function CreatePostForm({
       linkUrl,
       communityId,
     };
+    console.log("payload:", payload);
     const data = await dispatch(addLinkPost(payload));
+    console.log("data:", data);
     handleGeneralSubmit(data);
   };
 

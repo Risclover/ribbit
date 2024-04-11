@@ -12,7 +12,7 @@ class ViewedPost(db.Model):
             "id": self.id,
             "userId": self.user_id,
             "postId": self.post_id,
-            "viewedAt": self.viewed_at
+            "viewedAt": self.timestamp
         }
 
     def __repr__(self):

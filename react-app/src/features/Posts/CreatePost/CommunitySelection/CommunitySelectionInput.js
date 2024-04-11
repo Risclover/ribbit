@@ -48,6 +48,8 @@ export function CommunitySelectionInput({
     }
   }, [communityId, communities]);
 
+  console.log("comm:", communityId);
+
   return (
     <div
       className="community-selection-input-box"
@@ -58,7 +60,7 @@ export function CommunitySelectionInput({
         {!search && inputState === "choose" && (
           <div className="dotted-circle"></div>
         )}
-        {community && communityId && +communityId > 0 && (
+        {communityId && (
           <img
             style={{
               backgroundColor:
@@ -66,7 +68,7 @@ export function CommunitySelectionInput({
             }}
             className="community-dropdown-img"
             alt="Community"
-            src={community?.communitySettings[community?.id].communityIcon}
+            src={community?.communitySettings?.[community?.id].communityIcon}
           />
         )}
         {search?.length > 0 && (

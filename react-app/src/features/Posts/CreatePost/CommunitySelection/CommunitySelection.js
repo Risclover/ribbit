@@ -21,10 +21,11 @@ export function CommunitySelection({
 
   const [search, setSearch] = useState(community?.name);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [name, setName] = useState("");
   const [communityModalOpen, setCommunityModalOpen] = useState(false);
 
   useOutsideClick(wrapperRef, () => setShowDropdown(false));
+
+  console.log("comms:", communityId);
 
   useEffect(() => {
     for (let community of Object.values(allCommunities)) {
@@ -61,8 +62,6 @@ export function CommunitySelection({
         setSearch={setSearch}
         setShowDropdown={setShowDropdown}
         showDropdown={showDropdown}
-        name={name}
-        setName={setName}
         communityList={communityList}
         communityId={communityId}
         community={community}
@@ -73,7 +72,6 @@ export function CommunitySelection({
           communityModalOpen={communityModalOpen}
           setCommunityModalOpen={setCommunityModalOpen}
           communityList={communityList}
-          setName={setName}
           search={search}
           setSearch={setSearch}
           communityId={communityId}

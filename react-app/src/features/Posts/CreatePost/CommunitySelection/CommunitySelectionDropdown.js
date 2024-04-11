@@ -8,14 +8,13 @@ import "./CommunitySelection.css";
 
 export function CommunitySelectionDropdown({
   subscriptions,
-  community_id,
-  setcommunity_id,
+  communityId,
+  setCommunityId,
   setShowDropdown,
   showDropdown,
   search,
   setSearch,
   communityList,
-  setName,
   setCommunity,
 }) {
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
@@ -66,13 +65,13 @@ export function CommunitySelectionDropdown({
               communityList={communityList}
               search={search}
               setSearch={setSearch}
-              setcommunity_id={setcommunity_id}
+              setCommunityId={setCommunityId}
               subscription={subscription}
-              community_id={community_id}
+              communityId={communityId}
               setShowDropdown={setShowDropdown}
               showDropdown={showDropdown}
-              setName={setName}
               setCommunity={setCommunity}
+              otherComms={false}
             />
           ))}
       {!search &&
@@ -85,13 +84,13 @@ export function CommunitySelectionDropdown({
               communityList={communityList}
               search={search}
               setSearch={setSearch}
-              setcommunity_id={setcommunity_id}
+              setCommunityId={setCommunityId}
               subscription={subscription}
-              community_id={community_id}
+              communityId={communityId}
               setShowDropdown={setShowDropdown}
               showDropdown={showDropdown}
-              setName={setName}
               setCommunity={setCommunity}
+              otherComms={false}
             />
           ))}
       {communityList
@@ -118,14 +117,13 @@ export function CommunitySelectionDropdown({
                 communityList={communityList}
                 search={search}
                 setSearch={setSearch}
-                setcommunity_id={setcommunity_id}
+                setCommunityId={setCommunityId}
                 subscription={subscription}
-                community_id={community_id}
+                communityId={communityId}
                 setShowDropdown={setShowDropdown}
                 showDropdown={showDropdown}
-                setName={setName}
                 setCommunity={setCommunity}
-                otherComms="Yes"
+                otherComms={true}
               />
             ))}
       </div>

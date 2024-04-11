@@ -8,7 +8,7 @@ export function CommunitySelectionDropdownCommunity({
   setShowDropdown,
   setSearch,
   setCommunity,
-  community_id,
+  communityId,
   otherComms,
 }) {
   const history = useHistory();
@@ -16,10 +16,11 @@ export function CommunitySelectionDropdownCommunity({
     Object.values(state.communities)
   );
 
-  const thisCommunity = useSelector((state) => state.communities[community_id]);
+  const thisCommunity = useSelector((state) => state.communities[communityId]);
 
   const [baseColor, setBaseColor] = useState();
 
+  console.log("sub:", subscription);
   useEffect(() => {
     for (let community of allCommunities) {
       if (community.id === subscription.id) {
@@ -81,7 +82,7 @@ export function CommunitySelectionDropdownCommunity({
         className="community-selection-dropdown-community"
         onClick={(e) => handleClick(e, subscription?.name)}
       >
-        <img
+        {/* <img
           style={{
             backgroundColor: `${baseColor}`,
           }}
@@ -92,7 +93,19 @@ export function CommunitySelectionDropdownCommunity({
               : subscription.communitySettings?.[subscription?.id].communityIcon
           }
           alt="Community"
-        />
+        /> */}
+        {otherComms && (
+          <img
+            className="community-selection-community-img"
+            src={subscription.img}
+          />
+        )}
+        {!otherComms && (
+          <img
+            className="community-selection-community-img"
+            src={subscription.communitySettings[subscription?.id].communityIcon}
+          />
+        )}
         <div className="community-selection-dropdown-community-details">
           <div className="community-selection-community-name">
             c/{subscription?.name}
