@@ -65,7 +65,6 @@ export function CreatePostForm({
 
   const handleGeneralSubmit = (data) => {
     history.push(`/c/${communityName}`);
-    dispatch(getPosts());
     dispatch(addPostVote(data.id, "upvote"));
   };
 
@@ -96,15 +95,13 @@ export function CreatePostForm({
 
   const handleImageSubmit = async (e) => {
     e.preventDefault();
-    if (errs !== null) {
-      const payload = {
-        title,
-        imgUrl,
-        communityId,
-      };
-      const data = await dispatch(addImagePost(payload));
-      handleGeneralSubmit(data);
-    }
+    const payload = {
+      title,
+      imgUrl,
+      communityId,
+    };
+    const data = await dispatch(addImagePost(payload));
+    handleGeneralSubmit(data);
   };
 
   const cancelPost = (e) => {
