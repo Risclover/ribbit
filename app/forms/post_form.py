@@ -24,7 +24,7 @@ class PostForm(FlaskForm):
             )
         ],
     )
-    community_id = IntegerField("communityId")
+    communityId = IntegerField("CommunityId")
     submit = SubmitField("Submit")
 
 # FORM FOR UPDATING A POST
@@ -81,7 +81,7 @@ class UpdateImagePostForm(FlaskForm):
             ),
         ],
     )
-    img_url = StringField("imgUrl")
+    imgUrl = StringField("imgUrl")
     submit = SubmitField("Submit")
 
 # FORM FOR CREATING A LINK POST
@@ -97,6 +97,6 @@ class LinkPostForm(FlaskForm):
             ),
         ],
     )
-    link_url = StringField("linkUrl")
-    community_id = IntegerField("CommunityId")
+    linkUrl = StringField("LinkUrl")
+    communityId = IntegerField("CommunityId")
     submit = SubmitField("Submit")

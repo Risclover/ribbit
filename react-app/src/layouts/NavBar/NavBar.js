@@ -52,6 +52,10 @@ export function NavBar({
   // }, [dispatch]);
 
   useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  useEffect(() => {
     let list = messageList.filter((message) => message.read === false);
     setNotificationNum(
       list.length +

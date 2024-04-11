@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getCommunities, getCommunitySettings } from "../store";
+import { getCommunities, getCommunitySettings, getPosts } from "../store";
 
 import {
   CommunityPageMain,
@@ -19,6 +19,7 @@ export function CommunityPage() {
   useEffect(() => {
     dispatch(getCommunities());
     dispatch(getCommunitySettings(communityId));
+    dispatch(getPosts());
   }, [dispatch]);
 
   const communities = useSelector((state) => state.communities);
