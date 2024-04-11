@@ -9,10 +9,10 @@ const load = (viewedPosts) => {
   };
 };
 
-export const add = (post) => {
+export const add = (postId) => {
   return {
     type: ADD,
-    post,
+    postId,
   };
 };
 
@@ -33,11 +33,16 @@ export const getViewedPosts = () => async (dispatch) => {
 };
 
 export const addViewedPost = (postId) => async (dispatch) => {
-  const response = await fetch(`/api/viewed_posts`, {
+  const response = await fetch(`/api/viewed_posts/${postId}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ postId: postId }),
+    headers: {
+      "Content-Type": "application/json",
+      body: JSON.stringify({
+        user_id: userId,
+      }),
+    },
   });
+
   if (response.ok) {
     const data = await response.json();
     dispatch(add(data));
@@ -62,9 +67,11 @@ export default function viewedPostsReducer(state = initialState, action) {
         posts: [],
       };
     case ADD:
+      const newViewed = state.viewedPosts.filter((p) => p !== action.postId);
+      newViewed.unshift(action.postId);
       return {
         ...state,
-        posts: [...state.posts, action.post],
+        viewedPosts: newViewed.slice(0, 5),
       };
     default:
       return state;

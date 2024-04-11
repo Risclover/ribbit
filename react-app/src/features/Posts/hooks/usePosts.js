@@ -17,7 +17,7 @@ export function usePosts(isAllPosts) {
     Object.values(state.subscriptions)
   );
   const follows = useSelector((state) => state.followers.posts);
-  const viewedPosts = useSelector((state) => Object.values(state.viewedPosts));
+  const viewedPosts = useSelector((state) => state.viewedPosts);
   const [sortMode, setSortMode] = useState("new");
 
   useEffect(() => {

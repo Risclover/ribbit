@@ -58,7 +58,7 @@ export function RecentlyViewedPosts() {
 
   useEffect(() => {
     dispatch(getViewedPosts());
-  }, [dispatch]);
+  }, [dispatch, posts.length]);
 
   const handleClear = () => {
     fetch("/api/viewed_posts/delete", { method: "DELETE" })

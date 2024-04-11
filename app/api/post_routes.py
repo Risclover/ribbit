@@ -41,7 +41,7 @@ def create_post():
             title=data["title"],
             content=data["content"],
             user_id=current_user.get_id(),
-            community_id=data["community_id"]
+            community_id=data["communityId"]
         )
 
         db.session.add(new_post)

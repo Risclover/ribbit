@@ -2,15 +2,10 @@ from .db import db
 from datetime import datetime, timezone
 
 class ViewedPost(db.Model):
-    __tablename__ = "viewed_posts"
-
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
-    viewed_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
-
-    user = db.relationship('User', back_populates='viewed_posts')
-    post = db.relationship('Post', back_populates='viewers')
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
+    timestamp = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     def to_dict(self):
         return {
@@ -21,4 +16,4 @@ class ViewedPost(db.Model):
         }
 
     def __repr__(self):
-        return f"<ViewedPost {self.id}: {self.post}>"
+        return f"<ViewedPost user_id={self.user_id} post_id={self.post_id}>"

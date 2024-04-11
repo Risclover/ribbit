@@ -30,6 +30,11 @@ export function AllPostsFeed() {
     pageTitle: "All",
   });
 
+  console.log(
+    "recent posts:",
+    Object.values(viewedPosts).flatMap((post) => post)
+  );
+
   return (
     <FeedContainer>
       <FeedLeftColContainer>
@@ -47,7 +52,10 @@ export function AllPostsFeed() {
           rising and be a part of the conversation."
           user={user}
         />
-        {viewedPosts && viewedPosts.length > 0 && <RecentlyViewedPosts />}
+        {viewedPosts &&
+          Object.values(viewedPosts).flatMap((post) => post).length > 0 && (
+            <RecentlyViewedPosts />
+          )}
         <div className="last-box-wrapper">
           <DeveloperLinksBox />
           <BackToTop />

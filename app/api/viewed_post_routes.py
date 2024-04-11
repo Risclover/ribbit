@@ -13,25 +13,25 @@ def viewed_posts():
     posts_data = [viewed_post.post.to_dict() for viewed_post in viewed_posts_with_timestamps]
     return jsonify(posts=posts_data)
 
-@viewed_post_routes.route("", methods=["POST"])
-def view_post():
-    user_id = current_user.get_id()
-    post_id = request.json["postId"]
+@viewed_post_routes.route("/<int:post_id>", methods=["POST"])
+def view_post(post_id):
+    user_id = request.json.get('user_id')
+    if not user_id:
+        return jsonify({'error': 'User ID is required'}), 400
 
+    # Check for existing views of the same post by the same user
     existing_view = ViewedPost.query.filter_by(user_id=user_id, post_id=post_id).first()
-
     if existing_view:
-        # If the post has already been viewed, update the `viewed_at` timestamp to the current time
-        existing_view.viewed_at = datetime.now(timezone.utc)
-    else:
-        # If this is a new view, create a new ViewedPost record
-        new_view = ViewedPost(user_id=user_id, post_id=post_id)
-        db.session.add(new_view)
+        # Update the timestamp to now
+        existing_view.timestamp = datetime.now(timezone.utc)
+        db.session.commit()
+        return jsonify({'message': 'View updated'}), 200
 
+    # Record a new view
+    new_view = ViewedPost(user_id=user_id, post_id=post_id)
+    db.session.add(new_view)
     db.session.commit()
-
-    return jsonify({"status_code": 201, "message": "Post view updated successfully"})
-
+    return jsonify({'message': 'View recorded'}), 201
 
 @viewed_post_routes.route("/delete", methods=["DELETE"])
 def clear_viewed_posts():
