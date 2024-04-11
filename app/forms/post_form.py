@@ -24,7 +24,7 @@ class PostForm(FlaskForm):
             )
         ],
     )
-    community_id = IntegerField("CommunityId")
+    community_id = IntegerField("communityId")
     submit = SubmitField("Submit")
 
 # FORM FOR UPDATING A POST

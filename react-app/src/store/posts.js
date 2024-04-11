@@ -116,7 +116,7 @@ export const addCommunityPost = (payload) => async (dispatch) => {
     body: JSON.stringify({
       title,
       content,
-      communityId,
+      community_id: communityId,
     }),
   });
 
@@ -146,7 +146,6 @@ export const addPost = (payload) => async (dispatch) => {
     dispatch(loadPost(post));
     return post;
   }
-  return { errors: "testing" };
 };
 
 export const putSinglePost = (post, postId) => async (dispatch) => {

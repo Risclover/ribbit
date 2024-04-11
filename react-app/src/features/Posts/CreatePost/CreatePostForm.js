@@ -63,57 +63,47 @@ export function CreatePostForm({
     }
   }, [communityName]);
 
-  const handlePostSubmit = async (e) => {
-    e.preventDefault();
-
-    const data = await dispatch(addPost({ title, content, communityId }));
-    if (data.errors) {
-      setErrors(data.errors);
-    } else {
-      setTitle("");
-      setContent("");
-      const postId = posts[posts?.length - 1]?.id + 1;
-      history.push(`/c/${communityName}`);
-      await dispatch(getPosts());
-      dispatch(addPostVote(postId, "upvote"));
-    }
-  };
-
-  const handleLinkSubmit = async (e) => {
-    e.preventDefault();
-    const postId = posts[posts.length - 1].id + 1;
-    dispatch(addLinkPost({ title, linkUrl, communityId }));
-    history.push(`/c/${communityName}`);
-    await dispatch(getPosts());
-    dispatch(addPostVote(postId, "upvote"));
-  };
-
-  const handleImageSubmit = async (e) => {
-    e.preventDefault();
-    const postId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1;
-    const payload = {
-      title,
-      imgUrl,
-      communityId,
-    };
-    console.log("payload:", payload);
-    const data = await dispatch(addImagePost(payload));
-    console.log("data:", data);
+  const handleGeneralSubmit = (data) => {
     history.push(`/c/${communityName}`);
     dispatch(getPosts());
     dispatch(addPostVote(data.id, "upvote"));
   };
 
-  const handleErrors = () => {
-    switch (postType) {
-      case "link":
-        setLinkErrors(validateLinkPost(community, title, linkUrl));
-      case "image":
-        setImageErrors(validateImgPost(community, title, imgUrl));
-      case "post":
-        setErrors(validatePost(community, title));
-      default:
-        return null;
+  const handlePostSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      title,
+      content,
+      communityId,
+    };
+    console.log("payload:", payload);
+    const data = await dispatch(addPost(payload));
+    console.log("data:", data);
+    handleGeneralSubmit(data);
+  };
+
+  const handleLinkSubmit = async (e) => {
+    e.preventDefault();
+    const payload = {
+      title,
+      linkUrl,
+      communityId,
+    };
+    const data = await dispatch(addLinkPost(payload));
+    handleGeneralSubmit(data);
+  };
+
+  const handleImageSubmit = async (e) => {
+    e.preventDefault();
+    if (errs !== null) {
+      const payload = {
+        title,
+        imgUrl,
+        communityId,
+      };
+      const data = await dispatch(addImagePost(payload));
+      handleGeneralSubmit(data);
     }
   };
 
@@ -200,12 +190,10 @@ export function CreatePostForm({
           />
           <CreatePostFormErrors
             postType={postType}
-            linkErrors={linkErrors}
-            imageErrors={imageErrors}
-            errors={errors}
             title={title}
             community={community}
             imgUrl={imgUrl}
+            linkUrl={linkUrl}
           />
           <div className="create-post-form-buttons">
             <button className="create-post-form-cancel" onClick={cancelPost}>

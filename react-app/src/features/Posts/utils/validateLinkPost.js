@@ -1,8 +1,12 @@
+import validator from "validator";
+
 export const validateLinkPost = (community, title, linkUrl) => {
   let errors = [];
+
   if (!validator.isURL(linkUrl) && linkUrl.length > 0) {
     errors.push("Link doesn't look right.");
   }
+
   if (linkUrl.length === 0 || linkUrl === "" || linkUrl === null) {
     errors.push("Please enter a url.");
   }

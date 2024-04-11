@@ -41,7 +41,7 @@ def create_post():
             title=data["title"],
             content=data["content"],
             user_id=current_user.get_id(),
-            community_id=data["communityId"]
+            community_id=data["community_id"]
         )
 
         db.session.add(new_post)
@@ -91,31 +91,28 @@ def create_image_post():
 @post_routes.route("/url/submit", methods=["POST"])
 @login_required
 def create_link_post():
-    """
-    Query for creating a new link post
-    """
-    form = LinkPostForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
-    if form.validate_on_submit():
-        data = form.data
+    data = request.json
 
-        new_post = Post(
-            title=data["title"],
-            link_url=data["linkUrl"],
-            user_id=current_user.get_id(),
-            community_id=data["communityId"]
-        )
+    # Directly access the keys from the JSON payload
+    title = data.get("title")
+    linkUrl = data.get("linkUrl")  # Using the JavaScript convention
+    communityId = data.get("communityId")
 
-        db.session.add(new_post)
-        db.session.commit()
+    # Ensure all required data is present
+    if not title or not linkUrl or not communityId:
+        return jsonify({"error": "Missing required fields"}), 400
 
-        return new_post.to_dict()
-    print(form.errors)
+    new_post = Post(
+        title=title,
+        link_url=linkUrl,  # Notice the model attribute is likely named with underscore
+        user_id=current_user.get_id(),
+        community_id=communityId
+    )
 
-    user = User.query.get(current_user.get_id())
-    user.user_post_votes.append(new_post)
-    new_post.users_who_liked.append(user)
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+    db.session.add(new_post)
+    db.session.commit()
+
+    return jsonify(new_post.to_dict()), 201
 
 # UPDATE A SINGLE POST
 @post_routes.route("/<int:id>/edit", methods=["PUT"])

@@ -43,10 +43,10 @@ export function CommunitySelectionInput({
       const initialCommunity = communities.find((c) => c.id === communityId);
       if (initialCommunity) {
         setCommunity(initialCommunity);
-        setSearch(initialCommunity.name); // Consider setting search to the community name if needed
+        setSearch(initialCommunity.name);
       }
     }
-  }, [communityId, communities, setCommunity, setSearch]);
+  }, [communityId, communities]);
 
   return (
     <div

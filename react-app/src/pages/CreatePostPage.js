@@ -47,7 +47,9 @@ export function CreatePostPage({ postType, setPostType, val }) {
         {community && (
           <>
             <CommunityDetails community={community} post={null} />
-            <CommunityRulesBox community={community} />
+            {Object.values(community.communityRules).length > 0 && (
+              <CommunityRulesBox community={community} />
+            )}
           </>
         )}
         <RibbitRules />
