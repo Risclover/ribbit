@@ -37,6 +37,8 @@ class User(db.Model, UserMixin):
 
     user_favorite_communities = db.relationship('Community', back_populates='users_who_favorited', secondary=favorite_communities, lazy="joined")
 
+    viewed_posts = db.relationship('ViewedPost', back_populates='user')
+
     user_post_votes = db.relationship("PostVote", back_populates="user_who_liked", cascade="all,delete-orphan")
     user_comment_votes = db.relationship("CommentVote", back_populates="user_who_liked")
     user_communities = db.relationship('Community', back_populates="community_owner", cascade="all, delete")

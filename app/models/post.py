@@ -22,6 +22,8 @@ class Post(db.Model):
     post_comments = db.relationship('Comment', back_populates='comment_post', cascade="all, delete-orphan")
     post_community = db.relationship('Community', back_populates="community_posts")
     users_who_liked = db.relationship("PostVote", back_populates="user_post_vote", cascade="all,delete-orphan")
+    post_viewers = db.relationship("ViewedPost", back_populates="post")
+
 
     def to_dict(self):
         return {

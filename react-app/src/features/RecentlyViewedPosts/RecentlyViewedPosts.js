@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { CgNotes } from "react-icons/cg";
@@ -54,11 +54,19 @@ const PostTypeIcon = ({ post }) => {
 
 export function RecentlyViewedPosts() {
   const dispatch = useDispatch();
-  const { posts = [] } = useSelector((state) => state.viewedPosts);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    dispatch(getViewedPosts());
-  }, [dispatch, posts.length]);
+    const fetchPosts = async () => {
+      const arr = [];
+      const postList = await dispatch(getViewedPosts());
+      postList.ViewedPosts.map((item) => arr.push(item.post));
+
+      setPosts(arr);
+    };
+
+    fetchPosts();
+  }, []);
 
   const handleClear = () => {
     fetch("/api/viewed_posts/delete", { method: "DELETE" })
@@ -70,9 +78,9 @@ export function RecentlyViewedPosts() {
 
   return (
     <div className="recent-posts-box">
-      <div className="recent-posts-head">Recent Posts</div>
+      <div className="recent-posts-head">Recent Posts!</div>
       <ul className="recent-post-list">
-        {posts.slice(-5).map((post, idx) => (
+        {posts.slice(0, 5).map((post, idx) => (
           <li
             key={idx}
             className={`recent-post-li ${idx === 4 ? "li-last" : ""}`}

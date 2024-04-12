@@ -5,33 +5,48 @@ from datetime import datetime, timezone
 
 viewed_post_routes = Blueprint("viewed_posts", __name__)
 
-# DISPLAY VIEWED POSTS
+# GET VIEWED POSTS
 @viewed_post_routes.route("")
-def viewed_posts():
+def get_viewed_posts():
+    """
+    Get a user's viewed posts
+    """
     user_id = current_user.get_id()
-    viewed_posts_with_timestamps = ViewedPost.query.filter_by(user_id=user_id).order_by(ViewedPost.timestamp.desc()).all()
-    posts_data = [viewed_post.post.to_dict() for viewed_post in viewed_posts_with_timestamps]
-    return jsonify(posts=posts_data)
+    viewed_posts = ViewedPost.query.filter_by(user_id=user_id).order_by(ViewedPost.timestamp.desc()).all()
 
-@viewed_post_routes.route("/<int:post_id>", methods=["POST"])
-def view_post(post_id):
-    user_id = current_user.get_id()
-    if not user_id:
-        return jsonify({'error': 'User ID is required'}), 400
+    return {"ViewedPosts": [post.to_dict() for post in viewed_posts]}
 
-    # Check for existing views of the same post by the same user
-    existing_view = ViewedPost.query.filter_by(user_id=user_id, post_id=post_id).first()
+# ADD A POST TO VIEWEDPOSTS
+@viewed_post_routes.route("<int:postId>", methods=["POST"])
+def add_viewed_post(postId):
+    """
+    View a post
+    """
+    post = Post.query.get(postId)
+    user = User.query.get(current_user.get_id())
+
+    existing_view = ViewedPost.query.filter_by(user_id=user.id, post_id=postId).first()
+
     if existing_view:
-        # Update the timestamp to now
         existing_view.timestamp = datetime.now(timezone.utc)
         db.session.commit()
-        return jsonify({'message': 'View updated'}), 200
+        return jsonify({
+            "status_code": 200,
+            "message": "Successfully updated viewed post timestamp"
+        })
 
-    # Record a new view
-    new_view = ViewedPost(user_id=user_id, post_id=post_id)
-    db.session.add(new_view)
+    viewed_post = ViewedPost(user_id=current_user.get_id(), post_id=postId)
+
+    user.viewed_posts.append(viewed_post)
+    post.post_viewers.append(viewed_post)
+
+    db.session.add(viewed_post)
     db.session.commit()
-    return jsonify({'message': 'View recorded'}), 201
+
+    return jsonify({
+        "status_code": 201,
+        "message": "Successfully viewed post"
+    })
 
 @viewed_post_routes.route("/delete", methods=["DELETE"])
 def clear_viewed_posts():

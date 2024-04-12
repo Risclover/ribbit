@@ -30,10 +30,7 @@ export function AllPostsFeed() {
     pageTitle: "All",
   });
 
-  console.log(
-    "recent posts:",
-    Object.values(viewedPosts).flatMap((post) => post)
-  );
+  console.log("recent posts:", Object.values(viewedPosts));
 
   return (
     <FeedContainer>
