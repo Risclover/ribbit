@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { HiOutlineExternalLink } from "react-icons/hi";
-import { BsArrowsAngleExpand, BsArrowsAngleContract } from "react-icons/bs";
+import {
+  BsArrowsAngleExpand,
+  BsArrowsAngleContract,
+  BsThreeDots,
+} from "react-icons/bs";
 import { CgNotes } from "react-icons/cg";
 import { RxImage } from "react-icons/rx";
-import { BsThreeDots } from "react-icons/bs";
 import parse from "html-react-parser";
 import moment from "moment";
 

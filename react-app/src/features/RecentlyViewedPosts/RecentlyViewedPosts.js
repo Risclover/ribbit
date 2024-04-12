@@ -78,7 +78,7 @@ export function RecentlyViewedPosts() {
 
   return (
     <div className="recent-posts-box">
-      <div className="recent-posts-head">Recent Posts!</div>
+      <div className="recent-posts-head">Recent Posts</div>
       <ul className="recent-post-list">
         {posts.slice(0, 5).map((post, idx) => (
           <li
