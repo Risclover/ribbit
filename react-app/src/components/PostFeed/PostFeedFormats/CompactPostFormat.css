@@ -128,7 +128,8 @@
   margin: 0 auto;
 }
 
-.compact-post-icon-btn-expand svg {
+.compact-post-icon-btn-expand svg,
+.compact-post-icon-btn-collapse svg {
   transform: rotate(90deg);
 }
 
@@ -144,6 +145,7 @@
   margin-right: 4px;
   vertical-align: middle;
 }
+
 .compact-post-icon-btn:hover .compact-post-icon-btn-expand {
   display: block;
 }

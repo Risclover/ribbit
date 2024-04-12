@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { HiOutlineExternalLink } from "react-icons/hi";
-import { BsArrowsAngleExpand } from "react-icons/bs";
+import { BsArrowsAngleExpand, BsArrowsAngleContract } from "react-icons/bs";
 import { CgNotes } from "react-icons/cg";
 import { RxImage } from "react-icons/rx";
 import { BsThreeDots } from "react-icons/bs";
@@ -217,12 +217,21 @@ export function CompactPostFormat({ id, isPage, userId }) {
                       setPostExpand(!postExpand);
                     }}
                   >
-                    <span className="compact-post-icon-btn-post">
-                      <CgNotes />
-                    </span>
-                    <span className="compact-post-icon-btn-expand">
-                      <BsArrowsAngleExpand />
-                    </span>
+                    {!postExpand && (
+                      <span className="compact-post-icon-btn-post">
+                        <CgNotes />
+                      </span>
+                    )}
+                    {!postExpand && (
+                      <span className="compact-post-icon-btn-expand">
+                        <BsArrowsAngleExpand />
+                      </span>
+                    )}
+                    {postExpand && (
+                      <span className="compact-post-icon-btn-collapse">
+                        <BsArrowsAngleContract />
+                      </span>
+                    )}
                   </button>
                 )}
                 {post?.linkUrl !== null && (
@@ -244,12 +253,21 @@ export function CompactPostFormat({ id, isPage, userId }) {
                       setPostExpand(!postExpand);
                     }}
                   >
-                    <span className="compact-post-icon-btn-post">
-                      <RxImage />
-                    </span>
-                    <span className="compact-post-icon-btn-expand">
-                      <BsArrowsAngleExpand />
-                    </span>
+                    {!postExpand && (
+                      <span className="compact-post-icon-btn-post">
+                        <RxImage />
+                      </span>
+                    )}
+                    {!postExpand && (
+                      <span className="compact-post-icon-btn-expand">
+                        <BsArrowsAngleExpand />
+                      </span>
+                    )}
+                    {postExpand && (
+                      <span className="compact-post-icon-btn-collapse">
+                        <BsArrowsAngleContract />
+                      </span>
+                    )}
                   </button>
                 )}
               </div>
