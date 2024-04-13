@@ -121,3 +121,13 @@ def delete_vote(id):
     db.session.delete(comment_vote)
     db.session.commit()
     return comment.to_dict()
+
+
+# GET COMMENTS
+@comment_routes.route("/<int:id>/comments")
+def get_post_comments(id):
+    """
+    Query a post's comments
+    """
+    post = Post.query.get(id)
+    return {"Comments": [comment.to_dict() for comment in post.post_comments]}

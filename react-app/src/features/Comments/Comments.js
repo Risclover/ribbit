@@ -10,7 +10,7 @@ export function Comments({ post }) {
   const dispatch = useDispatch();
   const { postId } = useParams();
 
-  const comments = Object.values(post.postComments);
+  const comments = useSelector((state) => Object.values(state.comments));
   const [sortType, setSortType] = useState("Best");
   const [showLoader, setShowLoader] = useState(true);
   const [comment, setComment] = useState(url.slice(-15).includes("comment"));

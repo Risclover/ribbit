@@ -6,6 +6,9 @@ import {
   addNotification,
   getAllNotifications,
   getPostComments,
+  getComments,
+  getSingleComment,
+  addCommentVote,
 } from "../../../store";
 import { LoginSignupModal } from "../..";
 import "../Comments.css";
@@ -21,27 +24,23 @@ export function CommentForm({ postId }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let errors = [];
+    const commentData = await dispatch(
+      createComment({ content: content.trim() }, postId)
+    );
 
-    if (content.trim().length === 0)
-      errors.push("Please add some content to your comment.");
-    if (errors.length > 0) {
-      setErrors(errors);
-      return;
-    } else {
-      const commentData = await dispatch(
-        createComment({ content: content.trim() }, postId)
-      );
-      const notificationPayload = {
-        type: "post-reply",
-        id: commentData.id,
-      };
-      dispatch(addNotification(notificationPayload));
-      dispatch(getAllNotifications());
-      setErrors([]);
-      setContent("");
-      dispatch(getPostComments(postId));
-    }
+    console.log("commentData:", commentData);
+    // const notificationPayload = {
+    //   type: "post-reply",
+    //   id: commentData.id,
+    // };
+    // dispatch(getPostComments(postId));
+    // dispatch(getComments(postId));
+    // dispatch(addNotification(notificationPayload));
+    // dispatch(getAllNotifications());
+    // setErrors([]);
+    setContent("");
+    dispatch(getComments(postId));
+    dispatch(addCommentVote(commentData.id, "upvote"));
   };
 
   useEffect(() => {
