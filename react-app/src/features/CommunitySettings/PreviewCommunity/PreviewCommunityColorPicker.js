@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PreviewCommunityColorPickerSquare } from "./PreviewCommunityColorPickerSquare";
-import { colorThemeColors as colors } from "./colorThemeColors";
+import { colorThemeColors as colors } from "../data/colorThemeColors";
 
 export function PreviewCommunityColorPicker({ theme, setTheme, community }) {
   const [showBrowserColorPicker, setShowBrowserColorPicker] = useState(false);
