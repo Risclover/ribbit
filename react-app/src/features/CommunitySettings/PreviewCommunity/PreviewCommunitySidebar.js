@@ -39,9 +39,6 @@ export function PreviewCommunitySidebar() {
   const community = communities?.find(
     (community) => community.name === communityName
   );
-  const [preview, setPreview] = useState(
-    community?.communitySettings[community?.id].backgroundImg
-  );
   const [showWarning, setShowWarning] = useState(false);
   const [openAppearance, setOpenAppearance] = useState(false);
   const [appearanceSidebar, setAppearanceSidebar] = useState("");
@@ -172,7 +169,6 @@ export function PreviewCommunitySidebar() {
     bannerHeight,
     bannerColor,
     bannerImg,
-    preview,
   ]);
 
   const handleDefaultReset = () => {
@@ -246,8 +242,6 @@ export function PreviewCommunitySidebar() {
           setCommunityIcon={setCommunityIcon}
           hideCommunityIcon={hideCommunityIcon}
           setHideCommunityIcon={setHideCommunityIcon}
-          preview={preview}
-          setPreview={setPreview}
         />
       )}
       <div

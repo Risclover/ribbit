@@ -26,13 +26,13 @@ export function PreviewCommunityColorTheme({
   setBodyBgPreview,
   bgFormat,
   setBgFormat,
-  preview,
-  setPreview,
 }) {
   const dispatch = useDispatch();
 
   const [image, setImage] = useState();
-
+  const [preview, setPreview] = useState(
+    community?.communitySettings[community?.id].backgroundImg
+  );
   const colorThemes = ["Base", "Highlight"];
 
   useEffect(() => {
