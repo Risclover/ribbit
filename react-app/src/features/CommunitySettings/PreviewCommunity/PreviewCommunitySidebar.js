@@ -11,18 +11,37 @@ import { Modal } from "../../../context";
 import { PreviewCommunitySidebarAppearance, OutsideClickWarning } from "../..";
 
 import "./PreviewCommunity.css";
+import { NavLink } from "react-router-dom";
 
 export function PreviewCommunitySidebar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { communityId } = useParams();
+  useEffect(() => {
+    dispatch(getCommunities());
+  }, [dispatch]);
 
-  const community = useSelector(
-    (state) => state.singleCommunity[Number(location.pathname.slice(3, 5))]
+  const fullURL = window.location.href;
+  const communityName = fullURL.split("/")[4];
+  const communities = useSelector((state) => Object.values(state.communities));
+  console.log(
+    "communities:",
+    communities?.find((community) => community.name === communityName)?.id
   );
 
+  const communityId = communities?.find(
+    (community) => community.name === communityName
+  )?.id;
+  const user = useSelector((state) => state.session.user);
+  const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
+
+  const community = communities?.find(
+    (community) => community.name === communityName
+  );
+  const [preview, setPreview] = useState(
+    community?.communitySettings[community?.id].backgroundImg
+  );
   const [showWarning, setShowWarning] = useState(false);
   const [openAppearance, setOpenAppearance] = useState(false);
   const [appearanceSidebar, setAppearanceSidebar] = useState("");
@@ -86,6 +105,7 @@ export function PreviewCommunitySidebar() {
   };
 
   useEffect(() => {
+    console.log("backgroundImg:", backgroundImg);
     document.documentElement.style.setProperty(
       "--preview-community-color-theme-base",
       base
@@ -152,6 +172,7 @@ export function PreviewCommunitySidebar() {
     bannerHeight,
     bannerColor,
     bannerImg,
+    preview,
   ]);
 
   const handleDefaultReset = () => {
@@ -161,14 +182,13 @@ export function PreviewCommunitySidebar() {
     history.push(`/c/${community?.name}`);
   };
 
+  // if (!communityName) return null;
+
   return (
     <div className="preview-community-sidebar">
-      <button
-        className="back-to-community"
-        onClick={() => history.push(`/c/${community?.name}`)}
-      >
+      <NavLink to={`/c/${communityName}`}>
         <FaChevronLeft /> Back to community
-      </button>
+      </NavLink>
       {!openAppearance && (
         <div className="preview-community-appearance">
           <h1>Appearance</h1>
@@ -226,6 +246,8 @@ export function PreviewCommunitySidebar() {
           setCommunityIcon={setCommunityIcon}
           hideCommunityIcon={hideCommunityIcon}
           setHideCommunityIcon={setHideCommunityIcon}
+          preview={preview}
+          setPreview={setPreview}
         />
       )}
       <div

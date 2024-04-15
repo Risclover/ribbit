@@ -8,28 +8,18 @@ export function BodyBgFormat({
   backgroundImg,
   bodyBg,
 }) {
-  const handleBgFormat = () => {
+  const handleBgFormat = (e) => {
+    e.preventDefault();
     setBgFormat(format);
     document.documentElement.style.setProperty(
       "--preview-community-body-bg-img-format",
       format
     );
-    if (format === "fill") {
-      document.documentElement.style.setProperty(
-        "--preview-community-body-bg-img",
-        `${bodyBg} url(${backgroundImg}) no-repeat center / cover`
-      );
-    } else if (format === "tile") {
-      document.documentElement.style.setProperty(
-        "--preview-community-body-bg-img",
-        `${bodyBg} url(${backgroundImg}) repeat center top`
-      );
-    } else if (format === "center") {
-      document.documentElement.style.setProperty(
-        "--preview-community-body-bg-img",
-        `${bodyBg} url(${backgroundImg}) no-repeat center top`
-      );
-    }
+
+    document.documentElement.style.setProperty(
+      "--preview-community-body-bg-img",
+      `${bodyBg} url(${backgroundImg}) ${format}`
+    );
   };
 
   return (

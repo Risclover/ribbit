@@ -13,7 +13,7 @@ export const DropBox = ({
   handleDelete,
 }) => {
   const [highlight, setHighlight] = useState(false);
-  const [showBar, setShowBar] = useState(image !== null && image !== "");
+  const [showBar, setShowBar] = useState(preview !== null && preview !== "");
 
   const { handleUpload } = useFileHandler(
     setImage,
@@ -30,7 +30,7 @@ export const DropBox = ({
   };
 
   const handleErase = (e) => {
-    setPreview("");
+    setPreview(null);
     setImage(null);
     setShowBar(false);
     handleDelete(e);

@@ -10,7 +10,7 @@ export function CommunityPosts({ commPosts, communityName, user }) {
   const posts = SortingFunction(commPosts, sortMode);
 
   return (
-    <>
+    <div className="community-page-left-col">
       {user && <CreatePostBar page="community" communityName={communityName} />}
 
       <PostFeed
@@ -41,6 +41,6 @@ export function CommunityPosts({ commPosts, communityName, user }) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

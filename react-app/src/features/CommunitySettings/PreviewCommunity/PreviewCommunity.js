@@ -24,16 +24,29 @@ import { usePageSettings } from "../../../hooks/usePageSettings";
 
 export function PreviewCommunity() {
   const dispatch = useDispatch();
-  const { communityId } = useParams();
+  const { communityName } = useParams();
 
   const { format } = useContext(PostFormatContext);
 
   const [favorited, setFavorited] = useState(false);
 
   const posts = useSelector((state) => Object.values(state.posts));
-  const community = useSelector((state) => state.singleCommunity[+communityId]);
+  const communities = useSelector((state) => Object.values(state.communities));
+  console.log(
+    "communities:",
+    communities?.find((community) => community.name === communityName)?.id
+  );
+
+  const communityId = communities?.find(
+    (community) => community.name === communityName
+  )?.id;
   const user = useSelector((state) => state.session.user);
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
+
+  const community = communities?.find(
+    (community) => community.name === communityName
+  );
+  console.log("comm:", community);
 
   let commPosts = posts.filter((post) => post.communityId == communityId);
 
@@ -41,8 +54,7 @@ export function PreviewCommunity() {
     dispatch(getCommunities());
     dispatch(getSubscriptions());
     dispatch(getPosts());
-    dispatch(getSingleCommunity(+communityId));
-  }, [communityId, dispatch]);
+  }, [communityName, communityId, dispatch]);
 
   usePageSettings({
     documentTitle: community?.displayName,
@@ -101,7 +113,7 @@ export function PreviewCommunity() {
 
         <CommunityPosts
           commPosts={commPosts}
-          communityId={communityId}
+          communityId={community.id}
           user={user}
         />
         <div className="preview-community-page-right-col">

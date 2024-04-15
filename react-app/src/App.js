@@ -306,7 +306,7 @@ function App() {
                 <CommunityPage />
               </Route>
 
-              <ProtectedRoute exact path="/c/:communityId/style">
+              <ProtectedRoute path="/c/:communityName/style" exact={true}>
                 <PreviewCommunity
                   postType={postType}
                   setPostType={setPostType}

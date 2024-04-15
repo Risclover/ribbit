@@ -1,7 +1,7 @@
 import React from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 
-export const UploadZone = ({ onFileSelect, highlight }) => {
+export const UploadZone = ({ onFileSelect }) => {
   return (
     <label>
       <div className="preview-community-upload-icon">

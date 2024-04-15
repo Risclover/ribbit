@@ -26,13 +26,12 @@ export function PreviewCommunityColorTheme({
   setBodyBgPreview,
   bgFormat,
   setBgFormat,
+  preview,
+  setPreview,
 }) {
   const dispatch = useDispatch();
 
   const [image, setImage] = useState();
-  const [preview, setPreview] = useState(
-    community?.communitySettings[community?.id].backgroundImg
-  );
 
   const colorThemes = ["Base", "Highlight"];
 
@@ -42,6 +41,10 @@ export function PreviewCommunityColorTheme({
   }, [dispatch]);
 
   const handleSaveTheme = () => {
+    console.log("IMGIMG:", image);
+    if (image === null || image === "" || image === undefined) {
+      handleUpload();
+    }
     const payload = {
       settingsId: community?.communitySettings[community?.id].id,
       baseColor: base,
@@ -49,7 +52,7 @@ export function PreviewCommunityColorTheme({
       bgColor: bodyBg,
       backgroundImgFormat: bgFormat,
     };
-
+    console.log("payload:", payload);
     if (image) {
       handleUpload();
     }
@@ -57,10 +60,16 @@ export function PreviewCommunityColorTheme({
     dispatch(updateSettingsColorTheme(payload));
     dispatch(getCommunities());
     dispatch(getSingleCommunity(community?.id));
+
+    if (preview !== null) {
+      handlePreview();
+    }
     setOpenAppearance(false);
   };
 
   const handlePreview = () => {
+    console.log("previewww:", preview);
+    setBodyBgPreview(preview);
     if (bgFormat === "fill") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
@@ -86,11 +95,13 @@ export function PreviewCommunityColorTheme({
 
   const handleUpload = async () => {
     const formData = new FormData();
-    if (image !== "") {
-      formData.append("image", image);
-    } else {
+
+    if (image === null || image === undefined || image === "") {
       formData.append("image", "");
+    } else {
+      formData.append("image", image);
     }
+
     const res = await fetch(`/api/communities/${community?.id}/bg_img`, {
       method: "POST",
       body: formData,
@@ -99,6 +110,7 @@ export function PreviewCommunityColorTheme({
       await res.json();
       dispatch(getSingleCommunity(community?.id));
       dispatch(getCommunities());
+      handlePreview();
       setOpenAppearance(false);
     }
   };
