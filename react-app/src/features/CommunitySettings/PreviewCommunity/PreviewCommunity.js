@@ -21,6 +21,7 @@ import { BackToTop } from "../../../components";
 import { PostFormatContext } from "../../../context";
 import "../../Communities/CommunityPage.css";
 import { usePageSettings } from "../../../hooks/usePageSettings";
+import "./PreviewCommunity.css";
 
 export function PreviewCommunity() {
   const dispatch = useDispatch();
@@ -108,7 +109,7 @@ export function PreviewCommunity() {
         </div>
       </div> */}
 
-      <div className="community-page-main">
+      <div className="posts-container">
         <div className="preview-community-body-bg-div"></div>
 
         <CommunityPosts
@@ -116,7 +117,7 @@ export function PreviewCommunity() {
           communityId={community.id}
           user={user}
         />
-        <div className="preview-community-page-right-col">
+        <div className="posts-right-col">
           <CommunityInfoBox
             setFavorited={setFavorited}
             user={user}

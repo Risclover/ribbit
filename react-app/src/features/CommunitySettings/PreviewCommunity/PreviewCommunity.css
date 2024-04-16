@@ -471,14 +471,14 @@ svg:not(:root) {
   margin-top: 5px;
 }
 
-.community-page-main .preview-community-body-bg-div {
+.posts-container .preview-community-body-bg-div {
   min-height: 100%;
   overflow: hidden;
   position: relative;
   flex: none;
   z-index: -1;
 }
-.community-page-main .preview-community-body-bg-div:before {
+.posts-container .preview-community-body-bg-div:before {
   content: " ";
   position: fixed;
   width: 100%;
@@ -514,6 +514,13 @@ svg:not(:root) {
   height: var(--preview-community-banner-height);
   background-color: var(--preview-community-banner-color);
   background-image: var(--preview-community-banner-img);
+}
+
+.preview-community-page-right-col {
+  width: 100%;
+  max-width: 310px;
+  min-height: 100%;
+  margin-left: 24px;
 }
 
 @keyframes slide-down {
