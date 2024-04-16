@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getSingleCommunity } from "../../../store";
+import { getCommunities, getSingleCommunity } from "../../../store";
 import "../../../assets/styles/Modals.css";
 
 export function CommunityImgModal({
@@ -39,7 +39,7 @@ export function CommunityImgModal({
       await res.json();
       setImageLoading(false);
       setShowCommunityImgModal(false);
-      dispatch(getSingleCommunity(communityId));
+      dispatch(getCommunities());
     } else {
       setImageLoading(false);
       setErrorMsg(

@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UploadZone } from "./UploadZone";
 import { PreviewBar } from "./PreviewBar";
 import { useFileHandler } from "./useFileHandler";
 import "./DropBox.css";
 
 export const DropBox = ({
+  dropboxType,
   setImage,
   image,
   preview,
   setPreview,
   handlePreview,
   handleDelete,
+  defaultIcon,
+  setDefaultIcon,
 }) => {
   const [highlight, setHighlight] = useState(false);
   const [showBar, setShowBar] = useState(preview !== null && preview !== "");
@@ -31,10 +34,28 @@ export const DropBox = ({
 
   const handleErase = (e) => {
     setPreview(null);
-    setImage(null);
     setShowBar(false);
     handleDelete(e);
   };
+
+  useEffect(() => {
+    if (defaultIcon) {
+      setShowBar(false);
+      setPreview(null);
+    }
+  }, [defaultIcon]);
+
+  // useEffect(() => {
+  //   if (dropboxType === "community_icon") {
+  //     if (preview === "https://i.imgur.com/9CI9hiO.png") {
+  //       setShowBar(false);
+  //     } else {
+  //       setDefaultIcon(false);
+  //     }
+  //   }
+  // }, [preview, dropboxType]);
+
+  console.log("defaultIcon:", defaultIcon);
 
   return (
     <div className="dropbox">
@@ -50,9 +71,11 @@ export const DropBox = ({
           className={`upload${
             highlight ? " is-highlight" : preview ? " is-preview" : ""
           }`}
-          style={{ backgroundImage: `url(${preview})` }}
+          style={{
+            backgroundImage: defaultIcon ? "" : `url(${preview})`,
+          }}
         >
-          <UploadZone onFileSelect={handleUpload} highlight={highlight} />
+          <UploadZone onFileSelect={handleUpload} />
         </div>
       )}
       {showBar && (

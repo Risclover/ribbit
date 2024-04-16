@@ -20,7 +20,6 @@ export const useFileHandler = (
       setPreview(`data:image/jpg;base64,${fileRes}`);
       setShowBar(true);
       handlePreview();
-      console.log("showBar:", showBar);
     };
 
     reader.onerror = () => {

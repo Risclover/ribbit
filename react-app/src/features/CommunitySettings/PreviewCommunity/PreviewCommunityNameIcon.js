@@ -5,6 +5,8 @@ import {
   defaultCommunityImg,
   resetToDefaultIcon,
   updateSettingsNameIcon,
+  getCommunitySettings,
+  getCommunities,
 } from "../../../store";
 import { ToggleSwitch, DropBox } from "../../../components";
 import { CommunityNameOption } from "./CommunityNameOption";
@@ -25,22 +27,29 @@ export function PreviewCommunityNameIcon({
   const [image, setImage] = useState(
     community?.communitySettings[community?.id].communityIcon
   );
-  const [defaultIcon, setDefaultIcon] = useState(image === undefined);
   const [preview, setPreview] = useState(
-    community?.communitySettings[community?.id].communityIcon
+    community?.communitySettings[community?.id].communityIcon !==
+      "https://i.imgur.com/9CI9hiO.png"
+      ? community?.communitySettings[community?.id].communityIcon
+      : null
   );
+  const [defaultIcon, setDefaultIcon] = useState(preview === null);
+
+  console.log("defaultIcon:", defaultIcon);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (image === "https://i.imgur.com/9CI9hiO.png") {
       dispatch(defaultCommunityImg(community?.id));
-      dispatch(getSingleCommunity(community?.id));
+      dispatch(getCommunities());
       setOpenAppearance(false);
     } else if (image && image !== "https://i.imgur.com/9CI9hiO.png") {
       handleImgUpload();
+      setDefaultIcon(false);
+      setPreview(image);
     }
 
-    if (defaultIcon) {
+    if (checked) {
       defaultCommunityIcon();
     } else {
       handleImgUpload();
@@ -55,7 +64,8 @@ export function PreviewCommunityNameIcon({
       })
     );
 
-    dispatch(getSingleCommunity(community?.id));
+    dispatch(getCommunities());
+    dispatch(getCommunitySettings(community?.id));
     setOpenAppearance(false);
   };
 
@@ -68,26 +78,35 @@ export function PreviewCommunityNameIcon({
   };
 
   const handlePreview = () => {
-    return;
+    if (preview === "https://i.imgur.com/9CI9hiO.png" || preview === null) {
+      setDefaultIcon(true);
+    } else {
+      setDefaultIcon(false);
+    }
   };
 
   const handleDelete = (e) => {
+    e.preventDefault();
+    setPreview(null);
     setDefaultIcon(true);
-    setImage("https://i.imgur.com/9CI9hiO.png");
-
-    handleSubmit(e);
+    setCommunityIcon("https://i.imgur.com/9CI9hiO.png");
   };
 
   const handleImgUpload = async () => {
     const formData = new FormData();
-    formData.append("image", image);
+    if (image === null || image === "" || image === undefined) {
+      formData.append("image", "");
+    } else {
+      formData.append("image", image);
+    }
+
     const res = await fetch(`/api/communities/${community?.id}/img`, {
       method: "POST",
       body: formData,
     });
     if (res.ok) {
       await res.json();
-      dispatch(getSingleCommunity(community?.id));
+      dispatch(getCommunities());
     }
   };
 
@@ -120,10 +139,10 @@ export function PreviewCommunityNameIcon({
             }
             preview={preview}
             setPreview={setPreview}
-            setDefaultIcon={setDefaultIcon}
             handlePreview={handlePreview}
             handleDelete={handleDelete}
             handleImgUpload={handleImgUpload}
+            defaultIcon={defaultIcon}
           />
           <p>Required size: 256x256px</p>
         </div>

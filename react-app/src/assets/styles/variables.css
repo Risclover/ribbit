@@ -17,6 +17,7 @@
   --preview-community-banner-height: 80px;
   --preview-community-banner-color: var(--highlight-color);
   --preview-community-banner-img: "";
+  --preview-community-icon: "";
 
   --font-family-noto: "Noto Sans", sans-serif;
   --font-family-ibm: "IBM Plex Sans", sans-serif;

@@ -39,6 +39,7 @@ export function PreviewCommunitySidebar() {
   const community = communities?.find(
     (community) => community.name === communityName
   );
+
   const [showWarning, setShowWarning] = useState(false);
   const [openAppearance, setOpenAppearance] = useState(false);
   const [appearanceSidebar, setAppearanceSidebar] = useState("");
