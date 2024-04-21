@@ -14,9 +14,8 @@ export function DeletePostModal({ post }) {
     e.preventDefault();
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
-    dispatch(getUsers());
     history.push("/c/all");
-    dispatch(getPosts());
+    // dispatch(getPosts());
   };
 
   return (
