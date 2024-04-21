@@ -5,16 +5,21 @@ import { deletePost, getPosts, getUsers } from "../../store";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-export function DeletePostModal({ post }) {
+export function DeletePostModal({ post, isPage }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleDelete = (e) => {
     e.preventDefault();
+    console.log("isPage:", isPage);
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
-    history.push("/c/all");
+    if (isPage === "community") {
+      history.push(`/c/${post?.communityName}`);
+    } else {
+      history.push("/c/all");
+    }
     // dispatch(getPosts());
   };
 

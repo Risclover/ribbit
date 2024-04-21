@@ -165,7 +165,11 @@ export function CompactPostFormat({ id, isPage, userId }) {
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
     dispatch(getUsers());
-    history.push("/c/all");
+    if (isPage === "community") {
+      history.push(`/c/${post?.communityName}`);
+    } else {
+      history.push("/c/all");
+    }
   };
 
   return (

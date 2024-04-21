@@ -18,6 +18,7 @@ export function CommunityPosts({ commPosts, communityName, user }) {
         community={true}
         posts={posts}
         sortMode={sortMode}
+        isPage="community"
       />
 
       {commPosts.length === 0 && (

@@ -80,7 +80,11 @@ export function ClassicPostFormat({ isPage, id, userId }) {
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
     dispatch(getUsers());
-    history.push("/c/all");
+    if (isPage === "community") {
+      history.push(`/c/${post?.communityName}`);
+    } else {
+      history.push("/c/all");
+    }
   };
 
   return (
