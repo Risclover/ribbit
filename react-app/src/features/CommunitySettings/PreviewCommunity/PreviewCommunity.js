@@ -111,12 +111,17 @@ export function PreviewCommunity() {
 
       <div className="posts-container">
         <div className="preview-community-body-bg-div"></div>
-
-        <CommunityPosts
-          commPosts={commPosts}
-          communityId={community.id}
-          user={user}
-        />
+        <div
+          className={
+            format === "Card" ? "posts-left-col" : "posts-left-col-alt"
+          }
+        >
+          <CommunityPosts
+            commPosts={commPosts}
+            communityId={community.id}
+            user={user}
+          />
+        </div>
         <div className="posts-right-col">
           <CommunityInfoBox
             setFavorited={setFavorited}
