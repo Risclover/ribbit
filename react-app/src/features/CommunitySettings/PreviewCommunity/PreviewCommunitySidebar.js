@@ -39,7 +39,9 @@ export function PreviewCommunitySidebar() {
   const community = communities?.find(
     (community) => community.name === communityName
   );
-
+  const [preview, setPreview] = useState(
+    community?.communitySettings[community?.id].backgroundImg
+  );
   const [showWarning, setShowWarning] = useState(false);
   const [openAppearance, setOpenAppearance] = useState(false);
   const [appearanceSidebar, setAppearanceSidebar] = useState("");
@@ -103,7 +105,6 @@ export function PreviewCommunitySidebar() {
   };
 
   useEffect(() => {
-    console.log("backgroundImg:", backgroundImg);
     document.documentElement.style.setProperty(
       "--preview-community-color-theme-base",
       base
@@ -170,6 +171,7 @@ export function PreviewCommunitySidebar() {
     bannerHeight,
     bannerColor,
     bannerImg,
+    preview,
   ]);
 
   const handleDefaultReset = () => {

@@ -310,7 +310,7 @@
 .preview-community-page-container .community-page-box-header,
 .preview-community-page-container .community-page-box-btn button,
 .preview-community-page-container .community-page-rules-header {
-  background: var(--preview-community-color-theme-base) !important;
+  background-color: var(--preview-community-color-theme-base) !important;
 }
 
 .preview-community-page-container .community-page-box-btn button {

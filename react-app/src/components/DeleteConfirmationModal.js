@@ -17,24 +17,14 @@ export function DeleteConfirmationModal({
   setShowEditRuleModal,
   setShowDeleteModal,
   showDeleteModal,
-  postId,
   commentId,
   communityId,
   rule,
-  item,
-  isPage,
+  handleDelete,
+  item
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const handleDeletePost = async () => {
-    await dispatch(deletePost(postId));
-    setShowDeleteModal(false);
-    await dispatch(getUsers());
-    if (isPage === "singlepage") {
-      history.push("/c/all");
-    }
-  };
 
   const handleDeleteComment = async () => {
     setShowDeleteModal(false);
@@ -60,17 +50,6 @@ export function DeleteConfirmationModal({
     setShowDeleteModal(false);
   };
 
-  const handleDeleteClick = (e) => {
-    e.preventDefault();
-    if (item === "post") {
-      handleDeletePost();
-    } else if (item === "community") {
-      handleDeleteCommunity();
-    } else if (item === "comment") {
-      handleDeleteComment();
-      handleDeleteRule();
-    }
-  };
   return (
     <>
       {showDeleteModal && (
@@ -86,10 +65,7 @@ export function DeleteConfirmationModal({
             >
               Cancel
             </button>
-            <button
-              className="delete-modal-btn-right"
-              onClick={(e) => handleDeleteClick(e)}
-            >
+            <button className="delete-modal-btn-right" onClick={handleDelete}>
               Delete
             </button>
           </div>

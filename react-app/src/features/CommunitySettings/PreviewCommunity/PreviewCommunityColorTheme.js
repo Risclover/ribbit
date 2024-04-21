@@ -26,13 +26,12 @@ export function PreviewCommunityColorTheme({
   setBodyBgPreview,
   bgFormat,
   setBgFormat,
+  preview,
+  setPreview,
 }) {
   const dispatch = useDispatch();
 
   const [image, setImage] = useState();
-  const [preview, setPreview] = useState(
-    community?.communitySettings[community?.id].backgroundImg
-  );
   const colorThemes = ["Base", "Highlight"];
 
   useEffect(() => {
@@ -146,7 +145,7 @@ export function PreviewCommunityColorTheme({
             dropboxType="community_bg"
             community={community}
             preview={preview}
-            setPreview={setPreview}
+            setPreview={setBodyBgPreview}
             setImage={setImage}
             image={image}
             handlePreview={handlePreview}

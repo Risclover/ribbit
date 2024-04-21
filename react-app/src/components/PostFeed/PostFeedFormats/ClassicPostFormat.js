@@ -15,6 +15,7 @@ import { SinglePostKarmabar } from "../../../features";
 import { sliceUrl } from "../../../utils";
 import "../../../features/Posts/SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
+import { deletePost, getUsers } from "../../../store";
 
 export function ClassicPostFormat({ isPage, id, userId }) {
   const history = useHistory();
@@ -36,7 +37,7 @@ export function ClassicPostFormat({ isPage, id, userId }) {
   const [postExpand, setPostExpand] = useState(false);
   const [commentNum, setCommentNum] = useState(0);
   const [voted, setVoted] = useState(
-    Object.values(post?.postVoters).length > 0
+    post && Object.values(post?.postVoters)?.length > 0 ? true : false
   );
 
   useEffect(() => {
@@ -72,6 +73,15 @@ export function ClassicPostFormat({ isPage, id, userId }) {
       }
     }
   }, [upvote, downvote, voteTotal, post?.postVoters, user?.id, posts]);
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    console.log("hello");
+    dispatch(deletePost(post?.id));
+    setShowDeleteModal(false);
+    dispatch(getUsers());
+    history.push("/c/all");
+  };
 
   return (
     <div className="post-classic-format">
@@ -211,7 +221,7 @@ export function ClassicPostFormat({ isPage, id, userId }) {
                     <i className="fa-regular fa-message"></i>{" "}
                     <span className="single-post-comments-num">
                       {commentNum}{" "}
-                      {Object.values(post?.postComments).length === 1
+                      {post && Object.values(post?.postComments).length === 1
                         ? "Comment"
                         : "Comments"}
                     </span>
@@ -291,6 +301,7 @@ export function ClassicPostFormat({ isPage, id, userId }) {
                             item="post"
                             post={post}
                             isPage="singlepost"
+                            handleDelete={handleDelete}
                           />
                         </Modal>
                       )}

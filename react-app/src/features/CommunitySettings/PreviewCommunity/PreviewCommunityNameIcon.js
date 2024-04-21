@@ -35,8 +35,6 @@ export function PreviewCommunityNameIcon({
   );
   const [defaultIcon, setDefaultIcon] = useState(preview === null);
 
-  console.log("defaultIcon:", defaultIcon);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (image === "https://i.imgur.com/9CI9hiO.png") {

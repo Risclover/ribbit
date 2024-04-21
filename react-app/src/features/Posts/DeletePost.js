@@ -1,10 +1,23 @@
 import React, { useState } from "react";
 import { Modal } from "../../context";
 import { DeleteConfirmationModal } from "../../components";
-import { deletePost, getPosts } from "../../store";
+import { deletePost, getPosts, getUsers } from "../../store";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-export function DeletePostModal({ post, community }) {
+export function DeletePostModal({ post }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    dispatch(deletePost(post?.id));
+    setShowDeleteModal(false);
+    dispatch(getUsers());
+    history.push("/c/all");
+    dispatch(getPosts());
+  };
 
   return (
     <div>
@@ -27,11 +40,8 @@ export function DeletePostModal({ post, community }) {
           <DeleteConfirmationModal
             showDeleteModal={showDeleteModal}
             setShowDeleteModal={setShowDeleteModal}
+            handleDelete={handleDelete}
             item="post"
-            storeFunction={deletePost}
-            payload={post.id}
-            getFunction={getPosts}
-            isPage="singlepost"
           />
         </Modal>
       )}

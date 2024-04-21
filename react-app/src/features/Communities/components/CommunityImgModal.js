@@ -31,7 +31,7 @@ export function CommunityImgModal({
 
     setImageLoading(true);
 
-    const res = await fetch(`/api/communities/${communityId}/img`, {
+     const res = await fetch(`/api/communities/${communityId}/img`, {
       method: "POST",
       body: formData,
     });

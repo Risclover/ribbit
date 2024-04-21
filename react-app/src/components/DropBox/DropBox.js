@@ -55,8 +55,6 @@ export const DropBox = ({
   //   }
   // }, [preview, dropboxType]);
 
-  console.log("defaultIcon:", defaultIcon);
-
   return (
     <div className="dropbox">
       {!showBar && (

@@ -10,7 +10,7 @@ from datetime import datetime
 import json
 from time import time
 
-def defaultdisplay(context):
+def default_display(context):
     return context.get_current_parameters()['username']
 
 class User(db.Model, UserMixin):
@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    display_name = db.Column(db.String(30), default=defaultdisplay, nullable=True)
+    display_name = db.Column(db.String(30), default=default_display, nullable=True)
     about = db.Column(db.String(200), nullable=True)
     karma = db.Column(db.Integer, default=0)
     profile_img = db.Column(db.String(255), default="https://i.imgur.com/OkrlO4H.png")

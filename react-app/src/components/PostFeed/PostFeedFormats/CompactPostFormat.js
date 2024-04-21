@@ -13,7 +13,12 @@ import { RxImage } from "react-icons/rx";
 import parse from "html-react-parser";
 import moment from "moment";
 
-import { addPostVote, removePostVote, getUsers } from "../../../store";
+import {
+  addPostVote,
+  removePostVote,
+  getUsers,
+  deletePost,
+} from "../../../store";
 
 import Bounce from "../../../assets/images/misc/curved-arrow.png";
 import { DeleteConfirmationModal } from "../../../components";
@@ -55,23 +60,23 @@ export function CompactPostFormat({ id, isPage, userId }) {
     setCommentNum(post?.commentNum);
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(e, wrapperRef, showSubmenu, setShowSubmenu);
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(e, wrapperRef, showSubmenu, setShowSubmenu);
-      });
-    };
-  }, [wrapperRef, showSubmenu]);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", function (e) {
+  //     HandleClickOutside(e, wrapperRef, showSubmenu, setShowSubmenu);
+  //   });
+  //   return () => {
+  //     document.removeEventListener("mousedown", function (e) {
+  //       HandleClickOutside(e, wrapperRef, showSubmenu, setShowSubmenu);
+  //     });
+  //   };
+  // }, [wrapperRef, showSubmenu]);
 
   const handleUpvoteClick = async (e) => {
     e.preventDefault();
     if (user?.id in post?.postVoters) {
       if (!post?.postVoters[user?.id].isUpvote) {
-        await dispatch(removePostVote(post.id));
-        await dispatch(addPostVote(post.id, "upvote"));
+        await dispatch(removePostVote(post?.id));
+        await dispatch(addPostVote(post?.id, "upvote"));
         dispatch(getUsers());
       } else if (upvote) {
         handleRemoveVote();
@@ -87,8 +92,8 @@ export function CompactPostFormat({ id, isPage, userId }) {
     e.preventDefault();
     if (user?.id in post?.postVoters) {
       if (post?.postVoters[user?.id].isUpvote) {
-        await dispatch(removePostVote(post.id));
-        await dispatch(addPostVote(post.id, "downvote"));
+        await dispatch(removePostVote(post?.id));
+        await dispatch(addPostVote(post?.id, "downvote"));
         dispatch(getUsers());
       } else if (downvote) {
         handleRemoveVote();
@@ -99,19 +104,19 @@ export function CompactPostFormat({ id, isPage, userId }) {
   };
 
   const handleAddVote = async (e) => {
-    await dispatch(addPostVote(post.id, "upvote"));
+    await dispatch(addPostVote(post?.id, "upvote"));
     setUpvote(true);
     dispatch(getUsers());
   };
 
   const handleAddDownvote = async () => {
-    await dispatch(addPostVote(post.id, "downvote"));
+    await dispatch(addPostVote(post?.id, "downvote"));
     setDownvote(true);
     dispatch(getUsers());
   };
 
   const handleRemoveVote = async () => {
-    await dispatch(removePostVote(post.id));
+    await dispatch(removePostVote(post?.id));
     if (upvote) {
       setUpvote(false);
     }
@@ -122,12 +127,12 @@ export function CompactPostFormat({ id, isPage, userId }) {
   };
 
   useEffect(() => {
-    if (Object.values(post?.postVoters).length > 0) {
+    if (post && Object.values(post?.postVoters).length > 0) {
       setVoted(true);
     } else {
       setVoted(false);
     }
-  }, [post.postVoters]);
+  }, [post?.postVoters]);
 
   useEffect(() => {
     if (
@@ -153,6 +158,15 @@ export function CompactPostFormat({ id, isPage, userId }) {
       }
     }
   }, [upvote, downvote, voteTotal, post?.postVoters, user?.id, posts]);
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    console.log("hello");
+    dispatch(deletePost(post?.id));
+    setShowDeleteModal(false);
+    dispatch(getUsers());
+    history.push("/c/all");
+  };
 
   return (
     <div className="post-compact-format">
@@ -242,7 +256,7 @@ export function CompactPostFormat({ id, isPage, userId }) {
                     className="compact-post-icon-btn"
                     onClick={(e) => {
                       e.preventDefault();
-                      window.open(post.linkUrl);
+                      window.open(post?.linkUrl);
                     }}
                   >
                     <HiOutlineExternalLink />
@@ -353,7 +367,7 @@ export function CompactPostFormat({ id, isPage, userId }) {
                         e.preventDefault();
                         setShowLinkCopied(true);
                         navigator.clipboard.writeText(
-                          `https://ribbit-app.herokuapp.com/posts/${post.id}`
+                          `https://ribbit-app.herokuapp.com/posts/${post?.id}`
                         );
                       }}
                     >
@@ -370,7 +384,7 @@ export function CompactPostFormat({ id, isPage, userId }) {
                           className="compact-post-menu-btn"
                           onClick={(e) => {
                             e.preventDefault();
-                            history.push(`/posts/${post.id}/edit`);
+                            history.push(`/posts/${post?.id}/edit`);
                           }}
                         >
                           <div className="compact-post-menu-btn-icon">
@@ -381,7 +395,7 @@ export function CompactPostFormat({ id, isPage, userId }) {
                           </div>
                         </button>
                       )}
-                    {user && user.id === post.postAuthor.id && (
+                    {user && user.id === post?.postAuthor.id && (
                       <button
                         className="compact-post-menu-btn"
                         onClick={(e) => {
@@ -406,11 +420,12 @@ export function CompactPostFormat({ id, isPage, userId }) {
                         <DeleteConfirmationModal
                           showDeleteModal={showDeleteModal}
                           setShowDeleteModal={setShowDeleteModal}
-                          postId={post.id}
+                          postId={post?.id}
                           communityId={community?.id}
                           item="post"
                           post={post}
                           isPage={isPage}
+                          handleDelete={handleDelete}
                         />
                       </Modal>
                     )}
@@ -433,13 +448,13 @@ export function CompactPostFormat({ id, isPage, userId }) {
         </div>
         {postExpand && (
           <div className="compact-post-expanded">
-            {post?.imgUrl && <img src={post.imgUrl} alt="Post" />}
+            {post?.imgUrl && <img src={post?.imgUrl} alt="Post" />}
             {post?.content && (
               <div
                 className="compact-post-expanded-text"
                 style={{ whiteSpace: "pre-line" }}
               >
-                {parse(post.content)}
+                {parse(post?.content)}
               </div>
             )}
           </div>

@@ -5,7 +5,7 @@ export function NoPostsMessage({ sortedPosts }) {
     return (
       <div className="no-posts-div">
         <i className="fa-solid fa-people-group"></i>
-        <h1 className="head">No Subscriptions Yet</h1>
+        <h1>No Subscriptions Yet</h1>
         <p>
           Explore the All feed or the Communities Directory to discover new
           communities.

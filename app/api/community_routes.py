@@ -170,6 +170,11 @@ def upload_image(id):
 def upload_bg_image(id):
     community = CommunitySettings.query.get(id)
 
+    if "image" == "":
+        setattr(community,"background_img", "")
+        db.session.commit()
+        return {"url": ""}
+
     if "image" not in request.files:
         setattr(community, "background_img", "")
         db.session.commit()
