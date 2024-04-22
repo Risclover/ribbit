@@ -475,32 +475,3 @@
 .half-btns button:first-child {
   margin-right: 8px;
 }
-
-.no-posts-div-profile {
-  width: 100%;
-  opacity: 0.4;
-  position: absolute;
-  background: #f6f7f8;
-  opacity: 0.4;
-  height: 100%;
-  z-index: 1;
-}
-
-.no-posts-div-profile-container {
-  min-height: 380px;
-  width: 640px;
-  position: relative;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 22px;
-  color: #1c1c1c;
-  border: thin solid #ccc;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.no-posts-div-profile-txt {
-  z-index: 10;
-}

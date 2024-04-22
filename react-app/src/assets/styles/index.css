@@ -127,3 +127,47 @@ button:disabled {
 .join-btn {
   min-width: 96px;
 }
+
+.no-posts-div {
+  width: 100%;
+  opacity: 0.4;
+  position: absolute;
+  background: #f6f7f8;
+  opacity: 0.4;
+  height: 100%;
+  z-index: 1;
+}
+
+.no-posts-div-container {
+  min-height: 380px;
+  width: 100%;
+  position: relative;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  color: #1c1c1c;
+  border: thin solid #ccc;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 4px;
+}
+
+.no-posts-div-txt {
+  z-index: 10;
+  color: #7c7c7c;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.no-posts-div-txt h1 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.no-posts-div-txt svg {
+  color: var(--highlight-color);
+  font-size: 20px;
+}

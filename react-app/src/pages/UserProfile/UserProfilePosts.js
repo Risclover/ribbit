@@ -21,9 +21,9 @@ export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
             setSortMode={setSortMode}
             isPage="profile"
           />
-          <div className="no-posts-div-profile-container">
-            <div className="no-posts-div-profile"></div>
-            <span className="no-posts-div-profile-txt">
+          <div className="no-posts-div-container">
+            <div className="no-posts-div"></div>
+            <span className="no-posts-div-txt">
               hmm...u/{user.username} hasn't posted anything
             </span>
           </div>
