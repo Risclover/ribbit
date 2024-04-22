@@ -30,14 +30,14 @@ moment.updateLocale("en-cust", {
 });
 
 const PostTypeIcon = ({ post }) => {
-  if (post.imgUrl) {
+  if (post?.imgUrl) {
     return (
       <button className="recent-post-type">
-        <img src={post.imgUrl} className="recent-post-type-img" alt="Post" />
+        <img src={post?.imgUrl} className="recent-post-type-img" alt="Post" />
       </button>
     );
   }
-  if (post.linkUrl) {
+  if (post?.linkUrl) {
     return (
       <button className="recent-post-type type-link">
         <FiLink />
@@ -85,17 +85,17 @@ export function RecentlyViewedPosts() {
             key={idx}
             className={`recent-post-li ${idx === 4 ? "li-last" : ""}`}
           >
-            <NavLink to={`/posts/${post.id}`}>
+            <NavLink to={`/posts/${post?.id}`}>
               <div className="recent-post">
                 <PostTypeIcon post={post} />
                 <div className="recent-post-content">
-                  <div className="recent-post-title">{post.title}</div>
+                  <div className="recent-post-title">{post?.title}</div>
                   <div className="recent-post-info-bar">
-                    {post.votes} points
+                    {post?.votes} points
                     <span className="recent-post-dot-spacer"></span>
-                    {post.postComments?.length || 0} comments
+                    {post?.postComments?.length || 0} comments
                     <span className="recent-post-dot-spacer"></span>
-                    {moment(post.createdAt).fromNow()}
+                    {moment(post?.createdAt).fromNow()}
                   </div>
                 </div>
               </div>

@@ -7,6 +7,7 @@ import { HandleClickOutside } from "../../../utils/HandleClickOutside";
 import "./Searchbar.css";
 import { useDispatch } from "react-redux";
 import { getCommunities } from "../../../store";
+import { useOutsideClick } from "../../../hooks";
 
 export function Searchbar({
   searchQuery,
@@ -45,6 +46,8 @@ export function Searchbar({
   //     });
   //   };
   // }, [wrapperRef, showSearchDropdown]);
+
+  useOutsideClick(wrapperRef, () => setShowSearchDropdown(false));
 
   useEffect(() => {
     if (searchQuery?.length === 0) {
