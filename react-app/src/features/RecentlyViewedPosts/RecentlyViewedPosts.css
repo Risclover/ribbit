@@ -40,7 +40,6 @@
 
 .recent-post {
   display: flex;
-  align-items: flex-start;
   padding-top: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -169,4 +168,10 @@
 
 .recent-post-list:last-child {
   border-bottom: 0;
+}
+
+.recent-post-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
