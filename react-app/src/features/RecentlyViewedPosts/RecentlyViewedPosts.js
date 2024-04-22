@@ -10,7 +10,7 @@ import { getViewedPosts, removeViewedPosts } from "../../store";
 
 import "./RecentlyViewedPosts.css";
 
-moment.updateLocale("en-cust", {
+moment.locale("en-cust", {
   relativeTime: {
     future: "in %s",
     past: "%s",
@@ -32,23 +32,27 @@ moment.updateLocale("en-cust", {
 const PostTypeIcon = ({ post }) => {
   if (post?.imgUrl) {
     return (
-      <button className="recent-post-type">
+      <div className="recent-post-type">
         <img src={post?.imgUrl} className="recent-post-type-img" alt="Post" />
-      </button>
+      </div>
     );
   }
   if (post?.linkUrl) {
     return (
-      <button className="recent-post-type type-link">
-        <FiLink />
-        <HiOutlineExternalLink />
-      </button>
+      <div className="recent-post-type type-link">
+        <div className="recent-post-type-link">
+          <FiLink />
+        </div>
+        <div className="type-link-icon">
+          <HiOutlineExternalLink />
+        </div>
+      </div>
     );
   }
   return (
-    <button className="recent-post-type">
+    <div className="recent-post-type">
       <CgNotes />
-    </button>
+    </div>
   );
 };
 
