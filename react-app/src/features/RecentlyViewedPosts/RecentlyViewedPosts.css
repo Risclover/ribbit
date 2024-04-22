@@ -33,17 +33,25 @@
   position: relative;
 }
 
+.recent-post-type svg {
+  color: #878a8c;
+  font-size: 20px;
+}
+
 .recent-post {
   display: flex;
   align-items: flex-start;
-  border-bottom: 2px solid #f6f7f8;
   padding-top: 12px;
-  padding-bottom: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
   cursor: pointer;
   flex-direction: row;
+}
+
+.recent-post-li:not(:last-child) {
+  border-bottom: 2px solid #f6f7f8;
+  padding-bottom: 12px;
 }
 
 .recent-post-li {
