@@ -136,9 +136,9 @@
   border-color: var(--highlight-color);
   position: relative;
 }
+color: var(--highlight-color);
 
 .recent-post-type-link svg {
-  color: var(--highlight-color);
   height: 20px;
   left: 50%;
   margin-left: -10px;

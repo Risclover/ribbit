@@ -84,28 +84,31 @@ export function RecentlyViewedPosts() {
     <div className="recent-posts-box">
       <div className="recent-posts-head">Recent Posts</div>
       <ul className="recent-post-list">
-        {posts.slice(0, 5).map((post, idx) => (
-          <li
-            key={idx}
-            className={`recent-post-li ${idx === 4 ? "li-last" : ""}`}
-          >
-            <NavLink to={`/posts/${post?.id}`}>
-              <div className="recent-post">
-                <PostTypeIcon post={post} />
-                <div className="recent-post-content">
-                  <div className="recent-post-title">{post?.title}</div>
-                  <div className="recent-post-info-bar">
-                    {post?.votes} points
-                    <span className="recent-post-dot-spacer"></span>
-                    {post?.postComments?.length || 0} comments
-                    <span className="recent-post-dot-spacer"></span>
-                    {moment(post?.createdAt).fromNow()}
+        {posts
+          .slice(0, 5)
+          .map((post, idx) => (
+            <li
+              key={idx}
+              className={`recent-post-li ${idx === 4 ? "li-last" : ""}`}
+            >
+              <NavLink to={`/posts/${post?.id}`}>
+                <div className="recent-post">
+                  <PostTypeIcon post={post} />
+                  <div className="recent-post-content">
+                    <div className="recent-post-title">{post?.title}</div>
+                    <div className="recent-post-info-bar">
+                      {post?.votes} points
+                      <span className="recent-post-dot-spacer"></span>
+                      {post?.postComments?.length || 0} comments
+                      <span className="recent-post-dot-spacer"></span>
+                      {moment(post?.createdAt).fromNow()}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </NavLink>
-          </li>
-        ))}
+              </NavLink>
+            </li>
+          ))
+          .reverse()}
       </ul>
       <button onClick={handleClear} className="recent-posts-foot">
         Clear
