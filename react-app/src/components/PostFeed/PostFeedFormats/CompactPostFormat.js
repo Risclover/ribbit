@@ -18,6 +18,7 @@ import {
   removePostVote,
   getUsers,
   deletePost,
+  getViewedPosts,
 } from "../../../store";
 
 import Bounce from "../../../assets/images/misc/curved-arrow.png";
@@ -165,6 +166,8 @@ export function CompactPostFormat({ id, isPage, userId }) {
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
     dispatch(getUsers());
+    dispatch(getViewedPosts());
+
     if (isPage === "community") {
       history.push(`/c/${post?.communityName}`);
     } else {

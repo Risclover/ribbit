@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "../../context";
 import { DeleteConfirmationModal } from "../../components";
-import { deletePost, getPosts, getUsers } from "../../store";
+import { deletePost, getPosts, getUsers, getViewedPosts } from "../../store";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -15,12 +15,14 @@ export function DeletePostModal({ post, isPage }) {
     console.log("isPage:", isPage);
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
+
     if (isPage === "community") {
       history.push(`/c/${post?.communityName}`);
     } else {
       history.push("/c/all");
     }
-    // dispatch(getPosts());
+    dispatch(getViewedPosts());
+    dispatch(getPosts());
   };
 
   return (

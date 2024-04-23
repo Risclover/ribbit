@@ -1,5 +1,5 @@
 import React from "react";
-import { deletePost, getUsers } from "../../../store";
+import { deletePost, getUsers, getViewedPosts } from "../../../store";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -17,6 +17,7 @@ export function DeletePostConfirmation({
     dispatch(deletePost(postId));
     setShowDeleteModal(false);
     dispatch(getUsers());
+    dispatch(getViewedPosts());
 
     if (isPage === "singlepage") {
       history.push("/c/all");

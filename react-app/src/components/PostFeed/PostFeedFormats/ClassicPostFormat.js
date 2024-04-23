@@ -15,7 +15,7 @@ import { SinglePostKarmabar } from "../../../features";
 import { sliceUrl } from "../../../utils";
 import "../../../features/Posts/SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
-import { deletePost, getUsers } from "../../../store";
+import { deletePost, getUsers, getViewedPosts } from "../../../store";
 
 export function ClassicPostFormat({ isPage, id, userId }) {
   const history = useHistory();
@@ -80,6 +80,7 @@ export function ClassicPostFormat({ isPage, id, userId }) {
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
     dispatch(getUsers());
+    dispatch(getViewedPosts())
     if (isPage === "community") {
       history.push(`/c/${post?.communityName}`);
     } else {
