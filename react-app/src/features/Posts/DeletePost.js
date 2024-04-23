@@ -12,7 +12,6 @@ export function DeletePostModal({ post, isPage }) {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    console.log("isPage:", isPage);
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
 

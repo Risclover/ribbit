@@ -10,7 +10,7 @@ import { getViewedPosts, removeViewedPosts } from "../../store";
 
 import "./RecentlyViewedPosts.css";
 
-moment.locale("en-cust", {
+moment.updateLocale("en-cust", {
   relativeTime: {
     future: "in %s",
     past: "%s",
@@ -101,7 +101,7 @@ export function RecentlyViewedPosts() {
                       <span className="recent-post-dot-spacer"></span>
                       {post?.postComments?.length || 0} comments
                       <span className="recent-post-dot-spacer"></span>
-                      {moment(post?.createdAt).fromNow()}
+                      {moment(post?.createdAt).locale("en-cust").fromNow()}
                     </div>
                   </div>
                 </div>
