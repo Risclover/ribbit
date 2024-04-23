@@ -78,23 +78,17 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
     });
   }
 
-  let communityList = [];
-  for (let i = 0; i < Object.values(allCommunities).length; i++) {
-    communityList.push({
-      name: Object.values(allCommunities)[i].name,
-      members: Object.values(allCommunities)[i].members,
-      communityImg:
-        Object.values(allCommunities)[i].communitySettings[
-          Object.values(allCommunities)[i].id
-        ].communityIcon,
-      id: Object.values(allCommunities)[i].id,
-      description: Object.values(allCommunities)[i].description,
-      bgColor:
-        Object.values(allCommunities)[i].communitySettings[
-          Object.values(allCommunities)[i].id
-        ].baseColor,
-    });
-  }
+  let communityList = Object.values(allCommunities).map((comm) => {
+    return {
+      name: comm.name,
+      members: comm.members,
+      communityImg: comm.communitySettings[comm.id].communityIcon,
+      id: comm.id,
+      description: comm.description,
+      bgColor: comm.communitySettings[comm.id].baseColor,
+    };
+  });
+  console.log("communityList:", communityList);
 
   let userList = [];
   for (let i = 0; i < Object.values(allUsers).length; i++) {

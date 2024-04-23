@@ -22,9 +22,7 @@ export function SearchResultsCommunities({
                 <div className="search-results-page-community-left">
                   <img
                     style={{ backgroundColor: `${community.bgColor}` }}
-                    src={
-                      community?.communitySettings[community?.id].communityIcon
-                    }
+                    src={community?.communityImg}
                     className="search-results-page-community-img"
                     alt="Community"
                   />
