@@ -21,11 +21,16 @@ import {
 import SearchDude from "../../../assets/images/search-icon.png";
 import "./SearchResults.css";
 import { usePageSettings } from "../../../hooks/usePageSettings";
-
+import { useLocation } from "react-router-dom";
+function useQuery() {
+  const { search } = useLocation();
+  return new URLSearchParams(search);
+}
 export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
   const dispatch = useDispatch();
   const [searchPage, setSearchPage] = useState("Posts");
-
+  const query = useQuery();
+  const searchTerm = query.get("q");
   const queryParameters = new URLSearchParams(window.location.search);
   const type = queryParameters.get("type");
   const name = queryParameters.get("name");
@@ -56,7 +61,14 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
       post?.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  console.log("allPosts:", allPosts);
   let postList = [];
+  Object.values(allPosts).forEach((post) => {
+    postList.push({
+      communityImg: post?.communitySettings?.[post?.communityId].communityIcon,
+      bgColor: post?.communitySettings?.[post?.communityId].bgColor,
+    });
+  });
   for (let i = 0; i < Object.values(allPosts).length; i++) {
     postList.push({
       title: Object.values(allPosts)[i].title,
@@ -68,16 +80,21 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
       communityId: Object.values(allPosts)[i].communityId,
       communityImg:
         Object.values(allPosts)[i].communitySettings[
-          Object.values(allPosts)[i].id
+          Object.values(allPosts)[i].communityId
         ]?.communityIcon,
       id: Object.values(allPosts)[i].id,
       createdAt: Object.values(allPosts)[i].createdAt,
       updatedAt: Object.values(allPosts)[i].updatedAt,
       votes: Object.values(allPosts)[i].votes,
       postComments: Object.values(allPosts)[i].postComments,
+      communityImgBg:
+        Object.values(allPosts)[i].communitySettings[
+          Object.values(allPosts)[i].communityId
+        ]?.baseColor,
     });
   }
 
+  console.log("postList:", postList);
   let communityList = Object.values(allCommunities).map((comm) => {
     return {
       name: comm.name,
@@ -93,7 +110,7 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
   let userList = [];
   for (let i = 0; i < Object.values(allUsers).length; i++) {
     userList.push({
-      profile_img: Object.values(allUsers)[i].profile_img,
+      profileImg: Object.values(allUsers)[i].profile_img,
       username: Object.values(allUsers)[i].username,
       id: Object.values(allUsers)[i].id,
       karma: Object.values(allUsers)[i].karma,
@@ -131,9 +148,9 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
     dispatch(getCommunities());
     dispatch(getPosts());
     dispatch(getUsers());
-    dispatch(search(searchQuery));
+    dispatch(search(searchTerm));
     dispatch(getAllComments());
-  }, [dispatch, searchQuery]);
+  }, [dispatch, searchTerm]);
 
   return (
     <div className="search-results-page">
@@ -151,9 +168,9 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
         <div className="search-results-main">
           {searchPage === "Posts" && (
             <SearchResultsPosts
-              posts={posts}
+              posts={postList}
               setSearchPage={setSearchPage}
-              searchQuery={searchQuery}
+              searchQuery={searchTerm}
               setSearchQuery={setSearchQuery}
               communityList={communityList}
               userList={userList}
@@ -164,7 +181,7 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
           {searchPage === "Comments" && (
             <SearchResultsComments
               comments={allComments}
-              posts={postList}
+              posts={Object.values(allPosts)}
               searchQuery={searchQuery}
               setAdjustQuery={setAdjustQuery}
               SearchDude={SearchDude}

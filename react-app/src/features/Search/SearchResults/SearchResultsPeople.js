@@ -19,7 +19,7 @@ export function SearchResultsPeople({
               <div className="search-results-page-person">
                 <div className="search-results-page-community-left">
                   <img
-                    src={user.profile_img}
+                    src={user.profileImg}
                     className="search-results-page-community-img"
                     alt="User"
                   />

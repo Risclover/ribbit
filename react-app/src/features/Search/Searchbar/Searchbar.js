@@ -58,7 +58,7 @@ export function Searchbar({
   const handleEnter = (e) => {
     if (e.key === "Enter") {
       setShowSearchDropdown(false);
-      history.push("/search/results");
+      history.push(`/search/query?q=${searchQuery}`);
     }
   };
 

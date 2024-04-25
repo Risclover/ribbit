@@ -36,6 +36,7 @@ import {
   ProtectedRoute,
   EditCommunity,
   Notifications,
+  SearchResultsPosts,
 } from "./features";
 import { NavBar, NavSidebar, LoggedOutSidebar } from "./layouts";
 
@@ -47,6 +48,7 @@ import {
   PageTitleContext,
 } from "./context";
 import { CreatePostPage } from "./pages/CreatePostPage";
+import PostResults from "./features/Search/SearchResults/PostResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -328,13 +330,21 @@ function App() {
                 <UpdateImagePost />
               </ProtectedRoute>
 
-              <Route path="/search/results" exact={true}>
+              <Route path="/search/posts">
+                <PostResults />
+              </Route>
+
+              <Route path="/search/query" exact={true}>
                 <SearchResults
                   adjustQuery={adjustQuery}
                   setAdjustQuery={setAdjustQuery}
                   searchQuery={searchQuery}
                   setSearchQuery={setSearchQuery}
                 />
+              </Route>
+
+              <Route path="/search/comments">
+                <PostResults />
               </Route>
 
               <Route path="/users/:userId/profile" exact={true}>

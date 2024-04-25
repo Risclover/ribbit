@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import { SearchResultsTimeBtn } from "./SearchResultsTimeBtn";
 import { HandleClickOutside } from "../../../../utils/HandleClickOutside";
+import { useOutsideClick } from "../../../../hooks";
 
 export function SearchResultsTime({ searchPage }) {
   const wrapperRef = useRef(null);
@@ -9,16 +10,7 @@ export function SearchResultsTime({ searchPage }) {
   const [timeOpen, setTimeOpen] = useState(false);
   const [time, setTime] = useState("All Time");
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(e, wrapperRef, timeOpen, setTimeOpen);
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(e, wrapperRef, timeOpen, setTimeOpen);
-      });
-    };
-  }, [wrapperRef, timeOpen]);
+  useOutsideClick(wrapperRef, () => setTimeOpen(false));
 
   return (
     <div ref={wrapperRef}>

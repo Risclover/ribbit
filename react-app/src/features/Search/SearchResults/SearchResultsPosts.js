@@ -22,57 +22,72 @@ export function SearchResultsPosts({
   const [showCommunityModal, setShowCommunityModal] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
 
+  console.log("seachQuery:", searchQuery);
+  console.log("posts", posts);
+  console.log(
+    "posts:",
+    posts.filter((post) =>
+      post["content"]?.toLowerCase().includes(searchQuery?.toLowerCase())
+    )
+  );
+
   return (
     <div className="search-results-posts-page">
       <div className="search-results-left">
         {posts
           .filter((post) =>
-            post["title"].toLowerCase().includes(searchQuery.toLowerCase())
+            post["content"]?.toLowerCase().includes(searchQuery.toLowerCase())
           )
           .map(
             (post) =>
-              post["title"]
+              post["content"]
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase()) && (
-                <NavLink to={`/posts/${post.id}`}>
+                <NavLink to={`/posts/${post?.id}`}>
                   <div className="search-results-post">
                     <div className="search-results-post-topbar">
-                      <img src={post.communityImg} alt="Community" />
+                      <img
+                        style={{
+                          backgroundColor: `${post.communityImgBg}`,
+                        }}
+                        src={post?.communityImg}
+                        alt="Community"
+                      />
                       <NavLink
                         className="results-post-community"
-                        to={`/c/${post.communityName}`}
+                        to={`/c/${post?.communityName}`}
                       >
-                        c/{post.communityName}
+                        c/{post?.communityName}
                       </NavLink>{" "}
                       <span className="topbar-dot">•</span>{" "}
                       <span className="results-topbar-info">
                         Posted by{" "}
-                        <NavLink to={`/users/${post.postAuthor.id}/profile`}>
+                        <NavLink to={`/users/${post?.authorId}/profile`}>
                           <span className="results-post-author">
-                            u/{post.postAuthor.username}
+                            u/{post?.author}
                           </span>
                         </NavLink>{" "}
-                        {moment(new Date(post.createdAt)).fromNow()}
+                        {moment(new Date(post?.createdAt)).fromNow()}
                       </span>
                     </div>
                     <div className="search-results-post-content">
                       <h3 className="search-results-post-title">
-                        {post.title}
+                        {post?.title}
                       </h3>
-                      {post.imgUrl !== null && (
+                      {post?.imgUrl !== null && (
                         <img
                           className="search-results-post-img"
-                          src={post.imgUrl}
+                          src={post?.imgUrl}
                           alt="Post"
                         />
                       )}
                     </div>
                     <div className="search-results-post-stats">
                       <span className="search-results-post-stat">
-                        {post.votes} {post.votes === 1 ? "upvote" : "upvotes"}
+                        {post?.votes} {post?.votes === 1 ? "upvote" : "upvotes"}
                       </span>
                       <span className="search-results-post-stat">
-                        {Object.values(post.postComments).length} comments
+                        {Object.values(post?.postComments).length} comments
                       </span>
                     </div>
                   </div>
@@ -179,7 +194,7 @@ export function SearchResultsPosts({
                   >
                     <div className="search-result-page-community-left">
                       <div className="search-result-page-community-img">
-                        <img src={user?.profile_img} alt="User" />
+                        <img src={user?.profileImg} alt="User" />
                       </div>
                       <div className="search-result-page-community-details">
                         <div className="search-result-page-community-name">

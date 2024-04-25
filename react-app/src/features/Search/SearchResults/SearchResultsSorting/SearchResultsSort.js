@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import { SearchResultsSortBtn } from "./SearchResultsSortBtn";
 import { HandleClickOutside } from "../../../../utils";
+import { useOutsideClick } from "../../../../hooks";
 
 export function SearchResultsSort({ searchPage }) {
   const wrapperRef = useRef(null);
@@ -9,16 +10,7 @@ export function SearchResultsSort({ searchPage }) {
   const [sortOpen, setSortOpen] = useState(false);
   const [sort, setSort] = useState("Relevance");
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(e, wrapperRef, sortOpen, setSortOpen);
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(e, wrapperRef, sortOpen, setSortOpen);
-      });
-    };
-  }, [wrapperRef, sortOpen]);
+  useOutsideClick(wrapperRef, () => setSortOpen(false));
 
   return (
     <div ref={wrapperRef}>
