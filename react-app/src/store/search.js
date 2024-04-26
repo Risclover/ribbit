@@ -104,7 +104,12 @@ export const searchCommunities = (query) => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = {
+  posts: {},
+  comments: {},
+  communities: {},
+  users: {},
+};
 
 export default function searchReducer(state = initialState, action) {
   switch (action.type) {
@@ -114,10 +119,16 @@ export default function searchReducer(state = initialState, action) {
         return results;
       }, {});
     case SEARCH_POSTS:
-      return action.payload.PostResults.reduce((results, result) => {
-        results[result.id] = result;
-        return results;
-      }, {});
+      return {
+        ...state,
+        posts: action.payload.PostResults.reduce(
+          (results, result) => {
+            results[result.id] = result;
+            return results;
+          },
+          { ...state.posts }
+        ),
+      };
     case SEARCH_COMMENTS:
       return action.payload.CommentResults.reduce((results, result) => {
         results[result.id] = result;
