@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import { SearchResultsTimeBtn } from "./SearchResultsTimeBtn";
-import { HandleClickOutside } from "../../../../utils/HandleClickOutside";
-import { useOutsideClick } from "../../../../hooks";
+import { useOutsideClick } from "../../../../../hooks";
 
 export function SearchResultsTime({ searchPage }) {
   const wrapperRef = useRef(null);

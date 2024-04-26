@@ -2,14 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { SlClose } from "react-icons/sl";
-import { SearchDropdown } from "./SearchDropdown";
-import { HandleClickOutside } from "../../../utils/HandleClickOutside";
+import { OldSearchDropdown } from "./OldSearchDropdown";
 import "./Searchbar.css";
 import { useDispatch } from "react-redux";
-import { getCommunities } from "../../../store";
-import { useOutsideClick } from "../../../hooks";
+import { useOutsideClick } from "../../../../hooks";
 
-export function Searchbar({
+export function OldSearchbar({
   searchQuery,
   setSearchQuery,
   adjustQuery,
@@ -111,7 +109,7 @@ export function Searchbar({
         </div>
       </div>
       {showSearchDropdown && searchQuery && searchQuery.length > 0 && (
-        <SearchDropdown
+        <OldSearchDropdown
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           setShowSearchDropdown={setShowSearchDropdown}

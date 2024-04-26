@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import { SearchResultsSortBtn } from "./SearchResultsSortBtn";
-import { HandleClickOutside } from "../../../../utils";
-import { useOutsideClick } from "../../../../hooks";
+import { useOutsideClick } from "../../../../../hooks";
 
 export function SearchResultsSort({ searchPage }) {
   const wrapperRef = useRef(null);

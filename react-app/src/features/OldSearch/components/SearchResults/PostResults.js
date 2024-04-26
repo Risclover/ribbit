@@ -7,7 +7,7 @@ import {
   getPosts,
   searchComments,
   searchPosts,
-} from "../../../store";
+} from "../../../../store";
 import { useDispatch } from "react-redux";
 
 function useQuery() {
@@ -15,7 +15,7 @@ function useQuery() {
   return new URLSearchParams(search);
 }
 
-function PostResults() {
+export function PostResults() {
   const dispatch = useDispatch();
   const [results, setResults] = useState();
   const query = useQuery();
@@ -43,5 +43,3 @@ function PostResults() {
     </div>
   );
 }
-
-export default PostResults;

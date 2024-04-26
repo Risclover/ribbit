@@ -4,9 +4,9 @@ import { useHistory } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 
 import "./Searchbar.css";
-import { getCommunities } from "../../../store";
+import { getCommunities } from "../../../../store";
 
-export function SearchDropdown({
+export function OldSearchDropdown({
   searchQuery,
   setSearchQuery,
   setShowSearchDropdown,

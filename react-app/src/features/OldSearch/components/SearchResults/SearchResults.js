@@ -8,7 +8,7 @@ import {
   getPosts,
   search,
   getUsers,
-} from "../../../store";
+} from "../../../../store";
 
 import {
   SearchResultsPeople,
@@ -17,16 +17,13 @@ import {
   SearchResultsPosts,
   SearchResultsButtons,
   SearchResultsSorting,
-} from "../..";
-import SearchDude from "../../../assets/images/search-icon.png";
+} from "../../..";
+import SearchDude from "../../../../assets/images/search-icon.png";
 import "./SearchResults.css";
-import { usePageSettings } from "../../../hooks/usePageSettings";
-import { useLocation } from "react-router-dom";
-function useQuery() {
-  const { search } = useLocation();
-  return new URLSearchParams(search);
-}
-export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
+import { usePageSettings } from "../../../../hooks/usePageSettings";
+import { useQuery } from "../../hooks/useQuery";
+
+export function SearchResults({setSearchQuery, setAdjustQuery }) {
   const dispatch = useDispatch();
   const [searchPage, setSearchPage] = useState("Posts");
   const query = useQuery();
@@ -54,12 +51,6 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
     ),
     pageTitle: "Search Results",
   });
-
-  const posts = results.filter(
-    (post) =>
-      post.title &&
-      post?.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   console.log("allPosts:", allPosts);
   let postList = [];
@@ -182,7 +173,7 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
             <SearchResultsComments
               comments={allComments}
               posts={Object.values(allPosts)}
-              searchQuery={searchQuery}
+              searchQuery={searchTerm}
               setAdjustQuery={setAdjustQuery}
               SearchDude={SearchDude}
             />
@@ -190,7 +181,7 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
           {searchPage === "Communities" && (
             <SearchResultsCommunities
               communities={communityList}
-              searchQuery={searchQuery}
+              searchQuery={searchTerm}
               setAdjustQuery={setAdjustQuery}
               SearchDude={SearchDude}
             />
@@ -198,7 +189,7 @@ export function SearchResults({ searchQuery, setSearchQuery, setAdjustQuery }) {
           {searchPage === "People" && (
             <SearchResultsPeople
               userList={userList}
-              searchQuery={searchQuery}
+              searchQuery={searchTerm}
               setAdjustQuery={setAdjustQuery}
               SearchDude={SearchDude}
             />

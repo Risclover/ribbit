@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
 
-export function SearchResultsComments({
+export function OldSearchResultsComments({
   posts,
   searchQuery,
   SearchDude,
