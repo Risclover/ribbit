@@ -1,10 +1,10 @@
 import React from "react";
 import { SearchResultsNav } from "../features";
 
-export const SearchResults = ({ children }) => {
+export const SearchResults = ({ children, query, searchPage }) => {
   return (
     <div className="search-results-page">
-      <SearchResultsNav />
+      <SearchResultsNav query={query} searchPage={searchPage} />
       {children}
     </div>
   );
