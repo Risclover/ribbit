@@ -39,6 +39,8 @@ import {
   SearchResultsPosts,
   PostResults,
   SearchResultsComments,
+  SearchResultsCommunities,
+  SearchResultsUsers,
 } from "./features";
 import { NavBar, NavSidebar, LoggedOutSidebar } from "./layouts";
 
@@ -331,15 +333,6 @@ function App() {
                 <UpdateImagePost />
               </ProtectedRoute>
 
-              <Route path="/search/posts">
-                <SearchResults
-                  adjustQuery={adjustQuery}
-                  setAdjustQuery={setAdjustQuery}
-                  searchQuery={searchQuery}
-                  setSearchQuery={setSearchQuery}
-                />
-              </Route>
-
               <Route path="/search/query" exact={true}>
                 <SearchResults
                   adjustQuery={adjustQuery}
@@ -351,6 +344,18 @@ function App() {
 
               <Route path="/search/comments">
                 <SearchResultsComments />
+              </Route>
+
+              <Route path="/search/posts">
+                <SearchResultsPosts />
+              </Route>
+
+              <Route path="/search/communities">
+                <SearchResultsCommunities />
+              </Route>
+
+              <Route path="/search/users">
+                <SearchResultsUsers />
               </Route>
 
               <Route path="/users/:userId/profile" exact={true}>

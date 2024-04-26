@@ -39,7 +39,7 @@ export const SearchResultsNav = ({ query, searchPage }) => {
       </button>
       <button
         className={
-          searchPage === "People"
+          searchPage === "Users"
             ? "search-results-btn results-active"
             : "search-results-btn"
         }

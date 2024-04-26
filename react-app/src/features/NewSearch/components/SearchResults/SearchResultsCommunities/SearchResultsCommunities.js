@@ -1,5 +1,12 @@
 import React from "react";
+import { SearchResults } from "../../../../../pages";
+import { getSearchQuery } from "../../../utils/getSearchQuery";
 
 export const SearchResultsCommunities = () => {
-  return <div>SearchResultsCommunities</div>;
+  const query = getSearchQuery();
+  return (
+    <SearchResults query={query} searchPage="Communities">
+      Communities
+    </SearchResults>
+  );
 };
