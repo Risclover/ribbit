@@ -98,7 +98,7 @@
   align-items: center;
 }
 
-.search-results-post-topbar img {
+.search-results-post-topbar-img {
   width: 20px;
   margin-right: 4px;
   height: 20px;
@@ -114,6 +114,7 @@
   font-size: 12px;
   font-weight: 400;
   color: #7c7c7c;
+  display: flex;
 }
 
 .search-results-post-content {

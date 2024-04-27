@@ -4,6 +4,7 @@ import moment from "moment";
 import { sliceUrl } from "../../../../../utils";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { Username } from "../../../../../components";
 
 export const PostResult = ({ post }) => {
   const history = useHistory();
@@ -55,6 +56,7 @@ export const PostResult = ({ post }) => {
     >
       <div className="search-results-post-topbar">
         <img
+          className="search-results-post-topbar-img"
           style={{
             backgroundColor: `${
               post?.communitySettings[post?.communityId]?.baseColor
@@ -72,11 +74,17 @@ export const PostResult = ({ post }) => {
         <span className="topbar-dot">•</span>{" "}
         <span className="results-topbar-info">
           Posted by{" "}
-          <NavLink to={`/users/${post?.postAuthor.id}/profile`}>
+          <Username
+            username={post?.postAuthor.username}
+            user={post.postAuthor}
+            community={post.communityId}
+            source="singlepost"
+          />
+          {/* <NavLink to={`/users/${post?.postAuthor.id}/profile`}>
             <span className="results-post-author">
               u/{post?.postAuthor.username}
             </span>
-          </NavLink>{" "}
+          </NavLink>{" "} */}
           {moment(new Date(post?.createdAt)).fromNow()}
         </span>
       </div>
