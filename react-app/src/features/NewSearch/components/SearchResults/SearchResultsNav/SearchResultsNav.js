@@ -1,51 +1,16 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import "./SearchResultsNav.css";
+import { SearchResultsNavBtn } from "./SearchResultsNavBtn";
 
 export const SearchResultsNav = ({ query, searchPage }) => {
-  const history = useHistory();
+  const btns = ["Posts", "Comments", "Communities", "People"];
+
   return (
     <div className="search-results-btns">
-      <button
-        className={
-          searchPage === "Posts"
-            ? "search-results-btn results-active"
-            : "search-results-btn"
-        }
-        onClick={() => history.push(`/search/posts?q=${query}`)}
-      >
-        Posts
-      </button>
-      <button
-        className={
-          searchPage === "Comments"
-            ? "search-results-btn results-active"
-            : "search-results-btn"
-        }
-        onClick={() => history.push(`/search/comments?q=${query}`)}
-      >
-        Comments
-      </button>
-      <button
-        className={
-          searchPage === "Communities"
-            ? "search-results-btn results-active"
-            : "search-results-btn"
-        }
-        onClick={() => history.push(`/search/communities?q=${query}`)}
-      >
-        Communities
-      </button>
-      <button
-        className={
-          searchPage === "Users"
-            ? "search-results-btn results-active"
-            : "search-results-btn"
-        }
-        onClick={() => history.push(`/search/users?q=${query}`)}
-      >
-        People
-      </button>
+      {btns.map((btn) => (
+        <SearchResultsNavBtn searchPage={searchPage} btn={btn} query={query} />
+      ))}
     </div>
   );
 };
