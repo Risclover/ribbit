@@ -717,16 +717,16 @@ pre.ql-syntax {
 }
 
 .single-post-external-link-box {
-  border-top-left-radius: 4px;
-  bottom: 0;
-  height: 18px;
   position: absolute;
+  bottom: 0;
   right: 0;
-  width: 18px;
-  background-color: var(--highlight-color);
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--highlight-color);
+  border-top-left-radius: 4px;
+  height: 18px;
+  width: 18px;
 }
 
 .single-post-external-link-box.community-post {
@@ -739,8 +739,10 @@ pre.ql-syntax {
 
 .single-post-external-link-box svg {
   color: white;
-  line-height: 18px;
   font-size: 15px;
+  line-height: 18px;
+  margin-left: 2px;
+  vertical-align: baseline;
 }
 
 .create-post-form-errors {
