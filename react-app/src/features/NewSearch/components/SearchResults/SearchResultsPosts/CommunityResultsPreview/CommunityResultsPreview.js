@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Community } from "./Community";
-import { getSubscriptions } from "../../../../../../store";
+import { useHistory } from "react-router-dom";
 
-export const CommunityResultsPreview = () => {
-  const dispatch = useDispatch();
+export const CommunityResultsPreview = ({ query }) => {
+  const history = useHistory();
   const communities = useSelector((state) =>
     Object.values(state.search.communities)
   );
@@ -19,7 +19,7 @@ export const CommunityResultsPreview = () => {
       {communities.length > 5 && (
         <div
           className="see-more-btn"
-          onClick={() => setSearchPage("Communities")}
+          onClick={() => history.push(`/search/communities?q=${query}`)}
         >
           See more communities
         </div>

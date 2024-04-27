@@ -38,7 +38,7 @@ export const SearchResultsPosts = () => {
           ))}
         </div>
         <div className="search-results-right">
-          <CommunityResultsPreview />
+          <CommunityResultsPreview query={query} />
           <UserResultsPreview />
         </div>
       </div>
