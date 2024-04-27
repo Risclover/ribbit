@@ -13,6 +13,8 @@ import moment from "moment";
 import { PostResult } from "./PostResult";
 import { CommunityResultsPreview } from "./CommunityResultsPreview";
 import { UserResultsPreview } from "./UserResultsPreview";
+import { NewCommunity } from "./NewCommunity";
+import { BackToTop } from "../../../../../components";
 
 export const SearchResultsPosts = () => {
   const dispatch = useDispatch();
@@ -39,6 +41,7 @@ export const SearchResultsPosts = () => {
         <div className="search-results-right">
           <CommunityResultsPreview query={query} />
           <UserResultsPreview query={query} />
+          <NewCommunity />
         </div>
       </div>
     </SearchResults>

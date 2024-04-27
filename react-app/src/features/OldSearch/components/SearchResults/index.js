@@ -1,4 +1,3 @@
-export { JoinBtn } from "../../../NewSearch/components/SearchResults/SearchResultsPosts/CommunityResultsPreview/JoinBtn";
 export { SearchResults } from "./SearchResults";
 export { SearchResultsButtons } from "./SearchResultsButtons";
 export { OldSearchResultsComments } from "./OldSearchResultsComments";

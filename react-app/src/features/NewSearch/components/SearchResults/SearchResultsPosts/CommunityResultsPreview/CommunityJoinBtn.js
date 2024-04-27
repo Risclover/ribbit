@@ -7,7 +7,7 @@ import {
   getSubscriptions,
 } from "../../../../../../store";
 
-export function JoinBtn({ community }) {
+export function CommunityJoinBtn({ community }) {
   const dispatch = useDispatch();
   const [subscribed, setSubscribed] = useState(false);
   const [btnWord, setBtnWord] = useState("Joined");

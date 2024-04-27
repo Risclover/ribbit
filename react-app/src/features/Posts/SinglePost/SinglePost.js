@@ -9,9 +9,11 @@ import {
 } from "../..";
 import "./SinglePost.css";
 import { CompactPostFormat, ClassicPostFormat } from "../../../components";
+import { useHistory } from "react-router-dom";
 
 export const SinglePost = ({ id, isPage, post }) => {
   // const post = useSelector((state) => state.posts[id]);
+  const history = useHistory();
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users?.[cuser?.id]);
   const community = useSelector(
@@ -25,8 +27,13 @@ export const SinglePost = ({ id, isPage, post }) => {
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    history.push(`/posts/${post.id}`);
+  };
+
   return (
-    <article>
+    <article onClick={handleClick}>
       {(tempFormat === "Card" || format === "Card") && (
         <div className="post-card-format">
           {post && (

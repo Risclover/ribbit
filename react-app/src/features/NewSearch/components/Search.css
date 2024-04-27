@@ -641,6 +641,7 @@
 .search-results {
   padding-top: 8px;
   display: flex;
+  height: 100vh;
 }
 
 .type-link-icon {

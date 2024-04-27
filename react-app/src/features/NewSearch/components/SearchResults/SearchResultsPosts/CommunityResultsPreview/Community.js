@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { JoinBtn } from "./JoinBtn";
+import { CommunityJoinBtn } from "./CommunityJoinBtn";
 
 export const Community = ({ community }) => {
   return (
@@ -30,7 +30,7 @@ export const Community = ({ community }) => {
           </div>
         </div>
         <div className="search-result-page-community-right">
-          <JoinBtn community={community} />
+          <CommunityJoinBtn community={community} />
         </div>
       </div>
     </NavLink>
