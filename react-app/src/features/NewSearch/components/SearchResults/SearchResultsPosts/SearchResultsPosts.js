@@ -11,13 +11,14 @@ import { SearchResultsSortBtn } from "../SearchResultsSorting/SearchResultsSort"
 import { NavLink } from "react-router-dom";
 import moment from "moment";
 import { PostResult } from "./PostResult";
+import { CommunityResultsPreview } from "./CommunityResultsPreview";
+import { UserResultsPreview } from "./UserResultsPreview";
 
 export const SearchResultsPosts = () => {
   const dispatch = useDispatch();
 
   const posts = useSelector((state) => state.search.posts);
   const users = useSelector((state) => state.search.users);
-  const communities = useSelector((state) => state.search.communities);
 
   const query = getSearchQuery();
 
@@ -36,12 +37,10 @@ export const SearchResultsPosts = () => {
             <PostResult post={post} />
           ))}
         </div>
-        {/* {Object.values(communities).map((community) => (
-          <div>{community.name}</div>
-        ))}
-        {Object.values(users).map((user) => (
-          <div>{user.username}</div>
-        ))} */}
+        <div className="search-results-right">
+          <CommunityResultsPreview />
+          <UserResultsPreview />
+        </div>
       </div>
     </SearchResults>
   );

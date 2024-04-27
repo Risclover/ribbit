@@ -624,7 +624,7 @@
   border-color: transparent;
   background: #f6f7f8 !important;
   color: var(--highlight-color);
-  width: 86px;
+  width: 88px;
 }
 
 .search-results-page-community-join:hover,
@@ -639,6 +639,7 @@
 
 .search-results {
   padding-top: 8px;
+  display: flex;
 }
 
 .type-link-icon {
