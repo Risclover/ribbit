@@ -13,7 +13,7 @@ export const SearchResultsSortBtn = ({ searchPage }) => {
   useOutsideClick(wrapperRef, () => setSortOpen(false));
 
   return (
-    <div ref={wrapperRef}>
+    <div ref={wrapperRef} className="search-results-sort-bar">
       <button
         className={`
           ${

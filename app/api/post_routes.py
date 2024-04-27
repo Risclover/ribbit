@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import db, Post, User, PostVote
+from app.models import db, Post, User, PostVote, ViewedPost
 from .auth_routes import validation_errors_to_error_messages
 from app.forms import PostForm, PostUpdateForm, ImagePostForm, UpdateImagePostForm, LinkPostForm
 from app.s3_helpers import (upload_file_to_s3, allowed_file, get_unique_filename)
@@ -168,6 +168,8 @@ def delete_post(id):
     """
 
     post = Post.query.get(id)
+    ViewedPost.query.filter_by(post_id=id).delete()
+
     db.session.delete(post)
     db.session.commit()
     return {"message": "Successfully deleted", "status_code": 200}

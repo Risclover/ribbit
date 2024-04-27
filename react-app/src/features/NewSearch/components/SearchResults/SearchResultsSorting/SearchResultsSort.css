@@ -90,3 +90,7 @@
 .sort-set {
   font-weight: 700;
 }
+
+.search-results-sort-bar {
+  margin-bottom: 4px;
+}

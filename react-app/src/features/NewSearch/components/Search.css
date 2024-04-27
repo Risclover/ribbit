@@ -610,6 +610,10 @@
   background: rgba(0, 121, 211, 0.2) !important;
 }
 
+.search-results {
+  padding-top: 8px;
+}
+
 @media (max-width: 959px) {
   .search-results-right {
     display: none;

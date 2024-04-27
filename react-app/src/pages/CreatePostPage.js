@@ -33,8 +33,6 @@ export function CreatePostPage({ postType, setPostType, val }) {
     }
   }, [communities, communityName, setCommunity]);
 
-  console.log(community);
-
   return (
     <div className="create-post-page">
       <div className="create-post-page-left">

@@ -19,7 +19,7 @@ class ViewedPost(db.Model):
             "userId": self.user_id,
             "postId": self.post_id,
             "timestamp": self.timestamp,
-            "post": self.post.to_dict()
+            "post": self.post.to_dict() if self.post is not None else None
         }
 
     def __repr__(self):

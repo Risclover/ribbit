@@ -8,6 +8,9 @@ import {
   searchUsers,
 } from "../../../../../store";
 import { SearchResultsSortBtn } from "../SearchResultsSorting/SearchResultsSort";
+import { NavLink } from "react-router-dom";
+import moment from "moment";
+import { PostResult } from "./PostResult";
 
 export const SearchResultsPosts = () => {
   const dispatch = useDispatch();
@@ -27,15 +30,19 @@ export const SearchResultsPosts = () => {
   return (
     <SearchResults query={query} searchPage="Posts">
       <SearchResultsSortBtn searchPage="Posts" />
-      {Object.values(posts).map((post) => (
-        <div>{post.title}</div>
-      ))}
-      {Object.values(communities).map((community) => (
-        <div>{community.name}</div>
-      ))}
-      {Object.values(users).map((user) => (
-        <div>{user.username}</div>
-      ))}
+      <div className="search-results">
+        <div className="search-results-left">
+          {Object.values(posts).map((post) => (
+            <PostResult post={post} />
+          ))}
+        </div>
+        {/* {Object.values(communities).map((community) => (
+          <div>{community.name}</div>
+        ))}
+        {Object.values(users).map((user) => (
+          <div>{user.username}</div>
+        ))} */}
+      </div>
     </SearchResults>
   );
 };

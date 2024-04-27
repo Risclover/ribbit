@@ -14,10 +14,6 @@ export const SearchResultsSortDropdown = ({
     btns.push("Most Comments");
   }
 
-  useEffect(() => {
-    console.log(`Sort updated to: ${sort}`);
-  }, [sort]); // This effect will run whenever `sort` changes.
-
   return (
     <div className="search-results-sorting">
       <ul className="search-results-sort-dropdown">
