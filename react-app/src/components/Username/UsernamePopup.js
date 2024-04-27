@@ -29,9 +29,11 @@ export function UsernamePopup({ community, user }) {
             className="username-popup-user-icon"
           />
           <div className="username-popup-user-info-name">
-            <NavLink to={`/users/${id}/profile`}>{displayName}</NavLink>
+            <NavLink to={`/users/${id}/profile`}>
+              {displayName ? displayName : username}
+            </NavLink>
             <div className="username-popup-user-info-details">
-              {username} • {moment(createdAt).fromNow()}
+              u/{username} • {moment(createdAt).fromNow()}
             </div>
           </div>
         </div>

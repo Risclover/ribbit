@@ -18,7 +18,6 @@ export const SearchResultsPosts = () => {
   const dispatch = useDispatch();
 
   const posts = useSelector((state) => state.search.posts);
-  const users = useSelector((state) => state.search.users);
 
   const query = getSearchQuery();
 
@@ -39,7 +38,7 @@ export const SearchResultsPosts = () => {
         </div>
         <div className="search-results-right">
           <CommunityResultsPreview query={query} />
-          <UserResultsPreview />
+          <UserResultsPreview query={query} />
         </div>
       </div>
     </SearchResults>

@@ -12,9 +12,9 @@ export const CommunityResultsPreview = ({ query }) => {
   return (
     <div className="search-results-right-box">
       <h4>Communities</h4>
-      {communities.map((community, idx) => {
-        return idx < 5 && <Community community={community} />;
-      })}
+      {communities
+        .map((community) => <Community community={community} />)
+        .slice(0, 5)}
 
       {communities.length > 5 && (
         <div
