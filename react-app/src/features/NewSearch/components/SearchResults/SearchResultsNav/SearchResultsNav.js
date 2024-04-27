@@ -6,7 +6,6 @@ export const SearchResultsNav = ({ query, searchPage }) => {
   const history = useHistory();
   return (
     <div className="search-results-btns">
-      {query}
       <button
         className={
           searchPage === "Posts"

@@ -8,7 +8,6 @@ import { Modal } from "../../../../context";
 import { CreateCommunityModal, LoginSignupModal } from "../../..";
 import SearchDude from "../../../../assets/images/search-icon.png";
 import RibbitBanner from "../../../../assets/images/ribbit-banners/ribbit_banner.png";
-import "./SearchResults.css";
 
 export function OldSearchResultsPosts({
   posts,

@@ -19,11 +19,10 @@ import {
   SearchResultsSorting,
 } from "../../..";
 import SearchDude from "../../../../assets/images/search-icon.png";
-import "./SearchResults.css";
 import { usePageSettings } from "../../../../hooks/usePageSettings";
 import { useQuery } from "../../hooks/useQuery";
 
-export function SearchResults({setSearchQuery, setAdjustQuery }) {
+export function SearchResults({ setSearchQuery, setAdjustQuery }) {
   const dispatch = useDispatch();
   const [searchPage, setSearchPage] = useState("Posts");
   const query = useQuery();

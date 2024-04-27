@@ -7,18 +7,16 @@ import {
   searchPosts,
   searchUsers,
 } from "../../../../../store";
+import { SearchResultsSortBtn } from "../SearchResultsSorting/SearchResultsSort";
 
 export const SearchResultsPosts = () => {
   const dispatch = useDispatch();
-  const query = getSearchQuery();
 
   const posts = useSelector((state) => state.search.posts);
   const users = useSelector((state) => state.search.users);
   const communities = useSelector((state) => state.search.communities);
 
-  console.log("posts:", posts);
-  console.log("users:", users);
-  console.log("communities:", communities);
+  const query = getSearchQuery();
 
   useEffect(() => {
     dispatch(searchPosts(query));
@@ -28,7 +26,16 @@ export const SearchResultsPosts = () => {
 
   return (
     <SearchResults query={query} searchPage="Posts">
-      Posts
+      <SearchResultsSortBtn searchPage="Posts" />
+      {Object.values(posts).map((post) => (
+        <div>{post.title}</div>
+      ))}
+      {Object.values(communities).map((community) => (
+        <div>{community.name}</div>
+      ))}
+      {Object.values(users).map((user) => (
+        <div>{user.username}</div>
+      ))}
     </SearchResults>
   );
 };
