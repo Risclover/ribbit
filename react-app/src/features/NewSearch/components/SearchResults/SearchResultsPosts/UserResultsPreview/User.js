@@ -1,7 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { UserFollowBtn } from "./UserFollowBtn";
+import { useSelector } from "react-redux";
 
 export const User = ({ user }) => {
+  const currentUser = useSelector((state) => state.session.user);
+
   return (
     <NavLink to={`/users/${user.id}/profile`}>
       <div className="search-result-page-community">
@@ -14,18 +18,15 @@ export const User = ({ user }) => {
               u/{user.username}
             </div>
             <div className="search-result-page-community-members">
-              {user.karma} karma
+              {user.karma} Karma
             </div>
           </div>
         </div>
-        <div className="search-result-page-community-right">
-          {/* <button
-    className="search-results-page-person-join"
-    onClick={(e) => e.preventDefault()}
-  >
-    Follow
-  </button> */}
-        </div>
+        {currentUser.id !== user.id && (
+          <div className="search-result-page-community-right">
+            <UserFollowBtn user={user} />
+          </div>
+        )}
       </div>
     </NavLink>
   );

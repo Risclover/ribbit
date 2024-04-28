@@ -223,7 +223,7 @@ export function OldSearchResultsPosts({
           ).length > 5 && (
             <div
               className="see-more-btn"
-              onClick={() => setSearchPage("People")}
+              onClick={() => setSearchPage("People                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ")}
             >
               See more people
             </div>

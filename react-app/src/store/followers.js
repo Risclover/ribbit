@@ -43,14 +43,35 @@ export const getFollowers = () => async (dispatch) => {
   }
 };
 
-export const followUser = (id) => async () => {
-  const response = await fetch(`/api/followers/${id}`, {
+export const followUser = (id) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/followers/follow/${id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      const msg = await response.json();
+      dispatch(loadFollowers(msg)); // Ensure this correctly updates the state
+      return msg;
+    } else {
+      // Handle potential errors
+      throw new Error("Failed to follow user");
+    }
+  } catch (error) {
+    console.error("Follow action failed:", error);
+  }
+};
+
+export const unfollowUser = (id) => async (dispatch) => {
+  const response = await fetch(`/api/followers/unfollow/${id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   });
 
   if (response.ok) {
     const msg = await response.json();
+    dispatch(loadFollowers(msg));
     return msg;
   }
 };
