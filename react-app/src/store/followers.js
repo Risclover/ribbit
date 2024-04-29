@@ -85,7 +85,15 @@ export const followerPosts = () => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = {
+  followers: {},
+  follows: {},
+  posts: {},
+  userFollowers: {},
+  userFollows: {},
+  followedPosts: {},
+  followerPosts: {},
+};
 const followersReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {

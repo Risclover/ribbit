@@ -184,6 +184,9 @@
   word-wrap: break-word;
   padding: 24px 16px;
   color: var(--main-text-color);
+  background: white;
+  width: 640px;
+  border: 1px solid #ccc;
 }
 
 .no-search-results p {
@@ -653,7 +656,6 @@
 .search-results {
   padding-top: 8px;
   display: flex;
-  height: 100vh;
 }
 
 .type-link-icon {

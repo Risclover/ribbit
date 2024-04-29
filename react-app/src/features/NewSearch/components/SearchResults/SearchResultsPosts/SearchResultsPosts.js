@@ -17,6 +17,7 @@ import { NewCommunity } from "./NewCommunity";
 import { BackToTop } from "../../../../../components";
 import parse from "html-react-parser";
 import { stripHtml } from "../../../../../utils/stripHtml";
+import { NoResults } from "../NoResults";
 
 export const SearchResultsPosts = () => {
   const dispatch = useDispatch();
@@ -38,11 +39,14 @@ export const SearchResultsPosts = () => {
   console.log(query);
 
   console.log(stripHtml(query));
+
+  console.log("no results:", Object.values(posts).length);
   return (
     <SearchResults query={query} searchPage="Posts">
       <SearchResultsSortBtn searchPage="Posts" />
       <div className="search-results">
         <div className="search-results-left">
+          {Object.values(posts).length === 0 && <NoResults query={query} />}
           {Object.values(posts).map((post) => (
             <PostResult post={post} />
           ))}

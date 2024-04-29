@@ -294,6 +294,7 @@
   word-wrap: break-word;
   padding: 24px 16px;
   color: var(--main-text-color);
+  background: white;
 }
 
 .no-search-results p {
