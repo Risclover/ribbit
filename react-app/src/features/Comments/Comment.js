@@ -56,7 +56,7 @@ function Text({ content }) {
   }
 }
 
-export function Comment({ commentId, comment }) {
+export function Comment({ commentId, comment, specificCommentActive }) {
   const dispatch = useDispatch();
 
   const { postId } = useParams();
@@ -158,16 +158,15 @@ export function Comment({ commentId, comment }) {
     }
   }, [upvote, downvote, comment?.commentVoters, user?.id, comments]);
 
-  if (!comment) return null;
   return (
     <div className="comment-system" id={`comment-${comment?.id}`}>
       <div
         className={
-          url.slice(-15).endsWith("comment-" + comment?.id)
+          specificCommentActive
             ? "the-actual-comment active"
             : "the-actual-comment"
         }
-        id={comment?.id}
+        id={`commentnum-${comment?.id}`}
         style={{ whiteSpace: "pre-line" }}
       >
         <div className="comment-left-side">
@@ -188,7 +187,7 @@ export function Comment({ commentId, comment }) {
               <div
                 className="comment-user-img"
                 style={{
-                  backgroundImage: `url(${comment?.commentAuthor.profile_img})`,
+                  backgroundImage: `url(${comment?.commentAuthor?.profile_img})`,
                   backgroundRepeat: "no-repeat",
                 }}
               >
@@ -214,11 +213,11 @@ export function Comment({ commentId, comment }) {
           <div className="comment-right-username">
             <Username
               community={true}
-              username={comment.commentAuthor?.username}
+              username={comment?.commentAuthor?.username}
               user={comment?.commentAuthor}
             />
             {post[postId]?.postAuthor?.username ===
-            comment.commentAuthor?.username ? (
+            comment?.commentAuthor?.username ? (
               <span className="op-sign">OP</span>
             ) : (
               ""

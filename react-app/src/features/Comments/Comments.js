@@ -13,19 +13,25 @@ export function Comments({ post }) {
   const comments = useSelector((state) => Object.values(state.comments));
   const [sortType, setSortType] = useState("Best");
   const [showLoader, setShowLoader] = useState(true);
-  const [comment, setComment] = useState(url.slice(-15).includes("comment"));
   const [searchValue, setSearchValue] = useState("");
 
   const commentIdPattern = /#comment-(\d+)/;
   const match = url.match(commentIdPattern);
   const commentUrl = match ? match[1] : null;
+  const specificComment = comments?.find((comment) => comment.id === +match[1]);
+  const [specificCommentActive, setSpecificCommentActive] = useState(false);
 
-  console.log("match:", match);
-  console.log("commentUrl:", commentUrl);
+  console.log("match:", +match[1]);
+  console.log("commentUrl:", specificCommentActive);
+  console.log("comment:", specificComment);
 
   useEffect(() => {
     dispatch(getComments(+postId));
   }, [dispatch, postId]);
+
+  useEffect(() => {
+    if (match[1]) setSpecificCommentActive(true);
+  }, [specificComment]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -109,7 +115,7 @@ export function Comments({ post }) {
       {!showLoader && (
         <div className="all-comments">
           {comments.length > 0 &&
-            !comment &&
+            !specificCommentActive &&
             comments.map((comment) => (
               <Comment
                 comment={comment}
@@ -119,18 +125,20 @@ export function Comments({ post }) {
               />
             ))}
 
-          {commentUrl && (
+          {specificCommentActive && (
             <div className="specific-comment">
               <button
                 className="view-all-comments-btn"
-                onClick={() => setComment(false)}
+                onClick={() => setSpecificCommentActive(false)}
               >
                 View all comments
               </button>
               <Comment
                 key={+commentUrl}
-                commentId={+commentUrl}
+                commentId={+match[1]}
                 postId={+postId}
+                specificCommentActive={specificCommentActive}
+                comment={specificComment}
               />
             </div>
           )}
