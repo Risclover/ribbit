@@ -464,7 +464,7 @@
 
 .comment-sorting-face svg {
   cursor: pointer;
-  fill: var(--highlight-color);
+  fill: var(--community-base-color);
   margin: 0 0 0 -5px;
   display: inline-block;
   height: 20px;
@@ -660,6 +660,67 @@
   line-height: 20px;
   color: #edeff1;
   padding: 0 12px;
+}
+
+.comment-search-input {
+  border: 1px solid #edeff1;
+  border-radius: 4px;
+  box-shadow: none;
+  color: #1c1c1c;
+  height: 32px;
+  padding: 0 24px 0 32px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+.comment-search-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.comment-search-label > div {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.comment-search-dismiss {
+  position: absolute;
+  right: 5px;
+  vertical-align: middle;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 16px;
+  color: #3d3d3d;
+  height: fit-content;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+}
+
+.comments-search-no-results {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 0 32px 40px;
+}
+
+.all-comments-btn {
+  padding-top: 16px;
+  margin: 0 48px 4px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-family: var(--font-family-noto);
+}
+
+.all-comments-btn button {
+  color: var(--community-base-color);
+  margin: 0;
 }
 
 .lds-ellipsis {

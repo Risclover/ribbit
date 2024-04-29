@@ -1,21 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getComments, searchPostComments } from "../../store";
 import { CommentSorting, CommentForm, Comment } from "..";
 import "./Comments.css";
 import { useHistory } from "react-router-dom";
+import { CommentSearch } from "./CommentSearch";
+import { CommentSearchPage } from "./CommentSearchPage";
+import { NoResults } from "../NewSearch/components/SearchResults/NoResults";
+import { input } from "@testing-library/user-event/dist/cjs/event/input.js";
 
 export function Comments({ post }) {
   const url = window.location.href;
   const history = useHistory();
   const dispatch = useDispatch();
   const { postId } = useParams();
+  const inputRef = useRef();
 
   const comments = useSelector((state) => Object.values(state.comments));
   const [sortType, setSortType] = useState("Best");
   const [showLoader, setShowLoader] = useState(true);
   const [searchValue, setSearchValue] = useState("");
+  const [searchActive, setSearchActive] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(searchValue);
 
   const commentIdPattern = /#comment-(\d+)/;
   const match = url.match(commentIdPattern);
@@ -73,35 +80,46 @@ export function Comments({ post }) {
     });
   }
 
+  const dismissSearch = () => {
+    dispatch(getComments(postId));
+    setSearchValue("");
+    setSearchActive(false);
+  };
+
+  const focusSearchBox = () => {
+    inputRef.current.focus();
+    inputRef.current.select();
+  };
+
   return (
     <div className="comments-container">
-      <form>
-        <label htmlFor="comment-search">
-          Search:
-          <input
-            id="comment-search"
-            type="text"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-        </label>
-        <button
-          onClick={async (e) => {
-            e.preventDefault();
-            const data = await dispatch(
-              searchPostComments(post.id, searchValue)
-            );
-            console.log("data:", data);
-          }}
-        >
-          Search for comments
-        </button>
-      </form>
       <CommentForm postId={postId} />
       <div className="sort-search">
-        <CommentSorting sortType={sortType} setSortType={setSortType} />
-        <span className="comment-sort-search-separator">|</span>
+        {!searchActive && (
+          <CommentSorting sortType={sortType} setSortType={setSortType} />
+        )}
+        {!searchActive && (
+          <span className="comment-sort-search-separator">|</span>
+        )}
+        <CommentSearch
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          post={post}
+          setSearchActive={setSearchActive}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          inputRef={inputRef}
+        />
       </div>
+      {searchActive && (
+        <div className="all-comments-btn">
+          Comments with "{searchQuery}"{" "}
+          <span className="comment-sort-search-separator">|</span>
+          <button onClick={dismissSearch} className="view-all-comments-btn">
+            All Comments
+          </button>
+        </div>
+      )}
       {showLoader && (
         <div className="comments-loading">
           <div className="lds-ellipsis">
@@ -124,7 +142,6 @@ export function Comments({ post }) {
                 postId={+postId}
               />
             ))}
-
           {specificCommentActive && (
             <div className="specific-comment">
               <button
@@ -146,7 +163,12 @@ export function Comments({ post }) {
             </div>
           )}
 
-          {comments.length === 0 && (
+          {searchActive && comments.length === 0 && (
+            <div className="comments-search-no-results">
+              <NoResults query={searchQuery} focusSearchBox={focusSearchBox} />
+            </div>
+          )}
+          {!searchActive && comments.length === 0 && (
             <div className="no-comments-msg">
               <i className="fa-solid fa-comments"></i>
               <h1 className="no-comments-yet">No Comments Yet</h1>

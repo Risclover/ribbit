@@ -47,15 +47,12 @@ export function SinglePostPage() {
     dispatch(getSinglePost(postId));
     dispatch(getPosts());
 
-    // Wait for addViewedPost to complete before fetching the updated list
     dispatch(addViewedPost(postId))
       .then(() => {
         dispatch(getViewedPosts());
       })
       .catch((error) => console.error("Failed to add viewed post:", error));
-
-    // Removed getViewedPosts from here to avoid calling it prematurely
-  }, [dispatch, postId]); // Ensure postId is in the dependency array if it's a prop
+  }, [dispatch, postId]);
 
   if (!post) return null;
   return (

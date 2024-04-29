@@ -661,3 +661,9 @@ li {
     width: 100%;
   }
 }
+
+@media (max-width: 640px) {
+  .single-post-page {
+    padding: 0;
+  }
+}
