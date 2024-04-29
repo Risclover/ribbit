@@ -158,6 +158,7 @@ export function Comment({ commentId, comment }) {
     }
   }, [upvote, downvote, comment?.commentVoters, user?.id, comments]);
 
+  if (!comment) return null;
   return (
     <div className="comment-system" id={`comment-${comment?.id}`}>
       <div

@@ -457,6 +457,22 @@
   align-items: center;
 }
 
+.comment-sorting-face {
+  display: flex;
+  align-items: center;
+}
+
+.comment-sorting-face svg {
+  cursor: pointer;
+  fill: var(--highlight-color);
+  margin: 0 0 0 -5px;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  vertical-align: middle;
+  font-size: 12px;
+}
+
 .comment-form-errors {
   color: red;
 }
@@ -488,21 +504,12 @@
 }
 
 .comment-sorting {
-  border-bottom: 1px solid #edeff1;
-  padding: 0 16px 4px 0;
-  margin: 4px 48px;
-  display: flex;
-  align-items: center;
   font-size: 12px;
   font-weight: 700;
   line-height: 16px;
   color: var(--community-highlight);
   cursor: pointer;
   position: relative;
-}
-
-.comment-sorting svg {
-  font-size: 14px;
 }
 
 .comment-sorting-sortby {
@@ -517,7 +524,7 @@
   position: absolute;
   overflow: hidden;
   color: var(--main-text-color);
-  top: 17px;
+  top: 23px;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -639,6 +646,20 @@
 
 .comment-collapse {
   display: none;
+}
+
+.sort-search {
+  border-bottom: 1px solid #edeff1;
+  padding: 0 16px 4px 0;
+  margin: 4px 48px;
+  display: flex;
+  align-items: center;
+}
+
+.comment-sort-search-separator {
+  line-height: 20px;
+  color: #edeff1;
+  padding: 0 12px;
 }
 
 .lds-ellipsis {

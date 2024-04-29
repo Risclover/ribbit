@@ -364,9 +364,9 @@
 .search-results-page-comments {
   background: white;
   width: 100%;
-  border: 1px solid #ccc;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.06);
   margin-bottom: 20px;
+  margin-top: 8px;
 }
 
 .search-results-comment-community-img {
@@ -418,7 +418,18 @@
   cursor: pointer;
   padding: 16px;
   margin-top: -1px;
-  border-bottom: thin solid #ccc;
+  border: thin solid #ccc;
+  background: white;
+  position: relative;
+}
+
+.search-results-page-comment:first-child {
+  margin-top: 0;
+}
+
+.search-results-page-comment:hover {
+  border-color: #7c7c7c;
+  z-index: 1;
 }
 
 .search-results-comment-post-title {

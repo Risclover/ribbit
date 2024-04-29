@@ -4,6 +4,14 @@ const DELETE_COMMENT = "comments/DELETE";
 const LOAD_ALL_COMMENTS = "comments/LOAD_ALL";
 const ADD_COMMENT_VOTE = "comments/ADD_VOTE";
 const REMOVE_COMMENT_VOTE = "comments/REMOVE_VOTE";
+const SEARCH = "comments/SEARCH";
+
+const searchComments = (comments) => {
+  return {
+    type: SEARCH,
+    comments,
+  };
+};
 
 const addComment = (comment) => {
   return {
@@ -158,6 +166,16 @@ export const removeCommentVote = (commentId) => async (dispatch) => {
   return await response.json();
 };
 
+export const searchPostComments = (postId, query) => async (dispatch) => {
+  const response = await fetch(`/api/comments/${postId}/search?q=${query}`);
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(searchComments(data));
+    return data;
+  }
+};
+
 const initialState = {};
 
 const commentsReducer = (state = initialState, action) => {
@@ -177,6 +195,11 @@ const commentsReducer = (state = initialState, action) => {
       return { ...state, [action.comment.id]: action.comment };
     case REMOVE_COMMENT_VOTE:
       return { ...state, [action.comment.id]: action.comment };
+    case SEARCH:
+      return action.comments.SearchedComments.reduce((comments, comment) => {
+        comments[comment.id] = comment;
+        return comments;
+      }, {});
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getComments } from "../../store";
+import { getComments, searchPostComments } from "../../store";
 import { CommentSorting, CommentForm, Comment } from "..";
 import "./Comments.css";
 
@@ -14,10 +14,14 @@ export function Comments({ post }) {
   const [sortType, setSortType] = useState("Best");
   const [showLoader, setShowLoader] = useState(true);
   const [comment, setComment] = useState(url.slice(-15).includes("comment"));
+  const [searchValue, setSearchValue] = useState("");
 
   const commentIdPattern = /#comment-(\d+)/;
   const match = url.match(commentIdPattern);
   const commentUrl = match ? match[1] : null;
+
+  console.log("match:", match);
+  console.log("commentUrl:", commentUrl);
 
   useEffect(() => {
     dispatch(getComments(+postId));
@@ -65,8 +69,33 @@ export function Comments({ post }) {
 
   return (
     <div className="comments-container">
+      <form>
+        <label htmlFor="comment-search">
+          Search:
+          <input
+            id="comment-search"
+            type="text"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </label>
+        <button
+          onClick={async (e) => {
+            e.preventDefault();
+            const data = await dispatch(
+              searchPostComments(post.id, searchValue)
+            );
+            console.log("data:", data);
+          }}
+        >
+          Search for comments
+        </button>
+      </form>
       <CommentForm postId={postId} />
-      <CommentSorting sortType={sortType} setSortType={setSortType} />
+      <div className="sort-search">
+        <CommentSorting sortType={sortType} setSortType={setSortType} />
+        <span className="comment-sort-search-separator">|</span>
+      </div>
       {showLoader && (
         <div className="comments-loading">
           <div className="lds-ellipsis">
