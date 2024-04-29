@@ -4,9 +4,11 @@ import { useParams } from "react-router-dom";
 import { getComments, searchPostComments } from "../../store";
 import { CommentSorting, CommentForm, Comment } from "..";
 import "./Comments.css";
+import { useHistory } from "react-router-dom";
 
 export function Comments({ post }) {
   const url = window.location.href;
+  const history = useHistory();
   const dispatch = useDispatch();
   const { postId } = useParams();
 
@@ -18,19 +20,17 @@ export function Comments({ post }) {
   const commentIdPattern = /#comment-(\d+)/;
   const match = url.match(commentIdPattern);
   const commentUrl = match ? match[1] : null;
-  const specificComment = comments?.find((comment) => comment.id === +match[1]);
+  const specificComment = match
+    ? comments?.find((comment) => comment.id === +match[1])
+    : null;
   const [specificCommentActive, setSpecificCommentActive] = useState(false);
-
-  console.log("match:", +match[1]);
-  console.log("commentUrl:", specificCommentActive);
-  console.log("comment:", specificComment);
 
   useEffect(() => {
     dispatch(getComments(+postId));
   }, [dispatch, postId]);
 
   useEffect(() => {
-    if (match[1]) setSpecificCommentActive(true);
+    if (match && match[1]) setSpecificCommentActive(true);
   }, [specificComment]);
 
   useEffect(() => {
@@ -129,13 +129,16 @@ export function Comments({ post }) {
             <div className="specific-comment">
               <button
                 className="view-all-comments-btn"
-                onClick={() => setSpecificCommentActive(false)}
+                onClick={() => {
+                  setSpecificCommentActive(false);
+                  history.push(`/posts/${+postId}`);
+                }}
               >
                 View all comments
               </button>
               <Comment
                 key={+commentUrl}
-                commentId={+match[1]}
+                commentId={+commentUrl}
                 postId={+postId}
                 specificCommentActive={specificCommentActive}
                 comment={specificComment}
