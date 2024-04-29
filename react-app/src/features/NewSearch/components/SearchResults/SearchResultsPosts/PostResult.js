@@ -3,16 +3,13 @@ import { NavLink } from "react-router-dom";
 import moment from "moment";
 import { sliceUrl } from "../../../../../utils";
 import { Link } from "react-router-dom";
+import { FiLink } from "react-icons/fi";
 import { useHistory } from "react-router-dom";
 import { Username } from "../../../../../components";
 
 export const PostResult = ({ post }) => {
   const history = useHistory();
   const [metadataResult, setMetadataResult] = useState();
-
-  const handleLinkClick = (e) => {
-    window.open(post?.linkUrl);
-  };
 
   useEffect(() => {
     const queryLink = async () => {
@@ -106,9 +103,10 @@ export const PostResult = ({ post }) => {
             alt={post?.title}
           />
         )}
-        {post?.linkUrl !== null && metadataResult?.image !== null && (
+        {post?.linkUrl !== null && metadataResult?.image && (
           <div className="search-results-post-link-img">
             <img src={metadataResult?.image} alt={post?.title} />
+
             <div class="type-link-icon">
               <svg
                 stroke="currentColor"

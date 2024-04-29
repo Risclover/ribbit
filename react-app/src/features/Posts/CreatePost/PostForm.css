@@ -705,6 +705,7 @@ pre.ql-syntax {
   margin: 0 8px;
   background: white;
   cursor: pointer;
+  padding: 0;
 }
 
 .single-post-content-box-right.community-post {

@@ -216,8 +216,11 @@
 }
 
 .no-search-results span {
-  color: var(--highlight-color);
   cursor: pointer;
+}
+
+.adjust-search-btn {
+  color: var(--community-base-color);
 }
 
 .search-results-posts-page,
@@ -686,6 +689,10 @@
   padding: 0;
   height: auto;
   font-family: inherit;
+}
+
+.search-results-post-link-box {
+  
 }
 
 @media (max-width: 959px) {

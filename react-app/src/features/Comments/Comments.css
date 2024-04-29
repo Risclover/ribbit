@@ -723,6 +723,10 @@
   margin: 0;
 }
 
+.adjust-search-btn {
+  color: var(--community-base-color);
+}
+
 .lds-ellipsis {
   display: inline-block;
   position: relative;

@@ -43,13 +43,13 @@ export const CommentSearch = ({
             xmlns="http://www.w3.org/2000/svg"
             viewBox="-13.53 -13.53 478.06 478.06"
             stroke="#898989"
-            stroke-width="18.942"
+            strokeWidth="18.942"
           >
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g
               id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></g>
             <g id="SVGRepo_iconCarrier">
               {" "}

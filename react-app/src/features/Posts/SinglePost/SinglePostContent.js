@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
 import parse from "html-react-parser";
@@ -9,6 +9,43 @@ import { sliceUrl } from "../../../utils";
 import { useHistory } from "react-router-dom";
 
 export function SinglePostContent({ post, isPage }) {
+  const [metadataResult, setMetadataResult] = useState();
+
+  useEffect(() => {
+    const queryLink = async () => {
+      if (post.linkUrl !== null) {
+        var data = {
+          q: post.linkUrl,
+        };
+        fetch("https://api.linkpreview.net", {
+          method: "POST",
+          headers: {
+            "X-Linkpreview-Api-Key": `${process.env.REACT_APP_LINK_PREVIEW_KEY}`,
+          },
+          mode: "cors",
+          body: JSON.stringify(data),
+        })
+          .then((res) => {
+            if (res.status != 200) {
+              console.log(res.status);
+              throw new Error("something went wrong");
+            }
+            return res.json();
+          })
+          .then((response) => {
+            console.log("response:", response);
+            setMetadataResult(response);
+            console.log("result:", metadataResult);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    };
+
+    queryLink();
+  }, []);
+
   return (
     <div className="single-post-content-box">
       <div className="single-post-content-box-left">
@@ -64,6 +101,9 @@ export function SinglePostContent({ post, isPage }) {
               : ""
           }`}
         >
+          {metadataResult?.image && (
+            <img className="link-url-img" src={metadataResult?.image} />
+          )}
           <FiLink />
           <div
             className={`single-post-external-link-box${

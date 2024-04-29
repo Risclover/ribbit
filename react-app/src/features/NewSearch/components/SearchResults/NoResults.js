@@ -8,7 +8,9 @@ export const NoResults = ({ query, focusSearchBox }) => {
       <h2>Hm... we couldn't find any results for “{query}”</h2>
       <p>
         Double-check your spelling or try different keywords to{" "}
-        <span onClick={focusSearchBox}>adjust your search</span>
+        <span className="adjust-search-btn" onClick={focusSearchBox}>
+          adjust your search
+        </span>
       </p>
     </div>
   );
