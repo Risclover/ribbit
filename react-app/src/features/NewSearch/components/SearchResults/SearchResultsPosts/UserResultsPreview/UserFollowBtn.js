@@ -4,6 +4,7 @@ import {
   followUser,
   unfollowUser,
   getFollowers,
+  getFavoriteUsers,
 } from "../../../../../../store";
 
 export const UserFollowBtn = ({ user }) => {
@@ -25,6 +26,7 @@ export const UserFollowBtn = ({ user }) => {
     e.preventDefault();
     if (isFollowing) {
       await dispatch(unfollowUser(user.id));
+      await dispatch(getFavoriteUsers());
     } else {
       await dispatch(followUser(user.id));
     }

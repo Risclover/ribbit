@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { followUser, getFollowers, getUserFollowers } from "../store";
+import {
+  followUser,
+  getFavoriteUsers,
+  getFollowers,
+  getUserFollowers,
+  unfollowUser,
+} from "../store";
 
 export function FollowBtn({ user }) {
   const dispatch = useDispatch();
@@ -19,11 +25,15 @@ export function FollowBtn({ user }) {
     setFollowing(findIsFollowing());
   }, [follows, user.username]);
 
-  const handleFollow = async (e) => {
+  const handleFollowClick = async (e) => {
     e.preventDefault();
-    await dispatch(followUser(user.id));
-    dispatch(getFollowers());
-    dispatch(getUserFollowers(user.id));
+    if (following) {
+      await dispatch(unfollowUser(user.id));
+      await dispatch(getFavoriteUsers());
+    } else {
+      await dispatch(followUser(user.id));
+    }
+    await dispatch(getFollowers());
   };
 
   return (
@@ -31,7 +41,7 @@ export function FollowBtn({ user }) {
       className={`username-popup-btn-btm ${
         !following ? "blue-btn-filled btn-long" : "blue-btn-unfilled btn-long"
       }`}
-      onClick={handleFollow}
+      onClick={handleFollowClick}
     >
       {!following ? "Follow" : "Unfollow"}
     </button>
