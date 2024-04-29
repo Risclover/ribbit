@@ -9,7 +9,7 @@ import {
 export const UserFollowBtn = ({ user }) => {
   const dispatch = useDispatch();
 
-  const isFollowing = useSelector((state) => state.followers.follows[user.id]);
+  const isFollowing = useSelector((state) => state.followers.follows[user?.id]);
 
   const [btnWord, setBtnWord] = useState("Following");
 
@@ -43,6 +43,7 @@ export const UserFollowBtn = ({ user }) => {
     }
   };
 
+  if (!user) return null;
   return (
     <button
       className="search-results-page-person-join"

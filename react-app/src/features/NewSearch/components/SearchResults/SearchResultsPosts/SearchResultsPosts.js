@@ -15,6 +15,8 @@ import { CommunityResultsPreview } from "./CommunityResultsPreview";
 import { UserResultsPreview } from "./UserResultsPreview";
 import { NewCommunity } from "./NewCommunity";
 import { BackToTop } from "../../../../../components";
+import parse from "html-react-parser";
+import { stripHtml } from "../../../../../utils/stripHtml";
 
 export const SearchResultsPosts = () => {
   const dispatch = useDispatch();
@@ -23,12 +25,19 @@ export const SearchResultsPosts = () => {
 
   const query = getSearchQuery();
 
+  console.log("query:", query);
+  console.log("posts:", posts);
+
   useEffect(() => {
-    dispatch(searchPosts(query));
-    dispatch(searchCommunities(query));
-    dispatch(searchUsers(query));
+    let cleanQuery = stripHtml(query);
+    dispatch(searchPosts(stripHtml(cleanQuery)));
+    dispatch(searchCommunities(cleanQuery));
+    dispatch(searchUsers(cleanQuery));
   }, [dispatch]);
 
+  console.log(query);
+
+  console.log(stripHtml(query));
   return (
     <SearchResults query={query} searchPage="Posts">
       <SearchResultsSortBtn searchPage="Posts" />

@@ -658,6 +658,7 @@ pre.ql-syntax {
   line-height: 16px;
   margin: 4px 8px;
   white-space: nowrap;
+  width: fit-content;
 }
 
 .single-page-content-link:hover {

@@ -6,6 +6,7 @@ import LazyLoad from "react-lazyload";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { sliceUrl } from "../../../utils";
+import { useHistory } from "react-router-dom";
 
 export function SinglePostContent({ post, isPage }) {
   return (
@@ -23,8 +24,8 @@ export function SinglePostContent({ post, isPage }) {
             </LazyLoad>
           </div>
         ) : post.linkUrl !== null ? (
-          <a
-            href={post.linkUrl}
+          <div
+            onClick={() => window.open(post?.linkUrl, "_blank")}
             className={`single-page-content-link${
               isPage === "community" || isPage === "singlepage"
                 ? " community-post"
@@ -34,7 +35,7 @@ export function SinglePostContent({ post, isPage }) {
           >
             {sliceUrl(post.linkUrl)}
             <HiOutlineExternalLink />
-          </a>
+          </div>
         ) : post.imgUrl === null && post.linkUrl === null ? (
           <div
             className={

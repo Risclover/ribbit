@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 export const User = ({ user }) => {
   const currentUser = useSelector((state) => state.session.user);
-
+  if (!user) return null;
   return (
     <NavLink to={`/users/${user.id}/profile`}>
       <div className="search-result-page-community">
