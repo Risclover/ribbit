@@ -1,6 +1,9 @@
 import React from "react";
+import { CommunitySubscribeBtn } from "./CommunitySubscribeBtn";
+import { useSelector } from "react-redux";
 
 export function CommunityName({ community }) {
+  const user = useSelector((state) => state.session.user);
   return (
     <div className="community-header-info-details-left">
       <div className="community-header-info-display-name">
@@ -9,8 +12,6 @@ export function CommunityName({ community }) {
             ? community.name
             : community.displayName}
         </h1>
-      </div>
-      <div className="community-header-info-name">
         <h2>
           {community.communitySettings[community.id].nameFormat !== "Hide" &&
             community.communitySettings[community.id].nameFormat}
@@ -18,6 +19,11 @@ export function CommunityName({ community }) {
             community.name}
         </h2>
       </div>
+      <CommunitySubscribeBtn
+        user={user}
+        community={community}
+        communityId={community.id}
+      />
     </div>
   );
 }

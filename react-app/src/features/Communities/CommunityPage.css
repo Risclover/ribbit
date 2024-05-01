@@ -263,11 +263,17 @@
 }
 
 .community-header-info-details-left {
-  display: flex;
-  flex-direction: column;
-  margin-right: 24px;
-  margin-top: 24px;
+  align-items: flex-start;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex: 1;
+  flex: 1;
   padding-left: 16px;
+  margin-top: 24px;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  position: relative;
+  width: calc(100% - 80px);
 }
 
 .add-description-box {
@@ -286,7 +292,7 @@
 }
 
 .community-header-info-details-right {
-  margin-top: 24px;
+  display: flex;
 }
 
 .community-page-box-btn {
@@ -299,13 +305,24 @@
   margin-top: 8px;
 }
 
+.community-header-info-display-name {
+  display: inline-block;
+  max-width: calc(100% - 96px);
+  padding-right: 24px;
+}
+
 .community-header-info-display-name h1 {
+  display: inline-block;
+  -ms-flex: 1;
+  flex: 1;
   font-size: 28px;
   font-weight: 700;
   line-height: 32px;
+  overflow: hidden;
   padding: 0 2px 4px 0;
-  word-wrap: break-word;
-  max-width: 750px;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  overflow-wrap: break-word;
   width: 100%;
   color: #1c1c1c;
 }
@@ -336,12 +353,11 @@
   margin-top: 6px;
 }
 
-.community-header-info-name h2 {
+.community-header-info-display-name h2 {
   font-size: 14px;
   font-weight: 500;
   color: #7c7c7c;
   line-height: 18px;
-  margin-top: 2px;
 }
 
 .community-page-box-header {

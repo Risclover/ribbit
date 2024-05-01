@@ -25,11 +25,6 @@ export function CommunityPageHeader({ community }) {
           <div className="community-header-info-details">
             <CommunityImage user={user} community={community} />
             <CommunityName community={community} />
-            <CommunitySubscribeBtn
-              user={user}
-              community={community}
-              communityId={community.id}
-            />
           </div>
         </div>
       </div>
