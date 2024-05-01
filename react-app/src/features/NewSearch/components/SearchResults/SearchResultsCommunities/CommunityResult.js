@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { CommunityJoinBtn } from "../SearchResultsPosts";
 
 export const CommunityResult = ({ community }) => {
   const history = useHistory();
@@ -37,7 +38,7 @@ export const CommunityResult = ({ community }) => {
             </div>
           </div>
           <div className="search-results-page-community-right">
-            <button className="search-results-page-community-join">Join</button>
+            <CommunityJoinBtn community={community} />
           </div>
         </div>
       </div>

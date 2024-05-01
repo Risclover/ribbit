@@ -24,6 +24,7 @@ export function CommunityJoinBtn({ community }) {
         <button
           className="search-results-page-community-join"
           onClick={async (e) => {
+            e.stopPropagation();
             e.preventDefault();
             await dispatch(deleteSubscription(community?.id));
             setSubscribed(false);
@@ -40,6 +41,7 @@ export function CommunityJoinBtn({ community }) {
         <button
           className="search-results-page-community-join"
           onClick={async (e) => {
+            e.stopPropagation();
             e.preventDefault();
             await dispatch(addToSubscriptions(community?.id));
             user && setSubscribed(true);

@@ -270,7 +270,6 @@
 .search-results-page-community-left {
   display: flex;
   word-break: break-word;
-  justify-content: space-between;
   width: 100%;
 }
 
