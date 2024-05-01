@@ -28,6 +28,7 @@ export const SinglePost = ({ id, isPage, post }) => {
   const [downvote, setDownvote] = useState(false);
 
   const handleClick = (e) => {
+    e.stopPropagation();
     e.preventDefault();
     history.push(`/posts/${post.id}`);
   };

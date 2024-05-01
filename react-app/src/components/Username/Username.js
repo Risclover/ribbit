@@ -13,22 +13,9 @@ export function Username({ community, username, user, source }) {
   let foundUser = users.filter((user) => user.username === username);
 
   const handleUsernameClick = (e) => {
-    let isInputClicked = false;
-
-    const checkForInput = (element) => {
-      if (element.tagName === "INPUT") {
-        isInputClicked = true;
-      } else if (element.parentNode) {
-        checkForInput(element.parentNode);
-      }
-    };
-
-    checkForInput(e.target);
-
-    if (!isInputClicked && user && user.id) {
-      e.preventDefault();
-      history.push(`/users/${user.id}/profile`);
-    }
+    e.stopPropagation();
+    e.preventDefault();
+    history.push(`/users/${user.id}/profile`);
   };
 
   return (

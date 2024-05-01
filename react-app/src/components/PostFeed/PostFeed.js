@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import { SinglePost } from "../../features";
 import { SortingBar } from "../SortingBar";
+import { useHistory } from "react-router-dom";
 
 export function PostFeed({
   posts,
@@ -14,6 +15,7 @@ export function PostFeed({
   pageType,
   user,
 }) {
+  const history = useHistory();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -62,7 +64,7 @@ export function PostFeed({
         />
       )}
       {items.map((post) => (
-        <NavLink key={post.id} to={`/posts/${post.id}`}>
+        <div key={post.id} onClick={() => history.push(`/posts/${post.id}`)}>
           <SinglePost
             key={post.id}
             id={post.id}
@@ -70,7 +72,7 @@ export function PostFeed({
             isPage={isPage}
             format={format}
           />
-        </NavLink>
+        </div>
       ))}
     </div>
   );

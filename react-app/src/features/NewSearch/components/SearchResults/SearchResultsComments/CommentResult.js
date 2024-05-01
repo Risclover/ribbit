@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { Username } from "../../../../../components";
 
 export function CommentResult({ comment }) {
   const history = useHistory();
@@ -54,11 +55,11 @@ export function CommentResult({ comment }) {
         <div className="search-results-comment-dot">•</div>{" "}
         <div className="search-results-comment-post-author-box">
           Posted by{" "}
-          <NavLink to={`/users/${comment.userId}/profile`}>
-            <div className="search-results-comment-post-author">
-              u/{post.postAuthor.username}
-            </div>
-          </NavLink>
+          <Username
+            username={post?.postAuthor?.username}
+            user={post?.postAuthor}
+            source="singlepost"
+          />
           {moment(post.createdAt).fromNow()}
         </div>
       </div>
