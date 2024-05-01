@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useRef } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -57,6 +57,7 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const location = useLocation();
+  const searchbarRef = useRef();
 
   // const communities = useSelector((state) => state.communities);
   // const chatThreads = useSelector((state) => Object.values(state.chatThreads));
@@ -133,6 +134,7 @@ function App() {
     setNormalDropdown: setNormalDropdown,
     setOpenChat: setOpenChat,
     openChat: openChat,
+    searchbarRef: searchbarRef,
   };
 
   return (
@@ -343,19 +345,19 @@ function App() {
               </Route>
 
               <Route path="/search/comments">
-                <SearchResultsComments />
+                <SearchResultsComments searchbarRef={searchbarRef} />
               </Route>
 
               <Route path="/search/posts">
-                <SearchResultsPosts />
+                <SearchResultsPosts searchbarRef={searchbarRef} />
               </Route>
 
               <Route path="/search/communities">
-                <SearchResultsCommunities />
+                <SearchResultsCommunities searchbarRef={searchbarRef} />
               </Route>
 
               <Route path="/search/users">
-                <SearchResultsUsers />
+                <SearchResultsUsers searchbarRef={searchbarRef} />
               </Route>
 
               <Route path="/users/:userId/profile" exact={true}>

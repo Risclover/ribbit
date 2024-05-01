@@ -5,8 +5,10 @@ import { SearchResultsSortBtn } from "../SearchResultsSorting/SearchResultsSort"
 import { useDispatch, useSelector } from "react-redux";
 import { getComments, getPosts, searchComments } from "../../../../../store";
 import { CommentResult } from "./CommentResult";
+import { NoResults } from "../NoResults";
+import { focusSearchbar } from "../../../utils/focusSearchbar";
 
-export function SearchResultsComments() {
+export function SearchResultsComments({ searchbarRef }) {
   const dispatch = useDispatch();
   const query = getSearchQuery();
 
@@ -15,13 +17,20 @@ export function SearchResultsComments() {
   useEffect(() => {
     dispatch(getPosts());
     dispatch(searchComments(query));
-  }, [dispatch]);
+  }, [query, dispatch]);
+
+  const focusSearchBox = () => {
+    focusSearchbar(searchbarRef);
+  };
 
   return (
     <SearchResults query={query} searchPage="Comments">
       <SearchResultsSortBtn searchPage="Comments" />
       <div className="search-results">
         <div className="search-results-page-comments">
+          {comments.length === 0 && (
+            <NoResults query={query} focusSearchBox={focusSearchBox} />
+          )}
           {comments.map((comment) => (
             <CommentResult comment={comment} />
           ))}

@@ -28,6 +28,7 @@ export function NavBar({
   setNormalDropdown,
   setOpenChat,
   openChat,
+  searchbarRef,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -125,6 +126,7 @@ export function NavBar({
         setSearchQuery={setSearchQuery}
         adjustQuery={adjustQuery}
         loggedIn={user ? true : false}
+        searchbarRef={searchbarRef}
       />
       <div className="navbar-right">
         {user && (

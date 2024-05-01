@@ -18,8 +18,9 @@ import { BackToTop } from "../../../../../components";
 import parse from "html-react-parser";
 import { stripHtml } from "../../../../../utils/stripHtml";
 import { NoResults } from "../NoResults";
+import { focusSearchbar } from "../../../utils/focusSearchbar";
 
-export const SearchResultsPosts = () => {
+export const SearchResultsPosts = ({ searchbarRef }) => {
   const dispatch = useDispatch();
 
   const posts = useSelector((state) => state.search.posts);
@@ -33,12 +34,18 @@ export const SearchResultsPosts = () => {
     dispatch(searchUsers(cleanQuery));
   }, [query, dispatch]);
 
+  const focusSearchBox = () => {
+    focusSearchbar(searchbarRef);
+  };
+
   return (
     <SearchResults query={query} searchPage="Posts">
       <SearchResultsSortBtn searchPage="Posts" />
       <div className="search-results">
         <div className="search-results-left">
-          {Object.values(posts).length === 0 && <NoResults query={query} />}
+          {Object.values(posts).length === 0 && (
+            <NoResults query={query} focusSearchBox={focusSearchBox} />
+          )}
           {Object.values(posts).map((post, index) => (
             <PostResult key={index} post={post} />
           ))}
