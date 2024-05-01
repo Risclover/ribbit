@@ -20,33 +20,47 @@ export function CommentResult({ comment }) {
     history.push(`/posts/${comment.postId}`);
   };
 
+  const handleCommunityClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    history.push(`/c/${post.communityName}`);
+  };
+
   if (!post || !comment) return null;
 
   return (
     <div className="search-results-page-comment" onClick={handleCommentClick}>
       <div className="search-results-comment-post-header">
-        <NavLink to={`/c/${post.communityName}`}>
-          <img
-            src={post.communitySettings[post.communityId].communityIcon}
+        <div onClick={handleCommunityClick}>
+          <div
             className="search-results-comment-community-img"
-            alt="Comment community"
-          />
-        </NavLink>
-        <NavLink to={`/c/${post.communityName}`}>
-          <span className="search-results-comment-community">
-            c/{post.communityName}
-          </span>
-        </NavLink>
-        <span className="search-results-comment-dot">•</span>{" "}
-        <span className="search-results-comment-post-author-box">
+            style={{
+              backgroundColor:
+                post.communitySettings[post.communityId].baseColor,
+            }}
+          >
+            <img
+              src={post.communitySettings[post.communityId].communityIcon}
+              alt="Comment community"
+            />
+          </div>
+        </div>
+        <div
+          className="search-results-comment-community"
+          onClick={handleCommunityClick}
+        >
+          c/{post.communityName}
+        </div>
+        <div className="search-results-comment-dot">•</div>{" "}
+        <div className="search-results-comment-post-author-box">
           Posted by{" "}
           <NavLink to={`/users/${comment.userId}/profile`}>
-            <span className="search-results-comment-post-author">
+            <div className="search-results-comment-post-author">
               u/{post.postAuthor.username}
-            </span>
+            </div>
           </NavLink>
           {moment(post.createdAt).fromNow()}
-        </span>
+        </div>
       </div>
       <div className="search-results-comment-post-title">{post.title}</div>
       <div className="search-results-comment-body" onClick={handleClick}>

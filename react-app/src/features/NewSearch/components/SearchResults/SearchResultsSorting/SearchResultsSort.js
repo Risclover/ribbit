@@ -15,11 +15,9 @@ export const SearchResultsSortBtn = ({ searchPage }) => {
   return (
     <div ref={wrapperRef} className="search-results-sort-bar">
       <button
-        className={`
-          ${
-            !sortOpen ? "search-results-sort" : "search-results-sort sort-open"
-          } ${sortSet ? "sort-set" : ""}
-        `}
+        className={`${
+          !sortOpen ? "search-results-sort" : "search-results-sort sort-open"
+        } ${sortSet ? "sort-set" : ""}`}
         onClick={(e) => {
           e.preventDefault();
           setSortOpen(!sortOpen);

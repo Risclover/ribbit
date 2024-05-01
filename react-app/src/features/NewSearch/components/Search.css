@@ -88,6 +88,10 @@
   border-radius: 0 0 4px 4px;
 }
 
+.search-results-post:only-of-type {
+  border-radius: 4px;
+}
+
 .search-results-post-topbar {
   font-size: 12px;
   font-weight: 400;
@@ -364,7 +368,10 @@
 .search-results-comment-post-header a {
   display: flex;
   align-items: center;
-  padding-bottom: 4px;
+}
+
+.search-results-comment-post-header {
+  margin-bottom: 4px;
 }
 
 .search-results-page-comments {
@@ -372,14 +379,20 @@
   width: 100%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.06);
   margin-bottom: 20px;
-  margin-top: 8px;
 }
 
 .search-results-comment-community-img {
+  border-radius: 999px;
   height: 20px;
   width: 20px;
   margin-right: 4px;
-  border-radius: 100%;
+  overflow: hidden;
+}
+
+.search-results-comment-community-img img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 .search-results-comment-dot {
@@ -399,6 +412,7 @@
 
 .search-results-comment-post-author-box {
   display: flex;
+  align-items: center;
 }
 
 .search-results-comment-post-author-box a {
@@ -692,7 +706,6 @@
 }
 
 .search-results-post-link-box {
-  
 }
 
 @media (max-width: 959px) {

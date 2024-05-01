@@ -193,7 +193,6 @@
 .search-results-time {
   font-family: var(--font-family-noto);
   font-size: 12px;
-  line-height: 16px;
   border-radius: 1000px;
   border: none;
   min-height: 24px;

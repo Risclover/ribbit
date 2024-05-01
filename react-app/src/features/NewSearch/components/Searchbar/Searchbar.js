@@ -5,6 +5,7 @@ import { SlClose } from "react-icons/sl";
 import { useDispatch } from "react-redux";
 import { useOutsideClick } from "../../../../hooks";
 import { SearchDropdown } from "./SearchDropdown";
+import { getSearchQuery } from "../../utils/getSearchQuery";
 
 export function Searchbar({ adjustQuery, loggedIn }) {
   const dispatch = useDispatch();
@@ -16,6 +17,12 @@ export function Searchbar({ adjustQuery, loggedIn }) {
   const [searchQuery, setSearchQuery] = useState();
 
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
+
+  const query = getSearchQuery();
+
+  useEffect(() => {
+    setSearchQuery(query);
+  }, [query]);
 
   useEffect(() => {
     if (adjustQuery) ref.current.focus();
@@ -60,7 +67,7 @@ export function Searchbar({ adjustQuery, loggedIn }) {
   const handleEnter = (e) => {
     if (e.key === "Enter") {
       setShowSearchDropdown(false);
-      history.push(`/search/query?q=${searchQuery}`);
+      history.push(`/search/posts?q=${searchQuery}`);
     }
   };
 

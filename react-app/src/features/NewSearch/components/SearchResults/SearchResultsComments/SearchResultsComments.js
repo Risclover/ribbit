@@ -20,10 +20,12 @@ export function SearchResultsComments() {
   return (
     <SearchResults query={query} searchPage="Comments">
       <SearchResultsSortBtn searchPage="Comments" />
-      <div className="search-results-page-comments">
-        {comments.map((comment) => (
-          <CommentResult comment={comment} />
-        ))}
+      <div className="search-results">
+        <div className="search-results-page-comments">
+          {comments.map((comment) => (
+            <CommentResult comment={comment} />
+          ))}
+        </div>
       </div>
     </SearchResults>
   );

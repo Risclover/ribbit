@@ -43,11 +43,19 @@ export const PostResult = ({ post }) => {
     queryLink();
   }, []);
 
+  const handlePostClick = (e) => {
+    e.preventDefault();
+    history.push(`/posts/${post?.id}`);
+  };
+
+  const handleCommunityClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    history.push(`/c/${post?.communityName}`);
+  };
+
   return (
-    <div
-      onClick={() => history.push(`/posts/${post?.id}`)}
-      className="search-results-post"
-    >
+    <div onClick={handlePostClick} className="search-results-post">
       <div className="search-results-post-topbar">
         <img
           className="search-results-post-topbar-img"
@@ -58,13 +66,11 @@ export const PostResult = ({ post }) => {
           }}
           src={post?.communitySettings[post?.communityId]?.communityIcon}
           alt="Community"
+          onClick={handleCommunityClick}
         />
-        <NavLink
-          className="results-post-community"
-          to={`/c/${post?.communityName}`}
-        >
+        <div className="results-post-community" onClick={handleCommunityClick}>
           c/{post?.communityName}
-        </NavLink>{" "}
+        </div>{" "}
         <span className="topbar-dot">•</span>{" "}
         <span className="results-topbar-info">
           Posted by{" "}

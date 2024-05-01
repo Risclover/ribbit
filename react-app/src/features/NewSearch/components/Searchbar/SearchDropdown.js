@@ -25,6 +25,7 @@ export function SearchDropdown({
   }, [dispatch]);
 
   const handleQuery = (e) => {
+    setShowSearchDropdown(false);
     history.push(`/search/posts?q=${searchQuery}`);
   };
 
@@ -110,11 +111,9 @@ export function SearchDropdown({
           ))}
         </div>
       )}
-      <NavLink to={`/search/posts?q=${searchValue}`}>
-        <div className="search-for-query">
-          <BsSearch /> Search for "{searchQuery}"
-        </div>
-      </NavLink>
+      <div className="search-for-query" onClick={handleQuery}>
+        <BsSearch /> Search for "{searchQuery}"
+      </div>
     </div>
   );
 }
