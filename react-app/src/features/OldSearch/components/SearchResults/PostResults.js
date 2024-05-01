@@ -27,8 +27,7 @@ export function PostResults() {
 
   React.useEffect(() => {
     const fetchPosts = async () => {
-      const data = await dispatch(searchComments(searchTerm));
-      console.log("data:", data);
+      await dispatch(searchComments(searchTerm));
     };
     // Assuming fetchPostsSearch is an action that fetches the search results
     // and you have some way to dispatch Redux actions

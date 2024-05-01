@@ -21,7 +21,6 @@ export function CommunitySelectionInput({
       ? state.communities[communityId]?.communitySettings[communityId]
       : null
   );
-  console.log("communitySettings:", inputState);
 
   const communities = useSelector((state) => Object.values(state.communities));
 
@@ -47,8 +46,6 @@ export function CommunitySelectionInput({
       }
     }
   }, [communityId, communities]);
-
-  console.log("comm:", communityId);
 
   return (
     <div

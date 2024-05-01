@@ -76,7 +76,6 @@ export function ClassicPostFormat({ isPage, id, userId }) {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    console.log("hello");
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
     dispatch(getUsers());

@@ -33,10 +33,6 @@ export function PreviewCommunity() {
 
   const posts = useSelector((state) => Object.values(state.posts));
   const communities = useSelector((state) => Object.values(state.communities));
-  console.log(
-    "communities:",
-    communities?.find((community) => community.name === communityName)?.id
-  );
 
   const communityId = communities?.find(
     (community) => community.name === communityName
@@ -47,7 +43,6 @@ export function PreviewCommunity() {
   const community = communities?.find(
     (community) => community.name === communityName
   );
-  console.log("comm:", community);
 
   let commPosts = posts.filter((post) => post.communityId == communityId);
 

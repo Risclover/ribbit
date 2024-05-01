@@ -51,7 +51,6 @@ export function SearchResults({ setSearchQuery, setAdjustQuery }) {
     pageTitle: "Search Results",
   });
 
-  console.log("allPosts:", allPosts);
   let postList = [];
   Object.values(allPosts).forEach((post) => {
     postList.push({
@@ -84,7 +83,6 @@ export function SearchResults({ setSearchQuery, setAdjustQuery }) {
     });
   }
 
-  console.log("postList:", postList);
   let communityList = Object.values(allCommunities).map((comm) => {
     return {
       name: comm.name,
@@ -95,8 +93,7 @@ export function SearchResults({ setSearchQuery, setAdjustQuery }) {
       bgColor: comm.communitySettings[comm.id].baseColor,
     };
   });
-  console.log("communityList:", communityList);
-
+  
   let userList = [];
   for (let i = 0; i < Object.values(allUsers).length; i++) {
     userList.push({

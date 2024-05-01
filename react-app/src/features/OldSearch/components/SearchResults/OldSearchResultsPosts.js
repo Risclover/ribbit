@@ -21,15 +21,6 @@ export function OldSearchResultsPosts({
   const [showCommunityModal, setShowCommunityModal] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
 
-  console.log("seachQuery:", searchQuery);
-  console.log("posts", posts);
-  console.log(
-    "posts:",
-    posts.filter((post) =>
-      post["content"]?.toLowerCase().includes(searchQuery?.toLowerCase())
-    )
-  );
-
   return (
     <div className="search-results-posts-page">
       <div className="search-results-left">

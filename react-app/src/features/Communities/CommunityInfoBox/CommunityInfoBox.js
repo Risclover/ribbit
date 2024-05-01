@@ -14,8 +14,6 @@ import Cake from "../../../assets/images/misc/piece4.png";
 export function CommunityInfoBox({ community, user }) {
   const [members, setMembers] = useState(0);
 
-  console.log("info box:", community);
-
   useEffect(() => {
     setMembers(community?.members);
   }, [community?.members]);

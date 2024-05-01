@@ -25,10 +25,6 @@ export function PreviewCommunitySidebar() {
   const fullURL = window.location.href;
   const communityName = fullURL.split("/")[4];
   const communities = useSelector((state) => Object.values(state.communities));
-  console.log(
-    "communities:",
-    communities?.find((community) => community.name === communityName)?.id
-  );
 
   const communityId = communities?.find(
     (community) => community.name === communityName

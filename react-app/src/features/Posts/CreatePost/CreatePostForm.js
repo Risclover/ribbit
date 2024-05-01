@@ -53,11 +53,9 @@ export function CreatePostForm({
 
   const [communityId, setCommunityId] = useState(getIdFromName(communityName));
 
-  console.log("communityId:", getIdFromName(communityName));
 
   useEffect(() => {
     setCommunityId(getIdFromName(communityName));
-    console.log("commmss:", communityId);
   }, [communityName]);
 
   //   useEffect(() => {
@@ -81,9 +79,7 @@ export function CreatePostForm({
       content,
       communityId,
     };
-    console.log("payload:", payload);
     const data = await dispatch(addPost(payload));
-    console.log("data:", data);
     handleGeneralSubmit(data);
   };
 
@@ -94,9 +90,7 @@ export function CreatePostForm({
       linkUrl,
       communityId,
     };
-    console.log("payload:", payload);
     const data = await dispatch(addLinkPost(payload));
-    console.log("data:", data);
     handleGeneralSubmit(data);
   };
 

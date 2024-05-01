@@ -8,18 +8,22 @@ export function CommentResult({ comment }) {
   const history = useHistory();
   const posts = useSelector((state) => Object.values(state.posts));
   const post = posts.find((post) => post.id === comment.postId);
-  console.log("comment:", comment);
-  console.log("post:", post);
 
   const handleClick = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     history.push(`/posts/${comment.postId}/#comment-${comment.id}`);
+  };
+
+  const handleCommentClick = (e) => {
+    e.preventDefault();
+    history.push(`/posts/${comment.postId}`);
   };
 
   if (!post || !comment) return null;
 
   return (
-    <div className="search-results-page-comment" onClick={handleClick}>
+    <div className="search-results-page-comment" onClick={handleCommentClick}>
       <div className="search-results-comment-post-header">
         <NavLink to={`/c/${post.communityName}`}>
           <img
@@ -45,7 +49,7 @@ export function CommentResult({ comment }) {
         </span>
       </div>
       <div className="search-results-comment-post-title">{post.title}</div>
-      <div className="search-results-comment-body">
+      <div className="search-results-comment-body" onClick={handleClick}>
         <div className="search-results-comment-author-img-box">
           <NavLink to={`/users/${comment.userId}/profile`}>
             <img

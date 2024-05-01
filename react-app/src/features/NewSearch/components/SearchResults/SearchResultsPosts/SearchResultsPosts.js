@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SearchResults } from "../../../../../pages";
 import { getSearchQuery } from "../../../utils/getSearchQuery";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,31 +24,23 @@ export const SearchResultsPosts = () => {
 
   const posts = useSelector((state) => state.search.posts);
 
-  const query = getSearchQuery();
-
-  console.log("query:", query);
-  console.log("posts:", posts);
+  let query = getSearchQuery();
 
   useEffect(() => {
     let cleanQuery = stripHtml(query);
     dispatch(searchPosts(stripHtml(cleanQuery)));
     dispatch(searchCommunities(cleanQuery));
     dispatch(searchUsers(cleanQuery));
-  }, [dispatch]);
+  }, [query, dispatch]);
 
-  console.log(query);
-
-  console.log(stripHtml(query));
-
-  console.log("no results:", Object.values(posts).length);
   return (
     <SearchResults query={query} searchPage="Posts">
       <SearchResultsSortBtn searchPage="Posts" />
       <div className="search-results">
         <div className="search-results-left">
           {Object.values(posts).length === 0 && <NoResults query={query} />}
-          {Object.values(posts).map((post) => (
-            <PostResult post={post} />
+          {Object.values(posts).map((post, index) => (
+            <PostResult key={index} post={post} />
           ))}
         </div>
         <div className="search-results-right">

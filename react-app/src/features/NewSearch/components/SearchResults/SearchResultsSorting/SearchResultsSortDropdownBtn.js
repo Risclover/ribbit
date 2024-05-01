@@ -14,7 +14,6 @@ export const SearchResultsSortDropdownBtn = ({
         setSort(btn);
         setSortOpen(false);
         setSortSet(true);
-        console.log(sort, btn);
       }}
     >
       {btn}

@@ -61,7 +61,7 @@
   font-size: 12px;
   font-weight: 700;
   line-height: 16px;
-  color: var(--highlight-color);
+  color: var(--community-base-color);
   display: block;
   cursor: pointer;
   border: 0;
@@ -71,7 +71,8 @@
   padding: 0;
   line-height: 20px;
   font-family: var(--font-family-ibm);
-  margin: 4px 30px 0;
+  margin-left: 30px;
+  margin-top: -10px;
 }
 
 .view-all-comments-btn:hover {

@@ -93,23 +93,25 @@ export function Comments({ post }) {
 
   return (
     <div className="comments-container">
-      <CommentForm postId={postId} />
+      {!specificCommentActive && <CommentForm postId={postId} />}
       <div className="sort-search">
         {!searchActive && (
           <CommentSorting sortType={sortType} setSortType={setSortType} />
         )}
-        {!searchActive && (
+        {!searchActive && !specificCommentActive && (
           <span className="comment-sort-search-separator">|</span>
         )}
-        <CommentSearch
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-          post={post}
-          setSearchActive={setSearchActive}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          inputRef={inputRef}
-        />
+        {!specificCommentActive && (
+          <CommentSearch
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            post={post}
+            setSearchActive={setSearchActive}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            inputRef={inputRef}
+          />
+        )}
       </div>
       {searchActive && (
         <div className="all-comments-btn">

@@ -27,15 +27,12 @@ export function SinglePostContent({ post, isPage }) {
         })
           .then((res) => {
             if (res.status != 200) {
-              console.log(res.status);
               throw new Error("something went wrong");
             }
             return res.json();
           })
           .then((response) => {
-            console.log("response:", response);
             setMetadataResult(response);
-            console.log("result:", metadataResult);
           })
           .catch((error) => {
             console.log(error);
@@ -104,7 +101,7 @@ export function SinglePostContent({ post, isPage }) {
           {metadataResult?.image && (
             <img className="link-url-img" src={metadataResult?.image} />
           )}
-          <FiLink />
+          {!metadataResult?.image && <FiLink />}
           <div
             className={`single-post-external-link-box${
               isPage === "community" || isPage === "singlepage"

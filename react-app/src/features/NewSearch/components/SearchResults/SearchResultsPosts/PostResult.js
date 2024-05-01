@@ -27,15 +27,12 @@ export const PostResult = ({ post }) => {
         })
           .then((res) => {
             if (res.status != 200) {
-              console.log(res.status);
               throw new Error("something went wrong");
             }
             return res.json();
           })
           .then((response) => {
-            console.log("response:", response);
             setMetadataResult(response);
-            console.log("result:", metadataResult);
           })
           .catch((error) => {
             console.log(error);

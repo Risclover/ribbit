@@ -28,7 +28,6 @@ export function CommentForm({ postId }) {
       createComment({ content: content.trim() }, postId)
     );
 
-    console.log("commentData:", commentData);
     // const notificationPayload = {
     //   type: "post-reply",
     //   id: commentData.id,

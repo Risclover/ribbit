@@ -20,7 +20,6 @@ export function CommunitySelectionDropdownCommunity({
 
   const [baseColor, setBaseColor] = useState();
 
-  console.log("sub:", subscription);
   useEffect(() => {
     for (let community of allCommunities) {
       if (community.id === subscription.id) {

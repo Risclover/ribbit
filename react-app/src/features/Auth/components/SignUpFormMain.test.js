@@ -57,7 +57,6 @@ describe("SignUpFormMain", () => {
     await waitFor(() => {
       expect(input).toHaveValue("demo@aa.io");
     });
-    console.log("input.value:", input.value);
     expect(screen.getByRole("button", { name: "Continue" })).toBeDisabled();
   });
 });

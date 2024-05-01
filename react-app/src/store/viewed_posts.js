@@ -32,7 +32,6 @@ export const addViewedPost = (postId) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    console.log("API Response:", data);
     dispatch(load(data));
     return data;
   }

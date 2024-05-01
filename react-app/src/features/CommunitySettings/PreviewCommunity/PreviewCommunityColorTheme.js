@@ -40,7 +40,6 @@ export function PreviewCommunityColorTheme({
   }, [dispatch]);
 
   const handleSaveTheme = () => {
-    console.log("IMGIMG:", image);
     if (image === null || image === "" || image === undefined) {
       handleUpload();
     }
@@ -51,7 +50,6 @@ export function PreviewCommunityColorTheme({
       bgColor: bodyBg,
       backgroundImgFormat: bgFormat,
     };
-    console.log("payload:", payload);
     if (image) {
       handleUpload();
     }
@@ -67,7 +65,6 @@ export function PreviewCommunityColorTheme({
   };
 
   const handlePreview = () => {
-    console.log("previewww:", preview);
     setBodyBgPreview(preview);
     if (bgFormat === "fill") {
       document.documentElement.style.setProperty(

@@ -40,9 +40,7 @@ export function LoginSignupModal({ btnText, className, formType }) {
       errors.push("incorrect email or password");
       setLoginEmailErrors([""]);
       setLoginPasswordErrors(errors);
-    } else {
-      console.log("success");
-    }
+    } 
   };
 
   return (

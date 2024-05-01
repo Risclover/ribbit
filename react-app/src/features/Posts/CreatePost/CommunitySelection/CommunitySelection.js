@@ -25,8 +25,6 @@ export function CommunitySelection({
 
   useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
-  console.log("comms:", communityId);
-
   useEffect(() => {
     for (let community of Object.values(allCommunities)) {
       if (community.id === communityId) {

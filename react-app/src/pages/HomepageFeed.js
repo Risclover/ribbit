@@ -21,8 +21,6 @@ export function HomepageFeed() {
   const { sortedPosts, sortMode, setSortMode, user, viewedPosts } =
     usePosts(false);
 
-  console.log(ChatWindowEmojis.map((emoji) => emoji));
-
   document.documentElement.style.setProperty(
     "--community-highlight",
     "var(--highlight-color)"

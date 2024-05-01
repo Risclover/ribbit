@@ -28,7 +28,6 @@ const TextInput = ({
           onMouseEnter={handleTooltip}
           onMouseLeave={() => {
             setShowTooltip(false);
-            console.log(showTooltip);
           }}
         >
           <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -59,8 +58,6 @@ const TextInput = ({
         onBlur={() => {
           setFocused(false);
           setError(validateCommunityName(value, usernameTaken));
-          console.log("error:", error);
-          console.log("validate:", validateCommunityName(value, usernameTaken));
         }}
       />
       {label === "Name" && <span className="create-community-input-r">c/</span>}

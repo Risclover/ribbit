@@ -121,35 +121,26 @@ export default function searchReducer(state = initialState, action) {
     case SEARCH_POSTS:
       return {
         ...state,
-        posts: action.payload.PostResults.reduce(
-          (results, result) => {
-            results[result.id] = result;
-            return results;
-          },
-          { ...state.posts }
-        ),
+        posts: action.payload.PostResults.reduce((results, result) => {
+          results[result.id] = result;
+          return results;
+        }, {}),
       };
     case SEARCH_COMMENTS:
       return {
         ...state,
-        comments: action.payload.CommentResults.reduce(
-          (results, result) => {
-            results[result.id] = result;
-            return results;
-          },
-          { ...state.comments }
-        ),
+        comments: action.payload.CommentResults.reduce((results, result) => {
+          results[result.id] = result;
+          return results;
+        }, {}),
       };
     case SEARCH_USERS:
       return {
         ...state,
-        users: action.payload.UserResults.reduce(
-          (results, result) => {
-            results[result.id] = result;
-            return results;
-          },
-          { ...state.users }
-        ),
+        users: action.payload.UserResults.reduce((results, result) => {
+          results[result.id] = result;
+          return results;
+        }, {}),
       };
     case SEARCH_COMMUNITIES:
       return {
@@ -159,7 +150,7 @@ export default function searchReducer(state = initialState, action) {
             results[result.id] = result;
             return results;
           },
-          { ...state.communities }
+          {}
         ),
       };
     default:
