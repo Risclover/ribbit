@@ -23,6 +23,7 @@ export const UserFollowBtn = ({ user }) => {
   }, [isFollowing]);
 
   const handleFollowClick = async (e) => {
+    e.stopPropagation();
     e.preventDefault();
     if (isFollowing) {
       await dispatch(unfollowUser(user.id));

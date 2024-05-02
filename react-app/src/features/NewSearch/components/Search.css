@@ -263,6 +263,10 @@
   border-bottom: thin solid #ccc;
 }
 
+.search-results-community {
+  cursor: pointer;
+}
+
 .search-results-page-community-page .search-results-page-community-left {
   align-items: center;
 }

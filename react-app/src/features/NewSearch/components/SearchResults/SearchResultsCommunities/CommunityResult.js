@@ -11,7 +11,7 @@ export const CommunityResult = ({ community }) => {
   };
   return (
     <div onClick={handleCommunityClick}>
-      <div className="search-results-page-community-page">
+      <div className="search-results-community">
         <div className="search-results-page-community-left">
           <img
             style={{
