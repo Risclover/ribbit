@@ -26,7 +26,7 @@ export function SearchDropdown({
 
   const handleQuery = (e) => {
     setShowSearchDropdown(false);
-    history.push(`/search/posts?q=${searchQuery}`);
+    history.push(`/search/posts?q=${searchQuery.trim()}`);
   };
 
   const filteredCommunities = Object.values(allCommunities)

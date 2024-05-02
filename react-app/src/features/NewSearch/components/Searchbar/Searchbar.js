@@ -18,7 +18,8 @@ export function Searchbar({ loggedIn, searchbarRef }) {
   const query = getSearchQuery();
 
   useEffect(() => {
-    setSearchQuery(query);
+    let trimmed = query?.trim();
+    setSearchQuery(trimmed);
   }, [query]);
 
   useEffect(() => {
@@ -36,9 +37,9 @@ export function Searchbar({ loggedIn, searchbarRef }) {
   }, [showSearchDropdown, searchQuery]);
 
   const handleEnter = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && searchQuery.length > 0) {
       setShowSearchDropdown(false);
-      history.push(`/search/posts?q=${searchQuery}`);
+      history.push(`/search/posts?q=${searchQuery.trim()}`);
     }
   };
 
