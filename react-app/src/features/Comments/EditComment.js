@@ -1,40 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateComment, getSingleComment, getPostComments } from "../../store";
 import "../../assets/styles/Modals.css";
+import { useAutosizeTextArea } from "../ChatWindow";
 
 export function EditComment({ commentId, comment, setShowEditCommentModal }) {
   const dispatch = useDispatch();
 
+  const textareaRef = useRef();
+
   const [content, setContent] = useState(comment?.content);
-  const [errors, setErrors] = useState([]);
   const [disabled, setDisabled] = useState(content.trim().length === 0);
 
-  // useEffect(() => {
-  //   if (content.trim().length === 0) {
-  //     setDisabled(true);
-  //   } else {
-  //     setDisabled(false);
-  //   }
-  // }, [setDisabled, content]);
+  useAutosizeTextArea(textareaRef.current, content);
+
+  useEffect(() => {
+    if (content.trim().length === 0) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [setDisabled, content]);
 
   const handleEdit = (e) => {
     e.preventDefault();
-    let errors = [];
 
-    if (content.length === 0) {
-      errors.push("You must give your comment some content before posting!");
-    }
-
-    if (errors.length > 0) {
-      setErrors(errors);
-    } else {
-      dispatch(updateComment({ content: content.trim() }, commentId));
-      setErrors([]);
-      setShowEditCommentModal(false);
-      dispatch(getSingleComment(commentId));
-      dispatch(getPostComments(comment?.postId));
-    }
+    dispatch(updateComment({ content: content.trim() }, commentId));
+    setShowEditCommentModal(false);
+    dispatch(getSingleComment(commentId));
+    dispatch(getPostComments(comment?.postId));
   };
 
   const handleClickCancel = () => {
@@ -47,16 +41,15 @@ export function EditComment({ commentId, comment, setShowEditCommentModal }) {
 
   return (
     <div className="modal-container">
-      {errors.map((error) => (
-        <div>{error}</div>
-      ))}
       <form onSubmit={handleEdit}>
         <div className="modal-content">
           <textarea
+            ref={textareaRef}
             className="modal-content-input"
             onChange={handleTextareaChange}
             value={content}
             maxLength={10000}
+            placeholder="What are your thoughts?"
           ></textarea>
         </div>
         <div className="modal-buttons">

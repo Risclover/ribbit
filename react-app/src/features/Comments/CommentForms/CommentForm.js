@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
@@ -10,10 +10,11 @@ import {
   getSingleComment,
   addCommentVote,
 } from "../../../store";
-import { LoginSignupModal } from "../..";
+import { LoginSignupModal, useAutosizeTextArea } from "../..";
 import "../Comments.css";
 
 export function CommentForm({ postId }) {
+  const textareaRef = useRef();
   const dispatch = useDispatch();
 
   const [content, setContent] = useState("");
@@ -50,6 +51,8 @@ export function CommentForm({ postId }) {
     }
   }, [content]);
 
+  useAutosizeTextArea(textareaRef.current, content);
+
   if (!postId) return null;
 
   return (
@@ -62,6 +65,7 @@ export function CommentForm({ postId }) {
           </label>
           <div className="post-comment-box">
             <textarea
+              ref={textareaRef}
               className="post-comment-textarea"
               onChange={(e) => setContent(e.target.value)}
               value={content}
@@ -96,6 +100,7 @@ export function CommentForm({ postId }) {
             to comment
           </label>
           <textarea
+            ref={textareaRef}
             className="post-comment-textarea"
             placeholder="What are your thoughts?"
             onChange={(e) => setContent(e.target.value)}
