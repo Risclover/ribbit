@@ -107,6 +107,12 @@
   padding-left: 10px;
 }
 
+.nav-left-dropdown-face-left .nav-left-dropdown-item {
+  overflow: hidden;
+  text-overflow: hidden;
+  width: 165px;
+}
+
 .plus-border {
   border-color: #edeff1;
   border-bottom-color: transparent;

@@ -10,13 +10,12 @@ export const User = ({ user }) => {
     <NavLink to={`/users/${user.id}/profile`}>
       <div className="search-results-page-community">
         <div className="search-results-page-community-left">
-          <div className="search-results-page-community-img">
-            <img
-              src={user?.profile_img}
-              alt="User"
-              className="search-results-page-community-img"
-            />
-          </div>
+          <img
+            style={{ backgroundColor: "white" }}
+            src={user?.profile_img}
+            alt="User"
+            className="search-results-page-community-img"
+          />
           <div className="search-results-page-community-details">
             <div className="search-results-page-community-name">
               u/{user.username}

@@ -25,8 +25,10 @@ export function SearchDropdown({
   }, [dispatch]);
 
   const handleQuery = (e) => {
-    setShowSearchDropdown(false);
-    history.push(`/search/posts?q=${searchQuery.trim()}`);
+    if (searchQuery.trim().length > 0) {
+      setShowSearchDropdown(false);
+      history.push(`/search/posts?q=${searchQuery.trim()}`);
+    }
   };
 
   const filteredCommunities = Object.values(allCommunities)

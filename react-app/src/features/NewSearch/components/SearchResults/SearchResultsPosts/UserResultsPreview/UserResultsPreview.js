@@ -10,9 +10,10 @@ export const UserResultsPreview = ({ query }) => {
   return (
     <div className="search-results-right-box">
       <h4>People</h4>
-      {users.map((user) => <User user={user} />).slice(0, 5)}
+      {query.trim().length > 0 &&
+        users.map((user) => <User user={user} />).slice(0, 5)}
 
-      {users.length > 5 && (
+      {query.trim().length > 0 && users.length > 5 && (
         <div
           className="see-more-btn"
           onClick={() => history.push(`/search/users?q=${query}`)}
@@ -20,7 +21,9 @@ export const UserResultsPreview = ({ query }) => {
           See more people
         </div>
       )}
-      {users.length === 0 && <div className="no-results">No results</div>}
+      {(query.trim().length === 0 || users.length === 0) && (
+        <div className="no-results">No results</div>
+      )}
     </div>
   );
 };

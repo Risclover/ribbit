@@ -24,12 +24,11 @@ export const SearchResultsUsers = ({ searchbarRef }) => {
     <SearchResults query={query} searchPage="People">
       <div className="search-results">
         <div className="search-results-page-people">
-          {users.length === 0 && (
+          {(query.trim().length === 0 || users.length === 0) && (
             <NoResults query={query} focusSearchBox={focusSearchBox} />
           )}
-          {users.map((user) => (
-            <UserResult user={user} />
-          ))}
+          {query.trim().length > 0 &&
+            users.map((user) => <UserResult user={user} />)}
         </div>
       </div>
     </SearchResults>

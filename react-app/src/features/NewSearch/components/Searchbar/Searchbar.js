@@ -37,8 +37,9 @@ export function Searchbar({ loggedIn, searchbarRef }) {
   }, [showSearchDropdown, searchQuery]);
 
   const handleEnter = (e) => {
-    if (e.key === "Enter" && searchQuery.length > 0) {
+    if (e.key === "Enter" && searchQuery.trim().length > 0) {
       setShowSearchDropdown(false);
+      searchbarRef.current.blur();
       history.push(`/search/posts?q=${searchQuery.trim()}`);
     }
   };

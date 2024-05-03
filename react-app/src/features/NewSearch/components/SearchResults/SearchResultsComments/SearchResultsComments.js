@@ -28,12 +28,11 @@ export function SearchResultsComments({ searchbarRef }) {
       <SearchResultsSortBtn searchPage="Comments" />
       <div className="search-results">
         <div className="search-results-page-comments">
-          {comments.length === 0 && (
+          {(query.trim().length === 0 || comments.length === 0) && (
             <NoResults query={query} focusSearchBox={focusSearchBox} />
           )}
-          {comments.map((comment) => (
-            <CommentResult comment={comment} />
-          ))}
+          {query.trim().length > 0 &&
+            comments.map((comment) => <CommentResult comment={comment} />)}
         </div>
       </div>
     </SearchResults>

@@ -26,12 +26,13 @@ export const SearchResultsCommunities = ({ searchbarRef }) => {
     <SearchResults query={query} searchPage="Communities">
       <div className="search-results">
         <div className="search-results-page-communities">
-          {communities.length === 0 && (
+          {(query.trim().length === 0 || communities.length === 0) && (
             <NoResults query={query} focusSearchBox={focusSearchBox} />
           )}
-          {communities.map((community) => (
-            <CommunityResult community={community} />
-          ))}
+          {query.trim().length > 0 &&
+            communities.map((community) => (
+              <CommunityResult community={community} />
+            ))}
         </div>
       </div>
     </SearchResults>

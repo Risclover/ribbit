@@ -43,12 +43,13 @@ export const SearchResultsPosts = ({ searchbarRef }) => {
       <SearchResultsSortBtn searchPage="Posts" />
       <div className="search-results">
         <div className="search-results-left">
-          {Object.values(posts).length === 0 && (
+          {(query.trim().length === 0 || Object.values(posts).length === 0) && (
             <NoResults query={query} focusSearchBox={focusSearchBox} />
           )}
-          {Object.values(posts).map((post, index) => (
-            <PostResult key={index} post={post} />
-          ))}
+          {query.trim().length > 0 &&
+            Object.values(posts).map((post, index) => (
+              <PostResult key={index} post={post} />
+            ))}
         </div>
         <div className="search-results-right">
           <CommunityResultsPreview query={query} />
