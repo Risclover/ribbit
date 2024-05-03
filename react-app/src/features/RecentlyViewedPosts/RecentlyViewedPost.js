@@ -40,9 +40,9 @@ export const RecentlyViewedPost = ({ post, idx }) => {
 
   useEffect(() => {
     const queryLink = async () => {
-      if (post.linkUrl !== null) {
+      if (post?.linkUrl !== null) {
         var data = {
-          q: post.linkUrl,
+          q: post?.linkUrl,
         };
         fetch("https://api.linkpreview.net", {
           method: "POST",

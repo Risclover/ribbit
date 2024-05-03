@@ -245,6 +245,10 @@
   line-height: 20px;
 }
 
+.single-post-community-name:hover {
+  text-decoration: underline;
+}
+
 .single-post-dot-spacer {
   margin: 0 4px;
   font-size: 6px;

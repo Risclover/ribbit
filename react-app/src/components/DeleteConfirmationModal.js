@@ -21,7 +21,7 @@ export function DeleteConfirmationModal({
   communityId,
   rule,
   handleDelete,
-  item
+  item,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -46,6 +46,7 @@ export function DeleteConfirmationModal({
   };
 
   const handleCancelClick = (e) => {
+    e.stopPropagation();
     e.preventDefault();
     setShowDeleteModal(false);
   };

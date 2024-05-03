@@ -4,16 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { addPostVote, removePostVote, getUsers } from "../../../store";
 
-export function SinglePostKarmabar({
-  upvote,
-  downvote,
-  post,
-  setUpvote,
-  setDownvote,
-}) {
+export function SinglePostKarmabar({ post }) {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const [upvote, setUpvote] = useState(false);
+  const [downvote, setDownvote] = useState(false);
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[cuser?.id]);
   const currentUser = useSelector((state) => state.session.user);
@@ -62,6 +57,7 @@ export function SinglePostKarmabar({
   ]);
 
   const handleVoteClick = async (e, voteType) => {
+    e.stopPropagation();
     e.preventDefault();
     if (!currentUser) {
       history.push("/login");

@@ -24,9 +24,6 @@ export const SinglePost = ({ id, isPage, post }) => {
   );
   const { format } = useContext(PostFormatContext);
 
-  const [upvote, setUpvote] = useState(false);
-  const [downvote, setDownvote] = useState(false);
-
   const handleClick = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -39,13 +36,7 @@ export const SinglePost = ({ id, isPage, post }) => {
         <div className="post-card-format">
           {post && (
             <div className="single-post-container">
-              <SinglePostKarmabar
-                post={post}
-                upvote={upvote}
-                downvote={downvote}
-                setUpvote={setUpvote}
-                setDownvote={setDownvote}
-              />
+              <SinglePostKarmabar post={post} />
 
               <div className="single-post-main">
                 <SinglePostAuthorBar

@@ -3,6 +3,7 @@
   flex-direction: column;
   position: relative;
   border: thin solid rgba(255, 255, 255, 0.8);
+  cursor: pointer;
 }
 
 .compact-post-principle {
@@ -164,6 +165,7 @@
 .compact-post-community {
   font-weight: 700;
   color: var(--main-text-color);
+  cursor: pointer;
 }
 
 .compact-post-community:hover {

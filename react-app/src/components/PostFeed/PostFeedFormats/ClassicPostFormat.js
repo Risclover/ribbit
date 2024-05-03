@@ -17,11 +17,10 @@ import "../../../features/Posts/SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 import { deletePost, getUsers, getViewedPosts } from "../../../store";
 
-export function ClassicPostFormat({ isPage, id, userId }) {
+export function ClassicPostFormat({ isPage, id, post }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const post = useSelector((state) => state.posts[id]);
   const posts = useSelector((state) => state.posts);
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[cuser?.id]);
@@ -75,11 +74,12 @@ export function ClassicPostFormat({ isPage, id, userId }) {
   }, [upvote, downvote, voteTotal, post?.postVoters, user?.id, posts]);
 
   const handleDelete = (e) => {
+    e.stopPropagation();
     e.preventDefault();
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
     dispatch(getUsers());
-    dispatch(getViewedPosts())
+    dispatch(getViewedPosts());
     if (isPage === "community") {
       history.push(`/c/${post?.communityName}`);
     } else {
