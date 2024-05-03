@@ -37,10 +37,11 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
       </div>
 
       <div className="share-btn-stuff">
-        <div className="single-post-button" onClick={(e) => e.preventDefault()}>
+        <div className="single-post-button">
           <button
             className="single-post-share-btn"
             onClick={(e) => {
+              e.stopPropagation();
               e.preventDefault();
               setShowLinkCopied(true);
               navigator.clipboard.writeText(
@@ -68,14 +69,12 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
 
       {user && (user.id === post.postAuthor?.id || user?.id === 1) && (
         <div className="logged-in-btns">
-          <div
-            className="single-post-button"
-            onClick={(e) => e.preventDefault()}
-          >
+          <div className="single-post-button">
             {post?.imgUrl === null && post?.linkUrl === null && (
               <button
                 className="single-post-edit-btn"
                 onClick={(e) => {
+                  e.stopPropagation();
                   e.preventDefault();
                   history.push(`/posts/${post.id}/edit`);
                 }}

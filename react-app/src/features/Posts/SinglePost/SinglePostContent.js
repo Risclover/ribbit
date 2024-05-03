@@ -59,13 +59,15 @@ export function SinglePostContent({ post, isPage }) {
           </div>
         ) : post.linkUrl !== null ? (
           <div
-            onClick={() => window.open(post?.linkUrl, "_blank")}
+            onClick={(e) => {
+              e.stopPropagation();
+              window.open(post?.linkUrl, "_blank");
+            }}
             className={`single-page-content-link${
               isPage === "community" || isPage === "singlepage"
                 ? " community-post"
                 : ""
             }`}
-            target="_blank"
           >
             {sliceUrl(post.linkUrl)}
             <HiOutlineExternalLink />
@@ -89,6 +91,7 @@ export function SinglePostContent({ post, isPage }) {
       {post.linkUrl && (
         <button
           onClick={(e) => {
+            e.stopPropagation();
             e.preventDefault();
             window.open(post.linkUrl);
           }}

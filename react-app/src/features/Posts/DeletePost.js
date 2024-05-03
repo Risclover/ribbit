@@ -11,6 +11,7 @@ export function DeletePostModal({ post, isPage }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleDelete = (e) => {
+    e.stopPropagation();
     e.preventDefault();
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
@@ -29,6 +30,7 @@ export function DeletePostModal({ post, isPage }) {
       <button
         className="single-post-delete-btn"
         onClick={(e) => {
+          e.stopPropagation();
           e.preventDefault();
           setShowDeleteModal(true);
         }}

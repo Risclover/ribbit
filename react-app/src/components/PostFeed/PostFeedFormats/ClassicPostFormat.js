@@ -30,8 +30,6 @@ export function ClassicPostFormat({ isPage, id, post }) {
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [upvote, setUpvote] = useState(false);
-  const [downvote, setDownvote] = useState(false);
   const [voteTotal, setVoteTotal] = useState(post?.votes);
   const [postExpand, setPostExpand] = useState(false);
   const [commentNum, setCommentNum] = useState(0);
@@ -47,31 +45,6 @@ export function ClassicPostFormat({ isPage, id, post }) {
     }
     setCommentNum(post?.commentNum || 0);
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
-
-  useEffect(() => {
-    if (
-      Object.values(posts) &&
-      post?.postVoters &&
-      post?.postVoters !== undefined &&
-      post?.postVoters !== null
-    ) {
-      if (Object.values(posts)?.length > 0) {
-        if (Object.values(post?.postVoters)?.length > 0) {
-          for (let voter of Object.values(post?.postVoters)) {
-            if (user?.id === voter?.userID) {
-              if (voter.isUpvote) {
-                setUpvote(true);
-                setDownvote(false);
-              } else if (!voter.isUpvote) {
-                setUpvote(false);
-                setDownvote(true);
-              }
-            }
-          }
-        }
-      }
-    }
-  }, [upvote, downvote, voteTotal, post?.postVoters, user?.id, posts]);
 
   const handleDelete = (e) => {
     e.stopPropagation();
@@ -90,14 +63,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
   return (
     <div className="post-classic-format">
       <div className="classic-post-container">
-        <SinglePostKarmabar
-          post={post}
-          upvote={upvote}
-          downvote={downvote}
-          voted={voted}
-          setUpvote={setUpvote}
-          setDownvote={setDownvote}
-        />
+        <SinglePostKarmabar post={post} voted={voted} />
         <div className="classic-post-main">
           <div className="classic-post-content-box">
             <div className="classic-post-content-img">
@@ -136,6 +102,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                         isPage === "community" && "community-post"
                       }`}
                       onClick={(e) => {
+                        e.stopPropagation();
                         e.preventDefault();
                         window.open(post?.linkUrl);
                         if (e.target.classList.contains("community-post"))
@@ -151,6 +118,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                 <div
                   className="classic-post-community-info"
                   onClick={(e) => {
+                    e.stopPropagation();
                     e.preventDefault();
                     history.push(`/c/${post?.communityName}`);
                   }}
@@ -167,6 +135,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                   <span
                     className="classic-post-author"
                     onClick={(e) => {
+                      e.stopPropagation();
                       e.preventDefault();
                       history.push(`/users/${post?.postAuthor.id}/profile`);
                     }}
@@ -185,7 +154,10 @@ export function ClassicPostFormat({ isPage, id, post }) {
                   !postExpand && (
                     <button
                       className="classic-post-button btn-expand"
-                      onClick={(e) => setPostExpand(true)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPostExpand(true);
+                      }}
                     >
                       <BsArrowsAngleExpand />
                     </button>
@@ -193,7 +165,10 @@ export function ClassicPostFormat({ isPage, id, post }) {
                 {post?.linkUrl === null && postExpand && (
                   <button
                     className="classic-post-button btn-expand"
-                    onClick={(e) => setPostExpand(false)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPostExpand(false);
+                    }}
                   >
                     <BsArrowsAngleContract />
                   </button>
@@ -201,7 +176,10 @@ export function ClassicPostFormat({ isPage, id, post }) {
                 {post?.linkUrl !== null && (
                   <button
                     className="classic-post-button"
-                    onClick={(e) => window.open(post?.linkUrl)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(post?.linkUrl);
+                    }}
                   >
                     <HiOutlineExternalLink />
                   </button>
@@ -211,7 +189,10 @@ export function ClassicPostFormat({ isPage, id, post }) {
                   post?.imgUrl === null && (
                     <button
                       className="classic-post-button"
-                      onClick={(e) => window.open(post?.linkUrl)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(post?.linkUrl);
+                      }}
                     >
                       <CgNotes />
                     </button>
@@ -220,7 +201,10 @@ export function ClassicPostFormat({ isPage, id, post }) {
                 <div className="single-post-button">
                   <button
                     className="single-post-comments-btn"
-                    onClick={() => history.push(`/posts/${post?.id}`)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      history.push(`/posts/${post?.id}`);
+                    }}
                   >
                     <i className="fa-regular fa-message"></i>{" "}
                     <span className="single-post-comments-num">
@@ -236,6 +220,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                     <button
                       className="single-post-share-btn"
                       onClick={(e) => {
+                        e.stopPropagation();
                         e.preventDefault();
                         setShowLinkCopied(true);
                         navigator.clipboard.writeText(
@@ -271,6 +256,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                         <button
                           className="single-post-edit-btn"
                           onClick={(e) => {
+                            e.stopPropagation();
                             e.preventDefault();
                             history.push(`/posts/${post?.id}/edit`);
                           }}
@@ -284,6 +270,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                       <button
                         className="single-post-delete-btn"
                         onClick={(e) => {
+                          e.stopPropagation();
                           e.preventDefault();
                           setShowDeleteModal(true);
                         }}
