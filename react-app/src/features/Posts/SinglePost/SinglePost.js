@@ -46,7 +46,7 @@ export const SinglePost = ({ id, isPage, post }) => {
                   isPage={isPage}
                 />
 
-                <SinglePostContent post={post} isPage="singlepage" />
+                <SinglePostContent post={post} isPage={isPage} />
 
                 <SinglePostButtonBar
                   post={post}

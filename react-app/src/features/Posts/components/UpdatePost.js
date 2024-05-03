@@ -104,7 +104,7 @@ export function UpdatePost() {
             Cancel
           </button>
           <button
-            className="create-post-form-submit"
+            className="update-post-submit"
             disabled={disabled}
             type="submit"
           >

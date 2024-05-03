@@ -36,6 +36,39 @@ export function ClassicPostFormat({ isPage, id, post }) {
   const [voted, setVoted] = useState(
     post && Object.values(post?.postVoters)?.length > 0 ? true : false
   );
+  const [metadataResult, setMetadataResult] = useState();
+
+  useEffect(() => {
+    const queryLink = async () => {
+      if (post.linkUrl !== null) {
+        var data = {
+          q: post.linkUrl,
+        };
+        fetch("https://api.linkpreview.net", {
+          method: "POST",
+          headers: {
+            "X-Linkpreview-Api-Key": `${process.env.REACT_APP_LINK_PREVIEW_KEY}`,
+          },
+          mode: "cors",
+          body: JSON.stringify(data),
+        })
+          .then((res) => {
+            if (res.status != 200) {
+              throw new Error("something went wrong");
+            }
+            return res.json();
+          })
+          .then((response) => {
+            setMetadataResult(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    };
+
+    queryLink();
+  }, []);
 
   useEffect(() => {
     if (showLinkCopied) {
@@ -75,13 +108,18 @@ export function ClassicPostFormat({ isPage, id, post }) {
               )}
               {post?.linkUrl && (
                 <div className="classic-post-img-placeholder">
-                  <span
-                    className={`placeholder-link ${
-                      isPage === "community" && "community-post"
-                    }`}
-                  >
-                    <FiLink />
-                  </span>
+                  {metadataResult?.image && (
+                    <img className="link-url-img" src={metadataResult?.image} />
+                  )}
+                  {!metadataResult?.image && (
+                    <span
+                      className={`placeholder-link ${
+                        isPage === "community" && "community-post"
+                      }`}
+                    >
+                      <FiLink />
+                    </span>
+                  )}
                   <div
                     className={`placeholder-external ${
                       isPage === "community" && "community-post"

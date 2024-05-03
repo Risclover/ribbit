@@ -24,6 +24,8 @@ export function PostFeed({
     setItems(posts.slice(0, 10 * page));
   }, [posts, page, sortMode]);
 
+  console.log("isPage:", isPage);
+
   const loadMore = () => {
     if (!loading && items.length < posts.length) {
       setLoading(true);

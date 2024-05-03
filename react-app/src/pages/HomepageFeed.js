@@ -41,6 +41,7 @@ export function HomepageFeed() {
         <NoPostsMessage sortedPosts={sortedPosts} />
         {sortedPosts && sortedPosts.length > 0 && (
           <PostFeed
+            isPage="feedpage"
             posts={sortedPosts}
             sortMode={sortMode}
             setSortMode={setSortMode}
