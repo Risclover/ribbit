@@ -37,11 +37,7 @@ export function UpdatePost() {
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    if (content?.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
-      setContent("");
-      setDisabled(true);
-    }
-    if (content?.trim().length === 0 || title?.trim().length === 0) {
+    if (title?.trim().length === 0) {
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -55,8 +51,6 @@ export function UpdatePost() {
 
     if (title && title.trim().length < 1)
       titles.push("Please give your post a title.");
-    if (content && content.trim().length < 1)
-      contents.push("Please give your post some content.");
     if (titles.length > 0 || contents.length > 0) {
       setTitleErrors(titles);
       setContentErrors(contents);
