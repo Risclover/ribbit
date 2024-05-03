@@ -50,6 +50,15 @@ export function PostFeed({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [items, loading, posts.length]);
 
+  useEffect(() => {
+    if (isPage === "profile") {
+      document.documentElement.style.setProperty(
+        "--community-highlight",
+        "#0079d3"
+      );
+    }
+  }, [isPage]);
+
   return (
     <div>
       {((isPage === "profile" && user?.userPosts > 0) ||
