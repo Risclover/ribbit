@@ -9,7 +9,7 @@ import parse from "html-react-parser";
 import moment from "moment";
 
 import Bounce from "../../../assets/images/misc/curved-arrow.png";
-import { DeleteConfirmationModal } from "../../../components";
+import { DeleteConfirmationModal, Username } from "../../../components";
 import { Modal } from "../../../context";
 import { SinglePostKarmabar } from "../../../features";
 import { sliceUrl } from "../../../utils";
@@ -123,25 +123,17 @@ export function ClassicPostFormat({ isPage, id, post }) {
                     history.push(`/c/${post?.communityName}`);
                   }}
                 >
-                  {isPage !== "community" && (
-                    <>
-                      c/{post?.communityName}{" "}
-                      <span className="single-post-dot-spacer">•</span>
-                    </>
-                  )}
+                  {isPage !== "community" && <>c/{post?.communityName} </>}
                 </div>
+                <span className="single-post-dot-spacer">•</span>
                 <div className="classic-post-author-info">
                   Posted by{" "}
-                  <span
-                    className="classic-post-author"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      history.push(`/users/${post?.postAuthor.id}/profile`);
-                    }}
-                  >
-                    u/{post?.postAuthor.username}
-                  </span>
+                  <Username
+                    community={community}
+                    username={post?.postAuthor?.username}
+                    user={post?.postAuthor}
+                    source="singlepost"
+                  />
                   {moment(post?.createdAt).fromNow()}
                 </div>
               </div>

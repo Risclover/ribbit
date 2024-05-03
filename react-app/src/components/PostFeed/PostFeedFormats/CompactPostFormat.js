@@ -23,7 +23,7 @@ import {
 } from "../../../store";
 
 import Bounce from "../../../assets/images/misc/curved-arrow.png";
-import { DeleteConfirmationModal } from "../../../components";
+import { DeleteConfirmationModal, Username } from "../../../components";
 import { Modal } from "../../../context";
 import { sliceUrl, HandleClickOutside } from "../../../utils";
 import "../../../features/Posts/SinglePost/SinglePost.css";
@@ -378,8 +378,13 @@ export function CompactPostFormat({ id, isPage, post }) {
                     ? commentNum + " comment"
                     : commentNum + " comments"}
                   <span className="single-post-dot-spacer">•</span>
-                  c/{post?.communityName} Posted by u/
-                  {post?.postAuthor.username}
+                  c/{post?.communityName} Posted by{" "}
+                  <Username
+                    community={community}
+                    username={post?.postAuthor?.username}
+                    user={post?.postAuthor}
+                    source="singlepost"
+                  />
                 </div>
                 <div className="compact-post-author-bar">
                   {isPage !== "community" && (
@@ -398,16 +403,12 @@ export function CompactPostFormat({ id, isPage, post }) {
                     </>
                   )}
                   Posted by
-                  <span
-                    className="compact-post-author"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      history.push(`/users/${post?.postAuthor.id}/profile`);
-                    }}
-                  >
-                    u/{post?.postAuthor.username}
-                  </span>
+                  <Username
+                    community={community}
+                    username={post?.postAuthor?.username}
+                    user={post?.postAuthor}
+                    source="singlepost"
+                  />
                   {moment(post?.createdAt).fromNow()}
                 </div>
               </div>
