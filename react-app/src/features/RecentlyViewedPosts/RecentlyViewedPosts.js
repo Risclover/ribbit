@@ -9,6 +9,7 @@ import moment from "moment";
 import { getViewedPosts, removeViewedPosts } from "../../store";
 
 import "./RecentlyViewedPosts.css";
+import { RecentlyViewedPost } from "./RecentlyViewedPost";
 
 moment.updateLocale("en-cust", {
   relativeTime: {
@@ -28,33 +29,6 @@ moment.updateLocale("en-cust", {
     yy: "%dyr",
   },
 });
-
-const PostTypeIcon = ({ post }) => {
-  if (post?.imgUrl) {
-    return (
-      <div className="recent-post-type">
-        <img src={post?.imgUrl} className="recent-post-type-img" alt="Post" />
-      </div>
-    );
-  }
-  if (post?.linkUrl) {
-    return (
-      <div className="recent-post-type type-link">
-        <div className="recent-post-type-link">
-          <FiLink />
-        </div>
-        <div className="type-link-icon">
-          <HiOutlineExternalLink />
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className="recent-post-type">
-      <CgNotes />
-    </div>
-  );
-};
 
 export function RecentlyViewedPosts() {
   const dispatch = useDispatch();
@@ -87,26 +61,7 @@ export function RecentlyViewedPosts() {
         {posts
           .slice(0, 5)
           .map((post, idx) => (
-            <li
-              key={idx}
-              className={`recent-post-li ${idx === 4 ? "li-last" : ""}`}
-            >
-              <NavLink to={`/posts/${post?.id}`}>
-                <div className="recent-post">
-                  <PostTypeIcon post={post} />
-                  <div className="recent-post-content">
-                    <div className="recent-post-title">{post?.title}</div>
-                    <div className="recent-post-info-bar">
-                      {post?.votes} points
-                      <span className="recent-post-dot-spacer"></span>
-                      {post?.postComments?.length || 0} comments
-                      <span className="recent-post-dot-spacer"></span>
-                      {moment(post?.createdAt).locale("en-cust").fromNow()}
-                    </div>
-                  </div>
-                </div>
-              </NavLink>
-            </li>
+            <RecentlyViewedPost post={post} key={idx} idx={idx} />
           ))
           .reverse()}
       </ul>
