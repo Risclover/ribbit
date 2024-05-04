@@ -22,8 +22,7 @@ export function UserProfileFollowers({ setShowFollowersModal }) {
         <div className="user-profile-followers-head-left">
           <div className="user-profile-followers-head-title">Followers</div>
           <div className="user-profile-followers-head-desc">
-            This list is only visible to you. The most recent follows are shown
-            first.
+            This list is only visible to you.
           </div>
         </div>
         <div className="user-profile-followers-head-right">

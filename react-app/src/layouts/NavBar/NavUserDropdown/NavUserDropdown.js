@@ -7,6 +7,7 @@ import { SlLogin } from "react-icons/sl";
 import { logout } from "../../../store";
 import Poinsettia from "../../../assets/images/user-profile-icons/poinsettia.png";
 import "./NavUserDropdown.css";
+import { useOutsideClick } from "../../../hooks";
 
 export function NavUserDropdown() {
   const history = useHistory();
@@ -23,6 +24,8 @@ export function NavUserDropdown() {
     await dispatch(logout());
     history.push("/");
   };
+
+  useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
   return (
     <div
@@ -55,7 +58,7 @@ export function NavUserDropdown() {
       </div>
 
       {showDropdown && (
-        <div className="nav-user-dropdown-box">
+        <div className="nav-user-dropdown-box" ref={wrapperRef}>
           <div className="nav-user-top-section">
             <div className="nav-user-dropdown-btn-title">
               <HiOutlineUserCircle /> My Stuff
