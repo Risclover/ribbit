@@ -52,6 +52,7 @@ import {
   PageTitleContext,
 } from "./context";
 import { CreatePostPage } from "./pages/CreatePostPage";
+import { MetadataProvider } from "./context/Metadata";
 
 function App() {
   const dispatch = useDispatch();
@@ -138,244 +139,251 @@ function App() {
   };
 
   return (
-    <PageTitleContext.Provider
-      value={{ pageTitle, setPageTitle, pageIcon, setPageIcon }}
-    >
-      <PostFormatContext.Provider value={{ format, setFormat }}>
-        <SelectedChatContext.Provider value={{ selectedChat, setSelectedChat }}>
-          <ScrollToTop />
-          {previewPage && <PreviewCommunitySidebar />}
-          <NavBar {...navBarProps} />{" "}
-          <div
-            className={
-              showNavSidebar
-                ? "main main-padded"
-                : showLoggedOutSidebar
-                ? "main main-padded"
-                : "main"
-            }
+    <MetadataProvider>
+      <PageTitleContext.Provider
+        value={{ pageTitle, setPageTitle, pageIcon, setPageIcon }}
+      >
+        <PostFormatContext.Provider value={{ format, setFormat }}>
+          <SelectedChatContext.Provider
+            value={{ selectedChat, setSelectedChat }}
           >
-            {!user && (
-              <LoggedOutSidebar
-                setShowSignupForm={setShowSignupForm}
-                showLoggedOutSidebar={showLoggedOutSidebar}
-              />
-            )}
-
-            {user && (
-              <NavSidebar
-                setShowNavSidebar={setShowNavSidebar}
-                showNavSidebar={showNavSidebar}
-                setNormalDropdown={setNormalDropdown}
-                normalDropdown={normalDropdown}
-              />
-            )}
-
-            {openChat && (
-              <ChatWindow setOpenChat={setOpenChat} openChat={openChat} />
-            )}
-
-            <Switch>
-              {user ? (
-                <Route path="/" exact={true}>
-                  <HomepageFeed />
-                </Route>
-              ) : (
-                <Route path="/" exact={true}>
-                  <AllPostsFeed />
-                </Route>
+            <ScrollToTop />
+            {previewPage && <PreviewCommunitySidebar />}
+            <NavBar {...navBarProps} />{" "}
+            <div
+              className={
+                showNavSidebar
+                  ? "main main-padded"
+                  : showLoggedOutSidebar
+                  ? "main main-padded"
+                  : "main"
+              }
+            >
+              {!user && (
+                <LoggedOutSidebar
+                  setShowSignupForm={setShowSignupForm}
+                  showLoggedOutSidebar={showLoggedOutSidebar}
+                />
               )}
 
-              <Route path="/home" exact={true}>
-                <HomepageFeed />
-              </Route>
+              {user && (
+                <NavSidebar
+                  setShowNavSidebar={setShowNavSidebar}
+                  showNavSidebar={showNavSidebar}
+                  setNormalDropdown={setNormalDropdown}
+                  normalDropdown={normalDropdown}
+                />
+              )}
 
-              <Route path="/login">
-                <LoginPage />
-              </Route>
+              {openChat && (
+                <ChatWindow setOpenChat={setOpenChat} openChat={openChat} />
+              )}
 
-              <Route path="/signup">
-                {showSignupForm && (
-                  <Modal
-                    title="Sign Up"
-                    onClose={() => setShowSignupForm(false)}
-                    open={() => setShowSignupForm(true)}
-                  >
-                    <SignUpForm
-                      showSignupForm={showSignupForm}
-                      setShowLoginForm={setShowLoginForm}
-                      setShowSignupForm={setShowSignupForm}
-                    />
-                  </Modal>
+              <Switch>
+                {user ? (
+                  <Route path="/" exact={true}>
+                    <HomepageFeed />
+                  </Route>
+                ) : (
+                  <Route path="/" exact={true}>
+                    <AllPostsFeed />
+                  </Route>
                 )}
-              </Route>
 
-              <Route path="/c/all" exact={true}>
-                <AllPostsFeed />
-              </Route>
+                <Route path="/home" exact={true}>
+                  <HomepageFeed />
+                </Route>
 
-              <ProtectedRoute path="/submit" exact={true}>
-                <CreatePostPage
-                  postType={postType}
-                  setPostType={setPostType}
-                  val="post"
-                />
-              </ProtectedRoute>
+                <Route path="/login">
+                  <LoginPage />
+                </Route>
 
-              <ProtectedRoute path="/c/submit/image" exact={true}>
-                <CreatePostPage
-                  postType={postType}
-                  setPostType={setPostType}
-                  val="image"
-                />
-              </ProtectedRoute>
+                <Route path="/signup">
+                  {showSignupForm && (
+                    <Modal
+                      title="Sign Up"
+                      onClose={() => setShowSignupForm(false)}
+                      open={() => setShowSignupForm(true)}
+                    >
+                      <SignUpForm
+                        showSignupForm={showSignupForm}
+                        setShowLoginForm={setShowLoginForm}
+                        setShowSignupForm={setShowSignupForm}
+                      />
+                    </Modal>
+                  )}
+                </Route>
 
-              <ProtectedRoute path="/c/submit/url" exact={true}>
-                <CreatePostPage
-                  postType={postType}
-                  setPostType={setPostType}
-                  val="link"
-                />
-              </ProtectedRoute>
+                <Route path="/c/all" exact={true}>
+                  <AllPostsFeed />
+                </Route>
 
-              <ProtectedRoute path="/c/:communityName/submit" exact={true}>
-                <CreatePostPage
-                  postType={postType}
-                  setPostType={setPostType}
-                  val="post"
-                />
-              </ProtectedRoute>
+                <ProtectedRoute path="/submit" exact={true}>
+                  <CreatePostPage
+                    postType={postType}
+                    setPostType={setPostType}
+                    val="post"
+                  />
+                </ProtectedRoute>
 
-              <ProtectedRoute
-                path="/c/:communityName/submit/image"
-                exact={true}
-              >
-                <CreatePostPage
-                  postType={postType}
-                  setPostType={setPostType}
-                  val="image"
-                />
-              </ProtectedRoute>
+                <ProtectedRoute path="/c/submit/image" exact={true}>
+                  <CreatePostPage
+                    postType={postType}
+                    setPostType={setPostType}
+                    val="image"
+                  />
+                </ProtectedRoute>
 
-              <ProtectedRoute path="/c/:communityName/submit/url" exact={true}>
-                <CreatePostPage
-                  postType={postType}
-                  setPostType={setPostType}
-                  val="link"
-                />
-              </ProtectedRoute>
+                <ProtectedRoute path="/c/submit/url" exact={true}>
+                  <CreatePostPage
+                    postType={postType}
+                    setPostType={setPostType}
+                    val="link"
+                  />
+                </ProtectedRoute>
 
-              <Route path="/posts/:postId" exact={true}>
-                <SinglePostPage />
-              </Route>
+                <ProtectedRoute path="/c/:communityName/submit" exact={true}>
+                  <CreatePostPage
+                    postType={postType}
+                    setPostType={setPostType}
+                    val="post"
+                  />
+                </ProtectedRoute>
 
-              <Route path="/images/:postId" exact={true}>
-                <SingleImagePage />
-              </Route>
+                <ProtectedRoute
+                  path="/c/:communityName/submit/image"
+                  exact={true}
+                >
+                  <CreatePostPage
+                    postType={postType}
+                    setPostType={setPostType}
+                    val="image"
+                  />
+                </ProtectedRoute>
 
-              <Route path="/directory" exact={true}>
-                <CommunitiesDirectory />
-              </Route>
+                <ProtectedRoute
+                  path="/c/:communityName/submit/url"
+                  exact={true}
+                >
+                  <CreatePostPage
+                    postType={postType}
+                    setPostType={setPostType}
+                    val="link"
+                  />
+                </ProtectedRoute>
 
-              <Route path="/chat" exact={true}>
-                <Chat />
-              </Route>
+                <Route path="/posts/:postId" exact={true}>
+                  <SinglePostPage />
+                </Route>
 
-              <ProtectedRoute path="/message/messages" exact={true}>
-                <Messages />
-              </ProtectedRoute>
+                <Route path="/images/:postId" exact={true}>
+                  <SingleImagePage />
+                </Route>
 
-              <ProtectedRoute path="/message/unread" exact={true}>
-                <Unread />
-              </ProtectedRoute>
+                <Route path="/directory" exact={true}>
+                  <CommunitiesDirectory />
+                </Route>
 
-              <ProtectedRoute path="/message/sent" exact={true}>
-                <Sent />
-              </ProtectedRoute>
+                <Route path="/chat" exact={true}>
+                  <Chat />
+                </Route>
 
-              <ProtectedRoute path="/message/inbox" exact={true}>
-                <Inbox />
-              </ProtectedRoute>
+                <ProtectedRoute path="/message/messages" exact={true}>
+                  <Messages />
+                </ProtectedRoute>
 
-              <ProtectedRoute path="/message/selfreply" exact={true}>
-                <PostRepliesPage />
-              </ProtectedRoute>
+                <ProtectedRoute path="/message/unread" exact={true}>
+                  <Unread />
+                </ProtectedRoute>
 
-              <ProtectedRoute path="/message/messages/:threadId" exact={true}>
-                <Permalink />
-              </ProtectedRoute>
+                <ProtectedRoute path="/message/sent" exact={true}>
+                  <Sent />
+                </ProtectedRoute>
 
-              <ProtectedRoute path="/posts/:postId/edit" exact={true}>
-                <UpdatePost />
-              </ProtectedRoute>
+                <ProtectedRoute path="/message/inbox" exact={true}>
+                  <Inbox />
+                </ProtectedRoute>
 
-              <Route path="/c/:communityName" exact={true}>
-                <CommunityPage />
-              </Route>
+                <ProtectedRoute path="/message/selfreply" exact={true}>
+                  <PostRepliesPage />
+                </ProtectedRoute>
 
-              <ProtectedRoute path="/c/:communityName/style" exact={true}>
-                <PreviewCommunity
-                  postType={postType}
-                  setPostType={setPostType}
-                  previewPage={previewPage}
-                  userCommunities={userCommunities}
-                  setPreviewPage={setPreviewPage}
-                />
-              </ProtectedRoute>
+                <ProtectedRoute path="/message/messages/:threadId" exact={true}>
+                  <Permalink />
+                </ProtectedRoute>
 
-              <ProtectedRoute path="/c/:communityName/edit" exact={true}>
-                <EditCommunity />
-              </ProtectedRoute>
+                <ProtectedRoute path="/posts/:postId/edit" exact={true}>
+                  <UpdatePost />
+                </ProtectedRoute>
 
-              <ProtectedRoute path="/users/:userId/profile/edit" exact={true}>
-                <EditProfile />
-              </ProtectedRoute>
+                <Route path="/c/:communityName" exact={true}>
+                  <CommunityPage />
+                </Route>
 
-              <ProtectedRoute path="/posts/:postId/img/edit" exact={true}>
-                <UpdateImagePost />
-              </ProtectedRoute>
+                <ProtectedRoute path="/c/:communityName/style" exact={true}>
+                  <PreviewCommunity
+                    postType={postType}
+                    setPostType={setPostType}
+                    previewPage={previewPage}
+                    userCommunities={userCommunities}
+                    setPreviewPage={setPreviewPage}
+                  />
+                </ProtectedRoute>
 
-              <Route path="/search/query" exact={true}>
-                <SearchResults
-                  adjustQuery={adjustQuery}
-                  setAdjustQuery={setAdjustQuery}
-                  searchQuery={searchQuery}
-                  setSearchQuery={setSearchQuery}
-                />
-              </Route>
+                <ProtectedRoute path="/c/:communityName/edit" exact={true}>
+                  <EditCommunity />
+                </ProtectedRoute>
 
-              <Route path="/search/comments">
-                <SearchResultsComments searchbarRef={searchbarRef} />
-              </Route>
+                <ProtectedRoute path="/users/:userId/profile/edit" exact={true}>
+                  <EditProfile />
+                </ProtectedRoute>
 
-              <Route path="/search/posts">
-                <SearchResultsPosts searchbarRef={searchbarRef} />
-              </Route>
+                <ProtectedRoute path="/posts/:postId/img/edit" exact={true}>
+                  <UpdateImagePost />
+                </ProtectedRoute>
 
-              <Route path="/search/communities">
-                <SearchResultsCommunities searchbarRef={searchbarRef} />
-              </Route>
+                <Route path="/search/query" exact={true}>
+                  <SearchResults
+                    adjustQuery={adjustQuery}
+                    setAdjustQuery={setAdjustQuery}
+                    searchQuery={searchQuery}
+                    setSearchQuery={setSearchQuery}
+                  />
+                </Route>
 
-              <Route path="/search/users">
-                <SearchResultsUsers searchbarRef={searchbarRef} />
-              </Route>
+                <Route path="/search/comments">
+                  <SearchResultsComments searchbarRef={searchbarRef} />
+                </Route>
 
-              <Route path="/users/:userId/profile" exact={true}>
-                <UserProfile setOpenChat={setOpenChat} />
-              </Route>
+                <Route path="/search/posts">
+                  <SearchResultsPosts searchbarRef={searchbarRef} />
+                </Route>
 
-              <Route path="/profile" exact={true}>
-                <UserProfile />
-              </Route>
+                <Route path="/search/communities">
+                  <SearchResultsCommunities searchbarRef={searchbarRef} />
+                </Route>
 
-              <ProtectedRoute path="/notifications" exact={true}>
-                <Notifications />
-              </ProtectedRoute>
-            </Switch>
-          </div>
-        </SelectedChatContext.Provider>
-      </PostFormatContext.Provider>
-    </PageTitleContext.Provider>
+                <Route path="/search/users">
+                  <SearchResultsUsers searchbarRef={searchbarRef} />
+                </Route>
+
+                <Route path="/users/:userId/profile" exact={true}>
+                  <UserProfile setOpenChat={setOpenChat} />
+                </Route>
+
+                <Route path="/profile" exact={true}>
+                  <UserProfile />
+                </Route>
+
+                <ProtectedRoute path="/notifications" exact={true}>
+                  <Notifications />
+                </ProtectedRoute>
+              </Switch>
+            </div>
+          </SelectedChatContext.Provider>
+        </PostFormatContext.Provider>
+      </PageTitleContext.Provider>
+    </MetadataProvider>
   );
 }
 

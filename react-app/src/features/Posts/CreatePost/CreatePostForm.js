@@ -58,16 +58,6 @@ export function CreatePostForm({
     setCommunityId(getIdFromName(communityName));
   }, [communityName]);
 
-  useEffect(() => {
-    if (content.trim().length === 0) {
-      setContent("");
-    }
-
-    if (parse(content).trim().length === 0) {
-      console.log("parsed:", parse(content).trim());
-    }
-  }, [content]);
-
   //   useEffect(() => {
   //     if (communityName !== "") {
   //       communities.find(

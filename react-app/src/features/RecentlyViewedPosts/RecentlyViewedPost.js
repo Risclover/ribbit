@@ -4,6 +4,7 @@ import moment from "moment";
 import { CgNotes } from "react-icons/cg";
 import { FiLink } from "react-icons/fi";
 import { HiOutlineExternalLink } from "react-icons/hi";
+import { useMetadata } from "../../context/Metadata";
 
 const PostTypeIcon = ({ post, linkImg }) => {
   if (post?.imgUrl) {
@@ -36,44 +37,20 @@ const PostTypeIcon = ({ post, linkImg }) => {
 };
 
 export const RecentlyViewedPost = ({ post, idx }) => {
-  const [metadataResult, setMetadataResult] = useState();
+  const { metadata, fetchMetadata } = useMetadata();
 
   useEffect(() => {
-    const queryLink = async () => {
-      if (post?.linkUrl !== null) {
-        var data = {
-          q: post?.linkUrl,
-        };
-        fetch("https://api.linkpreview.net", {
-          method: "POST",
-          headers: {
-            "X-Linkpreview-Api-Key": `${process.env.REACT_APP_LINK_PREVIEW_KEY}`,
-          },
-          mode: "cors",
-          body: JSON.stringify(data),
-        })
-          .then((res) => {
-            if (res.status != 200) {
-              throw new Error("something went wrong");
-            }
-            return res.json();
-          })
-          .then((response) => {
-            setMetadataResult(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    };
+    if (post.linkUrl && !metadata[post.linkUrl]) {
+      fetchMetadata(post.linkUrl);
+    }
+  }, [post.linkUrl, metadata, fetchMetadata]);
 
-    queryLink();
-  }, []);
+  const metadataResult = metadata[post.linkUrl];
   return (
     <li className={`recent-post-li ${idx === 4 ? "li-last" : ""}`}>
       <NavLink to={`/posts/${post?.id}`}>
         <div className="recent-post">
-          <PostTypeIcon post={post} linkImg={metadataResult?.image} />
+          <PostTypeIcon post={post} linkImg={metadataResult} />
           <div className="recent-post-content">
             <div className="recent-post-title">{post?.title}</div>
             <div className="recent-post-info-bar">

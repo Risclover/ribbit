@@ -7,41 +7,18 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { sliceUrl } from "../../../utils";
 import { useHistory } from "react-router-dom";
+import { useMetadata } from "../../../context/Metadata";
 
 export function SinglePostContent({ post, isPage }) {
-  const [metadataResult, setMetadataResult] = useState();
+  const { metadata, fetchMetadata } = useMetadata();
 
   useEffect(() => {
-    const queryLink = async () => {
-      if (post.linkUrl !== null) {
-        var data = {
-          q: post.linkUrl,
-        };
-        fetch("https://api.linkpreview.net", {
-          method: "POST",
-          headers: {
-            "X-Linkpreview-Api-Key": `${process.env.REACT_APP_LINK_PREVIEW_KEY}`,
-          },
-          mode: "cors",
-          body: JSON.stringify(data),
-        })
-          .then((res) => {
-            if (res.status != 200) {
-              throw new Error("something went wrong");
-            }
-            return res.json();
-          })
-          .then((response) => {
-            setMetadataResult(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    };
+    if (post.linkUrl && !metadata[post.linkUrl]) {
+      fetchMetadata(post.linkUrl);
+    }
+  }, [post.linkUrl, metadata, fetchMetadata]);
 
-    queryLink();
-  }, []);
+  const metadataResult = metadata[post.linkUrl];
 
   return (
     <div className="single-post-content-box">
@@ -101,10 +78,10 @@ export function SinglePostContent({ post, isPage }) {
               : ""
           }`}
         >
-          {metadataResult?.image && (
-            <img className="link-url-img" src={metadataResult?.image} />
+          {metadataResult && (
+            <img className="link-url-img" src={metadataResult} />
           )}
-          {!metadataResult?.image && <FiLink />}
+          {!metadataResult && <FiLink />}
           <div
             className={`single-post-external-link-box${
               isPage === "community" || isPage === "singlepage"

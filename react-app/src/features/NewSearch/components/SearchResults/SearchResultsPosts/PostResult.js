@@ -6,42 +6,20 @@ import { Link } from "react-router-dom";
 import { FiLink } from "react-icons/fi";
 import { useHistory } from "react-router-dom";
 import { Username } from "../../../../../components";
+import { useMetadata } from "../../../../../context/Metadata";
 
 export const PostResult = ({ post }) => {
   const history = useHistory();
-  const [metadataResult, setMetadataResult] = useState();
+
+  const { metadata, fetchMetadata } = useMetadata();
 
   useEffect(() => {
-    const queryLink = async () => {
-      if (post.linkUrl !== null) {
-        var data = {
-          q: post.linkUrl,
-        };
-        fetch("https://api.linkpreview.net", {
-          method: "POST",
-          headers: {
-            "X-Linkpreview-Api-Key": `${process.env.REACT_APP_LINK_PREVIEW_KEY}`,
-          },
-          mode: "cors",
-          body: JSON.stringify(data),
-        })
-          .then((res) => {
-            if (res.status != 200) {
-              throw new Error("something went wrong");
-            }
-            return res.json();
-          })
-          .then((response) => {
-            setMetadataResult(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    };
+    if (post.linkUrl && !metadata[post.linkUrl]) {
+      fetchMetadata(post.linkUrl);
+    }
+  }, [post.linkUrl, metadata, fetchMetadata]);
 
-    queryLink();
-  }, []);
+  const metadataResult = metadata[post.linkUrl];
 
   const handlePostClick = (e) => {
     e.preventDefault();
@@ -106,15 +84,15 @@ export const PostResult = ({ post }) => {
             alt={post?.title}
           />
         )}
-        {post?.linkUrl !== null && metadataResult?.image && (
+        {post?.linkUrl !== null && metadataResult && (
           <div className="search-results-post-link-img">
-            <img src={metadataResult?.image} alt={post?.title} />
+            <img src={metadataResult} alt={post?.title} />
 
             <div class="type-link-icon">
               <svg
                 stroke="currentColor"
                 fill="none"
-                stroke-width="2"
+                strokeWidth="2"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
                 height="1em"

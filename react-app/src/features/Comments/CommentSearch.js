@@ -45,7 +45,7 @@ export const CommentSearch = ({
             stroke="#898989"
             strokeWidth="18.942"
           >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g
               id="SVGRepo_tracerCarrier"
               strokeLinecap="round"
