@@ -107,8 +107,13 @@
 .compact-post-icon-btn {
   font-size: 20px;
 }
+
 .compact-post-icon-btn:hover {
   background: rgba(26, 26, 27, 0.1);
+}
+
+.compact-post-icon-btn.expandless:hover {
+  background: white;
 }
 
 .compact-post-icon-btn-expand {
@@ -153,6 +158,10 @@
 
 .compact-post-icon-btn:hover .compact-post-icon-btn-post {
   display: none;
+}
+
+.compact-post-icon-btn.expandless:hover .compact-post-icon-btn-post {
+  display: block;
 }
 
 .compact-post-author-bar {

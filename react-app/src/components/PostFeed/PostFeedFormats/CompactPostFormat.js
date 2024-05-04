@@ -242,6 +242,10 @@ export function CompactPostFormat({ id, isPage, post }) {
     }
   };
 
+  if (post.content?.length > 0) {
+    let parsed = parse(post.content);
+    console.log("parsed:", parsed);
+  }
   return (
     <div className="post-compact-format">
       <div className="compact-post-container">
@@ -288,32 +292,42 @@ export function CompactPostFormat({ id, isPage, post }) {
           <div className="compact-post-main">
             <div className="compact-post-left">
               <div className="compact-post-icon">
-                {post?.content !== null && (
-                  <button
-                    className="compact-post-icon-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      setPostExpand(!postExpand);
-                    }}
-                  >
-                    {!postExpand && (
-                      <span className="compact-post-icon-btn-post">
-                        <CgNotes />
-                      </span>
-                    )}
-                    {!postExpand && (
-                      <span className="compact-post-icon-btn-expand">
-                        <BsArrowsAngleExpand />
-                      </span>
-                    )}
-                    {postExpand && (
-                      <span className="compact-post-icon-btn-collapse">
-                        <BsArrowsAngleContract />
-                      </span>
-                    )}
+                {post?.content === "" && post.linkUrl === null && (
+                  <button className="compact-post-icon-btn expandless">
+                    <span className="compact-post-icon-btn-post">
+                      <CgNotes />
+                    </span>
                   </button>
                 )}
+                {post?.content !== "" &&
+                  post.linkUrl === null &&
+                  post.imgUrl === null && (
+                    <button
+                      className="compact-post-icon-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+
+                        setPostExpand(!postExpand);
+                      }}
+                    >
+                      {!postExpand && (
+                        <span className="compact-post-icon-btn-post">
+                          <CgNotes />
+                        </span>
+                      )}
+                      {!postExpand && (
+                        <span className="compact-post-icon-btn-expand">
+                          <BsArrowsAngleExpand />
+                        </span>
+                      )}
+                      {postExpand && (
+                        <span className="compact-post-icon-btn-collapse">
+                          <BsArrowsAngleContract />
+                        </span>
+                      )}
+                    </button>
+                  )}
                 {post?.linkUrl !== null && (
                   <button
                     className="compact-post-icon-btn"
