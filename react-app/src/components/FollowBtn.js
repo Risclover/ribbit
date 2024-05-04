@@ -26,6 +26,7 @@ export function FollowBtn({ user }) {
   }, [follows, user.username]);
 
   const handleFollowClick = async (e) => {
+    e.stopPropagation();
     e.preventDefault();
     if (following) {
       await dispatch(unfollowUser(user.id));

@@ -5,8 +5,10 @@ import { Modal } from "../../context";
 import { MessageModal } from "../../features";
 import { FollowBtn } from "../FollowBtn";
 import "./Username.css";
+import { useHistory } from "react-router-dom";
 
 export function UsernamePopup({ community, user }) {
+  const history = useHistory();
   const [showMsgModal, setShowMsgModal] = useState(false);
 
   const {
@@ -29,9 +31,14 @@ export function UsernamePopup({ community, user }) {
             className="username-popup-user-icon"
           />
           <div className="username-popup-user-info-name">
-            <NavLink to={`/users/${id}/profile`}>
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                history.push(`/users/${id}/profile`);
+              }}
+            >
               {displayName ? displayName : username}
-            </NavLink>
+            </div>
             <div className="username-popup-user-info-details">
               u/{username} • {moment(createdAt).fromNow()}
             </div>
@@ -51,7 +58,10 @@ export function UsernamePopup({ community, user }) {
           className={`blue-btn-unfilled btn-long username-popup-btn-top ${
             community ? " community-btn" : ""
           }`}
-          onClick={() => setShowMsgModal(true)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowMsgModal(true);
+          }}
         >
           Send a Message
         </button>
@@ -59,7 +69,10 @@ export function UsernamePopup({ community, user }) {
       </div>
       {showMsgModal && (
         <Modal
-          onClose={() => setShowMsgModal(false)}
+          onClose={(e) => {
+            e.stopPropagation();
+            setShowMsgModal(false);
+          }}
           title="Send a Message"
           open={() => setShowMsgModal(true)}
         >

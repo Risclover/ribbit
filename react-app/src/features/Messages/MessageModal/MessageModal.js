@@ -75,6 +75,7 @@ export function MessageModal({ setShowMessageModal, username }) {
   }, [recipient, receiver, currentUser]);
 
   const handleSend = async (e) => {
+    e.stopPropagation();
     e.preventDefault();
     setSuccessMsg("Submitting...");
     setRecipientError("");
@@ -150,7 +151,12 @@ export function MessageModal({ setShowMessageModal, username }) {
   };
 
   return (
-    <div className="message-modal-container">
+    <div
+      className="message-modal-container"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
       <form className="message-modal-form" onSubmit={handleSend}>
         <div className="modal-content">
           <label className="message-modal-label">
@@ -160,10 +166,17 @@ export function MessageModal({ setShowMessageModal, username }) {
               community's owner)
             </span>
             <input
+              onFocus={(e) => {
+                e.stopPropagation();
+              }}
               type="text"
               className="message-modal-input"
               value={recipient}
-              onChange={(e) => setRecipient(e.target.value)}
+              onChange={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                setRecipient(e.target.value);
+              }}
             />
           </label>
           <div className="message-modal-error">{recipientError}</div>
@@ -173,7 +186,10 @@ export function MessageModal({ setShowMessageModal, username }) {
               type="text"
               className="message-modal-input"
               value={subject}
-              onChange={(e) => setSubject(e.target.value)}
+              onChange={(e) => {
+                e.stopPropagation();
+                setSubject(e.target.value);
+              }}
             />
           </label>
           <div className="message-modal-error">{subjectError}</div>
@@ -182,7 +198,10 @@ export function MessageModal({ setShowMessageModal, username }) {
             <textarea
               className="message-modal-textarea"
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={(e) => {
+                e.stopPropagation();
+                setMessage(e.target.value);
+              }}
             ></textarea>
           </label>
           <div className="message-modal-error">{messageError}</div>
@@ -194,6 +213,7 @@ export function MessageModal({ setShowMessageModal, username }) {
             <button
               className="blue-btn-unfilled-modal btn-short"
               onClick={(e) => {
+                e.stopPropagation();
                 e.preventDefault();
                 setShowMessageModal(false);
               }}
