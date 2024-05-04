@@ -23,10 +23,13 @@ export const CommentSearch = ({
 
   const handleEnter = async (e) => {
     e.preventDefault();
-    if (searchValue.length > 0) {
-      await dispatch(searchPostComments(post.id, searchValue));
+
+    if (searchValue.trim().length > 0) {
+      let trimmed = searchValue.trim();
+      await dispatch(searchPostComments(post.id, trimmed));
+      setSearchValue(trimmed);
       setSearchActive(true);
-      setSearchQuery(searchValue);
+      setSearchQuery(trimmed);
     }
   };
 
