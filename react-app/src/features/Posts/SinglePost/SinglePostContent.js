@@ -16,7 +16,7 @@ export function SinglePostContent({ post, isPage }) {
     if (post.linkUrl && !metadata[post.linkUrl]) {
       fetchMetadata(post.linkUrl);
     }
-  }, [post.linkUrl, metadata, fetchMetadata]);
+  }, [post]);
 
   const metadataResult = metadata[post.linkUrl];
 

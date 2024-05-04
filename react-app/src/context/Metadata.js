@@ -7,7 +7,6 @@ export const MetadataProvider = ({ children }) => {
 
   const fetchMetadata = (url) => {
     if (!metadata[url]) {
-      console.log("FETCHED METADATA");
       fetch("https://api.linkpreview.net", {
         method: "POST",
         headers: {

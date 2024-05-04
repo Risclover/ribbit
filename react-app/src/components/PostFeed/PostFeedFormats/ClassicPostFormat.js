@@ -43,7 +43,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
     if (post.linkUrl && !metadata[post.linkUrl]) {
       fetchMetadata(post.linkUrl);
     }
-  }, [post.linkUrl, metadata, fetchMetadata]);
+  }, [post]);
 
   const metadataResult = metadata[post.linkUrl];
 
