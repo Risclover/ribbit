@@ -296,6 +296,7 @@
   border-color: transparent;
 }
 
+.compact-post-menu-btn svg,
 .compact-post-menu-btn-icon {
   margin-right: 11px;
   font-size: 20px;

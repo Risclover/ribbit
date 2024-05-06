@@ -30,6 +30,7 @@ import "../../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 import "./CompactPostFormat.css";
 import { usePostVote } from "../../hooks/usePostVote";
+import { DeletePostModal } from "../../DeletePost";
 
 export function CompactPostFormat({ id, isPage, post }) {
   const history = useHistory();
@@ -299,41 +300,12 @@ export function CompactPostFormat({ id, isPage, post }) {
                           </div>
                         </button>
                       )}
-                    {user && user.id === post?.postAuthor.id && (
-                      <button
-                        className="compact-post-menu-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          setShowDeleteModal(true);
-                        }}
-                      >
-                        <div className="compact-post-menu-btn-icon">
-                          <i className="fa-regular fa-trash-can"></i>
-                        </div>
-                        <div className="compact-post-menu-btn-title">
-                          Delete
-                        </div>
-                      </button>
-                    )}
-                    {showDeleteModal && (
-                      <Modal
-                        onClose={() => setShowDeleteModal(false)}
-                        title="Delete post?"
-                        open={() => setShowDeleteModal(true)}
-                      >
-                        <DeleteConfirmationModal
-                          showDeleteModal={showDeleteModal}
-                          setShowDeleteModal={setShowDeleteModal}
-                          postId={post?.id}
-                          communityId={community?.id}
-                          item="post"
-                          post={post}
-                          isPage={isPage}
-                          handleDelete={handleDelete}
-                        />
-                      </Modal>
-                    )}
+                    <DeletePostModal
+                      post={post}
+                      community={community}
+                      isPage={isPage}
+                      postType="compact"
+                    />
                   </div>
                 )}
                 {showLinkCopied && (

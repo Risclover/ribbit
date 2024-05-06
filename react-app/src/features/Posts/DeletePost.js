@@ -5,7 +5,7 @@ import { deletePost, getPosts, getUsers, getViewedPosts } from "../../store";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-export function DeletePostModal({ post, isPage }) {
+export function DeletePostModal({ post, isPage, postType }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -28,7 +28,11 @@ export function DeletePostModal({ post, isPage }) {
   return (
     <div>
       <button
-        className="single-post-delete-btn"
+        className={
+          postType === "compact"
+            ? "compact-post-menu-btn"
+            : "single-post-delete-btn"
+        }
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
