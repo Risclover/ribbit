@@ -11,7 +11,7 @@ export function Searchbar({ loggedIn, searchbarRef }) {
   const location = useLocation();
   const wrapperRef = useRef(null);
 
-  const [searchQuery, setSearchQuery] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 

@@ -8,7 +8,7 @@ import {
   SinglePostButtonBar,
 } from "../..";
 import "./SinglePost.css";
-import { CompactPostFormat, ClassicPostFormat } from "../../../components";
+import { CompactPostFormat, ClassicPostFormat } from "../components";
 import { useHistory } from "react-router-dom";
 
 export const SinglePost = ({ id, isPage, post }) => {

@@ -8,22 +8,20 @@ import { CgNotes } from "react-icons/cg";
 import parse from "html-react-parser";
 import moment from "moment";
 
-import Bounce from "../../../assets/images/misc/curved-arrow.png";
-import { DeleteConfirmationModal, Username } from "../../../components";
-import { Modal } from "../../../context";
-import { SinglePostKarmabar } from "../../../features";
-import { sliceUrl } from "../../../utils";
-import "../../../features/Posts/SinglePost/SinglePost.css";
+import Bounce from "../../../../assets/images/misc/curved-arrow.png";
+import { DeleteConfirmationModal, Username } from "../../../../components";
+import { Modal, useMetadata } from "../../../../context";
+import { SinglePostKarmabar } from "../../..";
+import { sliceUrl } from "../../../../utils";
+import "../../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
-import { deletePost, getUsers, getViewedPosts } from "../../../store";
-import { useMetadata } from "../../../context/Metadata";
+import { deletePost, getUsers, getViewedPosts } from "../../../../store";
 
 export function ClassicPostFormat({ isPage, id, post }) {
   const { metadata, fetchMetadata } = useMetadata();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const posts = useSelector((state) => state.posts);
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[cuser?.id]);
   const community = useSelector(
@@ -32,12 +30,8 @@ export function ClassicPostFormat({ isPage, id, post }) {
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [voteTotal, setVoteTotal] = useState(post?.votes);
   const [postExpand, setPostExpand] = useState(false);
   const [commentNum, setCommentNum] = useState(0);
-  const [voted, setVoted] = useState(
-    post && Object.values(post?.postVoters)?.length > 0 ? true : false
-  );
 
   useEffect(() => {
     if (post.linkUrl && !metadata[post.linkUrl]) {
@@ -73,7 +67,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
   return (
     <div className="post-classic-format">
       <div className="classic-post-container">
-        <SinglePostKarmabar post={post} voted={voted} />
+        <SinglePostKarmabar post={post} />
         <div className="classic-post-main">
           <div className="classic-post-content-box">
             <div className="classic-post-content-img">

@@ -20,15 +20,16 @@ import {
   deletePost,
   getViewedPosts,
   getPosts,
-} from "../../../store";
+} from "../../../../store";
 
-import Bounce from "../../../assets/images/misc/curved-arrow.png";
-import { DeleteConfirmationModal, Username } from "../../../components";
-import { Modal } from "../../../context";
-import { sliceUrl, HandleClickOutside } from "../../../utils";
-import "../../../features/Posts/SinglePost/SinglePost.css";
+import Bounce from "../../../../assets/images/misc/curved-arrow.png";
+import { DeleteConfirmationModal, Username } from "../../../../components";
+import { Modal } from "../../../../context";
+import { sliceUrl } from "../../../../utils";
+import "../../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 import "./CompactPostFormat.css";
+import { usePostVote } from "../../hooks/usePostVote";
 
 export function CompactPostFormat({ id, isPage, post }) {
   const history = useHistory();
@@ -36,21 +37,19 @@ export function CompactPostFormat({ id, isPage, post }) {
   const wrapperRef = useRef(null);
 
   const posts = useSelector((state) => state.posts);
-  const cuser = useSelector((state) => state.session.user);
-  const user = useSelector((state) => state.users[cuser?.id]);
+  const user = useSelector((state) => state.session.user);
+
   const community = useSelector(
     (state) => state.communities[post?.communityId]
   );
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [upvote, setUpvote] = useState(false);
-  const [downvote, setDownvote] = useState(false);
-  const [voteTotal, setVoteTotal] = useState(post?.votes);
   const [postExpand, setPostExpand] = useState(false);
   const [commentNum, setCommentNum] = useState(0);
   const [showSubmenu, setShowSubmenu] = useState(false);
-  const [voted, setVoted] = useState();
+
+  const { vote, handleVoteClick } = usePostVote(post);
 
   useEffect(() => {
     if (showLinkCopied) {
@@ -60,171 +59,6 @@ export function CompactPostFormat({ id, isPage, post }) {
     }
     setCommentNum(post?.commentNum);
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
-
-  const handleVoteClick = async (e, voteType) => {
-    e.stopPropagation();
-    e.preventDefault();
-    if (!cuser) {
-      history.push("/login");
-    } else {
-      if (user?.id in post?.postVoters) {
-        if (voteType === "upvote") {
-          if (!post?.postVoters[user?.id].isUpvote) {
-            await dispatch(removePostVote(post?.id));
-            await dispatch(addPostVote(post?.id, "upvote"));
-          } else if (upvote) {
-            handleRemoveVote();
-          }
-        } else if (voteType === "downvote") {
-          if (post?.postVoters[user?.id].isUpvote) {
-            await dispatch(removePostVote(post?.id));
-            await dispatch(addPostVote(post?.id, "downvote"));
-          } else if (downvote) {
-            handleRemoveVote();
-          }
-        }
-        dispatch(getUsers());
-      } else {
-        handleAddVote(voteType);
-      }
-    }
-  };
-
-  const handleAddVote = async (voteType) => {
-    await dispatch(addPostVote(post?.id, voteType));
-    if (voteType === "upvote") setUpvote(true);
-    if (voteType === "downvote") setDownvote(true);
-    dispatch(getUsers());
-  };
-
-  const handleRemoveVote = async () => {
-    await dispatch(removePostVote(post?.id));
-    if (upvote) {
-      setUpvote(false);
-    }
-    if (downvote) {
-      setDownvote(false);
-    }
-    dispatch(getUsers());
-  };
-
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", function (e) {
-  //     HandleClickOutside(e, wrapperRef, showSubmenu, setShowSubmenu);
-  //   });
-  //   return () => {
-  //     document.removeEventListener("mousedown", function (e) {
-  //       HandleClickOutside(e, wrapperRef, showSubmenu, setShowSubmenu);
-  //     });
-  //   };
-  // }, [wrapperRef, showSubmenu]);
-
-  // const handleUpvoteClick = async (e) => {
-  //   e.stopPropagation();
-  //   e.preventDefault();
-  //   if (user?.id in post?.postVoters) {
-  //     if (!post?.postVoters[user?.id].isUpvote) {
-  //       await dispatch(removePostVote(post?.id));
-  //       await dispatch(addPostVote(post?.id, "upvote"));
-  //       dispatch(getUsers());
-  //     } else if (upvote) {
-  //       handleRemoveVote();
-  //     } else {
-  //       handleAddVote();
-  //     }
-  //   } else {
-  //     handleAddVote();
-  //   }
-  // };
-
-  // const handleDownvoteClick = async (e) => {
-  //   e.stopPropagation();
-  //   e.preventDefault();
-  //   if (user?.id in post?.postVoters) {
-  //     if (post?.postVoters[user?.id].isUpvote) {
-  //       await dispatch(removePostVote(post?.id));
-  //       await dispatch(addPostVote(post?.id, "downvote"));
-  //       dispatch(getUsers());
-  //     } else if (downvote) {
-  //       handleRemoveVote();
-  //     }
-  //   } else {
-  //     handleAddDownvote();
-  //   }
-  // };
-
-  // const handleAddVote = async () => {
-  //   await dispatch(addPostVote(post?.id, "upvote"));
-  //   setUpvote(true);
-  //   setDownvote(false);
-  //   dispatch(getUsers());
-  // };
-
-  // const handleAddDownvote = async () => {
-  //   await dispatch(addPostVote(post?.id, "downvote"));
-  //   setDownvote(true);
-  //   setUpvote(false);
-  //   dispatch(getUsers());
-  // };
-
-  // const handleRemoveVote = async () => {
-  //   await dispatch(removePostVote(post?.id));
-  //   if (upvote) {
-  //     setUpvote(false);
-  //   }
-  //   if (downvote) {
-  //     setDownvote(false);
-  //   }
-  //   dispatch(getUsers());
-  // };
-
-  useEffect(() => {
-    if (post && Object.values(post?.postVoters).length > 0) {
-      setVoted(true);
-    } else {
-      setVoted(false);
-    }
-  }, [post?.postVoters]);
-
-  useEffect(() => {
-    setUpvote(false);
-    setDownvote(false);
-    if (posts) {
-      if (
-        Object.values(posts) &&
-        post?.postVoters &&
-        post?.postVoters !== undefined &&
-        post?.postVoters !== null
-      ) {
-        if (Object.values(posts)?.length > 0) {
-          if (Object.values(post?.postVoters)?.length > 0) {
-            setVoted(true);
-            for (let voter of Object.values(post?.postVoters)) {
-              if (user?.id === voter?.userID) {
-                if (voter.isUpvote) {
-                  setUpvote(true);
-                  setDownvote(false);
-                } else if (!voter.isUpvote) {
-                  setUpvote(false);
-                  setDownvote(true);
-                }
-              }
-            }
-          } else {
-            setVoted(false);
-          }
-        }
-      }
-    }
-  }, [
-    upvote,
-    downvote,
-    post?.postVoters,
-    user?.id,
-    posts,
-    setDownvote,
-    setUpvote,
-  ]);
 
   const handleDelete = (e) => {
     e.stopPropagation();
@@ -242,47 +76,31 @@ export function CompactPostFormat({ id, isPage, post }) {
     }
   };
 
-  if (post.content?.length > 0) {
-    let parsed = parse(post.content);
-    console.log("parsed:", parsed);
-  }
   return (
     <div className="post-compact-format">
       <div className="compact-post-container">
         <div className="compact-post-principle">
-          <div className="compact-post-karmabar-alt">
-            <div className="compact-post-karmabar-btns karmabar-alt">
-              <button
-                className={upvote ? "vote-btn-red" : "upvote-btn-grey"}
-                onClick={(e) => handleVoteClick(e, "upvote")}
-              >
-                <GoArrowUp />
-              </button>
-              <button
-                className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
-                onClick={(e) => handleVoteClick(e, "downvote")}
-              >
-                <GoArrowDown />
-              </button>
-            </div>
-          </div>
           <div className="compact-post-karmabar">
             <div className="compact-post-karmabar-btns">
               <button
-                className={upvote ? "vote-btn-red" : "upvote-btn-grey"}
+                className={
+                  vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"
+                }
                 onClick={(e) => handleVoteClick(e, "upvote")}
               >
                 <GoArrowUp />
               </button>
               <span className="karmabar-votes">
-                {post?.votes === 0 && voted
+                {post?.votes === 0 && vote !== null
                   ? 0
-                  : post?.votes === 0 && !voted
+                  : post?.votes === 0 && vote === null
                   ? "Vote"
                   : post?.votes}
               </span>
               <button
-                className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
+                className={
+                  vote === "downvote" ? "vote-btn-blue" : "downvote-btn-grey"
+                }
                 onClick={(e) => handleVoteClick(e, "downvote")}
               >
                 <GoArrowDown />
