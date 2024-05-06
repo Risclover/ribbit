@@ -22,7 +22,6 @@ import {
   getPosts,
 } from "../../../../store";
 
-import Bounce from "../../../../assets/images/misc/curved-arrow.png";
 import { DeleteConfirmationModal, Username } from "../../../../components";
 import { Modal } from "../../../../context";
 import { sliceUrl } from "../../../../utils";
@@ -31,6 +30,8 @@ import "./ClassicPostFormat.css";
 import "./CompactPostFormat.css";
 import { usePostVote } from "../../hooks/usePostVote";
 import { DeletePostModal } from "../../DeletePost";
+import { useOutsideClick } from "../../../../hooks";
+import { CompactPostMenu } from "./CompactPostMenu";
 
 export function CompactPostFormat({ id, isPage, post }) {
   const history = useHistory();
@@ -76,6 +77,8 @@ export function CompactPostFormat({ id, isPage, post }) {
       history.push("/c/all");
     }
   };
+
+  useOutsideClick(wrapperRef, () => setShowDeleteModal(false));
 
   return (
     <div className="post-compact-format">
@@ -263,50 +266,13 @@ export function CompactPostFormat({ id, isPage, post }) {
                   <BsThreeDots />
                 </button>
                 {showSubmenu && (
-                  <div className="compact-post-menu" ref={wrapperRef}>
-                    <button
-                      className="compact-post-menu-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        setShowLinkCopied(true);
-                        navigator.clipboard.writeText(
-                          `https://ribbit-app.herokuapp.com/posts/${post?.id}`
-                        );
-                      }}
-                    >
-                      <div className="compact-post-menu-btn-icon">
-                        <img src={Bounce} alt="Share" />
-                      </div>
-                      <div className="compact-post-menu-btn-title">Share</div>
-                    </button>
-                    {user &&
-                      user.id === post?.postAuthor.id &&
-                      post?.imgUrl === null &&
-                      post?.linkUrl === null && (
-                        <button
-                          className="compact-post-menu-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            history.push(`/posts/${post?.id}/edit`);
-                          }}
-                        >
-                          <div className="compact-post-menu-btn-icon">
-                            <i className="fa-solid fa-pencil"></i>
-                          </div>
-                          <div className="compact-post-menu-btn-title">
-                            Edit
-                          </div>
-                        </button>
-                      )}
-                    <DeletePostModal
-                      post={post}
-                      community={community}
-                      isPage={isPage}
-                      postType="compact"
-                    />
-                  </div>
+                  <CompactPostMenu
+                    setShowLinkCopied={setShowLinkCopied}
+                    user={user}
+                    post={post}
+                    community={community}
+                    setShowSubmenu={setShowSubmenu}
+                  />
                 )}
                 {showLinkCopied && (
                   <div
