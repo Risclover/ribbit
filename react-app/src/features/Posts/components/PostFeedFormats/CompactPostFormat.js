@@ -272,18 +272,8 @@ export function CompactPostFormat({ id, isPage, post }) {
                     post={post}
                     community={community}
                     setShowSubmenu={setShowSubmenu}
+                    showLinkCopied={showLinkCopied}
                   />
-                )}
-                {showLinkCopied && (
-                  <div
-                    className={
-                      showLinkCopied
-                        ? "animate-mount tooltiptext"
-                        : "animate-unmount tooltiptext"
-                    }
-                  >
-                    Link Copied to Clipboard
-                  </div>
                 )}
               </div>
             </div>
