@@ -32,6 +32,7 @@ import { usePostVote } from "../../hooks/usePostVote";
 import { DeletePostModal } from "../../DeletePost";
 import { useOutsideClick } from "../../../../hooks";
 import { CompactPostMenu } from "./CompactPostMenu";
+import { CompactPostTypeIcon } from "./CompactPostTypeIcon";
 
 export function CompactPostFormat({ id, isPage, post }) {
   const history = useHistory();
@@ -113,82 +114,11 @@ export function CompactPostFormat({ id, isPage, post }) {
           </div>
           <div className="compact-post-main">
             <div className="compact-post-left">
-              <div className="compact-post-icon">
-                {post?.content === "" && post.linkUrl === null && (
-                  <button className="compact-post-icon-btn expandless">
-                    <span className="compact-post-icon-btn-post">
-                      <CgNotes />
-                    </span>
-                  </button>
-                )}
-                {post?.content !== "" &&
-                  post.linkUrl === null &&
-                  post.imgUrl === null && (
-                    <button
-                      className="compact-post-icon-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-
-                        setPostExpand(!postExpand);
-                      }}
-                    >
-                      {!postExpand && (
-                        <span className="compact-post-icon-btn-post">
-                          <CgNotes />
-                        </span>
-                      )}
-                      {!postExpand && (
-                        <span className="compact-post-icon-btn-expand">
-                          <BsArrowsAngleExpand />
-                        </span>
-                      )}
-                      {postExpand && (
-                        <span className="compact-post-icon-btn-collapse">
-                          <BsArrowsAngleContract />
-                        </span>
-                      )}
-                    </button>
-                  )}
-                {post?.linkUrl !== null && (
-                  <button
-                    className="compact-post-icon-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      window.open(post?.linkUrl);
-                    }}
-                  >
-                    <HiOutlineExternalLink />
-                  </button>
-                )}
-                {post?.imgUrl && (
-                  <button
-                    className="compact-post-icon-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      setPostExpand(!postExpand);
-                    }}
-                  >
-                    {!postExpand && (
-                      <span className="compact-post-icon-btn-post">
-                        <RxImage />
-                      </span>
-                    )}
-                    {!postExpand && (
-                      <span className="compact-post-icon-btn-expand">
-                        <BsArrowsAngleExpand />
-                      </span>
-                    )}
-                    {postExpand && (
-                      <span className="compact-post-icon-btn-collapse">
-                        <BsArrowsAngleContract />
-                      </span>
-                    )}
-                  </button>
-                )}
-              </div>
+              <CompactPostTypeIcon
+                post={post}
+                setPostExpand={setPostExpand}
+                postExpand={postExpand}
+              />
               <div className="compact-post-details">
                 <div className="compact-post-title">
                   {post?.title}{" "}
