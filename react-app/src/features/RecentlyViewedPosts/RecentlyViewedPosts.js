@@ -33,6 +33,8 @@ moment.updateLocale("en-cust", {
 export function RecentlyViewedPosts() {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
+  const viewed = useSelector((state) => state.viewedPosts);
+  const postss = useSelector((state) => state.posts);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -44,7 +46,7 @@ export function RecentlyViewedPosts() {
     };
 
     fetchPosts();
-  }, []);
+  }, [postss]);
 
   const handleClear = () => {
     fetch("/api/viewed_posts/delete", { method: "DELETE" })

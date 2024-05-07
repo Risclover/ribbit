@@ -50,7 +50,6 @@ export function CompactPostFormat({ id, isPage, post }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postExpand, setPostExpand] = useState(false);
   const [commentNum, setCommentNum] = useState(0);
-  const [showSubmenu, setShowSubmenu] = useState(false);
 
   const { vote, handleVoteClick } = usePostVote(post);
 
@@ -179,11 +178,7 @@ export function CompactPostFormat({ id, isPage, post }) {
                 </div>
               </div>
             </div>
-            <div className="compact-post-btns">
-              <button className="compact-post-comments">
-                <i className="fa-regular fa-message"></i>
-                {commentNum}
-              </button>
+            {/* <div className="compact-post-btns-alt">
               <div className="compact-post-menu-wrapper">
                 <button
                   className="compact-post-menu-face"
@@ -195,17 +190,32 @@ export function CompactPostFormat({ id, isPage, post }) {
                 >
                   <BsThreeDots />
                 </button>
-                {showSubmenu && (
-                  <CompactPostMenu
-                    setShowLinkCopied={setShowLinkCopied}
-                    user={user}
-                    post={post}
-                    community={community}
-                    setShowSubmenu={setShowSubmenu}
-                    showLinkCopied={showLinkCopied}
-                  />
-                )}
+                <CompactPostMenu
+                  user={user}
+                  post={post}
+                  isPage={isPage}
+                  community={community}
+                  setShowLinkCopied={setShowLinkCopied}
+                  showLinkCopied={showLinkCopied}
+                />
               </div>
+              <CompactPostTypeIcon
+                post={post}
+                setPostExpand={setPostExpand}
+                postExpand={postExpand}
+              />
+            </div> */}
+            <div className="compact-post-btns">
+              <button className="compact-post-comments">
+                <i className="fa-regular fa-message"></i>
+                {commentNum}
+              </button>
+              <CompactPostMenu
+                post={post}
+                community={community}
+                isPage={isPage}
+                user={user}
+              />
             </div>
           </div>
         </div>

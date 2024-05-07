@@ -5,24 +5,27 @@ import { deletePost, getPosts, getUsers, getViewedPosts } from "../../store";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-export function DeletePostModal({ post, isPage, postType }) {
+export function DeletePostModal({
+  post,
+  isPage,
+  postType,
+  setShowDeleteModal,
+}) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.stopPropagation();
     e.preventDefault();
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
+    await dispatch(getViewedPosts());
 
     if (isPage === "community") {
       history.push(`/c/${post?.communityName}`);
     } else {
       history.push("/c/all");
     }
-    dispatch(getViewedPosts());
-    dispatch(getPosts());
   };
 
   return (
@@ -42,20 +45,6 @@ export function DeletePostModal({ post, isPage, postType }) {
         <i className="fa-regular fa-trash-can"></i>
         Delete
       </button>
-      {showDeleteModal && (
-        <Modal
-          onClose={() => setShowDeleteModal(false)}
-          title="Delete post?"
-          open={() => setShowDeleteModal(true)}
-        >
-          <DeleteConfirmationModal
-            showDeleteModal={showDeleteModal}
-            setShowDeleteModal={setShowDeleteModal}
-            handleDelete={handleDelete}
-            item="post"
-          />
-        </Modal>
-      )}
     </div>
   );
 }

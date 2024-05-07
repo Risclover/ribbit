@@ -48,6 +48,7 @@ export function DeleteConfirmationModal({
   const handleCancelClick = (e) => {
     e.stopPropagation();
     e.preventDefault();
+    console.log("cancelled!");
     setShowDeleteModal(false);
   };
 
@@ -62,7 +63,7 @@ export function DeleteConfirmationModal({
           <div className="modal-buttons">
             <button
               className="delete-modal-btn-left"
-              onClick={(e) => handleCancelClick(e)}
+              onClick={handleCancelClick}
             >
               Cancel
             </button>
