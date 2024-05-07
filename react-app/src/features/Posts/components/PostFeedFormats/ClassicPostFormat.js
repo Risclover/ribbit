@@ -31,7 +31,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postExpand, setPostExpand] = useState(false);
-  const [commentNum, setCommentNum] = useState(0);
+  const [commentNum, setCommentNum] = useState(post?.commentNum || 0);
 
   useEffect(() => {
     if (post.linkUrl && !metadata[post.linkUrl]) {
@@ -47,7 +47,6 @@ export function ClassicPostFormat({ isPage, id, post }) {
         setShowLinkCopied(false);
       }, 3000);
     }
-    setCommentNum(post?.commentNum || 0);
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
 
   const handleDelete = (e) => {

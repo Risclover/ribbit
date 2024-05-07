@@ -49,7 +49,7 @@ export function CompactPostFormat({ id, isPage, post }) {
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postExpand, setPostExpand] = useState(false);
-  const [commentNum, setCommentNum] = useState(0);
+  const [commentNum, setCommentNum] = useState(post?.commentNum || 0);
 
   const { vote, handleVoteClick } = usePostVote(post);
 
@@ -59,24 +59,7 @@ export function CompactPostFormat({ id, isPage, post }) {
         setShowLinkCopied(false);
       }, 3000);
     }
-    setCommentNum(post?.commentNum);
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
-
-  const handleDelete = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    dispatch(deletePost(post?.id));
-    setShowDeleteModal(false);
-    dispatch(getUsers());
-    dispatch(getViewedPosts());
-    dispatch(getPosts());
-
-    if (isPage === "community") {
-      history.push(`/c/${post?.communityName}`);
-    } else {
-      history.push("/c/all");
-    }
-  };
 
   useOutsideClick(wrapperRef, () => setShowDeleteModal(false));
 

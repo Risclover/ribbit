@@ -388,10 +388,6 @@
     display: flex;
   }
 
-  .compact-post-btns {
-    display: none;
-  }
-
   .compact-post-btns-alt {
     display: flex;
     flex-direction: column;

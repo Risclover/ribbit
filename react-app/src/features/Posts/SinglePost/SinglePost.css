@@ -369,7 +369,7 @@
 .single-page-content a,
 .single-post-content a {
   text-decoration: underline;
-  color: var(--highlight-color) !important;
+  color: var(--community-highlight) !important;
 }
 
 .single-post-left-col {
