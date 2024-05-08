@@ -48,7 +48,6 @@ export function DeleteConfirmationModal({
   const handleCancelClick = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log("cancelled!");
     setShowDeleteModal(false);
   };
 

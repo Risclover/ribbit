@@ -2,6 +2,7 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 import { BsArrowsAngleExpand, BsArrowsAngleContract } from "react-icons/bs";
 import { CgNotes } from "react-icons/cg";
 import { RxImage } from "react-icons/rx";
+import { useState } from "react";
 
 export function CompactPostTypeIcon({ post, setPostExpand, postExpand }) {
   const handlePostExpandClick = (e) => {

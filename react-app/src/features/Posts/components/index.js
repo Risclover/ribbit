@@ -1,1 +1,2 @@
-export * from "./PostFeedFormats";
+export * from "./CompactPostFormat";
+export * from "./ClassicPostFormat";

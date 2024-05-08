@@ -3,7 +3,6 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
 import parse from "html-react-parser";
 import LazyLoad from "react-lazyload";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { sliceUrl } from "../../../utils";
 import { useHistory } from "react-router-dom";
@@ -23,9 +22,7 @@ export function SinglePostContent({ post, isPage }) {
   return (
     <div className="single-post-content-box">
       <div className="single-post-content-box-left">
-        <div className="single-post-title-bar">
-          {post.title || <Skeleton />}
-        </div>
+        <div className="single-post-title-bar">{post.title}</div>
         {post.imgUrl !== null ? (
           <div className="single-post-content-image">
             <LazyLoad height={700} offset={100}>
@@ -37,7 +34,6 @@ export function SinglePostContent({ post, isPage }) {
         ) : post.linkUrl !== null ? (
           <div
             onClick={(e) => {
-              e.stopPropagation();
               window.open(post?.linkUrl, "_blank");
             }}
             className={`single-page-content-link${
@@ -58,7 +54,7 @@ export function SinglePostContent({ post, isPage }) {
             }
             style={{ whiteSpace: "pre-line" }}
           >
-            {parse(post.content) || <Skeleton />}
+            {parse(post?.content)}
           </div>
         ) : (
           ""

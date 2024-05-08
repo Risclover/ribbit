@@ -13,23 +13,12 @@ import { RxImage } from "react-icons/rx";
 import parse from "html-react-parser";
 import moment from "moment";
 
-import {
-  addPostVote,
-  removePostVote,
-  getUsers,
-  deletePost,
-  getViewedPosts,
-  getPosts,
-} from "../../../../store";
-
-import { DeleteConfirmationModal, Username } from "../../../../components";
-import { Modal } from "../../../../context";
+import { Username } from "../../../../components";
 import { sliceUrl } from "../../../../utils";
 import "../../SinglePost/SinglePost.css";
-import "./ClassicPostFormat.css";
+import "../ClassicPostFormat/ClassicPostFormat.css";
 import "./CompactPostFormat.css";
 import { usePostVote } from "../../hooks/usePostVote";
-import { DeletePostModal } from "../../DeletePost";
 import { useOutsideClick } from "../../../../hooks";
 import { CompactPostMenu } from "./CompactPostMenu";
 import { CompactPostTypeIcon } from "./CompactPostTypeIcon";
@@ -161,33 +150,6 @@ export function CompactPostFormat({ id, isPage, post }) {
                 </div>
               </div>
             </div>
-            {/* <div className="compact-post-btns-alt">
-              <div className="compact-post-menu-wrapper">
-                <button
-                  className="compact-post-menu-face"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    setShowSubmenu(!showSubmenu);
-                  }}
-                >
-                  <BsThreeDots />
-                </button>
-                <CompactPostMenu
-                  user={user}
-                  post={post}
-                  isPage={isPage}
-                  community={community}
-                  setShowLinkCopied={setShowLinkCopied}
-                  showLinkCopied={showLinkCopied}
-                />
-              </div>
-              <CompactPostTypeIcon
-                post={post}
-                setPostExpand={setPostExpand}
-                postExpand={postExpand}
-              />
-            </div> */}
             <div className="compact-post-btns">
               <button className="compact-post-comments">
                 <i className="fa-regular fa-message"></i>

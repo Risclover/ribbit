@@ -5,7 +5,7 @@ import { useOutsideClick } from "../../../../hooks";
 import { BsThreeDots } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { DeletePostModal } from "../../DeletePost";
-import { useCompactPostMenuHandlers } from "../../hooks/useCompactPostMenuHandlers";
+import { usePostButtonHandlers } from "../../hooks/usePostButtonHandlers";
 import { DeleteConfirmationModal } from "../../../../components";
 import { Modal } from "../../../../context";
 
@@ -18,14 +18,14 @@ export const CompactPostMenu = ({ user, post, isPage, community }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const { toggleSubmenu, copyLink, editPost, handleDelete } =
-    useCompactPostMenuHandlers(
+    usePostButtonHandlers(
       history,
       dispatch,
       post,
-      setShowSubmenu,
       setShowLinkCopied,
       isPage,
-      setShowDeleteModal
+      setShowDeleteModal,
+      setShowSubmenu
     );
 
   useEffect(() => {

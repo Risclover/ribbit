@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
 import { deletePost, getViewedPosts } from "../../../store";
 
-export const useCompactPostMenuHandlers = (
+export const usePostButtonHandlers = (
   history,
   dispatch,
   post,
-  setShowSubmenu,
   setShowLinkCopied,
   isPage,
-  setShowDeleteModal
+  setShowDeleteModal,
+  setShowSubmenu
 ) => {
   const toggleSubmenu = useCallback((e) => {
     e.stopPropagation();

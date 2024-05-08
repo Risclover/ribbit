@@ -128,6 +128,7 @@
 .compact-post-expanded-text {
   padding: 5px 16px 5px 8px;
   max-width: 800px;
+  font-family: var(--font-family-noto);
 }
 .compact-post-expanded img {
   max-height: 695px;
@@ -334,6 +335,41 @@
 
 .compact-post-btns-alt {
   display: none;
+}
+
+.compact-post-expanded-text a {
+  text-decoration: underline;
+  color: var(--community-highlight) !important;
+}
+
+.compact-post-expanded-text code {
+  font-family: "Noto Sans Mono", monospace;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #ff006d !important;
+  background: #f6f7f8;
+  margin: 0 2px;
+}
+
+.compact-post-expanded-text h1 {
+  padding-bottom: 11.2px;
+}
+
+.compact-post-expanded-text pre {
+  background: #f6f7f8;
+  font-family: "Noto Sans Mono", monospace;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--main-text-color);
+  overflow: auto;
+  max-width: 100%;
+  word-break: break-word;
+  white-space: pre;
+  margin: 4px 0;
+  padding: 8px;
+  line-height: 1.4;
+  border-radius: 4px;
 }
 
 @media (max-width: 960px) {

@@ -3,13 +3,26 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DeletePostModal } from "../DeletePost";
 import Bounce from "../../../assets/images/misc/curved-arrow.png";
+import { Modal } from "../../../context";
+import { DeleteConfirmationModal } from "../../../components";
+import { usePostButtonHandlers } from "../hooks/usePostButtonHandlers";
 
 export function SinglePostButtonBar({ post, community, isPage, user }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
-  const [commentNum, setCommentNum] = useState(0);
+  const [commentNum, setCommentNum] = useState(post?.commentNum || 0);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const { copyLink, editPost, handleDelete } = usePostButtonHandlers(
+    history,
+    dispatch,
+    post,
+    setShowLinkCopied,
+    isPage,
+    setShowDeleteModal
+  );
 
   useEffect(() => {
     if (showLinkCopied) {
@@ -17,8 +30,7 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
         setShowLinkCopied(false);
       }, 3000);
     }
-    setCommentNum(post?.commentNum);
-  }, [dispatch, showLinkCopied, commentNum, post?.commentNum]);
+  }, [showLinkCopied]);
 
   return (
     <div className="single-post-button-bar">
@@ -38,17 +50,7 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
 
       <div className="share-btn-stuff">
         <div className="single-post-button">
-          <button
-            className="single-post-share-btn"
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              setShowLinkCopied(true);
-              navigator.clipboard.writeText(
-                `https://ribbit-app.herokuapp.com/posts/${post.id}`
-              );
-            }}
-          >
+          <button className="single-post-share-btn" onClick={copyLink}>
             <img src={Bounce} alt="Share" className="single-post-share-icon" />
             Share
           </button>
@@ -71,14 +73,7 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
         <div className="logged-in-btns">
           <div className="single-post-button">
             {post?.imgUrl === null && post?.linkUrl === null && (
-              <button
-                className="single-post-edit-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  history.push(`/posts/${post.id}/edit`);
-                }}
-              >
+              <button className="single-post-edit-btn" onClick={editPost}>
                 <i className="fa-solid fa-pencil"></i>
                 Edit
               </button>
@@ -90,8 +85,23 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
               post={post}
               community={community}
               isPage={isPage}
+              setShowDeleteModal={setShowDeleteModal}
             />
           </div>
+          {showDeleteModal && (
+            <Modal
+              onClose={() => setShowDeleteModal(false)}
+              title="Delete post?"
+              open={() => setShowDeleteModal(true)}
+            >
+              <DeleteConfirmationModal
+                showDeleteModal={showDeleteModal}
+                setShowDeleteModal={setShowDeleteModal}
+                handleDelete={handleDelete}
+                item="post"
+              />
+            </Modal>
+          )}
         </div>
       )}
     </div>
