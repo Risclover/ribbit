@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { PostFormatDropdownFace } from "./PostFormatDropdown";
-import { PostFormatContext } from "../../context/PostFormat";
+import { PostFormatContext } from "@/context/PostFormat";
 import "./SortingBar.css";
 
 const SortButton = ({ active, onClick, community, icon, label }) => {

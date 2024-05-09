@@ -32,10 +32,35 @@
   justify-content: center;
   cursor: pointer;
   min-height: 34px;
+  position: relative;
 }
 
 .post-sorting-bar-btn:hover {
   background: var(--main-text-color) 11;
+}
+
+.post-sorting-bar-btn:hover:before {
+  opacity: 0.08;
+}
+
+.post-sorting-bar-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--main-text-color);
+  opacity: 0;
+}
+
+.post-sorting-bar-btn:active:before {
+  opacity: 0.24;
+}
+
+.post-sorting-bar-btn:focus:before {
+  opacity: 0.16;
 }
 
 .post-sorting-bar-btn svg {

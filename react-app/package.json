@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@react-icons/all-files": "^4.1.0",
     "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.5",
@@ -45,11 +46,11 @@
     "testEnvironment": "jsdom"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "CI=false && react-scripts build",
+    "start": "craco start",
+    "build": "CI=false && craco build",
     "test": "jest",
     "coverage": "jest --coverage",
-    "eject": "react-scripts eject"
+    "eject": "craco eject"
   },
   "browserslist": {
     "production": [
