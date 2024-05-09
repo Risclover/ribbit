@@ -8,6 +8,5 @@ export * from "./Messages";
 export * from "./NewSearch";
 export * from "./Notifications";
 export * from "./RecentlyViewedPosts";
-export * from "./OldSearch";
 export * from "./Users";
 export * from "./Posts";

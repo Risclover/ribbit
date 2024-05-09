@@ -38,6 +38,7 @@ export const SearchResults = ({ children, query, searchPage }) => {
     ),
     pageTitle: "Search Results",
   });
+
   return (
     <div className="search-results-page">
       <div className="search-results-wrapper">

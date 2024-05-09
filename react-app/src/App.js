@@ -25,7 +25,6 @@ import {
   ChatWindow,
   PreviewCommunitySidebar,
   PreviewCommunity,
-  SearchResults,
   UpdateImagePost,
   UpdatePost,
   CreatePost,
@@ -340,15 +339,6 @@ function App() {
                 <ProtectedRoute path="/posts/:postId/img/edit" exact={true}>
                   <UpdateImagePost />
                 </ProtectedRoute>
-
-                <Route path="/search/query" exact={true}>
-                  <SearchResults
-                    adjustQuery={adjustQuery}
-                    setAdjustQuery={setAdjustQuery}
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                  />
-                </Route>
 
                 <Route path="/search/comments">
                   <SearchResultsComments searchbarRef={searchbarRef} />
