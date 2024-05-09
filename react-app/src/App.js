@@ -14,7 +14,6 @@ import {
 } from "./pages";
 
 import { Modal } from "./context";
-import Chat from "./components/Modals/Chat/Chat";
 import {
   LoginPage,
   Messages,
