@@ -6,9 +6,9 @@ import {
   getCommunityRules,
   getCommunities,
   getSingleCommunity,
-} from "../../store";
-import { Modal } from "../../context";
-import { DeleteConfirmationModal } from "../../components";
+} from "@/store";
+import { Modal } from "@/context";
+import { DeleteConfirmationModal } from "@/components";
 import { CommunityEditRule, AddCommunityRuleModal } from "..";
 import "./CommunitySettings.css";
 

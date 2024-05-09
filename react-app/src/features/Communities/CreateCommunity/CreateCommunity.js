@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal } from "../../../context";
+import { Modal } from "@/context";
 import { CreateCommunityModal } from "../..";
 
 export function CreateCommunity() {

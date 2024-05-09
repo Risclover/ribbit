@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
-import { PostFormatContext } from "../../../context/PostFormat";
+import { PostFormatContext } from "@/context/PostFormat";
 import {
   SinglePostKarmabar,
   SinglePostAuthorBar,

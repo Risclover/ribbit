@@ -11,13 +11,13 @@ import {
   addFavoriteUser,
   getFavoriteUsers,
   removeFavoriteUser,
-} from "../../../store";
+} from "@/store";
 
-import { NavLeftDropdownLink } from "../../../layouts";
-import All from "../../../assets/images/navbar/all-icon2.png";
-import Home from "../../../assets/images/navbar/home-icon.png";
-import { HandleClickOutside } from "../../../utils/HandleClickOutside";
-import { useOutsideClick } from "../../../hooks/useOutsideClick";
+import { NavLeftDropdownLink } from "@/layouts";
+import All from "@/assets/images/navbar/all-icon2.png";
+import Home from "@/assets/images/navbar/home-icon.png";
+import { HandleClickOutside } from "@/utils/HandleClickOutside";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 export function NavLeftDropdown({ showIcon, setShowIcon }) {
   const dispatch = useDispatch();

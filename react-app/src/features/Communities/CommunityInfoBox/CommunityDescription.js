@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaPen } from "react-icons/fa";
-import { getCommunities, updateCommunity } from "../../../store";
+import { getCommunities, updateCommunity } from "@/store";
 import { useAutosizeTextArea } from "../..";
-import { HandleClickOutside } from "../../../utils";
-import { useOutsideClick } from "../../../hooks";
+import { HandleClickOutside } from "@/utils";
+import { useOutsideClick } from "@/hooks";
 
 export function CommunityDescription({ community, user }) {
   const textareaRef = useRef(null);

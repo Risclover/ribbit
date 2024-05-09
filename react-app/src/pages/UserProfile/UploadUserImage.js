@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Modal } from "../../context";
-import { UploadImage } from "../../features";
-import Camera from "../../assets/images/user-profile-icons/camera.png";
+import { Modal } from "@/context";
+import { UploadImage } from "@/features";
+import Camera from "@/assets/images/user-profile-icons/camera.png";
 
 export function UploadUserImage({ user, currentUser }) {
   const [showUploadModal, setShowUploadModal] = useState(false);

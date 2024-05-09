@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { PreviewCommunityColorPicker } from "./PreviewCommunityColorPicker";
-import { HandleClickOutside } from "../../../utils";
+import { HandleClickOutside } from "@/utils";
 
 export function PreviewCommunityBannerColor({
   name,

@@ -1,14 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  createChatMessage,
-  createChatThread,
-  getChatThread,
-} from "../../../../store";
-import { useAutosizeTextArea, Gifs, Emojis } from "../../..";
-import { liveChatIcons } from "../../../../assets";
+import { createChatMessage, createChatThread, getChatThread } from "@/store";
+import { useAutosizeTextArea, Gifs, Emojis } from "../ChatWindowInput";
+import { liveChatIcons } from "@/assets";
 import "./ChatWindowInput.css";
-import { SelectedChatContext } from "../../../../context/SelectedChat";
+import { SelectedChatContext } from "@/context/SelectedChat";
 
 export function ChatWindowInput({
   socket,

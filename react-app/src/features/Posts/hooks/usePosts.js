@@ -6,8 +6,8 @@ import {
   getFollowers,
   getSubscriptions,
   getViewedPosts,
-} from "../../../store";
-import { SortingFunction } from "../../../utils";
+} from "@/store";
+import { SortingFunction } from "@/utils";
 
 export function usePosts(isAllPosts) {
   const dispatch = useDispatch();

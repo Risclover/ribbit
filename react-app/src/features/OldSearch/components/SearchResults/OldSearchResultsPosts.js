@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
 
-import { BackToTop } from "../../../../components";
-import { Modal } from "../../../../context";
-import { CreateCommunityModal, LoginSignupModal } from "../../..";
-import SearchDude from "../../../../assets/images/search-icon.png";
-import RibbitBanner from "../../../../assets/images/ribbit-banners/ribbit_banner.png";
+import { BackToTop } from "@/components";
+import { Modal } from "@/context";
+import { CreateCommunityModal, LoginSignupModal } from "@/features";
+import SearchDude from "@/assets/images/search-icon.png";
+import RibbitBanner from "@/assets/images/ribbit-banners/ribbit_banner.png";
 
 export function OldSearchResultsPosts({
   posts,
@@ -214,7 +214,11 @@ export function OldSearchResultsPosts({
           ).length > 5 && (
             <div
               className="see-more-btn"
-              onClick={() => setSearchPage("People                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ")}
+              onClick={() =>
+                setSearchPage(
+                  "People                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   "
+                )
+              }
             >
               See more people
             </div>

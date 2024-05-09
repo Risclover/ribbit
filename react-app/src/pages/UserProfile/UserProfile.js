@@ -1,20 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts, getUsers, getCommunities } from "../../store";
-import {
-  UserOwnedCommunities,
-  UserAboutBox,
-  UserProfilePosts,
-} from "../../pages";
-import { usePageSettings } from "../../hooks/usePageSettings";
+import { getPosts, getUsers, getCommunities } from "@/store";
+import { UserOwnedCommunities, UserAboutBox, UserProfilePosts } from "@/pages";
+import { usePageSettings } from "@/hooks/usePageSettings";
 import "./UserProfile.css";
 import {
   FeedContainer,
   FeedLeftColContainer,
   FeedRightColContainer,
-} from "../../layouts";
-import { PostFormatContext } from "../../context";
+} from "@/layouts";
+import { PostFormatContext } from "@/context";
 
 export function UserProfile({ setShowLoginForm, setOpenChat }) {
   const dispatch = useDispatch();

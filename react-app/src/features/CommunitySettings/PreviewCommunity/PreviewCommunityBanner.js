@@ -5,8 +5,8 @@ import {
   updateSettingsBanner,
   getSingleCommunity,
   getCommunities,
-} from "../../../store";
-import { DropBox } from "../../../components";
+} from "@/store";
+import { DropBox } from "@/components";
 import { PreviewCommunityBannerColor, BannerHeight } from "../PreviewCommunity";
 
 export function PreviewCommunityBanner({

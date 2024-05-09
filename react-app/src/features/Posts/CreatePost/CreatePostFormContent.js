@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import { richTextEditorModules } from "../data/richTextEditorModules";
-import { Modal } from "../../../context";
+import { Modal } from "@/context";
 import { ImagePostForm } from "../ImagePost";
 
 export function CreatePostFormContent({

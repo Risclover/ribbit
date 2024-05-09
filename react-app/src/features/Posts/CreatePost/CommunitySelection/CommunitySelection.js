@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { CommunitySelectionDropdown, CommunitySelectionInput } from "../../..";
+import {
+  CommunitySelectionDropdown,
+  CommunitySelectionInput,
+} from "../CommunitySelection";
 import "./CommunitySelection.css";
-import { useOutsideClick } from "../../../../hooks";
+import { useOutsideClick } from "@/hooks";
 import { useParams } from "react-router-dom";
 
 export function CommunitySelection({

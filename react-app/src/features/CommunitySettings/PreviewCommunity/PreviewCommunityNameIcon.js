@@ -7,8 +7,8 @@ import {
   updateSettingsNameIcon,
   getCommunitySettings,
   getCommunities,
-} from "../../../store";
-import { ToggleSwitch, DropBox } from "../../../components";
+} from "@/store";
+import { ToggleSwitch, DropBox } from "@/components";
 import { CommunityNameOption } from "./CommunityNameOption";
 
 export function PreviewCommunityNameIcon({

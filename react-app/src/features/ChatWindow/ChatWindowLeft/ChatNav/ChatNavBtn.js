@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getChatThread, readAllChatMessages } from "../../../../store";
+import { getChatThread, readAllChatMessages } from "@/store";
 import { formatDate } from "../../ChatWindowRight/ChatWindowMessages/formatDate";
 import "./ChatNav.css";
-import { SelectedChatContext } from "../../../../context/SelectedChat";
+import { SelectedChatContext } from "@/context/SelectedChat";
 
 export function ChatNavBtn({
   chatThread,

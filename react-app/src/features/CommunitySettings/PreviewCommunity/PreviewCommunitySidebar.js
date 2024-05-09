@@ -2,12 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useHistory, useParams } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import {
-  getCommunitySettings,
-  resetToDefault,
-  getCommunities,
-} from "../../../store";
-import { Modal } from "../../../context";
+import { getCommunitySettings, resetToDefault, getCommunities } from "@/store";
+import { Modal } from "@/context";
 import { PreviewCommunitySidebarAppearance, OutsideClickWarning } from "../..";
 
 import "./PreviewCommunity.css";

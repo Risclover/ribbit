@@ -1,5 +1,5 @@
 import React from "react";
-import { ribbitBanners } from "../../../../assets";
+import { ribbitBanners } from "@/assets";
 import "./RibbitRules.css";
 
 export function RibbitRules() {

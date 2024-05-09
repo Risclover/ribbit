@@ -1,7 +1,7 @@
 import React from "react";
 import ChatNav from "./ChatNav";
 import { useDispatch } from "react-redux";
-import { createChatThread } from "../../../../store";
+import { createChatThread } from "@/store";
 
 export default function ChatLeft() {
   const dispatch = useDispatch();

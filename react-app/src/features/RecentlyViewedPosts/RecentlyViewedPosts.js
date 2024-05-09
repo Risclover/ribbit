@@ -6,7 +6,7 @@ import { FiLink } from "react-icons/fi";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import moment from "moment";
 
-import { getViewedPosts, removeViewedPosts } from "../../store";
+import { getViewedPosts, removeViewedPosts } from "@/store";
 
 import "./RecentlyViewedPosts.css";
 import { RecentlyViewedPost } from "./RecentlyViewedPost";

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { TfiBell } from "react-icons/tfi";
 
 import { NotificationsDropdown } from "./NotificationsDropdown";
-import { HandleClickOutside } from "../../../utils/HandleClickOutside";
+import { HandleClickOutside } from "@/utils/HandleClickOutside";
 import "../NavBar.css";
 import "./NotificationsDropdown.css";
 

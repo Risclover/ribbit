@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./SingleImagePage.css";
-import { getPosts } from "../../store";
+import { getPosts } from "@/store";
 
 export function SingleImagePage() {
   const { postId } = useParams();

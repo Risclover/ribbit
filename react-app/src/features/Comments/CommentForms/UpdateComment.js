@@ -10,7 +10,7 @@ export function UpdateComment() {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  
+
   return (
     <div className="update-comment-container">
       <form className="update-comment-form" onSubmit={handleSubmit}>

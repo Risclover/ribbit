@@ -5,8 +5,8 @@ import {
   deleteNotification,
   getUserNotifications,
   unreadNotification,
-} from "../../store";
-import { HandleClickOutside } from "../../utils/HandleClickOutside";
+} from "@/store";
+import { HandleClickOutside } from "@/utils/HandleClickOutside";
 
 export function NotificationMenu({
   notification,

@@ -4,9 +4,9 @@ import { FiLink } from "react-icons/fi";
 import parse from "html-react-parser";
 import LazyLoad from "react-lazyload";
 import "react-loading-skeleton/dist/skeleton.css";
-import { sliceUrl } from "../../../utils";
+import { sliceUrl } from "@/utils";
 import { useHistory } from "react-router-dom";
-import { useMetadata } from "../../../context/Metadata";
+import { useMetadata } from "@/context/Metadata";
 
 export function SinglePostContent({ post, isPage }) {
   const { metadata, fetchMetadata } = useMetadata();

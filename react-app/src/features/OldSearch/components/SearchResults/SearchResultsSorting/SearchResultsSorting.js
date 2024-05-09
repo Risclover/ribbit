@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchResultsSort, SearchResultsTime } from "../../..";
+import { SearchResultsSort, SearchResultsTime } from "../../SearchResults";
 
 export function SearchResultsSorting({ searchPage }) {
   return (

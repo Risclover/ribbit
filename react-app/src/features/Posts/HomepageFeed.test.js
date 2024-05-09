@@ -3,13 +3,13 @@ import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import { HomepageFeed } from "./HomepageFeed";
-import { PostFormatContext } from "../../context";
-import { usePageSettings } from "../../hooks/usePageSettings";
+import { PostFormatContext } from "@/context";
+import { usePageSettings } from "@/hooks/usePageSettings";
 import { usePosts } from "./hooks/usePosts";
 import { BrowserRouter, Router } from "react-router-dom";
 
 // Mocking the necessary hooks and components
-jest.mock("../../hooks/usePageSettings");
+jest.mock("@/hooks/usePageSettings");
 jest.mock("./hooks/usePosts", () => ({
   usePosts: jest.fn(),
 }));

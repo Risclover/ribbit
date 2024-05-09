@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Tooltip } from "../../../../components/Tooltip/Tooltip";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { validateCommunityName } from "../../utils/validateCommunityName";
 import { useCommunityNameTaken } from "../../hooks/useCommunityNameTaken";
 import "./CreateCommunityModal.css";

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateComment, getSingleComment, getPostComments } from "../../store";
-import "../../assets/styles/Modals.css";
+import { updateComment, getSingleComment, getPostComments } from "@/store";
+import "@/assets/styles/Modals.css";
 import { useAutosizeTextArea } from "../ChatWindow";
 
 export function EditComment({ commentId, comment, setShowEditCommentModal }) {

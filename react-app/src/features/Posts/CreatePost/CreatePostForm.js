@@ -6,7 +6,7 @@ import {
   addPost,
   addPostVote,
   getPosts,
-} from "../../../store";
+} from "@/store";
 import { useHistory } from "react-router-dom";
 import { CreatePostFormTitle } from "./CreatePostFormTitle";
 import { CreatePostFormContent } from "./CreatePostFormContent";
@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CommunitySelection } from "./CommunitySelection";
 import { PostTypeBar } from "./PostTypeBar";
 import { CreatePostFormErrors } from "./CreatePostFormErrors";
-import { Modal } from "../../../context";
+import { Modal } from "@/context";
 import { DiscardPost } from "../DiscardPost";
 import validator from "validator";
 import parse from "html-react-parser";

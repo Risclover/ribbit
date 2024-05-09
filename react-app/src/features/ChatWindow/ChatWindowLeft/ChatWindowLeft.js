@@ -1,6 +1,6 @@
 import React from "react";
 import { ChatNav } from "../..";
-import { liveChatIcons } from "../../../assets";
+import { liveChatIcons } from "@/assets";
 
 export function ChatWindowLeft({
   handleOpenChatThread,

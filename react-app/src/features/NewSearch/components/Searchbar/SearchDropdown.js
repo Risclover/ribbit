@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
-import { getCommunities } from "../../../../store";
+import { getCommunities } from "@/store";
 import { NavLink } from "react-router-dom";
 
 export function SearchDropdown({

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getThreads } from "../../store";
+import { getThreads } from "@/store";
 import { Message } from "./Message";
 
 export function MessageThread({ item }) {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { IoIosPaper } from "react-icons/io";
-import { SortingBar } from "../../components";
-import { PostFeed } from "../../components";
-import { SortingFunction } from "../../utils";
+import { SortingBar } from "@/components";
+import { PostFeed } from "@/components";
+import { SortingFunction } from "@/utils";
 
 export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
   const [sortedPosts, setSortedPosts] = useState([]);

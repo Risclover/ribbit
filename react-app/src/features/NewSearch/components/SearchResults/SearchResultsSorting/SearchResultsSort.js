@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { SearchResultsSortDropdown } from "./SearchResultsSortDropdown";
-import { useOutsideClick } from "../../../../../hooks";
+import { useOutsideClick } from "@/hooks";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import "./SearchResultsSort.css";
 

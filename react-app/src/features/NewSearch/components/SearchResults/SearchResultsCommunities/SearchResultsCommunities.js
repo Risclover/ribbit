@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { SearchResults } from "../../../../../pages";
+import { SearchResults } from "@/pages";
 import { getSearchQuery } from "../../../utils/getSearchQuery";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
 import { useDispatch, useSelector } from "react-redux";
-import { searchCommunities } from "../../../../../store";
+import { searchCommunities } from "@/store";
 import { NoResults } from "../NoResults";
 import { CommunityResult } from "./CommunityResult";
 

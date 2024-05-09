@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AuthModal, Modal } from "../../../context";
+import { AuthModal, Modal } from "@/context";
 import { LoginForm } from "./LoginForm";
 import { SignUpForm } from "./SignUpForm";
 import { LoginSignupModal } from ".";

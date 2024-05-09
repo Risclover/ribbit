@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { LoginSignupModal } from "../../../../Auth";
-import { Modal } from "../../../../../context";
+import { LoginSignupModal, CreateCommunityModal } from "@/features";
+import { Modal } from "@/context";
 import { useSelector } from "react-redux";
-import { ribbitBanners } from "../../../../../assets";
-import { BackToTop } from "../../../../../components";
-import { CreateCommunityModal } from "../../../../Communities";
+import { ribbitBanners } from "@/assets";
+import { BackToTop } from "@/components";
 
 export const NewCommunity = () => {
   const [showCommunityModal, setShowCommunityModal] = useState(false);

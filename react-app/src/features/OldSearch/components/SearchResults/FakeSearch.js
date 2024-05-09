@@ -1,6 +1,6 @@
 // SearchComponent.jsx
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchQuery } from "../../../store";
+import { setSearchQuery } from "@/store";
 
 export const buildSearchParams = (searchQuery) => {
   const params = new URLSearchParams();

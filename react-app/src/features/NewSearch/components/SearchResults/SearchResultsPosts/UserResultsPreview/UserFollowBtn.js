@@ -5,7 +5,7 @@ import {
   unfollowUser,
   getFollowers,
   getFavoriteUsers,
-} from "../../../../../../store";
+} from "@/store";
 
 export const UserFollowBtn = ({ user }) => {
   const dispatch = useDispatch();

@@ -8,14 +8,14 @@ import { CgNotes } from "react-icons/cg";
 import parse from "html-react-parser";
 import moment from "moment";
 
-import Bounce from "../../../../assets/images/misc/curved-arrow.png";
-import { DeleteConfirmationModal, Username } from "../../../../components";
-import { Modal, useMetadata } from "../../../../context";
-import { SinglePostKarmabar } from "../../..";
-import { sliceUrl } from "../../../../utils";
+import Bounce from "@/assets/images/misc/curved-arrow.png";
+import { DeleteConfirmationModal, Username } from "@/components";
+import { Modal, useMetadata } from "@/context";
+import { SinglePostKarmabar } from "../../SinglePost";
+import { sliceUrl } from "@/utils";
 import "../../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
-import { deletePost, getUsers, getViewedPosts } from "../../../../store";
+import { deletePost, getUsers, getViewedPosts } from "@/store";
 
 export function ClassicPostFormat({ isPage, id, post }) {
   const { metadata, fetchMetadata } = useMetadata();

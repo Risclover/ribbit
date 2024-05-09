@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getUsers } from "../../../../store";
+import { getUsers } from "@/store";
 // import "../Modals.css";
 import "./UploadImageModal.css";
 

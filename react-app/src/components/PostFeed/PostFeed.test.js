@@ -4,9 +4,9 @@ import configureMockStore from "redux-mock-store";
 import { render, fireEvent, cleanup, waitFor } from "@testing-library/react";
 import { useDispatch, Provider } from "react-redux";
 import { PostFeed } from "./PostFeed"; // Adjust the import path as necessary
-import { getCommunities, getPosts } from "../../../store"; // Adjust as necessary
+import { getCommunities, getPosts } from "@/store"; // Adjust as necessary
 import { BrowserRouter } from "react-router-dom";
-import { PostFormatContext } from "../../../context";
+import { PostFormatContext } from "@/context";
 
 const mockStore = configureMockStore();
 
@@ -97,8 +97,8 @@ jest.mock("react-redux", () => ({
   useDispatch: jest.fn(),
 }));
 
-jest.mock("../../../store", () => ({
-  ...jest.requireActual("../../../store"), // Import actual store functions
+jest.mock("@/store", () => ({
+  ...jest.requireActual("@/store"), // Import actual store functions
   getPosts: jest.fn(),
   getCommunities: jest.fn(),
   // Make sure not to mock configureStore if you're using it from redux-mock-store

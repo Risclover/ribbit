@@ -8,8 +8,8 @@ import {
   CommunityOptions,
   LoginSignupModal,
 } from "../..";
-import { getTextColor } from "../../../utils";
-import Cake from "../../../assets/images/misc/piece4.png";
+import { getTextColor } from "@/utils";
+import Cake from "@/assets/images/misc/piece4.png";
 
 export function CommunityInfoBox({ community, user }) {
   const [members, setMembers] = useState(0);

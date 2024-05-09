@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { CreateCommunity } from "../../features";
-import { ribbitBanners } from "../../assets";
+import { CreateCommunity } from "@/features";
+import { ribbitBanners } from "@/assets";
 
 export function AboutBox({ title, description, user }) {
   const history = useHistory();

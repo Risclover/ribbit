@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getCommunities, getSingleCommunity } from "../../../store";
-import "../../../assets/styles/Modals.css";
+import { getCommunities, getSingleCommunity } from "@/store";
+import "@/assets/styles/Modals.css";
 
 export function CommunityImgModal({
   img_url,
@@ -31,7 +31,7 @@ export function CommunityImgModal({
 
     setImageLoading(true);
 
-     const res = await fetch(`/api/communities/${communityId}/img`, {
+    const res = await fetch(`/api/communities/${communityId}/img`, {
       method: "POST",
       body: formData,
     });

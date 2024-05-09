@@ -1,4 +1,4 @@
-import { developerLinkIcons } from "../../../assets";
+import { developerLinkIcons } from "@/assets";
 
 export const developerLinks = [
   {

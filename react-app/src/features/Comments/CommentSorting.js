@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { HandleClickOutside } from "../../utils";
+import { HandleClickOutside } from "@/utils";
 import "./Comments.css";
 
 export function CommentSorting({ sortType, setSortType }) {

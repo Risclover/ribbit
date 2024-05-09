@@ -15,14 +15,14 @@ import {
   addViewedPost,
   getCommunitySettings,
   getViewedPosts,
-} from "../../../store";
+} from "@/store";
 
-import { BackToTop } from "../../../components";
+import { BackToTop } from "@/components";
 import { Comments, SinglePost, CommunityRule, CommunityOptions } from "../..";
-import Cake from "../../../assets/images/misc/piece4.png";
+import Cake from "@/assets/images/misc/piece4.png";
 import "react-loading-skeleton/dist/skeleton.css";
-import { PostFormatContext } from "../../../context";
-import { usePageSettings } from "../../../hooks/usePageSettings";
+import { PostFormatContext } from "@/context";
+import { usePageSettings } from "@/hooks/usePageSettings";
 
 export function SinglePostPage({ setShowLoginForm }) {
   const history = useHistory();

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { LoginForm, SignUpForm } from ".";
-import { AuthModal } from "../../../context";
+import { AuthModal } from "@/context";
 import { SignUpFormSecond } from "./SignUpForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { login, signUp } from "../../../store";
+import { login, signUp } from "@/store";
 
 export function LoginSignupModal({ btnText, className, formType }) {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ export function LoginSignupModal({ btnText, className, formType }) {
       errors.push("incorrect email or password");
       setLoginEmailErrors([""]);
       setLoginPasswordErrors(errors);
-    } 
+    }
   };
 
   return (

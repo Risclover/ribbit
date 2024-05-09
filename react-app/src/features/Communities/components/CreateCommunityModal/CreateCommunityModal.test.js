@@ -17,7 +17,7 @@ jest.mock("react-redux", () => ({
 }));
 
 // Consolidate store mocks
-jest.mock("../../../../store", () => ({
+jest.mock("@/store", () => ({
   addCommunity: jest
     .fn()
     .mockImplementation(({ name, description }) => async (dispatch) => {
@@ -31,7 +31,7 @@ jest.mock("../../../../store", () => ({
   getSubscriptions: jest.fn(),
 }));
 
-jest.mock("../../hooks/useCommunityNameTaken", () => ({
+jest.mock("@/hooks/useCommunityNameTaken", () => ({
   useCommunityNameTaken: jest.fn().mockReturnValue(false),
 }));
 

@@ -9,7 +9,7 @@ import {
   getComments,
   getSingleComment,
   addCommentVote,
-} from "../../../store";
+} from "@/store";
 import { LoginSignupModal, useAutosizeTextArea } from "../..";
 import "../Comments.css";
 

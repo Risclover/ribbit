@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Username } from "../../../../../components";
+import { Username } from "@/components";
 
 export function CommentResult({ comment }) {
   const history = useHistory();

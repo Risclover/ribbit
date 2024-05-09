@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { checkCommunityName } from "../../../store";
+import { checkCommunityName } from "@/store";
 
 export const useCheckCommunityName = (name) => {
   const dispatch = useDispatch();

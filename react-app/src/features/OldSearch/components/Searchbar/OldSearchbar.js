@@ -5,7 +5,7 @@ import { SlClose } from "react-icons/sl";
 import { OldSearchDropdown } from "./OldSearchDropdown";
 import "./Searchbar.css";
 import { useDispatch } from "react-redux";
-import { useOutsideClick } from "../../../../hooks";
+import { useOutsideClick } from "@/hooks";
 
 export function OldSearchbar({
   searchQuery,

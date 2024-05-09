@@ -9,8 +9,8 @@ import {
   deleteNotification,
   getUserNotifications,
   readNotification,
-} from "../../../store";
-import { NotificationMenu } from "../../../features/Notifications/NotificationMenu";
+} from "@/store";
+import { NotificationMenu } from "@/features/Notifications/NotificationMenu";
 
 export function Notification({ notification, setShowDropdown }) {
   const dispatch = useDispatch();

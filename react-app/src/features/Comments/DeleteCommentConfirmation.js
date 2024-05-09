@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getPosts, removeComment } from "../../store";
+import { getPosts, removeComment } from "@/store";
 
 export function DeleteCommentConfirmation({
   showDeleteModal,

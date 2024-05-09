@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { PostFeed, CreatePostBar } from "../../components";
-import { SortingFunction } from "../../utils";
+import { PostFeed, CreatePostBar } from "@/components";
+import { SortingFunction } from "@/utils";
 import { useHistory } from "react-router-dom";
 
 export function CommunityPosts({ commPosts, communityName, user }) {

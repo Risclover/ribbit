@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
-import { Username } from "../../../components";
+import { Username } from "@/components";
 
 moment.updateLocale("en-post", {
   relativeTime: {

@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { SlClose } from "react-icons/sl";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getComments, searchPostComments } from "../../store";
+import { getComments, searchPostComments } from "@/store";
 
 export const CommentSearch = ({
   searchValue,

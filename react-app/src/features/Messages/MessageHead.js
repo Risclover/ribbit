@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Modal } from "../../context";
+import { Modal } from "@/context";
 import { MessageModal } from "..";
 
 export function MessageHead({ active }) {

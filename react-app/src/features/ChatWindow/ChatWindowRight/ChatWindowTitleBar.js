@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { TfiClose } from "react-icons/tfi";
-import { SelectedChatContext } from "../../../context/SelectedChat";
+import { SelectedChatContext } from "@/context/SelectedChat";
 
 export function ChatWindowTitleBar({ setOpenChat, newChatOverlay }) {
   const currentUser = useSelector((state) => state.session.user);

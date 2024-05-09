@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Modal } from "../../context";
-import { DeleteConfirmationModal } from "../../components";
-import { deletePost, getPosts, getUsers, getViewedPosts } from "../../store";
+import { Modal } from "@/context";
+import { DeleteConfirmationModal } from "@/components";
+import { deletePost, getPosts, getUsers, getViewedPosts } from "@/store";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 

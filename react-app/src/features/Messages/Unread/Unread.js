@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { readAllMessages } from "../../../store";
+import { readAllMessages } from "@/store";
 import { MessageHead, MessageContentMenu, InboxMessage } from "../..";
 import "../Inbox/Inbox.css";
-import { usePageSettings } from "../../../hooks/usePageSettings";
+import { usePageSettings } from "@/hooks/usePageSettings";
 
 export function Unread() {
   const dispatch = useDispatch();

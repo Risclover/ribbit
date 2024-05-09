@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../../assets/styles/Modals.css";
+import "@/assets/styles/Modals.css";
 
 export function ImagePostForm({ imgUrl, setImgUrl, setShowImgModal }) {
   const [imgPreview, setImgPreview] = useState(imgUrl);

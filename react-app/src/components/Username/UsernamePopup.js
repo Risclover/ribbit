@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import { Modal } from "../../context";
-import { MessageModal } from "../../features";
+import { Modal } from "@/context";
+import { MessageModal } from "@/features";
 import { FollowBtn } from "../FollowBtn";
 import "./Username.css";
 import { useHistory } from "react-router-dom";

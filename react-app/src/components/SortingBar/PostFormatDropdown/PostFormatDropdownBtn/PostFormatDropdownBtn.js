@@ -1,5 +1,5 @@
 import React from "react";
-import { useButtonState } from "../../../../hooks/useButtonState";
+import { useButtonState } from "@/hooks/useButtonState";
 
 export const PostFormatDropdownBtn = React.forwardRef(
   ({ item, setShowDropdown }, ref) => {

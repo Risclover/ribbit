@@ -4,18 +4,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { TfiPlus } from "react-icons/tfi";
 import { BsChatDots } from "react-icons/bs";
 
-import { getCommunities, getMessages, getUsers } from "../../store";
+import { getCommunities, getMessages, getUsers } from "@/store";
 import {
   NavUserDropdown,
   NavLeftDropdownFace,
   NotificationsDropdownWrapper,
   LoggedOutDropdownWrapper,
 } from "../NavBar";
-import { SelectedChatContext } from "../../context";
-import { Searchbar, LoginSignupModal } from "../../features";
-import { AllIcon } from "../../assets";
+import { SelectedChatContext } from "@/context";
+import { Searchbar, LoginSignupModal } from "@/features";
+import { AllIcon } from "@/assets";
 
-import { ribbitBanners, ribbitLogos } from "../../assets";
+import { ribbitBanners, ribbitLogos } from "@/assets";
 import "./NavBar.css";
 import { RandomLogo } from "../RandomLogo";
 

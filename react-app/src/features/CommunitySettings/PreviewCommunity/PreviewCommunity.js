@@ -6,7 +6,7 @@ import {
   getPosts,
   getSubscriptions,
   getCommunities,
-} from "../../../store";
+} from "@/store";
 import {
   CommunityWelcome,
   CommunityImage,
@@ -16,11 +16,11 @@ import {
   CommunityName,
   CommunityPosts,
   CommunityPageHeader,
-} from "../..";
-import { BackToTop } from "../../../components";
-import { PostFormatContext } from "../../../context";
+} from "@/features";
+import { BackToTop } from "@/components";
+import { PostFormatContext } from "@/context";
 import "../../Communities/CommunityPage.css";
-import { usePageSettings } from "../../../hooks/usePageSettings";
+import { usePageSettings } from "@/hooks/usePageSettings";
 import "./PreviewCommunity.css";
 
 export function PreviewCommunity() {

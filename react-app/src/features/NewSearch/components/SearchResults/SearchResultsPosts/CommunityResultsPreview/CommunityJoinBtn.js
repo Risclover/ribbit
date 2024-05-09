@@ -5,7 +5,7 @@ import {
   deleteSubscription,
   getFavoriteCommunities,
   getSubscriptions,
-} from "../../../../../../store";
+} from "@/store";
 
 export function CommunityJoinBtn({ community }) {
   const dispatch = useDispatch();

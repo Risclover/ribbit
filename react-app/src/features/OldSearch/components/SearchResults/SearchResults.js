@@ -8,7 +8,7 @@ import {
   getPosts,
   search,
   getUsers,
-} from "../../../../store";
+} from "@/store";
 
 import {
   SearchResultsPeople,
@@ -17,9 +17,9 @@ import {
   SearchResultsPosts,
   SearchResultsButtons,
   SearchResultsSorting,
-} from "../../..";
-import SearchDude from "../../../../assets/images/search-icon.png";
-import { usePageSettings } from "../../../../hooks/usePageSettings";
+} from "@/features";
+import SearchDude from "@/assets/images/search-icon.png";
+import { usePageSettings } from "@/hooks/usePageSettings";
 import { useQuery } from "../../hooks/useQuery";
 
 export function SearchResults({ setSearchQuery, setAdjustQuery }) {
@@ -93,7 +93,7 @@ export function SearchResults({ setSearchQuery, setAdjustQuery }) {
       bgColor: comm.communitySettings[comm.id].baseColor,
     };
   });
-  
+
   let userList = [];
   for (let i = 0; i < Object.values(allUsers).length; i++) {
     userList.push({

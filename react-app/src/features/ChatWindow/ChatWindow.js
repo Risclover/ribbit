@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
-import { getChatThread, getUserChatThreads } from "../../store";
+import { getChatThread, getUserChatThreads } from "@/store";
 import {
   ChatWindowLeft,
   ChatWindowRight,
@@ -10,7 +10,7 @@ import {
   ChatWindowNewChatOverlay,
   ChatWindowMessageInviteOverlay,
 } from "..";
-import { SelectedChatContext } from "../../context/SelectedChat";
+import { SelectedChatContext } from "@/context/SelectedChat";
 import "./ChatWindow.css";
 
 let socket;

@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createChatMessage, getChatThread } from "../../../../store";
+import { createChatMessage, getChatThread } from "@/store";
 import * as emojis from "./emojis";
 import { ChatWindowEmojis } from "./emojis";
 import "./ChatWindowInput.css";
-import { SelectedChatContext } from "../../../../context/SelectedChat";
+import { SelectedChatContext } from "@/context/SelectedChat";
 
 export function Emojis({ receiver, setEmojisOverlay, socket }) {
   const dispatch = useDispatch();

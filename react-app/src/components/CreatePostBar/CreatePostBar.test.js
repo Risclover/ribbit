@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
-import { configureStore } from "../../store";
+import { configureStore } from "@/store";
 import { CreatePostBar } from "./CreatePostBar";
 
 const userId = "123";

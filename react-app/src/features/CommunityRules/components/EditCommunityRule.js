@@ -5,10 +5,10 @@ import {
   getCommunityRules,
   deleteRule,
   getSingleCommunity,
-} from "../../../store";
-import { Modal } from "../../../context";
-import { DeleteConfirmationModal } from "../../../components";
-import "../../../assets/styles/Modals.css";
+} from "@/store";
+import { Modal } from "@/context";
+import { DeleteConfirmationModal } from "@/components";
+import "@/assets/styles/Modals.css";
 
 export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { VscChevronDown } from "react-icons/vsc";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { NavLeftDropdown } from "./NavLeftDropdown";
-import { PageTitleContext } from "../../../context";
+import { PageTitleContext } from "@/context";
 import "./NavLeftDropdown.css";
 
 export function NavLeftDropdownFace({

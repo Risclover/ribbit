@@ -9,7 +9,7 @@ import {
   unreadMessage,
   addNotification,
   getMessages,
-} from "../../store";
+} from "@/store";
 
 export function MessageReply({
   pageType,

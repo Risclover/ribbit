@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../../../store";
+import { getUsers } from "@/store";
 import { AuthFormInput } from "../AuthFormInput";
 import { FormHeader } from "../FormHeader";
 import { handleEmailErrors } from "../../utils/signupFormValidation";

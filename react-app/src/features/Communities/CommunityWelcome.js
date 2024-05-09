@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal } from "../../context";
+import { Modal } from "@/context";
 import { CommunityWelcomeModal } from "..";
 
 export function CommunityWelcome({ community, user, posts, commPosts }) {

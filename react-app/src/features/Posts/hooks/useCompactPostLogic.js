@@ -8,7 +8,7 @@ import {
   getUsers,
   getViewedPosts,
   removePostVote,
-} from "../../../store";
+} from "@/store";
 
 export const useCompactPostLogic = (post, isPage) => {
   const history = useHistory();

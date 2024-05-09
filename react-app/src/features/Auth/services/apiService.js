@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { checkUsername } from "../../../store";
+import { checkUsername } from "@/store";
 
 export const useCheckUsername = (username) => {
   const dispatch = useDispatch();

@@ -6,9 +6,9 @@ import {
   addToSubscriptions,
   deleteSubscription,
   getSubscriptions,
-} from "../../../store";
+} from "@/store";
 import { CommunityOptions } from "../CommunityInfoBox";
-import Cake from "../../../assets/images/misc/piece4.png";
+import Cake from "@/assets/images/misc/piece4.png";
 import { useHistory } from "react-router-dom";
 import { LoginSignupModal } from "../../Auth";
 

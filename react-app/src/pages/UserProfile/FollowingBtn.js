@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { followUser, getFollowers, getUserFollowers } from "../../store";
+import { followUser, getFollowers, getUserFollowers } from "@/store";
 
 export function FollowingBtn({ user }) {
   const dispatch = useDispatch();

@@ -14,9 +14,9 @@ import {
   addImagePost,
   getCommunities,
   getSubscriptions,
-} from "../../../store";
+} from "@/store";
 
-import { Modal } from "../../../context";
+import { Modal } from "@/context";
 import {
   CommunitySelection,
   PostTypeBar,
@@ -29,9 +29,9 @@ import {
   useAutosizeTextArea,
   CommunityRulesBox,
 } from "../..";
-import getTextColor from "../../../utils/getTextColor";
+import getTextColor from "@/utils/getTextColor";
 import "./PostForm.css";
-import { usePageSettings } from "../../../hooks/usePageSettings";
+import { usePageSettings } from "@/hooks/usePageSettings";
 
 const modules = {
   toolbar: [

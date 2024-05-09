@@ -5,9 +5,9 @@ import { IoIosMore } from "react-icons/io";
 import { IoChatbox } from "react-icons/io5";
 import moment from "moment";
 
-import { readNotification, getUserNotifications } from "../../store";
+import { readNotification, getUserNotifications } from "@/store";
 import { NotificationMenu } from "./NotificationMenu";
-import { HandleClickOutside } from "../../utils";
+import { HandleClickOutside } from "@/utils";
 
 export function Notification({ notification }) {
   const wrapperRef = useRef();

@@ -6,8 +6,8 @@ import {
   addFavoriteCommunity,
   getFavoriteCommunities,
   removeFavoriteCommunity,
-} from "../../../store";
-import { HandleClickOutside } from "../../../utils";
+} from "@/store";
+import { HandleClickOutside } from "@/utils";
 
 export function CommunityInfoMenu() {
   const wrapperRef = useRef(null);

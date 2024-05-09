@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import { SinglePost } from "../../features";
+import { SinglePost } from "@/features";
 import { SortingBar } from "../SortingBar";
 import { useHistory } from "react-router-dom";
 

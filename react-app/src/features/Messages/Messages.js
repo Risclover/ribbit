@@ -5,10 +5,10 @@ import {
   getThreads,
   getUsers,
   readAllNotifications,
-} from "../../store";
+} from "@/store";
 import { MessageThread, MessageHead, MessageContentMenu } from "..";
 import "./Messages.css";
-import { usePageSettings } from "../../hooks/usePageSettings";
+import { usePageSettings } from "@/hooks/usePageSettings";
 
 export function Messages() {
   const dispatch = useDispatch();

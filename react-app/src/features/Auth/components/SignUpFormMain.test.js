@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { SignUpForm } from "./SignUpForm/SignUpForm";
-import { configureStore } from "../../../store";
+import { configureStore } from "@/store";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 

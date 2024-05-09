@@ -11,15 +11,15 @@ import {
   createChatThread,
   getUserChatThreads,
   addNotification,
-} from "../../store";
+} from "@/store";
 
-import { Modal } from "../../context";
-import { UserProfileFollowers } from "../../features";
-import { UploadUserBanner, UploadUserImage, SendMessage } from "../../pages";
-import Cakeday from "../../assets/images/user-profile-icons/cakeday.png";
-import Flower from "../../assets/images/user-profile-icons/poinsettia.png";
-import { SelectedChatContext } from "../../context/SelectedChat";
-import { FollowBtn } from "../../components";
+import { Modal } from "@/context";
+import { UserProfileFollowers } from "@/features";
+import { UploadUserBanner, UploadUserImage, SendMessage } from "@/pages";
+import Cakeday from "@/assets/images/user-profile-icons/cakeday.png";
+import Flower from "@/assets/images/user-profile-icons/poinsettia.png";
+import { SelectedChatContext } from "@/context/SelectedChat";
+import { FollowBtn } from "@/components";
 
 export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const dispatch = useDispatch();

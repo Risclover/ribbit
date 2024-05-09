@@ -5,7 +5,7 @@ import {
   BsPencilFill,
 } from "react-icons/bs";
 import parse from "html-react-parser";
-import { Modal } from "../../../context";
+import { Modal } from "@/context";
 import { EditCommunityRule } from "./EditCommunityRule";
 
 export function CommunityEditRule({ idx, rule, community }) {

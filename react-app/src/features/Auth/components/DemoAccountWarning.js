@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { login } from "../../../store";
-import { WarningIcon } from "../../../assets";
+import { login } from "@/store";
+import { WarningIcon } from "@/assets";
 import "../styles/DemoAccountWarning.css";
 
 export function DemoAccountWarning({

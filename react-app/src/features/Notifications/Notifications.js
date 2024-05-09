@@ -6,11 +6,11 @@ import { VscSettingsGear } from "react-icons/vsc";
 import { TfiBell } from "react-icons/tfi";
 import moment from "moment";
 
-import { getUserNotifications, readAllNotifications } from "../../store";
+import { getUserNotifications, readAllNotifications } from "@/store";
 import { Notification } from "./Notification";
-import SparklyFrog from "../../assets/images/ribbit-frog-sparkly.png";
+import SparklyFrog from "@/assets/images/ribbit-frog-sparkly.png";
 import "./Notifications.css";
-import { usePageSettings } from "../../hooks/usePageSettings";
+import { usePageSettings } from "@/hooks/usePageSettings";
 
 moment.updateLocale("en-notif", {
   relativeTime: {

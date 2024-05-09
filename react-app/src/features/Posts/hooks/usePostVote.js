@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addPostVote, getUsers, removePostVote } from "../../../store";
+import { addPostVote, getUsers, removePostVote } from "@/store";
 
 export const usePostVote = (post) => {
   const history = useHistory();

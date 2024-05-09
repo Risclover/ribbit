@@ -13,13 +13,13 @@ import { RxImage } from "react-icons/rx";
 import parse from "html-react-parser";
 import moment from "moment";
 
-import { Username } from "../../../../components";
-import { sliceUrl } from "../../../../utils";
+import { Username } from "@/components";
+import { sliceUrl } from "@/utils";
 import "../../SinglePost/SinglePost.css";
 import "../ClassicPostFormat/ClassicPostFormat.css";
 import "./CompactPostFormat.css";
 import { usePostVote } from "../../hooks/usePostVote";
-import { useOutsideClick } from "../../../../hooks";
+import { useOutsideClick } from "@/hooks";
 import { CompactPostMenu } from "./CompactPostMenu";
 import { CompactPostTypeIcon } from "./CompactPostTypeIcon";
 

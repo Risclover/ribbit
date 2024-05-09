@@ -5,10 +5,10 @@ import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import parse from "html-react-parser";
 import moment from "moment";
-import { Modal } from "../../context";
-import { getUsers, addCommentVote, removeCommentVote } from "../../store";
+import { Modal } from "@/context";
+import { getUsers, addCommentVote, removeCommentVote } from "@/store";
 import { EditComment, DeleteCommentConfirmation } from "..";
-import { Username } from "../../components";
+import { Username } from "@/components";
 import "./Comments.css";
 
 moment.updateLocale("en-comment", {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import { sliceUrl } from "../../../../../utils";
+import { sliceUrl } from "@/utils";
 import { Link } from "react-router-dom";
 import { FiLink } from "react-icons/fi";
 import { useHistory } from "react-router-dom";
-import { Username } from "../../../../../components";
-import { useMetadata } from "../../../../../context/Metadata";
+import { Username } from "@/components";
+import { useMetadata } from "@/context/Metadata";
 
 export const PostResult = ({ post }) => {
   const history = useHistory();

@@ -5,10 +5,10 @@ import { VscMailRead } from "react-icons/vsc";
 import { VscSettingsGear } from "react-icons/vsc";
 import moment from "moment";
 
-import { getUserNotifications, readAllNotifications } from "../../../store";
-import { Notification } from "../../../layouts";
-import { HandleClickOutside } from "../../../utils";
-import SparklyFrog from "../../../assets/images/ribbit-frog-sparkly.png";
+import { getUserNotifications, readAllNotifications } from "@/store";
+import { Notification } from "@/layouts";
+import { HandleClickOutside } from "@/utils";
+import SparklyFrog from "@/assets/images/ribbit-frog-sparkly.png";
 
 moment.updateLocale("en-notif", {
   relativeTime: {

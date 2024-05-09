@@ -7,7 +7,7 @@ const mockSetActive = jest.fn();
 const mockSetHighlight = jest.fn();
 const mockSetFormat = jest.fn();
 
-jest.mock("../../../hooks/useButtonState", () => ({
+jest.mock("@/hooks/useButtonState", () => ({
   useButtonState: () => ({
     active: false,
     setActive: mockSetActive,

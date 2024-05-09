@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import { readNotification, readMessage } from "../../../store";
+import { readNotification, readMessage } from "@/store";
 import { MessageReply } from "../MessageReply";
 
 export function InboxMessage({ item, marked, message, currentUser, expanded }) {

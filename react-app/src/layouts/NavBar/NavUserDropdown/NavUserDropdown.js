@@ -4,10 +4,10 @@ import { NavLink, useHistory } from "react-router-dom";
 import { TbChevronDown } from "react-icons/tb";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { SlLogin } from "react-icons/sl";
-import { logout } from "../../../store";
-import Poinsettia from "../../../assets/images/user-profile-icons/poinsettia.png";
+import { logout } from "@/store";
+import Poinsettia from "@/assets/images/user-profile-icons/poinsettia.png";
 import "./NavUserDropdown.css";
-import { useOutsideClick } from "../../../hooks";
+import { useOutsideClick } from "@/hooks";
 
 export function NavUserDropdown() {
   const history = useHistory();

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserNotifications, getPosts, getUsers } from "../../../store";
+import { getUserNotifications, getPosts, getUsers } from "@/store";
 import { MessageContentMenu, MessageHead, PostReply } from "../..";
 import "./PostReplies.css";
 import "../Inbox/Inbox.css";
-import { usePageSettings } from "../../../hooks/usePageSettings";
+import { usePageSettings } from "@/hooks/usePageSettings";
 
 export function PostRepliesPage() {
   const dispatch = useDispatch();

@@ -9,9 +9,9 @@ import { useDispatch } from "react-redux";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 import { CiSearch } from "react-icons/ci";
 import { SlClose } from "react-icons/sl";
-import { createChatMessage, getChatThread } from "../../../../store";
+import { createChatMessage, getChatThread } from "@/store";
 import "./ChatWindowInput.css";
-import { SelectedChatContext } from "../../../../context/SelectedChat";
+import { SelectedChatContext } from "@/context/SelectedChat";
 
 const giphy = new GiphyFetch("fiQieMg1iTSB2Jvd4njUzeY2W3PP99I1");
 

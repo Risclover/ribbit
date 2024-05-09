@@ -7,7 +7,7 @@ import {
   getPosts,
   searchComments,
   searchPosts,
-} from "../../../../store";
+} from "@/store";
 import { useDispatch } from "react-redux";
 
 function useQuery() {

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessages, getThreads } from "../../../store";
+import { getMessages, getThreads } from "@/store";
 import {
   MessageContentMenu,
   MessageHead,
@@ -8,7 +8,7 @@ import {
   PostReply,
 } from "../..";
 import "./Inbox.css";
-import { usePageSettings } from "../../../hooks/usePageSettings";
+import { usePageSettings } from "@/hooks/usePageSettings";
 
 export function Inbox() {
   const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { deletePost, getViewedPosts } from "../../../store";
+import { deletePost, getViewedPosts } from "@/store";
 
 export const usePostButtonHandlers = (
   history,

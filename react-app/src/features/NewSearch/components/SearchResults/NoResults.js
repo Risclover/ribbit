@@ -1,5 +1,5 @@
 import React from "react";
-import SearchDude from "../../../../assets/images/search-icon.png";
+import SearchDude from "@/assets/images/search-icon.png";
 
 export const NoResults = ({ query, focusSearchBox }) => {
   return (

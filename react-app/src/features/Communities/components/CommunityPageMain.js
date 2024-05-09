@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { CommunityPosts, CommunityInfoBox, CommunityRulesBox } from "../..";
-import { BackToTop } from "../../../components";
+import { BackToTop } from "@/components";
 import {
   FeedContainer,
   FeedLeftColContainer,
   FeedRightColContainer,
-} from "../../../layouts";
+} from "@/layouts";
 
 export function CommunityPageMain({ community }) {
   const posts = useSelector((state) => Object.values(state.posts));

@@ -8,9 +8,9 @@ import {
   getMessages,
   addNotification,
   getCommunities,
-} from "../../../store";
+} from "@/store";
 import "./MessageModal.css";
-import "../../../assets/styles/Modals.css";
+import "@/assets/styles/Modals.css";
 
 export function MessageModal({ setShowMessageModal, username }) {
   const dispatch = useDispatch();

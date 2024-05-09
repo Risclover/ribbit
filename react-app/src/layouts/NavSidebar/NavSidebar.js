@@ -7,9 +7,9 @@ import {
   getFavoriteUsers,
   getFollowers,
   getSubscriptions,
-} from "../../store";
+} from "@/store";
 
-import { NavLeftDropdown } from "../../layouts";
+import { NavLeftDropdown } from "@/layouts";
 import "./NavSidebar.css";
 
 export function NavSidebar({

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createChatThread } from "../../../../../store";
+import { createChatThread } from "@/store";
 
 export default function ChatInput() {
   const dispatch = useDispatch();

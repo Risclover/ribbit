@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { SortingBar } from "./SortingBar";
-import { PostFormatContext } from "../../context";
+import { PostFormatContext } from "@/context";
 
 const mockSetSortMode = jest.fn();
 const setSortModeMock = jest.fn();

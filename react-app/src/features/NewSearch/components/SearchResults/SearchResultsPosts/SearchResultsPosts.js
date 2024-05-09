@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { SearchResults } from "../../../../../pages";
+import { SearchResults } from "@/pages";
 import { getSearchQuery } from "../../../utils/getSearchQuery";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  searchCommunities,
-  searchPosts,
-  searchUsers,
-} from "../../../../../store";
+import { searchCommunities, searchPosts, searchUsers } from "@/store";
 import { SearchResultsSortBtn } from "../SearchResultsSorting/SearchResultsSort";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
@@ -14,9 +10,9 @@ import { PostResult } from "./PostResult";
 import { CommunityResultsPreview } from "./CommunityResultsPreview";
 import { UserResultsPreview } from "./UserResultsPreview";
 import { NewCommunity } from "./NewCommunity";
-import { BackToTop } from "../../../../../components";
+import { BackToTop } from "@/components";
 import parse from "html-react-parser";
-import { stripHtml } from "../../../../../utils/stripHtml";
+import { stripHtml } from "@/utils/stripHtml";
 import { NoResults } from "../NoResults";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
 

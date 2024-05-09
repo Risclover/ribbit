@@ -6,7 +6,7 @@ import {
   getSubscriptions,
   getFavoriteCommunities,
   getSingleCommunity,
-} from "../../store";
+} from "@/store";
 import { LoginSignupModal } from "../Auth";
 
 export function CommunitySubscribeBtn({
