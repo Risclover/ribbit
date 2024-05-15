@@ -282,10 +282,6 @@ function App() {
                   <CommunitiesDirectory />
                 </Route>
 
-                <Route path="/chat" exact={true}>
-                  <Chat />
-                </Route>
-
                 <ProtectedRoute path="/message/messages" exact={true}>
                   <Messages />
                 </ProtectedRoute>

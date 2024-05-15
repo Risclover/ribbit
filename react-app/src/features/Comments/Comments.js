@@ -9,17 +9,21 @@ import { CommentSearch } from "./CommentSearch";
 import { CommentSearchPage } from "./CommentSearchPage";
 import { NoResults } from "../NewSearch/components/SearchResults/NoResults";
 import { input } from "@testing-library/user-event/dist/cjs/event/input.js";
+import { LoadingEllipsis } from "components";
+import { useLoader } from "./hooks/useLoader";
+import { NoCommentsMsg } from "./components/NoCommentsMsg";
 
 export function Comments({ post }) {
-  const url = window.location.href;
   const history = useHistory();
+  const url = window.location.href;
   const dispatch = useDispatch();
   const { postId } = useParams();
   const inputRef = useRef();
 
   const comments = useSelector((state) => Object.values(state.comments));
+
   const [sortType, setSortType] = useState("Best");
-  const [showLoader, setShowLoader] = useState(true);
+  const showLoader = useLoader();
   const [searchValue, setSearchValue] = useState("");
   const [searchActive, setSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchValue);
@@ -28,57 +32,17 @@ export function Comments({ post }) {
   const match = url.match(commentIdPattern);
   const commentUrl = match ? match[1] : null;
   const specificComment = match
-    ? comments?.find((comment) => comment.id === +match[1])
+    ? comments?.find((comment) => comment.id === +commentUrl)
     : null;
-  const [specificCommentActive, setSpecificCommentActive] = useState(false);
+  const [specificCommentActive, setSpecificCommentActive] = useState(!!match);
 
   useEffect(() => {
     dispatch(getComments(+postId));
   }, [dispatch, postId]);
 
   useEffect(() => {
-    if (match && match[1]) setSpecificCommentActive(true);
+    if (specificComment) setSpecificCommentActive(true);
   }, [specificComment]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowLoader(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
-  if (sortType === "New") {
-    comments.sort((a, b) => {
-      let commentA = new Date(a.createdAt);
-      let commentB = new Date(b.createdAt);
-
-      return commentB - commentA;
-    });
-  }
-
-  if (sortType === "Old") {
-    comments.sort((a, b) => {
-      let commentA = new Date(a.createdAt);
-      let commentB = new Date(b.createdAt);
-
-      return commentA - commentB;
-    });
-  }
-
-  if (sortType === "Best") {
-    comments.sort((a, b) => {
-      return b.upvotes - a.upvotes;
-    });
-  }
-
-  if (sortType === "Top") {
-    comments.sort((a, b) => {
-      return b.votes - a.votes;
-    });
-  }
 
   const dismissSearch = () => {
     dispatch(getComments(postId));
@@ -115,7 +79,7 @@ export function Comments({ post }) {
       </div>
       {searchActive && (
         <div className="all-comments-btn">
-          Comments with "{searchQuery}"{" "}
+          Comments with "{searchQuery}"
           <span className="comment-sort-search-separator">|</span>
           <button onClick={dismissSearch} className="view-all-comments-btn">
             All Comments
@@ -124,12 +88,7 @@ export function Comments({ post }) {
       )}
       {showLoader && (
         <div className="comments-loading">
-          <div className="lds-ellipsis">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <LoadingEllipsis loader={showLoader} />
         </div>
       )}
       {!showLoader && (
@@ -170,13 +129,7 @@ export function Comments({ post }) {
               <NoResults query={searchQuery} focusSearchBox={focusSearchBox} />
             </div>
           )}
-          {!searchActive && comments.length === 0 && (
-            <div className="no-comments-msg">
-              <i className="fa-solid fa-comments"></i>
-              <h1 className="no-comments-yet">No Comments Yet</h1>
-              <p>Be the first to share what you think!</p>
-            </div>
-          )}
+          {!searchActive && comments.length === 0 && <NoCommentsMsg />}
         </div>
       )}
     </div>

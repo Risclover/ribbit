@@ -46,7 +46,7 @@
 }
 
 .threadline-wrapper:hover > .comment-threadline {
-  border-color: var(--highlight-color);
+  border-color: var(--community-highlight);
 }
 
 .single-post-right-col {

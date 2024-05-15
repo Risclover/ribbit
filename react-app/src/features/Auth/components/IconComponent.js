@@ -27,10 +27,9 @@ export const IconComponent = ({ iconType, name }) => {
         <svg
           rpl=""
           className={`trailing-icon valid${
-            (name === "password" ||
-              name === "email" ||
-              name === "signup-email") &&
-            " valid-pass"
+            name === "password" || name === "email" || name === "signup-email"
+              ? " valid-pass"
+              : ""
           }`}
           fill="#0E8A00"
           height="20"

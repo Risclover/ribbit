@@ -3,7 +3,7 @@ import { Comment } from "./Comment";
 import { CommentSearch } from "./CommentSearch";
 import { CommentSorting } from "./CommentSorting";
 
-export const Comments = () => {
+export const Commentss = () => {
   return (
     <div>
       <div className="sort-search">

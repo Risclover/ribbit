@@ -465,7 +465,7 @@
 
 .comment-sorting-face svg {
   cursor: pointer;
-  fill: var(--community-base-color);
+  fill: var(--community-highlight);
   margin: 0 0 0 -5px;
   display: inline-block;
   height: 20px;
@@ -598,7 +598,7 @@
 
 .comment-moving-btn {
   font-size: 12px;
-  color: var(--highlight-color);
+  color: var(--community-highlight);
   cursor: pointer;
 }
 
