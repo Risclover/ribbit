@@ -84,7 +84,7 @@ export function Notification({ notification, setShowDropdown }) {
               )}
             </div>
             <div className="notification-content">{notification.content}</div>
-            {notification.type === "post-reply" && (
+            {notification.notificationType === "post-reply" && (
               <button className="blue-btn-unfilled btn-long notification-reply-back">
                 <BsArrowReturnRight />
                 Reply Back

@@ -39,11 +39,11 @@ export function Notification({ notification }) {
     e.stopPropagation();
     e.preventDefault();
     await dispatch(readNotification(notification.id));
-    if (notification.type === "follower") {
+    if (notification.notificationType === "follower") {
       history.push(`/users/${notification.senderId}/profile`);
-    } else if (notification.type === "post-reply") {
+    } else if (notification.notificationType === "post-reply") {
       history.push(`/posts/${notification.postId}`);
-    } else if (notification.type === "welcome") {
+    } else if (notification.notificationType === "welcome") {
       window.open(
         "https://github.com/Risclover/ribbit/wiki/How-to-Use-Ribbit-(User-Manual)",
         "_blank"

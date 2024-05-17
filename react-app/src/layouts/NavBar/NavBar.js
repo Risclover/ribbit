@@ -65,7 +65,7 @@ export function NavBar({
           (notification) =>
             notification.read === false &&
             notification.senderId !== user?.id &&
-            notification.type !== "message"
+            notification.notificationType !== "message"
         ).length
     );
 

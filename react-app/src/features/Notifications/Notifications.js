@@ -41,7 +41,7 @@ export function Notifications() {
   const user = useSelector((state) => state.session.user);
 
   const notificationsList = notifications.filter(
-    (notification) => notification.type !== "message"
+    (notification) => notification.notificationType !== "message"
   );
 
   useEffect(() => {

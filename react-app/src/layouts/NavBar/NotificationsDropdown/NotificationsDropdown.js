@@ -55,7 +55,9 @@ export function NotificationsDropdown({
 
   useEffect(() => {
     setNotMessages(
-      notifications.filter((notification) => notification.type !== "message")
+      notifications.filter(
+        (notification) => notification.notificationType !== "message"
+      )
     );
   }, []);
 
@@ -155,7 +157,7 @@ export function NotificationsDropdown({
               .slice(0, 5)
               .map(
                 (notification) =>
-                  notification.type !== "message" && (
+                  notification.notificationType !== "message" && (
                     <Notification
                       notification={notification}
                       setShowDropdown={setShowDropdown}

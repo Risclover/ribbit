@@ -14,7 +14,7 @@ export function PostRepliesPage() {
   );
 
   const postRepliesList = notifications.filter(
-    (notification) => notification.type === "post-reply"
+    (notification) => notification.notificationType === "post-reply"
   );
 
   const [markedUnread, setMarkedUnread] = useState(false);
