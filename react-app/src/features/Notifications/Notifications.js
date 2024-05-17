@@ -139,7 +139,7 @@ export function Notifications() {
               <div className="notifications-today">
                 <span className="notifications-content-header">Today</span>
                 {today
-                  .filter((item) => item.type !== "message")
+                  .filter((item) => item.notificationType !== "message")
                   .map((notification) => (
                     <Notification notification={notification} />
                   ))}
@@ -149,7 +149,7 @@ export function Notifications() {
               <div className="notifications-earlier">
                 <span className="notifications-content-header">Earlier</span>
                 {earlier
-                  .filter((item) => item.type !== "message")
+                  .filter((item) => item.notificationType !== "message")
                   .map((notification) => (
                     <Notification notification={notification} />
                     // <div className="notification">

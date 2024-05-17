@@ -24,11 +24,11 @@ export function Notification({ notification, setShowDropdown }) {
   const readANotification = async (notification) => {
     await dispatch(readNotification(notification?.id));
     dispatch(getUserNotifications(user?.id));
-    if (notification?.type === "post-reply") {
+    if (notification?.notificationType === "post-reply") {
       history.push(`/posts/${notification?.postId}`);
-    } else if (notification?.type === "follower") {
+    } else if (notification?.notificationType === "follower") {
       history.push(`/users/${notification?.senderId}/profile`);
-    } else if (notification?.type === "welcome") {
+    } else if (notification?.notificationType === "welcome") {
       window.open(
         "https://github.com/Risclover/ribbit/wiki/How-to-Use-Ribbit-(User-Manual)",
         "_blank"

@@ -23,7 +23,7 @@ export function Inbox() {
   const [expanded, setExpanded] = useState(true);
 
   const messageList = messages.concat(
-    notifications.filter((item) => item.type !== "message")
+    notifications.filter((item) => item.notificationType !== "message")
   );
 
   useEffect(() => {

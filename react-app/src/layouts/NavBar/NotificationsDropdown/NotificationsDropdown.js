@@ -40,7 +40,7 @@ export function NotificationsDropdown({
   const wrapperRef = useRef(null);
 
   const [unreadMsgs, setUnreadMsgs] = useState(
-    unread.filter((msg) => msg.type === "message")
+    unread.filter((msg) => msg.notificationType === "message")
   );
   const [notMessages, setNotMessages] = useState();
 
