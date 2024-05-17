@@ -28,13 +28,13 @@ export function Searchbar({ loggedIn, searchbarRef }) {
     }
   }, [location]);
 
-  useEffect(() => {
-    if (searchQuery?.length > 0) {
-      setShowSearchDropdown(true);
-    } else {
-      setShowSearchDropdown(false);
-    }
-  }, [searchQuery]);
+  // useEffect(() => {
+  //   if (searchQuery?.length > 0) {
+  //     setShowSearchDropdown(true);
+  //   } else {
+  //     setShowSearchDropdown(false);
+  //   }
+  // }, [searchQuery]);
 
   const handleEnter = (e) => {
     if (e.key === "Enter" && searchQuery.trim().length > 0) {
@@ -57,7 +57,7 @@ export function Searchbar({ loggedIn, searchbarRef }) {
     >
       <div
         className={`nav-search-stuff${
-          showSearchDropdown ? " nav-search-open" : ""
+          showSearchDropdown && searchQuery.length > 0 ? " nav-search-open" : ""
         }`}
       >
         <form
