@@ -1,9 +1,12 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { UserFollowBtn } from "../SearchResultsPosts";
+import { useSelector } from "react-redux";
 
 export const UserResult = ({ user }) => {
   const history = useHistory();
+  const currentUser = useSelector((state) => state.session.user);
+
   return (
     <div onClick={() => history.push(`/users/${user.id}/profile`)}>
       <div className="search-results-page-person">
@@ -29,9 +32,11 @@ export const UserResult = ({ user }) => {
             </div>
           </div>
         </div>
-        <div className="search-results-page-community-right">
-          <UserFollowBtn user={user} />
-        </div>
+        {currentUser.id !== user.id && (
+          <div className="search-results-page-community-right">
+            <UserFollowBtn user={user} />
+          </div>
+        )}
       </div>
     </div>
   );
