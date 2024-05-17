@@ -77,12 +77,12 @@ export const PostResult = ({ post }) => {
             {post?.linkUrl && sliceUrl(post?.linkUrl)}
           </a>
         </div>
+
         {post?.imgUrl !== null && (
-          <img
+          <div
             className="search-results-post-img"
-            src={post?.imgUrl}
-            alt={post?.title}
-          />
+            style={{ backgroundImage: `url(${post?.imgUrl})` }}
+          ></div>
         )}
         {post?.linkUrl !== null && metadataResult && (
           <div className="search-results-post-link-img">

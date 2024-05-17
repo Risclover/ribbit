@@ -15,7 +15,7 @@
   display: flex;
   justify-content: center;
   padding: var(--padding-standard);
-  min-height: calc(100vh - 150px - var(--community-banner-height));
+  /* min-height: calc(100vh - 150px - var(--community-banner-height)); */
 }
 
 .posts-container-alt {
@@ -54,7 +54,6 @@
 }
 
 .no-posts-div {
-  
 }
 
 .posts-home-box-content,
@@ -145,6 +144,7 @@
   flex: 1 1 auto;
   position: relative;
   width: inherit;
+  margin-bottom: 16px;
 }
 
 .tooltip a {

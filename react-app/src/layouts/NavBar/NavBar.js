@@ -18,6 +18,7 @@ import { AllIcon } from "@/assets";
 import { ribbitBanners, ribbitLogos } from "@/assets";
 import "./NavBar.css";
 import { RandomLogo } from "../RandomLogo";
+import "../../features/NewSearch/Search.css";
 
 export function NavBar({
   adjustQuery,

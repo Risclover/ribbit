@@ -1,6 +1,6 @@
 import React from "react";
 import { SearchResultsNav } from "../features";
-import "../features/NewSearch/components/Search.css";
+import "../features/NewSearch/Search.css";
 import { usePageSettings } from "../hooks";
 import { IoSearch } from "react-icons/io5";
 

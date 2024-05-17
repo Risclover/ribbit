@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { getCommunities } from "@/store";
 import { NavLink } from "react-router-dom";
+import { useOutsideClick } from "hooks";
 
 export function SearchDropdown({
   searchQuery,
   setSearchQuery,
   setShowSearchDropdown,
 }) {
+  const wrapperRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const allCommunities = useSelector((state) => state.communities);
@@ -31,6 +33,8 @@ export function SearchDropdown({
     }
   };
 
+  useOutsideClick(wrapperRef, () => setShowSearchDropdown(false));
+
   const filteredCommunities = Object.values(allCommunities)
     .filter((community) =>
       community.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -44,7 +48,15 @@ export function SearchDropdown({
     .slice(0, 5);
 
   return (
-    <div className="nav-search-dropdown">
+    <div
+      className="nav-search-dropdown"
+      role="menu"
+      ref={wrapperRef}
+      onClick={(e) => {
+        e.preventDefault();
+        setShowSearchDropdown(false);
+      }}
+    >
       {filteredCommunities.length > 0 && (
         <div className="nav-search-section">
           <p>Communities</p>
@@ -74,7 +86,13 @@ export function SearchDropdown({
                   c/{community.name}
                 </div>
                 <div className="search-result-community-members">
-                  Community • {community.members} members
+                  Community{" "}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
+                    <g fill="inherit" stroke="none">
+                      <circle r="4" cy="4" cx="4"></circle>
+                    </g>
+                  </svg>{" "}
+                  {community.members} members
                 </div>
               </div>
             </div>
@@ -83,7 +101,7 @@ export function SearchDropdown({
       )}
       {filteredUsers.length > 0 && (
         <div className="nav-search-section">
-          <p>Users</p>
+          <p>People</p>
           {filteredUsers.map((user) => (
             <div
               className="search-result-community"
@@ -113,9 +131,26 @@ export function SearchDropdown({
           ))}
         </div>
       )}
-      <div className="search-for-query" onClick={handleQuery}>
-        <BsSearch /> Search for "{searchQuery}"
-      </div>
+      <button
+        type="submit"
+        form="searchbar-form"
+        className="search-for-query"
+        onClick={handleQuery}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          height="15"
+          viewBox="0 0 15 15"
+          width="15"
+        >
+          <path
+            d="m14.5 14.5-4-4m-4 2c-3.31371 0-6-2.68629-6-6s2.68629-6 6-6 6 2.68629 6 6-2.68629 6-6 6z"
+            stroke="#878a8c"
+          />
+        </svg>{" "}
+        Search for "{searchQuery}"
+      </button>
     </div>
   );
 }
