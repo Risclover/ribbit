@@ -41,7 +41,7 @@ export function MessageReply({
       };
       const msg = await dispatch(createMessage(payload));
       const notificationsPayload = {
-        type: "message",
+        notificationType: "message",
         id: msg.id,
       };
       dispatch(addNotification(notificationsPayload));

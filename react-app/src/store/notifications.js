@@ -42,11 +42,12 @@ export const getAllNotifications = () => async (dispatch) => {
 };
 
 export const addNotification = (payload) => async (dispatch) => {
-  const { type, id } = payload;
+  const { notificationType, id } = payload;
 
-  const response = await fetch(`/api/notifications/${type}/${id}`, {
+  const response = await fetch(`/api/notifications/${notificationType}/${id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ notification_type: notificationType, id }),
   });
 
   if (response.ok) {

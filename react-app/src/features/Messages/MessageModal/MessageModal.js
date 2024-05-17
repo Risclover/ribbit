@@ -137,7 +137,7 @@ export function MessageModal({ setShowMessageModal, username }) {
         dispatch(getMessages());
 
         const notificationPayload = {
-          type: "message",
+          notificationType: "message",
           id: msg.id,
         };
         dispatch(addNotification(notificationPayload));

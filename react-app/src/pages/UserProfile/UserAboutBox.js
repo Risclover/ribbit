@@ -55,7 +55,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
     dispatch(getUserFollowers(user?.id));
     setFollowing(!following);
     const payload = {
-      type: "follower",
+      notificationType: "follower",
       id: data.id,
     };
 
