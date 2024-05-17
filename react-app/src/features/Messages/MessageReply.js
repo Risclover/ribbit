@@ -31,7 +31,7 @@ export function MessageReply({
 
   const handleReply = async (e) => {
     e.preventDefault();
-    if (reply === "") {
+    if (reply.trim() === "") {
       setError("we need something here");
     } else {
       const payload = {

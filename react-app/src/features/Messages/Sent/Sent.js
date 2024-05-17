@@ -26,9 +26,11 @@ export function Sent() {
     pageTitle: "Messages",
   });
 
-  let nothingHere = threads.map((thread) =>
-    thread.messages.filter((message) => message.sender.id === currentUser.id)
-  );
+  let sentMessages = threads
+    .map((thread) =>
+      thread.messages.filter((message) => message.sender.id === currentUser.id)
+    )
+    .flat();
 
   return (
     <div className="messages-page">
@@ -40,6 +42,7 @@ export function Sent() {
               .filter((message) => message.sender.id === currentUser.id)
               .map((message, idx) => (
                 <SentMessage
+                  key={message.id}
                   message={message}
                   firstMessage={idx === 0}
                   recipient={thread.users[0]}
@@ -51,7 +54,7 @@ export function Sent() {
               })
           )}
         </div>
-        {nothingHere.length === 0 && (
+        {sentMessages.length === 0 && (
           <div className="messages-content-nothing">
             there doesn't seem to be anything here
           </div>
