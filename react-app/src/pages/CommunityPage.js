@@ -10,6 +10,7 @@ import {
   CommunityWelcome,
 } from "../features";
 import { usePageSettings } from "../hooks/usePageSettings";
+import { getIdFromName } from "utils/getCommunityIdFromName";
 
 export function CommunityPage() {
   // const { communityId } = useParams();
@@ -23,13 +24,6 @@ export function CommunityPage() {
   }, [dispatch]);
 
   const communities = useSelector((state) => state.communities);
-
-  const getIdFromName = (name) => {
-    let result = Object.values(communities).find(
-      (community) => community.name === name
-    );
-    return result ? result.id : null;
-  };
 
   const communityId = getIdFromName(communityName);
 

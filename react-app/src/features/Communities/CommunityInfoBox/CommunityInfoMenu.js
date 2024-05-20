@@ -9,26 +9,21 @@ import {
 } from "@/store";
 import { HandleClickOutside } from "@/utils";
 import { useOutsideClick } from "hooks";
+import { getIdFromName } from "utils/getCommunityIdFromName";
 
 export function CommunityInfoMenu() {
   const wrapperRef = useRef(null);
   const dispatch = useDispatch();
   const { communityName } = useParams();
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
-  const communities = useSelector((state) => state.communities);
-
-  const getIdFromName = (name) => {
-    let result = Object.values(communities).find(
-      (community) => community.name === name
-    );
-    return result ? result.id : null;
-  };
 
   const [btnState, setBtnState] = useState("Add To Favorites");
   const [openMenu, setOpenMenu] = useState(false);
 
+  const communityId = getIdFromName(communityName);
+
   useEffect(() => {
-    if (favoriteCommunities[getIdFromName(communityName)]) {
+    if (favoriteCommunities[communityId]) {
       setBtnState("Remove From Favorites");
     } else {
       setBtnState("Add To Favorites");
@@ -42,10 +37,10 @@ export function CommunityInfoMenu() {
 
   const handleFavorites = async (e, community) => {
     e.preventDefault();
-    if (favoriteCommunities[getIdFromName(communityName)]) {
-      await dispatch(removeFavoriteCommunity(getIdFromName(communityName)));
+    if (favoriteCommunities[communityId]) {
+      await dispatch(removeFavoriteCommunity(communityId));
     } else {
-      await dispatch(addFavoriteCommunity(getIdFromName(communityName)));
+      await dispatch(addFavoriteCommunity(communityId));
     }
     dispatch(getFavoriteCommunities());
     setOpenMenu(false);

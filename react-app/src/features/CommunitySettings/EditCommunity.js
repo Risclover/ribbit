@@ -11,6 +11,7 @@ import { Modal } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
 import { CommunityEditRule, AddCommunityRuleModal } from "..";
 import "./CommunitySettings.css";
+import { getIdFromName } from "utils/getCommunityIdFromName";
 
 export function EditCommunity() {
   const dispatch = useDispatch();
@@ -18,13 +19,6 @@ export function EditCommunity() {
   // const { communityId } = useParams();
   const { communityName } = useParams();
   const communities = useSelector((state) => state.communities);
-
-  const getIdFromName = (name) => {
-    let result = Object.values(communities).find(
-      (community) => community?.name === name
-    );
-    return result ? result.id : null;
-  };
 
   const communityId = getIdFromName(communityName);
 

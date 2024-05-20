@@ -32,6 +32,7 @@ import {
 import getTextColor from "@/utils/getTextColor";
 import "./PostForm.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
+import { getIdFromName } from "utils/getCommunityIdFromName";
 
 const modules = {
   toolbar: [
@@ -79,14 +80,7 @@ export function CreatePost({ postType, setPostType, val }) {
   const communities = useSelector((state) => Object.values(state.communities));
   const user = useSelector((state) => state.session.user);
 
-  const getIdFromName = (name) => {
-    let result = Object.values(communities).find(
-      (community) => community.name === name
-    );
-    return result ? result.id : null;
-  };
-
-  const [communityId, setCommunityId] = useState(getIdFromName(communityName));
+  const communityId = getIdFromName(communityName);
   const [community_id, setcommunity_id] = useState(
     communityId === "undefined" ? "undefined" : +communityId
   );

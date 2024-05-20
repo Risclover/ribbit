@@ -21,6 +21,7 @@ import { Modal } from "@/context";
 import { DiscardPost } from "../DiscardPost";
 import validator from "validator";
 import parse from "html-react-parser";
+import { getIdFromName } from "utils/getCommunityIdFromName";
 
 export function CreatePostForm({
   postType,
@@ -45,18 +46,7 @@ export function CreatePostForm({
   const communities = useSelector((state) => Object.values(state.communities));
   const posts = useSelector((state) => state.posts);
 
-  const getIdFromName = (name) => {
-    let result = Object.values(communities).find(
-      (community) => community.name === name
-    );
-    return result ? result.id : null;
-  };
-
   const [communityId, setCommunityId] = useState(getIdFromName(communityName));
-
-  useEffect(() => {
-    setCommunityId(getIdFromName(communityName));
-  }, [communityName]);
 
   //   useEffect(() => {
   //     if (communityName !== "") {
