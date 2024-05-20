@@ -213,15 +213,12 @@
   position: relative;
 }
 
-.nav-left-dropdown-navitem:hover,
-.nav-left-dropdown-item-link:hover {
+.nav-left-dropdown-navitem:hover {
   background: #f6f7f8;
 }
 
-.nav-left-dropdown-item-link > svg {
+.nav-left-dropdown-navitem svg {
   font-size: 20px;
-  flex-grow: 0;
-  cursor: pointer;
 }
 
 .nav-left-dropdown-item-img {

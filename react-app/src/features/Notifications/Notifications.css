@@ -48,10 +48,16 @@
   height: 50px;
   text-align: center;
   justify-content: center;
+  align-items: center;
 }
 
 .notifications-button-bar-item:hover {
   color: var(--main-text-color);
+}
+
+.notifications-button-bar-item:hover svg {
+  stroke: #7c7c7c;
+  color: #7c7c7c;
 }
 
 .notifications-button-bar-active {
@@ -71,6 +77,8 @@
   font-size: 20px;
   margin-right: 6px;
   line-height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .notifications-main-wrapper {

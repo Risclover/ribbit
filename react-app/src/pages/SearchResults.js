@@ -11,8 +11,8 @@ export const SearchResults = ({ children, query, searchPage }) => {
       <div className="nav-left-dropdown-item-icon">
         <svg
           fill="#000000"
-          height="200px"
-          width="200px"
+          height="20px"
+          width="20px"
           version="1.1"
           id="Capa_1"
           xmlns="http://www.w3.org/2000/svg"
