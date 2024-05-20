@@ -8,18 +8,27 @@ import {
   removeFavoriteCommunity,
 } from "@/store";
 import { HandleClickOutside } from "@/utils";
+import { useOutsideClick } from "hooks";
 
 export function CommunityInfoMenu() {
   const wrapperRef = useRef(null);
   const dispatch = useDispatch();
-  const { communityId } = useParams();
+  const { communityName } = useParams();
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
+  const communities = useSelector((state) => state.communities);
+
+  const getIdFromName = (name) => {
+    let result = Object.values(communities).find(
+      (community) => community.name === name
+    );
+    return result ? result.id : null;
+  };
 
   const [btnState, setBtnState] = useState("Add To Favorites");
   const [openMenu, setOpenMenu] = useState(false);
 
   useEffect(() => {
-    if (favoriteCommunities[communityId]) {
+    if (favoriteCommunities[getIdFromName(communityName)]) {
       setBtnState("Remove From Favorites");
     } else {
       setBtnState("Add To Favorites");
@@ -31,34 +40,18 @@ export function CommunityInfoMenu() {
     setOpenMenu(!openMenu);
   };
 
-  const handleFavorites = (e) => {
+  const handleFavorites = async (e, community) => {
     e.preventDefault();
-
-    if (favoriteCommunities[communityId]) {
-      dispatch(removeFavoriteCommunity(communityId));
-      dispatch(getFavoriteCommunities());
-      setBtnState("Remove From Favorites");
+    if (favoriteCommunities[getIdFromName(communityName)]) {
+      await dispatch(removeFavoriteCommunity(getIdFromName(communityName)));
+    } else {
+      await dispatch(addFavoriteCommunity(getIdFromName(communityName)));
     }
-
-    if (!favoriteCommunities[communityId]) {
-      dispatch(addFavoriteCommunity(communityId));
-      dispatch(getFavoriteCommunities());
-      setBtnState("Add To Favorites");
-    }
+    dispatch(getFavoriteCommunities());
     setOpenMenu(false);
   };
 
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", function (e) {
-  //     HandleClickOutside(e, wrapperRef, openMenu, setOpenMenu);
-  //   });
-  //   return () => {
-  //     document.removeEventListener("mousedown", function (e) {
-  //       HandleClickOutside(e, wrapperRef, openMenu, setOpenMenu);
-  //     });
-  //   };
-  // }, [wrapperRef, openMenu]);
-
+  useOutsideClick(wrapperRef, () => setOpenMenu(false));
   return (
     <div className="community-page-menu">
       <button onClick={handleOpenMenu}>
