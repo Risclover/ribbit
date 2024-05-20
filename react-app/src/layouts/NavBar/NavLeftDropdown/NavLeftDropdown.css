@@ -188,7 +188,8 @@
   font-family: var(--font-family-noto);
 }
 
-.nav-left-dropdown-filter:focus {
+.nav-left-dropdown-filter:focus,
+.nav-left-dropdown-filter:hover {
   background: white;
   border: 1px solid var(--highlight-color);
 }
