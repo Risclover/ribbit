@@ -1,3 +1,3 @@
 export { NavLeftDropdown } from "./NavLeftDropdown";
-export { NavLeftDropdownFace } from "./NavLeftDropdownFace";
+export { NavLeftDropdownFace } from "./NavLeftDropdownFaces";
 export { NavLeftDropdownLink } from "./NavLeftDropdownLink";

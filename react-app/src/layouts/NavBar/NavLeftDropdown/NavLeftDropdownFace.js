@@ -1,19 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { NewNavLeftDropdown } from "./NewNavLeftDropdown";
 import { VscChevronDown } from "react-icons/vsc";
-import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
-import { NavLeftDropdown } from "./NavLeftDropdown";
 import { PageTitleContext } from "@/context";
+import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
+import { useOutsideClick } from "hooks";
 import "./NavLeftDropdown.css";
+import { NavLeftDropdown } from "./NavLeftDropdown";
 
-export function NavLeftDropdownFace({
+export const NavLeftDropdownFace = ({
+  screenWidth,
+  setScreenWidth,
   setShowNavSidebar,
   showNavSidebar,
-  setNormalDropdown,
-  normalDropdown,
-}) {
+  showDropdown,
+  setShowDropdown,
+}) => {
+  const dropdownRef = useRef(null);
   const { pageTitle, pageIcon } = useContext(PageTitleContext);
   const [showIcon, setShowIcon] = useState(false);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const handleResize = () => {
     setScreenWidth(window.innerWidth);
@@ -28,72 +32,74 @@ export function NavLeftDropdownFace({
   }, []);
 
   useEffect(() => {
-    if (screenWidth <= 1250) {
-      setShowNavSidebar(false);
-      setNormalDropdown(true);
+    console.log("showDropdown:", showDropdown);
+    setShowIcon(showDropdown);
+  }, [showDropdown]);
+
+  useEffect(() => {
+    if (showNavSidebar) {
+      setShowIcon(false);
     }
-  }, [screenWidth]);
+  });
+
+  useOutsideClick(dropdownRef, () => setShowDropdown(false));
 
   return (
-    <div className="nav-left-dropdown-wrapper">
-      {!showNavSidebar && (
-        <>
-          <div
-            className={
-              normalDropdown
-                ? "nav-left-dropdown-face"
-                : "nav-left-dropdown-face dropdown-not-normal"
-            }
-            onClick={() => {
-              normalDropdown && setShowIcon(true);
-            }}
+    <>
+      <div className="nav-left-dropdown-wrapper" ref={dropdownRef}>
+        {/* clickable face */}
+        <div
+          className="nav-left-dropdown-face"
+          onClick={() => {
+            !showNavSidebar && setShowDropdown(!showDropdown);
+            console.log("after toggle:", showDropdown);
+          }}
+        >
+          {/* first 2/3rds is a button */}
+          <button
+            className={`nav-left-dropdown-face-left${
+              !showNavSidebar && showIcon
+                ? " plus-border"
+                : showNavSidebar && !showIcon
+                ? " dropdown-disabled"
+                : ""
+            }`}
           >
-            <button
-              className={
-                normalDropdown && showIcon
-                  ? "nav-left-dropdown-face-left plus-border"
-                  : normalDropdown && !showIcon
-                  ? "nav-left-dropdown-face-left"
-                  : "nav-left-dropdown-face-left dropdown-not-normal"
-              }
-            >
-              <div className="nav-left-dropdown-face-title">
-                {pageIcon}
-                {screenWidth > 996 && pageTitle}
-              </div>
-            </button>
-            <span
-              className={
-                normalDropdown
-                  ? "nav-left-dropdown-arrow"
-                  : "nav-left-dropdown-arrow-hidden"
-              }
-            >
-              <VscChevronDown />
-            </span>
-            {showIcon && !showNavSidebar && (
-              <div
-                className="nav-left-dropdown-face-sidebar-icon"
-                onClick={() => {
-                  setShowNavSidebar(true);
-                  setNormalDropdown(false);
-                }}
-              >
-                <BsReverseLayoutTextSidebarReverse />
-              </div>
-            )}
-          </div>
+            {/* page icon and page title */}
+            <div className="nav-left-dropdown-face-title">
+              {pageIcon}
+              {screenWidth > 996 && pageTitle}
+            </div>
 
-          {showIcon && !showNavSidebar && (
-            <div className="nav-left-dropdown">
-              <NavLeftDropdown
-                showIcon={showIcon}
-                setShowIcon={() => setShowIcon()}
-              />
+            {/* down chevron arrow */}
+            {!showNavSidebar && (
+              <span className="nav-left-dropdown-arrow">
+                <VscChevronDown />
+              </span>
+            )}
+          </button>
+          {showIcon && (
+            <div
+              className="nav-left-dropdown-face-sidebar-icon"
+              onClick={() => {
+                setShowNavSidebar(true);
+              }}
+            >
+              <BsReverseLayoutTextSidebarReverse />
             </div>
           )}
-        </>
-      )}
-    </div>
+        </div>
+        {/* dropdown component */}
+        {showDropdown && (
+          <div className="nav-left-dropdown">
+            <NavLeftDropdown
+              setShowDropdown={setShowDropdown}
+              setShowIcon={setShowIcon}
+              showDropdown={showDropdown}
+            />
+          </div>
+        )}
+      </div>
+    </>
   );
-}
+};

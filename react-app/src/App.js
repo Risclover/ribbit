@@ -77,6 +77,14 @@ function App() {
   const [selectedChat, setSelectedChat] = useState("");
   const [userCommunities, setUserCommunities] = useState([]);
   const [previewPage, setPreviewPage] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  useEffect(() => {
+    if (screenWidth <= 1250) {
+      setShowNavSidebar(false);
+    }
+  }, [screenWidth]);
 
   useEffect(() => {
     if (location.pathname.endsWith("/style")) {
@@ -129,11 +137,13 @@ function App() {
     setSearchQuery: setSearchQuery,
     setShowNavSidebar: setShowNavSidebar,
     showNavSidebar: showNavSidebar,
-    normalDropdown: normalDropdown,
-    setNormalDropdown: setNormalDropdown,
+    showDropdown: showDropdown,
+    setShowDropdown: setShowDropdown,
     setOpenChat: setOpenChat,
     openChat: openChat,
     searchbarRef: searchbarRef,
+    screenWidth: screenWidth,
+    setScreenWidth: setScreenWidth,
   };
 
   return (
@@ -168,8 +178,7 @@ function App() {
                 <NavSidebar
                   setShowNavSidebar={setShowNavSidebar}
                   showNavSidebar={showNavSidebar}
-                  setNormalDropdown={setNormalDropdown}
-                  normalDropdown={normalDropdown}
+                  setShowDropdown={setShowDropdown}
                 />
               )}
 

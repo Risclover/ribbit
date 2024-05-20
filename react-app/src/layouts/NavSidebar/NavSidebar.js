@@ -11,11 +11,12 @@ import {
 
 import { NavLeftDropdown } from "@/layouts";
 import "./NavSidebar.css";
+import { NewNavLeftDropdown } from "layouts/NavBar";
 
 export function NavSidebar({
   setShowNavSidebar,
   showNavSidebar,
-  setNormalDropdown,
+  setShowDropdown,
 }) {
   const dispatch = useDispatch();
   const [showIcon, setShowIcon] = useState();
@@ -37,7 +38,6 @@ export function NavSidebar({
               onClick={() => {
                 setShowNavSidebar(false);
                 setShowIcon(false);
-                setNormalDropdown(true);
               }}
             >
               <TfiClose />
@@ -48,6 +48,7 @@ export function NavSidebar({
               mode="sidebar"
               showIcon={showIcon}
               setShowIcon={setShowIcon}
+              setShowDropdown={setShowDropdown}
             />
           </div>
         </div>

@@ -10,6 +10,7 @@ import {
   NavLeftDropdownFace,
   NotificationsDropdownWrapper,
   LoggedOutDropdownWrapper,
+  NewNavLeftDropdownFace,
 } from "../NavBar";
 import { SelectedChatContext } from "@/context";
 import { Searchbar, LoginSignupModal } from "@/features";
@@ -25,11 +26,14 @@ export function NavBar({
   searchQuery,
   setSearchQuery,
   setShowNavSidebar,
-  normalDropdown,
-  setNormalDropdown,
+  showDropdown,
+  setShowDropdown,
   setOpenChat,
   openChat,
   searchbarRef,
+  showNavSidebar,
+  screenWidth,
+  setScreenWidth,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -113,10 +117,13 @@ export function NavBar({
         </li>
         <li>
           {user && (
-            <NavLeftDropdownFace
+            <NewNavLeftDropdownFace
               setShowNavSidebar={setShowNavSidebar}
-              setNormalDropdown={setNormalDropdown}
-              normalDropdown={normalDropdown}
+              setShowDropdown={setShowDropdown}
+              showDropdown={showDropdown}
+              showNavSidebar={showNavSidebar}
+              screenWidth={screenWidth}
+              setScreenWidth={setScreenWidth}
             />
           )}
         </li>
