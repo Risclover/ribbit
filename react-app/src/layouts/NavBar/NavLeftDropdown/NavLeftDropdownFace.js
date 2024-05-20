@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { NewNavLeftDropdown } from "./NewNavLeftDropdown";
 import { VscChevronDown } from "react-icons/vsc";
 import { PageTitleContext } from "@/context";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";

@@ -10,7 +10,6 @@ import {
   NavLeftDropdownFace,
   NotificationsDropdownWrapper,
   LoggedOutDropdownWrapper,
-  NewNavLeftDropdownFace,
 } from "../NavBar";
 import { SelectedChatContext } from "@/context";
 import { Searchbar, LoginSignupModal } from "@/features";
@@ -117,7 +116,7 @@ export function NavBar({
         </li>
         <li>
           {user && (
-            <NewNavLeftDropdownFace
+            <NavLeftDropdownFace
               setShowNavSidebar={setShowNavSidebar}
               setShowDropdown={setShowDropdown}
               showDropdown={showDropdown}
