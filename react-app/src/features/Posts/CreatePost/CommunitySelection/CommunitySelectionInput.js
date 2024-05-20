@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 import { TbChevronDown } from "react-icons/tb";
 import "./CommunitySelection.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 export function CommunitySelectionInput({
   setShowDropdown,
@@ -14,6 +14,8 @@ export function CommunitySelectionInput({
   communityList,
   setCommunity,
 }) {
+  const { communityName } = useParams();
+  console.log("communityName:", communityName);
   const history = useHistory();
   const [inputState, setInputState] = useState("choose");
   const communitySettings = useSelector((state) =>
@@ -47,27 +49,33 @@ export function CommunitySelectionInput({
     }
   }, [communityId, communities]);
 
+  console.log("communityId:", communityId);
+
   return (
     <div
       className="community-selection-input-box"
       onClick={() => setShowDropdown(true)}
     >
       <div className="inner-input-box">
-        {!search && inputState === "search" && <BsSearch />}
-        {!search && inputState === "choose" && (
-          <div className="dotted-circle"></div>
-        )}
-        {communityId && (
-          <img
-            style={{
-              backgroundColor:
-                community?.communitySettings[community?.id].baseColor,
-            }}
-            className="community-dropdown-img"
-            alt="Community"
-            src={community?.communitySettings?.[community?.id].communityIcon}
-          />
-        )}
+        {inputState === "search" && <BsSearch />}
+        {inputState !== "search" &&
+          inputState === "choose" &&
+          search !== communityName && <div className="dotted-circle"></div>}
+
+        {inputState !== "search" &&
+          search === communityName &&
+          search?.length > 0 && (
+            <img
+              style={{
+                backgroundColor:
+                  community?.communitySettings[community?.id].baseColor,
+              }}
+              className="community-dropdown-img"
+              alt="Community"
+              src={community?.communitySettings?.[community?.id].communityIcon}
+            />
+          )}
+
         {search?.length > 0 && (
           <span className="community-selection-span">c/</span>
         )}
