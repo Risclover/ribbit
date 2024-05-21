@@ -25,6 +25,7 @@ export function CommunitySelection({
   const [search, setSearch] = useState(community?.name);
   const [showDropdown, setShowDropdown] = useState(false);
   const [communityModalOpen, setCommunityModalOpen] = useState(false);
+  const [inputState, setInputState] = useState("choose");
 
   useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
@@ -67,6 +68,8 @@ export function CommunitySelection({
         communityId={communityId}
         community={community}
         setCommunity={setCommunity}
+        setInputState={setInputState}
+        inputState={inputState}
       />
       {showDropdown && (
         <CommunitySelectionDropdown
@@ -83,6 +86,8 @@ export function CommunitySelection({
           subscriptions={Object.values(subscriptions)}
           community={community}
           setCommunity={setCommunity}
+          setInputState={setInputState}
+          inputState={inputState}
         />
       )}
     </div>

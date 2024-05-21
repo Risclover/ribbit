@@ -7,22 +7,18 @@ import { useHistory, useParams } from "react-router-dom";
 
 export function CommunitySelectionInput({
   setShowDropdown,
+  showDropdown,
   search,
   setSearch,
   communityId,
   community,
   communityList,
   setCommunity,
+  setInputState,
+  inputState,
 }) {
   const { communityName } = useParams();
-  console.log("communityName:", communityName);
   const history = useHistory();
-  const [inputState, setInputState] = useState("choose");
-  const communitySettings = useSelector((state) =>
-    communityId
-      ? state.communities[communityId]?.communitySettings[communityId]
-      : null
-  );
 
   const communities = useSelector((state) => Object.values(state.communities));
 
@@ -31,25 +27,38 @@ export function CommunitySelectionInput({
     setShowDropdown(true);
   };
 
-  useEffect(() => {
-    if (inputState === "choose" && search === "") {
+  const handleBlur = () => {
+    setInputState("choose");
+    if (search === "") {
       setCommunity(null);
       history.push("/submit");
     }
-  }, [inputState, search, history, community]);
+  };
 
   useEffect(() => {
-    // If there's a communityId, find and set the initial community
     if (communityId) {
       const initialCommunity = communities.find((c) => c.id === communityId);
       if (initialCommunity) {
         setCommunity(initialCommunity);
-        setSearch(initialCommunity.name);
+        // setSearch(initialCommunity.name);
       }
     }
-  }, [communityId, communities]);
+  }, [communityId, communities, setCommunity, setSearch]);
 
-  console.log("communityId:", communityId);
+  const handleKeyPress = (e) => {
+    console.log(e.key);
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const foundCommunity = communities.find(
+        (comm) => comm.name === e.target.value
+      );
+      if (foundCommunity) {
+        history.push(`/c/${foundCommunity.name}/submit`);
+        setCommunity(foundCommunity);
+        setShowDropdown(false);
+      }
+    }
+  };
 
   return (
     <div
@@ -58,9 +67,9 @@ export function CommunitySelectionInput({
     >
       <div className="inner-input-box">
         {inputState === "search" && <BsSearch />}
-        {inputState !== "search" &&
-          inputState === "choose" &&
-          search !== communityName && <div className="dotted-circle"></div>}
+        {inputState === "choose" && search?.length === 0 && (
+          <div className="dotted-circle"></div>
+        )}
 
         {inputState !== "search" &&
           search === communityName &&
@@ -68,11 +77,11 @@ export function CommunitySelectionInput({
             <img
               style={{
                 backgroundColor:
-                  community?.communitySettings[community?.id].baseColor,
+                  community?.communitySettings[community?.id]?.baseColor,
               }}
               className="community-dropdown-img"
               alt="Community"
-              src={community?.communitySettings?.[community?.id].communityIcon}
+              src={community?.communitySettings?.[community?.id]?.communityIcon}
             />
           )}
 
@@ -86,27 +95,15 @@ export function CommunitySelectionInput({
               ? "Search communities"
               : "Choose a community"
           }
-          onBlur={(e) => {
-            setInputState("choose");
-          }}
+          onBlur={handleBlur}
           className="community-selection-input"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
           onFocus={handleFocus}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              const foundCommunity = communities.find(
-                (comm) => comm.name === e.target.value
-              );
-              if (foundCommunity) {
-                history.push(`/c/${foundCommunity.name}/submit`);
-                setCommunity(foundCommunity);
-              }
-            }
-          }}
+          onKeyPress={handleKeyPress}
         />
         <button
+          type="button"
           className="chevron-down-icon"
           onClick={() => setShowDropdown((prev) => !prev)}
         >

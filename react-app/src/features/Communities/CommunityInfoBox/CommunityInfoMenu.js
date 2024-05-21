@@ -17,10 +17,12 @@ export function CommunityInfoMenu() {
   const { communityName } = useParams();
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
 
+  const communities = useSelector((state) => state.communities);
+
   const [btnState, setBtnState] = useState("Add To Favorites");
   const [openMenu, setOpenMenu] = useState(false);
 
-  const communityId = getIdFromName(communityName);
+  const communityId = getIdFromName(communityName, communities);
 
   useEffect(() => {
     if (favoriteCommunities[communityId]) {

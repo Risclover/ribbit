@@ -25,7 +25,7 @@ export function CommunityPage() {
 
   const communities = useSelector((state) => state.communities);
 
-  const communityId = getIdFromName(communityName);
+  const communityId = getIdFromName(communityName, communities);
 
   const community = useSelector((state) => state.communities[communityId]);
 

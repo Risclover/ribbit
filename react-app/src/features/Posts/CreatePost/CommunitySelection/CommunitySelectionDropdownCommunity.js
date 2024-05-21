@@ -10,6 +10,8 @@ export function CommunitySelectionDropdownCommunity({
   setCommunity,
   communityId,
   otherComms,
+  setInputState,
+  inputState,
 }) {
   const history = useHistory();
   const allCommunities = useSelector((state) =>
@@ -26,7 +28,7 @@ export function CommunitySelectionDropdownCommunity({
         setBaseColor(community.communitySettings[community?.id].baseColor);
       }
     }
-  });
+  }, []);
 
   const changeCommunity = (community) => {
     document.documentElement.style.setProperty(
@@ -65,6 +67,7 @@ export function CommunitySelectionDropdownCommunity({
   const handleClick = (e, name) => {
     e.preventDefault();
     setSearch(name);
+    setInputState("search");
     for (let community of allCommunities) {
       if (community.name === name) {
         setCommunity(community);
@@ -73,6 +76,7 @@ export function CommunitySelectionDropdownCommunity({
         setShowDropdown(false);
       }
     }
+    setInputState("choose");
   };
 
   return (
@@ -96,12 +100,19 @@ export function CommunitySelectionDropdownCommunity({
         {otherComms && (
           <img
             className="community-selection-community-img"
+            style={{
+              backgroundColor: `${baseColor}`,
+            }}
             src={subscription.img}
           />
         )}
         {!otherComms && (
           <img
             className="community-selection-community-img"
+            style={{
+              backgroundColor:
+                subscription?.communitySettings?.[subscription?.id].baseColor,
+            }}
             src={subscription.communitySettings[subscription?.id].communityIcon}
           />
         )}

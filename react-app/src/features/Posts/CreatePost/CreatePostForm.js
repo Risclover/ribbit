@@ -1,27 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import {
-  addImagePost,
-  addLinkPost,
-  addPost,
-  addPostVote,
-  getPosts,
-} from "@/store";
-import { useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import { addImagePost, addLinkPost, addPost, addPostVote } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
 import { CreatePostFormTitle } from "./CreatePostFormTitle";
 import { CreatePostFormContent } from "./CreatePostFormContent";
-import { validateImgPost } from "../utils/validateImgPost";
-import { validateLinkPost } from "../utils/validateLinkPost";
-import { validatePost } from "../utils/validatePost";
-import { useDispatch, useSelector } from "react-redux";
-import { CommunitySelection } from "./CommunitySelection";
 import { PostTypeBar } from "./PostTypeBar";
 import { CreatePostFormErrors } from "./CreatePostFormErrors";
 import { Modal } from "@/context";
 import { DiscardPost } from "../DiscardPost";
 import validator from "validator";
-import parse from "html-react-parser";
 import { getIdFromName } from "utils/getCommunityIdFromName";
+import { CommunitySelection } from "./CommunitySelection";
 
 export function CreatePostForm({
   postType,
@@ -44,25 +33,27 @@ export function CreatePostForm({
   const [disabled, setDisabled] = useState(false);
 
   const communities = useSelector((state) => Object.values(state.communities));
-  const posts = useSelector((state) => state.posts);
+  const [communityId, setCommunityId] = useState(null);
 
-  const [communityId, setCommunityId] = useState(getIdFromName(communityName));
-
-  //   useEffect(() => {
-  //     if (communityName !== "") {
-  //       communities.find(
-  //         (comm) => comm.name === communityName && setCommunity(comm)
-  //       );
-  //     }
-  //   }, [communityName]);
+  useEffect(() => {
+    if (communityName) {
+      const id = getIdFromName(communityName, communities);
+      setCommunityId(id);
+    }
+  }, [communityName, communities]);
 
   const handleGeneralSubmit = (data) => {
     history.push(`/c/${communityName}`);
+    console.log("data:", data);
     dispatch(addPostVote(data.id, "upvote"));
   };
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
+    if (!communityId) {
+      setErrors([...errors, "Please select a community."]);
+      return;
+    }
 
     const payload = {
       title,
@@ -70,11 +61,17 @@ export function CreatePostForm({
       communityId,
     };
     const data = await dispatch(addPost(payload));
+    console.log("data:", data);
     handleGeneralSubmit(data);
   };
 
   const handleLinkSubmit = async (e) => {
     e.preventDefault();
+    if (!communityId) {
+      setErrors([...errors, "Please select a community."]);
+      return;
+    }
+
     const payload = {
       title,
       linkUrl,
@@ -86,6 +83,11 @@ export function CreatePostForm({
 
   const handleImageSubmit = async (e) => {
     e.preventDefault();
+    if (!communityId) {
+      setErrors([...errors, "Please select a community."]);
+      return;
+    }
+
     const payload = {
       title,
       imgUrl,
@@ -100,12 +102,7 @@ export function CreatePostForm({
     if (content.length > 0 && postType === "post") {
       setShowDiscardModal(true);
     } else {
-      if (
-        communityId !== undefined &&
-        communityId !== "undefined" &&
-        communityId &&
-        !isNaN(communityId)
-      ) {
+      if (communityId) {
         history.push(`/c/${communityName}`);
       } else {
         history.push("/home");
@@ -120,28 +117,17 @@ export function CreatePostForm({
     }
 
     if (
-      (postType === "image" &&
-        (imgUrl === "" || imgUrl === undefined || imgUrl === null)) ||
+      (postType === "image" && !imgUrl) ||
       (postType === "link" &&
         (linkUrl.length === 0 || !validator.isURL(linkUrl))) ||
       title.length === 0 ||
-      communityName === undefined
+      !communityName
     ) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [
-    dispatch,
-    title,
-    content,
-    imgUrl,
-    communities,
-    communityId,
-    postType,
-    linkUrl,
-    communityName,
-  ]);
+  }, [title, content, imgUrl, postType, linkUrl, communityName]);
 
   return (
     <form
@@ -153,7 +139,7 @@ export function CreatePostForm({
           ? handleImageSubmit
           : postType === "link"
           ? handleLinkSubmit
-          : ""
+          : null
       }
     >
       <div className="create-post-header">Create a post</div>

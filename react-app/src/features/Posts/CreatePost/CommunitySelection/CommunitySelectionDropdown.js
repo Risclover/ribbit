@@ -16,6 +16,8 @@ export function CommunitySelectionDropdown({
   setSearch,
   communityList,
   setCommunity,
+  setInputState,
+  inputState,
 }) {
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
@@ -72,6 +74,8 @@ export function CommunitySelectionDropdown({
               showDropdown={showDropdown}
               setCommunity={setCommunity}
               otherComms={false}
+              setInputState={setInputState}
+              inputState={inputState}
             />
           ))}
       {!search &&
@@ -91,6 +95,8 @@ export function CommunitySelectionDropdown({
               showDropdown={showDropdown}
               setCommunity={setCommunity}
               otherComms={false}
+              setInputState={setInputState}
+              inputState={inputState}
             />
           ))}
       {communityList
@@ -124,6 +130,8 @@ export function CommunitySelectionDropdown({
                 showDropdown={showDropdown}
                 setCommunity={setCommunity}
                 otherComms={true}
+                setInputState={setInputState}
+                inputState={inputState}
               />
             ))}
       </div>
