@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 import { Username } from "@/components";
+import { CommunityImg } from "components/CommunityImg";
 
 moment.updateLocale("en-post", {
   relativeTime: {
@@ -46,14 +47,16 @@ export function SinglePostAuthorBar({
       {isPage !== "community" && (
         <div className="single-post-community-info">
           <div className="single-post-community-img">
-            <img
-              style={{
+            <CommunityImg
+              imgSrc={
+                post?.communitySettings?.[post?.communityId]?.communityIcon
+              }
+              imgAlt="Community"
+              imgStyle={{
                 backgroundColor: `${
                   post?.communitySettings?.[post?.communityId]?.baseColor
                 }`,
               }}
-              src={post?.communitySettings?.[post?.communityId]?.communityIcon}
-              alt="Community"
             />
           </div>
 

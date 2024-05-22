@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { CommunityJoinBtn } from "./CommunityJoinBtn";
 import { useHistory } from "react-router-dom";
+import { CommunityImg } from "components/CommunityImg";
 
 export const Community = ({ community }) => {
   const history = useHistory();
@@ -9,15 +10,15 @@ export const Community = ({ community }) => {
     <div onClick={() => history.push(`/c/${community.name}`)}>
       <div className="search-results-page-community">
         <div className="search-results-page-community-left">
-          <img
-            className="search-results-page-community-img"
-            style={{
+          <CommunityImg
+            imgSrc={community?.communitySettings[community?.id].communityIcon}
+            imgClass="search-results-page-community-img"
+            imgStyle={{
               backgroundColor: `${
                 community?.communitySettings[community?.id].baseColor
               }`,
             }}
-            src={community?.communitySettings[community?.id].communityIcon}
-            alt="Community"
+            imgAlt="Community"
           />
           &nbsp;
           <div className="search-results-community-details">

@@ -11,6 +11,7 @@ import {
 } from "../features";
 import { usePageSettings } from "../hooks/usePageSettings";
 import { getIdFromName } from "utils/getCommunityIdFromName";
+import { CommunityImg } from "components/CommunityImg";
 
 export function CommunityPage() {
   // const { communityId } = useParams();
@@ -32,15 +33,15 @@ export function CommunityPage() {
   usePageSettings({
     documentTitle: community?.displayName,
     icon: (
-      <img
-        style={{
+      <CommunityImg
+        imgStyle={{
           backgroundColor: `${
             community?.communitySettings[community?.id].baseColor
           }`,
         }}
-        src={community?.communitySettings[community?.id].communityIcon}
-        className="nav-left-dropdown-item-icon item-icon-circle"
-        alt="Community"
+        imgSrc={community?.communitySettings[community?.id].communityIcon}
+        imgClass="nav-left-dropdown-item-icon item-icon-circle"
+        imgAlt="Community"
       />
     ),
     pageTitle: `c/${community?.name}`,

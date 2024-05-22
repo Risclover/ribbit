@@ -7,6 +7,7 @@ import { FiLink } from "react-icons/fi";
 import { useHistory } from "react-router-dom";
 import { Username } from "@/components";
 import { useMetadata } from "@/context/Metadata";
+import { CommunityImg } from "components/CommunityImg";
 
 export const PostResult = ({ post }) => {
   const history = useHistory();
@@ -35,16 +36,16 @@ export const PostResult = ({ post }) => {
   return (
     <div onClick={handlePostClick} className="search-results-post">
       <div className="search-results-post-topbar">
-        <img
-          className="search-results-post-topbar-img"
-          style={{
+        <CommunityImg
+          imgClass="search-results-post-topbar-img"
+          imgStyle={{
             backgroundColor: `${
               post?.communitySettings[post?.communityId]?.baseColor
             }`,
           }}
-          src={post?.communitySettings[post?.communityId]?.communityIcon}
-          alt="Community"
-          onClick={handleCommunityClick}
+          imgSrc={post?.communitySettings[post?.communityId]?.communityIcon}
+          imgAlt="Community"
+          imgClick={handleCommunityClick}
         />
         <div className="results-post-community" onClick={handleCommunityClick}>
           c/{post?.communityName}

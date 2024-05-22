@@ -77,10 +77,10 @@ export function CreatePost({ postType, setPostType, val }) {
   const [headerText, setHeaderText] = useState();
 
   const posts = useSelector((state) => Object.values(state.posts));
-  const communities = useSelector((state) => Object.values(state.communities));
+  const communities = useSelector((state) => state.communities);
   const user = useSelector((state) => state.session.user);
 
-  const communityId = getIdFromName(communityName);
+  const communityId = getIdFromName(communityName, communities);
   const [community_id, setcommunity_id] = useState(
     communityId === "undefined" ? "undefined" : +communityId
   );
@@ -98,7 +98,7 @@ export function CreatePost({ postType, setPostType, val }) {
   });
 
   useEffect(() => {
-    for (let community of communities) {
+    for (let community of Object.values(communities)) {
       if (community.id === community_id) {
         setCommunity(community);
       }
@@ -198,7 +198,7 @@ export function CreatePost({ postType, setPostType, val }) {
       setDisabled(false);
     }
 
-    for (let community of communities) {
+    for (let community of Object.values(communities)) {
       if (community.id === +communityId) {
         setcommunity_id(community.id);
       } else {

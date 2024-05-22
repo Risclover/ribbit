@@ -4,6 +4,7 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Username } from "@/components";
+import { CommunityImg } from "components/CommunityImg";
 
 export function CommentResult({ comment }) {
   const history = useHistory();
@@ -40,9 +41,14 @@ export function CommentResult({ comment }) {
                 post.communitySettings[post.communityId].baseColor,
             }}
           >
-            <img
-              src={post.communitySettings[post.communityId].communityIcon}
-              alt="Comment community"
+            <CommunityImg
+              imgSrc={post.communitySettings[post.communityId].communityIcon}
+              imgAlt="Comment community"
+              imgStyle={{
+                backgroundColor: `${
+                  post.communitySettings[post.communityId].baseColor
+                }`,
+              }}
             />
           </div>
         </div>

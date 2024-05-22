@@ -7,6 +7,8 @@ import {
   getPosts,
   addViewedPost,
   getViewedPosts,
+  getCommunitySettings,
+  getCommunities,
 } from "../store";
 
 import {
@@ -30,6 +32,8 @@ export function SinglePostPage() {
     (state) => state.communities[post?.communityId]
   );
 
+  console.log("post:", post);
+
   usePageSettings({
     documentTitle: post?.title + " : " + post?.communityName,
     icon: (
@@ -42,9 +46,27 @@ export function SinglePostPage() {
     pageTitle: `c/${post?.communityName}`,
   });
 
+  // useEffect(() => {
+  //   document.documentElement.style.setProperty(
+  //     "--community-base-color",
+  //     community?.communitySettings[community?.id].baseColor
+  //   );
+  //   document.documentElement.style.setProperty(
+  //     "--community-highlight",
+  //     community?.communitySettings[community?.id].highlight
+  //   );
+
+  //   console.log(
+  //     "prop:",
+  //     document.documentElement.style.getPropertyValue("--community-highlight")
+  //   );
+  // }, [community]);
+
   useEffect(() => {
     setFormat("Card");
+    console.log("format:", "Card");
     dispatch(getSinglePost(postId));
+    dispatch(getCommunities());
     dispatch(getPosts());
 
     dispatch(addViewedPost(postId))

@@ -11,6 +11,7 @@ import { CommunityOptions } from "../CommunityInfoBox";
 import Cake from "@/assets/images/misc/piece4.png";
 import { useHistory } from "react-router-dom";
 import { LoginSignupModal } from "../../Auth";
+import { CommunityImg } from "components/CommunityImg";
 
 export function CommunityDetails({ post, community }) {
   const history = useHistory();
@@ -49,14 +50,14 @@ export function CommunityDetails({ post, community }) {
         <div className="single-post-box-header"></div>
         <div className="single-post-community-info-content">
           <div className="single-post-community-info-name">
-            <img
-              src={
+            <CommunityImg
+              imgSrc={
                 post !== null
                   ? post?.communitySettings[post?.communityId]?.communityIcon
                   : community?.communitySettings?.[community?.id]?.communityIcon
               }
-              alt="Community"
-              className="single-post-community-info-img"
+              imgAlt="Community"
+              imgClass="single-post-community-info-img"
             />
             c/{post?.communityName || community?.name}
           </div>

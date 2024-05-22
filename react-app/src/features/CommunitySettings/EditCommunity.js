@@ -20,7 +20,7 @@ export function EditCommunity() {
   const { communityName } = useParams();
   const communities = useSelector((state) => state.communities);
 
-  const communityId = getIdFromName(communityName);
+  const communityId = getIdFromName(communityName, communities);
 
   const user = useSelector((state) => state.session.user);
   const community = useSelector((state) => state.singleCommunity[+communityId]);

@@ -5,6 +5,7 @@ import { BsSearch } from "react-icons/bs";
 import { getCommunities } from "@/store";
 import { NavLink } from "react-router-dom";
 import { useOutsideClick } from "hooks";
+import { CommunityImg } from "components/CommunityImg";
 
 export function SearchDropdown({
   searchQuery,
@@ -71,14 +72,17 @@ export function SearchDropdown({
               }}
             >
               <div className="search-result-community-img-box">
-                <img
-                  style={{
-                    backgroundColor:
-                      community?.communitySettings[community.id].bgColor,
+                <CommunityImg
+                  imgStyle={{
+                    backgroundColor: `${
+                      community?.communitySettings[community.id].baseColor
+                    }`,
                   }}
-                  src={community?.communitySettings[community.id].communityIcon}
-                  className="search-result-community-img"
-                  alt="Community"
+                  imgSrc={
+                    community?.communitySettings[community.id].communityIcon
+                  }
+                  imgClass="search-result-community-img"
+                  imgAlt="Community"
                 />
               </div>
               <div className="search-result-community-details">

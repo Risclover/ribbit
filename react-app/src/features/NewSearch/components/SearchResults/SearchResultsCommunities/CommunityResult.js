@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { CommunityJoinBtn } from "../SearchResultsPosts";
+import { CommunityImg } from "components/CommunityImg";
 
 export const CommunityResult = ({ community }) => {
   const history = useHistory();
@@ -13,15 +14,15 @@ export const CommunityResult = ({ community }) => {
     <div onClick={handleCommunityClick}>
       <div className="search-results-community">
         <div className="search-results-page-community-left">
-          <img
-            style={{
+          <CommunityImg
+            imgSrc={community?.communitySettings[community?.id].communityIcon}
+            imgClass="search-results-page-community-img"
+            imgStyle={{
               backgroundColor: `${
-                community.communitySettings[community?.id].baseColor
+                community?.communitySettings[community?.id].baseColor
               }`,
             }}
-            src={community?.communitySettings[community?.id].communityIcon}
-            className="search-results-page-community-img"
-            alt="Community"
+            imgAlt="Community"
           />
           <div className="search-results-page-community-details">
             <div className="search-results-page-community-details-top">

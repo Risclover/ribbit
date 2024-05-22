@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "@/context";
 import { CommunityImgModal } from "..";
+import { CommunityImg } from "components/CommunityImg";
 
 export function CommunityImage({ user, community }) {
   const [showCommunityImgModal, setShowCommunityImgModal] = useState(false);
@@ -9,13 +10,12 @@ export function CommunityImage({ user, community }) {
     <>
       <div className="community-img-box">
         <div className="community-header-info-img">
-          <img
-            src={
+          <CommunityImg
+            imgSrc={
               community.communitySettings[community.id].hideCommunityIcon
                 ? "https://i.imgur.com/9CI9hiO.png"
                 : community.communitySettings[community.id].communityIcon
             }
-            alt="Community"
           />
           {user?.id === community.userId && (
             <span
