@@ -367,8 +367,7 @@
   background-repeat: no-repeat;
   border-radius: 3px 3px 0 0;
   height: 34px;
-  background-color: var(--community-banner-color);
-  background-image: var(--community-banner-img);
+  background-color: var(--community-base-color);
   padding: 0 12px 12px;
   display: flex;
   justify-content: space-between;
