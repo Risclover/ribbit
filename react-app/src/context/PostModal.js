@@ -27,7 +27,7 @@ export function PostModal({ onClose }) {
   if (!modalNode) return null;
 
   return ReactDOM.createPortal(
-    <div className="post-modal">
+    <div className="auth-modal">
       <button onClick={onClose}>x</button>
       <div>Hello</div>
     </div>,

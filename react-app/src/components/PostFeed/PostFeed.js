@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { Modal } from "context";
 import { PostModal } from "context/PostModal";
 import { PostPopup } from "components/PostPopup/PostPopup";
+import { Link } from "react-router-dom";
 
 export function PostFeed({
   posts,
@@ -28,7 +29,9 @@ export function PostFeed({
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    setItems(posts.slice(0, 10 * page));
+    if (posts) {
+      setItems(posts.slice(0, 10 * page));
+    }
   }, [posts, page, sortMode]);
 
   const loadMore = () => {
@@ -67,7 +70,7 @@ export function PostFeed({
   }, [isPage]);
 
   const handlePostClick = (postId) => {
-    history.push(`/posts/${postId}`, { background: location });
+    history.push(`/posts/${postId}`, { fromInternal: true });
   };
 
   return (
@@ -84,7 +87,13 @@ export function PostFeed({
         />
       )}
       {items.map((post) => (
-        <div key={post.id} onClick={() => handlePostClick(post.id)}>
+        <div
+          key={post.id}
+          onClick={(e) => {
+            e.stopPropagation();
+            handlePostClick(post.id);
+          }}
+        >
           <SinglePost
             key={post.id}
             id={post.id}
@@ -94,15 +103,6 @@ export function PostFeed({
           />
         </div>
       ))}
-      {showModal && (
-        <PostModal onClose={handleCloseModal}>
-          <PostPopup
-            showModal={showModal}
-            setShowModal={setShowModal}
-            selectedPostId={selectedPostId}
-          />
-        </PostModal>
-      )}
     </div>
   );
 }

@@ -25,12 +25,6 @@ export const SinglePost = ({ id, isPage, post }) => {
   );
   const { format } = useContext(PostFormatContext);
 
-  const handleClick = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    history.push(`/posts/${post.id}`, { background: location });
-  };
-
   return (
     <article>
       {(tempFormat === "Card" || format === "Card") && (

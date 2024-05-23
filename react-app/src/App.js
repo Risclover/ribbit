@@ -188,7 +188,7 @@ function App() {
                 <ChatWindow setOpenChat={setOpenChat} openChat={openChat} />
               )}
 
-              <Switch location={background || location}>
+              <Switch>
                 {user ? (
                   <Route path="/" exact={true}>
                     <HomepageFeed />

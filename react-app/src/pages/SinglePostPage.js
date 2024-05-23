@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import {
   getSinglePost,
@@ -20,9 +20,14 @@ import {
 import { BackToTop } from "../components";
 import { PostFormatContext } from "../context/PostFormat";
 import { usePageSettings } from "../hooks/usePageSettings";
+import { PostModal } from "context/PostModal";
+import { PostPopup } from "components/PostPopup/PostPopup";
+import { useHistory } from "react-router-dom";
 
 export function SinglePostPage() {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
 
   const { postId } = useParams();
   const { setFormat } = useContext(PostFormatContext);
@@ -31,6 +36,8 @@ export function SinglePostPage() {
   const community = useSelector(
     (state) => state.communities[post?.communityId]
   );
+
+  const isModal = history.action === "PUSH" && location.state?.fromInternal;
 
   console.log("post:", post);
 
@@ -46,22 +53,6 @@ export function SinglePostPage() {
     pageTitle: `c/${post?.communityName}`,
   });
 
-  // useEffect(() => {
-  //   document.documentElement.style.setProperty(
-  //     "--community-base-color",
-  //     community?.communitySettings[community?.id].baseColor
-  //   );
-  //   document.documentElement.style.setProperty(
-  //     "--community-highlight",
-  //     community?.communitySettings[community?.id].highlight
-  //   );
-
-  //   console.log(
-  //     "prop:",
-  //     document.documentElement.style.getPropertyValue("--community-highlight")
-  //   );
-  // }, [community]);
-
   useEffect(() => {
     setFormat("Card");
     console.log("format:", "Card");
@@ -74,26 +65,41 @@ export function SinglePostPage() {
         dispatch(getViewedPosts());
       })
       .catch((error) => console.error("Failed to add viewed post:", error));
-  }, [dispatch, postId]);
+  }, []);
 
-  if (!post) return null;
-  return (
-    <div className="single-post-page">
-      <div className="single-post-left-col">
-        <SinglePost id={postId} post={post} isPage="singlepage" />
-        <Comments post={post} />
+  const handleCloseModal = () => {
+    history.goBack();
+  };
+
+  if (!post || !community) return null;
+
+  if (isModal) {
+    // Modal view
+    return (
+      <PostModal onClose={handleCloseModal}>
+        <PostPopup />
+      </PostModal>
+    );
+  } else {
+    // Full page view
+    return (
+      <div className="single-post-page">
+        <div className="single-post-left-col">
+          <SinglePost id={postId} post={post} isPage="singlepage" />
+          <Comments post={post} />
+        </div>
+        <div className="single-post-right-col">
+          <CommunityDetails
+            post={post}
+            pageType="singlepage"
+            community={community}
+          />
+          {Object.values(post?.communityRules).length > 0 && (
+            <CommunityRulesBox post={post} />
+          )}
+          <BackToTop />
+        </div>
       </div>
-      <div className="single-post-right-col">
-        <CommunityDetails
-          post={post}
-          pageType="singlepage"
-          community={community}
-        />
-        {Object.values(post.communityRules).length > 0 && (
-          <CommunityRulesBox post={post} />
-        )}
-        <BackToTop />
-      </div>
-    </div>
-  );
+    );
+  }
 }
