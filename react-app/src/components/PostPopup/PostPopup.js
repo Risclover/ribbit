@@ -1,50 +1,12 @@
+import { useCommunitySettings } from "features/Posts/hooks/useCommunitySettings";
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export const PostPopup = ({ post }) => {
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--community-highlight",
-      post.communitySettings[post.communityId].highlight
-    );
+  const community = useSelector((state) => state.communities[post.communityId]);
+  const { checked, setChecked } = useCommunitySettings(community);
 
-    document.documentElement.style.setProperty(
-      "--community-body-bg-img",
-      `${post?.communitySettings[post?.communityId]?.bgColor} url(${
-        post?.communitySettings[post?.communityId]?.backgroundImg
-      }) no-repeat center / cover`
-    );
+  console.log("checked:", checked);
 
-    if (
-      post?.communitySettings[post?.communityId]?.backgroundImgFormat === "fill"
-    ) {
-      document.documentElement.style.setProperty(
-        "--community-body-bg-img",
-        `${post?.communitySettings[post?.communityId]?.bgColor} url(${
-          post?.communitySettings[post?.communityId]?.backgroundImg
-        }) no-repeat center / cover`
-      );
-    } else if (
-      post?.communitySettings[post?.communityId]?.backgroundImgFormat === "tile"
-    ) {
-      document.documentElement.style.setProperty(
-        "--community-body-bg-img",
-        `${post?.communitySettings[post?.communityId]?.bgColor} url(${
-          post?.communitySettings[post?.communityId]?.backgroundImg
-        }) repeat center top`
-      );
-    } else if (
-      post?.communitySettings[post?.communityId]?.backgroundImgFormat ===
-      "center"
-    ) {
-      document.documentElement.style.setProperty(
-        "--community-body-bg-img",
-        `${post?.communitySettings[post?.communityId]?.bgColor} url(${
-          post?.communitySettings[post?.communityId]?.backgroundImg
-        }) no-repeat center top`
-      );
-    }
-  }, []);
-
-  console.log("post?:", post);
   return <div>PostPopup</div>;
 };
