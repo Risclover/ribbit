@@ -58,6 +58,8 @@ function App() {
   const location = useLocation();
   const searchbarRef = useRef();
 
+  const background = location.state && location.state.background;
+
   // const communities = useSelector((state) => state.communities);
   // const chatThreads = useSelector((state) => Object.values(state.chatThreads));
 
@@ -186,7 +188,7 @@ function App() {
                 <ChatWindow setOpenChat={setOpenChat} openChat={openChat} />
               )}
 
-              <Switch>
+              <Switch location={background || location}>
                 {user ? (
                   <Route path="/" exact={true}>
                     <HomepageFeed />

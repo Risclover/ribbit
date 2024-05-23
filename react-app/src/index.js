@@ -6,11 +6,11 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { configureStore } from "./store";
 import { ModalProvider } from "./context/Modal";
 import { AuthModalProvider } from "./context/AuthModal";
+import { PostModalProvider } from "./context/PostModal";
 import App from "./App";
 import "./assets/styles/index.css";
 import "./assets/styles/variables.css";
 import "isomorphic-fetch";
-import { AuthProvider } from "./context/AuthModal2";
 
 const store = configureStore();
 
@@ -18,11 +18,13 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <AuthModalProvider>
-        <ModalProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </ModalProvider>
+        <PostModalProvider>
+          <ModalProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </ModalProvider>
+        </PostModalProvider>
       </AuthModalProvider>
     </Provider>
   </React.StrictMode>,

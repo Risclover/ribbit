@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import "./CommunitySelection.css";
+import { CommunityImg } from "components/CommunityImg";
 
 export function CommunitySelectionDropdownCommunity({
   subscription,
@@ -85,35 +86,24 @@ export function CommunitySelectionDropdownCommunity({
         className="community-selection-dropdown-community"
         onClick={(e) => handleClick(e, subscription?.name)}
       >
-        {/* <img
-          style={{
-            backgroundColor: `${baseColor}`,
-          }}
-          className="community-selection-community-img"
-          src={
-            otherComms
-              ? subscription.img
-              : subscription.communitySettings?.[subscription?.id].communityIcon
-          }
-          alt="Community"
-        /> */}
         {otherComms && (
-          <img
-            className="community-selection-community-img"
-            style={{
-              backgroundColor: `${baseColor}`,
-            }}
-            src={subscription.img}
+          <CommunityImg
+            imgClass="community-selection-community-img"
+            imgStyle={{ backgroundColor: `${baseColor}` }}
+            imgSrc={subscription.img}
           />
         )}
         {!otherComms && (
-          <img
-            className="community-selection-community-img"
-            style={{
-              backgroundColor:
-                subscription?.communitySettings?.[subscription?.id].baseColor,
+          <CommunityImg
+            imgClass="community-selection-community-img"
+            imgStyle={{
+              backgroundColor: `${
+                subscription?.communitySettings?.[subscription?.id].baseColor
+              }`,
             }}
-            src={subscription.communitySettings[subscription?.id].communityIcon}
+            imgSrc={
+              subscription.communitySettings[subscription?.id].communityIcon
+            }
           />
         )}
         <div className="community-selection-dropdown-community-details">

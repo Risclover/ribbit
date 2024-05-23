@@ -9,10 +9,11 @@ import {
 } from "../..";
 import "./SinglePost.css";
 import { CompactPostFormat, ClassicPostFormat } from "../components";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 export const SinglePost = ({ id, isPage, post }) => {
   // const post = useSelector((state) => state.posts[id]);
+  const location = useLocation();
   const history = useHistory();
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users?.[cuser?.id]);
@@ -27,11 +28,11 @@ export const SinglePost = ({ id, isPage, post }) => {
   const handleClick = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    history.push(`/posts/${post.id}`);
+    history.push(`/posts/${post.id}`, { background: location });
   };
 
   return (
-    <article onClick={handleClick}>
+    <article>
       {(tempFormat === "Card" || format === "Card") && (
         <div className="post-card-format">
           {post && (

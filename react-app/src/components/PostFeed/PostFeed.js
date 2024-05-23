@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { SinglePost } from "@/features";
 import { SortingBar } from "../SortingBar";
 import { useHistory } from "react-router-dom";
+import { Modal } from "context";
+import { PostModal } from "context/PostModal";
+import { PostPopup } from "components/PostPopup/PostPopup";
 
 export function PostFeed({
   posts,
@@ -16,9 +19,13 @@ export function PostFeed({
   user,
 }) {
   const history = useHistory();
+  const location = useLocation();
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [selectedPostId, setSelectedPostId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     setItems(posts.slice(0, 10 * page));
@@ -59,6 +66,10 @@ export function PostFeed({
     }
   }, [isPage]);
 
+  const handlePostClick = (postId) => {
+    history.push(`/posts/${postId}`, { background: location });
+  };
+
   return (
     <div>
       {((isPage === "profile" && user?.userPosts > 0) ||
@@ -73,7 +84,7 @@ export function PostFeed({
         />
       )}
       {items.map((post) => (
-        <div key={post.id} onClick={() => history.push(`/posts/${post.id}`)}>
+        <div key={post.id} onClick={() => handlePostClick(post.id)}>
           <SinglePost
             key={post.id}
             id={post.id}
@@ -83,6 +94,15 @@ export function PostFeed({
           />
         </div>
       ))}
+      {showModal && (
+        <PostModal onClose={handleCloseModal}>
+          <PostPopup
+            showModal={showModal}
+            setShowModal={setShowModal}
+            selectedPostId={selectedPostId}
+          />
+        </PostModal>
+      )}
     </div>
   );
 }

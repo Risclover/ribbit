@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  background: #dae0e6;
+  background: var(--community-body-bg);
   max-width: 1280px;
   z-index: 100;
   min-height: calc(100vh - 49px);

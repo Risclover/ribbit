@@ -4,6 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { TbChevronDown } from "react-icons/tb";
 import "./CommunitySelection.css";
 import { useHistory, useParams } from "react-router-dom";
+import { CommunityImg } from "components/CommunityImg";
 
 export function CommunitySelectionInput({
   setShowDropdown,
@@ -74,14 +75,17 @@ export function CommunitySelectionInput({
         {inputState !== "search" &&
           search === communityName &&
           search?.length > 0 && (
-            <img
-              style={{
-                backgroundColor:
-                  community?.communitySettings[community?.id]?.baseColor,
+            <CommunityImg
+              imgStyle={{
+                backgroundColor: `${
+                  community?.communitySettings[community?.id]?.baseColor
+                }`,
               }}
-              className="community-dropdown-img"
-              alt="Community"
-              src={community?.communitySettings?.[community?.id]?.communityIcon}
+              imgClass="community-dropdown-img"
+              imgAlt="Community"
+              imgSrc={
+                community?.communitySettings?.[community?.id]?.communityIcon
+              }
             />
           )}
 
