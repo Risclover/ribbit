@@ -8,6 +8,10 @@ import { Modal } from "context";
 import { PostModal } from "context/PostModal";
 import { PostPopup } from "components/PostPopup/PostPopup";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getCommunities } from "store";
+import { getCommunitySettings } from "store";
+import { getPosts } from "store";
 
 export function PostFeed({
   posts,
@@ -21,6 +25,7 @@ export function PostFeed({
 }) {
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -69,9 +74,30 @@ export function PostFeed({
     }
   }, [isPage]);
 
-  const handlePostClick = (postId) => {
-    history.push(`/posts/${postId}`, { fromInternal: true });
+  const handlePostClick = (post) => {
+    setSelectedPostId(post);
+    setShowModal(true);
+    document.body.style.overflow = "hidden";
+    dispatch(getCommunitySettings(post.communityId));
+    dispatch(getPosts());
+    dispatch(getCommunities());
+    window.history.pushState({ postId: post.id }, "", `/posts/${post.id}`);
   };
+
+  const handleCloseModal = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setShowModal(false);
+    history.goBack();
+  };
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "scroll";
+    }
+  }, [showModal]);
 
   return (
     <div>
@@ -91,7 +117,7 @@ export function PostFeed({
           key={post.id}
           onClick={(e) => {
             e.stopPropagation();
-            handlePostClick(post.id);
+            handlePostClick(post);
           }}
         >
           <SinglePost
@@ -103,6 +129,11 @@ export function PostFeed({
           />
         </div>
       ))}
+      {showModal && (
+        <PostModal onClose={handleCloseModal}>
+          <PostPopup post={selectedPostId} />
+        </PostModal>
+      )}
     </div>
   );
 }

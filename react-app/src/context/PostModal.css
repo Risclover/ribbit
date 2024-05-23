@@ -1,0 +1,46 @@
+.post-modal-background {
+  background-color: rgba(28, 28, 28, 0.9);
+  top: 48px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  position: fixed;
+}
+
+.post-modal-background:after {
+  bottom: 0;
+  content: "";
+  height: 100%;
+  left: 0;
+  margin: 0 auto;
+  max-width: 1280px;
+  position: fixed;
+  right: 17px;
+  top: 0;
+  width: calc(100% - 160px - 17px);
+  background: var(--community-body-bg-img);
+}
+
+.post-modal-container {
+  top: 48px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 50;
+  backface-visibility: hidden;
+}
+
+.post-modal {
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+  width: 100%;
+  will-change: transform;
+  contain: layout style stize;
+}
