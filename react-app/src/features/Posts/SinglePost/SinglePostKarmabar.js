@@ -14,7 +14,15 @@ export function SinglePostKarmabar({ post }) {
         <GoArrowUp />
       </button>
 
-      <span className="karmabar-votes">
+      <span
+        className={`karmabar-votes${
+          vote === "upvote"
+            ? " vote-btn-red"
+            : vote === "downvote"
+            ? " vote-btn-blue"
+            : ""
+        }`}
+      >
         {post?.votes === 0 && vote !== null
           ? 0
           : post?.votes === 0 && vote === null

@@ -71,3 +71,132 @@
   max-width: 1128px;
   margin: auto;
 }
+
+.post-modal-top-bar-post-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: calc(100% - 324px);
+  width: 100%;
+}
+
+.post-modal-top-bar-close {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 12px;
+  width: 312px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.post-modal-top-bar-close-btn {
+  color: #d7dadc;
+  position: relative;
+  border: 1px solid transparent;
+  min-height: 24px;
+  min-width: 24px;
+  padding: 4px 8px;
+  text-transform: unset;
+  letter-spacing: unset;
+  font-weight: 700;
+  font-size: 12px;
+  background: transparent;
+}
+
+.post-modal-top-bar-close-btn svg {
+  color: #d7dadc;
+  fill: #d7dadc;
+  stroke: #d7dadc;
+  height: 24px;
+  width: 24px;
+  font-size: 24px;
+  line-height: 24px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.post-modal-top-bar-close-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: #1c1c1c;
+  opacity: 0;
+}
+
+.post-modal-top-bar-close-btn:hover:before {
+  opacity: 0.08;
+}
+
+.post-modal-top-bar-close-btn:focus {
+  outline: none;
+}
+
+.post-modal-top-bar-close-btn:focus:before {
+  opacity: 0.16;
+}
+
+.post-modal-top-bar-close-btn:active:before {
+  opacity: 0.24;
+}
+
+.post-modal-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  height: 100%;
+  max-height: calc(100vh - 48px - 48px);
+}
+
+.post-modal-top-bar-post-info svg {
+  color: #d7dadc;
+  font-size: 16px;
+  margin-right: 8px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 20px;
+}
+
+.post-modal-post-title {
+  color: #d7dadc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  display: inline;
+  padding-right: 5px;
+  word-wrap: break-word;
+}
+
+.post-modal-voting {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0 2px;
+  position: relative;
+}
+
+.post-modal-voting:before,
+.post-modal-voting:after {
+  border-right: 1px solid #343536;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  vertical-align: text-bottom;
+  width: 0;
+}
+
+.post-modal-voting:before {
+  margin-right: 8px;
+}
+
+.post-modal-voting:after {
+  margin: 0 8px;
+}

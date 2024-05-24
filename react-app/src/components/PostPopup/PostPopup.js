@@ -6,5 +6,5 @@ export const PostPopup = ({ post }) => {
   const community = useSelector((state) => state.communities[post.communityId]);
   useCommunitySettings(community);
 
-  return <div>PostPopup</div>;
+  return <div className="post-popup">PostPopup</div>;
 };

@@ -95,7 +95,7 @@ export function PostFeed({
     if (showModal) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "scroll";
+      document.body.style.overflow = "auto";
     }
   }, [showModal]);
 
@@ -130,7 +130,7 @@ export function PostFeed({
         </div>
       ))}
       {showModal && (
-        <PostModal onClose={handleCloseModal}>
+        <PostModal onClose={handleCloseModal} post={selectedPostId}>
           <PostPopup post={selectedPostId} />
         </PostModal>
       )}

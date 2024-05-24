@@ -229,6 +229,15 @@
   width: 40px;
 }
 
+.post-modal .single-post-karmabar {
+  flex-direction: row;
+  padding: 0;
+}
+
+.post-modal .karmabar-votes {
+  width: 32px;
+}
+
 .single-post-author-bar {
   display: flex;
   font-size: 12px;
