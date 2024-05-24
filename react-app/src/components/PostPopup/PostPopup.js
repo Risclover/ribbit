@@ -4,9 +4,7 @@ import { useSelector } from "react-redux";
 
 export const PostPopup = ({ post }) => {
   const community = useSelector((state) => state.communities[post.communityId]);
-  const { checked, setChecked } = useCommunitySettings(community);
-
-  console.log("checked:", checked);
+  useCommunitySettings(community);
 
   return <div>PostPopup</div>;
 };

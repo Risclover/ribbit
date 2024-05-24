@@ -22,7 +22,6 @@ export const useCommunitySettings = (community) => {
   }, [localStorage]);
 
   useEffect(() => {
-    console.log("community!:", community);
     if (checked) {
       document.documentElement.style.setProperty(
         "--community-base-color",
@@ -125,7 +124,7 @@ export const useCommunitySettings = (community) => {
         "#dae0e6"
       );
     }
-  }, [checked]);
+  }, [checked, community]);
 
   return { checked, setChecked };
 };

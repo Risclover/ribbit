@@ -32,7 +32,9 @@ export function PostModal({ onClose, children }) {
     <div className="post-modal-background" onClick={onClose}>
       <div className="post-modal-container">
         <div className="post-modal">
-          <div className="post-modal-top-bar">hi</div>
+          <div className="post-modal-top-bar-container">
+            <div className="post-modal-top-bar"></div>
+          </div>
           {children}
         </div>
       </div>

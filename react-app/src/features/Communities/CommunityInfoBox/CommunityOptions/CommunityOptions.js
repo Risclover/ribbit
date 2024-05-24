@@ -18,8 +18,6 @@ export function CommunityOptions({ community }) {
       localStorage.setItem(`community-${community?.id}-theme`, "true");
   };
 
-  console.log("checked:", checked);
-
   return (
     <div className="community-options-container">
       <button

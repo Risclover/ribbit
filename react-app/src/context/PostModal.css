@@ -43,4 +43,31 @@
   width: 100%;
   will-change: transform;
   contain: layout style stize;
+  overflow: scroll;
+}
+
+.post-modal-top-bar-container {
+  background: #030303;
+  box-sizing: border-box;
+  height: 48px;
+  left: 0;
+  margin: 0 auto;
+  max-width: 1280px;
+  position: -webkit-sticky;
+  position: sticky;
+  right: 0;
+  top: 0;
+  transition: top 0.3s ease;
+  width: calc(100% - 160px);
+  z-index: 70;
+}
+
+.post-modal-top-bar {
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  max-width: 1128px;
+  margin: auto;
 }
