@@ -1,4 +1,4 @@
-.single-post-page {
+.single-post-page-main {
   display: flex;
   justify-content: center;
   margin: 0 auto;
@@ -616,6 +616,10 @@ li {
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+
+.single-post-page-banner {
+  height: var(--community-banner-height);
 }
 
 @media (max-width: 1120px) {

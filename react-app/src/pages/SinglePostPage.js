@@ -16,20 +16,19 @@ import {
   CommunityRulesBox,
   SinglePost,
   CommunityDetails,
+  CommunitySelectionDropdownCommunity,
 } from "../features";
 import { BackToTop } from "../components";
 import { PostFormatContext } from "../context/PostFormat";
 import { usePageSettings } from "../hooks/usePageSettings";
 
-export function SinglePostPage({ selectedPost, ref }) {
+export function SinglePostPage() {
   const dispatch = useDispatch();
   const { postId } = useParams();
   const { setFormat } = useContext(PostFormatContext);
 
-  const post =
-    postId !== undefined
-      ? useSelector((state) => state.posts[postId])
-      : selectedPost;
+  const post = useSelector((state) => state.posts[postId]);
+
   const community = useSelector(
     (state) => state.communities[post?.communityId]
   );
@@ -48,7 +47,7 @@ export function SinglePostPage({ selectedPost, ref }) {
 
   useEffect(() => {
     setFormat("Card");
-    dispatch(getSinglePost(selectedPost?.id));
+    dispatch(getSinglePost(postId));
     dispatch(getCommunities());
     dispatch(getPosts());
 
@@ -63,20 +62,40 @@ export function SinglePostPage({ selectedPost, ref }) {
 
   return (
     <div className="single-post-page">
-      <div className="single-post-left-col">
-        <SinglePost id={post.id} post={post} isPage="singlepage" />
-        <Comments post={post} />
+      <div
+        className="single-post-page-banner"
+        style={{
+          background: `var(--community-banner-img)`,
+        }}
+      >
+        <div className="single-post-page-banner-content">
+          <div className="single-post-page-community-icon">
+            <img
+              src={community.communitySettings[community?.id].communityIcon}
+              alt={"c/" + community.name + " icon"}
+            />
+          </div>
+          <span className="single-post-page-community-name">
+            c/{post?.communityName}
+          </span>
+        </div>
       </div>
-      <div className="single-post-right-col">
-        <CommunityDetails
-          post={post}
-          pageType="singlepage"
-          community={community}
-        />
-        {Object.values(post?.communityRules).length > 0 && (
-          <CommunityRulesBox post={post} />
-        )}
-        <BackToTop ref={ref} />
+      <div className="single-post-page-main">
+        <div className="single-post-left-col">
+          <SinglePost id={post.id} post={post} isPage="singlepage" />
+          <Comments post={post} />
+        </div>
+        <div className="single-post-right-col">
+          <CommunityDetails
+            post={post}
+            pageType="singlepage"
+            community={community}
+          />
+          {Object.values(post?.communityRules).length > 0 && (
+            <CommunityRulesBox post={post} />
+          )}
+          <BackToTop />
+        </div>
       </div>
     </div>
   );
