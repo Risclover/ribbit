@@ -156,7 +156,7 @@ export function PreviewCommunityNameIcon({
           <div className="preview-community-toggle-switch-txt">
             <h3>Hide Community Icon in Banner</h3>
             <p>
-              Your Community Icon will still display in other areas of Reddit
+              Your Community Icon will still display in other areas of Ribbit
             </p>
           </div>
         </label>
