@@ -4,8 +4,11 @@ import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import { CommunityThemeToggle } from "./CommunityThemeToggle";
 import "./CommunityOptions.css";
 import { useCommunitySettings } from "features/Posts/hooks/useCommunitySettings";
+import { useDispatch } from "react-redux";
+import { getCommunitySettings } from "store";
 
 export function CommunityOptions({ community }) {
+  const dispatch = useDispatch();
   const { checked, setChecked } = useCommunitySettings(community);
 
   const [showCommunityOptions, setShowCommunityOptions] = useState(false);
@@ -16,6 +19,8 @@ export function CommunityOptions({ community }) {
       localStorage.setItem(`community-${community?.id}-theme`, "false");
     if (!checked)
       localStorage.setItem(`community-${community?.id}-theme`, "true");
+
+    dispatch(getCommunitySettings(community?.id));
   };
 
   return (

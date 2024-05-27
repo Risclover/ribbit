@@ -1,12 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { getCommunitySettings } from "store";
 import { getCommunities } from "store";
 import { resetToDefault } from "store";
 
 export const ResetToDefaultsWarning = ({ community, setShowResetWarning }) => {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const handleDefaultReset = () => {

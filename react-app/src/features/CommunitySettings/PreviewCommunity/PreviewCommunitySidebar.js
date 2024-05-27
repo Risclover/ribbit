@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useHistory, useParams } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { getCommunitySettings, resetToDefault, getCommunities } from "@/store";
 import { Modal } from "@/context";
 import { PreviewCommunitySidebarAppearance, OutsideClickWarning } from "../..";
-
-import "./PreviewCommunity.css";
-import { NavLink } from "react-router-dom";
 import { ResetToDefaultsWarning } from "./ResetToDefaultsWarning";
+import "./PreviewCommunity.css";
 
 export function PreviewCommunitySidebar() {
-  const location = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -22,12 +19,6 @@ export function PreviewCommunitySidebar() {
   const fullURL = window.location.href;
   const communityName = fullURL.split("/")[4];
   const communities = useSelector((state) => Object.values(state.communities));
-
-  const communityId = communities?.find(
-    (community) => community.name === communityName
-  )?.id;
-  const user = useSelector((state) => state.session.user);
-  const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
 
   const community = communities?.find(
     (community) => community.name === communityName

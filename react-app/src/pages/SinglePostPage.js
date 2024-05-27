@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 
@@ -29,12 +29,21 @@ export function SinglePostPage() {
   const dispatch = useDispatch();
   const { postId } = useParams();
   const { setFormat } = useContext(PostFormatContext);
-
   const post = useSelector((state) => state.posts[postId]);
 
   const community = useSelector(
     (state) => state.communities[post?.communityId]
   );
+
+  const [bannerHeight, setBannerHeight] = useState(null);
+
+  useEffect(() => {
+    setBannerHeight(
+      document.documentElement.style.getPropertyValue(
+        "--community-banner-height"
+      )
+    );
+  }, [bannerHeight, community, document]);
 
   usePageSettings({
     documentTitle: post?.title + " : " + post?.communityName,
@@ -48,11 +57,14 @@ export function SinglePostPage() {
     pageTitle: `c/${post?.communityName}`,
   });
 
+  console.log("height:", bannerHeight);
+
   useEffect(() => {
     setFormat("Card");
     dispatch(getSinglePost(postId));
     dispatch(getCommunities());
     dispatch(getPosts());
+    dispatch(getCommunitySettings(community?.id));
 
     dispatch(addViewedPost(post?.id))
       .then(() => {
@@ -82,10 +94,9 @@ export function SinglePostPage() {
             >
               <CommunityImg
                 imgClass={
-                  community.communitySettings[community?.id].bannerHeight !==
-                  "80px"
-                    ? "single-post-page-community-icon-larger"
-                    : "single-post-page-community-icon-img"
+                  bannerHeight === "80px"
+                    ? "single-post-page-community-icon-img"
+                    : "single-post-page-community-icon-larger"
                 }
                 imgSrc={
                   community.communitySettings[community?.id].communityIcon
@@ -96,9 +107,7 @@ export function SinglePostPage() {
             <span
               className="single-post-page-community-name"
               style={{
-                paddingTop:
-                  community.communitySettings[community?.id].bannerHeight !==
-                    "80px" && "14px",
+                paddingTop: bannerHeight === "80px" ? "4px" : "14px",
               }}
             >
               c/{post?.communityName}
