@@ -35,6 +35,7 @@ export function PreviewCommunitySidebar() {
     community?.communitySettings[community?.id].backgroundImg
   );
   const [showWarning, setShowWarning] = useState(false);
+  const [showResetWarning, setShowResetWarning] = useState(false);
   const [openAppearance, setOpenAppearance] = useState(false);
   const [appearanceSidebar, setAppearanceSidebar] = useState("");
   const [base, setBase] = useState(
@@ -252,6 +253,13 @@ export function PreviewCommunitySidebar() {
         >
           <OutsideClickWarning setShowWarning={setShowWarning} />
         </Modal>
+      )}
+      {showResetWarning && (
+        <Modal
+          onClose={() => setShowResetWarning(false)}
+          title="Reset to default styling?"
+          open={() => setShowResetWarning(true)}
+        ></Modal>
       )}
     </div>
   );
