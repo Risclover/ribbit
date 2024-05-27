@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { PreviewCommunityColorPicker } from "./PreviewCommunityColorPicker";
 import { HandleClickOutside } from "@/utils";
+import { useOutsideClick } from "hooks";
 
 export function PreviewCommunityBannerColor({
   name,
@@ -12,17 +13,7 @@ export function PreviewCommunityBannerColor({
   const wrapperRef = useRef(null);
   const [openPicker, setOpenPicker] = useState(false);
 
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", function (e) {
-  //     HandleClickOutside(e, wrapperRef, openPicker, setOpenPicker);
-  //   });
-  //   return () => {
-  //     document.removeEventListener("mousedown", function (e) {
-  //       HandleClickOutside(e, wrapperRef, openPicker, setOpenPicker);
-  //     });
-  //   };
-  // }, [wrapperRef, openPicker]);
-
+  useOutsideClick(wrapperRef, () => setOpenPicker(false));
   return (
     <div
       className="preview-community-color-theme-color"
