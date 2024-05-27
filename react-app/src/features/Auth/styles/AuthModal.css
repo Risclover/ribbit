@@ -89,9 +89,9 @@
 
 .login-form-title,
 .signup-form-title {
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 16px;
   font-weight: 500;
+  line-height: 20px;
   margin: 24px 0;
   color: #1a1a1b;
 }

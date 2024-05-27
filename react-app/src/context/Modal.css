@@ -47,7 +47,7 @@
 .auth-modal-content {
   position: relative;
   background-color: white;
-  border-radius: 16px;
+  border-radius: 4px;
   box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000,
     0 0.0625rem 0.25rem 0 #00000026, 0 0.25rem 0.25rem 0 #00000026;
   overflow: hidden;
@@ -55,7 +55,7 @@
 }
 
 #modal-content {
-  max-width: 568px;
+  max-width: 538px;
   width: 100%;
   margin: auto;
   z-index: 100;
@@ -82,9 +82,6 @@
 .auth-modal-topbar {
   display: flex;
   width: 100%;
-  text-align: center;
-  justify-content: space-between;
-  align-items: center;
   padding: 16px;
   color: rgba(0, 0, 0, 0.4);
   border-bottom: 1px solid #edeff1;
@@ -97,14 +94,15 @@
   border: none;
   font-size: 20px;
   color: inherit;
+  padding: 0;
+  height: auto;
 }
 
 #modal-topbar h1,
 .auth-modal-topbar h1 {
   margin: 0;
-  margin-left: 16px;
-  flex: 1;
-  font-size: 18px;
+  flex: 1 1 100%;
+  width: 100%;
 }
 
 .auth-modal-close {

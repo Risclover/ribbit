@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import { getCommunities, getCommunitySettings, getPosts } from "../store";
 
 import {
@@ -14,7 +13,6 @@ import { getIdFromName } from "utils/getCommunityIdFromName";
 import { CommunityImg } from "components/CommunityImg";
 
 export function CommunityPage() {
-  // const { communityId } = useParams();
   const { communityName } = useParams();
   const dispatch = useDispatch();
 
@@ -25,9 +23,7 @@ export function CommunityPage() {
   }, [dispatch]);
 
   const communities = useSelector((state) => state.communities);
-
   const communityId = getIdFromName(communityName, communities);
-
   const community = useSelector((state) => state.communities[communityId]);
 
   usePageSettings({

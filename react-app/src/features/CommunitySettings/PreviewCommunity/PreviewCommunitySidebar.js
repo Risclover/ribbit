@@ -8,6 +8,7 @@ import { PreviewCommunitySidebarAppearance, OutsideClickWarning } from "../..";
 
 import "./PreviewCommunity.css";
 import { NavLink } from "react-router-dom";
+import { ResetToDefaultsWarning } from "./ResetToDefaultsWarning";
 
 export function PreviewCommunitySidebar() {
   const location = useLocation();
@@ -198,7 +199,7 @@ export function PreviewCommunitySidebar() {
           ))}
           <button
             className="reset-to-defaults-btn"
-            onClick={handleDefaultReset}
+            onClick={() => setShowResetWarning(true)}
           >
             Reset to defaults
           </button>
@@ -251,7 +252,10 @@ export function PreviewCommunitySidebar() {
           title="Discard unsaved changes before leaving?"
           open={() => setShowWarning(true)}
         >
-          <OutsideClickWarning setShowWarning={setShowWarning} />
+          <OutsideClickWarning
+            community={community}
+            setShowWarning={setShowWarning}
+          />
         </Modal>
       )}
       {showResetWarning && (
@@ -259,7 +263,12 @@ export function PreviewCommunitySidebar() {
           onClose={() => setShowResetWarning(false)}
           title="Reset to default styling?"
           open={() => setShowResetWarning(true)}
-        ></Modal>
+        >
+          <ResetToDefaultsWarning
+            community={community}
+            setShowResetWarning={setShowResetWarning}
+          />
+        </Modal>
       )}
     </div>
   );

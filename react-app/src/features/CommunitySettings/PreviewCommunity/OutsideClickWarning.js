@@ -1,10 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-export function OutsideClickWarning({ setShowWarning }) {
+export function OutsideClickWarning({ community, setShowWarning }) {
   const history = useHistory();
-  const fullURL = window.location.href;
-  const communityName = fullURL.split("/")[4];
+
   return (
     <div className="outside-click-warning">
       <p>
@@ -20,7 +19,7 @@ export function OutsideClickWarning({ setShowWarning }) {
         </button>
         <button
           className="blue-btn-filled btn-short"
-          onClick={() => history.push(`/c/${communityName}`)}
+          onClick={() => history.push(`/c/${community.name}`)}
         >
           Discard
         </button>
