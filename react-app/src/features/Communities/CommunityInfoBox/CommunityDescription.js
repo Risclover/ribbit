@@ -5,6 +5,7 @@ import { getCommunities, updateCommunity } from "@/store";
 import { useAutosizeTextArea } from "../..";
 import { HandleClickOutside } from "@/utils";
 import { useOutsideClick } from "@/hooks";
+import { getSingleCommunity } from "store";
 
 export function CommunityDescription({ community, user }) {
   const textareaRef = useRef(null);
@@ -14,7 +15,7 @@ export function CommunityDescription({ community, user }) {
   const [showEditDescription, setShowEditDescription] = useState(false);
   const [description, setDescription] = useState(community.description);
 
-  const singlecommunity = useSelector(
+  const singleCommunity = useSelector(
     (state) => state.communities[community.id]
   );
 
@@ -24,12 +25,17 @@ export function CommunityDescription({ community, user }) {
   const handleSaveDescription = async () => {
     const data = await dispatch(
       updateCommunity(
-        { display_name: community.display_name, description: description },
+        {
+          display_name: community.displayName,
+          description: description,
+        },
         community.id
       )
     );
+    console.log("data:", data);
     setDescription(data.description);
-    dispatch(getCommunities());
+    await dispatch(getCommunities());
+    await dispatch(getSingleCommunity(data.id));
     setShowEditDescription(false);
   };
 
@@ -104,7 +110,7 @@ export function CommunityDescription({ community, user }) {
                   className="edit-community-description-cancel"
                   onClick={(e) => {
                     e.stopPropagation();
-                    setDescription(singlecommunity.description);
+                    setDescription(singleCommunity.description);
                     setShowEditDescription(false);
                   }}
                 >

@@ -112,7 +112,6 @@ export const updateCommunity = (payload, communityId) => async (dispatch) => {
 
   if (response.ok) {
     const community = await response.json();
-    dispatch(loadCommunity(community));
     return community;
   }
   const data = await response.json();

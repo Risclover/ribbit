@@ -12,6 +12,7 @@ import { DeleteConfirmationModal } from "@/components";
 import { CommunityEditRule, AddCommunityRuleModal } from "..";
 import "./CommunitySettings.css";
 import { getIdFromName } from "utils/getCommunityIdFromName";
+import { CommunityImg } from "components/CommunityImg";
 
 export function EditCommunity() {
   const dispatch = useDispatch();
@@ -71,9 +72,14 @@ export function EditCommunity() {
     <div className="edit-community-page">
       <div className="edit-community-page-header">
         <div className="edit-community-top-bar">
-          <img
-            src={community?.communitySettings[community?.id].communityIcon}
-            alt="Community"
+          <CommunityImg
+            imgStyle={{
+              backgroundColor: `${
+                community?.communitySettings[community.id].baseColor
+              }`,
+            }}
+            imgSrc={community?.communitySettings[community.id].communityIcon}
+            imgAlt="Community"
           />
           <span className="edit-community-top-bar-name">
             <NavLink to={`/c/${communityName}`}>c/{community?.name}</NavLink> /
