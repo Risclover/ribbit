@@ -195,7 +195,7 @@ export function EditCommunity() {
             <div className="edit-community-page-section">
               <h2>Delete Community</h2>
               <p className="community-description-details">
-                Click the button below to delete this community?. Please note
+                Click the button below to delete this community. Please note
                 that once you confirm deletion, you cannot undo this action.
               </p>
               <button
