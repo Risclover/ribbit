@@ -91,6 +91,7 @@ export function CommunitySelectionDropdownCommunity({
             imgClass="community-selection-community-img"
             imgStyle={{ backgroundColor: `${baseColor}` }}
             imgSrc={subscription.img}
+            imgAlt="Community"
           />
         )}
         {!otherComms && (

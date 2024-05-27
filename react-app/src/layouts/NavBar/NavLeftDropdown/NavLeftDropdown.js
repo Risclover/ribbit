@@ -254,19 +254,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
           <span className="nav-left-dropdown-item">Home</span>
         </div>
       )}
-      {/* {"Popular".toLowerCase().includes(filter.toLowerCase()) && (
-        <div
-          className="nav-left-dropdown-navitem"
-          onClick={(e) => {
-            e.preventDefault();
-            setShowIcon(false);
-            history.push("/");
-          }}
-        >
-          <img src={Popular} className="nav-left-dropdown-item-icon" />
-          <span className="nav-left-dropdown-item">Popular</span>
-        </div>
-      )} */}
+
       {"All".toLowerCase().includes(filter.toLowerCase()) && (
         <div
           className="nav-left-dropdown-navitem"

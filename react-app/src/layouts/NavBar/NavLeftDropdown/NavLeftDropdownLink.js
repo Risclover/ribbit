@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { BsStar, BsStarFill } from "react-icons/bs";
+import { CommunityImg } from "components/CommunityImg";
 
 export function NavLeftDropdownLink({
   favorite,
@@ -81,13 +82,13 @@ export function NavLeftDropdownLink({
             history.push(`/c/${item?.name}`);
           }}
         >
-          <img
-            style={{
+          <CommunityImg
+            imgStyle={{
               backgroundColor: `${item?.communitySettings[item?.id].baseColor}`,
             }}
-            src={item?.communitySettings[item?.id].communityIcon}
-            className="nav-left-dropdown-item-img"
-            alt="Community"
+            imgSrc={item?.communitySettings[item?.id].communityIcon}
+            imgClass="nav-left-dropdown-item-img"
+            imgAlt="Community"
           />
           <span className="nav-left-dropdown-item">c/{item?.name}</span>
           {!favoriteType[item?.id] ? (
@@ -153,13 +154,13 @@ export function NavLeftDropdownLink({
             history.push(`/c/${item?.name}`);
           }}
         >
-          <img
-            style={{
+          <CommunityImg
+            imgStyle={{
               backgroundColor: `${item?.communitySettings[item?.id].baseColor}`,
             }}
-            src={item?.communitySettings[item?.id].communityIcon}
-            className="nav-left-dropdown-item-img"
-            alt="Community"
+            imgSrc={item?.communitySettings[item?.id].communityIcon}
+            imgClass="nav-left-dropdown-item-img"
+            imgAlt="Community"
           />
           <span className="nav-left-dropdown-item">c/{item?.name}</span>
           <div

@@ -45,6 +45,9 @@
   justify-content: flex-end;
   background: #edeff1;
   padding: 0 24px;
+  left: 0;
+  right: 0;
+  top: 89px;
 }
 
 .edit-community-page-settings {

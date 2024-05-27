@@ -21,8 +21,11 @@ import {
 import { BackToTop } from "../components";
 import { PostFormatContext } from "../context/PostFormat";
 import { usePageSettings } from "../hooks/usePageSettings";
+import { CommunityImg } from "components/CommunityImg";
+import { useHistory } from "react-router-dom";
 
 export function SinglePostPage() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { postId } = useParams();
   const { setFormat } = useContext(PostFormatContext);
@@ -58,26 +61,49 @@ export function SinglePostPage() {
       .catch((error) => console.error("Failed to add viewed post:", error));
   }, []);
 
+  const handleBannerClick = () => {
+    history.push(`/c/${community?.name}`);
+  };
+
   if (!post || !community) return null;
 
   return (
     <div className="single-post-page">
-      <div
-        className="single-post-page-banner"
-        style={{
-          background: `var(--community-banner-img)`,
-        }}
-      >
-        <div className="single-post-page-banner-content">
-          <div className="single-post-page-community-icon">
-            <img
-              src={community.communitySettings[community?.id].communityIcon}
-              alt={"c/" + community.name + " icon"}
-            />
+      <div className="single-post-page-banner" onClick={handleBannerClick}>
+        <div className="single-post-page-banner-content-container">
+          <div className="single-post-page-banner-content">
+            <div
+              className="single-post-page-community-icon"
+              style={{
+                backgroundImage: `url${
+                  community.communitySettings[community?.id].communityIcon
+                } no-repeat center`,
+              }}
+            >
+              <CommunityImg
+                imgClass={
+                  community.communitySettings[community?.id].bannerHeight !==
+                  "80px"
+                    ? "single-post-page-community-icon-larger"
+                    : "single-post-page-community-icon-img"
+                }
+                imgSrc={
+                  community.communitySettings[community?.id].communityIcon
+                }
+                imgAlt={"c/" + community.name + " icon"}
+              />
+            </div>
+            <span
+              className="single-post-page-community-name"
+              style={{
+                paddingTop:
+                  community.communitySettings[community?.id].bannerHeight !==
+                    "80px" && "14px",
+              }}
+            >
+              c/{post?.communityName}
+            </span>
           </div>
-          <span className="single-post-page-community-name">
-            c/{post?.communityName}
-          </span>
         </div>
       </div>
       <div className="single-post-page-main">
