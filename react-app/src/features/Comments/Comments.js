@@ -37,15 +37,15 @@ export function Comments({ post }) {
   const [specificCommentActive, setSpecificCommentActive] = useState(!!match);
 
   useEffect(() => {
-    dispatch(getComments(+postId));
-  }, [dispatch, postId]);
+    dispatch(getComments(post.id));
+  }, [dispatch, post]);
 
   useEffect(() => {
     if (specificComment) setSpecificCommentActive(true);
   }, [specificComment]);
 
   const dismissSearch = () => {
-    dispatch(getComments(postId));
+    dispatch(getComments(post.id));
     setSearchValue("");
     setSearchActive(false);
   };
@@ -57,7 +57,7 @@ export function Comments({ post }) {
 
   return (
     <div className="comments-container">
-      {!specificCommentActive && <CommentForm postId={postId} />}
+      {!specificCommentActive && <CommentForm postId={post.id} />}
       <div className="sort-search">
         {!searchActive && (
           <CommentSorting sortType={sortType} setSortType={setSortType} />
@@ -100,7 +100,7 @@ export function Comments({ post }) {
                 comment={comment}
                 key={comment.id}
                 commentId={comment.id}
-                postId={+postId}
+                postId={post.id}
               />
             ))}
           {specificCommentActive && (
@@ -109,7 +109,7 @@ export function Comments({ post }) {
                 className="view-all-comments-btn"
                 onClick={() => {
                   setSpecificCommentActive(false);
-                  history.push(`/posts/${+postId}`);
+                  history.push(`/posts/${post.id}`);
                 }}
               >
                 View all comments
@@ -117,7 +117,7 @@ export function Comments({ post }) {
               <Comment
                 key={+commentUrl}
                 commentId={+commentUrl}
-                postId={+postId}
+                postId={post.id}
                 specificCommentActive={specificCommentActive}
                 comment={specificComment}
               />

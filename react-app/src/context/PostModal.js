@@ -6,6 +6,14 @@ const PostModalContext = React.createContext();
 import { CgNotes } from "react-icons/cg";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { SinglePostKarmabar } from "features";
+import { PostFormatContext } from "./PostFormat";
+import { useDispatch } from "react-redux";
+import { getSinglePost } from "store";
+import { getCommunities } from "store";
+import { getPosts } from "store";
+import { addViewedPost } from "store";
+import { getViewedPosts } from "store";
+import { PostPopup } from "components/PostPopup/PostPopup";
 
 export function PostModalProvider({ children }) {
   const modalRef = useRef();
@@ -26,12 +34,27 @@ export function PostModalProvider({ children }) {
 }
 
 export function PostModal({ onClose, children, post }) {
+  const postRef = useRef(null);
+  const dispatch = useDispatch();
   const modalNode = useContext(PostModalContext);
+  const { setFormat } = useContext(PostFormatContext);
   if (!modalNode) return null;
 
   const stopPropagation = (e) => {
     e.stopPropagation();
   };
+
+  useEffect(() => {
+    dispatch(getSinglePost(post.id));
+    dispatch(getCommunities());
+    dispatch(getPosts());
+
+    dispatch(addViewedPost(post.id))
+      .then(() => {
+        dispatch(getViewedPosts());
+      })
+      .catch((error) => console.error("Failed to add viewed post:", error));
+  }, []);
 
   return ReactDOM.createPortal(
     <div className="post-modal-background" onClick={onClose}>
@@ -46,7 +69,9 @@ export function PostModal({ onClose, children, post }) {
                 <div className="post-modal-voting">
                   <SinglePostKarmabar post={post} />
                 </div>
-                <CgNotes />
+                <span className="post-modal-icon">
+                  <CgNotes />
+                </span>
                 <div className="post-modal-post-title">{post?.title}</div>
               </div>
               <div className="post-modal-top-bar-close">
@@ -74,7 +99,7 @@ export function PostModal({ onClose, children, post }) {
             </div>
           </div>
           <div className="post-modal-content" onClick={stopPropagation}>
-            {children}
+            <PostPopup ref={postRef} post={post} />
           </div>
         </div>
       </div>

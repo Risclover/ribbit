@@ -149,9 +149,10 @@
   margin: 0 auto;
   height: 100%;
   max-height: calc(100vh - 48px - 48px);
+  width: calc(100% - 160px);
 }
 
-.post-modal-top-bar-post-info svg {
+.post-modal-icon svg {
   color: #d7dadc;
   font-size: 16px;
   margin-right: 8px;
@@ -199,4 +200,22 @@
 
 .post-modal-voting:after {
   margin: 0 8px;
+}
+
+.post-modal-voting .single-post-karmabar {
+  position: relative;
+  width: auto;
+  align-items: center;
+  color: #d7dadc;
+}
+
+.post-modal-voting .single-post-karmabar button:hover {
+  background: transparent;
+}
+
+.post-modal-voting .upvote-btn-grey,
+.downvote-btn-grey,
+.vote-btn-red,
+.vote-btn-blue {
+  height: auto;
 }

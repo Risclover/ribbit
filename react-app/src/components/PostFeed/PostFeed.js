@@ -24,14 +24,10 @@ export function PostFeed({
   user,
 }) {
   const history = useHistory();
-  const location = useLocation();
-  const dispatch = useDispatch();
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [selectedPostId, setSelectedPostId] = useState(null);
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (posts) {
@@ -74,31 +70,6 @@ export function PostFeed({
     }
   }, [isPage]);
 
-  const handlePostClick = (post) => {
-    setSelectedPostId(post);
-    setShowModal(true);
-    document.body.style.overflow = "hidden";
-    dispatch(getCommunitySettings(post.communityId));
-    dispatch(getPosts());
-    dispatch(getCommunities());
-    window.history.pushState({ postId: post.id }, "", `/posts/${post.id}`);
-  };
-
-  const handleCloseModal = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    setShowModal(false);
-    history.goBack();
-  };
-
-  useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [showModal]);
-
   return (
     <div>
       {((isPage === "profile" && user?.userPosts > 0) ||
@@ -117,7 +88,7 @@ export function PostFeed({
           key={post.id}
           onClick={(e) => {
             e.stopPropagation();
-            handlePostClick(post);
+            history.push(`/posts/${post.id}`);
           }}
         >
           <SinglePost
@@ -129,11 +100,6 @@ export function PostFeed({
           />
         </div>
       ))}
-      {showModal && (
-        <PostModal onClose={handleCloseModal} post={selectedPostId}>
-          <PostPopup post={selectedPostId} />
-        </PostModal>
-      )}
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addPostVote, getUsers, removePostVote } from "@/store";
+import { getPosts } from "store";
 
 export const usePostVote = (post) => {
   const history = useHistory();
@@ -22,6 +23,8 @@ export const usePostVote = (post) => {
     e.stopPropagation();
     e.preventDefault();
 
+    await dispatch(getPosts());
+
     if (!user) {
       history.push("/login");
       return;
@@ -41,6 +44,7 @@ export const usePostVote = (post) => {
     }
 
     dispatch(getUsers());
+    dispatch(getPosts());
   };
 
   return { vote, handleVoteClick };

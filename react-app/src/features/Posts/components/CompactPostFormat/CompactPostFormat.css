@@ -55,7 +55,7 @@
 }
 
 .karmabar-votes {
-  color: var(--main-text-color);
+  color: inherit;
 }
 
 .compact-post-title {

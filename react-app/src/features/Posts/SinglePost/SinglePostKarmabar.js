@@ -27,7 +27,7 @@ export function SinglePostKarmabar({ post }) {
           ? 0
           : post?.votes === 0 && vote === null
           ? "Vote"
-          : post?.votes}
+          : post.votes}
       </span>
 
       <button

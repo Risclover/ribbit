@@ -19,6 +19,11 @@ export function SinglePostContent({ post, isPage }) {
 
   const metadataResult = metadata[post.linkUrl];
 
+  const handleImgClick = (e) => {
+    if (isPage === "singlepage")
+      window.open(post.imgUrl, "_blank", "noreferrer");
+  };
+
   return (
     <div className="single-post-content-box">
       <div className="single-post-content-box-left">
@@ -26,9 +31,9 @@ export function SinglePostContent({ post, isPage }) {
         {post.imgUrl !== null ? (
           <div className="single-post-content-image">
             <LazyLoad height={700} offset={100}>
-              <a href={post.imgUrl} target="_blank">
+              <div onClick={handleImgClick}>
                 <img className="image-post-img" src={post.imgUrl} alt="Post" />
-              </a>
+              </div>
             </LazyLoad>
           </div>
         ) : post.linkUrl !== null ? (

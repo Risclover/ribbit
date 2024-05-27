@@ -2,26 +2,11 @@
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  background: var(--community-body-bg);
-  max-width: 1280px;
-  z-index: 100;
+  background: var(--community-body-bg-img);
+  z-index: 50;
   min-height: calc(100vh - 49px);
   position: relative;
   padding: 20px 24px;
-}
-
-.single-post-page-topbar {
-  background: black;
-  height: 48px;
-  width: calc(100% - 160px);
-  margin: 0 auto;
-  position: sticky;
-  top: 49px;
-  max-width: 1280px;
-  display: flex;
-  align-items: center;
-  z-index: 101;
-  padding: 0 32px;
 }
 
 .single-post-community-info-img {
@@ -59,43 +44,10 @@
   height: auto;
   padding-top: 13px;
 }
-.single-post-page-topbar-content {
-  max-width: 1079px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 auto;
-}
-
-.single-page-topbar-close {
-  color: #d7dadc;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 8px;
-  min-height: 24px;
-  min-width: 24px;
-  line-height: 16px;
-  font-family: var(--font-family-noto);
-  cursor: pointer;
-  background: inherit;
-  outline: none;
-  border: none;
-  display: flex;
-  align-items: center;
-}
 
 .single-post-share-icon {
   width: 20px;
   margin-right: 5px;
-}
-.single-page-topbar-close svg {
-  font-size: 16px;
-  margin-right: 5px;
-}
-
-.single-page-topbar-close:hover {
-  opacity: 0.9;
 }
 
 .single-post-page .single-post-container {
@@ -229,13 +181,9 @@
   width: 40px;
 }
 
-.post-modal .single-post-karmabar {
+.post-modal-voting .single-post-karmabar {
   flex-direction: row;
   padding: 0;
-}
-
-.post-modal .karmabar-votes {
-  width: 32px;
 }
 
 .single-post-author-bar {
