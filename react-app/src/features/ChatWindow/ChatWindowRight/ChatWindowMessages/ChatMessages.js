@@ -20,9 +20,12 @@ export function ChatMessages({
 }) {
   const { selectedChat } = useContext(SelectedChatContext);
   const containerRef = useRef(null);
-  const currentUser = useSelector((state) => state.session.user);
+
   const [receiver, setReceiver] = useState(null);
+
+  const currentUser = useSelector((state) => state.session.user);
   const chatThreads = useSelector((state) => state.chatThreads);
+
   useLayoutEffect(() => {
     if (containerRef.current) {
       const containerElement = containerRef.current;
@@ -103,11 +106,11 @@ export function ChatMessages({
 
             return (
               <ChatMessage
+                key={idx}
                 formattedDate={formattedDate}
                 showDateBar={showDateBar}
                 previousMessage={previousMessage}
                 message={message}
-                key={idx}
                 setDeleteOverlay={setDeleteOverlay}
                 setMsgId={setMsgId}
                 selectedReaction={selectedReaction}

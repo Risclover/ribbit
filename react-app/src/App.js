@@ -105,10 +105,10 @@ function App() {
     })();
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   // dispatch(getUserChatThreads());
-  //   dispatch(getCommunities());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getUserChatThreads());
+    dispatch(getCommunities());
+  }, [dispatch]);
 
   useEffect(() => {
     if (!user) {

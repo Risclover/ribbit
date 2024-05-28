@@ -52,7 +52,10 @@ export function CommunityInfoBox({ community, user, isPage }) {
       </div>
       <div className="community-page-box-content">
         {isPage === "singlepage" && (
-          <div className="single-post-community-info-name">
+          <div
+            className="single-post-community-info-name"
+            onClick={() => history.push(`/c/${community?.name}`)}
+          >
             <CommunityImg
               imgSrc={
                 community?.communitySettings?.[community?.id]?.communityIcon

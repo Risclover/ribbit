@@ -78,6 +78,7 @@
 }
 
 .single-post-community-info-name {
+  cursor: pointer;
   margin-bottom: 8px;
   font-size: 16px;
   font-weight: 500;

@@ -28,8 +28,8 @@ export function Emojis({ receiver, setEmojisOverlay, socket }) {
   return (
     <div className="emojis-container">
       <div className="images-list">
-        {ChatWindowEmojis.map((image) => (
-          <button onClick={(e) => handleAddEmoji(e, image)}>
+        {ChatWindowEmojis.map((image, idx) => (
+          <button key={idx} onClick={(e) => handleAddEmoji(e, image)}>
             <img src={image} />
           </button>
         ))}

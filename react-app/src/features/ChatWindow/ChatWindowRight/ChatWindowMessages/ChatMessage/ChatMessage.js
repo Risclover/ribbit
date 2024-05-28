@@ -40,7 +40,7 @@ export function ChatMessage({
     } else {
       setMsgContent(message.content);
     }
-  }, [message]);
+  }, []);
 
   return (
     <div className="chat-message-container" key={message.id}>
