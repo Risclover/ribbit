@@ -7,7 +7,7 @@ import {
   getSubscriptions,
 } from "@/store";
 
-export function CommunityJoinBtn({ community }) {
+export function CommunityJoinBtn({ community, isPage }) {
   const dispatch = useDispatch();
   const [subscribed, setSubscribed] = useState(false);
   const [btnWord, setBtnWord] = useState("Joined");
@@ -22,7 +22,11 @@ export function CommunityJoinBtn({ community }) {
     <div>
       {user && subscribed && (
         <button
-          className="search-results-page-community-join"
+          className={
+            isPage === "singlepage"
+              ? "community-btn btn-long blue-btn-unfilled"
+              : "search-results-page-community-join"
+          }
           onClick={async (e) => {
             e.stopPropagation();
             e.preventDefault();
@@ -39,7 +43,11 @@ export function CommunityJoinBtn({ community }) {
       )}
       {!subscribed && (
         <button
-          className="search-results-page-community-join"
+          className={
+            isPage === "singlepage"
+              ? "community-btn-filled btn-long blue-btn-filled"
+              : "search-results-page-community-join"
+          }
           onClick={async (e) => {
             e.stopPropagation();
             e.preventDefault();

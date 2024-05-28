@@ -44,7 +44,7 @@ export function SinglePostAuthorBar({
 
   return (
     <div className="single-post-author-bar">
-      {isPage !== "community" && (
+      {isPage !== "singlepage" && isPage !== "community" && (
         <div className="single-post-community-info">
           <div className="single-post-community-img">
             <CommunityImg

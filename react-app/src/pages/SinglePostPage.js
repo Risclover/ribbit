@@ -17,6 +17,7 @@ import {
   SinglePost,
   CommunityDetails,
   CommunitySelectionDropdownCommunity,
+  CommunityInfoBox,
 } from "../features";
 import { BackToTop } from "../components";
 import { PostFormatContext } from "../context/PostFormat";
@@ -30,6 +31,7 @@ export function SinglePostPage() {
   const { postId } = useParams();
   const { setFormat } = useContext(PostFormatContext);
   const post = useSelector((state) => state.posts[postId]);
+  const user = useSelector((state) => state.session.user);
 
   const community = useSelector(
     (state) => state.communities[post?.communityId]
@@ -121,11 +123,7 @@ export function SinglePostPage() {
           <Comments post={post} />
         </div>
         <div className="single-post-right-col">
-          <CommunityDetails
-            post={post}
-            pageType="singlepage"
-            community={community}
-          />
+          <CommunityInfoBox user={user} community={community} isPage="singlepage" />
           {Object.values(post?.communityRules).length > 0 && (
             <CommunityRulesBox post={post} />
           )}

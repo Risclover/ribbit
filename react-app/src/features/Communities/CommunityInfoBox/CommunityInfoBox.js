@@ -7,11 +7,15 @@ import {
   CommunityDescription,
   CommunityOptions,
   LoginSignupModal,
+  CommunityJoinBtn,
 } from "../..";
 import { getTextColor } from "@/utils";
 import Cake from "@/assets/images/misc/piece4.png";
+import { useHistory } from "react-router-dom";
+import { CommunityImg } from "components/CommunityImg";
 
-export function CommunityInfoBox({ community, user }) {
+export function CommunityInfoBox({ community, user, isPage }) {
+  const history = useHistory();
   const [members, setMembers] = useState(0);
 
   useEffect(() => {
@@ -47,6 +51,18 @@ export function CommunityInfoBox({ community, user }) {
         </div>
       </div>
       <div className="community-page-box-content">
+        {isPage === "singlepage" && (
+          <div className="single-post-community-info-name">
+            <CommunityImg
+              imgSrc={
+                community?.communitySettings?.[community?.id]?.communityIcon
+              }
+              imgAlt="Community"
+              imgClass="single-post-community-info-img"
+            />
+            c/{community?.name}
+          </div>
+        )}
         <CommunityDescription community={community} user={user} />
         <div className="community-page-box-date">
           <img src={Cake} className="community-cake-icon" alt="Cake" />
@@ -57,12 +73,16 @@ export function CommunityInfoBox({ community, user }) {
           <span>{members === 1 ? "Member" : "Members"}</span>
         </div>
         <div className="community-page-box-btn">
+          {isPage === "singlepage" && (
+            <CommunityJoinBtn community={community} isPage={isPage} />
+          )}
           {user && (
-            <NavLink to={`/c/${community.name}/submit`}>
-              <button className="blue-btn-filled btn-long community-btn-filled">
-                Create Post
-              </button>
-            </NavLink>
+            <button
+              className="blue-btn-filled btn-long community-btn-filled"
+              onClick={() => history.push(`/c/${community.name}/submit`)}
+            >
+              Create Post
+            </button>
           )}
 
           {!user && (
