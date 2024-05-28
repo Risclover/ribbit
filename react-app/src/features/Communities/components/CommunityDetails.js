@@ -20,11 +20,17 @@ export function CommunityDetails({ post, community }) {
   const user = useSelector((state) => state.session.user);
 
   const [subscribed, setSubscribed] = useState(
-    subscriptions[post?.communityId]
+    subscriptions[post?.communityId] || subscriptions[community?.id]
   );
   const [subscribeBtnText, setSubscribeBtnText] = useState("Leave");
 
   const members = post?.communityMembers || community?.members || 0;
+
+  useEffect(() => {
+    setSubscribed(
+      subscriptions[post?.communityId] || subscriptions[community?.id]
+    );
+  }, [post, community]);
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
