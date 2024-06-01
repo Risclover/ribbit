@@ -105,9 +105,9 @@ export function Gifs({ receiver, setOpenGiphy, setGifIcon, GifIcon }) {
       chatThreadId: selectedChat.id,
     };
 
-    dispatch(createChatMessage(payload));
+    await dispatch(createChatMessage(payload));
     setOpenGiphy(false);
-    dispatch(getChatThread(selectedChat.id));
+    await dispatch(getChatThread(selectedChat.id));
     setGifIcon(GifIcon);
   };
 

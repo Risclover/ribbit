@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useAutosizeTextArea } from "../../ChatWindow";
+import { useAutosizeTextArea } from "@/hooks";
 
 export function UpdateComment() {
   const textareaRef = useRef();

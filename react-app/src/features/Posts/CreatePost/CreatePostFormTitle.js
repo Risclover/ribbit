@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useAutosizeTextArea } from "../../ChatWindow";
+import { useAutosizeTextArea } from "@/hooks";
 
 export function CreatePostFormTitle({ title, setTitle }) {
   const { textareaRef } = useRef();

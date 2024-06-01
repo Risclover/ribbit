@@ -114,7 +114,7 @@ export const useCommunitySettings = (community) => {
 
       document.documentElement.style.setProperty(
         "--community-banner-color",
-        "var(--highlight-color)"
+        "#33a8ff"
       );
 
       document.documentElement.style.setProperty("--community-banner-img", "");

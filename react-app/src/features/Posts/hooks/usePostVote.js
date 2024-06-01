@@ -23,8 +23,7 @@ export const usePostVote = (post) => {
     e.stopPropagation();
     e.preventDefault();
 
-    await dispatch(getPosts());
-
+    console.log("hall");
     if (!user) {
       history.push("/login");
       return;
@@ -44,7 +43,6 @@ export const usePostVote = (post) => {
     }
 
     dispatch(getUsers());
-    dispatch(getPosts());
   };
 
   return { vote, handleVoteClick };

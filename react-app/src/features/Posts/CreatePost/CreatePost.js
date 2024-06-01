@@ -26,12 +26,11 @@ import {
   CommunityRule,
   ImagePostForm,
   CommunityDetails,
-  useAutosizeTextArea,
   CommunityRulesBox,
-} from "../..";
+} from "@/features";
 import getTextColor from "@/utils/getTextColor";
 import "./PostForm.css";
-import { usePageSettings } from "@/hooks/usePageSettings";
+import { usePageSettings, useAutosizeTextArea } from "@/hooks";
 import { getIdFromName } from "utils/getCommunityIdFromName";
 
 const modules = {

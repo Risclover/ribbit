@@ -22,15 +22,16 @@ export function Emojis({ receiver, setEmojisOverlay, socket }) {
     const data = await dispatch(createChatMessage(payload));
     socket.emit("chat", data);
     socket.emit("last", data);
-    dispatch(getChatThread(selectedChat.id));
+    await dispatch(getChatThread(selectedChat.id));
     setEmojisOverlay(false);
   };
+
   return (
     <div className="emojis-container">
       <div className="images-list">
         {ChatWindowEmojis.map((image, idx) => (
           <button key={idx} onClick={(e) => handleAddEmoji(e, image)}>
-            <img src={image} />
+            <img key={idx} src={image} />
           </button>
         ))}
       </div>

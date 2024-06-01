@@ -1,4 +1,3 @@
-export { formatDate } from "../features/ChatWindow/ChatWindowRight/ChatWindowMessages/formatDate";
 export { getTextColor } from "./getTextColor";
 export { HandleClickOutside } from "./HandleClickOutside";
 export { LinkText } from "./LinkText";

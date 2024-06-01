@@ -99,13 +99,13 @@ export const addCommunity = (payload) => async (dispatch) => {
 };
 
 export const updateCommunity = (payload, communityId) => async (dispatch) => {
-  const { display_name, description } = payload;
+  const { displayName, description } = payload;
 
   const response = await fetch(`/api/communities/${communityId}/edit`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      display_name,
+      display_name: displayName,
       description,
     }),
   });

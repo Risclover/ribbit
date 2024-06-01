@@ -51,6 +51,7 @@ import {
 } from "./context";
 import { CreatePostPage } from "./pages/CreatePostPage";
 import { MetadataProvider } from "./context/Metadata";
+import Chat from "features/Chat/components/ChatWindow/Chat";
 
 function App() {
   const dispatch = useDispatch();
@@ -221,6 +222,10 @@ function App() {
                       />
                     </Modal>
                   )}
+                </Route>
+
+                <Route path="/chat" exact={true}>
+                  <Chat />
                 </Route>
 
                 <Route path="/c/all" exact={true}>

@@ -10,8 +10,9 @@ import {
   getSingleComment,
   addCommentVote,
 } from "@/store";
-import { LoginSignupModal, useAutosizeTextArea } from "../..";
+import { LoginSignupModal } from "@/features";
 import "../Comments.css";
+import { useAutosizeTextArea } from "@/hooks";
 
 export function CommentForm({ postId }) {
   const textareaRef = useRef();

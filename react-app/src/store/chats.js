@@ -43,7 +43,6 @@ export const createChatThread = (receiverId) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(loadChatThread(data));
     return data;
   }
 };

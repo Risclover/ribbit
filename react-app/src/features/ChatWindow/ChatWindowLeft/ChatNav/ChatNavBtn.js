@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getChatThread, readAllChatMessages } from "@/store";
-import { formatDate } from "../../ChatWindowRight/ChatWindowMessages/formatDate";
 import "./ChatNav.css";
 import { SelectedChatContext } from "@/context/SelectedChat";
+import { formatDate } from "features/ChatWindow/ChatWindowRight/ChatWindowInput/ChatWindowMessages/formatDate";
 
 export function ChatNavBtn({
   chatThread,
@@ -103,6 +103,8 @@ export function ChatNavBtn({
         </div>
         <div className="chat-window-chatnav-last">
           {sender && sender !== "" ? sender + ": " : ""}
+
+          {/* If the last message is an image (a URL with an image extension or to the Giphy API), use the portrait emoji */}
           {(lastMessage && lastMessage.slice(-4) === ".png") ||
           lastMessage.includes("giphy")
             ? "🖼️"

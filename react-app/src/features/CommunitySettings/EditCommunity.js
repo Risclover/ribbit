@@ -31,7 +31,7 @@ export function EditCommunity() {
   const [addAllowed, setAddAllowed] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [rulesNum, setRulesNum] = useState(0);
-  const [display_name, setdisplay_name] = useState(
+  const [displayName, setDisplayName] = useState(
     community ? community?.displayName : ""
   );
   const [description, setDescription] = useState(community?.description);
@@ -51,7 +51,7 @@ export function EditCommunity() {
   }, [rules.length, addAllowed, rules]);
 
   useEffect(() => {
-    setdisplay_name(community?.displayName);
+    setDisplayName(community?.displayName);
     setDescription(community?.description);
 
     setRulesNum(rules.length);
@@ -61,7 +61,7 @@ export function EditCommunity() {
     e.preventDefault();
 
     const data = await dispatch(
-      updateCommunity({ display_name, description }, community?.id)
+      updateCommunity({ displayName, description }, community?.id)
     );
 
     history.push(`/c/${data.name}`);
@@ -108,17 +108,17 @@ export function EditCommunity() {
                 className="community-name-input"
                 type="text"
                 maxLength={100}
-                value={display_name}
-                onChange={(e) => setdisplay_name(e.target.value)}
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
               />
               <span
                 className={
-                  display_name?.length === 100
+                  displayName?.length === 100
                     ? "community-name-char-counter red-counter"
                     : "community-name-char-counter"
                 }
               >
-                {100 - display_name?.length} Characters remaining
+                {100 - displayName?.length} Characters remaining
               </span>
             </div>
             <div className="edit-community-page-section">

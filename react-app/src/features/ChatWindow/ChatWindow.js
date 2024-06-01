@@ -17,9 +17,7 @@ let socket;
 
 export function ChatWindow({ setOpenChat }) {
   const dispatch = useDispatch();
-
-  const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
-
+  const { selectedChat } = useContext(SelectedChatContext);
   const currentUser = useSelector((state) => state.session.user);
   const chatThreads = useSelector((state) => state.chatThreads);
 
@@ -31,50 +29,52 @@ export function ChatWindow({ setOpenChat }) {
   );
   const [deleteOverlay, setDeleteOverlay] = useState(false);
   const [messageInviteOverlay, setMessageInviteOverlay] = useState(false);
-
   const [receiver, setReceiver] = useState(
     selectedChat
       ? selectedChat?.users?.find((user) => user.id !== currentUser.id)
       : ""
   );
   const [lastMessage, setLastMessage] = useState();
-  const [messages, setMessages] = useState(
-    chatThreads &&
-      selectedChat &&
-      chatThreads[selectedChat.id] &&
-      chatThreads[selectedChat.id].messages
-      ? Object.values(chatThreads[selectedChat.id]?.messages)
-      : []
-  );
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     dispatch(getUserChatThreads());
     handleOpenChatThread(selectedChat);
-  }, [dispatch]);
+  }, [selectedChat, dispatch]);
 
   useEffect(() => {
-    socket = io();
+    if (currentUser) {
+      socket = io();
 
-    socket.on("chat", (chat) => {
-      setMessages((messages) => [...messages, chat]);
-    });
-
-    socket.on("new_message", (chat) => {
-      setLastMessage(chat);
-    });
-
-    if (selectedChat?.id > -1) {
-      socket.emit("join", {
-        room: selectedChat?.id,
+      socket.on("chat", (chat) => {
+        setMessages((messages) => [...messages, chat]);
       });
+      if (selectedChat) {
+        socket.emit("join", {
+          user: currentUser.id,
+          room: selectedChat.id,
+        });
+      }
+
+      socket.on("notify", () => {
+        dispatch(getUserChatThreads());
+      });
+
+      return () => {
+        socket.disconnect();
+      };
     }
-  }, [setMessages, setLastMessage, selectedChat?.id, currentUser, dispatch]);
+  }, [currentUser, selectedChat, dispatch]);
 
   useEffect(() => {
-    if (chatThreads[selectedChat.id] && selectedChat && selectedChat.id > -1) {
+    if (
+      chatThreads[selectedChat?.id] &&
+      selectedChat &&
+      selectedChat?.id > -1
+    ) {
       setMessages(
         chatThreads && selectedChat
-          ? Object.values(chatThreads[selectedChat.id]?.messages)
+          ? Object.values(chatThreads[selectedChat?.id]?.messages)
           : []
       );
     }
@@ -85,6 +85,7 @@ export function ChatWindow({ setOpenChat }) {
       return; // or handle the error case appropriately
     }
 
+    setMessages([]); // Clear messages before fetching new ones
     let id = chatThread.id;
 
     let otherPerson = chatThread.users.filter(
@@ -93,12 +94,11 @@ export function ChatWindow({ setOpenChat }) {
 
     setReceiver(otherPerson);
     dispatch(getChatThread(id));
-
     setOpenChat(true);
   };
 
   useEffect(() => {
-    if (selectedChat && selectedChat.users) {
+    if (selectedChat && selectedChat?.users) {
       setReceiver(
         selectedChat?.users.find((user) => user.id !== currentUser.id).username
       );

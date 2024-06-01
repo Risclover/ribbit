@@ -19,7 +19,7 @@ export function CommunityInfoMenu() {
 
   const communities = useSelector((state) => state.communities);
 
-  const [btnState, setBtnState] = useState("Add To Favorites");
+  const [btnState, setBtnState] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
 
   const communityId = getIdFromName(communityName, communities);

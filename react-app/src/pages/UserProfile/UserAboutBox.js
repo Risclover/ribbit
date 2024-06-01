@@ -79,8 +79,6 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
     } else {
       setSelectedChat(existingThread);
     }
-
-    dispatch(getUserChatThreads());
   };
 
   return (
