@@ -5,6 +5,8 @@ import { ChatNavMenu } from "../ChatNavMenu/ChatNavMenu";
 import { ChatThread } from "../ChatThread/ChatThread";
 import { ChatTitleBar } from "../ChatThread/ChatTitleBar";
 import { ChatInput } from "../ChatInput/ChatInput";
+import "../../chat.css";
+
 let socket;
 
 const Chat = () => {
@@ -12,6 +14,10 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const user = useSelector((state) => state.session.user);
   const [selectedChat, setSelectedChat] = useState(null);
+
+  useEffect(() => {
+    console.log(selectedChat);
+  }, [selectedChat]);
 
   useEffect(() => {
     socket = io();
@@ -23,7 +29,7 @@ const Chat = () => {
     if (selectedChat) {
       socket.emit("join", {
         user: user.id,
-        room: selectedChat.id,
+        room: selectedChat,
       });
     }
 
@@ -53,7 +59,12 @@ const Chat = () => {
       </div>
       <div className="chat-right">
         <ChatTitleBar />
-        <ChatThread selectedChat={selectedChat} />
+        <ChatThread
+          setSelectedChat={setSelectedChat}
+          selectedChat={selectedChat}
+          setMessages={setMessages}
+          messages={messages}
+        />
         <ChatInput socket={socket} selectedChat={selectedChat} />
       </div>
     </div>

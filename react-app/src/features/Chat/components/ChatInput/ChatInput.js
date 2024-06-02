@@ -15,22 +15,19 @@ export const ChatInput = ({ socket, selectedChat }) => {
 
   const recipient = chat?.users[0];
 
-  console.log("recipient:", recipient);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const payload = {
       content: content,
       receiverId: recipient?.id,
       chatThreadId: chat?.id,
     };
 
-    console.log("payload:", payload);
     const data = await dispatch(createChatMessage(payload));
-    console.log("data:", data);
+    await socket.emit("chat", data);
 
     dispatch(getChatThread(chat?.id));
-
     setContent("");
   };
 

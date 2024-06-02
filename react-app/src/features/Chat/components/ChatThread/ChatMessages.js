@@ -1,11 +1,12 @@
 import React from "react";
 import { ChatMessage } from "./ChatMessage";
 
-export const ChatMessages = ({ chat }) => {
+export const ChatMessages = ({ messages }) => {
+  console.log("messages:", messages);
   return (
     <div>
-      {chat?.messages.map((message) => (
-        <ChatMessage content={message.content} />
+      {messages?.map((message, idx) => (
+        <ChatMessage key={idx} content={message.content} />
       ))}
     </div>
   );
