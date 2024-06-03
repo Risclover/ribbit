@@ -14,10 +14,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const user = useSelector((state) => state.session.user);
   const [selectedChat, setSelectedChat] = useState(null);
-
-  useEffect(() => {
-    console.log("selectedChat:", selectedChat);
-  }, [selectedChat]);
+  const [previousChat, setPreviousChat] = useState(null); // New state to track the previous chat
 
   useEffect(() => {
     socket = io();
@@ -27,18 +24,32 @@ const Chat = () => {
     });
 
     return () => {
-      if (socket) socket.disconnect();
+      if (socket) {
+        socket.disconnect();
+      }
     };
-  }, []); // Socket initialization effect should not depend on 'selectedChat'
+  }, []);
 
   useEffect(() => {
     if (selectedChat && user) {
+      if (previousChat) {
+        // Emit leave event when switching chats
+        socket.emit("leave", {
+          user: user.id,
+          room: previousChat,
+        });
+      }
+
+      // Emit join event for the new chat
       socket.emit("join", {
         user: user.id,
         room: selectedChat,
       });
+
+      // Update previousChat state to the current selectedChat
+      setPreviousChat(selectedChat);
     }
-  }, [selectedChat, user]); // Separate effect for joining rooms
+  }, [selectedChat, user]);
 
   return (
     <div className="chat-container">
