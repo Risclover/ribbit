@@ -308,7 +308,7 @@
 }
 
 .welcome-overlay-title {
-  font-size: 16px;
+  font-size: 14px;
   margin: 12px 0 8px 0;
 }
 
@@ -329,12 +329,22 @@
     "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol", sans-serif;
   font-weight: 600;
-  background: #0045ac;
+  background: #0a449b;
+}
+
+.welcome-overlay-btn svg {
+  display: flex;
+  margin-right: 0.6rem;
 }
 
 .welcome-overlay-btn:hover {
-  background: #003584;
-  border-color: #003584;
+  background: #0a2f6c;
+  border-color: #0a2f6c;
+}
+
+.welcome-overlay-btn:focus {
+  background: #0a449b;
+  border-color: #0a449b;
 }
 
 .welcome-overlay-btn:active {

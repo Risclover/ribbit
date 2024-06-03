@@ -16,6 +16,7 @@ export function ChatNav({
 
   return (
     <div className="chat-window-chatnav-container">
+      <div className="chat-window-chatnav-title">Chats</div>
       {Object.values(chatThreads).length > 0 &&
         Object.values(chatThreads)
           .sort((a, b) => {

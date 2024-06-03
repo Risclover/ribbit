@@ -1,5 +1,10 @@
 import React from "react";
 
-export const ChatMessage = ({ content }) => {
-  return <div>{content}</div>;
+export const ChatMessage = ({ message }) => {
+  console.log("message:", message);
+  return (
+    <div>
+      {message.sender.username}: {message.content}
+    </div>
+  );
 };

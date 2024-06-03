@@ -23,12 +23,17 @@ const Chat = () => {
       setMessages((messages) => [...messages, chat]);
     });
 
+    if (selectedChat) {
+      socket.emit("join", {
+        user: user.id,
+        room: selectedChat,
+      });
+    }
+
     return () => {
-      if (socket) {
-        socket.disconnect();
-      }
+      socket.disconnect();
     };
-  }, []);
+  }, [setMessages, selectedChat, user]);
 
   useEffect(() => {
     if (selectedChat && user) {
