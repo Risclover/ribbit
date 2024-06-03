@@ -16,7 +16,7 @@ const Chat = () => {
   const [selectedChat, setSelectedChat] = useState(null);
 
   useEffect(() => {
-    console.log(selectedChat);
+    console.log("selectedChat:", selectedChat);
   }, [selectedChat]);
 
   useEffect(() => {
@@ -26,31 +26,19 @@ const Chat = () => {
       setMessages((messages) => [...messages, chat]);
     });
 
-    if (selectedChat) {
+    return () => {
+      if (socket) socket.disconnect();
+    };
+  }, []); // Socket initialization effect should not depend on 'selectedChat'
+
+  useEffect(() => {
+    if (selectedChat && user) {
       socket.emit("join", {
         user: user.id,
         room: selectedChat,
       });
     }
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-
-  const updateChatInput = (e) => {
-    setChatInput(e.target.value);
-  };
-
-  const sendChat = (e) => {
-    e.preventDefault();
-    socket.emit("chat", { user: user.username, msg: chatInput });
-    setChatInput("");
-  };
-
-  useEffect(() => {
-    console.log(selectedChat);
-  }, [selectedChat]);
+  }, [selectedChat, user]); // Separate effect for joining rooms
 
   return (
     <div className="chat-container">

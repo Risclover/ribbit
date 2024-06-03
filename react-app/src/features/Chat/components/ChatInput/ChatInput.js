@@ -25,6 +25,7 @@ export const ChatInput = ({ socket, selectedChat }) => {
     };
 
     const data = await dispatch(createChatMessage(payload));
+    data.room = chat?.id;
     await socket.emit("chat", data);
 
     dispatch(getChatThread(chat?.id));
