@@ -1,5 +1,22 @@
 const LOAD_CHAT_THREADS = "chat_threads/LOAD_CHAT_THREADS";
 const LOAD_CHAT_THREAD = "chat_threads/LOAD_CHAT_THREAD";
+const RECEIVE_NEW_MESSAGE = "chat_threads/RECEIVE_NEW_MESSAGE";
+
+export const receiveNewMessage = (message) => {
+  return {
+    type: RECEIVE_NEW_MESSAGE,
+    payload: {
+      threadId: message.thread_id,
+      message: {
+        id: message.id,
+        content: message.content,
+        senderId: message.sender_id,
+        createdAt: message.created_at,
+        read: false, // Assuming the message is unread when received
+      },
+    },
+  };
+};
 
 const loadChatThreads = (chatThreads) => {
   return {
