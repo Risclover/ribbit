@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import useSortedChatThreads from "features/Chat/hooks/useSortedChatThreads";
 import { ChatNavBtn } from "./ChatNavBtn";
 import "./ChatNav.css";
 
@@ -12,50 +12,25 @@ export function ChatNav({
   lastMessage,
   socket,
 }) {
-  const chatThreads = useSelector((state) => state.chatThreads);
+  const sortedChatThreads = useSortedChatThreads();
 
   return (
     <div className="chat-window-chatnav-container">
       <div className="chat-window-chatnav-title">Chats</div>
-      {Object.values(chatThreads).length > 0 &&
-        Object.values(chatThreads)
-          .sort((a, b) => {
-            const aMessages = a.messages;
-            const bMessages = b.messages;
-            if (aMessages && bMessages) {
-              const aLastMessage = aMessages[aMessages?.length - 1];
-              const bLastMessage = bMessages[bMessages?.length - 1];
-
-              if (aMessages?.length === 0 && bMessages?.length === 0) {
-                return a.createdAt.localeCompare(b.createdAt);
-              }
-
-              if (aMessages?.length === 0) {
-                return 1;
-              }
-
-              if (bMessages?.length === 0) {
-                return -1;
-              }
-
-              return (
-                new Date(bLastMessage.createdAt) -
-                new Date(aLastMessage.createdAt)
-              );
-            }
-          })
-          .map((chatThread) => (
-            <ChatNavBtn
-              chatThread={chatThread}
-              handleOpenChatThread={handleOpenChatThread}
-              receiver={receiver}
-              setWelcomeOverlay={setWelcomeOverlay}
-              setNewChatOverlay={setNewChatOverlay}
-              setMessageInviteOverlay={setMessageInviteOverlay}
-              lastMsg={lastMessage}
-              socket={socket}
-            />
-          ))}
+      {sortedChatThreads.length > 0 &&
+        sortedChatThreads.map((chatThread) => (
+          <ChatNavBtn
+            key={chatThread.id}
+            chatThread={chatThread}
+            handleOpenChatThread={handleOpenChatThread}
+            receiver={receiver}
+            setWelcomeOverlay={setWelcomeOverlay}
+            setNewChatOverlay={setNewChatOverlay}
+            setMessageInviteOverlay={setMessageInviteOverlay}
+            lastMsg={lastMessage}
+            socket={socket}
+          />
+        ))}
     </div>
   );
 }

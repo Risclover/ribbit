@@ -1,19 +1,23 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import useSortedChatThreads from "features/Chat/hooks/useSortedChatThreads";
 import { ChatNavBtn } from "./ChatNavBtn";
 
-export const ChatNavMenu = ({ setSelectedChat }) => {
-  const chatThreads = useSelector((state) => state.chatThreads);
+export function ChatNavMenu({ setSelectedChat }) {
+  const sortedChatThreads = useSortedChatThreads();
+
+  console.log("sortedChatThreads:", sortedChatThreads);
 
   return (
-    <div>
-      {Object.values(chatThreads).map((chatThread) => (
-        <ChatNavBtn
-          key={chatThread.id}
-          chatThread={chatThread}
-          setSelectedChat={setSelectedChat}
-        />
-      ))}
+    <div className="chat-window-chatnav-container">
+      <div className="chat-window-chatnav-title">Chats</div>
+      {sortedChatThreads.length > 0 &&
+        sortedChatThreads.map((chatThread) => (
+          <ChatNavBtn
+            key={chatThread.id}
+            chatThread={chatThread}
+            setSelectedChat={setSelectedChat}
+          />
+        ))}
     </div>
   );
-};
+}
