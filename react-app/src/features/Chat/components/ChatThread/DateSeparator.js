@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
-export const DateSeparator = () => {
-  return (
-    <div>DateSeparator</div>
-  )
+export function DateSeparator({ date }) {
+  return <div className="date-separator">{date}</div>;
 }

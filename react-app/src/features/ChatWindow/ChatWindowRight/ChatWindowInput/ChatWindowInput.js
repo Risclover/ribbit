@@ -15,7 +15,7 @@ export function ChatWindowInput({
 }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
-  const textareaRef = useRef(null);
+  const textareaRef = useRef(null );
 
   const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
 

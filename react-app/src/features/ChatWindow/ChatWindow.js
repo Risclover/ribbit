@@ -43,28 +43,24 @@ export function ChatWindow({ setOpenChat }) {
   }, [selectedChat, dispatch]);
 
   useEffect(() => {
-    if (currentUser) {
-      socket = io();
+    socket = io();
 
-      socket.on("chat", (chat) => {
-        setMessages((messages) => [...messages, chat]);
+    socket.on("chat", (chat) => {
+      setMessages((messages) => [...messages, chat]);
+      dispatch(getUserChatThreads());
+    });
+
+    if (selectedChat) {
+      socket.emit("join", {
+        user: user.id,
+        room: selectedChat,
       });
-      if (selectedChat) {
-        socket.emit("join", {
-          user: currentUser.id,
-          room: selectedChat.id,
-        });
-      }
-
-      socket.on("notify", () => {
-        dispatch(getUserChatThreads());
-      });
-
-      return () => {
-        socket.disconnect();
-      };
     }
-  }, [currentUser, selectedChat, dispatch]);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [setMessages, selectedChat, user]);
 
   useEffect(() => {
     if (

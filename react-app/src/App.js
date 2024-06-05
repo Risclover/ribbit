@@ -186,7 +186,7 @@ function App() {
               )}
 
               {openChat && (
-                <ChatWindow setOpenChat={setOpenChat} openChat={openChat} />
+                <Chat setOpenChat={setOpenChat} openChat={openChat} />
               )}
 
               <Switch>
@@ -222,10 +222,6 @@ function App() {
                       />
                     </Modal>
                   )}
-                </Route>
-
-                <Route path="/chat" exact={true}>
-                  <Chat />
                 </Route>
 
                 <Route path="/c/all" exact={true}>
