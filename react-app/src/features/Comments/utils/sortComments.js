@@ -1,4 +1,5 @@
 export const sortComments = (comments, sortType) => {
+  console.log("sortType:", sortType);
   return [...comments].sort((a, b) => {
     switch (sortType) {
       case "New":

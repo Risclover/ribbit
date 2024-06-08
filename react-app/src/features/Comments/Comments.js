@@ -12,6 +12,7 @@ import { input } from "@testing-library/user-event/dist/cjs/event/input.js";
 import { LoadingEllipsis } from "components";
 import { useLoader } from "./hooks/useLoader";
 import { NoCommentsMsg } from "./components/NoCommentsMsg";
+import { sortComments } from "./utils/sortComments";
 
 export function Comments({ post }) {
   const history = useHistory();
@@ -22,6 +23,7 @@ export function Comments({ post }) {
 
   const comments = useSelector((state) => Object.values(state.comments));
 
+  const [sortedComments, setSortedComments] = useState();
   const [sortType, setSortType] = useState("Best");
   const showLoader = useLoader();
   const [searchValue, setSearchValue] = useState("");
@@ -43,6 +45,10 @@ export function Comments({ post }) {
   useEffect(() => {
     if (specificComment) setSpecificCommentActive(true);
   }, [specificComment]);
+
+  useEffect(() => {
+    setSortedComments(sortComments(comments, sortType));
+  }, [sortType]);
 
   const dismissSearch = () => {
     dispatch(getComments(post.id));
@@ -93,9 +99,9 @@ export function Comments({ post }) {
       )}
       {!showLoader && (
         <div className="all-comments">
-          {comments.length > 0 &&
+          {sortedComments.length > 0 &&
             !specificCommentActive &&
-            comments.map((comment) => (
+            sortedComments?.map((comment) => (
               <Comment
                 comment={comment}
                 key={comment.id}
