@@ -14,7 +14,8 @@ const PostBarButton = ({ icon: Icon, onClick, testId }) => (
 
 export const CreatePostBar = ({ page, communityName }) => {
   const history = useHistory();
-  const user = useSelector((state) => state.session.user);
+  const cuser = useSelector((state) => state.session.user);
+  const user = useSelector((state) => state.users[cuser.id]);
 
   const navigate = (path) => () => history.push(path);
 

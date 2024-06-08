@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 
 import {
@@ -63,16 +63,17 @@ export function SinglePostPage() {
 
   useEffect(() => {
     setFormat("Card");
-    dispatch(getSinglePost(postId));
-    dispatch(getCommunities());
-    dispatch(getPosts());
-    dispatch(getCommunitySettings(community?.id));
+    batch(() => {
+      if (!community) dispatch(getCommunities());
+      if (!post) dispatch(getPosts());
+      dispatch(getCommunitySettings(community?.id));
 
-    dispatch(addViewedPost(post?.id))
-      .then(() => {
-        dispatch(getViewedPosts());
-      })
-      .catch((error) => console.error("Failed to add viewed post:", error));
+      dispatch(addViewedPost(post?.id))
+        .then(() => {
+          dispatch(getViewedPosts());
+        })
+        .catch((error) => console.error("Failed to add viewed post:", error));
+    });
   }, []);
 
   const handleBannerClick = () => {
@@ -123,7 +124,11 @@ export function SinglePostPage() {
           <Comments post={post} />
         </div>
         <div className="single-post-right-col">
-          <CommunityInfoBox user={user} community={community} isPage="singlepage" />
+          <CommunityInfoBox
+            user={user}
+            community={community}
+            isPage="singlepage"
+          />
           {Object.values(post?.communityRules).length > 0 && (
             <CommunityRulesBox post={post} />
           )}

@@ -11,7 +11,7 @@ export const UserResultsPreview = ({ query }) => {
     <div className="search-results-right-box">
       <h4>People</h4>
       {query.trim().length > 0 &&
-        users.map((user) => <User user={user} />).slice(0, 5)}
+        users.map((user) => <User key={user.id} user={user} />).slice(0, 5)}
 
       {query.trim().length > 0 && users.length > 5 && (
         <div

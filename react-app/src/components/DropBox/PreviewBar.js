@@ -1,7 +1,7 @@
 import React from "react";
 import { FaTrash } from "react-icons/fa";
 
-export const PreviewBar = ({ onErase, showBar, preview, highlight }) => {
+export const PreviewBar = ({ onErase, showBar, preview }) => {
   return (
     <div className="preview-img" style={{ backgroundImage: `url(${preview})` }}>
       <div

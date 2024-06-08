@@ -32,7 +32,9 @@ export function SearchResultsComments({ searchbarRef }) {
             <NoResults query={query} focusSearchBox={focusSearchBox} />
           )}
           {query.trim().length > 0 &&
-            comments.map((comment) => <CommentResult comment={comment} />)}
+            comments.map((comment) => (
+              <CommentResult key={comment.id} comment={comment} />
+            ))}
         </div>
       </div>
     </SearchResults>

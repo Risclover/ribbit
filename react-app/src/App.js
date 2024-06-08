@@ -108,7 +108,6 @@ function App() {
 
   useEffect(() => {
     dispatch(getUserChatThreads());
-    dispatch(getCommunities());
   }, [dispatch]);
 
   useEffect(() => {

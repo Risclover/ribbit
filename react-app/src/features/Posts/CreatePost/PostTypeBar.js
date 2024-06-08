@@ -27,6 +27,7 @@ export function PostTypeBar({ postType, setPostType }) {
     <div className="post-type-bar">
       {postTypes.map((type) => (
         <PostTypeBtn
+          key={type.type}
           type={type.type}
           postType={postType}
           setPostType={setPostType}

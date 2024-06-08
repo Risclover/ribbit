@@ -55,6 +55,22 @@ export const ChatNavBtn = ({ chatThread, selectedChat, setSelectedChat }) => {
               : ""}
           </span>
         </div>
+        <div className="chat-window-chatnav-details-bottom">
+          {currentUser.username ===
+          chatThread.messages[chatThread.messages.length - 1].sender.username
+            ? "You:"
+            : chatThread.messages[chatThread.messages.length - 1].sender
+                .username + ":"}{" "}
+          {(chatThread.messages[chatThread.messages.length - 1].content &&
+            chatThread.messages[chatThread.messages.length - 1].content.slice(
+              -4
+            ) === ".png") ||
+          chatThread.messages[chatThread.messages.length - 1].content.includes(
+            ".giphy"
+          )
+            ? "🖼️"
+            : chatThread.messages[chatThread.messages.length - 1].content}
+        </div>
       </div>
     </div>
   );

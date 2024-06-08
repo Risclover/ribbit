@@ -13,7 +13,7 @@ export function UserOwnedCommunities({ communitiesList, userId }) {
         {communitiesList.map(
           (community) =>
             community.communityOwner.id === userId && (
-              <UserOwnedCommunity community={community} />
+              <UserOwnedCommunity key={community.id} community={community} />
             )
         )}
       </div>

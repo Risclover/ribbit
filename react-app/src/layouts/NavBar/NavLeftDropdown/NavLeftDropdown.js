@@ -119,6 +119,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
       {filter === "" &&
         Object.values(favoriteCommunities).map((item) => (
           <NavLeftDropdownLink
+            key={item.id}
             favorite={true}
             favoriteType={favoriteCommunities}
             item={item}
@@ -135,6 +136,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
           )
           .map((item) => (
             <NavLeftDropdownLink
+              key={item.id}
               favorite={true}
               favoriteType={favoriteCommunities}
               item={item}
@@ -147,6 +149,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
       {filter === "" &&
         Object.values(favoriteUsers).map((item) => (
           <NavLeftDropdownLink
+            key={item.id}
             favorite={true}
             favoriteType={favoriteUsers}
             item={item}
@@ -163,6 +166,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
           )
           .map((item) => (
             <NavLeftDropdownLink
+              key={item.id}
               favorite={true}
               favoriteType={favoriteUsers}
               item={item}
@@ -180,6 +184,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
       {filter === "" &&
         subscriptions.map((item) => (
           <NavLeftDropdownLink
+            key={item.id}
             favorite={false}
             favoriteType={favoriteCommunities}
             item={item}
@@ -196,6 +201,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
           )
           .map((item) => (
             <NavLeftDropdownLink
+              key={item.id}
               favorite={false}
               favoriteType={favoriteCommunities}
               item={item}
@@ -211,6 +217,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
       {filter === "" &&
         Object.values(followers).map((item) => (
           <NavLeftDropdownLink
+            key={item.id}
             favorite={false}
             favoriteType={favoriteUsers}
             item={item}
@@ -227,6 +234,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
           )
           .map((item) => (
             <NavLeftDropdownLink
+              key={item.id}
               favorite={false}
               favoriteType={favoriteUsers}
               item={item}

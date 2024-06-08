@@ -55,7 +55,6 @@ export function ClassicPostFormat({ isPage, id, post }) {
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
     dispatch(getUsers());
-    dispatch(getViewedPosts());
     if (isPage === "community") {
       history.push(`/c/${post?.communityName}`);
     } else {

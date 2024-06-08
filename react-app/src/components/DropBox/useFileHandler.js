@@ -2,7 +2,6 @@ export const useFileHandler = (
   setImage,
   setPreview,
   setShowBar,
-  showBar,
   handlePreview
 ) => {
   const handleUpload = (event) => {

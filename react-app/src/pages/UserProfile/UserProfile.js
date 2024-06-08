@@ -19,7 +19,8 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
 
   const [sortMode, setSortMode] = useState("new");
 
-  const user = useSelector((state) => state.users[+userId]);
+  const cuser = useSelector((state) => state.session.user);
+  const user = useSelector((state) => state.users[cuser.id]);
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => Object.values(state.posts));
   const currentUser = useSelector((state) => state.session.user);
@@ -31,7 +32,7 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
     dispatch(getUsers());
     dispatch(getCommunities());
     setFormat("Card");
-  }, []);
+  }, [dispatch]);
 
   usePageSettings({
     documentTitle: user?.displayName + " (u/" + user?.username + ") - Ribbit",

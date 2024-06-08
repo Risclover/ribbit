@@ -23,9 +23,6 @@ export function usePosts(isAllPosts) {
   useEffect(() => {
     dispatch(getViewedPosts());
     dispatch(getPosts());
-    dispatch(getCommunities());
-    dispatch(getSubscriptions());
-    dispatch(getFollowers());
   }, [dispatch]);
 
   const sortedPosts = useMemo(() => {

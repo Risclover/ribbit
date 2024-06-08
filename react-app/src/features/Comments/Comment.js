@@ -10,6 +10,9 @@ import { getUsers, addCommentVote, removeCommentVote } from "@/store";
 import { EditComment, DeleteCommentConfirmation } from "..";
 import { Username } from "@/components";
 import "./Comments.css";
+import { DeleteConfirmationModal } from "components";
+import { removeComment } from "store";
+import { getPosts } from "store";
 
 moment.updateLocale("en-comment", {
   relativeTime: {
@@ -61,6 +64,8 @@ export function Comment({ commentId, comment, specificCommentActive }) {
 
   const { postId } = useParams();
 
+  console.log("postId:", postId);
+
   const [showEditCommentModal, setShowEditCommentModal] = useState(false);
   const [wasEdited, setWasEdited] = useState(
     comment?.createdAt !== comment?.updatedAt
@@ -72,7 +77,9 @@ export function Comment({ commentId, comment, specificCommentActive }) {
 
   const comments = useSelector((state) => state.comments);
   const user = useSelector((state) => state.session.user);
-  const post = useSelector((state) => state.singlePost);
+  const post = useSelector((state) => state.posts[postId]);
+
+  console.log("post:", post);
   const url = window.location.href;
 
   let editedTime = moment(new Date(comment?.updatedAt))
@@ -158,6 +165,15 @@ export function Comment({ commentId, comment, specificCommentActive }) {
     }
   }, [upvote, downvote, comment?.commentVoters, user?.id, comments]);
 
+  console.log(post.postAuthor?.username, comment?.commentAuthor?.username);
+
+  const handleDeleteClick = async (e) => {
+    e.preventDefault();
+    setShowDeleteModal(false);
+    dispatch(removeComment(commentId));
+    dispatch(getPosts());
+  };
+
   return (
     <div className="comment-system" id={`comment-${comment?.id}`}>
       <div
@@ -216,8 +232,7 @@ export function Comment({ commentId, comment, specificCommentActive }) {
               username={comment?.commentAuthor?.username}
               user={comment?.commentAuthor}
             />
-            {post[postId]?.postAuthor?.username ===
-            comment?.commentAuthor?.username ? (
+            {post.postAuthor?.username === comment?.commentAuthor?.username ? (
               <span className="op-sign">OP</span>
             ) : (
               ""
@@ -287,10 +302,12 @@ export function Comment({ commentId, comment, specificCommentActive }) {
                       title="Delete comment"
                       open={() => setShowDeleteModal(true)}
                     >
-                      <DeleteCommentConfirmation
+                      <DeleteConfirmationModal
                         setShowDeleteModal={setShowDeleteModal}
                         showDeleteModal={showDeleteModal}
                         commentId={comment?.id}
+                        handleDelete={handleDeleteClick}
+                        item="comment"
                       />
                     </Modal>
                   )}

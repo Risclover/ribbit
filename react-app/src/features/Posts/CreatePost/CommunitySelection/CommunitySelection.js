@@ -22,7 +22,7 @@ export function CommunitySelection({
   const subscriptions = useSelector((state) => state.subscriptions);
   const allCommunities = useSelector((state) => state.communities);
 
-  const [search, setSearch] = useState(community?.name);
+  const [search, setSearch] = useState(community?.name || "");
   const [showDropdown, setShowDropdown] = useState(false);
   const [communityModalOpen, setCommunityModalOpen] = useState(false);
   const [inputState, setInputState] = useState("choose");

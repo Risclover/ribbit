@@ -89,7 +89,7 @@ export const PostResult = ({ post }) => {
           <div className="search-results-post-link-img">
             <img src={metadataResult} alt={post?.title} />
 
-            <div class="type-link-icon">
+            <div className="type-link-icon">
               <svg
                 stroke="currentColor"
                 fill="none"

@@ -29,6 +29,16 @@ export const getUsers = () => async (dispatch) => {
   }
 };
 
+export const getCurrentUser = (id) => async (dispatch) => {
+  const response = await fetch(`/api/users/${id}`);
+
+  if (response.ok) {
+    const user = await response.json();
+    dispatch(loadUser(user));
+    return user;
+  }
+};
+
 export const editProfile = (id, payload) => async (dispatch) => {
   const { display_name, about } = payload;
 

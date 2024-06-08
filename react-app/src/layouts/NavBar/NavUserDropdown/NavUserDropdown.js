@@ -38,7 +38,7 @@ export function NavUserDropdown() {
           <div className="navbar-user-info-details">
             <img
               className="navbar-user-img"
-              src={cuser.profile_img}
+              src={user?.profile_img}
               alt="User"
             />
             <div className="navbar-user-info">

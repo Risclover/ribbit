@@ -6,7 +6,6 @@ import { useDispatch, Provider } from "react-redux";
 import { PostFeed } from "./PostFeed"; // Adjust the import path as necessary
 import { getCommunities, getPosts } from "@/store"; // Adjust as necessary
 import { BrowserRouter } from "react-router-dom";
-import { PostFormatContext } from "@/context";
 
 const mockStore = configureMockStore();
 

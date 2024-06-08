@@ -106,7 +106,7 @@ export function ChatNavBtn({
 
           {/* If the last message is an image (a URL with an image extension or to the Giphy API), use the portrait emoji */}
           {(lastMessage && lastMessage.slice(-4) === ".png") ||
-          lastMessage.includes("giphy")
+          lastMessage.includes(".giphy")
             ? "🖼️"
             : lastMessage}
         </div>

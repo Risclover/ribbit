@@ -31,7 +31,7 @@ export const SearchResultsCommunities = ({ searchbarRef }) => {
           )}
           {query.trim().length > 0 &&
             communities.map((community) => (
-              <CommunityResult community={community} />
+              <CommunityResult key={community.id} community={community} />
             ))}
         </div>
       </div>

@@ -14,7 +14,9 @@ export const CommunityResultsPreview = ({ query }) => {
       <h4>Communities</h4>
       {query.trim().length > 0 &&
         communities
-          .map((community) => <Community community={community} />)
+          .map((community) => (
+            <Community key={community.id} community={community} />
+          ))
           .slice(0, 5)}
 
       {query.trim().length > 0 && communities.length > 5 && (

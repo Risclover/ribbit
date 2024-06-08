@@ -8,8 +8,13 @@ export const SearchResultsNav = ({ query, searchPage }) => {
 
   return (
     <div className="search-results-btns">
-      {btns.map((btn) => (
-        <SearchResultsNavBtn searchPage={searchPage} btn={btn} query={query} />
+      {btns.map((btn, idx) => (
+        <SearchResultsNavBtn
+          key={idx}
+          searchPage={searchPage}
+          btn={btn}
+          query={query}
+        />
       ))}
     </div>
   );

@@ -5,6 +5,7 @@ import {
   CommunitySelectionDropdownCommunity,
 } from "@/features";
 import "./CommunitySelection.css";
+import { CommunityRule } from "features/CommunityRules";
 
 export function CommunitySelectionDropdown({
   subscriptions,
@@ -64,6 +65,7 @@ export function CommunitySelectionDropdown({
           )
           .map((subscription) => (
             <CommunitySelectionDropdownCommunity
+              key={subscription.id}
               communityList={communityList}
               search={search}
               setSearch={setSearch}
@@ -85,6 +87,7 @@ export function CommunitySelectionDropdown({
           )
           .map((subscription) => (
             <CommunitySelectionDropdownCommunity
+              key={subscription.id}
               communityList={communityList}
               search={search}
               setSearch={setSearch}
@@ -120,6 +123,7 @@ export function CommunitySelectionDropdown({
             )
             .map((subscription) => (
               <CommunitySelectionDropdownCommunity
+                key={subscription.id}
                 communityList={communityList}
                 search={search}
                 setSearch={setSearch}

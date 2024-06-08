@@ -54,10 +54,14 @@ export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
     setShowEditRuleModal(false);
   };
 
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    setShowDeleteModal(true);
+  const handleDeleteRule = async () => {
+    await dispatch(deleteRule(rule.id));
+    setShowDeleteModal(false);
+    setShowEditRuleModal(false);
+    dispatch(getCommunityRules(communityId));
+    dispatch(getSingleCommunity(communityId));
   };
+  
 
   return (
     <div className="modal-container">
@@ -106,7 +110,10 @@ export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
         </div>
       </div>
       <div className="modal-buttons alt-buttons">
-        <button className="modal-buttons-delete" onClick={handleDelete}>
+        <button
+          className="modal-buttons-delete"
+          onClick={() => setShowDeleteModal(true)}
+        >
           Delete
         </button>
         <div className="modal-buttons-main">
@@ -131,12 +138,9 @@ export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
             >
               <DeleteConfirmationModal
                 showDeleteModal={showDeleteModal}
-                setShowEditRuleModal={setShowEditRuleModal}
+                handleDelete={handleDeleteRule}
                 setShowDeleteModal={setShowDeleteModal}
-                payload={rule.id}
-                storeFunction={deleteRule}
                 item="rule"
-                isPage="community"
               />
             </Modal>
           )}

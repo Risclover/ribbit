@@ -13,6 +13,7 @@ import { CommunityEditRule, AddCommunityRuleModal } from "..";
 import "./CommunitySettings.css";
 import { getIdFromName } from "utils/getCommunityIdFromName";
 import { CommunityImg } from "components/CommunityImg";
+import { deleteCommunity } from "store";
 
 export function EditCommunity() {
   const dispatch = useDispatch();
@@ -65,6 +66,11 @@ export function EditCommunity() {
     );
 
     history.push(`/c/${data.name}`);
+  };
+
+  const handleDeleteCommunity = async () => {
+    await dispatch(deleteCommunity(communityId));
+    history.push(`/`);
   };
 
   // if (!community || !community) return null;
@@ -214,9 +220,7 @@ export function EditCommunity() {
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
                     item="community"
-                    communityId={community?.id}
-                    communityName={community?.name}
-                    isPage="community"
+                    handleDelete={handleDeleteCommunity}
                   />
                 </Modal>
               )}
