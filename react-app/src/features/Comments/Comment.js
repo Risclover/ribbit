@@ -13,6 +13,8 @@ import "./Comments.css";
 import { DeleteConfirmationModal } from "components";
 import { removeComment } from "store";
 import { getPosts } from "store";
+import { convertTime } from "./data/constants";
+import { getCommentById } from "store";
 
 moment.updateLocale("en-comment", {
   relativeTime: {
@@ -74,6 +76,7 @@ export function Comment({ commentId, comment, specificCommentActive }) {
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [commentContent, setCommentContent] = useState(comment?.content);
 
   const comments = useSelector((state) => state.comments);
   const user = useSelector((state) => state.session.user);
@@ -82,18 +85,18 @@ export function Comment({ commentId, comment, specificCommentActive }) {
   console.log("post:", post);
   const url = window.location.href;
 
-  let editedTime = moment(new Date(comment?.updatedAt))
-    .locale("en-comment")
-    .fromNow();
-  let commentTime = moment(new Date(comment?.createdAt))
-    .locale("en-comment")
-    .fromNow();
+  let editedTime = convertTime(comment, "edit");
+  let commentTime = convertTime(comment);
+
+  // useEffect(() => {
+  //   dispatch(getCommentById(comment.id));
+  // }, [comment]);
 
   const handleUpvoteClick = async () => {
     if (user?.id in comment?.commentVoters) {
       if (!comment?.commentVoters[user?.id].isUpvote) {
-        await dispatch(removeCommentVote(+commentId));
-        await dispatch(addCommentVote(+commentId, "upvote"));
+        await dispatch(removeCommentVote(comment.id));
+        await dispatch(addCommentVote(comment.id, "upvote"));
         dispatch(getUsers());
       } else if (upvote) {
         handleRemoveVote();
@@ -108,8 +111,8 @@ export function Comment({ commentId, comment, specificCommentActive }) {
   const handleDownvoteClick = async () => {
     if (user?.id in comment?.commentVoters) {
       if (comment?.commentVoters[user?.id].isUpvote) {
-        await dispatch(removeCommentVote(+commentId));
-        await dispatch(addCommentVote(+commentId, "downvote"));
+        await dispatch(removeCommentVote(comment.id));
+        await dispatch(addCommentVote(comment.id, "downvote"));
         dispatch(getUsers());
       } else if (downvote) {
         handleRemoveVote();
@@ -120,19 +123,19 @@ export function Comment({ commentId, comment, specificCommentActive }) {
   };
 
   const handleAddVote = async (e) => {
-    await dispatch(addCommentVote(+commentId, "upvote"));
+    await dispatch(addCommentVote(comment.id, "upvote"));
     setUpvote(true);
     dispatch(getUsers());
   };
 
   const handleAddDownvote = async () => {
-    await dispatch(addCommentVote(+commentId, "downvote"));
+    await dispatch(addCommentVote(comment.id, "downvote"));
     setDownvote(true);
     dispatch(getUsers());
   };
 
   const handleRemoveVote = async () => {
-    await dispatch(removeCommentVote(+commentId));
+    await dispatch(removeCommentVote(comment.id));
     if (upvote) {
       setUpvote(false);
     }
@@ -250,7 +253,7 @@ export function Comment({ commentId, comment, specificCommentActive }) {
 
           {collapsed === false && (
             <div className="comment-right-content">
-              {comment?.content && <Text content={comment?.content} />}
+              {comment?.content && <Text content={commentContent} />}
             </div>
           )}
           {collapsed === false && (
@@ -285,11 +288,11 @@ export function Comment({ commentId, comment, specificCommentActive }) {
                       open={() => setShowEditCommentModal(true)}
                     >
                       <EditComment
-                        commentId={comment?.id}
                         comment={comment}
                         postId={postId}
                         setShowEditCommentModal={setShowEditCommentModal}
                         showEditCommentModal={showEditCommentModal}
+                        setCommentContent={setCommentContent}
                       />
                     </Modal>
                   )}

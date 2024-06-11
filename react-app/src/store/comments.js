@@ -181,7 +181,7 @@ const initialState = {};
 const commentsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_COMMENT:
-      return { ...state, [action.comment.id]: action.comment };
+      return { ...state, [action.comment.id]: { ...action.comment } };
     case LOAD_COMMENTS:
       return action.comments.Comments.reduce((comments, comment) => {
         comments[comment.id] = comment;

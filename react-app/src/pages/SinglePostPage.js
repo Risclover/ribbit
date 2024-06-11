@@ -50,10 +50,15 @@ export function SinglePostPage() {
   usePageSettings({
     documentTitle: post?.title + " : " + post?.communityName,
     icon: (
-      <img
-        src={post?.communitySettings[post?.communityId].communityIcon}
-        className="nav-left-dropdown-item-icon item-icon-circle"
-        alt="Community"
+      <CommunityImg
+        imgStyle={{
+          backgroundColor: `${
+            post?.communitySettings[post?.communityId].baseColor
+          }`,
+        }}
+        imgSrc={post?.communitySettings[post?.communityId].communityIcon}
+        imgClass="nav-left-dropdown-item-icon item-icon-circle"
+        imgAlt="Community"
       />
     ),
     pageTitle: `c/${post?.communityName}`,

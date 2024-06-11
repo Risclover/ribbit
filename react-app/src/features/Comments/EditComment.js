@@ -3,8 +3,15 @@ import { useDispatch } from "react-redux";
 import { updateComment, getSingleComment, getPostComments } from "@/store";
 import "@/assets/styles/Modals.css";
 import { useAutosizeTextArea } from "@/hooks";
+import { getPosts } from "store";
+import { getComments } from "store";
 
-export function EditComment({ commentId, comment, setShowEditCommentModal }) {
+export function EditComment({
+  setCommentContent,
+  comment,
+  postId,
+  setShowEditCommentModal,
+}) {
   const dispatch = useDispatch();
 
   const textareaRef = useRef();
@@ -22,13 +29,17 @@ export function EditComment({ commentId, comment, setShowEditCommentModal }) {
     }
   }, [setDisabled, content]);
 
-  const handleEdit = (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
 
-    dispatch(updateComment({ content: content.trim() }, commentId));
+    const data = await dispatch(
+      updateComment({ content: content.trim() }, comment.id)
+    );
+    console.log("data:", data);
     setShowEditCommentModal(false);
-    dispatch(getSingleComment(commentId));
-    dispatch(getPostComments(comment?.postId));
+    await dispatch(getPosts());
+    await dispatch(getComments(postId));
+    setCommentContent(data.content);
   };
 
   const handleClickCancel = () => {

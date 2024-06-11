@@ -316,14 +316,18 @@
   border-color: var(--preview-community-color-theme-base) !important;
 }
 
-.preview-community-page-container .join {
+.preview-community-page-container .join,
+.preview-community-page-container .community-no-posts-btn,
+.preview-community-page-container .back-to-top-box button {
   background: var(--preview-community-color-theme-highlight) !important;
 }
 
 .preview-community-page-container .community-header-info-subscribe button,
 .preview-community-page-container .community-header-info-unsubscribe button,
 .preview-community-page-container
-  .community-page-box-description.community-page-edit-description {
+  .community-page-box-description.community-page-edit-description,
+.preview-community-page-container .community-no-posts-btn,
+.preview-community-page-container .back-to-top-box button {
   border-color: var(--preview-community-color-theme-highlight) !important;
 }
 

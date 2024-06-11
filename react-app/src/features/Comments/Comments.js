@@ -23,7 +23,7 @@ export function Comments({ post }) {
 
   const comments = useSelector((state) => Object.values(state.comments));
 
-  const [sortedComments, setSortedComments] = useState();
+  const [sortedComments, setSortedComments] = useState(comments || []);
   const [sortType, setSortType] = useState("Best");
   const showLoader = useLoader();
   const [searchValue, setSearchValue] = useState("");
@@ -39,7 +39,7 @@ export function Comments({ post }) {
   const [specificCommentActive, setSpecificCommentActive] = useState(!!match);
 
   useEffect(() => {
-    dispatch(getComments(post.id));
+    dispatch(getComments(postId));
   }, [dispatch, post]);
 
   useEffect(() => {
@@ -60,6 +60,8 @@ export function Comments({ post }) {
     inputRef.current.focus();
     inputRef.current.select();
   };
+
+  if (!comments || !post.postComments) return null;
 
   return (
     <div className="comments-container">
