@@ -32,7 +32,7 @@ def get_current_user_followers():
     }
 
 # FOLLOW/UNFOLLOW TARGET USER
-@follower_routes.route("/<int:id>", methods=["POST"])
+@follower_routes.route("/follow/<int:id>", methods=["POST"])
 @login_required
 def follow_user(id):
     """
@@ -43,14 +43,25 @@ def follow_user(id):
 
     if not user.is_following(target):
         user.follow(target)
-    else:
-        user.unfollow(target)
+
+    db.session.commit()
+    return {"id": id, "message": "User successfully followed"}
+
+# UNFOLLOW TARGET USER
+@follower_routes.route("/unfollow/<int:id>", methods=["POST"])
+@login_required
+def unfollow_user(id):
+    user = User.query.get(current_user.get_id())
+    target = User.query.get(id)
+
+    user.unfollow(target)
 
     if target in user.favorited:
         user.favorited.remove(target)
 
     db.session.commit()
-    return {"id": id, "message": "User successfully followed/unfollowed"}
+
+    return {"id": id, "message": "User successfully unfollowed"}
 
 # GET FOLLOWED POSTS
 @follower_routes.route("/posts")

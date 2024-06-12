@@ -12,7 +12,7 @@ class Notification(db.Model):
     content = db.Column(db.Text, nullable=False)
     icon = db.Column(db.String(255), nullable=False)
     title = db.Column(db.Text, nullable=True)
-    type = db.Column(db.String, nullable=False)
+    notification_type = db.Column(db.String, nullable=False)
     read = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
@@ -27,7 +27,7 @@ class Notification(db.Model):
             "icon": self.icon,
             "message": self.message,
             "content": self.content,
-            "type": self.type,
+            "notificationType": self.notification_type,
             "read": self.read,
             "createdAt": self.created_at
         }

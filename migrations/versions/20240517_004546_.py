@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d0dcaed148c2
+Revision ID: 2d404087e24a
 Revises: 
-Create Date: 2024-04-11 03:44:58.791108
+Create Date: 2024-05-17 00:45:46.503467
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd0dcaed148c2'
+revision = '2d404087e24a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -218,10 +218,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'post_id')
     )
-    op.create_table('viewed_post',
+    op.create_table('viewed_posts',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('post_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('post_id', sa.Integer(), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['post_id'], ['posts.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
@@ -253,7 +253,7 @@ def upgrade():
     sa.Column('content', sa.Text(), nullable=False),
     sa.Column('icon', sa.String(length=255), nullable=False),
     sa.Column('title', sa.Text(), nullable=True),
-    sa.Column('type', sa.String(), nullable=False),
+    sa.Column('notification_type', sa.String(), nullable=False),
     sa.Column('read', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.ForeignKeyConstraint(['comment_id'], ['comments.id'], ),
@@ -270,7 +270,7 @@ def downgrade():
     op.drop_table('notifications')
     op.drop_table('comment_votes')
     op.drop_table('CommentVotes')
-    op.drop_table('viewed_post')
+    op.drop_table('viewed_posts')
     op.drop_table('post_votes')
     op.drop_table('comments')
     op.drop_table('subscriptions')

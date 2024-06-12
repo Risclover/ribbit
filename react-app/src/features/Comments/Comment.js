@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { GoArrowUp, GoArrowDown } from "react-icons/go";
+import { PiArrowFatUpFill, PiArrowFatDownFill } from "react-icons/pi";
+
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import parse from "html-react-parser";
 import moment from "moment";
@@ -262,7 +263,7 @@ export function Comment({ commentId, comment, specificCommentActive }) {
                 className={upvote ? "vote-btn-red" : "upvote-btn-grey"}
                 onClick={handleUpvoteClick}
               >
-                <GoArrowUp />
+                <PiArrowFatUpFill />
               </button>
 
               <span className="karmabar-votes">{comment?.votes}</span>
@@ -270,7 +271,7 @@ export function Comment({ commentId, comment, specificCommentActive }) {
                 className={downvote ? "vote-btn-blue" : "downvote-btn-grey"}
                 onClick={handleDownvoteClick}
               >
-                <GoArrowDown />
+                <PiArrowFatDownFill />
               </button>
               {comment?.commentAuthor?.id === user?.id && (
                 <>

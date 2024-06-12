@@ -1,5 +1,5 @@
 import React from "react";
-import { GoArrowUp, GoArrowDown } from "react-icons/go";
+import { PiArrowFatUpFill, PiArrowFatDownFill } from "react-icons/pi";
 import { usePostVote } from "../hooks/usePostVote";
 
 export function SinglePostKarmabar({ post }) {
@@ -11,7 +11,7 @@ export function SinglePostKarmabar({ post }) {
         className={vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"}
         onClick={(e) => handleVoteClick(e, "upvote")}
       >
-        <GoArrowUp />
+        <PiArrowFatUpFill />
       </button>
 
       <span
@@ -34,7 +34,7 @@ export function SinglePostKarmabar({ post }) {
         className={vote === "downvote" ? "vote-btn-blue" : "downvote-btn-grey"}
         onClick={(e) => handleVoteClick(e, "downvote")}
       >
-        <GoArrowDown />
+        <PiArrowFatDownFill />
       </button>
     </div>
   );

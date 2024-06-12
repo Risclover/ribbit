@@ -95,7 +95,7 @@ def sign_up():
 
         admin = User.query.get(1)
 
-        welcome_notification = Notification(user_id=user.id, sender_id=admin.id, content="", icon=admin.profile_img, message="Welcome to Ribbit! Click here to open the user manual in a new tab.", type="welcome")
+        welcome_notification = Notification(user_id=user.id, sender_id=admin.id, content="", icon=admin.profile_img, message="Welcome to Ribbit! Click here to open the user manual in a new tab.", notification_type="welcome")
 
         db.session.add(user)
         db.session.add(welcome_notification)

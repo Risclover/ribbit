@@ -2,7 +2,7 @@ from flask_socketio import SocketIO, emit, join_room, leave_room, disconnect
 from app.models import db, User, ChatMessage
 from flask_login import current_user
 from flask import request, session
-
+import time
 import os
 
 # configure cors_allowed_origins
@@ -18,6 +18,7 @@ else:
 socketio = SocketIO(cors_allowed_origins=origins)
 
 chatUsers = []
+last_emit_time = {}
 
 @socketio.on("connect")
 def on_connect():
@@ -36,16 +37,40 @@ def on_disconnect():
         if chatUsers[i]['username'] == User.query.get(current_user.get_id()).username:
             del chatUsers[i]
             break
-    disconnect()
 
 # handle chat messages
 @socketio.on("chat")
 def handle_chat(data):
-    if data['threadId']:
-        room = data['threadId']
+    print("""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        DATA:""", data)
+    if data['room']:
+        room = data['room']
         emit("chat", data, broadcast=True, to=room)
-        emit("chat", data, to=request.sid)
-        emit("new_message", data, broadcast=True, to=room)
+        emit("update_chat", data, broadcast=True)
 
 # fake delete message (update)
 @socketio.on("delete")

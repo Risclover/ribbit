@@ -20,21 +20,21 @@ def get_notifications():
 
 
 # ADD A NOTIFICATION
-@notification_routes.route("/<string:type>/<int:id>", methods=["POST"])
-def add_notification(type, id):
+@notification_routes.route("/<string:notification_type>/<int:id>", methods=["POST"])
+def add_notification(notification_type, id):
     # ADDING A POST REPLY NOTIFICATION
-    if type == "post-reply":
+    if notification_type == "post-reply":
         comment = Comment.query.get(id)
         post_author = comment.comment_post.post_author
         if post_author != comment.comment_author:
-            notification = Notification(user_id=post_author.id, post_id=comment.comment_post.id, comment_id = comment.id, sender_id=comment.user_id, title=comment.comment_post.title, icon = comment.comment_author.profile_img, message=f"u/{comment.comment_author.username} replied to your post in c/{comment.comment_post.post_community.name}", content=f"{comment.content}", type=type)
+            notification = Notification(user_id=post_author.id, post_id=comment.comment_post.id, comment_id = comment.id, sender_id=comment.user_id, title=comment.comment_post.title, icon = comment.comment_author.profile_img, message=f"u/{comment.comment_author.username} replied to your post in c/{comment.comment_post.post_community.name}", content=f"{comment.content}", notification_type=notification_type)
             db.session.add(notification)
             db.session.commit()
             return {"Notification": notification.to_dict()}
 
 
     # ADDING A NEW MESSAGE NOTIFICATION
-    elif type == "message":
+    elif notification_type == "message":
         message = Message.query.get(id)
         user = User.query.get(current_user.get_id())
         notification = Notification(
@@ -43,7 +43,7 @@ def add_notification(type, id):
             icon = user.profile_img,
             message="",
             content="",
-            type=type
+            notification_type=notification_type
         )
         db.session.add(notification)
         db.session.commit()
@@ -52,9 +52,9 @@ def add_notification(type, id):
 
 
     # ADDING A NEW FOLLOWER NOTIFICATION
-    elif type == "follower":
+    elif notification_type == "follower":
         follower = User.query.get(current_user.get_id())
-        notification = Notification(user_id=id, icon = follower.profile_img, sender_id=follower.id, message=f"u/{follower.username} followed you. Follow them back or start a chat!", content="", type=type)
+        notification = Notification(user_id=id, icon = follower.profile_img, sender_id=follower.id, message=f"u/{follower.username} followed you. Follow them back or start a chat!", content="", notification_type=notification_type)
         db.session.add(notification)
         db.session.commit()
 
@@ -78,7 +78,7 @@ def read_notification(id):
 def read_all_notifications():
     notifications = Notification.query.filter_by(user_id=current_user.get_id())
     for notification in notifications:
-        if notification.type != "message":
+        if notification.notification_type != "message":
             setattr(notification, "read", True)
 
     db.session.commit()
@@ -91,7 +91,7 @@ def read_all_notifications():
 def read_all_message_notifications():
     notifications = Notification.query.filter_by(user_id=current_user.get_id())
     for notification in notifications:
-        if notification.type == "message":
+        if notification.notification_type == "message":
             setattr(notification, "read", True)
 
     db.session.commit()

@@ -131,3 +131,19 @@ def get_post_comments(id):
     """
     post = Post.query.get(id)
     return {"Comments": [comment.to_dict() for comment in post.post_comments]}
+
+
+# SEARCH COMMENTS
+@comment_routes.route("<int:post_id>/search")
+def search_comments(post_id):
+    query = request.args.get('q', '')
+
+    if query:
+        comments = Comment.query.filter(
+            Comment.post_id == post_id,
+            Comment.content.ilike(f'%{query}%')
+        ).all()
+
+        return {"SearchedComments": [comment.to_dict() for comment in comments]}
+
+    return {"SearchedComments": []}

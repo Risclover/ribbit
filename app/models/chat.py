@@ -36,7 +36,7 @@ class ChatMessage(db.Model):
         }
 
     def __repr__(self):
-        return f"<Chat Message {self.id}: {self.content}>"
+        return f"<ChatMessage {self.id}: {self.content}>"
 
 
 class ChatMessageThread(db.Model):
@@ -59,7 +59,7 @@ class ChatMessageThread(db.Model):
         }
 
     def __repr__(self):
-        return f"<Chat Message Thread {self.id}: {[msg.to_dict() for msg in self.messages]}>"
+        return f"<ChatMessageThread {self.id}: {[msg.to_dict() for msg in self.messages]}>"
 
 
 class ChatMessageReaction(db.Model):
@@ -81,4 +81,4 @@ class ChatMessageReaction(db.Model):
         }
 
     def __repr__(self):
-        return f"<Chat Message Reaction {self.id}: {self.emoji}>"
+        return f"<ChatMessageReaction {self.id}: {self.emoji}>"

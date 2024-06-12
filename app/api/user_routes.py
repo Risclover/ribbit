@@ -9,6 +9,16 @@ from app.s3_helpers import (
 
 user_routes = Blueprint('users', __name__)
 
+
+@user_routes.route("/<int:id>")
+def get_current_user(id):
+    """
+    Get current user
+    """
+    user = User.query.get(id)
+    return user.to_dict()
+
+
 @user_routes.route("/")
 def get_users():
     """
