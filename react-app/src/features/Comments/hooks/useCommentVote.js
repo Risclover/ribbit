@@ -1,35 +1,52 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addCommentVote, removeCommentVote, getUsers } from "@/store";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { addPostVote, getUsers, removePostVote } from "@/store";
+import { getPosts } from "store";
+import { removeCommentVote } from "store";
+import { addCommentVote } from "store";
+import { getComments } from "store";
 
-export function useCommentVote(commentId, comment) {
+export const useCommentVote = (comment) => {
+  const history = useHistory();
   const dispatch = useDispatch();
-  const [upvote, setUpvote] = useState(false);
-  const [downvote, setDownvote] = useState(false);
 
-  const handleUpvoteClick = async () => {
-    if (comment?.commentVoters?.[comment?.userId]?.isUpvote) {
-      await dispatch(removeCommentVote(commentId));
-      setUpvote(false);
-    } else {
-      await dispatch(addCommentVote(commentId, "upvote"));
-      setUpvote(true);
-      setDownvote(false);
+  const user = useSelector((state) => state.session.user);
+  const [vote, setVote] = useState(null);
+
+  useEffect(() => {
+    const voter = comment?.commentVoters[user?.id];
+
+    if (voter) {
+      setVote(voter.isUpvote ? "upvote" : "downvote");
     }
-    dispatch(getUsers());
+  }, [user?.id, comment]);
+
+  const handleVoteClick = async (e, voteType) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    console.log("hall");
+    if (!user) {
+      history.push("/login");
+      return;
+    }
+
+    const currentVote = comment?.commentVoters[user?.id];
+    if (vote === voteType) {
+      await dispatch(removeCommentVote(comment?.id));
+      setVote(null);
+    } else {
+      if (currentVote) {
+        await dispatch(removeCommentVote(comment?.id));
+      }
+
+      await dispatch(addCommentVote(comment?.id, voteType));
+      setVote(voteType);
+    }
+
+    dispatch(getComments(comment?.postId));
   };
 
-  const handleDownvoteClick = async () => {
-    if (comment?.commentVoters?.[comment?.userId]?.isUpvote) {
-      await dispatch(removeCommentVote(commentId));
-      setDownvote(false);
-    } else {
-      await dispatch(addCommentVote(commentId, "downvote"));
-      setDownvote(true);
-      setUpvote(false);
-    }
-    dispatch(getUsers());
-  };
-
-  return { upvote, downvote, handleUpvoteClick, handleDownvoteClick };
-}
+  return { vote, handleVoteClick };
+};

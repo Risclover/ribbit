@@ -50,6 +50,8 @@ export function Comments({ post }) {
     setSortedComments(sortComments(comments, sortType));
   }, [sortType]);
 
+  console.log("sortedComments:", sortedComments);
+
   const dismissSearch = () => {
     dispatch(getComments(post.id));
     setSearchValue("");
@@ -101,9 +103,9 @@ export function Comments({ post }) {
       )}
       {!showLoader && (
         <div className="all-comments">
-          {sortedComments.length > 0 &&
+          {comments.length > 0 &&
             !specificCommentActive &&
-            sortedComments?.map((comment) => (
+            comments?.map((comment) => (
               <Comment
                 comment={comment}
                 key={comment.id}
