@@ -1,17 +1,33 @@
 export const sortComments = (comments, sortType) => {
-  console.log("sortType:", sortType);
-  return [...comments].sort((a, b) => {
-    switch (sortType) {
-      case "New":
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      case "Old":
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      case "Best":
-        return b.upvotes - a.upvotes;
-      case "Top":
-        return b.votes - a.votes;
-      default:
-        return 0;
-    }
-  });
+  if (sortType === "New") {
+    comments.sort((a, b) => {
+      let commentA = new Date(a.createdAt);
+      let commentB = new Date(b.createdAt);
+
+      return commentB - commentA;
+    });
+  }
+
+  if (sortType === "Old") {
+    comments.sort((a, b) => {
+      let commentA = new Date(a.createdAt);
+      let commentB = new Date(b.createdAt);
+
+      return commentA - commentB;
+    });
+  }
+
+  if (sortType === "Best") {
+    comments.sort((a, b) => {
+      return b.upvotes - a.upvotes;
+    });
+  }
+
+  if (sortType === "Top") {
+    comments.sort((a, b) => {
+      return b.votes - a.votes;
+    });
+  }
+
+  return comments;
 };

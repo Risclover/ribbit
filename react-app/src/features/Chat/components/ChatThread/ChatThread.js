@@ -24,7 +24,7 @@ export const ChatThread = ({
   const chatThreads = useSelector((state) => state.chatThreads);
   const user = useSelector((state) => state.session.user);
   const chat = Object.values(chatThreads).find(
-    (chat) => chat.id === selectedChat.id
+    (chat) => chat.id === selectedChat?.id
   );
   const [receiver, setReceiver] = useState(null);
   useEffect(() => {

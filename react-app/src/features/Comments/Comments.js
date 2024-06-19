@@ -63,6 +63,8 @@ export function Comments({ post }) {
     inputRef.current.select();
   };
 
+  const commentsList = sortComments(comments, sortType);
+
   if (!comments || !post.postComments) return null;
 
   return (
@@ -103,9 +105,9 @@ export function Comments({ post }) {
       )}
       {!showLoader && (
         <div className="all-comments">
-          {comments.length > 0 &&
+          {commentsList.length > 0 &&
             !specificCommentActive &&
-            comments?.map((comment) => (
+            commentsList?.map((comment) => (
               <Comment
                 comment={comment}
                 key={comment.id}
