@@ -23,7 +23,7 @@ export function UploadUserImage({ user, currentUser }) {
           <UploadImage
             setShowUploadModal={setShowUploadModal}
             showUploadModal={showUploadModal}
-            img_url={user?.profile_img}
+            img_url={user?.profileImg}
             userId={currentUser.id}
           />
         </Modal>

@@ -25,7 +25,7 @@ export const CreatePostBar = ({ page, communityName }) => {
         <div className={styles.createPostBar} data-testid="create-post-bar">
           <div className={styles.userImg}>
             <NavLink to={`/users/${user.id}/profile`}>
-              <img src={user.profile_img} alt="User" />
+              <img src={user.profileImg} alt="User" />
             </NavLink>
           </div>
 

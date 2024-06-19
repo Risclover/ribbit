@@ -8,7 +8,7 @@ import { CreatePostBar } from "./CreatePostBar";
 const userId = "123";
 const mockStore = configureStore({
   session: {
-    user: { id: userId, profile_img: "https://example.com/user1.png" },
+    user: { id: userId, profileImg: "https://example.com/user1.png" },
   },
 });
 

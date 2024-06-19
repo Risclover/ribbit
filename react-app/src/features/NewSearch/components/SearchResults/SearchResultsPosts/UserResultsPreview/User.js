@@ -12,7 +12,7 @@ export const User = ({ user }) => {
         <div className="search-results-page-community-left">
           <img
             style={{ backgroundColor: "white" }}
-            src={user?.profile_img}
+            src={user?.profileImg}
             alt="User"
             className="search-results-page-community-img"
           />

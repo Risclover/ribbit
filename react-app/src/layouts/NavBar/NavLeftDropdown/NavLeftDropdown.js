@@ -291,7 +291,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
           }}
         >
           <img
-            src={currentUser?.profile_img}
+            src={currentUser?.profileImg}
             className="nav-left-dropdown-item-img"
             alt="User Settings"
           />
@@ -310,7 +310,7 @@ export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
         >
           {" "}
           <img
-            src={currentUser?.profile_img}
+            src={currentUser?.profileImg}
             className="nav-left-dropdown-item-img"
             alt="Messages"
           />

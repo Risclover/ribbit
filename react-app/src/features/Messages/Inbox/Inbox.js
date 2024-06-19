@@ -35,7 +35,7 @@ export function Inbox() {
     documentTitle: "inbox-messages: Inbox",
     icon: (
       <img
-        src={currentUser?.profile_img}
+        src={currentUser?.profileImg}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="User"
       />

@@ -82,7 +82,7 @@ export function ChatNavBtn({
       className={`chat-window-chatnav ${isActive ? "chatnav-active" : ""}`}
       onClick={handleClick}
     >
-      <img src={receiver && receiver?.profile_img} alt="User" />
+      <img src={receiver && receiver?.profileImg} alt="User" />
       <div className="chat-window-chatnav-details">
         <div className="chat-window-chatnav-details-top">
           <span className="chat-window-chatnav-username">

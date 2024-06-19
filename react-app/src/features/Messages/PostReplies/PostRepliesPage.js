@@ -36,7 +36,7 @@ export function PostRepliesPage() {
     documentTitle: "Messages: Post Replies",
     icon: (
       <img
-        src={currentUser?.profile_img}
+        src={currentUser?.profileImg}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="User"
       />

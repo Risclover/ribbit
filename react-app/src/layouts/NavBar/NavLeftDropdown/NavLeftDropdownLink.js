@@ -42,7 +42,7 @@ export function NavLeftDropdownLink({
           }}
         >
           <img
-            src={item?.profile_img}
+            src={item?.profileImg}
             className="nav-left-dropdown-item-img"
             alt="User"
           />
@@ -127,7 +127,7 @@ export function NavLeftDropdownLink({
           }}
         >
           <img
-            src={item?.profile_img}
+            src={item?.profileImg}
             className="nav-left-dropdown-item-img"
             alt="User"
           />

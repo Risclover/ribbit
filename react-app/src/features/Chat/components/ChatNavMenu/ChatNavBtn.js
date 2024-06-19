@@ -36,7 +36,7 @@ export const ChatNavBtn = ({ chatThread, selectedChat, setSelectedChat }) => {
       className={`chat-window-chatnav${isActive ? " chatnav-active" : ""}`}
       onClick={() => setSelectedChat(chatThread)}
     >
-      <img src={recipient && recipient?.profile_img} alt="User" />
+      <img src={recipient && recipient?.profileImg} alt="User" />
       <div className="chat-window-chatnav-details">
         <div className="chat-window-chatnav-details-top">
           <span className="chat-window-chatnav-username">

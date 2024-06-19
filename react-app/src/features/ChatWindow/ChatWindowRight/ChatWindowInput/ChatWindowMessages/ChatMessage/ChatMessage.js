@@ -133,11 +133,11 @@ export function ChatMessage({
                     "noreferrer"
                   )
                 }
-                src={message.sender?.profile_img}
+                src={message.sender?.profileImg}
                 alt="User Avatar"
               />
             ) : (
-              <img src={message.sender?.profile_img} alt="User Avatar" />
+              <img src={message.sender?.profileImg} alt="User Avatar" />
             )}
           </div>
           <div className="chat-thread-message-main">

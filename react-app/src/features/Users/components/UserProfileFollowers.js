@@ -55,7 +55,7 @@ export function UserProfileFollowers({ setShowFollowersModal }) {
             >
               <img
                 className="user-profile-follower-img"
-                src={follower.profile_img}
+                src={follower.profileImg}
                 alt="Follower"
               />
               {follower.username}

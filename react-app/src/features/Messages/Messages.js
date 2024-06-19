@@ -27,7 +27,7 @@ export function Messages() {
     documentTitle: "Messages: Messages",
     icon: (
       <img
-        src={currentUser?.profile_img}
+        src={currentUser?.profileImg}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="User"
       />

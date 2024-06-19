@@ -74,7 +74,7 @@ export function CommentResult({ comment }) {
         <div className="search-results-comment-author-img-box">
           <NavLink to={`/users/${comment.userId}/profile`}>
             <img
-              src={comment.commentAuthor.profile_img}
+              src={comment.commentAuthor.profileImg}
               className="search-results-comment-author-img"
               alt="Comment user"
             />

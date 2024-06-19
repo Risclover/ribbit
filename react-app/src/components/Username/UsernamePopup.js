@@ -16,7 +16,7 @@ export function UsernamePopup({ community, user }) {
     displayName,
     username,
     createdAt,
-    profile_img,
+    profileImg,
     postKarma,
     commentKarma,
   } = user[0] || {};
@@ -26,7 +26,7 @@ export function UsernamePopup({ community, user }) {
       <div className="username-popup">
         <div className="username-popup-user-info">
           <img
-            src={profile_img}
+            src={profileImg}
             alt="User"
             className="username-popup-user-icon"
           />

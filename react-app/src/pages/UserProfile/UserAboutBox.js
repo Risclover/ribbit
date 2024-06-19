@@ -97,7 +97,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
         {currentUser?.id === +userId && (
           <UploadUserImage user={user} currentUser={currentUser} />
         )}
-        <img src={user?.profile_img} alt="User" className="user-profile-img" />
+        <img src={user?.profileImg} alt="User" className="user-profile-img" />
       </div>
       <div className="user-profile-about-content">
         {currentUser?.id === +userId && (

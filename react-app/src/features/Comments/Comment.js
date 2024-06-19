@@ -212,7 +212,7 @@ export function Comment({ commentId, comment, specificCommentActive }) {
               <div
                 className="comment-user-img"
                 style={{
-                  backgroundImage: `url(${comment?.commentAuthor?.profile_img})`,
+                  backgroundImage: `url(${comment?.commentAuthor?.profileImg})`,
                   backgroundRepeat: "no-repeat",
                 }}
               >

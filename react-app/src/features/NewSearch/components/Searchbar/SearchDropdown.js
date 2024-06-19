@@ -118,7 +118,7 @@ export function SearchDropdown({
             >
               <div className="search-result-community-img-box">
                 <img
-                  src={user.profile_img}
+                  src={user.profileImg}
                   className="search-result-community-img"
                   alt="User"
                 />

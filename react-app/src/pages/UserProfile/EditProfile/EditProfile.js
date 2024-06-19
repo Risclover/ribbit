@@ -18,7 +18,7 @@ export function EditProfile() {
     documentTitle: "User Settings",
     icon: (
       <img
-        src={user1?.profile_img}
+        src={user1?.profileImg}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="User"
       />

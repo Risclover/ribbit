@@ -38,7 +38,7 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
     documentTitle: user?.displayName + " (u/" + user?.username + ") - Ribbit",
     icon: (
       <img
-        src={user?.profile_img}
+        src={user?.profileImg}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="User"
       />

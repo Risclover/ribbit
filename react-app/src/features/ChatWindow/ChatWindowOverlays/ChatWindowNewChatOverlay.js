@@ -91,7 +91,7 @@ export function ChatWindowNewChatOverlay({
               onClick={() => setIsChosen(!isChosen)}
             >
               <div className="new-chat-user-found-left">
-                <img src={userFound?.profile_img} alt="User" />{" "}
+                <img src={userFound?.profileImg} alt="User" />{" "}
                 {userFound?.username}
               </div>
               <div

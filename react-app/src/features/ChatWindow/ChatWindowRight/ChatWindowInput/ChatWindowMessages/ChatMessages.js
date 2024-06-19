@@ -64,7 +64,7 @@ export function ChatMessages({
           }
         >
           <div className="chat-thread-user-img">
-            <img src={receiver?.profile_img} alt="User" />
+            <img src={receiver?.profileImg} alt="User" />
           </div>
           <div className="chat-thread-title-bar">{receiver?.username}</div>
         </div>
