@@ -5,7 +5,6 @@ import {
   CommunitySelectionDropdownCommunity,
 } from "@/features";
 import "./CommunitySelection.css";
-import { CommunityRule } from "features/CommunityRules";
 
 export function CommunitySelectionDropdown({
   subscriptions,

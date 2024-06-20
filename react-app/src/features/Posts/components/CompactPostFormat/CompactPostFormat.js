@@ -3,13 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { HiOutlineExternalLink } from "react-icons/hi";
-import {
-  BsArrowsAngleExpand,
-  BsArrowsAngleContract,
-  BsThreeDots,
-} from "react-icons/bs";
-import { CgNotes } from "react-icons/cg";
-import { RxImage } from "react-icons/rx";
 import parse from "html-react-parser";
 import moment from "moment";
 
@@ -19,7 +12,6 @@ import "../../SinglePost/SinglePost.css";
 import "../ClassicPostFormat/ClassicPostFormat.css";
 import "./CompactPostFormat.css";
 import { usePostVote } from "../../hooks/usePostVote";
-import { useOutsideClick } from "@/hooks";
 import { CompactPostMenu } from "./CompactPostMenu";
 import { CompactPostTypeIcon } from "./CompactPostTypeIcon";
 
@@ -28,7 +20,6 @@ export function CompactPostFormat({ id, isPage, post }) {
   const dispatch = useDispatch();
   const wrapperRef = useRef(null);
 
-  const posts = useSelector((state) => state.posts);
   const user = useSelector((state) => state.session.user);
 
   const community = useSelector(
@@ -36,7 +27,6 @@ export function CompactPostFormat({ id, isPage, post }) {
   );
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postExpand, setPostExpand] = useState(false);
   const [commentNum, setCommentNum] = useState(post?.commentNum || 0);
 
@@ -49,8 +39,6 @@ export function CompactPostFormat({ id, isPage, post }) {
       }, 3000);
     }
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
-
-  useOutsideClick(wrapperRef, () => setShowDeleteModal(false));
 
   return (
     <div className="post-compact-format">

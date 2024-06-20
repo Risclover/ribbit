@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { batch, useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import {
-  getSinglePost,
   getPosts,
   addViewedPost,
   getViewedPosts,
@@ -15,8 +14,6 @@ import {
   Comments,
   CommunityRulesBox,
   SinglePost,
-  CommunityDetails,
-  CommunitySelectionDropdownCommunity,
   CommunityInfoBox,
 } from "../features";
 import { BackToTop } from "../components";

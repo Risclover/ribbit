@@ -1,12 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
-import {
-  CommunityName,
-  CommunitySubscribeBtn,
-  CommunityImgModal,
-  CommunityImage,
-} from "../..";
-import { Modal } from "@/context";
+import { CommunityName, CommunityImage } from "../..";
 import { PostFormatContext } from "@/context/PostFormat";
 
 export function CommunityPageHeader({ community }) {

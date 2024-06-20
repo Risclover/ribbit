@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { readAllMessages } from "@/store";
 import { MessageHead, MessageContentMenu, InboxMessage } from "../..";
-import "../Inbox/Inbox.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
+import "../Inbox/Inbox.css";
 
 export function Unread() {
   const dispatch = useDispatch();
@@ -11,8 +11,6 @@ export function Unread() {
   const currentUser = useSelector((state) => state.session.user);
   const messages = useSelector((state) => Object.values(state.messages));
   const unreadMsgs = messages.filter((message) => message.read === false);
-
-  const [extended, setExtended] = useState(true);
 
   useEffect(() => {
     dispatch(readAllMessages());
@@ -42,7 +40,7 @@ export function Unread() {
                 marked={true}
                 message={msg}
                 currentUser={currentUser}
-                expanded={extended}
+                expanded={true}
               />
             ))}
         </div>

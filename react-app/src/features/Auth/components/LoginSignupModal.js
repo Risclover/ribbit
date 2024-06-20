@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { LoginForm, SignUpForm } from ".";
 import { AuthModal } from "@/context";
 import { SignUpFormSecond } from "./SignUpForm";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { login, signUp } from "@/store";
 
 export function LoginSignupModal({ btnText, className, formType }) {

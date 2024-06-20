@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import { getCommunities } from "@/store";
-import "./CommunitiesDirectory.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
+import "./CommunitiesDirectory.css";
 
 export function CommunitiesDirectory() {
   const dispatch = useDispatch();

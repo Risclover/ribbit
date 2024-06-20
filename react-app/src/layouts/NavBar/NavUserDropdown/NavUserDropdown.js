@@ -6,8 +6,8 @@ import { HiOutlineUserCircle } from "react-icons/hi2";
 import { SlLogin } from "react-icons/sl";
 import { logout } from "@/store";
 import Poinsettia from "@/assets/images/user-profile-icons/poinsettia.png";
-import "./NavUserDropdown.css";
 import { useOutsideClick } from "@/hooks";
+import "./NavUserDropdown.css";
 
 export function NavUserDropdown() {
   const history = useHistory();
@@ -18,9 +18,8 @@ export function NavUserDropdown() {
 
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[cuser.id]);
-  const users = useSelector((state) => state.users);
 
-  const onLogout = async (e) => {
+  const onLogout = async () => {
     await dispatch(logout());
     history.push("/");
   };

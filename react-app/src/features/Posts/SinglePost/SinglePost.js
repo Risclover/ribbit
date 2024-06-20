@@ -6,15 +6,11 @@ import {
   SinglePostAuthorBar,
   SinglePostContent,
   SinglePostButtonBar,
-} from "../..";
-import "./SinglePost.css";
+} from "@/features/Posts/SinglePost";
 import { CompactPostFormat, ClassicPostFormat } from "../components";
-import { useHistory, useLocation } from "react-router-dom";
+import "./SinglePost.css";
 
 export const SinglePost = ({ id, isPage, post }) => {
-  // const post = useSelector((state) => state.posts[id]);
-  const location = useLocation();
-  const history = useHistory();
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users?.[cuser?.id]);
   const community = useSelector(
@@ -37,7 +33,6 @@ export const SinglePost = ({ id, isPage, post }) => {
                 <SinglePostAuthorBar
                   communityPage={isPage === "singlepage"}
                   post={post}
-                  community={community}
                   isPage={isPage}
                 />
 

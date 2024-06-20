@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "../features/Posts/CreatePost/PostForm.css";
 import { CreatePostForm } from "../features/Posts/CreatePost/CreatePostForm";
 import { useDispatch, useSelector } from "react-redux";
 import { CommunityDetails, CommunityRulesBox, RibbitRules } from "../features";
 import { getCommunities, getPosts, getSubscriptions } from "../store";
 import { useParams } from "react-router-dom";
 import { usePageSettings } from "hooks";
+import "../features/Posts/CreatePost/PostForm.css";
 
 export function CreatePostPage({ postType, setPostType, val }) {
   const { communityName } = useParams();

@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import { AuthModal, Modal } from "@/context";
-import { LoginForm } from "./LoginForm";
-import { SignUpForm } from "./SignUpForm";
-import { LoginSignupModal } from ".";
+import { LoginSignupModal, ProtectedRoute } from ".";
 
 export function LoginPage() {
   const [showLoginForm, setShowLoginForm] = useState(true);
@@ -10,7 +7,7 @@ export function LoginPage() {
 
   return (
     <div>
-      <LoginSignupModal showLoginForm={showLoginForm} />
+      <ProtectedRoute />
     </div>
   );
 }

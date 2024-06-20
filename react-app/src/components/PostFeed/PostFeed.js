@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
 
 import { SinglePost } from "@/features";
 import { SortingBar } from "../SortingBar";
 import { useHistory } from "react-router-dom";
-import { Modal } from "context";
-import { PostModal } from "context/PostModal";
-import { PostPopup } from "components/PostPopup/PostPopup";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getCommunities } from "store";
-import { getCommunitySettings } from "store";
-import { getPosts } from "store";
 
 export function PostFeed({
   posts,

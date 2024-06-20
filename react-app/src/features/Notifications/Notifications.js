@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { VscMailRead } from "react-icons/vsc";
 import { VscSettingsGear } from "react-icons/vsc";
 import { TfiBell } from "react-icons/tfi";
 import moment from "moment";

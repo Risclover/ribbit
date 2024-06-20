@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getComments, searchPostComments } from "@/store";
+import { getComments } from "@/store";
 import { CommentSorting, CommentForm, Comment } from "..";
 import "./Comments.css";
 import { useHistory } from "react-router-dom";
 import { CommentSearch } from "./CommentSearch";
-import { CommentSearchPage } from "./CommentSearchPage";
 import { NoResults } from "../NewSearch/components/SearchResults/NoResults";
-import { input } from "@testing-library/user-event/dist/cjs/event/input.js";
 import { LoadingEllipsis } from "components";
 import { useLoader } from "./hooks/useLoader";
 import { NoCommentsMsg } from "./components/NoCommentsMsg";

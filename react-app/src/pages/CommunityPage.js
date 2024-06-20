@@ -3,11 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCommunities, getCommunitySettings, getPosts } from "../store";
 
-import {
-  CommunityPageMain,
-  CommunityPageHeader,
-  CommunityWelcome,
-} from "../features";
+import { CommunityPageMain, CommunityPageHeader } from "../features";
 import { usePageSettings } from "../hooks/usePageSettings";
 import { getIdFromName } from "utils/getCommunityIdFromName";
 import { CommunityImg } from "components/CommunityImg";

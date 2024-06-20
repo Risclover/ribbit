@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -8,11 +8,7 @@ import {
 } from "@/store";
 import { useOutsideClick } from "hooks";
 
-export function NotificationMenu({
-  notification,
-  notificationMenu,
-  setNotificationMenu,
-}) {
+export function NotificationMenu({ notification, setNotificationMenu }) {
   const currentUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const wrapperRef = useRef(null);

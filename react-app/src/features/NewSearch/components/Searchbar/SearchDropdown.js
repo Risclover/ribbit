@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { BsSearch } from "react-icons/bs";
 import { getCommunities } from "@/store";
-import { NavLink } from "react-router-dom";
 import { useOutsideClick } from "hooks";
 import { CommunityImg } from "components/CommunityImg";
 
@@ -17,11 +15,6 @@ export function SearchDropdown({
   const history = useHistory();
   const allCommunities = useSelector((state) => state.communities);
   const allUsers = useSelector((state) => state.users);
-  const [searchValue, setSearchValue] = useState();
-
-  useEffect(() => {
-    setSearchValue(searchQuery);
-  }, [searchQuery]);
 
   useEffect(() => {
     dispatch(getCommunities());

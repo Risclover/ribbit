@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
 import moment from "moment";
 import { sliceUrl } from "@/utils";
-import { Link } from "react-router-dom";
-import { FiLink } from "react-icons/fi";
 import { useHistory } from "react-router-dom";
 import { Username } from "@/components";
 import { useMetadata } from "@/context/Metadata";

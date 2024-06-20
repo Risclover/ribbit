@@ -15,7 +15,7 @@ import { SinglePostKarmabar } from "../../SinglePost";
 import { sliceUrl } from "@/utils";
 import "../../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
-import { deletePost, getUsers, getViewedPosts } from "@/store";
+import { deletePost, getUsers } from "@/store";
 
 export function ClassicPostFormat({ isPage, id, post }) {
   const { metadata, fetchMetadata } = useMetadata();

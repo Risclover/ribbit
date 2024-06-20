@@ -11,7 +11,6 @@ import {
 
 import { NavLeftDropdown } from "@/layouts";
 import "./NavSidebar.css";
-import { NewNavLeftDropdown } from "layouts/NavBar";
 
 export function NavSidebar({
   setShowNavSidebar,

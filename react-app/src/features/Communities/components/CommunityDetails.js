@@ -45,11 +45,6 @@ export function CommunityDetails({ post, community }) {
     setSubscribed(false);
   };
 
-  const handleLoggedOutClick = (e) => {
-    e.preventDefault();
-    history.push("/login");
-  };
-
   return (
     <NavLink to={`/c/${post !== null ? post?.communityName : community?.name}`}>
       <div className="single-post-community-box">

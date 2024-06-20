@@ -13,7 +13,6 @@ const TextInput = ({
   showTooltip,
   setShowTooltip,
   handleTooltip,
-  error,
   setError,
   setFocused,
   usernameTaken,
@@ -137,7 +136,6 @@ export const CreateCommunityForm = ({
           value={name}
           onChange={handleNameChange}
           setError={setError}
-          error={error}
           setFocused={setFocused}
           focused={focused}
           usernameTaken={usernameTaken}

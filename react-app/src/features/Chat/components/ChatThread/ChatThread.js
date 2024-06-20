@@ -6,10 +6,10 @@ import React, {
   useState,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ChatMessages } from "./ChatMessages";
-import { getUserChatThreads } from "store";
-import { SelectedChatContext } from "context";
 import moment from "moment";
+import { getUserChatThreads } from "@/store";
+import { SelectedChatContext } from "@/context";
+import { ChatMessages } from "./ChatMessages";
 
 export const ChatThread = ({
   messages,
@@ -23,9 +23,7 @@ export const ChatThread = ({
   const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
   const chatThreads = useSelector((state) => state.chatThreads);
   const user = useSelector((state) => state.session.user);
-  const chat = Object.values(chatThreads).find(
-    (chat) => chat.id === selectedChat?.id
-  );
+
   const [receiver, setReceiver] = useState(null);
   useEffect(() => {
     setReceiver(() =>

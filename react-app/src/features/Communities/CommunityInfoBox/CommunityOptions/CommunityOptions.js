@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PiEyeLight, PiEyeSlashLight } from "react-icons/pi";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import { CommunityThemeToggle } from "./CommunityThemeToggle";
-import "./CommunityOptions.css";
 import { useCommunitySettings } from "features/Posts/hooks/useCommunitySettings";
 import { useDispatch } from "react-redux";
 import { getCommunitySettings } from "store";
+import "./CommunityOptions.css";
 
 export function CommunityOptions({ community }) {
   const dispatch = useDispatch();

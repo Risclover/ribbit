@@ -23,12 +23,7 @@ moment.updateLocale("en-post", {
   },
 });
 
-export function SinglePostAuthorBar({
-  communityPage,
-  community,
-  post,
-  isPage,
-}) {
+export function SinglePostAuthorBar({ communityPage, post, isPage }) {
   const history = useHistory();
   const communityHref = `/c/${post?.communityName}`;
 

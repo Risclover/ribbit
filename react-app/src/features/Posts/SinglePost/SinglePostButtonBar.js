@@ -12,7 +12,6 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
   const history = useHistory();
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
-  const [commentNum, setCommentNum] = useState(post?.commentNum || 0);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const { copyLink, editPost, handleDelete } = usePostButtonHandlers(
@@ -38,7 +37,7 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
         <button className="single-post-comments-btn">
           <i className="fa-regular fa-message"></i>{" "}
           <span className="single-post-comments-num">
-            {commentNum}{" "}
+            {post?.commentNum || 0}{" "}
             {post.postComments
               ? Object.values(post.postComments).length === 1
               : null

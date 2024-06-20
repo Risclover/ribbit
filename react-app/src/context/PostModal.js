@@ -1,19 +1,21 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
-import ReactDOM from "react-dom";
-import { useHistory } from "react-router-dom";
-import "./PostModal.css";
-const PostModalContext = React.createContext();
-import { CgNotes } from "react-icons/cg";
-import { GoArrowUp, GoArrowDown } from "react-icons/go";
-import { SinglePostKarmabar } from "features";
-import { PostFormatContext } from "./PostFormat";
 import { useDispatch } from "react-redux";
-import { getSinglePost } from "store";
-import { getCommunities } from "store";
-import { getPosts } from "store";
-import { addViewedPost } from "store";
-import { getViewedPosts } from "store";
-import { PostPopup } from "components/PostPopup/PostPopup";
+import ReactDOM from "react-dom";
+import { CgNotes } from "react-icons/cg";
+import { SinglePostKarmabar } from "@/features";
+
+import {
+  getSinglePost,
+  getCommunities,
+  getPosts,
+  addViewedPost,
+  getViewedPosts,
+} from "@/store";
+
+import { PostPopup } from "@/components";
+import "./PostModal.css";
+
+const PostModalContext = React.createContext();
 
 export function PostModalProvider({ children }) {
   const modalRef = useRef();
@@ -33,11 +35,10 @@ export function PostModalProvider({ children }) {
   );
 }
 
-export function PostModal({ onClose, children, post }) {
+export function PostModal({ onClose, post }) {
   const postRef = useRef(null);
   const dispatch = useDispatch();
   const modalNode = useContext(PostModalContext);
-  const { setFormat } = useContext(PostFormatContext);
   if (!modalNode) return null;
 
   const stopPropagation = (e) => {

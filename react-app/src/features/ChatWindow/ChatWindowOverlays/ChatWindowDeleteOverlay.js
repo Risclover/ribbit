@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { fakeDeleteMessage, getChatThread } from "@/store";
-import "./ChatWindowOverlay.css";
 import { SelectedChatContext } from "@/context/SelectedChat";
+import "./ChatWindowOverlay.css";
 
 export function ChatWindowDeleteOverlay({ socket, msgId, setDeleteOverlay }) {
   const dispatch = useDispatch();

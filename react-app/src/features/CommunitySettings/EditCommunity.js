@@ -4,16 +4,15 @@ import { useHistory, NavLink, useParams, Link } from "react-router-dom";
 import {
   updateCommunity,
   getCommunityRules,
-  getCommunities,
   getSingleCommunity,
 } from "@/store";
 import { Modal } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
 import { CommunityEditRule, AddCommunityRuleModal } from "..";
-import "./CommunitySettings.css";
 import { getIdFromName } from "utils/getCommunityIdFromName";
 import { CommunityImg } from "components/CommunityImg";
 import { deleteCommunity } from "store";
+import "./CommunitySettings.css";
 
 export function EditCommunity() {
   const dispatch = useDispatch();

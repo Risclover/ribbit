@@ -1,7 +1,6 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import "./SearchResultsNav.css";
 import { SearchResultsNavBtn } from "./SearchResultsNavBtn";
+import "./SearchResultsNav.css";
 
 export const SearchResultsNav = ({ query, searchPage }) => {
   const btns = ["Posts", "Comments", "Communities", "People"];

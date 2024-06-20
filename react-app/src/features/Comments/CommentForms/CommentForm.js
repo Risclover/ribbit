@@ -3,11 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
   createComment,
-  addNotification,
-  getAllNotifications,
-  getPostComments,
   getComments,
-  getSingleComment,
   addCommentVote,
 } from "@/store";
 import { LoginSignupModal } from "@/features";
@@ -30,15 +26,6 @@ export function CommentForm({ postId }) {
       createComment({ content: content.trim() }, postId)
     );
 
-    // const notificationPayload = {
-    //   type: "post-reply",
-    //   id: commentData.id,
-    // };
-    // dispatch(getPostComments(postId));
-    // dispatch(getComments(postId));
-    // dispatch(addNotification(notificationPayload));
-    // dispatch(getAllNotifications());
-    // setErrors([]);
     setContent("");
     dispatch(getComments(postId));
     dispatch(addCommentVote(commentData.id, "upvote"));

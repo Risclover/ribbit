@@ -1,26 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import {
-  getPosts,
-  removeComment,
-  deleteCommunity,
-  deleteRule,
-  getCommunityRules,
-  getSingleCommunity,
-} from "../store";
 import "../assets/styles/Modals.css";
 
 export function DeleteConfirmationModal({
   setShowDeleteModal,
   showDeleteModal,
-  communityId,
   handleDelete,
   item,
 }) {
-  const history = useHistory();
-  const dispatch = useDispatch();
-
   const handleCancelClick = (e) => {
     e.stopPropagation();
     e.preventDefault();

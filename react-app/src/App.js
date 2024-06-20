@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,12 +22,10 @@ import {
   Inbox,
   PostRepliesPage,
   Permalink,
-  ChatWindow,
   PreviewCommunitySidebar,
   PreviewCommunity,
   UpdateImagePost,
   UpdatePost,
-  CreatePost,
   AllPostsFeed,
   HomepageFeed,
   SignUpForm,
@@ -35,7 +33,6 @@ import {
   EditCommunity,
   Notifications,
   SearchResultsPosts,
-  PostResults,
   SearchResultsComments,
   SearchResultsCommunities,
   SearchResultsUsers,
@@ -75,7 +72,6 @@ function App() {
   const [pageIcon, setPageIcon] = useState();
   const [showNavSidebar, setShowNavSidebar] = useState(false);
   const [showLoggedOutSidebar, setShowLoggedOutSidebar] = useState();
-  const [normalDropdown, setNormalDropdown] = useState(true);
   const [openChat, setOpenChat] = useState(false);
   const [selectedChat, setSelectedChat] = useState("");
   const [userCommunities, setUserCommunities] = useState([]);

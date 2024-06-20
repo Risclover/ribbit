@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 import { TbChevronDown } from "react-icons/tb";
-import "./CommunitySelection.css";
-import { useHistory, useParams } from "react-router-dom";
+
 import { CommunityImg } from "components/CommunityImg";
+import "./CommunitySelection.css";
 
 export function CommunitySelectionInput({
   setShowDropdown,
-  showDropdown,
   search,
   setSearch,
   communityId,
   community,
-  communityList,
   setCommunity,
   setInputState,
   inputState,

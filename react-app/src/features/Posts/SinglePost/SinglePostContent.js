@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
 import parse from "html-react-parser";
 import LazyLoad from "react-lazyload";
-import "react-loading-skeleton/dist/skeleton.css";
 import { sliceUrl } from "@/utils";
-import { useHistory } from "react-router-dom";
 import { useMetadata } from "@/context/Metadata";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export function SinglePostContent({ post, isPage }) {
   const { metadata, fetchMetadata } = useMetadata();

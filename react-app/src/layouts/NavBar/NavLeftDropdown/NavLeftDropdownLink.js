@@ -9,26 +9,10 @@ export function NavLeftDropdownLink({
   handleFavorite,
   item,
   mode,
-  setShowIcon,
   setShowDropdown,
 }) {
   const history = useHistory();
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
-  const handleResize = () => {
-    setScreenWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   if (!item) return null;
-
   return (
     <>
       {mode === "User" && !favorite && (

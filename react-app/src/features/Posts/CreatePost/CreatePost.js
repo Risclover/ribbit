@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import validator from "validator";
 import { TfiPlus } from "react-icons/tfi";
+
+import "react-quill/dist/quill.snow.css";
 
 import {
   addLinkPost,
@@ -21,14 +22,11 @@ import {
   CommunitySelection,
   PostTypeBar,
   RibbitRules,
-  CommunityInfoBox,
   DiscardPost,
-  CommunityRule,
   ImagePostForm,
   CommunityDetails,
   CommunityRulesBox,
 } from "@/features";
-import getTextColor from "@/utils/getTextColor";
 import "./PostForm.css";
 import { usePageSettings, useAutosizeTextArea } from "@/hooks";
 import { getIdFromName } from "utils/getCommunityIdFromName";

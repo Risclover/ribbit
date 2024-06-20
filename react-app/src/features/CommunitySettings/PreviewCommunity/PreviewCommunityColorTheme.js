@@ -24,7 +24,6 @@ export function PreviewCommunityColorTheme({
   bgFormat,
   setBgFormat,
   preview,
-  setPreview,
 }) {
   const dispatch = useDispatch();
 

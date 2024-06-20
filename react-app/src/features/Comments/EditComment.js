@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateComment, getSingleComment, getPostComments } from "@/store";
-import "@/assets/styles/Modals.css";
 import { useAutosizeTextArea } from "@/hooks";
-import { getPosts } from "store";
-import { getComments } from "store";
+import { getPosts, getComments, updateComment } from "@/store";
+import "@/assets/styles/Modals.css";
 
 export function EditComment({
   setCommentContent,

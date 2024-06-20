@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { TfiClose } from "react-icons/tfi";
 import { useHistory } from "react-router-dom";
 
 const AuthModalContext = React.createContext();
@@ -100,11 +99,7 @@ export function AuthModal({
             ""
           )}
         </div>
-        <form
-          className="auth-form"
-          autoComplete="off"
-          onSubmit={onSubmit}
-        >
+        <form className="auth-form" autoComplete="off" onSubmit={onSubmit}>
           <div
             className="auth-modal-form-container"
             onScroll={handleScroll}

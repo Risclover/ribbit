@@ -5,11 +5,7 @@ import { IoIosMore } from "react-icons/io";
 import { BsArrowReturnRight } from "react-icons/bs";
 import moment from "moment";
 
-import {
-  deleteNotification,
-  getUserNotifications,
-  readNotification,
-} from "@/store";
+import { getUserNotifications, readNotification } from "@/store";
 import { NotificationMenu } from "@/features/Notifications/NotificationMenu";
 
 export function Notification({ notification, setShowDropdown }) {
@@ -19,7 +15,6 @@ export function Notification({ notification, setShowDropdown }) {
 
   const [notificationMenu, setNotificationMenu] = useState(false);
   const [hideNotification, setHideNotification] = useState(false);
-  const [markedUnread, setMarkedUnread] = useState(false);
 
   const readANotification = async (notification) => {
     await dispatch(readNotification(notification?.id));
@@ -35,11 +30,6 @@ export function Notification({ notification, setShowDropdown }) {
       );
     }
     setShowDropdown(false);
-  };
-
-  const hideANotification = async () => {
-    await dispatch(deleteNotification(notification.id));
-    dispatch(getUserNotifications(user.id));
   };
 
   return (
@@ -77,7 +67,6 @@ export function Notification({ notification, setShowDropdown }) {
                 <NotificationMenu
                   type="dropdown"
                   setHideNotification={setHideNotification}
-                  setMarkedUnread={setMarkedUnread}
                   notification={notification}
                   setNotificationMenu={setNotificationMenu}
                 />

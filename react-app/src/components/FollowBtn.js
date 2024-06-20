@@ -4,9 +4,8 @@ import {
   followUser,
   getFavoriteUsers,
   getFollowers,
-  getUserFollowers,
   unfollowUser,
-} from "../store";
+} from "@/store";
 
 export function FollowBtn({ user }) {
   const dispatch = useDispatch();

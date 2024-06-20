@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { CommunityJoinBtn } from "./CommunityJoinBtn";
 import { useHistory } from "react-router-dom";
 import { CommunityImg } from "components/CommunityImg";

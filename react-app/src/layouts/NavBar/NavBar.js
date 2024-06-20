@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { TfiPlus } from "react-icons/tfi";
 import { BsChatDots } from "react-icons/bs";
 
-import { getCommunities, getMessages, getUsers } from "@/store";
+import { getUsers } from "@/store";
 import {
   NavUserDropdown,
   NavLeftDropdownFace,
@@ -16,8 +16,8 @@ import { Searchbar, LoginSignupModal } from "@/features";
 import { AllIcon } from "@/assets";
 
 import { ribbitBanners, ribbitLogos } from "@/assets";
-import "./NavBar.css";
 import { RandomLogo } from "../RandomLogo";
+import "./NavBar.css";
 import "../../features/NewSearch/Search.css";
 
 export function NavBar({
@@ -49,12 +49,6 @@ export function NavBar({
   const [notificationNum, setNotificationNum] = useState(0);
   const [msgNum, setMsgNum] = useState(0);
   const [showTooltip, setShowTooltip] = useState(false);
-
-  // useEffect(() => {
-  //   dispatch(getCommunities());
-  //   dispatch(getUsers());
-  //   dispatch(getMessages());
-  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(getUsers());

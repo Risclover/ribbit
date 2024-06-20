@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import "./Modal.css";
 import { useDisableBodyScroll } from "../hooks/useDisableBodyScroll";
+import "./Modal.css";
 
 const ModalContext = React.createContext();
 

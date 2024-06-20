@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 import Home from "@/assets/images/navbar/home-icon.png";
 import All from "@/assets/images/navbar/all-icon2.png";
 
-import "./NavSidebar.css";
 import { LoginSignupModal } from "@/features";
+import "./NavSidebar.css";
 
-export function LoggedOutSidebar({ setShowSignupForm, showLoggedOutSidebar }) {
+export function LoggedOutSidebar({ showLoggedOutSidebar }) {
   const history = useHistory();
 
   return (

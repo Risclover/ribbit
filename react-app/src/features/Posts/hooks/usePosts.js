@@ -1,12 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getPosts,
-  getCommunities,
-  getFollowers,
-  getSubscriptions,
-  getViewedPosts,
-} from "@/store";
+import { getPosts, getViewedPosts } from "@/store";
 import { SortingFunction } from "@/utils";
 
 export function usePosts(isAllPosts) {

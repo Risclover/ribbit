@@ -3,7 +3,7 @@ import { SearchResults } from "@/pages";
 import { getSearchQuery } from "../../../utils/getSearchQuery";
 import { SearchResultsSortBtn } from "../SearchResultsSorting/SearchResultsSort";
 import { useDispatch, useSelector } from "react-redux";
-import { getComments, getPosts, searchComments } from "@/store";
+import { getPosts, searchComments } from "@/store";
 import { CommentResult } from "./CommentResult";
 import { NoResults } from "../NoResults";
 import { focusSearchbar } from "../../../utils/focusSearchbar";

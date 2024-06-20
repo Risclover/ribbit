@@ -5,19 +5,18 @@ import { ChatNavMenu } from "../ChatNavMenu/ChatNavMenu";
 import { ChatThread } from "../ChatThread/ChatThread";
 import { ChatTitleBar } from "../ChatThread/ChatTitleBar";
 import { ChatInput } from "../ChatInput/ChatInput";
-import "../../chat.css";
-import { getUserChatThreads } from "store";
 import { DeleteMessageOverlay } from "./DeleteMessageOverlay";
 import { WelcomeOverlay } from "./WelcomeOverlay";
 import { MessageInviteOverlay } from "./MessageInviteOverlay";
 import { CreateNewChatOverlay } from "./CreateNewChatOverlay";
-import { SelectedChatContext } from "context";
+import { SelectedChatContext } from "@/context";
+import { getUserChatThreads } from "@/store";
+import "../../chat.css";
 
 let socket;
 
 const Chat = ({ setOpenChat }) => {
   const dispatch = useDispatch();
-  const [chatInput, setChatInput] = useState("");
   const [messages, setMessages] = useState([]);
   const user = useSelector((state) => state.session.user);
   const [previousChat, setPreviousChat] = useState(null); // New state to track the previous chat

@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addPostVote, getUsers, removePostVote } from "@/store";
-import { getPosts } from "store";
-import { removeCommentVote } from "store";
-import { addCommentVote } from "store";
-import { getComments } from "store";
+import { removeCommentVote, addCommentVote, getComments } from "@/store";
 
 export const useCommentVote = (comment) => {
   const history = useHistory();
@@ -26,7 +22,6 @@ export const useCommentVote = (comment) => {
     e.stopPropagation();
     e.preventDefault();
 
-    console.log("hall");
     if (!user) {
       history.push("/login");
       return;

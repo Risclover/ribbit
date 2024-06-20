@@ -27,8 +27,6 @@ export function CreatePostForm({
   const [linkUrl, setLinkUrl] = useState("");
   const [content, setContent] = useState("");
   const [errors, setErrors] = useState([]);
-  const [linkErrors, setLinkErrors] = useState([]);
-  const [imageErrors, setImageErrors] = useState([]);
   const [showDiscardModal, setShowDiscardModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
 

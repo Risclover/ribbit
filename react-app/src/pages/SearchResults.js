@@ -2,7 +2,6 @@ import React from "react";
 import { SearchResultsNav } from "../features";
 import "../features/NewSearch/Search.css";
 import { usePageSettings } from "../hooks";
-import { IoSearch } from "react-icons/io5";
 
 export const SearchResults = ({ children, query, searchPage }) => {
   usePageSettings({

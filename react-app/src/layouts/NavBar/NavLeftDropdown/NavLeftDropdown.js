@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { TfiPlus } from "react-icons/tfi";
 import { TfiBell } from "react-icons/tfi";
 
 import {
@@ -16,11 +15,9 @@ import {
 import { NavLeftDropdownLink } from "@/layouts";
 import All from "@/assets/images/navbar/all-icon2.png";
 import Home from "@/assets/images/navbar/home-icon.png";
-import { useOutsideClick } from "@/hooks/useOutsideClick";
 
-export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {
+export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
   const dispatch = useDispatch();
-  const wrapperRef = useRef(null);
   const history = useHistory();
 
   const subscriptions = useSelector((state) =>

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { CgNotes } from "react-icons/cg";
-import { FiLink } from "react-icons/fi";
-import { HiOutlineExternalLink } from "react-icons/hi";
 import moment from "moment";
 
 import { getViewedPosts, removeViewedPosts } from "@/store";
@@ -33,7 +29,6 @@ moment.updateLocale("en-cust", {
 export function RecentlyViewedPosts() {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
-  const viewed = useSelector((state) => state.viewedPosts);
   const postss = useSelector((state) => state.posts);
 
   useEffect(() => {

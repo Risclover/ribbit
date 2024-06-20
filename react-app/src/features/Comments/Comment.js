@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { PiArrowFatUpFill, PiArrowFatDownFill } from "react-icons/pi";
 
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import parse from "html-react-parser";
 import moment from "moment";
 import { Modal } from "@/context";
-import { getUsers, addCommentVote, removeCommentVote } from "@/store";
-import { EditComment, DeleteCommentConfirmation } from "..";
+import { EditComment } from "..";
 import { Username } from "@/components";
-import "./Comments.css";
 import { DeleteConfirmationModal } from "components";
-import { removeComment } from "store";
-import { getPosts } from "store";
 import { convertTime } from "./data/constants";
-import { getCommentById } from "store";
 import { useCommentVote } from "./hooks/useCommentVote";
 import { CommentKarmaBar } from "./CommentKarmaBar";
-import { getComments } from "store";
+import { getComments, removeComment, getPosts } from "@/store";
+import "./Comments.css";
 
 moment.updateLocale("en-comment", {
   relativeTime: {
@@ -66,30 +61,18 @@ function Text({ content }) {
 }
 
 export function Comment({ commentId, comment, specificCommentActive }) {
-  const { upvote, downvote, handleUpvoteClick, handleDownvoteClick } =
-    useCommentVote();
   const dispatch = useDispatch();
-
   const { postId } = useParams();
 
-  console.log("postId:", postId);
+  const wasEdited = comment?.createdAt !== comment?.updatedAt;
 
   const [showEditCommentModal, setShowEditCommentModal] = useState(false);
-  const [wasEdited, setWasEdited] = useState(
-    comment?.createdAt !== comment?.updatedAt
-  );
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  // const [upvote, setUpvote] = useState(false);
-  // const [downvote, setDownvote] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [commentContent, setCommentContent] = useState(comment?.content);
 
-  const comments = useSelector((state) => state.comments);
   const user = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.posts[postId]);
-
-  console.log("post:", post);
-  const url = window.location.href;
 
   let editedTime = convertTime(comment, "edit");
   let commentTime = convertTime(comment);
@@ -97,84 +80,6 @@ export function Comment({ commentId, comment, specificCommentActive }) {
   useEffect(() => {
     dispatch(getComments(comment?.postId));
   }, []);
-
-  // const handleUpvoteClick = async () => {
-  //   if (user?.id in comment?.commentVoters) {
-  //     if (!comment?.commentVoters[user?.id].isUpvote) {
-  //       await dispatch(removeCommentVote(comment.id));
-  //       await dispatch(addCommentVote(comment.id, "upvote"));
-  //       dispatch(getUsers());
-  //     } else if (upvote) {
-  //       handleRemoveVote();
-  //     } else {
-  //       handleAddVote();
-  //     }
-  //   } else {
-  //     handleAddVote();
-  //   }
-  // };
-
-  // const handleDownvoteClick = async () => {
-  //   if (user?.id in comment?.commentVoters) {
-  //     if (comment?.commentVoters[user?.id].isUpvote) {
-  //       await dispatch(removeCommentVote(comment.id));
-  //       await dispatch(addCommentVote(comment.id, "downvote"));
-  //       dispatch(getUsers());
-  //     } else if (downvote) {
-  //       handleRemoveVote();
-  //     }
-  //   } else {
-  //     handleAddDownvote();
-  //   }
-  // };
-
-  // const handleAddVote = async (e) => {
-  //   await dispatch(addCommentVote(comment.id, "upvote"));
-  //   setUpvote(true);
-  //   dispatch(getUsers());
-  // };
-
-  // const handleAddDownvote = async () => {
-  //   await dispatch(addCommentVote(comment.id, "downvote"));
-  //   setDownvote(true);
-  //   dispatch(getUsers());
-  // };
-
-  // const handleRemoveVote = async () => {
-  //   await dispatch(removeCommentVote(comment.id));
-  //   if (upvote) {
-  //     setUpvote(false);
-  //   }
-  //   if (downvote) {
-  //     setDownvote(false);
-  //   }
-  //   dispatch(getUsers());
-  // };
-
-  // useEffect(() => {
-  //   if (comments && Object.values(comments).length > 0) {
-  //     if (
-  //       comment?.commentVoters &&
-  //       Object.values(comment.commentVoters).length > 0
-  //     ) {
-  //       if (Object.values(comment?.commentVoters).length > 0) {
-  //         for (let voter of Object.values(comment?.commentVoters)) {
-  //           if (user?.id === voter?.userId) {
-  //             if (voter.isUpvote) {
-  //               setUpvote(true);
-  //               setDownvote(false);
-  //             } else if (!voter.isUpvote) {
-  //               setUpvote(false);
-  //               setDownvote(true);
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }, [upvote, downvote, comment?.commentVoters, user?.id, comments]);
-
-  console.log(post.postAuthor?.username, comment?.commentAuthor?.username);
 
   const handleDeleteClick = async (e) => {
     e.preventDefault();

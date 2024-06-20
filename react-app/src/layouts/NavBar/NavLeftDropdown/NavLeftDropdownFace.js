@@ -3,8 +3,8 @@ import { VscChevronDown } from "react-icons/vsc";
 import { PageTitleContext } from "@/context";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { useOutsideClick } from "hooks";
-import "./NavLeftDropdown.css";
 import { NavLeftDropdown } from "./NavLeftDropdown";
+import "./NavLeftDropdown.css";
 
 export const NavLeftDropdownFace = ({
   screenWidth,

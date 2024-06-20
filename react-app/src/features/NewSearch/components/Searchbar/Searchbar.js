@@ -1,8 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { BsSearch } from "react-icons/bs";
-import { SlClose } from "react-icons/sl";
-import { useOutsideClick } from "@/hooks";
 import { SearchDropdown } from "./SearchDropdown";
 import { getSearchQuery } from "../../utils/getSearchQuery";
 import "../../Search.css";
@@ -27,15 +24,7 @@ export function Searchbar({ loggedIn, searchbarRef }) {
       setSearchQuery("");
     }
   }, [location]);
-
-  // useEffect(() => {
-  //   if (searchQuery?.length > 0) {
-  //     setShowSearchDropdown(true);
-  //   } else {
-  //     setShowSearchDropdown(false);
-  //   }
-  // }, [searchQuery]);
-
+  
   const handleEnter = (e) => {
     if (e.key === "Enter" && searchQuery.trim().length > 0) {
       setShowSearchDropdown(false);

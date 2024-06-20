@@ -1,7 +1,7 @@
 import React from "react";
 import { CommentSearch } from "./CommentSearch";
 
-export const CommentSearchPage = ({ results, searchQuery, setSearchQuery }) => {
+export const CommentSearchPage = ({ results, searchQuery }) => {
   return (
     <div className="comment-search-page">
       <CommentSearch />

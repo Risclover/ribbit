@@ -5,15 +5,12 @@ import { useFileHandler } from "./useFileHandler";
 import "./DropBox.css";
 
 export const DropBox = ({
-  dropboxType,
   setImage,
-  image,
   preview,
   setPreview,
   handlePreview,
   handleDelete,
   defaultIcon,
-  setDefaultIcon,
 }) => {
   const [highlight, setHighlight] = useState(false);
   const [showBar, setShowBar] = useState(preview !== null && preview !== "");

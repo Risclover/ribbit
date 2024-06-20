@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import "./CommunitySelection.css";
 import { CommunityImg } from "components/CommunityImg";
+import "./CommunitySelection.css";
 
 export function CommunitySelectionDropdownCommunity({
   subscription,
   setShowDropdown,
   setSearch,
   setCommunity,
-  communityId,
   otherComms,
   setInputState,
-  inputState,
 }) {
   const history = useHistory();
   const allCommunities = useSelector((state) =>
     Object.values(state.communities)
   );
-
-  const thisCommunity = useSelector((state) => state.communities[communityId]);
 
   const [baseColor, setBaseColor] = useState();
 

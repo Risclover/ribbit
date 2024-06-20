@@ -1,8 +1,7 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { SlClose } from "react-icons/sl";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { getComments, searchPostComments } from "@/store";
+import { searchPostComments } from "@/store";
 
 export const CommentSearch = ({
   searchValue,
@@ -12,7 +11,6 @@ export const CommentSearch = ({
   setSearchQuery,
   inputRef,
 }) => {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const handleDismiss = (e) => {

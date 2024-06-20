@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { editProfile, getUsers } from "@/store";
-import "./EditProfile.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
+import "./EditProfile.css";
 
 export function EditProfile() {
   const dispatch = useDispatch();

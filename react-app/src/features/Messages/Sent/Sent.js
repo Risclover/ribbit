@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getThreads } from "@/store";
 import { MessageHead, SentMessage } from "../..";
-import "./Sent.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
+import "./Sent.css";
 
 export function Sent() {
   const dispatch = useDispatch();

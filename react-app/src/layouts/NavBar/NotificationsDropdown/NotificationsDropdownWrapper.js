@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { TfiBell } from "react-icons/tfi";
 
@@ -7,16 +7,11 @@ import "../NavBar.css";
 import "./NotificationsDropdown.css";
 
 export function NotificationsDropdownWrapper({ msgNum, notificationNum }) {
-  const wrapperRef = useRef(null);
-
   const notificationsList = useSelector((state) =>
     Object.values(state.notifications)
   );
 
   const [showTooltip, setShowTooltip] = useState(false);
-  const [notifications, setNotifications] = useState(
-    notificationsList.filter((notification) => notification.read === false)
-  );
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleOpenDropdown = (e) => {
@@ -45,7 +40,9 @@ export function NotificationsDropdownWrapper({ msgNum, notificationNum }) {
           msgNum={msgNum}
           setShowDropdown={setShowDropdown}
           showDropdown={showDropdown}
-          unread={notifications}
+          unread={notificationsList.filter(
+            (notification) => notification.read === false
+          )}
         />
       )}
     </div>
