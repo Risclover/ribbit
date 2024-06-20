@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD_SINGLE_COMMENT = "comments/LOAD_SINGLE_COMMENT";
 
 export const loadSingleComment = (comment) => {
@@ -6,6 +8,8 @@ export const loadSingleComment = (comment) => {
     comment,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getSingleComment = (commentId) => async (dispatch) => {
   const response = await fetch(`/api/comments/${commentId}`);
@@ -18,6 +22,8 @@ export const getSingleComment = (commentId) => async (dispatch) => {
 };
 
 export const getCommentById = (id) => (state) => state.comments[id];
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD = "favorite_communities/LOAD";
 const DELETE = "favorite_communities/DELETE";
 
@@ -14,6 +16,8 @@ const remove = (communityId) => {
     communityId,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getFavoriteCommunities = () => async (dispatch) => {
   const response = await fetch("/api/favorite_communities");
@@ -47,6 +51,8 @@ export const removeFavoriteCommunity = (communityId) => async (dispatch) => {
     return deletedMessage;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

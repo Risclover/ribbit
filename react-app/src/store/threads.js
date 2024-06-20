@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD = "threads/LOAD";
 const LOAD_ONE = "threads/LOAD_ONE";
 const DELETE = "threads/DELETE";
@@ -22,6 +24,8 @@ const deleteThread = (threadId) => {
     threadId,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getThreads = () => async (dispatch) => {
   const response = await fetch("/api/threads");
@@ -148,6 +152,8 @@ export const removeThread = (threadId) => async (dispatch) => {
     return msg;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

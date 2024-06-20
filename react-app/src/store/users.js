@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD_USERS = "users/LOAD_USERS";
 const LOAD_USER = "users/LOAD_USER";
 
@@ -14,6 +16,8 @@ const loadUser = (user) => {
     user,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getUsers = () => async (dispatch) => {
   const response = await fetch("/api/users");
@@ -59,6 +63,8 @@ export const editProfile = (id, payload) => async (dispatch) => {
   const data = await response.json();
   return data;
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

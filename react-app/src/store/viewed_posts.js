@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD = "viewed_posts/LOAD";
 const DELETE = "viewed_posts/DELETE";
 
@@ -14,6 +16,8 @@ export const removeViewedPosts = (userId) => {
     userId,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getViewedPosts = () => async (dispatch) => {
   const response = await fetch("/api/viewed_posts");
@@ -48,6 +52,8 @@ export const clearViewedPosts = () => async () => {
     return data;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

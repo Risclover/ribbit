@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const CREATE_POST = "posts/CREATE";
 const LOAD_POSTS = "posts/LOAD";
 const LOAD_POST = "posts/LOAD_SINGLE";
@@ -69,9 +71,7 @@ const updateViewedPosts = (viewedPosts) => ({
   viewedPosts,
 });
 
-// ################################################## //
-// #################### THUNKS ##################### //
-// ################################################ //
+/* ------------------------- THUNKS ------------------------- */
 
 export const getPostsByCommunityId = (communityId) => (state) =>
   state.posts[communityId];
@@ -304,7 +304,7 @@ export const getPostComments = (postId) => async (dispatch) => {
   }
 };
 
-// #################### REDUCER #################### //
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD_COMMUNITY = "communities/LOAD_SINGLE_COMMUNITY";
 const LOAD_RULES = "communities/LOAD_RULES";
 
@@ -14,6 +16,8 @@ const loadRules = (rules) => {
     rules,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getSingleCommunity = (communityId) => async (dispatch) => {
   const response = await fetch(`/api/communities/${communityId}`);
@@ -43,6 +47,8 @@ export const getRules = (communityId) => async (dispatch) => {
     return community;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

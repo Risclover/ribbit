@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD_CHAT_THREADS = "chat_threads/LOAD_CHAT_THREADS";
 const LOAD_CHAT_THREAD = "chat_threads/LOAD_CHAT_THREAD";
 const RECEIVE_NEW_MESSAGE = "chat_threads/RECEIVE_NEW_MESSAGE";
@@ -31,6 +33,8 @@ const loadChatThread = (chatThread) => {
     chatThread,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getUserChatThreads = () => async (dispatch) => {
   const response = await fetch("/api/chat_threads");
@@ -128,6 +132,8 @@ export const createReaction = (payload) => async (dispatch) => {
     return data;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

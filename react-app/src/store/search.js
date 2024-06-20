@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const SEARCH_ALL = "search/SEARCH_ALL";
 const SEARCH_POSTS = "search/SEARCH_POSTS";
 const SEARCH_COMMENTS = "search/SEARCH_COMMENTS";
@@ -38,6 +40,8 @@ export const getCommunityResults = (communityResults) => {
     payload: communityResults,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getSearchResults = () => async (dispatch) => {
   const response = await fetch("/api/search/results");
@@ -103,6 +107,8 @@ export const searchCommunities = (query) => async (dispatch) => {
     return data;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {
   posts: {},

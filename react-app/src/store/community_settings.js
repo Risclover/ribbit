@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD_SETTINGS = "community_settings/LOAD_SETTINGS";
 const LOAD_SETTING = "community_settings/LOAD_SETTING";
 
@@ -14,6 +16,8 @@ export const loadSetting = (setting) => {
     setting,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getCommunitySettings = (communityId) => async (dispatch) => {
   const response = await fetch(
@@ -219,6 +223,8 @@ export const resetToDefaultIcon = (settingsId) => async (dispatch) => {
     return data;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

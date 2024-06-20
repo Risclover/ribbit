@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD = "notifications/LOAD";
 const LOAD_SINGLE = "notifications/LOAD_SINGLE";
 const DELETE = "notifications/DELETE";
@@ -22,6 +24,8 @@ const removeNotification = (notificationId) => {
     notificationId,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getUserNotifications = (userId) => async (dispatch) => {
   const response = await fetch(`/api/notifications/user/${userId}`);
@@ -119,6 +123,8 @@ export const deleteNotification = (notificationId) => async (dispatch) => {
     return deleted;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

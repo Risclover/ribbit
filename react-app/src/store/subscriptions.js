@@ -97,7 +97,8 @@ const allSubscriptionsReducer = (state = initialState, action) => {
           {}
         );
       }
-      return state; // Return the previous state if subscriptions are undefined
+      return state;
+
     case LOAD_SUBSCRIBERS:
       if (action.subscriptions && action.subscriptions.Subscribers) {
         return action.subscriptions.Subscribers.reduce(
@@ -108,7 +109,8 @@ const allSubscriptionsReducer = (state = initialState, action) => {
           {}
         );
       }
-      return state; // Return the previous state if subscribers are undefined
+      return state;
+
     case DELETE_SUBSCRIPTION:
       delete newState[action.communityId];
       return newState;

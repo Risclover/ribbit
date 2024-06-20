@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD_FOLLOWERS = "followers/LOAD_FOLLOWERS";
 const LOAD_USER_FOLLOWERS = "followers/LOAD_USER_FOLLOWERS";
 const LOAD_POSTS = "followers/LOAD_POSTS";
@@ -22,6 +24,8 @@ const loadPosts = (followers) => {
     followers,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getUserFollowers = (id) => async (dispatch) => {
   const response = await fetch(`/api/followers/${id}`);
@@ -84,6 +88,8 @@ export const followerPosts = () => async (dispatch) => {
     return posts;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {
   followers: {},

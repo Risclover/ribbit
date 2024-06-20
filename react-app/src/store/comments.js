@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const ADD_COMMENT = "comments/ADD";
 const LOAD_COMMENTS = "comments/LOAD";
 const DELETE_COMMENT = "comments/DELETE";
@@ -17,13 +19,6 @@ const addComment = (comment) => {
   return {
     type: ADD_COMMENT,
     comment,
-  };
-};
-
-const loadAllComments = (comments) => {
-  return {
-    type: LOAD_ALL_COMMENTS,
-    comments,
   };
 };
 
@@ -54,6 +49,8 @@ const removeVote = (comment) => {
     comment,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getAllComments = () => async (dispatch) => {
   const response = await fetch(`/api/comments`);
@@ -175,6 +172,8 @@ export const searchPostComments = (postId, query) => async (dispatch) => {
     return data;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

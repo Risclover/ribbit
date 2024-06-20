@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD_COMMUNITIES = "communities/LOAD";
 const LOAD_COMMUNITY = "communities/LOAD_SINGLE";
 const LOAD_SUBSCRIBERS = "communities/LOAD_SUBSCRIBERS";
@@ -18,13 +20,6 @@ const loadCommunity = (community) => {
   };
 };
 
-const createCommunity = (community) => {
-  return {
-    type: CREATE_COMMUNITY,
-    community,
-  };
-};
-
 const removeCommunity = (communityId) => {
   return {
     type: DELETE_COMMUNITY,
@@ -38,9 +33,8 @@ const loadSubscribers = (subscribers) => {
     subscribers,
   };
 };
-// ################################################## //
-// #################### THUNKS ##################### //
-// ################################################ //
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getCommunities = () => async (dispatch) => {
   const response = await fetch("/api/communities");
@@ -51,16 +45,6 @@ export const getCommunities = () => async (dispatch) => {
     return communities;
   }
 };
-
-// export const getSingleCommunity = (communityId) => async (dispatch) => {
-//   const response = await fetch(`/api/communities/${communityId}`);
-
-//   if (response.ok) {
-//     const community = await response.json();
-//     dispatch(loadCommunity(community));
-//     return community;
-//   }
-// };
 
 export const getCommunitySubscribers = (communityId) => async (dispatch) => {
   const response = await fetch(`/api/communities/${communityId}/subscribers`);
@@ -212,7 +196,7 @@ export const checkCommunityName = (name) => async (dispatch) => {
   return response;
 };
 
-// #################### REDUCER #################### //
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

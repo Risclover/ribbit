@@ -1,4 +1,5 @@
-// constants
+/* ------------------------- ACTIONS ------------------------- */
+
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 
@@ -11,7 +12,7 @@ const removeUser = () => ({
   type: REMOVE_USER,
 });
 
-const initialState = { user: null };
+/* ------------------------- THUNKS ------------------------- */
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch("/api/auth/", {
@@ -122,6 +123,10 @@ export const checkEmail = (email) => async (dispatch) => {
 
   return response;
 };
+
+/* ------------------------- REDUCER ------------------------- */
+
+const initialState = { user: null };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD_SINGLE_POST = "posts/LOAD_SINGLE_POST";
 const UPDATE_SINGLE_POST = "posts/UPDATE_SINGLE_POST";
 
@@ -15,6 +17,8 @@ export const updateSinglePost = (post) => {
   };
 };
 
+/* ------------------------- THUNKS ------------------------- */
+
 export const getSinglePost = (postId) => async (dispatch) => {
   const response = await fetch(`/api/posts/${postId}`);
 
@@ -26,6 +30,8 @@ export const getSinglePost = (postId) => async (dispatch) => {
 };
 
 export const getPostById = (id) => (state) => state.posts[id];
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {
   posts: [],

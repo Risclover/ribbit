@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD = "favorite_users/LOAD";
 const DELETE = "favorite_users/DELETE";
 
@@ -14,6 +16,8 @@ const remove = (userId) => {
     userId,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getFavoriteUsers = () => async (dispatch) => {
   const response = await fetch("/api/favorite_users");
@@ -47,6 +51,8 @@ export const removeFavoriteUser = (userId) => async (dispatch) => {
     return deletedMessage;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

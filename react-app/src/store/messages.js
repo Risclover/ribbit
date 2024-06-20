@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD = "messages/LOAD";
 
 const load = (messages) => {
@@ -7,6 +9,8 @@ const load = (messages) => {
   };
 };
 
+/* ------------------------- THUNKS ------------------------- */
+
 export const getMessages = () => async (dispatch) => {
   const response = await fetch("/api/messages");
   if (response.ok) {
@@ -15,6 +19,8 @@ export const getMessages = () => async (dispatch) => {
     return data;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

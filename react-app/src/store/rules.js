@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const LOAD_RULES = "rules/LOAD_RULES";
 const LOAD_RULE = "rules/LOAD_RULE";
 const DELETE_RULE = "rules/DELETE";
@@ -22,6 +24,8 @@ const removeRule = (ruleId) => {
     ruleId,
   };
 };
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const getCommunityRules = (communityId) => async (dispatch) => {
   const response = await fetch(`/api/rules/communities/${communityId}`);
@@ -80,6 +84,8 @@ export const deleteRule = (ruleId) => async (dispatch) => {
     return data;
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 
