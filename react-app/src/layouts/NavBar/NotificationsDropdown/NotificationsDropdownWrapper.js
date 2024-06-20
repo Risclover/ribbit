@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { TfiBell } from "react-icons/tfi";
 
 import { NotificationsDropdown } from "./NotificationsDropdown";
-import { HandleClickOutside } from "@/utils/HandleClickOutside";
 import "../NavBar.css";
 import "./NotificationsDropdown.css";
 
@@ -19,17 +18,6 @@ export function NotificationsDropdownWrapper({ msgNum, notificationNum }) {
     notificationsList.filter((notification) => notification.read === false)
   );
   const [showDropdown, setShowDropdown] = useState(false);
-
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", function (e) {
-  //     HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
-  //   });
-  //   return () => {
-  //     document.removeEventListener("mousedown", function (e) {
-  //       HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
-  //     });
-  //   };
-  // }, [wrapperRef, showDropdown]);
 
   const handleOpenDropdown = (e) => {
     e.preventDefault();

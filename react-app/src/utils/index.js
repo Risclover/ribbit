@@ -1,5 +1,4 @@
 export { getTextColor } from "./getTextColor";
-export { HandleClickOutside } from "./HandleClickOutside";
 export { LinkText } from "./LinkText";
 export { loadMore } from "./loadMore";
 export { ScrollToTop } from "./ScrollToTop";

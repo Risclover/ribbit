@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import { HandleClickOutside } from "@/utils";
+import React, { useState, useRef } from "react";
 import "./Comments.css";
+import { useOutsideClick } from "hooks";
 
 export function CommentSorting({ sortType, setSortType }) {
   const [showSortingDropdown, setShowSortingDropdown] = useState(false);
@@ -12,26 +12,7 @@ export function CommentSorting({ sortType, setSortType }) {
     setShowSortingDropdown(false);
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(
-        e,
-        wrapperRef,
-        showSortingDropdown,
-        setShowSortingDropdown
-      );
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(
-          e,
-          wrapperRef,
-          showSortingDropdown,
-          setShowSortingDropdown
-        );
-      });
-    };
-  }, [wrapperRef, showSortingDropdown]);
+  useOutsideClick(wrapperRef, () => setShowSortingDropdown(false));
 
   return (
     <div className="comment-sorting">

@@ -12,6 +12,7 @@ import { SlClose } from "react-icons/sl";
 import { createChatMessage, getChatThread } from "@/store";
 import "./ChatWindowInput.css";
 import { SelectedChatContext } from "@/context/SelectedChat";
+import { useOutsideClick } from "hooks";
 
 const giphy = new GiphyFetch("fiQieMg1iTSB2Jvd4njUzeY2W3PP99I1");
 
@@ -46,26 +47,16 @@ export function Gifs({ receiver, setOpenGiphy, setGifIcon, GifIcon }) {
     }
   };
 
-  const handleClickOutside = (e) => {
-    const container = containerRef.current;
+  // const handleClickOutside = (e) => {
+  //   const container = containerRef.current;
 
-    if (container && !container.contains(e.target)) {
-      setOpenGiphy(false);
-      setGifIcon(GifIcon);
-    }
-  };
+  //   if (container && !container.contains(e.target)) {
+  //     setOpenGiphy(false);
+  //     setGifIcon(GifIcon);
+  //   }
+  // };
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-      document.addEventListener("click", handleClickOutside);
-      return () => {
-        container.removeEventListener("scroll", handleScroll);
-        document.removeEventListener("click", handleClickOutside);
-      };
-    }
-  }, [handleScroll]);
+  useOutsideClick(containerRef, () => setOpenGiphy(false));
 
   const handleEntry = (e) => {
     if (e.key === "Enter") {

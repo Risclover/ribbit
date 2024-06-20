@@ -6,7 +6,7 @@ import {
   getUserNotifications,
   unreadNotification,
 } from "@/store";
-import { HandleClickOutside } from "@/utils/HandleClickOutside";
+import { useOutsideClick } from "hooks";
 
 export function NotificationMenu({
   notification,
@@ -30,21 +30,7 @@ export function NotificationMenu({
     dispatch(getUserNotifications(currentUser.id));
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(e, wrapperRef, notificationMenu, setNotificationMenu);
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(
-          e,
-          wrapperRef,
-          notificationMenu,
-          setNotificationMenu
-        );
-      });
-    };
-  }, [wrapperRef, setNotificationMenu]);
+  useOutsideClick(wrapperRef, () => setNotificationMenu(false));
 
   return (
     <div className="notification-menu" ref={wrapperRef}>

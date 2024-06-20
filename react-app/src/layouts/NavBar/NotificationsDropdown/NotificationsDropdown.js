@@ -7,7 +7,6 @@ import moment from "moment";
 
 import { getUserNotifications, readAllNotifications } from "@/store";
 import { Notification } from "@/layouts";
-import { HandleClickOutside } from "@/utils";
 import SparklyFrog from "@/assets/images/ribbit-frog-sparkly.png";
 
 moment.updateLocale("en-notif", {
@@ -65,17 +64,6 @@ export function NotificationsDropdown({
     await dispatch(readAllNotifications());
     dispatch(getUserNotifications(user?.id));
   };
-
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", function (e) {
-  //     HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
-  //   });
-  //   return () => {
-  //     document.removeEventListener("mousedown", function (e) {
-  //       HandleClickOutside(e, wrapperRef, showDropdown, setShowDropdown);
-  //     });
-  //   };
-  // }, [wrapperRef, showDropdown]);
 
   notifications.sort((a, b) => {
     let postA = new Date(a.createdAt);

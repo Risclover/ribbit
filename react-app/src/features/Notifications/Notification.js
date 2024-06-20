@@ -7,7 +7,7 @@ import moment from "moment";
 
 import { readNotification, getUserNotifications } from "@/store";
 import { NotificationMenu } from "./NotificationMenu";
-import { HandleClickOutside } from "@/utils";
+import { useOutsideClick } from "@/hooks";
 
 export function Notification({ notification }) {
   const wrapperRef = useRef();
@@ -19,21 +19,7 @@ export function Notification({ notification }) {
 
   const currentUser = useSelector((state) => state.session.user);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", function (e) {
-      HandleClickOutside(e, wrapperRef, notificationMenu, setNotificationMenu);
-    });
-    return () => {
-      document.removeEventListener("mousedown", function (e) {
-        HandleClickOutside(
-          e,
-          wrapperRef,
-          notificationMenu,
-          setNotificationMenu
-        );
-      });
-    };
-  }, [wrapperRef, setNotificationMenu, notificationMenu]);
+  useOutsideClick(wrapperRef, () => setNotificationMenu(false));
 
   const markNotificationRead = async (e) => {
     e.stopPropagation();

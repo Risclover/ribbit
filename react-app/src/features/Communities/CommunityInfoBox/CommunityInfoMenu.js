@@ -7,7 +7,6 @@ import {
   getFavoriteCommunities,
   removeFavoriteCommunity,
 } from "@/store";
-import { HandleClickOutside } from "@/utils";
 import { useOutsideClick } from "hooks";
 import { getIdFromName } from "utils/getCommunityIdFromName";
 

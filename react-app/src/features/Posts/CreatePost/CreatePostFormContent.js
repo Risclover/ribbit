@@ -34,7 +34,7 @@ export function CreatePostFormContent({
         <div className="image-post-box">
           {!imgUrl && (
             <button
-              className="blue-btn-unfilled btn-short"
+              className="create-post-form-cancel"
               onClick={(e) => {
                 e.preventDefault();
                 setShowImgModal(true);

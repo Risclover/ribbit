@@ -16,7 +16,6 @@ import {
 import { NavLeftDropdownLink } from "@/layouts";
 import All from "@/assets/images/navbar/all-icon2.png";
 import Home from "@/assets/images/navbar/home-icon.png";
-import { HandleClickOutside } from "@/utils/HandleClickOutside";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 export function NavLeftDropdown({ showIcon, setShowIcon, setShowDropdown }) {

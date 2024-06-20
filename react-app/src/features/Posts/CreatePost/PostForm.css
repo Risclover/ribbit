@@ -175,12 +175,16 @@
   cursor: pointer;
   font-size: 20px;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
   display: none;
   background: none;
   border: none;
   z-index: 10;
+  background: white;
+  padding: 0;
+  height: auto;
+  opacity: 0.8;
 }
 
 .image-post-preview-box {
