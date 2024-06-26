@@ -8,6 +8,7 @@ import {
   getSingleCommunity,
 } from "@/store";
 import { LoginSignupModal } from "../Auth";
+import { getCommunities } from "store";
 
 export function CommunitySubscribeBtn({
   user,
@@ -37,7 +38,7 @@ export function CommunitySubscribeBtn({
               e.preventDefault();
               await dispatch(deleteSubscription(community.id));
               dispatch(getFavoriteCommunities());
-              dispatch(getSingleCommunity(communityId));
+              dispatch(getCommunities());
               dispatch(getSubscriptions(communityId));
               setSubscribed(false);
             }}
@@ -54,7 +55,7 @@ export function CommunitySubscribeBtn({
               e.preventDefault();
               await dispatch(addToSubscriptions(community.id));
               dispatch(getSubscriptions(+communityId));
-              dispatch(getSingleCommunity(communityId));
+              dispatch(getCommunities());
 
               user && setSubscribed(true);
               !user && setShowLoginForm(true);
