@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 export function CommunityName({ community }) {
   const user = useSelector((state) => state.session.user);
+
   return (
     <div className="community-header-info-details-left">
       <div className="community-header-info-display-name">

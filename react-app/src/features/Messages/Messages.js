@@ -7,8 +7,8 @@ import {
   readAllNotifications,
 } from "@/store";
 import { MessageThread, MessageHead, MessageContentMenu } from "..";
-import "./Messages.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
+import "./Messages.css";
 
 export function Messages() {
   const dispatch = useDispatch();
