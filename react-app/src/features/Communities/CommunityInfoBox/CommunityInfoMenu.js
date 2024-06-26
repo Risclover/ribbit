@@ -9,8 +9,11 @@ import {
 } from "@/store";
 import { useOutsideClick } from "hooks";
 import { getIdFromName } from "utils/getCommunityIdFromName";
+import { addToSubscriptions } from "store";
+import { getCommunities } from "store";
+import { getSubscriptions } from "store";
 
-export function CommunityInfoMenu() {
+export function CommunityInfoMenu({ community }) {
   const wrapperRef = useRef(null);
   const dispatch = useDispatch();
   const { communityName } = useParams();
@@ -24,7 +27,7 @@ export function CommunityInfoMenu() {
   const communityId = getIdFromName(communityName, communities);
 
   useEffect(() => {
-    if (favoriteCommunities[communityId]) {
+    if (favoriteCommunities[community.id]) {
       setBtnState("Remove From Favorites");
     } else {
       setBtnState("Add To Favorites");
@@ -36,14 +39,16 @@ export function CommunityInfoMenu() {
     setOpenMenu(!openMenu);
   };
 
-  const handleFavorites = async (e, community) => {
+  const handleFavorites = async (e) => {
     e.preventDefault();
-    if (favoriteCommunities[communityId]) {
-      await dispatch(removeFavoriteCommunity(communityId));
+    if (favoriteCommunities[community.id]) {
+      await dispatch(removeFavoriteCommunity(community.id));
     } else {
-      await dispatch(addFavoriteCommunity(communityId));
+      await dispatch(addFavoriteCommunity(community.id));
     }
     dispatch(getFavoriteCommunities());
+    dispatch(getCommunities());
+    dispatch(getSubscriptions());
     setOpenMenu(false);
   };
 

@@ -15,6 +15,7 @@ import {
 import { NavLeftDropdownLink } from "@/layouts";
 import All from "@/assets/images/navbar/all-icon2.png";
 import Home from "@/assets/images/navbar/home-icon.png";
+import { getSubscriptions } from "store";
 
 export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
   const dispatch = useDispatch();

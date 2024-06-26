@@ -47,7 +47,7 @@ export function CommunityInfoBox({ community, user, isPage }) {
               <BiShieldAlt /> Mod Tools
             </NavLink>
           )}
-          <CommunityInfoMenu />
+          <CommunityInfoMenu community={community} />
         </div>
       </div>
       <div className="community-page-box-content">
