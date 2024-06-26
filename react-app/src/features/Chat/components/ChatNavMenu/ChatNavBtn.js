@@ -1,34 +1,27 @@
-import { formatDate } from "features/Chat/utils/formatDate";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { formatDate } from "features/Chat/utils/formatDate";
 
 export const ChatNavBtn = ({ chatThread, selectedChat, setSelectedChat }) => {
-  const isActive = selectedChat && selectedChat?.id === chatThread.id;
+  const isActive = selectedChat?.id === chatThread.id;
   const currentUser = useSelector((state) => state.session.user);
   const recipient = chatThread.users.find((user) => user.id !== currentUser.id);
-  const [time, setTime] = useState(() => {
-    if (chatThread.messages) {
-      new Date(
-        chatThread.messages[chatThread.messages?.length - 1]?.createdAt
-      ).toLocaleString("en-US", {
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
-      });
-    }
-  });
+
+  const [time, setTime] = useState("");
 
   useEffect(() => {
-    if (chatThread.messages)
-      setTime(
-        new Date(
-          chatThread.messages[chatThread.messages?.length - 1]?.createdAt
-        ).toLocaleString("en-US", {
+    const lastMessage = chatThread.messages?.[chatThread.messages.length - 1];
+    if (lastMessage) {
+      const formattedTime = new Date(lastMessage.createdAt).toLocaleString(
+        "en-US",
+        {
           hour: "numeric",
           minute: "numeric",
           hour12: true,
-        })
+        }
       );
+      setTime(formattedTime);
+    }
   }, [chatThread.messages]);
 
   return (
@@ -36,14 +29,14 @@ export const ChatNavBtn = ({ chatThread, selectedChat, setSelectedChat }) => {
       className={`chat-window-chatnav${isActive ? " chatnav-active" : ""}`}
       onClick={() => setSelectedChat(chatThread)}
     >
-      <img src={recipient && recipient?.profileImg} alt="User" />
+      <img src={recipient?.profileImg} alt="User" />
       <div className="chat-window-chatnav-details">
         <div className="chat-window-chatnav-details-top">
           <span className="chat-window-chatnav-username">
             {recipient.username}
           </span>
           <span className="chat-window-chatnav-date">
-            {chatThread.messages && chatThread.messages.length
+            {chatThread.messages?.length
               ? formatDate(
                   chatThread.messages[chatThread.messages.length - 1]?.createdAt
                 ) === "Today"
@@ -56,20 +49,22 @@ export const ChatNavBtn = ({ chatThread, selectedChat, setSelectedChat }) => {
           </span>
         </div>
         <div className="chat-window-chatnav-details-bottom">
-          {currentUser.username ===
-          chatThread.messages[chatThread.messages.length - 1].sender.username
-            ? "You:"
-            : chatThread.messages[chatThread.messages.length - 1].sender
-                .username + ":"}{" "}
-          {(chatThread.messages[chatThread.messages.length - 1].content &&
-            chatThread.messages[chatThread.messages.length - 1].content.slice(
-              -4
-            ) === ".png") ||
-          chatThread.messages[chatThread.messages.length - 1].content.includes(
-            ".giphy"
-          )
-            ? "🖼️"
-            : chatThread.messages[chatThread.messages.length - 1].content}
+          {chatThread.messages?.length
+            ? (currentUser.username ===
+              chatThread.messages[chatThread.messages.length - 1]?.sender
+                .username
+                ? "You: "
+                : chatThread.messages[chatThread.messages.length - 1]?.sender
+                    .username + ": ") +
+              (chatThread.messages[
+                chatThread.messages.length - 1
+              ]?.content?.endsWith(".png") ||
+              chatThread.messages[
+                chatThread.messages.length - 1
+              ]?.content.includes(".giphy")
+                ? "🖼️"
+                : chatThread.messages[chatThread.messages.length - 1]?.content)
+            : ""}
         </div>
       </div>
     </div>
