@@ -2,16 +2,14 @@ import { useEffect, useState } from "react";
 
 export const useCommunitySettings = (community) => {
   const [checked, setChecked] = useState(
-    localStorage.getItem(`community-${community?.id}-theme`) === "true"
-      ? true
-      : false
+    localStorage.getItem(`community-${community?.id}-theme`)
   );
 
   useEffect(() => {
     if (!localStorage.getItem(`community-${community?.id}-theme`)) {
       localStorage.setItem(`community-${community?.id}-theme`, "true");
     }
-  }, [localStorage]);
+  }, [localStorage, community]);
 
   useEffect(() => {
     if (localStorage.getItem(`community-${community?.id}-theme`) === "true") {
