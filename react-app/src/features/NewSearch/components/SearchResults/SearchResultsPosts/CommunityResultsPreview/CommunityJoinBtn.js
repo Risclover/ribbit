@@ -6,6 +6,7 @@ import {
   getFavoriteCommunities,
   getSubscriptions,
 } from "@/store";
+import { getCommunities } from "store";
 
 export function CommunityJoinBtn({ community, isPage }) {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ export function CommunityJoinBtn({ community, isPage }) {
             setSubscribed(false);
             dispatch(getSubscriptions());
             dispatch(getFavoriteCommunities());
+            dispatch(getCommunities());
           }}
           onMouseEnter={() => setBtnWord("Leave")}
           onMouseLeave={() => setBtnWord("Joined")}
@@ -54,6 +56,7 @@ export function CommunityJoinBtn({ community, isPage }) {
             await dispatch(addToSubscriptions(community?.id));
             user && setSubscribed(true);
             dispatch(getSubscriptions());
+            dispatch(getCommunities());
           }}
         >
           Join
