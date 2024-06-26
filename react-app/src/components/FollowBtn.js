@@ -7,7 +7,7 @@ import {
   unfollowUser,
 } from "@/store";
 
-export function FollowBtn({ user }) {
+export function FollowBtn({ user, community }) {
   const dispatch = useDispatch();
   const follows = useSelector((state) => state.followers?.follows);
 
@@ -38,8 +38,14 @@ export function FollowBtn({ user }) {
 
   return (
     <button
-      className={`username-popup-btn-btm ${
+      className={`${
         !following ? "blue-btn-filled btn-long" : "blue-btn-unfilled btn-long"
+      }${
+        community
+          ? !following
+            ? " community-btn-filled"
+            : " community-btn"
+          : ""
       }`}
       onClick={handleFollowClick}
     >

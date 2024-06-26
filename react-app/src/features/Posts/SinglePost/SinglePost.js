@@ -31,7 +31,9 @@ export const SinglePost = ({ id, isPage, post }) => {
 
               <div className="single-post-main">
                 <SinglePostAuthorBar
-                  communityPage={isPage === "singlepage"}
+                  communityPage={
+                    isPage === "singlepage" || isPage === "community"
+                  }
                   post={post}
                   isPage={isPage}
                 />

@@ -64,7 +64,7 @@ export function UsernamePopup({ community, user }) {
         >
           Send a Message
         </button>
-        <FollowBtn user={user[0]} />
+        <FollowBtn user={user[0]} community={community} />
       </div>
       {showMsgModal && (
         <Modal

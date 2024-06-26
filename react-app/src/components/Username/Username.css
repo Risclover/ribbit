@@ -8,7 +8,7 @@
   background: white;
   visibility: hidden;
   cursor: default;
-  padding: 12px 12px 0px;
+  padding: 12px 12px 6px;
 }
 
 .username-popup-user-info {
@@ -17,15 +17,14 @@
 
 .username-popup-user-icon {
   border: 1px solid transparent;
-  border-radius: 4px;
   object-fit: cover;
   width: 100%;
   object-position: center;
-  height: 100%;
-  max-width: 32px;
-  max-height: 32px;
+  width: 32px;
+  height: 32px;
   margin-right: 8px;
   margin-top: 3px;
+  border-radius: 100%;
 }
 
 .username-popup-user-info-name {
@@ -74,7 +73,7 @@
 
 .username-popup-btn-top {
   margin-top: 0 !important;
-  margin-bottom: 0 !important;
+  margin-bottom: -4px !important;
 }
 
 .username-popup-btn-btm {

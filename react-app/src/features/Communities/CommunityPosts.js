@@ -15,7 +15,7 @@ export function CommunityPosts({ commPosts, communityName, user }) {
 
       <PostFeed
         setSortMode={setSortMode}
-        community={true}
+        community={communityName}
         posts={posts}
         sortMode={sortMode}
         isPage="community"
