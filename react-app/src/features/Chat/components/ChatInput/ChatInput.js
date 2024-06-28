@@ -6,8 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getChatThread } from "store";
 import { createChatMessage } from "store";
 import { liveChatIcons } from "@/assets";
+import { createChatThread } from "store";
+import { useUserSearch } from "features/Chat/hooks/useUserSearch";
 
-export const ChatInput = ({ socket }) => {
+export const ChatInput = ({
+  socket,
+  setShowMessageInviteOverlay,
+  showMessageInviteOverlay,
+  userFound,
+}) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const textareaRef = useRef(null);
@@ -23,18 +30,34 @@ export const ChatInput = ({ socket }) => {
   const [emojisOverlay, setEmojisOverlay] = useState(false);
 
   const chat = Object.values(chatThreads).find(
-    (chat) => chat.id === selectedChat.id
+    (chat) => chat?.id === selectedChat?.id
   );
+
+  useEffect(() => {
+    setReceiver(() =>
+      selectedChat?.users?.find((user) => user.id !== currentUser.id)
+    );
+  }, [selectedChat?.users, currentUser.id]);
 
   const recipient = chat?.users[0];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let newChat;
+    console.log("showMessageInviteOverlay", showMessageInviteOverlay);
+    if (showMessageInviteOverlay) {
+      let newChat = handleCreateNewThread();
+      setSelectedChat(newChat);
+    }
+
+    console.log("newChat:", newChat);
+    console.log("selectedChat:", selectedChat);
+
     const payload = {
       content: content,
-      receiverId: recipient?.id,
-      chatThreadId: chat?.id,
+      receiverId: receiver?.id,
+      chatThreadId: selectedChat?.id,
     };
 
     const data = await dispatch(createChatMessage(payload));
@@ -57,12 +80,6 @@ export const ChatInput = ({ socket }) => {
 
   useAutosizeTextArea(textareaRef.current, content);
 
-  useEffect(() => {
-    setReceiver(() =>
-      selectedChat?.users?.find((user) => user.id !== currentUser.id)
-    );
-  }, [selectedChat?.users, currentUser.id]);
-
   const handleEnterPress = (e) => {
     if (e.key === "Enter") {
       handleSubmit(e);
@@ -76,8 +93,10 @@ export const ChatInput = ({ socket }) => {
 
   const handleCreateNewThread = () => {
     dispatch(createChatThread(userFound?.id));
-    setMessageInviteOverlay(false);
+    setShowMessageInviteOverlay(false);
   };
+
+  console.log("userFound:", userFound);
 
   return (
     <div className="chat-thread-window-input">

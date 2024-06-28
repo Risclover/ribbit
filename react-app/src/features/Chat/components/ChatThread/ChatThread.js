@@ -39,7 +39,7 @@ export const ChatThread = ({
   // Update selected chat and messages when selectedChat or chatThreads changes
   useEffect(() => {
     const chat = Object.values(chatThreads).find(
-      (chat) => chat.id === selectedChat.id
+      (chat) => chat?.id === selectedChat?.id
     );
 
     if (chat && chat.id !== selectedChat.id) {

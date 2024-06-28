@@ -1,11 +1,10 @@
 import React from "react";
 import { ribbitBanners } from "@/assets";
+import { ChatWindowOverlayContainer } from "./ChatWindowOverlayContainer";
 
-import "./ChatWindowOverlay.css";
-
-export function ChatWindowWelcomeOverlay({ setCreateChatOverlay }) {
+export const ChatWelcomeOverlay = ({ setShowCreateChatOverlay }) => {
   return (
-    <div className="overlay-container">
+    <ChatWindowOverlayContainer>
       <div className="welcome-overlay">
         <img
           src={ribbitBanners.FrogLogo}
@@ -18,7 +17,7 @@ export function ChatWindowWelcomeOverlay({ setCreateChatOverlay }) {
         </div>
         <button
           className="welcome-overlay-btn"
-          onClick={() => setCreateChatOverlay(true)}
+          onClick={() => setShowCreateChatOverlay(true)}
         >
           <svg
             rpl=""
@@ -34,6 +33,6 @@ export function ChatWindowWelcomeOverlay({ setCreateChatOverlay }) {
           Start new chat
         </button>
       </div>
-    </div>
+    </ChatWindowOverlayContainer>
   );
-}
+};

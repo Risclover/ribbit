@@ -5,26 +5,36 @@ import { ChatNavMenu } from "../ChatNavMenu/ChatNavMenu";
 import { ChatThread } from "../ChatThread/ChatThread";
 import { ChatTitleBar } from "../ChatThread/ChatTitleBar";
 import { ChatInput } from "../ChatInput/ChatInput";
-import { DeleteMessageOverlay } from "./DeleteMessageOverlay";
-import { WelcomeOverlay } from "./WelcomeOverlay";
-import { MessageInviteOverlay } from "./MessageInviteOverlay";
-import { CreateNewChatOverlay } from "./CreateNewChatOverlay";
+import { DeleteMessageOverlay } from "../ChatWindowOverlays/DeleteMessageOverlay";
 import { SelectedChatContext } from "@/context";
 import { getUserChatThreads } from "@/store";
 import "../../chat.css";
+import { CreateChatOverlay } from "../ChatWindowOverlays/CreateChatOverlay";
+import {
+  ChatWelcomeOverlay,
+  MessageInviteOverlay,
+} from "../ChatWindowOverlays";
+import { useUserSearch } from "features/Chat/hooks/useUserSearch";
 
 let socket;
 
 const Chat = ({ setOpenChat }) => {
   const dispatch = useDispatch();
   const [messages, setMessages] = useState([]);
+  const chatThreads = useSelector((state) => state.chatThreads);
+
   const user = useSelector((state) => state.session.user);
   const [previousChat, setPreviousChat] = useState(null); // New state to track the previous chat
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [showWelcomeOverlay, setShowWelcomeOverlay] = useState(false);
+  const [showChatWelcomeOverlay, setShowChatWelcomeOverlay] = useState(
+    Object.keys(chatThreads)?.length === 0 || !chatThreads ? true : false
+  );
   const [showCreateChatOverlay, setShowCreateChatOverlay] = useState(false);
-  const [showMessageInvite, setShowMessageInvite] = useState(false);
+  const [showMessageInviteOverlay, setShowMessageInviteOverlay] =
+    useState(false);
+  const [username, setUsername] = useState("");
   const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
+  const userFound = useUserSearch(username);
 
   useEffect(() => {
     socket = io();
@@ -85,7 +95,10 @@ const Chat = ({ setOpenChat }) => {
       <div className="chat-window-left">
         <div className="chat-window-chatnav-title">
           Chats{" "}
-          <button className="chat-window-create-chat-btn">
+          <button
+            className="chat-window-create-chat-btn"
+            onClick={() => setShowCreateChatOverlay(true)}
+          >
             <svg
               rpl=""
               fill="currentColor"
@@ -117,16 +130,35 @@ const Chat = ({ setOpenChat }) => {
           messages={messages}
           setShowDeleteConfirmation={setShowDeleteConfirmation}
         />
-        <ChatInput socket={socket} selectedChat={selectedChat} />
+        <ChatInput
+          socket={socket}
+          selectedChat={selectedChat}
+          userFound={userFound}
+          showMessageInviteOverlay={showMessageInviteOverlay}
+          setShowMessageInviteOverlay={setShowMessageInviteOverlay}
+        />
       </div>
       {showDeleteConfirmation && (
         <DeleteMessageOverlay
           setShowDeleteConfirmation={setShowDeleteConfirmation}
         />
       )}
-      {showWelcomeOverlay && <WelcomeOverlay />}
-      {showMessageInvite && <MessageInviteOverlay />}
-      {showCreateChatOverlay && <CreateNewChatOverlay />}
+      {showChatWelcomeOverlay && (
+        <ChatWelcomeOverlay
+          setShowCreateChatOverlay={setShowCreateChatOverlay}
+        />
+      )}
+      {showMessageInviteOverlay && <MessageInviteOverlay />}
+      {showCreateChatOverlay && (
+        <CreateChatOverlay
+          setShowCreateChatOverlay={setShowCreateChatOverlay}
+          setShowChatWelcomeOverlay={setShowChatWelcomeOverlay}
+          setShowMessageInviteOverlay={setShowMessageInviteOverlay}
+          username={username}
+          setUsername={setUsername}
+          userFound={userFound}
+        />
+      )}
     </div>
   );
 };
