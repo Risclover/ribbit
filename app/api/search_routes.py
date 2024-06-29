@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app.models import Community, User, Post, Comment
 from sqlalchemy import or_
-from bs4 import BeautifulSoup
 
 search_routes = Blueprint("search", __name__)
 
@@ -28,9 +27,9 @@ def search(query):
 @search_routes.route("/posts")
 def search_posts():
     query = request.args.get('q', '')
-    clean_query = strip_tags(query)
+    # clean_query = strip_tags(query)
     search_result = Post.query.filter((
-        Post.title.ilike(f'%{clean_query}%')) | (Post.content.ilike(f'%{clean_query}%'))
+        Post.title.ilike(f'%{query}%')) | (Post.content.ilike(f'%{query}%'))
     ).all()
 
     return jsonify({"PostResults": [post.to_dict() for post in search_result]})
@@ -66,6 +65,6 @@ def search_communities():
 
     return {"CommunityResults": [community.to_dict() for community in search_result]}
 
-def strip_tags(html):
-    soup = BeautifulSoup(html, "html.parser")
-    return soup.get_text()
+# def strip_tags(html):
+#     soup = BeautifulSoup(html, "html.parser")
+#     return soup.get_text()
