@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import {
   getPosts,
   addViewedPost,
-  getViewedPosts,
   getCommunitySettings,
   getCommunities,
 } from "../store";
@@ -69,12 +68,7 @@ export function SinglePostPage() {
       if (!community) dispatch(getCommunities());
       if (!post) dispatch(getPosts());
       dispatch(getCommunitySettings(community?.id));
-
-      dispatch(addViewedPost(post?.id))
-        .then(() => {
-          dispatch(getViewedPosts());
-        })
-        .catch((error) => console.error("Failed to add viewed post:", error));
+      dispatch(addViewedPost(post?.id));
     });
   }, []);
 

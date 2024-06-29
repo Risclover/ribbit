@@ -49,12 +49,7 @@ export function PostModal({ onClose, post }) {
     dispatch(getSinglePost(post.id));
     dispatch(getCommunities());
     dispatch(getPosts());
-
-    dispatch(addViewedPost(post.id))
-      .then(() => {
-        dispatch(getViewedPosts());
-      })
-      .catch((error) => console.error("Failed to add viewed post:", error));
+    dispatch(addViewedPost(post.id));
   }, []);
 
   return ReactDOM.createPortal(

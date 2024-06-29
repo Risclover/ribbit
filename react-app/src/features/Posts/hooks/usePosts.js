@@ -16,8 +16,8 @@ export function usePosts(isAllPosts) {
 
   useEffect(() => {
     dispatch(getViewedPosts());
-    dispatch(getPosts());
-  }, [dispatch]);
+    if (Object.values(userPosts).length === 0) dispatch(getPosts());
+  }, [userPosts]);
 
   const sortedPosts = useMemo(() => {
     let posts = [...Object.values(userPosts)];

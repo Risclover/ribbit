@@ -1,6 +1,6 @@
 import { SelectedChatContext } from "context";
 import { Emojis, Gifs } from "features/ChatWindow";
-import { useAutosizeTextArea } from "hooks";
+import { useAutosizeTextArea } from "@/hooks";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getChatThread } from "store";
@@ -25,7 +25,7 @@ export const ChatInput = ({
 
   const [openGiphy, setOpenGiphy] = useState(false);
   const [gifIcon, setGifIcon] = useState(liveChatIcons.GifIcon);
-  const [content, setContent] = useState();
+  const [content, setContent] = useState("");
   const [receiver, setReceiver] = useState(null);
   const [emojisOverlay, setEmojisOverlay] = useState(false);
 
@@ -33,26 +33,22 @@ export const ChatInput = ({
     (chat) => chat?.id === selectedChat?.id
   );
 
+  console.log("content:", content);
+  useAutosizeTextArea(textareaRef.current, content);
+
   useEffect(() => {
     setReceiver(() =>
       selectedChat?.users?.find((user) => user.id !== currentUser.id)
     );
   }, [selectedChat?.users, currentUser.id]);
 
-  const recipient = chat?.users[0];
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let newChat;
-    console.log("showMessageInviteOverlay", showMessageInviteOverlay);
     if (showMessageInviteOverlay) {
       let newChat = handleCreateNewThread();
       setSelectedChat(newChat);
     }
-
-    console.log("newChat:", newChat);
-    console.log("selectedChat:", selectedChat);
 
     const payload = {
       content: content,
@@ -61,10 +57,10 @@ export const ChatInput = ({
     };
 
     const data = await dispatch(createChatMessage(payload));
-    data.room = chat?.id;
+    data.room = selectedChat?.id;
     await socket.emit("chat", data);
 
-    dispatch(getChatThread(chat?.id));
+    dispatch(getChatThread(selectedChat?.id));
     setContent("");
   };
 
@@ -77,8 +73,6 @@ export const ChatInput = ({
     }
     setOpenGiphy(!openGiphy);
   };
-
-  useAutosizeTextArea(textareaRef.current, content);
 
   const handleEnterPress = (e) => {
     if (e.key === "Enter") {
@@ -95,8 +89,6 @@ export const ChatInput = ({
     dispatch(createChatThread(userFound?.id));
     setShowMessageInviteOverlay(false);
   };
-
-  console.log("userFound:", userFound);
 
   return (
     <div className="chat-thread-window-input">

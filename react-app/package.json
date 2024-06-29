@@ -7,6 +7,7 @@
     "@dhaiwat10/react-link-preview": "^1.15.0",
     "@giphy/js-fetch-api": "^5.1.0",
     "@primer/octicons-react": "^19.1.0",
+    "@pypi/beautifulsoup4": "^4.6.1",
     "@react-icons/all-files": "^4.1.0",
     "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.5",
