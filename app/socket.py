@@ -1,8 +1,7 @@
-from flask_socketio import SocketIO, emit, join_room, leave_room, disconnect
+from flask_socketio import SocketIO, emit, join_room, leave_room
 from app.models import db, User, ChatMessage
 from flask_login import current_user
-from flask import request, session
-import time
+from flask import request
 import os
 
 # configure cors_allowed_origins
@@ -30,7 +29,6 @@ def on_connect():
         chatUser['sid'] = request.sid
         chatUsers.append(chatUser)
 
-
 @socketio.on("disconnect")
 def on_disconnect():
     for i in range(len(chatUsers)):
@@ -41,32 +39,6 @@ def on_disconnect():
 # handle chat messages
 @socketio.on("chat")
 def handle_chat(data):
-    print("""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        DATA:""", data)
     if data['room']:
         room = data['room']
         emit("chat", data, broadcast=True, to=room)

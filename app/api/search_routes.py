@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.models import Community, User, Post, Comment
 from sqlalchemy import or_
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup # type: ignore
 
 search_routes = Blueprint("search", __name__)
 

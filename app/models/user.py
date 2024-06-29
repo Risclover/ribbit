@@ -125,7 +125,7 @@ class User(db.Model, UserMixin):
             'karma': (sum([post.to_dict_likes()["likes"] for post in self.user_posts]) - sum([post.to_dict_likes()["dislikes"] for post in self.user_posts])) + (sum([comment.to_dict_likes()["likes"] for comment in self.user_comments]) - sum([comment.to_dict_likes()["dislikes"] for comment in self.user_comments])),
             'postKarma': sum([post.to_dict_likes()["likes"] for post in self.user_posts]) - sum([post.to_dict_likes()["dislikes"] for post in self.user_posts]),
             'commentKarma': sum([comment.to_dict_likes()["likes"] for comment in self.user_comments]) - sum([comment.to_dict_likes()["dislikes"] for comment in self.user_comments]),
-            'profile_img': self.profile_img,
+            'profileImg': self.profile_img,
             'bannerImg': self.banner_img,
             'unreadMsgs': len([msg.id for msg in self.user_messages if not msg.read])
 
