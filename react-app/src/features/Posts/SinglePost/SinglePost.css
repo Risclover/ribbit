@@ -365,7 +365,7 @@
   cursor: pointer;
   border-radius: 2px;
   margin-right: 4px;
-  padding: 8px;
+  padding: 4px;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -375,6 +375,7 @@
   color: rgb(135, 138, 140);
   font-size: 20px;
   margin-right: 6px;
+  line-height: 20px;
 }
 
 .single-post-button button:hover {
