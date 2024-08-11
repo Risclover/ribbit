@@ -64,7 +64,3 @@ def search_communities():
     ).all()
 
     return {"CommunityResults": [community.to_dict() for community in search_result]}
-
-# def strip_tags(html):
-#     soup = BeautifulSoup(html, "html.parser")
-#     return soup.get_text()
