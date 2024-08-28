@@ -151,12 +151,12 @@ export function Comment({ commentId, comment, specificCommentActive }) {
             ) : (
               ""
             )}
-            <span className="single-post-topbar-dot">•</span>
+            <span className="single-post-topbar-dot"> · </span>
             <span className="comment-original-time">{commentTime}</span>{" "}
             {wasEdited && (
               <span className="comment-was-edited">
                 {" "}
-                <span className="single-post-topbar-dot">•</span>
+                <span className="single-post-topbar-dot"> · </span>
                 edited {editedTime}
               </span>
             )}

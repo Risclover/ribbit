@@ -120,6 +120,11 @@
   align-items: center;
 }
 
+.comment-right-username .username-component {
+  color: #1a1a1b;
+  font-weight: 500;
+}
+
 .comment-right-username a {
   font-size: 12px;
   font-family: var(--font-family-ibm);
@@ -158,10 +163,10 @@
 }
 
 .comment-right-username .single-post-topbar-dot {
-  font-size: 10px;
   margin-right: 4px;
   margin-left: 4px;
   font-family: var(--font-family-ibm);
+  font-size: 12px;
 }
 
 .comment-owner-btns {
