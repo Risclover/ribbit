@@ -54,7 +54,8 @@ export const RecentlyViewedPost = ({ post, idx }) => {
           <div className="recent-post-content">
             <div className="recent-post-title">{post?.title}</div>
             <div className="recent-post-info-bar">
-              {post?.votes} points
+              {post?.votes}{" "}
+              {post?.votes === 1 || post?.votes === -1 ? "point" : "points"}
               <span className="recent-post-dot-spacer"></span>
               {post?.postComments?.length || 0} comments
               <span className="recent-post-dot-spacer"></span>
