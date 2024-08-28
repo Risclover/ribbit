@@ -5,7 +5,6 @@ const MetadataContext = createContext();
 export const MetadataProvider = ({ children }) => {
   const [metadata, setMetadata] = useState({});
   console.log("key:", process.env.REACT_APP_LINK_PREVIEW_KEY);
-  console.log("KEYY:", REACT_APP_LINK_PREVIEW_KEY);
 
   const fetchMetadata = (url) => {
     if (!metadata[url]) {
