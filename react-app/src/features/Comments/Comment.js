@@ -8,12 +8,14 @@ import moment from "moment";
 import { Modal } from "@/context";
 import { EditComment } from "..";
 import { Username } from "@/components";
-import { DeleteConfirmationModal } from "components";
+import { DeleteConfirmationModal, UsernamePopup } from "components";
 import { convertTime } from "./data/constants";
 import { useCommentVote } from "./hooks/useCommentVote";
 import { CommentKarmaBar } from "./CommentKarmaBar";
 import { getComments, removeComment, getPosts } from "@/store";
+import { useHistory } from "react-router-dom";
 import "./Comments.css";
+import { usePopup } from "context/Popup";
 
 moment.updateLocale("en-comment", {
   relativeTime: {
@@ -62,6 +64,7 @@ function Text({ content }) {
 
 export function Comment({ commentId, comment, specificCommentActive }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { postId } = useParams();
 
   const wasEdited = comment?.createdAt !== comment?.updatedAt;
@@ -71,11 +74,45 @@ export function Comment({ commentId, comment, specificCommentActive }) {
   const [collapsed, setCollapsed] = useState(false);
   const [commentContent, setCommentContent] = useState(comment?.content);
 
-  const user = useSelector((state) => state.session.user);
+  const currentUser = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.posts[postId]);
+  const communities = useSelector((state) => state.communities);
 
   let editedTime = convertTime(comment, "edit");
   let commentTime = convertTime(comment);
+
+  const users = useSelector((state) => Object.values(state.users));
+
+  let foundUser = users.filter(
+    (user) => user.username === comment.commentAuthor?.username
+  );
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [hideTimeout, setHideTimeout] = useState(null);
+
+  const { isPopupOpen, setIsPopupOpen } = usePopup(); // Access the global popup state
+
+  const handleMouseEnter = () => {
+    if (foundUser[0].id === currentUser.id) {
+      return;
+    }
+    if (hideTimeout) {
+      clearTimeout(hideTimeout);
+    }
+    if (!isPopupOpen) {
+      // Check if another popup is open
+      setShowPopup(true);
+      setIsPopupOpen(true); // Set popup open state
+    }
+  };
+
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setShowPopup(false);
+      setIsPopupOpen(false); // Reset popup open state
+    }, 200); // 1000ms = 1 second
+    setHideTimeout(timeout);
+  };
 
   useEffect(() => {
     dispatch(getComments(comment?.postId));
@@ -86,6 +123,12 @@ export function Comment({ commentId, comment, specificCommentActive }) {
     setShowDeleteModal(false);
     dispatch(removeComment(commentId));
     dispatch(getPosts());
+  };
+
+  const handleUserImgClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    history.push(`/users/${comment?.commentAuthor?.id}/profile`);
   };
 
   return (
@@ -113,7 +156,12 @@ export function Comment({ commentId, comment, specificCommentActive }) {
                 />
               </span>
             )}
-            <NavLink to={`/users/${comment?.commentAuthor?.id}/profile`}>
+            <div
+              className="comment-user-img-container"
+              onClick={handleUserImgClick}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <div
                 className="comment-user-img"
                 style={{
@@ -123,7 +171,13 @@ export function Comment({ commentId, comment, specificCommentActive }) {
               >
                 &nbsp;
               </div>
-            </NavLink>
+              {showPopup && (
+                <UsernamePopup
+                  community={communities[post.communityId]}
+                  user={foundUser}
+                />
+              )}
+            </div>
           </div>
           {collapsed === false && (
             <div
@@ -171,7 +225,7 @@ export function Comment({ commentId, comment, specificCommentActive }) {
             <div className="comment-btns">
               <CommentKarmaBar comment={comment} />
               <div className="comment-owner-btns">
-                {comment?.commentAuthor?.id === user?.id && (
+                {comment?.commentAuthor?.id === currentUser?.id && (
                   <>
                     <button
                       onClick={() => {

@@ -9,6 +9,7 @@ import {
 } from "@/features/Posts/SinglePost";
 import { CompactPostFormat, ClassicPostFormat } from "../components";
 import "./SinglePost.css";
+import { PopupProvider } from "context/Popup";
 
 export const SinglePost = ({ id, isPage, post }) => {
   const cuser = useSelector((state) => state.session.user);

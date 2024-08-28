@@ -93,6 +93,7 @@
   background-position: center;
   background-size: cover;
   margin-left: 4px;
+  cursor: pointer;
 }
 
 .comment-right-col {
@@ -807,6 +808,22 @@
   left: 56px;
   animation: lds-ellipsis3 0.6s infinite;
 }
+
+.comment-user-img-container {
+  transition: 0s;
+  cursor: pointer;
+  position: relative;
+}
+
+.comment-user-img-container > .username-popup {
+  visibility: visible;
+}
+
+.comment-user-img-container:hover > .username-popup {
+  visibility: visible;
+  transition-delay: 0.01s;
+}
+
 @keyframes lds-ellipsis1 {
   0% {
     transform: scale(0);
