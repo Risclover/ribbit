@@ -45,8 +45,6 @@ export const RecentlyViewedPost = ({ post, idx }) => {
     }
   }, [post]);
 
-  console.log("postComments:", Object.values(post.postComments).length);
-
   const metadataResult = metadata[post.linkUrl];
   return (
     <li className={`recent-post-li ${idx === 4 ? "li-last" : ""}`}>
