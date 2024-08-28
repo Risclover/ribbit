@@ -19,7 +19,7 @@ class PostVote(db.Model):
     __tablename__ = "post_votes"
 
     user_id = db.Column(db.ForeignKey("users.id"), primary_key=True)
-    post_id = db.Column(db.ForeignKey("posts.id"), primary_key=True)
+    post_id = db.Column(db.ForeignKey("posts.id", ondelete='CASCADE'), primary_key=True)
     is_upvote = db.Column(db.Boolean)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     user_who_liked = db.relationship("User", back_populates="user_post_votes")

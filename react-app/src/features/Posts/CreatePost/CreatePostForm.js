@@ -43,7 +43,7 @@ export function CreatePostForm({
   const handleGeneralSubmit = (data) => {
     history.push(`/c/${communityName}`);
     console.log("data:", data);
-    dispatch(addPostVote(data.id, "upvote"));
+    dispatch(addPostVote(data?.id, "upvote"));
   };
 
   const handlePostSubmit = async (e) => {
