@@ -1,1 +1,1 @@
-export { useUsernameTaken } from "./useUsernameTaken";
+export { useUsernameTaken } from "./useUsernameTaken.hook";

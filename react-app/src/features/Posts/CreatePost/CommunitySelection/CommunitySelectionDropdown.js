@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "@/context";
 import {
   CreateCommunityModal,
@@ -22,6 +22,11 @@ export function CommunitySelectionDropdown({
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
 
+  useEffect(() => {
+    if(showDropdown) {
+      
+    }
+  })
   return (
     <div className="community-selection-dropdown">
       <div className="community-selection-dropdown-topbar">

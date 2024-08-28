@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AuthFormInput } from "../AuthFormInput";
-import { useUsernameTaken } from "../../hooks/useUsernameTaken";
+import { useUsernameTaken } from "../../hooks/useUsernameTaken.hook";
 import {
   validatePassword,
   validateUsername,

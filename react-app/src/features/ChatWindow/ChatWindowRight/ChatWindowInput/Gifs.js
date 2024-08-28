@@ -14,7 +14,7 @@ import "./ChatWindowInput.css";
 import { SelectedChatContext } from "@/context/SelectedChat";
 import { useOutsideClick } from "hooks";
 
-const giphy = new GiphyFetch("fiQieMg1iTSB2Jvd4njUzeY2W3PP99I1");
+const giphy = new GiphyFetch(process.env.REACT_APP_GIPHY_KEY);
 
 export function Gifs({ receiver, setOpenGiphy, setGifIcon, GifIcon }) {
   const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
@@ -9,6 +9,7 @@ import "./CommunitySelection.css";
 
 export function CommunitySelectionInput({
   setShowDropdown,
+  showDropdown,
   search,
   setSearch,
   communityId,
@@ -17,14 +18,25 @@ export function CommunitySelectionInput({
   setInputState,
   inputState,
 }) {
+  const inputRef = useRef(null);
   const { communityName } = useParams();
   const history = useHistory();
 
   const communities = useSelector((state) => Object.values(state.communities));
 
-  const handleFocus = () => {
+  useEffect(() => {
+    if (showDropdown) {
+      inputRef.current.focus();
+    }
+  }, [showDropdown]);
+
+  const handleFocus = (e) => {
     setInputState("search");
     setShowDropdown(true);
+    e.currentTarget.setSelectionRange(
+      e.currentTarget.value.length,
+      e.currentTarget.value.length
+    );
   };
 
   const handleBlur = () => {
@@ -102,8 +114,9 @@ export function CommunitySelectionInput({
           className="community-selection-input"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
-          onFocus={handleFocus}
+          onFocus={(e) => handleFocus(e)}
           onKeyPress={handleKeyPress}
+          ref={inputRef}
         />
         <button
           type="button"
