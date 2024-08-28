@@ -77,6 +77,9 @@ export function Comment({ commentId, comment, specificCommentActive }) {
   let editedTime = convertTime(comment, "edit");
   let commentTime = convertTime(comment);
 
+  console.log(post.postAuthor.username);
+  console.log(comment.commentAuthor.username);
+
   useEffect(() => {
     dispatch(getComments(comment?.postId));
   }, []);
