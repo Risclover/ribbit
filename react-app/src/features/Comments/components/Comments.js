@@ -2,15 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getComments } from "@/store";
-import { CommentSorting, CommentForm, Comment } from "..";
-import "./Comments.css";
+import { CommentSorting, CommentForm, Comment } from "../..";
 import { useHistory } from "react-router-dom";
-import { CommentSearch } from "./CommentSearch";
-import { NoResults } from "../NewSearch/components/SearchResults/NoResults";
+import { CommentSearch } from "./CommentSearch/CommentSearch";
+import { NoResults } from "../../NewSearch/components/SearchResults/NoResults";
 import { LoadingEllipsis } from "components";
-import { useLoader } from "./hooks/useLoader";
-import { NoCommentsMsg } from "./components/NoCommentsMsg";
-import { sortComments } from "./utils/sortComments";
+import { useLoader } from "../hooks/useLoader";
+import { NoCommentsMsg } from "./NoCommentsMsg";
+import { sortComments } from "../utils/sortComments";
+import "../styles/Comments.css";
 
 export function Comments({ post }) {
   const history = useHistory();

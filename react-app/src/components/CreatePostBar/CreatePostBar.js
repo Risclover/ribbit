@@ -18,6 +18,26 @@ export const CreatePostBar = ({ page, communityName }) => {
 
   const navigate = (path) => () => history.push(path);
 
+  const postBarButtons = [
+    {
+      icon: RxImage,
+      navigation: navigate(
+        page === "community"
+          ? `/c/${communityName}/submit/image`
+          : `/c/submit/image`
+      ),
+      testId: "image-post-icon",
+    },
+    {
+      icon: FiLink,
+      navigation: navigate(
+        page === "community"
+          ? `/c/${communityName}/submit/url`
+          : `/c/submit/url`
+      ),
+      testId: "url-post-icon",
+    },
+  ];
   return (
     <>
       {user && (
@@ -38,24 +58,13 @@ export const CreatePostBar = ({ page, communityName }) => {
             />
           </div>
 
-          <PostBarButton
-            icon={RxImage}
-            onClick={navigate(
-              page === "community"
-                ? `/c/${communityName}/submit/image`
-                : `/c/submit/image`
-            )}
-            testId="image-post-icon"
-          />
-          <PostBarButton
-            icon={FiLink}
-            onClick={navigate(
-              page === "community"
-                ? `/c/${communityName}/submit/url`
-                : `/c/submit/url`
-            )}
-            testId="url-post-icon"
-          />
+          {postBarButtons.map((btn) => (
+            <PostBarButton
+              icon={btn.icon}
+              onClick={btn.navigation}
+              testId={btn.testId}
+            />
+          ))}
         </div>
       )}
     </>

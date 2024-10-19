@@ -1,6 +1,13 @@
 export * from "./CreateCommunityModal";
+export * from "./CommunityInfoBox";
+export * from "./CreateCommunity";
 export { CommunityImgModal } from "./CommunityImgModal";
 export { CommunityPageHeader } from "./CommunityPageHeader";
 export { CommunityPageMain } from "./CommunityPageMain";
 export { CommunityWelcomeModal } from "./CommunityWelcomeModal";
 export { CommunityDetails } from "./CommunityDetails";
+export { CommunityImage } from "./CommunityImage";
+export { CommunityName } from "./CommunityName";
+export { CommunityPosts } from "./CommunityPosts";
+export { CommunitySubscribeBtn } from "./CommunitySubscribeBtn";
+export { CommunityWelcome } from "./CommunityWelcome";

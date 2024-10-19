@@ -6,7 +6,7 @@ import {
   validateUsername,
 } from "../../utils/signupFormValidation";
 
-export function SignUpFormSecond({
+export function SignUpFormSecondPage({
   setDisabled,
   username,
   setUsername,

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useOutsideClick } from "hooks";
-import "./Comments.css";
+import "../styles/Comments.css";
 
 export function CommentSorting({ sortType, setSortType }) {
   const [showSortingDropdown, setShowSortingDropdown] = useState(false);

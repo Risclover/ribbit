@@ -1,14 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import {
-  createComment,
-  getComments,
-  addCommentVote,
-} from "@/store";
+import { createComment, getComments, addCommentVote } from "@/store";
 import { LoginSignupModal } from "@/features";
-import "../Comments.css";
 import { useAutosizeTextArea } from "@/hooks";
+import "../../styles/Comments.css";
 
 export function CommentForm({ postId }) {
   const textareaRef = useRef();

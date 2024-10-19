@@ -8,13 +8,13 @@ import { ChatInput } from "../ChatInput/ChatInput";
 import { DeleteMessageOverlay } from "../ChatWindowOverlays/DeleteMessageOverlay";
 import { SelectedChatContext } from "@/context";
 import { getUserChatThreads } from "@/store";
-import "../../chat.css";
 import { CreateChatOverlay } from "../ChatWindowOverlays/CreateChatOverlay";
 import {
   ChatWelcomeOverlay,
   MessageInviteOverlay,
 } from "../ChatWindowOverlays";
 import { useUserSearch } from "features/Chat/hooks/useUserSearch";
+import "../../styles/chat.css";
 
 let socket;
 

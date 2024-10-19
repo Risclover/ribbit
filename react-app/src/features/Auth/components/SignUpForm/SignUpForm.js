@@ -44,32 +44,30 @@ export const SignUpForm = ({
   }, [email, setDisabled, setEmailErrors]);
 
   return (
-    <>
-      <div className="signup-form-container">
-        <div className="signup-form">
-          <FormHeader
-            setShowSignupForm={setShowSignupForm}
-            setShowLoginForm={setShowLoginForm}
-          />
-          <AuthFormInput
-            props={emailInputProps}
-            testId="Email"
-            onBlur={() => handleEmailErrors(email, emailTaken)}
-          />
+    <div className="signup-form-container">
+      <div className="signup-form">
+        <FormHeader
+          setShowSignupForm={setShowSignupForm}
+          setShowLoginForm={setShowLoginForm}
+        />
+        <AuthFormInput
+          props={emailInputProps}
+          testId="Email"
+          onBlur={() => handleEmailErrors(email, emailTaken)}
+        />
 
-          <p className="sign-in-switch">
-            Already a ribbitor?{" "}
-            <span
-              onClick={() => {
-                setShowLoginForm(true);
-                setShowSignupForm(false);
-              }}
-            >
-              Log In
-            </span>
-          </p>
-        </div>
+        <p className="sign-in-switch">
+          Already a ribbitor?{" "}
+          <span
+            onClick={() => {
+              setShowLoginForm(true);
+              setShowSignupForm(false);
+            }}
+          >
+            Log In
+          </span>
+        </p>
       </div>
-    </>
+    </div>
   );
 };

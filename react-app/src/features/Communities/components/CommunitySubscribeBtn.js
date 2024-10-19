@@ -7,7 +7,7 @@ import {
   getFavoriteCommunities,
   getSingleCommunity,
 } from "@/store";
-import { LoginSignupModal } from "../Auth";
+import { LoginSignupModal } from "@/features";
 import { getCommunities } from "store";
 
 export function CommunitySubscribeBtn({

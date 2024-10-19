@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { LoginForm, SignUpForm } from ".";
 import { AuthModal } from "@/context";
-import { SignUpFormSecond } from "./SignUpForm";
+import { SignUpFormSecondPage } from "./SignUpForm";
 import { login, signUp } from "@/store";
 
 export function LoginSignupModal({ btnText, className, formType }) {
@@ -145,7 +145,7 @@ export function LoginSignupModal({ btnText, className, formType }) {
           }
           onSubmit={(e) => handleSignUp(e)}
         >
-          <SignUpFormSecond
+          <SignUpFormSecondPage
             setDisabled={setDisabled}
             username={username}
             setUsername={setUsername}

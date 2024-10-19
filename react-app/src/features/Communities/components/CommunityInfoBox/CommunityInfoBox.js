@@ -8,7 +8,7 @@ import {
   CommunityOptions,
   LoginSignupModal,
   CommunityJoinBtn,
-} from "../..";
+} from "@/features";
 import { getTextColor } from "@/utils";
 import Cake from "@/assets/images/misc/piece4.png";
 import { useHistory } from "react-router-dom";

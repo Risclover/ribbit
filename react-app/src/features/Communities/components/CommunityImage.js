@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "@/context";
-import { CommunityImgModal } from "..";
+import { CommunityImgModal } from "../..";
 import { CommunityImg } from "components/CommunityImg";
 
 export function CommunityImage({ user, community }) {

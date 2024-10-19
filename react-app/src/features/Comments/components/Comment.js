@@ -6,16 +6,16 @@ import { BsArrowsAngleExpand } from "react-icons/bs";
 import parse from "html-react-parser";
 import moment from "moment";
 import { Modal } from "@/context";
-import { EditComment } from "..";
+import { EditComment } from "../..";
 import { Username } from "@/components";
 import { DeleteConfirmationModal, UsernamePopup } from "components";
-import { convertTime } from "./data/constants";
-import { useCommentVote } from "./hooks/useCommentVote";
+import { convertTime } from "../utils/convertTime";
+import { useCommentVote } from "../hooks/useCommentVote";
 import { CommentKarmaBar } from "./CommentKarmaBar";
 import { getComments, removeComment, getPosts } from "@/store";
 import { useHistory } from "react-router-dom";
-import "./Comments.css";
 import { usePopup } from "context/Popup";
+import "../styles/Comments.css";
 
 moment.updateLocale("en-comment", {
   relativeTime: {

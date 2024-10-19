@@ -11,7 +11,7 @@ import {
 } from "@/features";
 import { BackToTop } from "@/components";
 import { PostFormatContext } from "@/context";
-import "../../Communities/CommunityPage.css";
+import "../../Communities/styles/CommunityPage.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import "./PreviewCommunity.css";
 
