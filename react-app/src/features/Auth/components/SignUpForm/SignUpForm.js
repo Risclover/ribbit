@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "@/store";
+import React from "react";
 import { AuthFormInput } from "../AuthFormInput";
 import { FormHeader } from "../FormHeader";
 import { handleEmailErrors } from "../../utils/signupFormValidation";
-import "../../styles/AuthModal.css";
 import SignInSwitch from "../SignInSwitch";
+import useSignUpForm from "features/Auth/hooks/useSignUpForm";
+import "../../styles/AuthModal.css";
 
 export const SignUpForm = ({
   email,
@@ -14,35 +13,11 @@ export const SignUpForm = ({
   setShowLoginForm,
   setDisabled,
 }) => {
-  const dispatch = useDispatch();
-  const users = useSelector((state) => state.users);
-  const [emailErrors, setEmailErrors] = useState([]);
-
-  const emailTaken = Object.values(users).find(
-    (user) => user.email.toLowerCase() === email.toLowerCase()
-  );
-
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
-
-  const emailInputProps = {
-    type: "email",
-    name: "signup-email",
-    inputValue: email,
-    errors: emailErrors,
-    setErrors: setEmailErrors,
-    label: "Email",
-    maxLength: 255,
-    autoCompleteStatus: "off",
-    testId: "Email",
-    setInputValue: setEmail,
-  };
-
-  useEffect(() => {
-    const errors = handleEmailErrors(email, emailTaken);
-    setDisabled(email === "" || errors.length > 0);
-  }, [email, setDisabled, setEmailErrors]);
+  const { emailInputProps, emailTaken } = useSignUpForm({
+    setDisabled,
+    setEmail,
+    email,
+  });
 
   return (
     <div className="signup-form-container">
@@ -64,17 +39,6 @@ export const SignUpForm = ({
             setShowSignupForm(false);
           }}
         />
-        {/* <p className="sign-in-switch">
-          Already a ribbitor?{" "}
-          <span
-            onClick={() => {
-              setShowLoginForm(true);
-              setShowSignupForm(false);
-            }}
-          >
-            Log In
-          </span>
-        </p> */}
       </div>
     </div>
   );

@@ -89,17 +89,6 @@ export const LoginForm = ({
             }}
             linkText="Sign Up"
           />
-          {/* <p className="sign-in-switch">
-            New to Ribbit?{" "}
-            <span
-              onClick={() => {
-                setShowLoginForm(false);
-                setShowSignupForm(true);
-              }}
-            >
-              Sign Up
-            </span>
-          </p> */}
         </div>
       </div>
     </>
