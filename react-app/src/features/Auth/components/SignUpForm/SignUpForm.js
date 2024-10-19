@@ -5,6 +5,7 @@ import { AuthFormInput } from "../AuthFormInput";
 import { FormHeader } from "../FormHeader";
 import { handleEmailErrors } from "../../utils/signupFormValidation";
 import "../../styles/AuthModal.css";
+import SignInSwitch from "../SignInSwitch";
 
 export const SignUpForm = ({
   email,
@@ -55,8 +56,15 @@ export const SignUpForm = ({
           testId="Email"
           onBlur={() => handleEmailErrors(email, emailTaken)}
         />
-
-        <p className="sign-in-switch">
+        <SignInSwitch
+          prompt="Already a ribbitor? "
+          linkText="Log In"
+          onClick={() => {
+            setShowLoginForm(true);
+            setShowSignupForm(false);
+          }}
+        />
+        {/* <p className="sign-in-switch">
           Already a ribbitor?{" "}
           <span
             onClick={() => {
@@ -66,7 +74,7 @@ export const SignUpForm = ({
           >
             Log In
           </span>
-        </p>
+        </p> */}
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { AuthFormInput } from "./AuthFormInput";
 import { handleErrors } from "../utils/loginFormValidation";
 import { FormHeader } from "./FormHeader";
 import "../styles/AuthModal.css";
+import SignInSwitch from "./SignInSwitch";
 
 export const LoginForm = ({
   setShowLoginForm,
@@ -80,7 +81,15 @@ export const LoginForm = ({
             onChange={setLoginPassword}
             onBlur={() => handleErrors(loginPassword)}
           />
-          <p className="sign-in-switch">
+          <SignInSwitch
+            prompt="New to Ribbit? "
+            onClick={() => {
+              setShowLoginForm(false);
+              setShowSignupForm(true);
+            }}
+            linkText="Sign Up"
+          />
+          {/* <p className="sign-in-switch">
             New to Ribbit?{" "}
             <span
               onClick={() => {
@@ -90,7 +99,7 @@ export const LoginForm = ({
             >
               Sign Up
             </span>
-          </p>
+          </p> */}
         </div>
       </div>
     </>
