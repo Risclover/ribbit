@@ -46,7 +46,7 @@ export function ChatWindowNewChatOverlay({
     e.preventDefault();
     const existingThread = userChats.find(
       (thread) =>
-        thread.users?.some((user) => user.id === currentUser.id) &&
+        thread.users?.some((user) => user.id === currentUser?.id) &&
         thread.users?.some((user) => user.id === userFound.id)
     );
 

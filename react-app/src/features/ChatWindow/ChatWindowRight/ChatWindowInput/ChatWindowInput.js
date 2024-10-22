@@ -15,7 +15,7 @@ export function ChatWindowInput({
 }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
-  const textareaRef = useRef(null );
+  const textareaRef = useRef(null);
 
   const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
 
@@ -29,9 +29,9 @@ export function ChatWindowInput({
 
   useEffect(() => {
     setReceiver(() =>
-      selectedChat?.users?.find((user) => user.id !== currentUser.id)
+      selectedChat?.users?.find((user) => user.id !== currentUser?.id)
     );
-  }, [selectedChat?.users, currentUser.id]);
+  }, [selectedChat?.users, currentUser?.id]);
 
   const handleEnterPress = (e) => {
     if (e.key === "Enter") {
@@ -62,7 +62,7 @@ export function ChatWindowInput({
     }
 
     setReceiver(() =>
-      selectedChat?.users.find((user) => user.id !== currentUser.id)
+      selectedChat?.users.find((user) => user.id !== currentUser?.id)
     );
 
     const payload = {

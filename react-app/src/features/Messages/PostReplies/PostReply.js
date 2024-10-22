@@ -28,12 +28,12 @@ export function PostReply({ notification }) {
 
   const handleUnread = async () => {
     await dispatch(unreadNotification(notification?.id));
-    dispatch(getUserNotifications(currentUser.id));
+    dispatch(getUserNotifications(currentUser?.id));
   };
 
   const handleRead = async () => {
     await dispatch(readNotification(notification?.id));
-    dispatch(getUserNotifications(currentUser.id));
+    dispatch(getUserNotifications(currentUser?.id));
   };
 
   return (

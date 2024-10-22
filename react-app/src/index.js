@@ -11,6 +11,7 @@ import App from "./App";
 import "./assets/styles/index.css";
 import "./assets/styles/variables.css";
 import "isomorphic-fetch";
+import { SelectedChatProvider } from "context/SelectedChat";
 
 const store = configureStore();
 
@@ -18,13 +19,15 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <AuthModalProvider>
-        <PostModalProvider>
-          <ModalProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </ModalProvider>
-        </PostModalProvider>
+        <SelectedChatProvider>
+          <PostModalProvider>
+            <ModalProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </ModalProvider>
+          </PostModalProvider>
+        </SelectedChatProvider>
       </AuthModalProvider>
     </Provider>
   </React.StrictMode>,

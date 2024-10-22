@@ -35,7 +35,7 @@ export function Notification({ notification }) {
         "_blank"
       );
     }
-    dispatch(getUserNotifications(currentUser.id));
+    dispatch(getUserNotifications(currentUser?.id));
   };
 
   return (

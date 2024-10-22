@@ -30,7 +30,7 @@ export function InboxMessage({ item, marked, message, currentUser, expanded }) {
               : "inbox-message-author-line"
           }
         >
-          {message.senderId !== currentUser.id ? "from" : "to"}{" "}
+          {message.senderId !== currentUser?.id ? "from" : "to"}{" "}
           <span className="inbox-message-sender">
             <NavLink to={`/users/${message.sender.id}/profile`}>
               /u/{message.sender.username}

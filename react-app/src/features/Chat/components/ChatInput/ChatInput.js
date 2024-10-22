@@ -14,18 +14,22 @@ export const ChatInput = ({
   setShowMessageInviteOverlay,
   showMessageInviteOverlay,
   userFound,
+  inputText,
+  onInputChange,
 }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const textareaRef = useRef(null);
 
   const chatThreads = useSelector((state) => state.chatThreads);
-
-  const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
+  useEffect(() => {
+    console.log("Updated chatThreads:", chatThreads);
+  }, [chatThreads]);
+  const { selectedChat, setSelectedChat, setPendingReceiver, pendingReceiver } =
+    useContext(SelectedChatContext);
 
   const [openGiphy, setOpenGiphy] = useState(false);
   const [gifIcon, setGifIcon] = useState(liveChatIcons.GifIcon);
-  const [content, setContent] = useState("");
   const [receiver, setReceiver] = useState(null);
   const [emojisOverlay, setEmojisOverlay] = useState(false);
 
@@ -33,35 +37,36 @@ export const ChatInput = ({
     (chat) => chat?.id === selectedChat?.id
   );
 
-  console.log("content:", content);
-  useAutosizeTextArea(textareaRef.current, content);
+  useAutosizeTextArea(textareaRef.current, inputText);
 
   useEffect(() => {
     setReceiver(() =>
-      selectedChat?.users?.find((user) => user.id !== currentUser.id)
+      selectedChat?.users?.find((user) => user.id !== currentUser?.id)
     );
-  }, [selectedChat?.users, currentUser.id]);
+  }, [selectedChat?.users, currentUser?.id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let chatThreadId = selectedChat?.id;
+
     if (showMessageInviteOverlay) {
-      let newChat = handleCreateNewThread();
-      setSelectedChat(newChat);
+      const newChat = await handleCreateNewThread();
+      chatThreadId = newChat.id; // Use the new thread's ID
     }
 
     const payload = {
-      content: content,
+      content: inputText,
       receiverId: receiver?.id,
-      chatThreadId: selectedChat?.id,
+      chatThreadId: chatThreadId,
     };
 
     const data = await dispatch(createChatMessage(payload));
-    data.room = selectedChat?.id;
+    data.room = chatThreadId;
     await socket.emit("chat", data);
 
-    dispatch(getChatThread(selectedChat?.id));
-    setContent("");
+    dispatch(getChatThread(chatThreadId));
+    onInputChange("");
   };
 
   const handleOpenGiphy = () => {
@@ -75,19 +80,25 @@ export const ChatInput = ({
   };
 
   const handleEnterPress = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && inputText.trim().length > 0) {
       handleSubmit(e);
     }
   };
 
   const handleChange = (e) => {
     const val = e.target?.value;
-    setContent(val);
+    onInputChange(val); // Update input text in parent state
   };
 
-  const handleCreateNewThread = () => {
-    dispatch(createChatThread(userFound?.id));
+  const handleCreateNewThread = async () => {
+    const data = await dispatch(createChatThread(userFound?.id));
+    setSelectedChat(data);
     setShowMessageInviteOverlay(false);
+    setPendingReceiver(null);
+    console.log("NEW CHAT::", data);
+    console.log("SELECTED CHAT::", selectedChat);
+
+    return data;
   };
 
   return (
@@ -96,7 +107,7 @@ export const ChatInput = ({
         <textarea
           onKeyPress={handleEnterPress}
           type="text"
-          value={content}
+          value={inputText}
           ref={textareaRef}
           onChange={handleChange}
           placeholder="Message"
@@ -131,13 +142,13 @@ export const ChatInput = ({
       )}
       <div
         className={
-          content ? "send-chat-msg-btn chat-msg-enabled" : "send-chat-msg-btn"
+          inputText ? "send-chat-msg-btn chat-msg-enabled" : "send-chat-msg-btn"
         }
         onClick={handleSubmit}
       >
         <i
           className={
-            content
+            inputText
               ? "zmdi-enabled zmdi zmdi-navigation"
               : "zmdi-disabled zmdi zmdi-navigation"
           }

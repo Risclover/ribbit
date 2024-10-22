@@ -12,10 +12,10 @@ export function ChatWindowTitleBar({ setOpenChat, newChatOverlay }) {
   useEffect(() => {
     if (selectedChat && selectedChat.users) {
       setReceiver(
-        selectedChat.users.find((user) => user.id !== currentUser.id)
+        selectedChat.users.find((user) => user.id !== currentUser?.id)
       );
     }
-  }, [selectedChat?.users, currentUser.id]);
+  }, [selectedChat?.users, currentUser?.id]);
 
   return (
     <div className="chat-thread-window-titlebar">

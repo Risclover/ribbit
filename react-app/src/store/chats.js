@@ -64,6 +64,8 @@ export const createChatThread = (receiverId) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+    dispatch(loadChatThread(data)); // Dispatch action to add the new thread to Redux store
+
     return data;
   }
 };

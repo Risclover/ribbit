@@ -102,7 +102,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
             <div className="classic-post-content-body">
               <div className="classic-post-content-body-top">
                 <div className="classic-post-title">
-                  {post?.title}
+                  <h3>{post?.title}</h3>
                   {post?.linkUrl && (
                     <div
                       className={`classic-post-link ${
@@ -122,17 +122,21 @@ export function ClassicPostFormat({ isPage, id, post }) {
                 </div>
               </div>
               <div className="classic-post-author-bar">
-                <div
-                  className="classic-post-community-info"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    history.push(`/c/${post?.communityName}`);
-                  }}
-                >
-                  {isPage !== "community" && <>c/{post?.communityName} </>}
-                </div>
-                <span className="single-post-dot-spacer">•</span>
+                {isPage !== "community" && (
+                  <div className="classic-post-community-info">
+                    <span
+                      className="classic-post-community"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        history.push(`/c/${post?.communityName}`);
+                      }}
+                    >
+                      c/{post?.communityName}{" "}
+                    </span>
+                    <span className="single-post-dot-spacer">•</span>
+                  </div>
+                )}
                 <div className="classic-post-author-info">
                   Posted by{" "}
                   <Username

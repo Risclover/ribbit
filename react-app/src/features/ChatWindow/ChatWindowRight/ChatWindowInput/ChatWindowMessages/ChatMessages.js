@@ -27,27 +27,22 @@ export function ChatMessages({
   const chatThreads = useSelector((state) => state.chatThreads);
 
   useLayoutEffect(() => {
-    if (containerRef.current) {
-      const containerElement = containerRef.current;
-      const isScrolledToBottom =
-        containerElement.scrollHeight - containerElement.scrollTop ===
-        containerElement.clientHeight;
-      containerElement.scrollTop = containerElement.scrollHeight;
-
-      // Delay scrolling to the bottom if not already at the bottom (fixes problem where doesn't scroll to bottom when sending multiple messages or when sending emoji stickers)
-      if (!isScrolledToBottom) {
-        setTimeout(() => {
-          containerElement.scrollTop = containerElement.scrollHeight;
-        }, 100);
-      }
-    }
-  }, [messages]);
+    scrollToBottom();
+  }, [selectedChat, messages]);
 
   useEffect(() => {
     setReceiver(() =>
-      selectedChat?.users?.find((user) => user.id !== currentUser.id)
+      selectedChat?.users?.find((user) => user.id !== currentUser?.id)
     );
-  }, [selectedChat?.users, currentUser.id, chatThreads]);
+  }, [selectedChat?.users, currentUser?.id, chatThreads]);
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="chat-thread-messages" ref={containerRef}>
@@ -119,6 +114,7 @@ export function ChatMessages({
             );
           })}
       </div>
+      <div ref={messagesEndRef} />
     </div>
   );
 }

@@ -61,7 +61,7 @@ export function Message({ message, item, allExpanded }) {
           </span>{" "}
           <div
             className={
-              message.sender.id !== currentUser.id
+              message.sender.id !== currentUser?.id
                 ? "sender-line sender-me"
                 : "sender-line"
             }
@@ -69,7 +69,7 @@ export function Message({ message, item, allExpanded }) {
             {currentUser.username === message.sender.username ? "to " : "from"}{" "}
             <NavLink
               to={
-                currentUser.id === item?.users[0].id
+                currentUser?.id === item?.users[0].id
                   ? `/users/${item?.users[1]?.id}/profile`
                   : `/users/${item?.users[0]?.id}/profile`
               }
@@ -85,7 +85,7 @@ export function Message({ message, item, allExpanded }) {
         {expanded && (
           <div
             className={
-              message.sender.id === currentUser.id
+              message.sender.id === currentUser?.id
                 ? "messages-content-message-body message-from-me"
                 : "messages-content-message-body"
             }

@@ -17,13 +17,13 @@ export function NotificationMenu({ notification, setNotificationMenu }) {
     e.stopPropagation();
     e.preventDefault();
     await dispatch(unreadNotification(notification.id));
-    dispatch(getUserNotifications(currentUser.id));
+    dispatch(getUserNotifications(currentUser?.id));
     setNotificationMenu(false);
   };
 
   const hideANotification = async () => {
     await dispatch(deleteNotification(notification.id));
-    dispatch(getUserNotifications(currentUser.id));
+    dispatch(getUserNotifications(currentUser?.id));
   };
 
   useOutsideClick(wrapperRef, () => setNotificationMenu(false));

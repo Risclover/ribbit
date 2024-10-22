@@ -12,7 +12,7 @@
   display: flex;
   align-items: flex-end;
   padding: 0px;
-  height: 40px;
+  min-height: 40px;
   margin: 0px;
   border: 0px;
   border-radius: 20px;
@@ -35,7 +35,7 @@
   overflow-x: hidden;
   overflow-wrap: break-word;
   max-height: 100px;
-  height: 40px;
+  min-height: 40px;
   resize: none;
   padding: 0.65rem 1rem;
   font-size: 16px;

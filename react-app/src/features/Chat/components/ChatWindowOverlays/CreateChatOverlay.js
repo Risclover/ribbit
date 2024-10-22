@@ -12,7 +12,8 @@ export const CreateChatOverlay = ({
   setUsername,
   userFound,
 }) => {
-  const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
+  const { selectedChat, setSelectedChat, setPendingReceiver } =
+    useContext(SelectedChatContext);
 
   const [isChosen, setIsChosen] = useState(false);
 
@@ -25,7 +26,7 @@ export const CreateChatOverlay = ({
 
     const existingThread = userChats.find(
       (thread) =>
-        thread.users?.some((user) => user.id === currentUser.id) &&
+        thread.users?.some((user) => user.id === currentUser?.id) &&
         thread.users?.some((user) => user.id === userFound.id)
     );
     console.log("existingThread:", existingThread);
@@ -33,6 +34,7 @@ export const CreateChatOverlay = ({
     if (existingThread === undefined) {
       setShowChatWelcomeOverlay(false);
       setShowMessageInviteOverlay(true);
+      setPendingReceiver(username);
     } else {
       setSelectedChat(existingThread);
     }
@@ -51,7 +53,10 @@ export const CreateChatOverlay = ({
                 name="new-chat"
                 id="new-chat"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => {
+                  setIsChosen(false);
+                  setUsername(e.target.value);
+                }}
                 placeholder=" "
                 autoFocus
               />

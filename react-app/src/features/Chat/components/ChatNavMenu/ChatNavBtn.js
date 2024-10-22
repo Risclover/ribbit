@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { formatDate } from "features/Chat/utils/formatDate";
+import { useSelectedChat } from "context/SelectedChat";
 
-export const ChatNavBtn = ({ chatThread, selectedChat, setSelectedChat }) => {
+export const ChatNavBtn = ({
+  chatThread,
+  setShowCreateChatOverlay,
+  setShowMessageInviteOverlay,
+}) => {
+  const { selectedChat, setSelectedChat, setPendingReceiver } =
+    useSelectedChat();
   const isActive = selectedChat?.id === chatThread.id;
   const currentUser = useSelector((state) => state.session.user);
-  const recipient = chatThread.users.find((user) => user.id !== currentUser.id);
+  const recipient = chatThread.users.find(
+    (user) => user.id !== currentUser?.id
+  );
 
   const [time, setTime] = useState("");
 
@@ -27,7 +36,12 @@ export const ChatNavBtn = ({ chatThread, selectedChat, setSelectedChat }) => {
   return (
     <div
       className={`chat-window-chatnav${isActive ? " chatnav-active" : ""}`}
-      onClick={() => setSelectedChat(chatThread)}
+      onClick={() => {
+        setShowCreateChatOverlay(false);
+        setSelectedChat(chatThread);
+        setPendingReceiver(null);
+        setShowMessageInviteOverlay(false);
+      }}
     >
       <img src={recipient?.profileImg} alt="User" />
       <div className="chat-window-chatnav-details">

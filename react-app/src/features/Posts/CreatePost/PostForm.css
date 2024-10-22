@@ -655,7 +655,7 @@ pre.ql-syntax {
 .single-page-content-link {
   display: flex;
   align-items: center;
-  color: #3f9ade;
+  color: var(--community-highlight);
   cursor: pointer;
   font-size: 12px;
   font-weight: 400;

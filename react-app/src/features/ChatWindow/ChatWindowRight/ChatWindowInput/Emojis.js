@@ -21,7 +21,6 @@ export function Emojis({ receiver, setEmojisOverlay, socket }) {
 
     const data = await dispatch(createChatMessage(payload));
     socket.emit("chat", data);
-    socket.emit("last", data);
     await dispatch(getChatThread(selectedChat.id));
     setEmojisOverlay(false);
   };

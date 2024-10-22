@@ -31,7 +31,7 @@ export function ChatWindow({ setOpenChat }) {
   const [messageInviteOverlay, setMessageInviteOverlay] = useState(false);
   const [receiver, setReceiver] = useState(
     selectedChat
-      ? selectedChat?.users?.find((user) => user.id !== currentUser.id)
+      ? selectedChat?.users?.find((user) => user.id !== currentUser?.id)
       : ""
   );
   const [lastMessage, setLastMessage] = useState();
@@ -52,7 +52,7 @@ export function ChatWindow({ setOpenChat }) {
 
     if (selectedChat) {
       socket.emit("join", {
-        user: user.id,
+        user: currentUser?.id,
         room: selectedChat,
       });
     }
@@ -60,7 +60,7 @@ export function ChatWindow({ setOpenChat }) {
     return () => {
       socket.disconnect();
     };
-  }, [setMessages, selectedChat, user]);
+  }, [setMessages, selectedChat, currentUser]);
 
   useEffect(() => {
     if (
@@ -85,7 +85,7 @@ export function ChatWindow({ setOpenChat }) {
     let id = chatThread.id;
 
     let otherPerson = chatThread.users.filter(
-      (user) => user.id !== currentUser.id
+      (user) => user.id !== currentUser?.id
     );
 
     setReceiver(otherPerson);
@@ -96,10 +96,10 @@ export function ChatWindow({ setOpenChat }) {
   useEffect(() => {
     if (selectedChat && selectedChat?.users) {
       setReceiver(
-        selectedChat?.users.find((user) => user.id !== currentUser.id).username
+        selectedChat?.users.find((user) => user.id !== currentUser?.id).username
       );
     }
-  }, [selectedChat, currentUser.id]);
+  }, [selectedChat, currentUser?.id]);
 
   return (
     <div className="chat-window-container">

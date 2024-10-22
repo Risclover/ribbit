@@ -119,7 +119,7 @@ export const ChatMessage = ({
               </div>
             )}
           <div className="chat-thread-message-user-img">
-            {message.sender?.id !== currentUser.id ? (
+            {message.sender?.id !== currentUser?.id ? (
               <img
                 className="pointer"
                 onClick={() =>
@@ -138,7 +138,7 @@ export const ChatMessage = ({
           </div>
           <div className="chat-thread-message-main">
             <div className="chat-thread-message-author">
-              {message.sender?.id === currentUser.id ? (
+              {message.sender?.id === currentUser?.id ? (
                 <span className="chat-thread-author">
                   {message.content === "Message deleted by user"
                     ? "Removed"

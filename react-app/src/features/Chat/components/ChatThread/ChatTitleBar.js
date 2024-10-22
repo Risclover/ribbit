@@ -7,19 +7,21 @@ export const ChatTitleBar = ({ showCreateChatOverlay, setOpenChat }) => {
   const currentUser = useSelector((state) => state.session.user);
   const [receiver, setReceiver] = useState(null);
 
-  const { selectedChat } = useContext(SelectedChatContext);
+  const { selectedChat, pendingReceiver } = useContext(SelectedChatContext);
 
   useEffect(() => {
-    if (selectedChat && selectedChat.users) {
+    if (pendingReceiver !== null) {
+      setReceiver(pendingReceiver);
+    } else if (selectedChat && selectedChat.users) {
       setReceiver(
-        selectedChat.users.find((user) => user.id !== currentUser.id)
+        selectedChat.users.find((user) => user.id !== currentUser?.id).username
       );
     }
-  }, [selectedChat?.users, currentUser.id]);
+  }, [selectedChat?.users, currentUser?.id, pendingReceiver]);
 
   return (
     <div className="chat-thread-window-titlebar">
-      {showCreateChatOverlay ? "New Chat" : receiver?.username || ""}
+      {showCreateChatOverlay ? "New Chat" : receiver || ""}
       {/* <button className="chat-window-close-btn" title="Minimize chat">
         <GoChevronDown />
       </button> */}

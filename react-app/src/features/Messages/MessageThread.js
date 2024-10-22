@@ -25,13 +25,13 @@ export function MessageThread({ item }) {
           <div className="messages-content-sender">
             <NavLink
               to={
-                users[0].id === currentUser.id
+                users[0].id === currentUser?.id
                   ? `/users/${parseInt(users[1].id)}/profile`
                   : `/users/${parseInt(users[0].id)}/profile`
               }
             >
               /u/
-              {users[0].id === currentUser.id
+              {users[0].id === currentUser?.id
                 ? item.users?.[1]?.username
                 : item.users?.[0]?.username}
             </NavLink>

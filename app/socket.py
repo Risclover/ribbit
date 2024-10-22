@@ -42,7 +42,6 @@ def handle_chat(data):
     if data['room']:
         room = data['room']
         emit("chat", data, broadcast=True, to=room)
-        emit("update_chat", data, broadcast=True)
 
 # fake delete message (update)
 @socketio.on("delete")

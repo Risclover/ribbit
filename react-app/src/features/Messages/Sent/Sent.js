@@ -28,7 +28,7 @@ export function Sent() {
 
   let sentMessages = threads
     .map((thread) =>
-      thread.messages.filter((message) => message.sender.id === currentUser.id)
+      thread.messages.filter((message) => message.sender.id === currentUser?.id)
     )
     .flat();
 
@@ -39,7 +39,7 @@ export function Sent() {
         <div className="sent-messages">
           {threads.map((thread) =>
             thread.messages
-              .filter((message) => message.sender.id === currentUser.id)
+              .filter((message) => message.sender.id === currentUser?.id)
               .map((message, idx) => (
                 <SentMessage
                   key={message.id}

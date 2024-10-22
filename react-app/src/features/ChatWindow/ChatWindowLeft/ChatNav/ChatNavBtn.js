@@ -47,15 +47,15 @@ export function ChatNavBtn({
   useEffect(() => {
     if (chatThread.users)
       setReceiver(() =>
-        chatThread.users.find((user) => user.id !== currentUser.id)
+        chatThread.users.find((user) => user.id !== currentUser?.id)
       );
-  }, [chatThread.users, currentUser.id]);
+  }, [chatThread.users, currentUser?.id]);
 
   useEffect(() => {
     if (chatThread.messages && chatThread.messages.length > 0) {
       const lastMsg = chatThread.messages[chatThread.messages.length - 1];
       setLastMessage(lastMsg.content);
-      if (lastMsg.sender.id === currentUser.id) {
+      if (lastMsg.sender.id === currentUser?.id) {
         setSender("You");
       } else {
         setSender(lastMsg.sender.username);
@@ -63,7 +63,7 @@ export function ChatNavBtn({
     } else {
       setLastMessage("");
     }
-  }, [chatThread.messages, currentUser.id]);
+  }, [chatThread.messages, currentUser?.id]);
 
   const handleClick = (e) => {
     setWelcomeOverlay(false);

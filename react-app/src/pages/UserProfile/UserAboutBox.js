@@ -69,7 +69,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
 
     const existingThread = userChats.find(
       (thread) =>
-        thread.users?.some((aUser) => aUser.id === currentUser.id) &&
+        thread.users?.some((aUser) => aUser.id === currentUser?.id) &&
         thread.users?.some((bUser) => bUser.id === user.id)
     );
 

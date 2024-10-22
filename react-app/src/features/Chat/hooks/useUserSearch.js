@@ -11,7 +11,9 @@ export const useUserSearch = (username) => {
         (user) => user.username?.toLowerCase() === username.toLowerCase()
       )
     );
+
+    console.log("user:", userFound);
   }, [username, users]);
 
-  return userFound;
+  return { userFound };
 };

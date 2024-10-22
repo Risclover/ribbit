@@ -6,6 +6,8 @@ export default function useSignUpFormSecondPage({
   setDisabled,
   username,
   password,
+  setUsername,
+  setPassword,
 }) {
   const [usernameErrors, setUsernameErrors] = useState([]);
   const [passwordErrors, setPasswordErrors] = useState([]);
@@ -23,6 +25,20 @@ export default function useSignUpFormSecondPage({
     autoCompleteStatus: name === "password" ? "new-password" : "off",
     testId: name.charAt(0).toUpperCase() + name.slice(1),
   });
+
+  const usernameInputProps = inputProps(
+    "username",
+    username,
+    setUsername,
+    usernameErrors
+  );
+
+  const passwordInputProps = inputProps(
+    "password",
+    password,
+    setPassword,
+    passwordErrors
+  );
 
   useEffect(() => {
     const usernameErrors = validateUsername(username, usernameTaken);
@@ -42,5 +58,11 @@ export default function useSignUpFormSecondPage({
     usernameTaken,
   ]);
 
-  return { usernameErrors, passwordErrors, inputProps, usernameTaken };
+  return {
+    usernameErrors,
+    passwordErrors,
+    usernameTaken,
+    usernameInputProps,
+    passwordInputProps,
+  };
 }

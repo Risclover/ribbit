@@ -139,6 +139,10 @@
 
 .classic-post-title {
   color: #222;
+}
+
+.classic-post-title h3 {
+  color: #222;
   font-size: 16px;
   font-weight: 500;
   display: inline;
@@ -165,7 +169,7 @@
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  color: #3f9ad3;
+  color: var(--community-highlight);
 }
 
 .classic-post-link:hover {
@@ -187,6 +191,11 @@
 }
 
 .classic-post-community-info {
+  display: flex;
+  align-items: center;
+}
+
+.classic-post-community {
   font-size: 12px;
   font-weight: 700;
   line-height: 16px;
@@ -197,7 +206,7 @@
   vertical-align: baseline;
 }
 
-.classic-post-community-info:hover {
+.classic-post-community:hover {
   text-decoration: underline;
 }
 

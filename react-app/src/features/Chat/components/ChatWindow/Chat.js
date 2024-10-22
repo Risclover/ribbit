@@ -34,7 +34,18 @@ const Chat = ({ setOpenChat }) => {
     useState(false);
   const [username, setUsername] = useState("");
   const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
-  const userFound = useUserSearch(username);
+  const { userFound } = useUserSearch(username);
+  const [inputTexts, setInputTexts] = useState({}); // New state for input texts per thread
+
+  // Function to handle updating input text for a specific thread
+  const handleInputChange = (threadId, text) => {
+    setInputTexts((prev) => ({ ...prev, [threadId]: text }));
+  };
+
+  // Get the current input text based on selectedChat
+  const currentInputText = selectedChat
+    ? inputTexts[selectedChat.id] || ""
+    : "";
 
   useEffect(() => {
     socket = io();
@@ -114,8 +125,8 @@ const Chat = ({ setOpenChat }) => {
         </div>
         <ChatNavMenu
           socket={socket}
-          selectedChat={selectedChat}
-          setSelectedChat={setSelectedChat}
+          setShowCreateChatOverlay={setShowCreateChatOverlay}
+          setShowMessageInviteOverlay={setShowMessageInviteOverlay}
         />
       </div>
       <div className="chat-window-right">
@@ -136,6 +147,8 @@ const Chat = ({ setOpenChat }) => {
           userFound={userFound}
           showMessageInviteOverlay={showMessageInviteOverlay}
           setShowMessageInviteOverlay={setShowMessageInviteOverlay}
+          onInputChange={(text) => handleInputChange(selectedChat.id, text)}
+          inputText={currentInputText}
         />
       </div>
       {showDeleteConfirmation && (

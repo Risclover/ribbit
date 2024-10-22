@@ -24,7 +24,7 @@ export function UploadUserBanner({ user, currentUser }) {
             setShowBannerModal={setShowBannerModal}
             showBannerModal={showBannerModal}
             img_url={user?.bannerImg}
-            userId={currentUser.id}
+            userId={currentUser?.id}
           />
         </Modal>
       )}

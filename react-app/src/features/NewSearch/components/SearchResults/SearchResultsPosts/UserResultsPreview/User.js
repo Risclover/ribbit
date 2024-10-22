@@ -25,7 +25,7 @@ export const User = ({ user }) => {
             </div>
           </div>
         </div>
-        {currentUser.id !== user.id && (
+        {currentUser?.id !== user.id && (
           <div className="search-results-page-community-right">
             <UserFollowBtn user={user} />
           </div>
