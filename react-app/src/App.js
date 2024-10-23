@@ -29,7 +29,6 @@ import {
   AllPostsFeed,
   HomepageFeed,
   SignUpForm,
-  ProtectedRoute,
   EditCommunity,
   Notifications,
   SearchResultsPosts,
@@ -51,6 +50,7 @@ import { CreatePostPage } from "./pages/CreatePostPage";
 import { MetadataProvider } from "./context/Metadata";
 import Chat from "features/Chat/components/ChatWindow/Chat";
 import { PopupProvider } from "context/Popup";
+import { ProtectedRoute } from "components";
 
 function App() {
   const dispatch = useDispatch();

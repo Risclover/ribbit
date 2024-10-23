@@ -11,3 +11,4 @@ export * from "./PostFeed";
 export * from "../layouts/FeedContainer";
 export { NoPostsMessage } from "./NoPostsMessage";
 export { PostPopup } from "./PostPopup";
+export { ProtectedRoute } from "./ProtectedRoute";

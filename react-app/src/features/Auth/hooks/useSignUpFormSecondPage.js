@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useUsernameTaken } from "./useUsernameTaken.hook";
 import { validatePassword, validateUsername } from "../utils";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { signUp } from "store";
 
 export default function useSignUpFormSecondPage({
-  setDisabled,
-  username,
-  password,
-  setUsername,
-  setPassword,
+  setShowSignupForm,
+  setOpenSecondPage,
+  email,
 }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [usernameErrors, setUsernameErrors] = useState([]);
   const [passwordErrors, setPasswordErrors] = useState([]);
+  const [disabled, setDisabled] = useState();
+
   const usernameTaken = useUsernameTaken(username);
+  const allUsers = useSelector((state) => state.users);
 
   const inputProps = (name, value, setValue, errors) => ({
     type: name,
@@ -43,6 +52,7 @@ export default function useSignUpFormSecondPage({
   useEffect(() => {
     const usernameErrors = validateUsername(username, usernameTaken);
     const passwordErrors = validatePassword(password);
+
     setDisabled(
       username === "" ||
         usernameErrors.length > 0 ||
@@ -58,11 +68,37 @@ export default function useSignUpFormSecondPage({
     usernameTaken,
   ]);
 
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    dispatch(signUp(username, email.toLowerCase(), password));
+    setShowSignupForm(false);
+    const id = Object.values(allUsers).length + 1;
+    history.push(`/users/${id}/profile`);
+  };
+
+  const returnToFirstPage = () => {
+    setOpenSecondPage(false);
+    setShowSignupForm(true);
+  };
+
+  const submitBtn = (
+    <button className="signup-form-submit" disabled={disabled} type="submit">
+      Sign Up
+    </button>
+  );
+
   return {
+    username,
+    password,
+    setUsername,
+    setPassword,
     usernameErrors,
     passwordErrors,
     usernameTaken,
     usernameInputProps,
     passwordInputProps,
+    handleSignUp,
+    submitBtn,
+    returnToFirstPage,
   };
 }

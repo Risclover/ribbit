@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { AuthFormInput } from "../AuthFormInput";
 import {
   validatePassword,
@@ -6,59 +6,36 @@ import {
 } from "../../utils/signupFormValidation";
 import useSignUpFormSecondPage from "features/Auth/hooks/useSignUpFormSecondPage";
 import { AuthModal } from "context";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { signUp } from "store";
 
 export function SignUpFormSecondPage({
-  // username,
-  // setUsername,
-  // password,
-  // setPassword,
   formType,
   setOpenSecondPage,
   setShowSignupForm,
   email,
 }) {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const [disabled, setDisabled] = useState();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const { usernameTaken, usernameInputProps, passwordInputProps } =
-    useSignUpFormSecondPage({
-      setDisabled,
-      username,
-      password,
-      setUsername,
-      setPassword,
-    });
-  const allUsers = useSelector((state) => state.users);
+  const {
+    username,
+    password,
+    setUsername,
+    setPassword,
+    usernameTaken,
+    usernameInputProps,
+    passwordInputProps,
+    handleSignUp,
+    submitBtn,
+    returnToFirstPage,
+  } = useSignUpFormSecondPage({
+    setShowSignupForm,
+    setOpenSecondPage,
+    email,
+  });
 
-  const handleSignUp = (e) => {
-    e.preventDefault();
-    dispatch(signUp(username, email.toLowerCase(), password));
-    setShowSignupForm(false);
-    const id = Object.values(allUsers).length + 1;
-    history.push(`/users/${id}/profile`);
-  };
   return (
     <AuthModal
       title="Create your username and password"
-      onClose={() => {
-        setOpenSecondPage(false);
-        setShowSignupForm(true);
-      }}
+      onClose={returnToFirstPage}
       topbarBtn={formType === "protected" ? "none" : "back"}
-      footerBtn={
-        <button
-          className="signup-form-submit"
-          disabled={disabled}
-          type="submit"
-        >
-          Sign Up
-        </button>
-      }
+      footerBtn={submitBtn}
       onSubmit={(e) => handleSignUp(e)}
     >
       <div>

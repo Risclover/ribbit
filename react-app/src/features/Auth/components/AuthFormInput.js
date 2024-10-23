@@ -15,10 +15,11 @@ export function AuthFormInput({ props, onBlur, icon }) {
     autoCompleteStatus,
     maxLength,
     testId,
+    focused,
+    setFocused,
   } = props;
 
   const [classValue, setClassValue] = useState("errors-true");
-  const [focused, setFocused] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
 
   useEffect(() => {

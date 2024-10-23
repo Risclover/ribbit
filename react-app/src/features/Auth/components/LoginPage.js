@@ -1,5 +1,5 @@
+import { ProtectedRoute } from "components";
 import React, { useState } from "react";
-import { LoginSignupModal, ProtectedRoute } from ".";
 
 export function LoginPage() {
   const [showLoginForm, setShowLoginForm] = useState(true);

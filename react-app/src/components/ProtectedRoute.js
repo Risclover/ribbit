@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Route, Redirect } from "react-router-dom";
-import { LoginSignupModal } from ".";
+import { Route } from "react-router-dom";
+import { LoginSignupModal } from "../features/Auth/components";
 
 export const ProtectedRoute = (props) => {
   const user = useSelector((state) => state.session.user);

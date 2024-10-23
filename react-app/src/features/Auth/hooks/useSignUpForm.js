@@ -4,7 +4,6 @@ import { handleEmailErrors } from "../utils";
 import { getUsers } from "@/store";
 
 export default function useSignUpForm({
-  setDisabled,
   setEmail,
   email,
   setOpenSecondPage,

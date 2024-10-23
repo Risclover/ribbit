@@ -3,21 +3,25 @@ import { useState, useEffect } from "react";
 import { handleErrors } from "../utils/loginFormValidation";
 import { generateUsername } from "../utils/generateUsername";
 
-export function useAuthFormInput(initialValue, name, validateFn) {
-  const [inputValue, setInputValue] = useState(initialValue);
-  const [errors, setErrors] = useState([]);
+export function useAuthFormInput(validateFn, inputProps) {
   const [focused, setFocused] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
   const [classValue, setClassValue] = useState("");
 
   useEffect(() => {
-    setErrors(validateFn(inputValue));
-    setClassValue(errors && errors.length > 0 ? "errors-true" : "");
-  }, [inputValue, errors, validateFn]);
+    setErrors(validateFn(inputProps.inputValue));
+    setClassValue(
+      inputProps.errors && inputProps.errors.length > 0 ? "errors-true" : ""
+    );
+  }, [inputProps.inputValue, inputProps.errors, validateFn]);
 
   useEffect(() => {
-    setShowIcon(inputValue.length > 0 && errors.length === 0 && !focused);
-  }, [inputValue, errors, focused]);
+    setShowIcon(
+      inputProps.inputValue.length > 0 &&
+        inputProps.errors.length === 0 &&
+        !focused
+    );
+  }, [inputProps.inputValue, inputProps.errors, focused]);
 
   const pickRandomUsername = () => {
     setInputValue(generateUsername());
@@ -26,7 +30,7 @@ export function useAuthFormInput(initialValue, name, validateFn) {
 
   const handleBlur = () => {
     setFocused(false);
-    const validationErrors = validateFn(inputValue);
+    const validationErrors = validateFn(inputProps.inputValue);
     setErrors(validationErrors);
     setClassValue(validationErrors.length > 0 ? "errors-true" : "");
     return validationErrors;
@@ -38,16 +42,11 @@ export function useAuthFormInput(initialValue, name, validateFn) {
   };
 
   return {
-    inputValue,
-    setInputValue,
-    errors,
-    setErrors,
-    focused,
-    setFocused,
     showIcon,
     classValue,
     pickRandomUsername,
     handleBlur,
     handleFocus,
+    focused,
   };
 }
