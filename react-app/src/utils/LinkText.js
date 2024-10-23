@@ -7,11 +7,9 @@ export function LinkText({ content }) {
     <p>
       {words.map((word) => {
         return word.match(URL_REGEX) ? (
-          <>
-            <a href={word} rel="noreferrer" target="_blank">
-              {word}
-            </a>{" "}
-          </>
+          <a href={word} rel="noreferrer" target="_blank">
+            {word + " "}
+          </a>
         ) : (
           word + " "
         );

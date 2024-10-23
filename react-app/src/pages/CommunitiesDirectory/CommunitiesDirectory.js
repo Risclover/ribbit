@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { getCommunities } from "@/store";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import "./CommunitiesDirectory.css";
+import { v4 as uuidv4 } from "uuid";
 
 export function CommunitiesDirectory() {
   const dispatch = useDispatch();
@@ -30,8 +31,8 @@ export function CommunitiesDirectory() {
           .sort((a, b) =>
             a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
           )
-          .map((community, idx) => (
-            <div className="directory-listing" key={idx}>
+          .map((community) => (
+            <div className="directory-listing" key={uuidv4()}>
               <NavLink to={`/c/${community.name}`}>{community.name}</NavLink>
             </div>
           ))}

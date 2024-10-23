@@ -9,6 +9,7 @@ import {
 } from "../..";
 import "./Inbox.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
+import { v4 as uuidv4 } from "uuid";
 
 export function Inbox() {
   const dispatch = useDispatch();
@@ -58,13 +59,14 @@ export function Inbox() {
           {messageList.map((message) =>
             message.hasOwnProperty("threadId") ? (
               <InboxMessage
+                key={uuidv4()}
                 currentUser={currentUser}
                 item={threads[message.threadId]}
                 message={message}
                 expanded={expanded}
               />
             ) : message.hasOwnProperty("title") ? (
-              <PostReply notification={message} />
+              <PostReply key={uuidv4()} notification={message} />
             ) : (
               ""
             )

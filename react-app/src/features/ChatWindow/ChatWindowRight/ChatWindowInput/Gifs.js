@@ -13,6 +13,7 @@ import { createChatMessage, getChatThread } from "@/store";
 import "./ChatWindowInput.css";
 import { SelectedChatContext } from "@/context/SelectedChat";
 import { useOutsideClick } from "hooks";
+import { v4 as uuidv4 } from "uuid";
 
 const giphy = new GiphyFetch(process.env.REACT_APP_GIPHY_KEY);
 
@@ -134,6 +135,7 @@ export function Gifs({ receiver, setOpenGiphy, setGifIcon, GifIcon }) {
       <div className="giphy-results">
         {results.map((gif) => (
           <img
+            key={uuidv4()}
             src={gif.images?.original.url}
             className="giphy-gif"
             onClick={sendGif}

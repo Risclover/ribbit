@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createChatMessage, getChatThread } from "@/store";
-import * as emojis from "./emojis";
+import { v4 as uuidv4 } from "uuid";
 import { ChatWindowEmojis } from "./emojis";
 import "./ChatWindowInput.css";
 import { SelectedChatContext } from "@/context/SelectedChat";
@@ -28,9 +28,9 @@ export function Emojis({ receiver, setEmojisOverlay, socket }) {
   return (
     <div className="emojis-container">
       <div className="images-list">
-        {ChatWindowEmojis.map((image, idx) => (
-          <button key={idx} onClick={(e) => handleAddEmoji(e, image)}>
-            <img key={idx} src={image} />
+        {ChatWindowEmojis.map((image) => (
+          <button key={uuidv4()} onClick={(e) => handleAddEmoji(e, image)}>
+            <img src={image} />
           </button>
         ))}
       </div>

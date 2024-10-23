@@ -1,13 +1,14 @@
 import React from "react";
 import { UsernameAvailability } from "./UsernameAvailability";
+import { v4 as uuidv4 } from "uuid";
 
 export function ErrorsDisplay({ errors, inputValue, focused, name }) {
   return (
     <div className="error-container">
       {errors && errors.length > 0 && (
         <div className="signup-form-errors">
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
+          {errors.map((error) => (
+            <div key={uuidv4()}>{error}</div>
           ))}
         </div>
       )}

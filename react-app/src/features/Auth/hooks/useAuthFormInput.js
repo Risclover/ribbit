@@ -1,4 +1,3 @@
-// hooks/useAuthFormInput.js
 import { useState, useEffect } from "react";
 import { generateUsername } from "../utils";
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { validateImgPost } from "../utils/validateImgPost";
 import { validateLinkPost } from "../utils/validateLinkPost";
 import { validatePost } from "../utils/validatePost";
+import { v4 as uuidv4 } from "uuid";
 
 export function CreatePostFormErrors({
   postType,
@@ -34,14 +35,14 @@ export function CreatePostFormErrors({
     <div className="create-post-form-errors">
       {postType === "link" &&
         linkErrors.length > 0 &&
-        linkErrors.map((error, idx) => <div key={idx}>{error}</div>)}
+        linkErrors.map((error) => <div key={uuidv4()}>{error}</div>)}
       {postType === "image" &&
         imageErrors.length > 0 &&
-        imageErrors.map((error, idx) => <div key={idx}>{error}</div>)}
+        imageErrors.map((error) => <div key={uuidv4()}>{error}</div>)}
 
       {postType === "post" &&
         errors.length > 0 &&
-        errors.map((error, idx) => <div key={idx}>{error}</div>)}
+        errors.map((error) => <div key={uuidv4()}>{error}</div>)}
     </div>
   );
 }

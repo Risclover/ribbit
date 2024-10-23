@@ -19,6 +19,7 @@ export const LoginForm = ({
     handleLogin,
     submitBtn,
   } = useLoginForm();
+
   return (
     <AuthModal
       title="Log In"

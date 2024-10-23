@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { VscSettingsGear } from "react-icons/vsc";
 import { TfiBell } from "react-icons/tfi";
 import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
 
 import { getUserNotifications, readAllNotifications } from "@/store";
 import { Notification } from "./Notification";
@@ -154,7 +155,7 @@ export function Notifications() {
                 {today
                   .filter((item) => item.notificationType !== "message")
                   .map((notification) => (
-                    <Notification notification={notification} />
+                    <Notification key={uuidv4()} notification={notification} />
                   ))}
               </div>
             )}
@@ -164,7 +165,7 @@ export function Notifications() {
                 {earlier
                   .filter((item) => item.notificationType !== "message")
                   .map((notification) => (
-                    <Notification notification={notification} />
+                    <Notification key={uuidv4()} notification={notification} />
                     // <div className="notification">
                     //   <div className="notification-img"></div>
                     //   <div className="notification-main">

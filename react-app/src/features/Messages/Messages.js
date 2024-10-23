@@ -9,6 +9,7 @@ import {
 import { MessageThread, MessageHead, MessageContentMenu } from "..";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import "./Messages.css";
+import { v4 as uuidv4 } from "uuid";
 
 export function Messages() {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ export function Messages() {
         <MessageContentMenu active="Messages" />
         <div className="messages-content-main">
           {threads.map((item) => (
-            <MessageThread item={item} />
+            <MessageThread key={uuidv4()} item={item} />
           ))}
           {threads.length === 0 && (
             <div className="messages-page-content-nothing">

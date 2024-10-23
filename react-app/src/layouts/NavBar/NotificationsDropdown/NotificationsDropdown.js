@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { VscMailRead } from "react-icons/vsc";
 import { VscSettingsGear } from "react-icons/vsc";
 import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
 
 import { getUserNotifications, readAllNotifications } from "@/store";
 import { Notification } from "@/layouts";
@@ -147,6 +148,7 @@ export function NotificationsDropdown({
                 (notification) =>
                   notification.notificationType !== "message" && (
                     <Notification
+                      key={uuidv4()}
                       notification={notification}
                       setShowDropdown={setShowDropdown}
                     />

@@ -13,6 +13,7 @@ import { getIdFromName } from "utils/getCommunityIdFromName";
 import { CommunityImg } from "components/CommunityImg";
 import { deleteCommunity } from "store";
 import "./CommunitySettings.css";
+import { v4 as uuidv4 } from "uuid";
 
 export function EditCommunity() {
   const dispatch = useDispatch();
@@ -176,6 +177,7 @@ export function EditCommunity() {
                 <div className="community-rules-edit">
                   {Object.values(community?.communityRules).map((rule, idx) => (
                     <CommunityEditRule
+                      key={uuidv4()}
                       community={community}
                       idx={idx}
                       rule={rule}

@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getThreads } from "@/store";
 import { Message } from "./Message";
+import { v4 as uuidv4 } from 'uuid';
 
 export function MessageThread({ item }) {
   const [allExpanded, setAllExpanded] = useState(true);
@@ -55,7 +56,12 @@ export function MessageThread({ item }) {
       </div>
       <div className="messages-content-message-list">
         {item.messages.map((message) => (
-          <Message message={message} item={item} allExpanded={allExpanded} />
+          <Message
+            key={uuidv4()}
+            message={message}
+            item={item}
+            allExpanded={allExpanded}
+          />
         ))}
       </div>
     </div>

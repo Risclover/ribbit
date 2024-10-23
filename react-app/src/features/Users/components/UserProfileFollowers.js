@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { getFollowers } from "@/store";
 import { FollowingBtn } from "@/pages";
 // import "@/pages/UserProfile/UserProfile.css";
+import { v4 as uuidv4 } from "uuid";
 
 export function UserProfileFollowers({ setShowFollowersModal }) {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ export function UserProfileFollowers({ setShowFollowersModal }) {
           </div>
         )}
         {Object.values(followers).map((follower) => (
-          <div className="user-profile-follower">
+          <div key={uuidv4()} className="user-profile-follower">
             <div
               className="user-profile-follower-left"
               onClick={() => {

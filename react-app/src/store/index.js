@@ -20,6 +20,7 @@ import messagesReducer from "./messages";
 import notificationsReducer from "./notifications";
 import chatThreadReducer from "./chats";
 import communitySettingsReducer from "./community_settings";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
   session,
@@ -51,7 +52,10 @@ if (process.env.NODE_ENV === "production") {
 } else {
   const logger = require("redux-logger").default;
   const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      trace: true,
+      traceLimit: 25,
+    }) || compose;
   enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 }
 

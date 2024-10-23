@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import validator from "validator";
 import { TfiPlus } from "react-icons/tfi";
+import { v4 as uuidv4 } from "uuid";
 
 import "react-quill/dist/quill.snow.css";
 
@@ -399,18 +400,18 @@ export function CreatePost({ postType, setPostType, val }) {
                 <div className="create-post-form-errors">
                   {postType === "link" &&
                     linkErrors.length > 0 &&
-                    linkErrors.map((error, idx) => (
-                      <div key={idx}>{error}</div>
+                    linkErrors.map((error) => (
+                      <div key={uuidv4()}>{error}</div>
                     ))}
                   {postType === "image" &&
                     imageErrors.length > 0 &&
-                    imageErrors.map((error, idx) => (
-                      <div key={idx}>{error}</div>
+                    imageErrors.map((error) => (
+                      <div key={uuidv4()}>{error}</div>
                     ))}
 
                   {postType === "post" &&
                     errors.length > 0 &&
-                    errors.map((error, idx) => <div key={idx}>{error}</div>)}
+                    errors.map((error) => <div key={uuidv4()}>{error}</div>)}
                 </div>
                 <div className="create-post-form-buttons">
                   <button

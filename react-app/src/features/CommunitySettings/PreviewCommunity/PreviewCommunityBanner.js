@@ -8,6 +8,7 @@ import {
 } from "@/store";
 import { DropBox } from "@/components";
 import { PreviewCommunityBannerColor, BannerHeight } from "../PreviewCommunity";
+import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunityBanner({
   setOpenAppearance,
@@ -114,6 +115,7 @@ export function PreviewCommunityBanner({
         <div className="preview-community-name-icon-box">
           {options.map((option) => (
             <BannerHeight
+              key={uuidv4()}
               height={height}
               option={option}
               activeRadio={activeRadio}

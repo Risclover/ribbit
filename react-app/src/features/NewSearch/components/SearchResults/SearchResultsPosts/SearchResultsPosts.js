@@ -11,6 +11,7 @@ import { NewCommunity } from "./NewCommunity";
 import { stripHtml } from "@/utils/stripHtml";
 import { NoResults } from "../NoResults";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
+import { v4 as uuidv4 } from "uuid";
 
 export const SearchResultsPosts = ({ searchbarRef }) => {
   const dispatch = useDispatch();
@@ -39,8 +40,8 @@ export const SearchResultsPosts = ({ searchbarRef }) => {
             <NoResults query={query} focusSearchBox={focusSearchBox} />
           )}
           {query.trim().length > 0 &&
-            Object.values(posts).map((post, index) => (
-              <PostResult key={index} post={post} />
+            Object.values(posts).map((post) => (
+              <PostResult key={uuidv4()} post={post} />
             ))}
         </div>
         <div className="search-results-right">

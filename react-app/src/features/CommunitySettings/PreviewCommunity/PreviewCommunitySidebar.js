@@ -7,6 +7,7 @@ import { Modal } from "@/context";
 import { PreviewCommunitySidebarAppearance, OutsideClickWarning } from "../..";
 import { ResetToDefaultsWarning } from "./ResetToDefaultsWarning";
 import "./PreviewCommunity.css";
+import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunitySidebar() {
   const dispatch = useDispatch();
@@ -183,7 +184,7 @@ export function PreviewCommunitySidebar() {
                 setAppearanceSidebar(item);
                 setOpenAppearance(true);
               }}
-              key={item}
+              key={uuidv4()}
             >
               <span>{item}</span> <FaChevronRight />
             </div>

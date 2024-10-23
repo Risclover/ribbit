@@ -10,6 +10,7 @@ import moment from "moment";
 import { ChatMessage } from "./ChatMessage";
 import { formatDate } from "./formatDate";
 import { SelectedChatContext } from "@/context/SelectedChat";
+import { v4 as uuidv4 } from "uuid";
 
 export function ChatMessages({
   messages,
@@ -101,7 +102,7 @@ export function ChatMessages({
 
             return (
               <ChatMessage
-                key={idx}
+                key={uuidv4()}
                 formattedDate={formattedDate}
                 showDateBar={showDateBar}
                 previousMessage={previousMessage}

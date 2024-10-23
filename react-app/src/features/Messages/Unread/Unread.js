@@ -4,6 +4,7 @@ import { readAllMessages } from "@/store";
 import { MessageHead, MessageContentMenu, InboxMessage } from "../..";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import "../Inbox/Inbox.css";
+import { v4 as uuidv4 } from 'uuid';
 
 export function Unread() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ export function Unread() {
           {unreadMsgs.length > 0 &&
             unreadMsgs.map((msg) => (
               <InboxMessage
+              key={uuidv4()}
                 marked={true}
                 message={msg}
                 currentUser={currentUser}

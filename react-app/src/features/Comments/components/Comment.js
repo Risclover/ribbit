@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import parse from "html-react-parser";
@@ -48,11 +49,9 @@ function Text({ content }) {
       <p>
         {words.map((word) => {
           return word.match(URL_REGEX) ? (
-            <>
-              <a href={word} rel="noreferrer" target="_blank">
-                {word}
-              </a>{" "}
-            </>
+            <a key={uuidv4()} href={word} rel="noreferrer" target="_blank">
+              {word + " "}
+            </a>
           ) : (
             word + " "
           );

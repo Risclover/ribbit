@@ -5,6 +5,7 @@ import { MessageContentMenu, MessageHead, PostReply } from "../..";
 import "./PostReplies.css";
 import "../Inbox/Inbox.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
+import { v4 as uuidv4 } from 'uuid';
 
 export function PostRepliesPage() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ export function PostRepliesPage() {
         <div className="inbox-messages">
           {postRepliesList.map((post) => (
             <PostReply
+            key={uuidv4()}
               setMarkedUnread={setMarkedUnread}
               markedUnread={markedUnread}
               notification={post}

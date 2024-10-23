@@ -9,6 +9,7 @@ import {
 } from "@/store";
 import { ToggleSwitch, DropBox } from "@/components";
 import { CommunityNameOption } from "./CommunityNameOption";
+import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunityNameIcon({
   setOpenAppearance,
@@ -115,6 +116,7 @@ export function PreviewCommunityNameIcon({
         <div className="preview-community-name-icon-box">
           {options.map((option) => (
             <CommunityNameOption
+              key={uuidv4()}
               community={community}
               title={option}
               activeRadio={activeRadio}

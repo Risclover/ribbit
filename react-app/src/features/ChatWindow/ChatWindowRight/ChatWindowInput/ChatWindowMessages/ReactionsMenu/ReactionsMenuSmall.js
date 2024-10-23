@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { TfiPlus } from "react-icons/tfi";
 import { getChatThread, createReaction } from "@/store";
 import "./ReactionsMenu.css";
+import { v4 as uuidv4 } from "uuid";
 
 const reactions = [
   "/images/frog-reactions-cropped/1.gif",
@@ -107,6 +108,7 @@ export function ReactionsMenuSmall({ message }) {
         >
           {reactions.slice(0, 5).map((reaction) => (
             <div
+              key={uuidv4()}
               className="reactions-menu-square"
               onClick={(e) => {
                 setReactionType(reaction);
@@ -130,7 +132,7 @@ export function ReactionsMenuSmall({ message }) {
         <div className="reactions-menu-full">
           <div className="reactions-menu-full-grid">
             {reactions.map((reaction) => (
-              <div className="reactions-menu-square">
+              <div key={uuidv4()} className="reactions-menu-square">
                 <img src={reaction} />
               </div>
             ))}

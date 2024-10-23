@@ -1,5 +1,6 @@
 import React from "react";
 import { SearchResultsSortDropdownBtn } from "./SearchResultsSortDropdownBtn";
+import { v4 as uuidv4 } from 'uuid';
 
 export const SearchResultsSortDropdown = ({
   setSortSet,
@@ -19,7 +20,7 @@ export const SearchResultsSortDropdown = ({
       <ul className="search-results-sort-dropdown">
         {btns.map((btn) => (
           <SearchResultsSortDropdownBtn
-            key={btn}
+            key={uuidv4()}
             btn={btn}
             setSortSet={setSortSet}
             sort={sort}

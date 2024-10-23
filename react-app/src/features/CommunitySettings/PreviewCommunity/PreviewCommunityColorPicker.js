@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PreviewCommunityColorPickerSquare } from "./PreviewCommunityColorPickerSquare";
 import { colorThemeColors as colors } from "../data/colorThemeColors";
+import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunityColorPicker({ theme, setTheme, community }) {
   const [showBrowserColorPicker, setShowBrowserColorPicker] = useState(false);
@@ -20,6 +21,7 @@ export function PreviewCommunityColorPicker({ theme, setTheme, community }) {
       <div className="preview-community-color-picker-grid">
         {colors.map((color) => (
           <PreviewCommunityColorPickerSquare
+            key={uuidv4()}
             community={community}
             color={color}
             setTheme={setTheme}

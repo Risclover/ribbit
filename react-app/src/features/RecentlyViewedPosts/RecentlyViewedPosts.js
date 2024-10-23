@@ -6,6 +6,7 @@ import { getViewedPosts, removeViewedPosts } from "@/store";
 
 import "./RecentlyViewedPosts.css";
 import { RecentlyViewedPost } from "./RecentlyViewedPost";
+import { v4 as uuidv4 } from "uuid";
 
 moment.updateLocale("en-cust", {
   relativeTime: {
@@ -57,7 +58,7 @@ export function RecentlyViewedPosts() {
         {posts
           .slice(0, 5)
           .map((post, idx) => (
-            <RecentlyViewedPost post={post} key={idx} idx={idx} />
+            <RecentlyViewedPost post={post} key={uuidv4()} idx={idx} />
           ))
           .reverse()}
       </ul>

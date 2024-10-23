@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { RxImage } from "react-icons/rx";
 import { FiLink } from "react-icons/fi";
+import { v4 as uuidv4 } from "uuid";
 import "./CreatePostBar.css";
 
 const PostBarButton = ({ icon: Icon, onClick, testId }) => (
@@ -60,6 +61,7 @@ export const CreatePostBar = ({ page, communityName }) => {
 
           {postBarButtons.map((btn) => (
             <PostBarButton
+              key={uuidv4()}
               icon={btn.icon}
               onClick={btn.navigation}
               testId={btn.testId}

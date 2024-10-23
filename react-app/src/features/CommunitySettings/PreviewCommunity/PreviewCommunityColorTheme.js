@@ -9,6 +9,7 @@ import {
 import { DropBox } from "@/components";
 import { PreviewCommunityColorThemeColor, BodyBgFormat } from "@/features";
 import "./PreviewCommunity.css";
+import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunityColorTheme({
   setOpenAppearance,
@@ -120,7 +121,7 @@ export function PreviewCommunityColorTheme({
             setTheme={theme === "Base" ? setBase : setHighlight}
             highlight={highlight}
             name={theme}
-            key={theme}
+            key={uuidv4()}
           />
         ))}
       </div>
@@ -149,6 +150,7 @@ export function PreviewCommunityColorTheme({
             <input type="hidden" value={bgFormat} />
             {["fill", "tile", "center"].map((format) => (
               <BodyBgFormat
+                key={uuidv4()}
                 format={format}
                 bgFormat={bgFormat}
                 setBgFormat={setBgFormat}
