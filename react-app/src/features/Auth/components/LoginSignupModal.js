@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { LoginForm, SignUpForm } from ".";
-import { SignUpFormSecondPage } from "./SignUpForm";
+import { LoginForm, SignUpForm, SignUpFormSecondPage } from "../components";
 
 export function LoginSignupModal({ btnText, className, formType }) {
   const [email, setEmail] = useState("");

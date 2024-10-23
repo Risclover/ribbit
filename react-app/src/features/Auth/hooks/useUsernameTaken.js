@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCheckUsername } from "../services/apiService";
+import { useCheckUsername } from "../services";
 
 export const useUsernameTaken = (username) => {
   const [usernameTaken, setUsernameTaken] = useState(false);

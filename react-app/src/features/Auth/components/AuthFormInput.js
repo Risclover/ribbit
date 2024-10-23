@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { generateUsername } from "../utils/generateUsername";
-import { IconComponent } from "./IconComponent";
-import { ErrorsDisplay } from "./ErrorsDisplay";
+import { IconComponent, ErrorsDisplay } from "../components";
+import { generateUsername } from "../utils";
 
 export function AuthFormInput({ props, onBlur, icon }) {
   const {

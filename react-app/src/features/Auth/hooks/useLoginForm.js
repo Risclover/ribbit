@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { handleErrors } from "../utils/loginFormValidation";
 import { useDispatch } from "react-redux";
-import { login } from "store";
+import { login } from "@/store";
+import { handleErrors } from "../utils";
 
 export function useLoginForm() {
   const dispatch = useDispatch();

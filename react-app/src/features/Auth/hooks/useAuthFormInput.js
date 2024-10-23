@@ -1,7 +1,6 @@
 // hooks/useAuthFormInput.js
 import { useState, useEffect } from "react";
-import { handleErrors } from "../utils/loginFormValidation";
-import { generateUsername } from "../utils/generateUsername";
+import { generateUsername } from "../utils";
 
 export function useAuthFormInput(validateFn, inputProps) {
   const [focused, setFocused] = useState(false);

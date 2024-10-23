@@ -1,11 +1,8 @@
 import React from "react";
-import { AuthFormInput } from "../AuthFormInput";
-import { FormHeader } from "../FormHeader";
-import SignInSwitch from "../SignInSwitch";
-import useSignUpForm from "features/Auth/hooks/useSignUpForm";
-import { AuthModal } from "context";
-import { handleEmailErrors } from "../../utils/signupFormValidation";
-import "../../styles/AuthModal.css";
+import { AuthModal } from "@/context";
+import { AuthFormInput, FormHeader, SignInSwitch } from "../../components";
+import { useSignUpForm } from "../../hooks";
+import { handleEmailErrors } from "../../utils";
 
 export const SignUpForm = ({
   email,

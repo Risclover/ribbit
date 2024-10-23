@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useUsernameTaken } from "./useUsernameTaken.hook";
-import { validatePassword, validateUsername } from "../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { signUp } from "store";
+import { signUp } from "@/store";
+import { useUsernameTaken } from "../hooks";
+import { validatePassword, validateUsername } from "../utils";
 
-export default function useSignUpFormSecondPage({
+export function useSignUpFormSecondPage({
   setShowSignupForm,
   setOpenSecondPage,
   email,

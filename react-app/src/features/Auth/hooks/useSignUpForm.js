@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleEmailErrors } from "../utils";
 import { getUsers } from "@/store";
+import { handleEmailErrors } from "../utils";
 
-export default function useSignUpForm({
+export function useSignUpForm({
   setEmail,
   email,
   setOpenSecondPage,

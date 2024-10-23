@@ -1,6 +1,6 @@
 import React from "react";
 
-const SignInSwitch = ({ prompt, onClick, linkText }) => {
+export const SignInSwitch = ({ prompt, onClick, linkText }) => {
   return (
     <p className="sign-in-switch">
       {prompt}
@@ -8,5 +8,3 @@ const SignInSwitch = ({ prompt, onClick, linkText }) => {
     </p>
   );
 };
-
-export default SignInSwitch;

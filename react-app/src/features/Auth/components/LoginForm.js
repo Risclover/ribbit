@@ -1,11 +1,8 @@
 import React from "react";
-import { AuthFormInput } from "./AuthFormInput";
-import { handleErrors } from "../utils/loginFormValidation";
-import { FormHeader } from "./FormHeader";
-import SignInSwitch from "./SignInSwitch";
-import { AuthModal } from "context";
-import { useLoginForm } from "../hooks/useLoginForm";
-import "../styles/AuthModal.css";
+import { AuthModal } from "@/context";
+import { AuthFormInput, FormHeader, SignInSwitch } from "../components";
+import { useLoginForm } from "../hooks";
+import { handleErrors } from "../utils";
 
 export const LoginForm = ({
   setShowLoginForm,

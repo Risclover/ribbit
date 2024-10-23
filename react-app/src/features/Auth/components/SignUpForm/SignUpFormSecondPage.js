@@ -1,11 +1,8 @@
 import React from "react";
-import { AuthFormInput } from "../AuthFormInput";
-import {
-  validatePassword,
-  validateUsername,
-} from "../../utils/signupFormValidation";
-import useSignUpFormSecondPage from "features/Auth/hooks/useSignUpFormSecondPage";
-import { AuthModal } from "context";
+import { AuthModal } from "@/context";
+import { AuthFormInput } from "../../components";
+import { useSignUpFormSecondPage } from "../../hooks";
+import { validatePassword, validateUsername } from "../../utils";
 
 export function SignUpFormSecondPage({
   formType,

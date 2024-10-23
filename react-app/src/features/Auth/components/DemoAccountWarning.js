@@ -1,8 +1,7 @@
-// components/DemoAccountWarning.js
 import React from "react";
+import { useDemoAccountWarning } from "../hooks";
 import { WarningIcon } from "@/assets";
 import "../styles/DemoAccountWarning.css";
-import { useDemoAccountWarning } from "../hooks/useDemoAccountWarning";
 
 export function DemoAccountWarning({
   setShowDemoWarning,

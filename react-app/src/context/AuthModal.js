@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useHistory } from "react-router-dom";
+import "./AuthModal.css";
 
 const AuthModalContext = React.createContext();
 

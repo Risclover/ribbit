@@ -1,7 +1,10 @@
 export { LoginForm } from "./LoginForm";
 export { AuthFormInput } from "./AuthFormInput";
-export * from "./SignUpForm";
-export * from "./DemoAccountWarning";
+export { DemoAccountWarning } from "./DemoAccountWarning";
 export { FormHeader } from "./FormHeader";
-export { LoginPage } from "../../../pages/LoginPage";
 export { LoginSignupModal } from "./LoginSignupModal";
+export { SignInSwitch } from "./SignInSwitch";
+export { UsernameAvailability } from "./UsernameAvailability";
+export { IconComponent } from "./IconComponent";
+export { ErrorsDisplay } from "./ErrorsDisplay";
+export * from "./SignUpForm";
