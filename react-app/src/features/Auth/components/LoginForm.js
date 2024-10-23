@@ -4,8 +4,8 @@ import { handleErrors } from "../utils/loginFormValidation";
 import { FormHeader } from "./FormHeader";
 import SignInSwitch from "./SignInSwitch";
 import { AuthModal } from "context";
-import "../styles/AuthModal.css";
 import { useLoginForm } from "../hooks/useLoginForm";
+import "../styles/AuthModal.css";
 
 export const LoginForm = ({
   setShowLoginForm,

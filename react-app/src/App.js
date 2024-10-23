@@ -199,7 +199,7 @@ function App() {
                 </Route>
 
                 <Route path="/login">
-                  <LoginPage />
+                  <ProtectedRoute />
                 </Route>
 
                 <Route path="/signup">
