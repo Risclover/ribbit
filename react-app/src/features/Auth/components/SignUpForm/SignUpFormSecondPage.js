@@ -6,6 +6,9 @@ import {
 } from "../../utils/signupFormValidation";
 import useSignUpFormSecondPage from "features/Auth/hooks/useSignUpFormSecondPage";
 import { AuthModal } from "context";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { signUp } from "store";
 
 export function SignUpFormSecondPage({
   // username,
@@ -15,7 +18,10 @@ export function SignUpFormSecondPage({
   formType,
   setOpenSecondPage,
   setShowSignupForm,
+  email,
 }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [disabled, setDisabled] = useState();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +33,15 @@ export function SignUpFormSecondPage({
       setUsername,
       setPassword,
     });
+  const allUsers = useSelector((state) => state.users);
 
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    dispatch(signUp(username, email.toLowerCase(), password));
+    setShowSignupForm(false);
+    const id = Object.values(allUsers).length + 1;
+    history.push(`/users/${id}/profile`);
+  };
   return (
     <AuthModal
       title="Create your username and password"

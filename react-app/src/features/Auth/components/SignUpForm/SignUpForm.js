@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { AuthFormInput } from "../AuthFormInput";
 import { FormHeader } from "../FormHeader";
 import SignInSwitch from "../SignInSwitch";
@@ -16,12 +16,13 @@ export const SignUpForm = ({
   setOpenSecondPage,
   openSecondPage,
 }) => {
-  const [disabled, setDisabled] = useState();
-  const { emailInputProps, emailTaken } = useSignUpForm({
-    setDisabled,
-    setEmail,
-    email,
-  });
+  const { emailInputProps, emailTaken, continueToSecondPage, continueBtn } =
+    useSignUpForm({
+      setEmail,
+      email,
+      setOpenSecondPage,
+      setShowSignupForm,
+    });
 
   return (
     <AuthModal
@@ -30,22 +31,8 @@ export const SignUpForm = ({
       onClose={() => setShowSignupForm(false)}
       setOpenSecondPage={setOpenSecondPage}
       openSecondPage={openSecondPage}
-      footerBtn={
-        <>
-          <button
-            className=" signup-form-submit"
-            disabled={disabled}
-            type="submit"
-          >
-            Continue
-          </button>
-        </>
-      }
-      onSubmit={(e) => {
-        e.preventDefault();
-        setOpenSecondPage(true);
-        setShowSignupForm(false);
-      }}
+      footerBtn={continueBtn}
+      onSubmit={continueToSecondPage}
     >
       <div className="signup-form-container">
         <div className="signup-form">

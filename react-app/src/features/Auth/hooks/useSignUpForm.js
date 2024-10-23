@@ -3,14 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleEmailErrors } from "../utils";
 import { getUsers } from "@/store";
 
-export default function useSignUpForm({ setDisabled, setEmail, email }) {
+export default function useSignUpForm({
+  setDisabled,
+  setEmail,
+  email,
+  setOpenSecondPage,
+  setShowSignupForm,
+}) {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
+
   const [emailErrors, setEmailErrors] = useState([]);
+  const [disabled, setDisabled] = useState();
 
   const emailTaken = Object.values(users).find(
     (user) => user.email.toLowerCase() === email.toLowerCase()
   );
+
+  useEffect(() => {
+    const errors = handleEmailErrors(email, emailTaken);
+    setDisabled(email === "" || errors.length > 0);
+  }, [email, setDisabled, setEmailErrors]);
 
   useEffect(() => {
     dispatch(getUsers());
@@ -29,10 +42,23 @@ export default function useSignUpForm({ setDisabled, setEmail, email }) {
     setInputValue: setEmail,
   };
 
-  useEffect(() => {
-    const errors = handleEmailErrors(email, emailTaken);
-    setDisabled(email === "" || errors.length > 0);
-  }, [email, setDisabled, setEmailErrors]);
+  const continueBtn = (
+    <button className=" signup-form-submit" disabled={disabled} type="submit">
+      Continue
+    </button>
+  );
 
-  return { emailInputProps, emailTaken };
+  const continueToSecondPage = (e) => {
+    e.preventDefault();
+    setOpenSecondPage(true);
+    setShowSignupForm(false);
+  };
+
+  return {
+    emailInputProps,
+    emailTaken,
+    disabled,
+    continueToSecondPage,
+    continueBtn,
+  };
 }

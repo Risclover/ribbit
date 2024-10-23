@@ -1,96 +1,33 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { LoginForm, SignUpForm } from ".";
-import { AuthModal } from "@/context";
 import { SignUpFormSecondPage } from "./SignUpForm";
-import { login, signUp } from "@/store";
 
 export function LoginSignupModal({ btnText, className, formType }) {
-  const dispatch = useDispatch();
-  const history = useHistory();
-
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  // const [loginEmail, setLoginEmail] = useState("");
-  // const [loginPassword, setLoginPassword] = useState("");
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
   const [openSecondPage, setOpenSecondPage] = useState(false);
-  // const [loginEmailErrors, setLoginEmailErrors] = useState([]);
-  // const [loginPasswordErrors, setLoginPasswordErrors] = useState([]);
-  // const [disabled, setDisabled] = useState();
 
-  const allUsers = useSelector((state) => state.users);
-
-  const handleSignUp = (e) => {
+  const handleOpenModal = (e) => {
     e.preventDefault();
-    dispatch(signUp(username, email.toLowerCase(), password));
-    setShowSignupForm(false);
-    const id = Object.values(allUsers).length + 1;
-    history.push(`/users/${id}/profile`);
+    return formType === "signup"
+      ? setShowSignupForm(true)
+      : setShowLoginForm(true);
   };
-
-  // const handleLogIn = async (e) => {
-  //   e.preventDefault();
-  //   const data = await dispatch(login(loginEmail.toLowerCase(), loginPassword));
-  //   if (data && data.length > 0) {
-  //     let errors = [];
-  //     errors.push("incorrect email or password");
-  //     setLoginEmailErrors([""]);
-  //     setLoginPasswordErrors(errors);
-  //   }
-  // };
 
   return (
     <div style={{ color: "white" }}>
       {formType !== "protected" && (
-        <button
-          className={className}
-          onClick={(e) => {
-            e.preventDefault();
-            formType === "signup"
-              ? setShowSignupForm(true)
-              : setShowLoginForm(true);
-          }}
-        >
+        <button className={className} onClick={handleOpenModal}>
           {btnText}
         </button>
       )}
       {(formType === "protected" || showLoginForm) && (
-        // <AuthModal
-        //   title="Log In"
-        //   onClose={() => setShowLoginForm(false)}
-        //   topbarBtn={formType === "protected" ? "none" : "close"}
-        //   footerBtn={
-        //     <>
-        //       <button
-        //         className="login-form-submit"
-        //         disabled={disabled}
-        //         type="submit"
-        //       >
-        //         Log In
-        //       </button>
-        //     </>
-        //   }
-        //   onSubmit={(e) => handleLogIn(e)}
-        // >
         <LoginForm
           setShowLoginForm={setShowLoginForm}
           setShowSignupForm={setShowSignupForm}
           formType={formType}
-          // setDisabled={setDisabled}
-          // loginEmail={loginEmail}
-          // loginPassword={loginPassword}
-          // setLoginEmail={setLoginEmail}
-          // setLoginPassword={setLoginPassword}
-          // loginPasswordErrors={loginPasswordErrors}
-          // setLoginPasswordErrors={setLoginPasswordErrors}
-          // loginEmailErrors={loginEmailErrors}
-          // setLoginEmailErrors={setLoginEmailErrors}
         />
-        // </AuthModal>
       )}
       {showSignupForm && (
         <SignUpForm
@@ -101,41 +38,15 @@ export function LoginSignupModal({ btnText, className, formType }) {
           email={email}
           setEmail={setEmail}
           formType={formType}
-          // setDisabled={setDisabled}
         />
       )}
       {openSecondPage && (
-        // <AuthModal
-        //   title="Create your username and password"
-        //   onClose={() => {
-        //     setOpenSecondPage(false);
-        //     setShowSignupForm(true);
-        //   }}
-        //   topbarBtn={formType === "protected" ? "none" : "back"}
-        //   footerBtn={
-        //     <>
-        //       <button
-        //         className="signup-form-submit"
-        //         disabled={disabled}
-        //         type="submit"
-        //       >
-        //         Sign Up
-        //       </button>
-        //     </>
-        //   }
-        //   onSubmit={(e) => handleSignUp(e)}
-        // >
         <SignUpFormSecondPage
-          // setDisabled={setDisabled}
-          // username={username}
-          // setUsername={setUsername}
-          // password={password}
-          // setPassword={setPassword}
           formType={formType}
           setOpenSecondPage={setOpenSecondPage}
           setShowSignupForm={setShowSignupForm}
+          email={email}
         />
-        // </AuthModal>
       )}
     </div>
   );
