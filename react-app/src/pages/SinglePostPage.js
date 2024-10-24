@@ -60,8 +60,6 @@ export function SinglePostPage() {
     pageTitle: `c/${post?.communityName}`,
   });
 
-  console.log("height:", bannerHeight);
-
   useEffect(() => {
     setFormat("Card");
     batch(() => {

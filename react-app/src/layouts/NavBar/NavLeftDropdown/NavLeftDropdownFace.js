@@ -31,7 +31,6 @@ export const NavLeftDropdownFace = ({
   }, []);
 
   useEffect(() => {
-    console.log("showDropdown:", showDropdown);
     setShowIcon(showDropdown);
   }, [showDropdown]);
 
@@ -51,7 +50,6 @@ export const NavLeftDropdownFace = ({
           className="nav-left-dropdown-face"
           onClick={() => {
             !showNavSidebar && setShowDropdown(!showDropdown);
-            console.log("after toggle:", showDropdown);
           }}
         >
           {/* first 2/3rds is a button */}

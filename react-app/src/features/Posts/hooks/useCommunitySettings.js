@@ -10,7 +10,6 @@ export const useCommunitySettings = (community) => {
   useEffect(() => {
     if (community?.id) {
       const themes = getCommunityThemes();
-      console.log("themes:", themes);
       if (themes.hasOwnProperty(community.id)) {
         setChecked(themes[community.id]);
       } else {

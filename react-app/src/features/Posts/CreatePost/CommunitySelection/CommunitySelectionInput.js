@@ -58,7 +58,6 @@ export function CommunitySelectionInput({
   }, [communityId, communities, setCommunity, setSearch]);
 
   const handleKeyPress = (e) => {
-    console.log(e.key);
     if (e.key === "Enter") {
       e.preventDefault();
       const foundCommunity = communities.find(

@@ -30,8 +30,6 @@ export function CommunityInfoBox({ community, user, isPage }) {
       document.documentElement
     ).getPropertyValue("--community-base-color");
 
-    console.log("varColor:", varColor);
-
     document.documentElement.style.setProperty(
       "--community-base-color-text",
       getTextColor(varColor)

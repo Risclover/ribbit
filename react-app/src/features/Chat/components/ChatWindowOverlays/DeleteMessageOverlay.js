@@ -1,10 +1,6 @@
 import React from "react";
 
 export const DeleteMessageOverlay = ({ setShowDeleteConfirmation }) => {
-  const handleDeleteMsg = (e) => {
-    e.preventDefault();
-    console.log("delete");
-  };
   return (
     <div className="overlay-container">
       <div className="delete-overlay">

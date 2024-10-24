@@ -219,7 +219,6 @@ export function CreatePost({ postType, setPostType, val }) {
     if (content.trim() === 0) {
       setContent("");
     }
-    console.log("content:", content);
   }, [content]);
 
   const handlePostSubmit = async (e) => {

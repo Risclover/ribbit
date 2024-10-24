@@ -4,14 +4,13 @@ const MetadataContext = createContext();
 
 export const MetadataProvider = ({ children }) => {
   const [metadata, setMetadata] = useState({});
-  console.log("key:", process.env.REACT_APP_LINK_PREVIEW_KEY);
 
   const fetchMetadata = (url) => {
     if (!metadata[url]) {
       fetch("https://api.linkpreview.net", {
         method: "POST",
         headers: {
-          "X-Linkpreview-Api-Key": `f7d9b6f0db216f15c913946daf46eb38`,
+          "X-Linkpreview-Api-Key": process.env.REACT_APP_LINK_PREVIEW_KEY,
         },
         mode: "cors",
         body: JSON.stringify({ q: url }),

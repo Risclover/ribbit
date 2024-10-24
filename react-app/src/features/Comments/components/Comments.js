@@ -48,8 +48,6 @@ export function Comments({ post }) {
     setSortedComments(sortComments(comments, sortType));
   }, [sortType]);
 
-  console.log("sortedComments:", sortedComments);
-
   const dismissSearch = () => {
     dispatch(getComments(post.id));
     setSearchValue("");

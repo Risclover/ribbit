@@ -33,7 +33,6 @@ export function EditComment({
     const data = await dispatch(
       updateComment({ content: content.trim() }, comment.id)
     );
-    console.log("data:", data);
     setShowEditCommentModal(false);
     await dispatch(getPosts());
     await dispatch(getComments(postId));

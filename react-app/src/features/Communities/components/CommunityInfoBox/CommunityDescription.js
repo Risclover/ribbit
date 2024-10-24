@@ -30,7 +30,6 @@ export function CommunityDescription({ community, user }) {
         community.id
       )
     );
-    console.log("data:", data);
     setDescription(data.description);
     await dispatch(getCommunities());
     await dispatch(getSingleCommunity(data.id));

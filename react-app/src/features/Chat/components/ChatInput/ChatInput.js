@@ -22,9 +22,6 @@ export const ChatInput = ({
   const textareaRef = useRef(null);
 
   const chatThreads = useSelector((state) => state.chatThreads);
-  useEffect(() => {
-    console.log("Updated chatThreads:", chatThreads);
-  }, [chatThreads]);
   const { selectedChat, setSelectedChat, setPendingReceiver, pendingReceiver } =
     useContext(SelectedChatContext);
 
@@ -95,9 +92,6 @@ export const ChatInput = ({
     setSelectedChat(data);
     setShowMessageInviteOverlay(false);
     setPendingReceiver(null);
-    console.log("NEW CHAT::", data);
-    console.log("SELECTED CHAT::", selectedChat);
-
     return data;
   };
 
