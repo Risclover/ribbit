@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getFollowers } from "@/store";
-import { FollowingBtn } from "@/pages";
-// import "@/pages/UserProfile/UserProfile.css";
 import { v4 as uuidv4 } from "uuid";
+import { getFollowers } from "@/store";
+import { FollowBtn } from "components";
 
 export function UserProfileFollowers({ setShowFollowersModal }) {
   const dispatch = useDispatch();
@@ -61,7 +60,7 @@ export function UserProfileFollowers({ setShowFollowersModal }) {
               />
               {follower.username}
             </div>
-            <FollowingBtn user={follower} follows={follows} />
+            <FollowBtn btnType="profile" user={follower} follows={follows} />
           </div>
         ))}
       </div>

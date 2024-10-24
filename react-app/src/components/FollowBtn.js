@@ -7,7 +7,7 @@ import {
   unfollowUser,
 } from "@/store";
 
-export function FollowBtn({ user, community }) {
+export function FollowBtn({ user, community, btnType }) {
   const dispatch = useDispatch();
   const follows = useSelector((state) => state.followers?.follows);
 
@@ -20,6 +20,18 @@ export function FollowBtn({ user, community }) {
 
   const [following, setFollowing] = useState(findIsFollowing());
   const [btnText, setBtnText] = useState("");
+
+  const btnClass1 = !following
+    ? "user-profile-follower-btn"
+    : "user-profile-following-btn";
+
+  const btnClass2 = `${
+    !following ? "blue-btn-filled btn-long" : "blue-btn-unfilled btn-long"
+  }${
+    community ? (!following ? " community-btn-filled" : " community-btn") : ""
+  }`;
+
+  const btnClasses = [btnClass1, btnClass2];
 
   useEffect(() => {
     setFollowing(findIsFollowing());
@@ -41,15 +53,7 @@ export function FollowBtn({ user, community }) {
   return (
     <button
       aria-label={btnText}
-      className={`${
-        !following ? "blue-btn-filled btn-long" : "blue-btn-unfilled btn-long"
-      }${
-        community
-          ? !following
-            ? " community-btn-filled"
-            : " community-btn"
-          : ""
-      }`}
+      className={btnType === "profile" ? btnClasses[0] : btnClasses[1]}
       onClick={handleFollowClick}
     >
       {btnText}

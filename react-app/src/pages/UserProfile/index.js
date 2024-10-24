@@ -1,4 +1,3 @@
-export { FollowingBtn } from "./FollowingBtn";
 export { SendMessage } from "./SendMessage";
 export { StartChat } from "./StartChat";
 export { UploadUserBanner } from "./UploadUserBanner";
