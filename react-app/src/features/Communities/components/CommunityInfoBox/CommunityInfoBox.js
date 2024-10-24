@@ -13,8 +13,11 @@ import { getTextColor } from "@/utils";
 import Cake from "@/assets/images/misc/piece4.png";
 import { useHistory } from "react-router-dom";
 import { CommunityImg } from "components/CommunityImg";
+import { useCommunitySettings } from "features/Posts/hooks/useCommunitySettings";
 
 export function CommunityInfoBox({ community, user, isPage }) {
+  const { checked, setChecked } = useCommunitySettings(community);
+
   const history = useHistory();
   const [members, setMembers] = useState(0);
 
@@ -22,15 +25,18 @@ export function CommunityInfoBox({ community, user, isPage }) {
     setMembers(community?.members);
   }, [community?.members]);
 
-  const varColor = getComputedStyle(document.documentElement).getPropertyValue(
-    "--community-base-color"
-  );
   useEffect(() => {
+    const varColor = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--community-base-color");
+
+    console.log("varColor:", varColor);
+
     document.documentElement.style.setProperty(
       "--community-base-color-text",
       getTextColor(varColor)
     );
-  }, [community]);
+  }, [community, localStorage, checked]);
 
   return (
     <div className="community-page-community-info">
@@ -96,7 +102,11 @@ export function CommunityInfoBox({ community, user, isPage }) {
             />
           )}
         </div>
-        <CommunityOptions community={community} />
+        <CommunityOptions
+          checked={checked}
+          setChecked={setChecked}
+          community={community}
+        />
       </div>
     </div>
   );

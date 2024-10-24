@@ -1,23 +1,34 @@
 import { useEffect, useState } from "react";
+import {
+  getCommunityThemes,
+  setCommunityThemes,
+} from "features/Communities/utils/localStorage";
 
 export const useCommunitySettings = (community) => {
-  const [checked, setChecked] = useState(
-    localStorage.getItem(`community-${community?.id}-theme`)
-  );
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.getItem(`community-${community?.id}-theme`)) {
-      localStorage.setItem(`community-${community?.id}-theme`, "true");
+    if (community?.id) {
+      const themes = getCommunityThemes();
+      console.log("themes:", themes);
+      if (themes.hasOwnProperty(community.id)) {
+        setChecked(themes[community.id]);
+      } else {
+        // If no setting exists for this community, default to true and save it
+        themes[community.id] = true;
+        setCommunityThemes(themes);
+        setChecked(true);
+      }
     }
-  }, [localStorage, community]);
+  }, [community]);
 
   useEffect(() => {
-    if (localStorage.getItem(`community-${community?.id}-theme`) === "true") {
-      setChecked(true);
-    } else {
-      setChecked(false);
+    if (community?.id) {
+      const themes = getCommunityThemes();
+      themes[community.id] = checked;
+      setCommunityThemes(themes);
     }
-  }, [localStorage]);
+  }, [checked, community]);
 
   useEffect(() => {
     if (checked) {

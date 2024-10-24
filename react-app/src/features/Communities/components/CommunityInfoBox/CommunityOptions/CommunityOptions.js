@@ -7,27 +7,24 @@ import { useDispatch } from "react-redux";
 import { getCommunitySettings } from "store";
 import "./CommunityOptions.css";
 
-export function CommunityOptions({ community }) {
+export function CommunityOptions({ checked, setChecked, community }) {
   const dispatch = useDispatch();
-  const { checked, setChecked } = useCommunitySettings(community);
-
   const [showCommunityOptions, setShowCommunityOptions] = useState(false);
 
   const handleThemeToggle = (e) => {
-    setChecked(!checked);
-    if (checked)
-      localStorage.setItem(`community-${community?.id}-theme`, "false");
-    if (!checked)
-      localStorage.setItem(`community-${community?.id}-theme`, "true");
+    const themes = JSON.parse(localStorage.getItem("community-themes"));
 
+    setChecked(!checked);
+    themes[community?.id] = checked;
+
+    localStorage.setItem("community-themes", JSON.stringify(themes));
     dispatch(getCommunitySettings(community?.id));
   };
-
   return (
     <div className="community-options-container">
       <button
         role="button"
-        className={`community-options-expander`}
+        className="community-options-expander"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -50,7 +47,6 @@ export function CommunityOptions({ community }) {
           <label>
             <CommunityThemeToggle
               checked={checked}
-              setChecked={setChecked}
               handleThemeToggle={handleThemeToggle}
             />
           </label>

@@ -27,16 +27,6 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
   const history = useHistory();
   const communityHref = `/c/${post?.communityName}`;
 
-  useEffect(() => {
-    const communitySettings = post?.communitySettings?.[post?.communityId];
-    if (communitySettings) {
-      document.documentElement.style.setProperty(
-        "--community-base-color",
-        communitySettings.baseColor
-      );
-    }
-  }, []);
-
   return (
     <div className="single-post-author-bar">
       {isPage !== "singlepage" && isPage !== "community" && (
