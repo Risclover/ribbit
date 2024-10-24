@@ -156,6 +156,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                   post?.content !== "" &&
                   !postExpand && (
                     <button
+                      aria-label="Expand post"
                       className="classic-post-button btn-expand"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -167,6 +168,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                   )}
                 {post?.linkUrl === null && postExpand && (
                   <button
+                    aria-label="Close expanded post"
                     className="classic-post-button btn-expand"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -178,6 +180,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                 )}
                 {post?.linkUrl !== null && (
                   <button
+                    aria-label="Open external link"
                     className="classic-post-button"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -191,6 +194,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                   post?.content === "" &&
                   post?.imgUrl === null && (
                     <button
+                      aria-label="Open text post"
                       className="classic-post-button"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -203,6 +207,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                 <div className="post-btn-separator"></div>
                 <div className="single-post-button">
                   <button
+                    aria-label="Comments"
                     className="single-post-comments-btn"
                     onClick={(e) => {
                       e.stopPropagation();

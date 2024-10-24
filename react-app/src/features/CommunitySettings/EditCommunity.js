@@ -156,23 +156,13 @@ export function EditCommunity() {
               </p>
               <div className="community-rules-container">
                 <div className="community-rules-button-bar">
-                  {rulesNum >= 15 && (
-                    <button
-                      disabled
-                      className="blue-btn-filled btn-short"
-                      onClick={() => setShowRuleModal(true)}
-                    >
-                      Add rule
-                    </button>
-                  )}
-                  {rulesNum < 15 && (
-                    <button
-                      className="blue-btn-filled btn-short"
-                      onClick={() => setShowRuleModal(true)}
-                    >
-                      Add rule
-                    </button>
-                  )}
+                  <button
+                    disabled={rulesNum >= 15}
+                    className="blue-btn-filled btn-short"
+                    onClick={() => setShowRuleModal(true)}
+                  >
+                    Add rule
+                  </button>
                 </div>
                 <div className="community-rules-edit">
                   {Object.values(community?.communityRules).map((rule, idx) => (

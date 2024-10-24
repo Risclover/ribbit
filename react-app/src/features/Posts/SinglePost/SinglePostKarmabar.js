@@ -8,6 +8,7 @@ export function SinglePostKarmabar({ post }) {
   return (
     <div className="single-post-karmabar">
       <button
+        aria-label="Upvote"
         className={vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"}
         onClick={(e) => handleVoteClick(e, "upvote")}
       >
@@ -31,6 +32,7 @@ export function SinglePostKarmabar({ post }) {
       </span>
 
       <button
+        aria-label="Downvote"
         className={vote === "downvote" ? "vote-btn-blue" : "downvote-btn-grey"}
         onClick={(e) => handleVoteClick(e, "downvote")}
       >

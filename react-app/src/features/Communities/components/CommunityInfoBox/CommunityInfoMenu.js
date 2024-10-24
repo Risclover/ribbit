@@ -55,7 +55,7 @@ export function CommunityInfoMenu({ community }) {
   useOutsideClick(wrapperRef, () => setOpenMenu(false));
   return (
     <div className="community-page-menu">
-      <button onClick={handleOpenMenu}>
+      <button aria-label="Menu" onClick={handleOpenMenu}>
         <HiOutlineDotsHorizontal />
       </button>
       {openMenu && (

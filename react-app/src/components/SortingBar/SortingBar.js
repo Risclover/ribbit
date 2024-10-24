@@ -8,7 +8,7 @@ const SortButton = ({ active, onClick, community, icon, label }) => {
     active ? "active-sort-btn" : ""
   } ${community ? "community-sorting-bar-btn" : ""}`;
   return (
-    <button className={buttonClass} onClick={onClick}>
+    <button aria-label={label} className={buttonClass} onClick={onClick}>
       <i className={icon}></i>
       {label}
     </button>

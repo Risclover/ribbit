@@ -69,7 +69,11 @@ export function AuthModal({
             </div>
           )}
           {topbarBtn === "close" && topbarBtn !== "none" ? (
-            <button className="auth-modal-close" onClick={onClose}>
+            <button
+              aria-label="Close"
+              className="auth-modal-close"
+              onClick={onClose}
+            >
               <svg
                 rpl=""
                 fill="currentColor"
@@ -83,7 +87,11 @@ export function AuthModal({
               </svg>
             </button>
           ) : topbarBtn === "back" && topbarBtn !== "none" ? (
-            <button className="auth-modal-back" onClick={onClose}>
+            <button
+              aria-label="Back"
+              className="auth-modal-back"
+              onClick={onClose}
+            >
               <svg
                 rpl=""
                 fill="#000000"

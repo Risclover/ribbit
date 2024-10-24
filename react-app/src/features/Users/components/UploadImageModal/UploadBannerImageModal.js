@@ -88,19 +88,15 @@ export function UploadBannerImageModal({
           >
             Cancel
           </button>
-          {image ? (
-            <button
-              className="blue-btn-filled btn-short"
-              type="submit"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-          ) : (
-            <button className="modal-buttons-disabled" disabled>
-              Submit
-            </button>
-          )}
+
+          <button
+            className="blue-btn-filled btn-short"
+            type="submit"
+            onClick={handleSubmit}
+            disabled={!image}
+          >
+            Submit
+          </button>
         </div>
       </form>
     </div>

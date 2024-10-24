@@ -23,12 +23,17 @@ export function DeleteConfirmationModal({
           </div>
           <div className="modal-buttons">
             <button
+              aria-label="Cancel"
               className="delete-modal-btn-left"
               onClick={handleCancelClick}
             >
               Cancel
             </button>
-            <button className="delete-modal-btn-right" onClick={handleDelete}>
+            <button
+              aria-label="Delete"
+              className="delete-modal-btn-right"
+              onClick={handleDelete}
+            >
               Delete
             </button>
           </div>

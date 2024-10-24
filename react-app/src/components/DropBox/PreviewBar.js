@@ -10,7 +10,7 @@ export const PreviewBar = ({ onErase, showBar, preview }) => {
         }`}
         onClick={onErase}
       >
-        <button>
+        <button aria-label="Delete">
           <FaTrash />
         </button>
       </div>

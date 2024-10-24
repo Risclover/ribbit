@@ -105,12 +105,16 @@ export function NotificationsDropdown({
                 </span>
               </div>
               <button
+                aria-label="Mark all as 'read'"
                 className="notifications-dropdown-head-btn"
                 onClick={handleReadAll}
               >
                 <VscMailRead />
               </button>
-              <button className="notifications-dropdown-head-btn">
+              <button
+                aria-label="Open notifications settings"
+                className="notifications-dropdown-head-btn"
+              >
                 <VscSettingsGear />
               </button>
             </div>

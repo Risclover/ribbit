@@ -72,6 +72,7 @@ export function PostModal({ onClose, post }) {
               </div>
               <div className="post-modal-top-bar-close">
                 <button
+                  aria-label="Close"
                   className="post-modal-top-bar-close-btn"
                   onClick={onClose}
                 >

@@ -72,7 +72,11 @@ export const CommentSearch = ({
           onKeyPress={(e) => e.key === "Enter" && handleEnter(e)}
         />
         {searchValue.length > 0 && (
-          <button className="comment-search-dismiss" onClick={handleDismiss}>
+          <button
+            aria-label="Close"
+            className="comment-search-dismiss"
+            onClick={handleDismiss}
+          >
             <SlClose />
           </button>
         )}

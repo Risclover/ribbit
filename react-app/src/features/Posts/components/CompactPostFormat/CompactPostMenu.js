@@ -42,13 +42,21 @@ export const CompactPostMenu = ({ user, post, isPage, community }) => {
   return (
     <>
       <div className="compact-post-menu-wrapper">
-        <button className="compact-post-menu-face" onClick={toggleSubmenu}>
+        <button
+          aria-label="Open menu"
+          className="compact-post-menu-face"
+          onClick={toggleSubmenu}
+        >
           <BsThreeDots />
         </button>
       </div>
       {showSubmenu && (
         <div className="compact-post-menu" ref={wrapperRef}>
-          <button className="compact-post-menu-btn" onClick={copyLink}>
+          <button
+            aria-label="Share post"
+            className="compact-post-menu-btn"
+            onClick={copyLink}
+          >
             <div className="compact-post-menu-btn-icon">
               <img src={Bounce} alt="Share" />
             </div>
@@ -58,7 +66,11 @@ export const CompactPostMenu = ({ user, post, isPage, community }) => {
             user.id === post?.postAuthor.id &&
             !post?.imgUrl &&
             !post?.linkUrl && (
-              <button className="compact-post-menu-btn" onClick={editPost}>
+              <button
+                aria-label="Edit post"
+                className="compact-post-menu-btn"
+                onClick={editPost}
+              >
                 <div className="compact-post-menu-btn-icon">
                   <i className="fa-solid fa-pencil"></i>
                 </div>

@@ -127,7 +127,11 @@ export function Gifs({ receiver, setOpenGiphy, setGifIcon, GifIcon }) {
           placeholder="Search GIPHY"
         />
         {closeBtn && (
-          <button className="giphy-input-close" onClick={(e) => handleClear(e)}>
+          <button
+            aria-label="Close"
+            className="giphy-input-close"
+            onClick={(e) => handleClear(e)}
+          >
             <SlClose />
           </button>
         )}

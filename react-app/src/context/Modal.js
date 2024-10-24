@@ -32,7 +32,7 @@ export function Modal({ onClose, children, title, open }) {
       <div id="modal-content">
         <div id="modal-topbar">
           <h1 className="login-form-title">{title}</h1>
-          <button onClick={onClose}>
+          <button aria-label="Close" onClick={onClose}>
             <i className="fa-solid fa-xmark"></i>
           </button>
         </div>

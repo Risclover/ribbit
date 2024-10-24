@@ -67,6 +67,7 @@ export function SinglePostContent({ post, isPage }) {
 
       {post.linkUrl && (
         <button
+          aria-label="Open external link"
           onClick={(e) => {
             e.stopPropagation();
             e.preventDefault();

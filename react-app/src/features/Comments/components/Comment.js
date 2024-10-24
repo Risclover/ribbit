@@ -11,7 +11,7 @@ import { EditComment } from "../..";
 import { Username } from "@/components";
 import { DeleteConfirmationModal, UsernamePopup } from "components";
 import { convertTime } from "../utils/convertTime";
-import { useCommentVote } from "../hooks/useCommentVote";
+import { useCommentVote } from "./CommentForms/hooks/useCommentVote";
 import { CommentKarmaBar } from "./CommentKarmaBar";
 import { getComments, removeComment, getPosts } from "@/store";
 import { useHistory } from "react-router-dom";
@@ -227,6 +227,7 @@ export function Comment({ commentId, comment, specificCommentActive }) {
                 {comment?.commentAuthor?.id === currentUser?.id && (
                   <>
                     <button
+                      aria-label="Edit comment"
                       onClick={() => {
                         setShowEditCommentModal(true);
                       }}
@@ -269,7 +270,10 @@ export function Comment({ commentId, comment, specificCommentActive }) {
                         />
                       </Modal>
                     )}
-                    <button onClick={() => setShowDeleteModal(true)}>
+                    <button
+                      aria-label="Delete"
+                      onClick={() => setShowDeleteModal(true)}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"

@@ -365,6 +365,7 @@ export function CreatePost({ postType, setPostType, val }) {
                           }}
                         >
                           <button
+                            aria-label="Close"
                             className="close-preview-btn"
                             onClick={handleDeletePreview}
                           >

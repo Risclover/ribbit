@@ -79,6 +79,7 @@ export function AuthFormInput({ props, onBlur, icon }) {
           )}
           {icon === "rotate" && (
             <button
+              aria-label="Get randomized username"
               className="generate-username-btn"
               type="button"
               onClick={pickRandomUsername}

@@ -14,6 +14,7 @@ export function BackToTop({ community, ref }) {
   return (
     <div className="back-to-top-box">
       <button
+        aria-label="Back to top"
         className={`${
           community && "community-btn-filled"
         } blue-btn-filled btn-short`}

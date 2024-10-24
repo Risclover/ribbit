@@ -47,6 +47,7 @@ export function CompactPostFormat({ id, isPage, post }) {
           <div className="compact-post-karmabar">
             <div className="compact-post-karmabar-btns">
               <button
+                aria-label="Upvote"
                 className={
                   vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"
                 }
@@ -62,6 +63,7 @@ export function CompactPostFormat({ id, isPage, post }) {
                   : post?.votes}
               </span>
               <button
+                aria-label="Downvote"
                 className={
                   vote === "downvote" ? "vote-btn-blue" : "downvote-btn-grey"
                 }
@@ -139,7 +141,7 @@ export function CompactPostFormat({ id, isPage, post }) {
               </div>
             </div>
             <div className="compact-post-btns">
-              <button className="compact-post-comments">
+              <button aria-label="Comments" className="compact-post-comments">
                 <i className="fa-regular fa-message"></i>
                 {commentNum}
               </button>

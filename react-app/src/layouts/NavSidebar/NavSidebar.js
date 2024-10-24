@@ -33,6 +33,7 @@ export function NavSidebar({
         <div className="nav-sidebar-container">
           <div className="nav-sidebar-top">
             <button
+              aria-label="Close nav sidebar"
               className="close-nav-sidebar-btn"
               onClick={() => {
                 setShowNavSidebar(false);

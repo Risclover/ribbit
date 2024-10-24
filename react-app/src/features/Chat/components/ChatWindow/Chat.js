@@ -107,6 +107,7 @@ const Chat = ({ setOpenChat }) => {
         <div className="chat-window-chatnav-title">
           Chats{" "}
           <button
+            aria-label="Create chat"
             className="chat-window-create-chat-btn"
             onClick={() => setShowCreateChatOverlay(true)}
           >

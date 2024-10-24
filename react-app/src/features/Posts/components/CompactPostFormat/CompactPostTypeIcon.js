@@ -11,7 +11,11 @@ export function CompactPostTypeIcon({ post, setPostExpand, postExpand }) {
   };
 
   const renderExpandCollapseButton = () => (
-    <button className="compact-post-icon-btn" onClick={handlePostExpandClick}>
+    <button
+      aria-label="Expand/close post"
+      className="compact-post-icon-btn"
+      onClick={handlePostExpandClick}
+    >
       {postExpand ? (
         <span className="compact-post-icon-btn-collapse">
           <BsArrowsAngleContract />
@@ -31,6 +35,7 @@ export function CompactPostTypeIcon({ post, setPostExpand, postExpand }) {
 
   const renderLinkButton = () => (
     <button
+      aria-label="Open external link"
       className="compact-post-icon-btn"
       onClick={(e) => {
         e.stopPropagation();
@@ -45,7 +50,10 @@ export function CompactPostTypeIcon({ post, setPostExpand, postExpand }) {
   return (
     <div className="compact-post-icon">
       {post?.content === "" && post.linkUrl === null && (
-        <button className="compact-post-icon-btn expandless">
+        <button
+          aria-label="Open text post"
+          className="compact-post-icon-btn expandless"
+        >
           <CgNotes />
         </button>
       )}

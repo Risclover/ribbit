@@ -60,15 +60,13 @@ export function CommentForm({ postId }) {
               <div className="comment-form-errors">
                 {errors.length > 0 && errors.map((error) => error)}
               </div>
-              {disabled === true ? (
-                <button type="submit" className="comment-submit" disabled>
-                  Comment
-                </button>
-              ) : (
-                <button type="submit" className="comment-submit">
-                  Comment
-                </button>
-              )}
+              <button
+                type="submit"
+                className="comment-submit"
+                disabled={disabled}
+              >
+                Comment
+              </button>
             </div>
           </div>
         </form>

@@ -57,6 +57,7 @@ export const ChatMessage = ({
                   />
                 )}
                 <button
+                  aria-label="Reactions"
                   className="chat-message-reaction-btn"
                   onClick={() => setOpenReactions(!openReactions)}
                 >
@@ -65,6 +66,7 @@ export const ChatMessage = ({
                   </span>
                 </button>
                 <button
+                  aria-label="Delete"
                   className="chat-message-delete-btn"
                   onClick={() => {
                     setShowDeleteConfirmation(true);
@@ -101,6 +103,7 @@ export const ChatMessage = ({
               >
                 {openReactions && <ReactionsMenu />}
                 <button
+                  aria-label="Reactions"
                   className="chat-message-reaction-btn"
                   onClick={() => setOpenReactions(true)}
                 >
@@ -109,6 +112,7 @@ export const ChatMessage = ({
                   </span>
                 </button>
                 <button
+                  aria-label="Delete"
                   className="chat-message-delete-btn"
                   onClick={() => {
                     setShowDeleteConfirmation(true);

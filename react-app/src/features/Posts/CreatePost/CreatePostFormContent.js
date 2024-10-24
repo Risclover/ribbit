@@ -58,6 +58,7 @@ export function CreatePostFormContent({
                 }}
               >
                 <button
+                  aria-label="Close"
                   className="close-preview-btn"
                   onClick={handleDeletePreview}
                 >

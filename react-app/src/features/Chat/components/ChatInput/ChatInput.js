@@ -113,10 +113,15 @@ export const ChatInput = ({
           placeholder="Message"
         ></textarea>
         <div className="input-btns">
-          <button className="gif-btn" onClick={handleOpenGiphy}>
+          <button
+            aria-label="Gifs"
+            className="gif-btn"
+            onClick={handleOpenGiphy}
+          >
             <img src={gifIcon} alt="Gif" />
           </button>
           <button
+            aria-label="Emojis"
             className="emojis-btn"
             onClick={() => {
               setOpenGiphy(false);

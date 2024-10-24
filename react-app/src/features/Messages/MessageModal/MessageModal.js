@@ -220,16 +220,17 @@ export function MessageModal({ setShowMessageModal, username }) {
             >
               Cancel
             </button>
-            {recipientError !== "" ||
-            receiver?.username === currentUser?.username ? (
-              <button className="blue-btn-filled btn-short" disabled>
-                Send
-              </button>
-            ) : (
-              <button type="submit" className="blue-btn-filled btn-short">
-                Send
-              </button>
-            )}
+
+            <button
+              type="submit"
+              className="blue-btn-filled btn-short"
+              disabled={
+                recipientError !== "" ||
+                receiver?.username === currentUser?.username
+              }
+            >
+              Send
+            </button>
           </div>
         </div>
       </form>

@@ -10,3 +10,4 @@ from .notification import Notification
 from .chat import ChatMessage, ChatMessageThread, user_chat_threads, ChatMessageReaction
 from .community_settings import CommunitySettings
 from .viewed_post import ViewedPost
+from .search import Search

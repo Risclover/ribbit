@@ -1,6 +1,6 @@
 import React from "react";
 import { PiArrowFatUpFill, PiArrowFatDownFill } from "react-icons/pi";
-import { useCommentVote } from "../hooks/useCommentVote";
+import { useCommentVote } from "./CommentForms/hooks/useCommentVote";
 
 export function CommentKarmaBar({ comment }) {
   const { vote, handleVoteClick } = useCommentVote(comment);
@@ -8,6 +8,7 @@ export function CommentKarmaBar({ comment }) {
   return (
     <div className="comment-vote-btns">
       <button
+        aria-label="Upvote"
         className={vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"}
         onClick={(e) => handleVoteClick(e, "upvote")}
       >
@@ -31,6 +32,7 @@ export function CommentKarmaBar({ comment }) {
       </span>
 
       <button
+        aria-label="Downvote"
         className={vote === "downvote" ? "vote-btn-blue" : "downvote-btn-grey"}
         onClick={(e) => handleVoteClick(e, "downvote")}
       >

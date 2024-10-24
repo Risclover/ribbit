@@ -67,6 +67,7 @@ export function Notification({ notification }) {
               </div>
               <div className="notification-top-right">
                 <button
+                  aria-label="Notifications"
                   className="notification-top-right-menu-btn"
                   onClick={(e) => {
                     e.stopPropagation();

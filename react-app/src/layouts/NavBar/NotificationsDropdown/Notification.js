@@ -54,6 +54,7 @@ export function Notification({ notification, setShowDropdown }) {
                 </span>
               </div>
               <button
+                aria-label="Open/close notifications"
                 className="notification-menu-btn"
                 onClick={(e) => {
                   e.preventDefault();

@@ -16,6 +16,7 @@ export const PostFormatDropdownBtn = React.forwardRef(
 
     return (
       <button
+        aria-label={item.format + " format"}
         ref={ref}
         className={className}
         onClick={() => {

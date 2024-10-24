@@ -6,8 +6,8 @@ import { FiLink } from "react-icons/fi";
 import { v4 as uuidv4 } from "uuid";
 import "./CreatePostBar.css";
 
-const PostBarButton = ({ icon: Icon, onClick, testId }) => (
-  <button onClick={onClick} data-testid={testId}>
+const PostBarButton = ({ icon: Icon, onClick, testId, ariaLabel }) => (
+  <button aria-label={ariaLabel} onClick={onClick} data-testid={testId}>
     <Icon />
   </button>
 );
@@ -28,6 +28,7 @@ export const CreatePostBar = ({ page, communityName }) => {
           : `/c/submit/image`
       ),
       testId: "image-post-icon",
+      ariaLabel: "Create image post",
     },
     {
       icon: FiLink,
@@ -37,6 +38,7 @@ export const CreatePostBar = ({ page, communityName }) => {
           : `/c/submit/url`
       ),
       testId: "url-post-icon",
+      ariaLabel: "Create link post",
     },
   ];
   return (

@@ -19,9 +19,11 @@ export function FollowBtn({ user, community }) {
       : null;
 
   const [following, setFollowing] = useState(findIsFollowing());
+  const [btnText, setBtnText] = useState("");
 
   useEffect(() => {
     setFollowing(findIsFollowing());
+    setBtnText(findIsFollowing() ? "Unfollow" : "Follow");
   }, [follows, user.username]);
 
   const handleFollowClick = async (e) => {
@@ -38,6 +40,7 @@ export function FollowBtn({ user, community }) {
 
   return (
     <button
+      aria-label={btnText}
       className={`${
         !following ? "blue-btn-filled btn-long" : "blue-btn-unfilled btn-long"
       }${
@@ -49,7 +52,7 @@ export function FollowBtn({ user, community }) {
       }`}
       onClick={handleFollowClick}
     >
-      {!following ? "Follow" : "Unfollow"}
+      {btnText}
     </button>
   );
 }

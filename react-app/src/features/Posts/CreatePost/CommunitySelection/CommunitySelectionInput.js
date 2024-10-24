@@ -119,6 +119,7 @@ export function CommunitySelectionInput({
           ref={inputRef}
         />
         <button
+          aria-label="Open communities dropdown"
           type="button"
           className="chevron-down-icon"
           onClick={() => setShowDropdown((prev) => !prev)}
