@@ -366,13 +366,11 @@
   background-position-x: center;
   background-repeat: no-repeat;
   border-radius: 3px 3px 0 0;
-  height: 34px;
   background-color: var(--community-base-color);
   padding: 0 12px 12px;
   display: flex;
   justify-content: space-between;
   letter-spacing: 0.5px;
-  height: 50px;
 }
 
 .community-page-right-col .community-page-box-header {
