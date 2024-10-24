@@ -17,7 +17,9 @@ const PostTypeIcon = ({ post, linkImg }) => {
   if (post?.linkUrl) {
     return (
       <div className="recent-post-type type-link">
-        {linkImg && <img className="link-url-img" src={linkImg} />}
+        {linkImg && (
+          <img className="link-url-img" src={linkImg} alt="Link preview" />
+        )}
         {!linkImg && (
           <div className="recent-post-type-link">
             <FiLink />

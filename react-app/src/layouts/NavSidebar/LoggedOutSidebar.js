@@ -26,7 +26,7 @@ export function LoggedOutSidebar({ showLoggedOutSidebar }) {
               <img
                 src={Home}
                 className="nav-left-dropdown-item-icon"
-                alt="Home"
+                alt="House icon"
               />
               <span className="nav-left-dropdown-item">Home</span>
             </div>
