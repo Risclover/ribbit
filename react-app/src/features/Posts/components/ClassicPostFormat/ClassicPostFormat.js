@@ -78,11 +78,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
               {post?.linkUrl && (
                 <div className="classic-post-img-placeholder">
                   {metadataResult && (
-                    <img
-                      className="link-url-img"
-                      src={metadataResult}
-                      alt="Link preview"
-                    />
+                    <img className="link-url-img" src={metadataResult} />
                   )}
                   {!metadataResult && (
                     <span

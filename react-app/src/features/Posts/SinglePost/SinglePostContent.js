@@ -80,11 +80,7 @@ export function SinglePostContent({ post, isPage }) {
           }`}
         >
           {metadataResult && (
-            <img
-              className="link-url-img"
-              src={metadataResult}
-              alt="Link preview"
-            />
+            <img className="link-url-img" src={metadataResult} />
           )}
           {!metadataResult && <FiLink />}
           <div

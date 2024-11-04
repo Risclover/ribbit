@@ -63,7 +63,6 @@ export const CreatePostBar = ({ page, communityName }) => {
 
           {postBarButtons.map((btn) => (
             <PostBarButton
-              ariaLabel={btn.ariaLabel}
               key={uuidv4()}
               icon={btn.icon}
               onClick={btn.navigation}

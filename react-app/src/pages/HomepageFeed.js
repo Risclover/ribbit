@@ -27,11 +27,7 @@ export function HomepageFeed() {
   usePageSettings({
     documentTitle: "Ribbit - Splash into anything",
     icon: (
-      <img
-        src={HomeIcon}
-        className="nav-left-dropdown-item-icon"
-        alt="House icon"
-      />
+      <img src={HomeIcon} className="nav-left-dropdown-item-icon" alt="Home" />
     ),
     pageTitle: "Home",
   });

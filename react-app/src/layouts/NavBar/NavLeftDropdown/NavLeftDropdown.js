@@ -255,11 +255,7 @@ export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
             history.push("/");
           }}
         >
-          <img
-            src={Home}
-            className="nav-left-dropdown-item-icon"
-            alt="House icon"
-          />
+          <img src={Home} className="nav-left-dropdown-item-icon" alt="Home" />
           <span className="nav-left-dropdown-item">Home</span>
         </div>
       )}

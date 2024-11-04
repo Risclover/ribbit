@@ -68,7 +68,7 @@ export const PostResult = ({ post }) => {
         <div>
           <h3 className="search-results-post-title">{post?.title}</h3>
           <a
-            href={post?.linkUrl || ""}
+            href={post?.linkUrl}
             target="_blank"
             className="search-results-post-link"
           >

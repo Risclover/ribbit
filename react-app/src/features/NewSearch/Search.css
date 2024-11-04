@@ -305,6 +305,7 @@
   margin-right: 8px;
   flex-grow: 0;
   object-fit: cover;
+  overflow: hidden;
   border-radius: 100%;
 }
 
