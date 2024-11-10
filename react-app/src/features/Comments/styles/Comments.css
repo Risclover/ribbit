@@ -102,13 +102,13 @@
   padding-bottom: 10px;
   flex-direction: column;
 }
-
+/*
 .comment-threadline {
   border-right: 2px solid #edeff1;
   height: 100%;
   margin-top: 10px;
   width: 5px;
-}
+} */
 
 .comment-right-username {
   margin: 0;
@@ -530,6 +530,8 @@
   font-style: italic;
   font-family: var(--font-family-ibm);
   display: flex;
+  color: #7c7c7c;
+  font-size: 12px;
 }
 
 .comment-original-time {
@@ -567,6 +569,7 @@
 }
 
 .comment-sorting-dropdown {
+  z-index: 999;
   background: white;
   box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
   border: 1px solid #edeff1;

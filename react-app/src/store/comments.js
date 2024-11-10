@@ -72,6 +72,16 @@ export const getComments = (postId) => async (dispatch) => {
   }
 };
 
+export const getCommentsForPost = (postId) => async (dispatch) => {
+  const response = await fetch(`/api/comments/post/${postId}`);
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadComments(data));
+    return data;
+  }
+};
+
 export const getUserComments = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/${userId}/comments`);
 
@@ -83,19 +93,31 @@ export const getUserComments = (userId) => async (dispatch) => {
 };
 
 export const createComment = (payload, postId) => async (dispatch) => {
-  const { content } = payload;
+  const { content, parentId } = payload;
+
+  // Construct the body data conditionally
+  const bodyData = { content };
+  if (parentId !== null && parentId !== undefined) {
+    bodyData.parentId = parentId;
+  }
+
   const response = await fetch(`/api/comments/${postId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ content }),
+    body: JSON.stringify(bodyData),
   });
 
   if (response.ok) {
     const data = await response.json();
     dispatch(addComment(data));
     return data;
+  } else {
+    // Handle errors appropriately
+    const errorData = await response.json();
+    // You can dispatch an error action or handle it as needed
+    return Promise.reject(errorData);
   }
 };
 
@@ -180,25 +202,49 @@ const initialState = {};
 const commentsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_COMMENT:
-      return { ...state, [action.comment.id]: { ...action.comment } };
+      return { ...state, [action.comment.id]: action.comment };
     case LOAD_COMMENTS:
-      return action.comments.Comments.reduce((comments, comment) => {
-        comments[comment.id] = comment;
-        return comments;
-      }, {});
+      const newState = { ...state };
+      action.comments.Comments.forEach((comment) => {
+        newState[comment.id] = comment;
+        // Optionally, recursively add children
+        const addChildren = (childComments) => {
+          childComments.forEach((child) => {
+            newState[child.id] = child;
+            if (child.children && child.children.length > 0) {
+              addChildren(child.children);
+            }
+          });
+        };
+        if (comment.children && comment.children.length > 0) {
+          addChildren(comment.children);
+        }
+      });
+      return newState;
     case DELETE_COMMENT:
       let removeState = { ...state };
-      delete removeState[action.commentId];
+      const deleteCommentAndChildren = (id) => {
+        const comment = removeState[id];
+        if (comment) {
+          if (comment.children) {
+            comment.children.forEach((child) =>
+              deleteCommentAndChildren(child.id)
+            );
+          }
+          delete removeState[id];
+        }
+      };
+      deleteCommentAndChildren(action.commentId);
       return removeState;
     case ADD_COMMENT_VOTE:
-      return { ...state, [action.comment.id]: action.comment };
     case REMOVE_COMMENT_VOTE:
       return { ...state, [action.comment.id]: action.comment };
     case SEARCH:
-      return action.comments.SearchedComments.reduce((comments, comment) => {
-        comments[comment.id] = comment;
-        return comments;
-      }, {});
+      const searchState = {};
+      action.comments.SearchedComments.forEach((comment) => {
+        searchState[comment.id] = comment;
+      });
+      return searchState;
     default:
       return state;
   }

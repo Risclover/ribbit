@@ -62,8 +62,8 @@
     "testEnvironment": "jsdom"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "CI=false && craco build",
+    "start": "craco start --max_old_space_size=4096",
+    "build": "CI=false && craco build --max_old_space_size=4096",
     "test": "jest",
     "coverage": "jest --coverage",
     "eject": "craco eject"

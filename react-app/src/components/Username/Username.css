@@ -83,16 +83,21 @@
 .username-component-wrapper {
   font-family: var(--font-family-ibm);
   font-size: 12px;
-  font-weight: 400;
-  color: rgb(120, 124, 126);
   text-decoration: none;
   line-height: 16px;
-  margin: auto 4px;
   transition: 0s;
+}
+
+.single-post-author-info .username-component-wrapper {
+  margin-top: 1px;
 }
 
 .username-component {
   cursor: pointer;
+}
+
+.single-post-author-info .username-component {
+  margin: 0 4px;
 }
 
 .username-component-wrapper:hover {

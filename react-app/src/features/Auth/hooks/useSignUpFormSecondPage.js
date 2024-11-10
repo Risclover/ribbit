@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { signUp } from "@/store";
 import { useUsernameTaken } from "../hooks";
 import { validatePassword, validateUsername } from "../utils";
+import { getUsers } from "store";
 
 export function useSignUpFormSecondPage({
   setShowSignupForm,
@@ -18,6 +19,7 @@ export function useSignUpFormSecondPage({
   const [usernameErrors, setUsernameErrors] = useState([]);
   const [passwordErrors, setPasswordErrors] = useState([]);
   const [disabled, setDisabled] = useState();
+  const [focused, setFocused] = useState(false);
 
   const usernameTaken = useUsernameTaken(username);
   const allUsers = useSelector((state) => state.users);
@@ -33,6 +35,8 @@ export function useSignUpFormSecondPage({
     label: name.charAt(0).toUpperCase() + name.slice(1),
     autoCompleteStatus: name === "password" ? "new-password" : "off",
     testId: name.charAt(0).toUpperCase() + name.slice(1),
+    focused,
+    setFocused,
   });
 
   const usernameInputProps = inputProps(
@@ -74,6 +78,7 @@ export function useSignUpFormSecondPage({
     setShowSignupForm(false);
     const id = Object.values(allUsers).length + 1;
     history.push(`/users/${id}/profile`);
+    dispatch(getUsers());
   };
 
   const returnToFirstPage = () => {

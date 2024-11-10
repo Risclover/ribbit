@@ -6,7 +6,7 @@ import { LoginSignupModal } from "@/features";
 import { useAutosizeTextArea } from "@/hooks";
 import "../../styles/Comments.css";
 
-export function CommentForm({ postId }) {
+export function CommentForm({ postId, parentId = null, onCancel }) {
   const textareaRef = useRef();
   const dispatch = useDispatch();
 
@@ -15,16 +15,23 @@ export function CommentForm({ postId }) {
   const [disabled, setDisabled] = useState(true);
 
   const user = useSelector((state) => state.session.user);
-
+  const comments = useSelector((state) => Object.values(state.comments));
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const commentData = await dispatch(
-      createComment({ content: content.trim() }, postId)
-    );
+    if (!content.trim()) return;
+
+    const payload = {
+      content,
+      parentId, // Include parentId if replying
+    };
+
+    const data = await dispatch(createComment(payload, postId));
+    const commentId = comments[comments?.length - 1]?.id + 1;
 
     setContent("");
-    dispatch(getComments(postId));
-    dispatch(addCommentVote(commentData.id, "upvote"));
+    await dispatch(getComments());
+    dispatch(addCommentVote(commentId, "upvote"));
+    if (onCancel) onCancel(); // Close the form after submission
   };
 
   useEffect(() => {
@@ -67,6 +74,11 @@ export function CommentForm({ postId }) {
               >
                 Comment
               </button>
+              {onCancel && (
+                <button type="button" onClick={onCancel}>
+                  Cancel
+                </button>
+              )}
             </div>
           </div>
         </form>

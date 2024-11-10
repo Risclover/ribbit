@@ -1,8 +1,10 @@
+// Comments.js
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getComments } from "@/store";
-import { CommentSorting, CommentForm, Comment } from "../..";
+import { getCommentsForPost } from "@/store"; // Updated Thunk
+import { CommentSorting, CommentForm } from "../..";
+import { Comment } from "./Comment/Comment";
 import { useHistory } from "react-router-dom";
 import { CommentSearch } from "./CommentSearch/CommentSearch";
 import { NoResults } from "../../NewSearch/components/SearchResults/NoResults";
@@ -19,7 +21,26 @@ export function Comments({ post }) {
   const { postId } = useParams();
   const inputRef = useRef();
 
-  const comments = useSelector((state) => Object.values(state.comments));
+  const comments = useSelector((state) => {
+    // Convert the flat state into a nested structure
+    const commentsArray = Object.values(state.comments);
+    const commentMap = {};
+    commentsArray.forEach((comment) => {
+      comment.children = [];
+      commentMap[comment.id] = comment;
+    });
+    const nestedComments = [];
+    commentsArray.forEach((comment) => {
+      if (comment.parentId) {
+        if (commentMap[comment.parentId]) {
+          commentMap[comment.parentId].children.push(comment);
+        }
+      } else {
+        nestedComments.push(comment);
+      }
+    });
+    return nestedComments;
+  });
 
   const [sortedComments, setSortedComments] = useState(comments || []);
   const [sortType, setSortType] = useState("Best");
@@ -37,8 +58,8 @@ export function Comments({ post }) {
   const [specificCommentActive, setSpecificCommentActive] = useState(!!match);
 
   useEffect(() => {
-    dispatch(getComments(postId));
-  }, [dispatch, post]);
+    dispatch(getCommentsForPost(postId));
+  }, [dispatch, postId]);
 
   useEffect(() => {
     if (specificComment) setSpecificCommentActive(true);
@@ -46,10 +67,10 @@ export function Comments({ post }) {
 
   useEffect(() => {
     setSortedComments(sortComments(comments, sortType));
-  }, [sortType]);
+  }, [sortType]); // Added 'comments' to dependencies
 
   const dismissSearch = () => {
-    dispatch(getComments(post.id));
+    dispatch(getCommentsForPost(post.id));
     setSearchValue("");
     setSearchActive(false);
   };
@@ -109,6 +130,7 @@ export function Comments({ post }) {
                 key={comment.id}
                 commentId={comment.id}
                 postId={post.id}
+                level={1}
               />
             ))}
           {specificCommentActive && (
@@ -128,6 +150,7 @@ export function Comments({ post }) {
                 postId={post.id}
                 specificCommentActive={specificCommentActive}
                 comment={specificComment}
+                level={1}
               />
             </div>
           )}

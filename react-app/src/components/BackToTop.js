@@ -16,7 +16,7 @@ export function BackToTop({ community, ref }) {
       <button
         aria-label="Back to top"
         className={`${
-          community && "community-btn-filled"
+          community ? "community-btn-filled" : ""
         } blue-btn-filled btn-short`}
         onClick={scrollToRef}
       >

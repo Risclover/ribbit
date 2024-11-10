@@ -72,7 +72,7 @@ def sign_up():
     Creates a new user and logs them in
     """
     form = SignUpForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+    form['csrf_token'].data = request.cookies.get('csrf_token', '')
     if form.validate_on_submit():
         user = User(
             username=form.data['username'],
@@ -81,28 +81,40 @@ def sign_up():
             about=""
         )
 
-        community_1 = Community.query.get(1)
-        community_2 = Community.query.get(2)
-        community_3 = Community.query.get(3)
-        community_4 = Community.query.get(4)
-        community_5 = Community.query.get(5)
+        # List of community IDs to subscribe to
+        community_ids = [1, 2, 3, 4, 5]
+        missing_communities = []
 
-        user.user_subscriptions.append(community_1)
-        user.user_subscriptions.append(community_2)
-        user.user_subscriptions.append(community_3)
-        user.user_subscriptions.append(community_4)
-        user.user_subscriptions.append(community_5)
+        for cid in community_ids:
+            community = Community.query.get(cid)
+            if community:
+                user.user_subscriptions.append(community)
+            else:
+                missing_communities.append(cid)
 
-        admin = User.query.get(1)
-
-        welcome_notification = Notification(user_id=user.id, sender_id=admin.id, content="", icon=admin.profile_img, message="Welcome to Ribbit! Click here to open the user manual in a new tab.", notification_type="welcome")
+        if missing_communities:
+            # Handle missing communities as needed
+            # For example, log a warning or raise an error
+            print(f"Warning: Communities with IDs {missing_communities} do not exist.")
+            # Optionally, you can return an error response
+            return {'errors': [f"Communities with IDs {missing_communities} do not exist."]}, 400
 
         db.session.add(user)
-        db.session.add(welcome_notification)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            # Log the error using logging instead of print for production
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Database commit failed: {e}")
+            return {'errors': ['An error occurred while creating the user. Please try again.']}, 500
+
         login_user(user)
-        return user.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+        return user.to_dict(), 201
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
 
 
 @auth_routes.route('/unauthorized')

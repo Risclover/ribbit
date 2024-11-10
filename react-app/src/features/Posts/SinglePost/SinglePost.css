@@ -403,6 +403,11 @@
   text-align: center;
 }
 
+.single-post-page .back-to-top-box button {
+  background-color: var(--community-highlight);
+  border-color: var(--community-highlight);
+}
+
 .share-btn-stuff {
   position: relative;
 }
@@ -488,6 +493,7 @@
   margin: 4px auto;
   font-size: 12px;
   font-weight: 700;
+  color: rgb(26, 26, 27);
 }
 
 .single-post-community-img img {

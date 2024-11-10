@@ -14,6 +14,7 @@ export function useSignUpForm({
 
   const [emailErrors, setEmailErrors] = useState([]);
   const [disabled, setDisabled] = useState();
+  const [focused, setFocused] = useState(false);
 
   const emailTaken = Object.values(users).find(
     (user) => user.email.toLowerCase() === email.toLowerCase()
@@ -39,6 +40,8 @@ export function useSignUpForm({
     autoCompleteStatus: "off",
     testId: "Email",
     setInputValue: setEmail,
+    focused,
+    setFocused,
   };
 
   const continueBtn = (

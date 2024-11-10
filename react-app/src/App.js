@@ -38,12 +38,15 @@ import {
 } from "./features";
 import { NavBar, NavSidebar, LoggedOutSidebar } from "./layouts";
 
-import { getUserChatThreads, getCommunities, authenticate } from "./store";
-
 import {
-  PostFormatContext,
-  PageTitleContext,
-} from "./context";
+  getUserChatThreads,
+  getCommunities,
+  authenticate,
+  getCurrentUser,
+  getUsers,
+} from "./store";
+
+import { PostFormatContext, PageTitleContext } from "./context";
 import { CreatePostPage } from "./pages/CreatePostPage";
 import { MetadataProvider } from "./context/Metadata";
 import Chat from "features/Chat/components/ChatWindow/Chat";
@@ -55,7 +58,7 @@ function App() {
   const user = useSelector((state) => state.session.user);
   const location = useLocation();
   const searchbarRef = useRef();
-
+  const users = useSelector((state) => state.users);
   const background = location.state && location.state.background;
 
   // const communities = useSelector((state) => state.communities);
@@ -103,7 +106,11 @@ function App() {
 
   useEffect(() => {
     dispatch(getUserChatThreads());
+    dispatch(getUsers());
+    console.log("user:", user);
   }, [dispatch]);
+
+  console.log("users:", users);
 
   useEffect(() => {
     if (!user) {

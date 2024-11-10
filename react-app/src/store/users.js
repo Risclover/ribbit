@@ -24,10 +24,7 @@ export const getUsers = () => async (dispatch) => {
 
   if (response.ok) {
     const users = await response.json();
-    if (!users.Users || !Array.isArray(users.Users)) {
-      console.warn("Expected users.Users to be an array", users);
-      return; // Early return if the data is not in the expected format
-    }
+
     dispatch(loadUsers(users));
     return users;
   }
@@ -64,18 +61,18 @@ export const editProfile = (id, payload) => async (dispatch) => {
   return data;
 };
 
-/* ------------------------- REDUCER ------------------------- */
-
 const initialState = {};
 
 export default function usersReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_USERS:
-      if (!Array.isArray(action.users.Users)) {
-        console.warn("Action users.Users is not an array", action.users);
-        return state; // Return current state if not an array
+      const usersArray = action.users.users || action.users.Users || [];
+      if (!Array.isArray(usersArray)) {
+        console.error("Invalid users data structure:", action.users);
+        return state; // Return current state if data is invalid
       }
-      return action.users.Users.reduce((users, user) => {
+
+      return usersArray.reduce((users, user) => {
         users[user.id] = user;
         return users;
       }, {});

@@ -38,11 +38,11 @@ def create_comment(id):
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         data = form.data
-
         new_comment = Comment(
             content=data["content"],
             user_id=current_user.get_id(),
-            post_id=id
+            post_id=id,
+            parent_id=data.get("parentId")  # Use get() to handle missing key
         )
 
         post = Post.query.get(id)
@@ -51,6 +51,11 @@ def create_comment(id):
         db.session.commit()
 
         return new_comment.to_dict()
+
+    user = User.query.get(current_user.get_id())
+    user.user_comment_votes.append(new_comment)
+    new_comment.users_who_liked.append(user)
+
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 # UPDATE A COMMENT BY ID
@@ -131,6 +136,16 @@ def get_post_comments(id):
     """
     post = Post.query.get(id)
     return {"Comments": [comment.to_dict() for comment in post.post_comments]}
+
+
+# GET ALL COMMENTS FOR A POST WITH NESTED COMMENTS
+@comment_routes.route('/post/<int:post_id>')
+def get_comments_for_post(post_id):
+    """
+    Retrieve all comments for a specific post, including nested replies.
+    """
+    comments = Comment.query.filter_by(post_id=post_id, parent_id=None).all()  # Top-level comments
+    return {"Comments": [comment.to_dict() for comment in comments]}
 
 
 # SEARCH COMMENTS

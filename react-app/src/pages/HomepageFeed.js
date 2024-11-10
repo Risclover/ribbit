@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   BackToTop,
@@ -14,8 +14,11 @@ import { usePosts } from "../features/Posts/hooks/usePosts";
 
 import { HomeIcon } from "../assets";
 import "../features/Posts/Posts.css";
+import { useDispatch } from "react-redux";
+import { getUsers } from "store";
 
 export function HomepageFeed() {
+  const dispatch = useDispatch();
   const { sortedPosts, sortMode, setSortMode, user, viewedPosts } =
     usePosts(false);
 
@@ -35,6 +38,10 @@ export function HomepageFeed() {
     ),
     pageTitle: "Home",
   });
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
 
   return (
     <FeedContainer>
