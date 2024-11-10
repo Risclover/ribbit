@@ -6,7 +6,12 @@ import { LoginSignupModal } from "@/features";
 import { useAutosizeTextArea } from "@/hooks";
 import "../../styles/Comments.css";
 
-export function CommentForm({ postId, parentId = null, onCancel }) {
+export function CommentForm({
+  replyForm = false,
+  postId,
+  parentId = null,
+  onCancel,
+}) {
   const textareaRef = useRef();
   const dispatch = useDispatch();
 
@@ -50,10 +55,15 @@ export function CommentForm({ postId, parentId = null, onCancel }) {
     <div className="comment-form-container">
       {user && (
         <form className="comment-form" onSubmit={(e) => handleSubmit(e)}>
-          <label htmlFor="comment-box">
-            Comment as{" "}
-            <NavLink to={`/users/${user.id}/profile`}> {user.username}</NavLink>
-          </label>
+          {!replyForm && (
+            <label htmlFor="comment-box">
+              Comment as{" "}
+              <NavLink to={`/users/${user.id}/profile`}>
+                {" "}
+                {user.username}
+              </NavLink>
+            </label>
+          )}
           <div className="post-comment-box">
             <textarea
               ref={textareaRef}
@@ -72,10 +82,13 @@ export function CommentForm({ postId, parentId = null, onCancel }) {
                 className="comment-submit"
                 disabled={disabled}
               >
-                Comment
+                {replyForm ? "Reply" : "Comment"}
               </button>
-              {onCancel && (
-                <button type="button" onClick={onCancel}>
+              {replyForm && (
+                <button
+                  className="comment-reply-form-cancel"
+                  onClick={onCancel}
+                >
                   Cancel
                 </button>
               )}

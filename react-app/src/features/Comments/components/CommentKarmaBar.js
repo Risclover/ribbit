@@ -1,6 +1,6 @@
 import React from "react";
 import { PiArrowFatUpFill, PiArrowFatDownFill } from "react-icons/pi";
-import { useCommentVote } from "./CommentForms/hooks/useCommentVote";
+import { useCommentVote } from "../hooks/useCommentVote";
 
 export function CommentKarmaBar({ comment }) {
   const { vote, handleVoteClick } = useCommentVote(comment);

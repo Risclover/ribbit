@@ -6,6 +6,7 @@ import { EditComment } from "../../EditComment";
 import { Modal } from "context";
 import { CommentForm } from "../../CommentForms";
 import { Comment } from "../Comment";
+import CommentReplyForm from "../../CommentForms/CommentReplyForm";
 
 export default function CommentBtnBar({
   comment,
@@ -22,7 +23,7 @@ export default function CommentBtnBar({
   showReplyForm,
   postId,
   setShowReplyForm,
-  setCommentContent
+  setCommentContent,
 }) {
   return (
     <div className="comment-btn-bar">
@@ -118,6 +119,7 @@ export default function CommentBtnBar({
               </>
             )}
           </div>
+
           {/* {showReplyForm && (
             <div className="reply-form-container">
               <CommentForm

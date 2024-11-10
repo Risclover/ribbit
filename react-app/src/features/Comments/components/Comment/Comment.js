@@ -6,6 +6,7 @@ import useComment from "features/Comments/hooks/useComment";
 import "./Comment.css";
 import CommentContent from "./CommentContent";
 import { BsArrowsAngleExpand } from "react-icons/bs";
+import CommentReplyForm from "../CommentForms/CommentReplyForm";
 
 export function Comment({
   comment,
@@ -121,6 +122,13 @@ export function Comment({
               comment={comment}
               commentId={commentId}
               {...btnBarProps}
+            />
+          )}
+          {showReplyForm && (
+            <CommentReplyForm
+              postId={postId}
+              parentId={comment.id}
+              onCancel={() => setShowReplyForm(false)}
             />
           )}
         </div>

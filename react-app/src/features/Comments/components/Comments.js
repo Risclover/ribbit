@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 import { CommentSearch } from "./CommentSearch/CommentSearch";
 import { NoResults } from "../../NewSearch/components/SearchResults/NoResults";
 import { LoadingEllipsis } from "components";
-import { useLoader } from "./CommentForms/hooks/useLoader";
+import { useLoader } from "../hooks/useLoader";
 import { NoCommentsMsg } from "./NoCommentsMsg";
 import { sortComments } from "../utils/sortComments";
 import "../styles/Comments.css";

@@ -271,3 +271,68 @@
 .all-threadlines:hover .threadline {
   border-color: var(--community-highlight);
 }
+
+.comment-reply-form-container {
+  margin: 16px 0 16px 22px;
+  position: relative;
+  padding: 2px;
+}
+
+.comment-reply-form-container:before {
+  border-left: 2px solid #edeff1;
+  bottom: 0;
+  content: " ";
+  left: -22px;
+  position: absolute;
+  top: 1px;
+}
+
+.comment-reply-form-cancel {
+  white-space: pre;
+  word-break: keep-all;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 4px 8px;
+  border: none;
+  position: relative;
+  color: var(--community-highlight);
+  fill: var(--community-highlight);
+  background: none;
+  font-family: "Noto Sans", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: unset;
+  line-height: 16px;
+  text-transform: unset;
+  height: 24px;
+}
+
+.community-reply-form-cancel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--community-highlight);
+  opacity: 0;
+}
+
+.community-reply-form-cancel:hover::before {
+  opacity: 0.4;
+}
+
+.community-reply-form-cancel:active::before {
+  opacity: 0.16;
+}
+
+.comment-form-button-container {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.comment-reply-form-container .post-comment-box {
+  margin-top: 0;
+}

@@ -11,7 +11,7 @@ import { EditComment } from "../..";
 import { Username } from "@/components";
 import { DeleteConfirmationModal, UsernamePopup } from "components";
 import { convertTime } from "../utils/convertTime";
-import { useCommentVote } from "./CommentForms/hooks/useCommentVote";
+import { useCommentVote } from "../hooks/useCommentVote";
 import { CommentKarmaBar } from "./CommentKarmaBar";
 import { getComments, removeComment, getPosts } from "@/store";
 import { useHistory } from "react-router-dom";
