@@ -139,6 +139,7 @@ export function Comment({
           <Comment
             key={childComment.id}
             comment={childComment}
+            commentId={childComment.id}
             level={level + 1}
           />
         ))}

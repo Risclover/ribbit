@@ -9,7 +9,7 @@ def seed_comments():
     comment_2 = Comment(
         content="This sucks. Please do better.",
         user_id=3,
-        post_id=2
+        post_id=2,
     )
     comment_3 = Comment(
         content="Ha ha ha. You're so funny!",

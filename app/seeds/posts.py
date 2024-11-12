@@ -1,7 +1,7 @@
 from app.models import db, Post
 
 def seed_posts():
-    post_1 = Post(
+    post_1=Post(
         title="[AskJS] Are leetcodes good interview questions?",
         content="""Do you think leetcode-style algo problems are good interview questions? Just in case, here are some examples that I have in mind:
 
@@ -13,43 +13,43 @@ Bonus: if your answer is "yes", how do you tailor interviews to junior / middle 
         user_id=13,
         community_id=3
     )
-    post_2 = Post(
+    post_2=Post(
         title="Mostly adequate guide to functional programming (in JavaScript)",
         link_url="https://mostly-adequate.gitbook.io/mostly-adequate-guide/",
         user_id=14,
         community_id=3
     )
-    post_3 = Post(
+    post_3=Post(
         title="Anyone want a tiger?",
         content="I'm selling my tiger for 50 gold. Reminder that you must be level 30 or higher to be able to buy it. Message me if interested.",
         user_id=3,
         community_id=1,
     )
-    post_4 = Post(
+    post_4=Post(
         title="This flawless yellow onion",
         img_url="https://i.redd.it/bpq28osspxda1.jpg",
         user_id=4,
         community_id=4
     )
-    post_5 = Post(
+    post_5=Post(
         title="Any idea what kind of cat I just adopted? [oc]",
-        img_url = "https://i.redd.it/7giweloj1uda1.jpg",
-        user_id = 5,
-        community_id = 5
+        img_url="https://i.redd.it/7giweloj1uda1.jpg",
+        user_id=5,
+        community_id=5
     )
-    post_6 = Post(
+    post_6=Post(
         title="Of the 69 things they tested me for, I'm allergic to 60 of them.",
-        img_url = "https://i.redd.it/a3wj960mpwda1.jpg",
-        user_id = 6,
-        community_id = 6
+        img_url="https://i.redd.it/a3wj960mpwda1.jpg",
+        user_id=6,
+        community_id=6
     )
-    post_7 = Post(
+    post_7=Post(
         title="Accomplishments",
-        img_url = "https://i.redd.it/50fhg3lhmzda1.jpg",
-        user_id = 7,
-        community_id = 7
+        img_url="https://i.redd.it/50fhg3lhmzda1.jpg",
+        user_id=7,
+        community_id=7
     )
-    post_8 = Post(
+    post_8=Post(
         title="YSK Overdosing on Tylenol (Acetaminophen/Paracetamol/Panadol) is a slow, painful way to die",
         content='''Why YSK: Due to being cheap, readily available, and easily accessible, Tylenol overdose has become one of the most common suicide methods. However, people don’t realize how truly awful a Tylenol overdose really is.
 
@@ -66,46 +66,46 @@ Bonus: if your answer is "yes", how do you tailor interviews to junior / middle 
         Treat the underlying problem. We have a mental health crisis, and it’s not going to go away on its own. Developed countries especially need to work on providing resources to people with mental health conditions, before it escalates to suicide.
 
         Source: https://www.merckmanuals.com/home/injuries-and-poisoning/poisoning/acetaminophen-poisoning''',
-        user_id = 8,
-        community_id = 8
+        user_id=8,
+        community_id=8
     )
-    post_9 = Post(
-        title="Fellas what are some subtle signs a women is “toxic”?",
+    post_9=Post(
+        title="How can you work from 8 to 5, be free only on weekends, and not feel like you're wasting your life?",
         content="",
-        user_id = 9,
-        community_id = 9
+        user_id=9,
+        community_id=9
     )
-    post_10 = Post(
+    post_10=Post(
         title="Any idea what kind of cat I just adopted? [OC]",
-        img_url = "https://i.redd.it/26r2fc2miyda1.jpg",
-        user_id = 10,
-        community_id = 5
+        img_url="https://i.redd.it/26r2fc2miyda1.jpg",
+        user_id=10,
+        community_id=5
     )
-    post_11 = Post(
+    post_11=Post(
         title="These rice fields shaped like spiderwebs at Indonesia",
-        img_url = "https://i.redd.it/ipedxxzg4tda1.jpg",
-        user_id = 11,
-        community_id = 4
+        img_url="https://i.redd.it/ipedxxzg4tda1.jpg",
+        user_id=11,
+        community_id=4
     )
-    post_12 = Post(
+    post_12=Post(
         title="They used this picture at work today to see if we could locate all the OSHA safety violations...",
         img_url="https://preview.redd.it/4xu2rr4w7oia1.png?width=960&crop=smart&auto=webp&v=enabled&s=4fdf879e34a95c2ac6908489285cc3d2a1fbbb8f",
         user_id=2,
         community_id=10
     )
-    post_13 = Post(
+    post_13=Post(
         title="My social security was canceled",
         img_url="https://i.redd.it/osfw2m6zamia1.jpg",
         user_id=2,
         community_id=10
     )
-    post_14 = Post(
+    post_14=Post(
         title="Got a vasectomy today. My wife got me get well cookies.",
         img_url="https://external-preview.redd.it/E7K1PbUhf7giIAhUgeoUKuiuccD9TBQtkh2m8HBfOjs.jpg?auto=webp&v=enabled&s=5cd90ba4f73d5a00b896ec929f57fab41884a4cc",
         user_id=3,
         community_id=10
     )
-    post_15 = Post(
+    post_15=Post(
         title="BRAILLE?!?!",
         img_url="https://preview.redd.it/oo5glv19jmia1.jpg?width=640&crop=smart&auto=webp&v=enabled&s=6edac192344ff2d3d90f3efb17eda9755afa87d0",
         user_id=4,
@@ -331,8 +331,8 @@ I hope this help.""",
         community_id=8
     )
     post_43=Post(
-        title="What are things women think men care about that you guys actually dont?",
-        content="Girl here lmfao. Im just wondering what are some things were super self conscious about or like we worry it will be a deal breaker for you guys that u guys actually dont care about at all. I hope this makes sense sorry.",
+        title="How can you work from 8 to 5, be free only on weekends, and not feel like you're wasting your life?",
+        content="",
         user_id=49,
         community_id=9
     )
@@ -588,46 +588,46 @@ https://www.epi.org/publication/employers-steal-billions-from-workers-paychecks-
     db.session.add(post_28)
     db.session.add(post_29)
     db.session.add(post_30)
-    # db.session.add(post_31)
-    # db.session.add(post_32)
-    # db.session.add(post_33)
-    # db.session.add(post_34)
-    # db.session.add(post_35)
-    # db.session.add(post_36)
-    # db.session.add(post_37)
-    # db.session.add(post_38)
-    # db.session.add(post_39)
-    # db.session.add(post_40)
-    # db.session.add(post_41)
-    # db.session.add(post_42)
-    # db.session.add(post_43)
-    # db.session.add(post_44)
-    # db.session.add(post_45)
-    # db.session.add(post_46)
-    # db.session.add(post_47)
-    # db.session.add(post_48)
-    # db.session.add(post_49)
-    # db.session.add(post_50)
-    # db.session.add(post_51)
-    # db.session.add(post_52)
-    # db.session.add(post_53)
-    # db.session.add(post_54)
-    # db.session.add(post_55)
-    # db.session.add(post_56)
-    # db.session.add(post_57)
-    # db.session.add(post_58)
-    # db.session.add(post_59)
-    # db.session.add(post_60)
-    # db.session.add(post_61)
-    # db.session.add(post_62)
-    # db.session.add(post_63)
-    # db.session.add(post_64)
-    # db.session.add(post_65)
-    # db.session.add(post_66)
-    # db.session.add(post_67)
-    # db.session.add(post_68)
-    # db.session.add(post_69)
-    # db.session.add(post_70)
+    db.session.add(post_31)
+    db.session.add(post_32)
+    db.session.add(post_33)
+    db.session.add(post_34)
+    db.session.add(post_35)
+    db.session.add(post_36)
+    db.session.add(post_37)
+    db.session.add(post_38)
+    db.session.add(post_39)
+    db.session.add(post_40)
+    db.session.add(post_41)
+    db.session.add(post_42)
+    db.session.add(post_43)
+    db.session.add(post_44)
+    db.session.add(post_45)
+    db.session.add(post_46)
+    db.session.add(post_47)
+    db.session.add(post_48)
+    db.session.add(post_49)
+    db.session.add(post_50)
+    db.session.add(post_51)
+    db.session.add(post_52)
+    db.session.add(post_53)
+    db.session.add(post_54)
+    db.session.add(post_55)
+    db.session.add(post_56)
+    db.session.add(post_57)
+    db.session.add(post_58)
+    db.session.add(post_59)
+    db.session.add(post_60)
+    db.session.add(post_61)
+    db.session.add(post_62)
+    db.session.add(post_63)
+    db.session.add(post_64)
+    db.session.add(post_65)
+    db.session.add(post_66)
+    db.session.add(post_67)
+    db.session.add(post_68)
+    db.session.add(post_69)
+    db.session.add(post_70)
     db.session.add(post_71)
     db.session.add(post_72)
     # db.session.add(post_73)

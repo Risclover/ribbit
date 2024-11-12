@@ -224,15 +224,12 @@ const commentsReducer = (state = initialState, action) => {
     case DELETE_COMMENT:
       let removeState = { ...state };
       const deleteCommentAndChildren = (id) => {
-        const comment = removeState[id];
-        if (comment) {
-          if (comment.children) {
-            comment.children.forEach((child) =>
-              deleteCommentAndChildren(child.id)
-            );
+        delete removeState[id];
+        Object.values(removeState).forEach((comment) => {
+          if (comment.parentId === id) {
+            deleteCommentAndChildren(comment.id);
           }
-          delete removeState[id];
-        }
+        });
       };
       deleteCommentAndChildren(action.commentId);
       return removeState;
