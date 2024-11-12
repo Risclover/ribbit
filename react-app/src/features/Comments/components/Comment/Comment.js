@@ -14,6 +14,11 @@ export function Comment({
   specificCommentActive,
   level = 1,
 }) {
+  if (!comment) {
+    console.error("Comment component: comment is undefined");
+    return null; // Do not render the component
+  }
+
   const {
     postId,
     showEditCommentModal,

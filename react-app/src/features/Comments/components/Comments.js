@@ -1,5 +1,5 @@
 // Comments.js
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCommentsForPost } from "@/store"; // Updated Thunk
@@ -21,7 +21,36 @@ export function Comments({ post }) {
   const { postId } = useParams();
   const inputRef = useRef();
 
-  const comments = useSelector((state) => Object.values(state.comments));
+  const commentsState = useSelector((state) => state.comments);
+
+  const comments = useMemo(() => {
+    const commentsArray = Object.values(commentsState);
+    const commentMap = {};
+
+    commentsArray.forEach((comment) => {
+      // Create a copy of the comment and add a children array
+      commentMap[comment.id] = { ...comment, children: [] };
+    });
+
+    const nestedComments = [];
+
+    commentsArray.forEach((comment) => {
+      const commentCopy = commentMap[comment.id];
+      if (commentCopy.parentId) {
+        const parentComment = commentMap[commentCopy.parentId];
+        if (parentComment) {
+          parentComment.children.push(commentCopy);
+        } else {
+          // Parent is missing, treat this comment as top-level
+          nestedComments.push(commentCopy);
+        }
+      } else {
+        nestedComments.push(commentCopy);
+      }
+    });
+
+    return nestedComments;
+  }, [commentsState]);
 
   const [sortedComments, setSortedComments] = useState(comments || []);
   const [sortType, setSortType] = useState("Best");
@@ -48,7 +77,7 @@ export function Comments({ post }) {
 
   useEffect(() => {
     setSortedComments(sortComments(comments, sortType));
-  }, [sortType]); // Added 'comments' to dependencies
+  }, [comments, sortType]); // Added 'comments' to dependencies
 
   const dismissSearch = () => {
     dispatch(getCommentsForPost(post.id));
@@ -103,9 +132,9 @@ export function Comments({ post }) {
       )}
       {!showLoader && (
         <div className="all-comments">
-          {commentsList.length > 0 &&
+          {sortedComments.length > 0 &&
             !specificCommentActive &&
-            commentsList?.map((comment) => (
+            sortedComments?.map((comment) => (
               <Comment
                 comment={comment}
                 key={comment.id}

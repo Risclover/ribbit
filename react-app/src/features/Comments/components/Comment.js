@@ -116,10 +116,6 @@ export function Comment({ commentId, comment, specificCommentActive }) {
     setHideTimeout(timeout);
   };
 
-  useEffect(() => {
-    dispatch(getComments(comment?.postId));
-  }, []);
-
   const handleDeleteClick = async (e) => {
     e.preventDefault();
     setShowDeleteModal(false);

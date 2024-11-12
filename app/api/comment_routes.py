@@ -154,11 +154,27 @@ def search_comments(post_id):
     query = request.args.get('q', '')
 
     if query:
-        comments = Comment.query.filter(
+        # Find matching comments
+        matching_comments = Comment.query.filter(
             Comment.post_id == post_id,
             Comment.content.ilike(f'%{query}%')
         ).all()
 
-        return {"SearchedComments": [comment.to_dict() for comment in comments]}
+        # Use a dictionary to store comments to avoid duplicates
+        comments_dict = {}
+        for comment in matching_comments:
+            # Add the matching comment
+            comments_dict[comment.id] = comment
+            # Traverse up to add all ancestor comments
+            parent = comment.parent
+            while parent:
+                if parent.id not in comments_dict:
+                    comments_dict[parent.id] = parent
+                else:
+                    # If we've already added this parent, we can stop traversing
+                    break
+                parent = parent.parent
+
+        return {"SearchedComments": [comment.to_dict() for comment in comments_dict.values()]}
 
     return {"SearchedComments": []}

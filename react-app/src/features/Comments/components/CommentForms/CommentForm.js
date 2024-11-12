@@ -6,6 +6,7 @@ import { LoginSignupModal } from "@/features";
 import { useAutosizeTextArea } from "@/hooks";
 import "../../styles/Comments.css";
 import { getPosts } from "store";
+import { getCommentsForPost } from "store";
 
 export function CommentForm({
   replyForm = false,
@@ -35,8 +36,8 @@ export function CommentForm({
     const commentId = comments[comments?.length - 1]?.id + 1;
 
     setContent("");
-    await dispatch(getComments());
-    await dispatch(getPosts());
+    dispatch(getPosts());
+    dispatch(getCommentsForPost());
     dispatch(addCommentVote(commentId, "upvote"));
     if (onCancel) onCancel(); // Close the form after submission
   };

@@ -37,10 +37,6 @@ export default function useComment({ comment, commentId }) {
 
   const wasEdited = comment?.createdAt !== comment?.updatedAt;
 
-  useEffect(() => {
-    dispatch(getComments(comment?.postId));
-  }, []);
-
   const handleMouseEnter = () => {
     if (foundUser[0].id === currentUser?.id) {
       return;
@@ -82,6 +78,41 @@ export default function useComment({ comment, commentId }) {
   const handleEditComment = () => {
     setShowEditCommentModal(true);
   };
+
+  if (!comment) {
+    console.error("useComment: comment is undefined");
+    return {
+      // Return default values or handle the case appropriately
+      postId: null,
+      showEditCommentModal: false,
+      setShowEditCommentModal: () => {},
+      showDeleteModal: false,
+      setShowDeleteModal: () => {},
+      collapsed: false,
+      setCollapsed: () => {},
+      showReplyForm: false,
+      setShowReplyForm: () => {},
+      commentContent: "",
+      setCommentContent: () => {},
+      showPopup: false,
+      setShowPopup: () => {},
+      hideTimeout: null,
+      setHideTimeout: () => {},
+      post: null,
+      communities: null,
+      currentUser: null,
+      users: [],
+      editedTime: "",
+      commentTime: "",
+      handleMouseEnter: () => {},
+      handleMouseLeave: () => {},
+      handleDeleteClick: () => {},
+      handleUserImgClick: () => {},
+      handleReplyClick: () => {},
+      handleEditComment: () => {},
+      wasEdited: false,
+    };
+  }
 
   return {
     postId,
