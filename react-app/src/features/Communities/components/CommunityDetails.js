@@ -12,6 +12,7 @@ import Cake from "@/assets/images/misc/piece4.png";
 import { useHistory } from "react-router-dom";
 import { LoginSignupModal } from "../../Auth";
 import { CommunityImg } from "components/CommunityImg";
+import { useCommunitySettings } from "features/Posts/hooks/useCommunitySettings";
 
 export function CommunityDetails({ post, community }) {
   const history = useHistory();
@@ -19,6 +20,7 @@ export function CommunityDetails({ post, community }) {
   const subscriptions = useSelector((state) => state.subscriptions);
   const user = useSelector((state) => state.session.user);
 
+  const { checked, setChecked } = useCommunitySettings(community);
   const [subscribed, setSubscribed] = useState(
     subscriptions[post?.communityId] || subscriptions[community?.id]
   );
@@ -101,7 +103,11 @@ export function CommunityDetails({ post, community }) {
             )}
           </div>
 
-          <CommunityOptions community={community} />
+          <CommunityOptions
+            checked={checked}
+            setChecked={setChecked}
+            community={community}
+          />
         </div>
       </div>
     </NavLink>

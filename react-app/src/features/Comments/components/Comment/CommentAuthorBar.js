@@ -1,5 +1,6 @@
 import { Username } from "components";
 import { Tooltip } from "components/Tooltip/Tooltip";
+import "../../../../components/Tooltip/Tooltip.css";
 import React from "react";
 
 export default function CommentAuthorBar({

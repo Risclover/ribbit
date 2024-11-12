@@ -157,12 +157,13 @@
 }
 
 .comment-original-time {
-  align-self: baseline;
+  /* align-self: baseline; */
   font-family: "Noto Sans", sans-serif;
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
   color: #7c7c7c;
+  position: relative;
 }
 
 .comment-content {
@@ -339,4 +340,10 @@
 
 .comment-time-hover {
   display: none;
+  position: absolute;
+  top: -5px;
+}
+
+.comment-original-time:hover .comment-time-hover {
+  display: block;
 }
