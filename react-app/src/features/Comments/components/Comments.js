@@ -21,26 +21,7 @@ export function Comments({ post }) {
   const { postId } = useParams();
   const inputRef = useRef();
 
-  const comments = useSelector((state) => {
-    // Convert the flat state into a nested structure
-    const commentsArray = Object.values(state.comments);
-    const commentMap = {};
-    commentsArray.forEach((comment) => {
-      comment.children = [];
-      commentMap[comment.id] = comment;
-    });
-    const nestedComments = [];
-    commentsArray.forEach((comment) => {
-      if (comment.parentId) {
-        if (commentMap[comment.parentId]) {
-          commentMap[comment.parentId].children.push(comment);
-        }
-      } else {
-        nestedComments.push(comment);
-      }
-    });
-    return nestedComments;
-  });
+  const comments = useSelector((state) => Object.values(state.comments));
 
   const [sortedComments, setSortedComments] = useState(comments || []);
   const [sortType, setSortType] = useState("Best");

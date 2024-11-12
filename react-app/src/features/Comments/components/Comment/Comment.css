@@ -336,3 +336,7 @@
 .comment-reply-form-container .post-comment-box {
   margin-top: 0;
 }
+
+.comment-time-hover {
+  display: none;
+}

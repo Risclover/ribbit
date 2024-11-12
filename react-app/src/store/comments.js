@@ -204,10 +204,10 @@ const commentsReducer = (state = initialState, action) => {
     case ADD_COMMENT:
       return { ...state, [action.comment.id]: action.comment };
     case LOAD_COMMENTS:
-      const newState = { ...state };
+      const newState = {}; // Start with an empty state
       action.comments.Comments.forEach((comment) => {
         newState[comment.id] = comment;
-        // Optionally, recursively add children
+        // Recursively add children
         const addChildren = (childComments) => {
           childComments.forEach((child) => {
             newState[child.id] = child;
@@ -220,7 +220,7 @@ const commentsReducer = (state = initialState, action) => {
           addChildren(comment.children);
         }
       });
-      return newState;
+      return newState; // Return the new state with only the current post's comments
     case DELETE_COMMENT:
       let removeState = { ...state };
       const deleteCommentAndChildren = (id) => {

@@ -1,4 +1,5 @@
 import { Username } from "components";
+import { Tooltip } from "components/Tooltip/Tooltip";
 import React from "react";
 
 export default function CommentAuthorBar({
@@ -20,7 +21,12 @@ export default function CommentAuthorBar({
           <span className="op-sign">OP</span>
         )}
         <span className="single-post-topbar-dot"> · </span>
-        <span className="comment-original-time">{commentTime}</span>
+        <span className="comment-original-time">
+          <span className="comment-time-hover">
+            <Tooltip direction="down" text={comment?.createdAt} />
+          </span>
+          {commentTime}
+        </span>
         {wasEdited && (
           <span className="comment-was-edited">
             <span className="single-post-topbar-dot"> · </span>
