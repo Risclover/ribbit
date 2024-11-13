@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PreviewCommunityColorPickerSquare } from "./PreviewCommunityColorPickerSquare";
-import { colorThemeColors as colors } from "../data/colorThemeColors";
+import { colorThemeColors as colors } from "features/CommunitySettings/data/colorThemeColors";
 import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunityColorPicker({ theme, setTheme, community }) {

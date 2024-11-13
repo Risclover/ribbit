@@ -24,3 +24,11 @@
   --main-text-color: #1c1c1c;
   --highlight-color: #0079d3;
 }
+
+#root.light {
+  --community-bottom-banner: #ffffff;
+}
+
+#root.dark {
+  --community-bottom-banner: #1a1a1b;
+}

@@ -32,7 +32,7 @@ export function Emojis({ receiver, setEmojisOverlay, socket }) {
           <button
             aria-label={emoji.name}
             key={uuidv4()}
-            onClick={(e) => handleAddEmoji(e, image)}
+            onClick={(e) => handleAddEmoji(e, emoji.image)}
           >
             <img src={emoji.image} alt={emoji.name} />
           </button>

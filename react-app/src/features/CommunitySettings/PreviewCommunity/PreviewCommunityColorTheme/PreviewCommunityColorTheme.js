@@ -8,7 +8,7 @@ import {
 } from "@/store";
 import { DropBox } from "@/components";
 import { PreviewCommunityColorThemeColor, BodyBgFormat } from "@/features";
-import "./PreviewCommunity.css";
+import "../PreviewCommunity.css";
 import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunityColorTheme({

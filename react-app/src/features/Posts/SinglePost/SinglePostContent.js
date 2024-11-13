@@ -6,6 +6,7 @@ import LazyLoad from "react-lazyload";
 import { sliceUrl } from "@/utils";
 import { useMetadata } from "@/context/Metadata";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Text } from "features/Comments/components/Comment/Text";
 
 export function SinglePostContent({ post, isPage }) {
   const { metadata, fetchMetadata } = useMetadata();
@@ -58,7 +59,7 @@ export function SinglePostContent({ post, isPage }) {
             }
             style={{ whiteSpace: "pre-line" }}
           >
-            {parse(post?.content)}
+            <Text content={post?.content} />
           </div>
         ) : (
           ""

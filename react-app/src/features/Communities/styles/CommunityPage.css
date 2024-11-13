@@ -28,7 +28,7 @@
 
 .community-page-header-btm {
   width: 100%;
-  background: white;
+  background: var(--community-bottom-banner);
 }
 
 .chev {

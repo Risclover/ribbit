@@ -7,7 +7,7 @@ import {
   getCommunities,
 } from "@/store";
 import { DropBox } from "@/components";
-import { PreviewCommunityBannerColor, BannerHeight } from "../PreviewCommunity";
+import { PreviewCommunityBannerColor, BannerHeight } from "..";
 import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunityBanner({
