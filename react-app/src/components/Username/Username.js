@@ -18,7 +18,7 @@ export function Username({ community, username, user, source }) {
   const { isPopupOpen, setIsPopupOpen } = usePopup(); // Access the global popup state
 
   const handleMouseEnter = () => {
-    if (foundUser[0].id === currentUser?.id) {
+    if (foundUser[0]?.id === currentUser?.id) {
       return;
     }
     if (hideTimeout) {

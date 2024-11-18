@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { useCheckUsername } from "../services";
 
 export const useUsernameTaken = (username) => {
   const [usernameTaken, setUsernameTaken] = useState(false);
-  const { checkUsernameTaken } = useCheckUsername(username);
+
+  const checkUsernameTaken = async () => {
+    const res = await dispatch(checkUsername(username));
+    const { Message } = await res.json();
+    return Message;
+  };
 
   useEffect(() => {
     const fetchUsernameTaken = async () => {

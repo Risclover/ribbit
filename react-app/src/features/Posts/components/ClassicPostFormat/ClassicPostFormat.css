@@ -252,6 +252,8 @@
   font-size: 12px;
   display: flex;
   align-items: center;
+  line-height: 16px;
+  position: relative;
 }
 
 .classic-post-author {

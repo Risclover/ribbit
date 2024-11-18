@@ -13,15 +13,16 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  const { copyLink, editPost, handleDelete } = usePostButtonHandlers(
-    history,
-    dispatch,
-    post,
-    setShowLinkCopied,
-    isPage,
-    setShowDeleteModal
-  );
+  const { copyLink, editPost, handleDelete, isCommunityOwner } =
+    usePostButtonHandlers(
+      community,
+      history,
+      dispatch,
+      post,
+      setShowLinkCopied,
+      isPage,
+      setShowDeleteModal
+    );
 
   useEffect(() => {
     if (showLinkCopied) {
@@ -90,41 +91,44 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
         )}
       </div>
 
-      {user && (user.id === post.postAuthor?.id || user?.id === 1) && (
-        <div className="logged-in-btns">
-          <div className="single-post-button">
-            {post?.imgUrl === null && post?.linkUrl === null && (
-              <button className="single-post-edit-btn" onClick={editPost}>
-                <i className="fa-solid fa-pencil"></i>
-                Edit
-              </button>
+      {user &&
+        (isCommunityOwner ||
+          user.id === post.postAuthor?.id ||
+          user?.id === 1) && (
+          <div className="logged-in-btns">
+            <div className="single-post-button">
+              {post?.imgUrl === null && post?.linkUrl === null && (
+                <button className="single-post-edit-btn" onClick={editPost}>
+                  <i className="fa-solid fa-pencil"></i>
+                  Edit
+                </button>
+              )}
+            </div>
+
+            <div className="single-post-button">
+              <DeletePostModal
+                post={post}
+                community={community}
+                isPage={isPage}
+                setShowDeleteModal={setShowDeleteModal}
+              />
+            </div>
+            {showDeleteModal && (
+              <Modal
+                onClose={() => setShowDeleteModal(false)}
+                title="Delete post?"
+                open={() => setShowDeleteModal(true)}
+              >
+                <DeleteConfirmationModal
+                  showDeleteModal={showDeleteModal}
+                  setShowDeleteModal={setShowDeleteModal}
+                  handleDelete={handleDelete}
+                  item="post"
+                />
+              </Modal>
             )}
           </div>
-
-          <div className="single-post-button">
-            <DeletePostModal
-              post={post}
-              community={community}
-              isPage={isPage}
-              setShowDeleteModal={setShowDeleteModal}
-            />
-          </div>
-          {showDeleteModal && (
-            <Modal
-              onClose={() => setShowDeleteModal(false)}
-              title="Delete post?"
-              open={() => setShowDeleteModal(true)}
-            >
-              <DeleteConfirmationModal
-                showDeleteModal={showDeleteModal}
-                setShowDeleteModal={setShowDeleteModal}
-                handleDelete={handleDelete}
-                item="post"
-              />
-            </Modal>
-          )}
-        </div>
-      )}
+        )}
     </div>
   );
 }

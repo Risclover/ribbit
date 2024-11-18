@@ -16,6 +16,8 @@ import { sliceUrl } from "@/utils";
 import "../../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 import { deletePost, getUsers } from "@/store";
+import { usePostButtonHandlers } from "features/Posts/hooks/usePostButtonHandlers";
+import { Tooltip } from "components/Tooltip/Tooltip";
 
 export function ClassicPostFormat({ isPage, id, post }) {
   const { metadata, fetchMetadata } = useMetadata();
@@ -33,6 +35,16 @@ export function ClassicPostFormat({ isPage, id, post }) {
   const [postExpand, setPostExpand] = useState(false);
   const [commentNum, setCommentNum] = useState(post?.commentNum || 0);
 
+  const { copyLink, editPost, handleDelete, isCommunityOwner } =
+    usePostButtonHandlers(
+      history,
+      dispatch,
+      post,
+      setShowLinkCopied,
+      isPage,
+      setShowDeleteModal
+    );
+
   useEffect(() => {
     if (post.linkUrl && !metadata[post.linkUrl]) {
       fetchMetadata(post.linkUrl);
@@ -48,19 +60,6 @@ export function ClassicPostFormat({ isPage, id, post }) {
       }, 3000);
     }
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
-
-  const handleDelete = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    dispatch(deletePost(post?.id));
-    setShowDeleteModal(false);
-    dispatch(getUsers());
-    if (isPage === "community") {
-      history.push(`/c/${post?.communityName}`);
-    } else {
-      history.push("/c/all");
-    }
-  };
 
   return (
     <div className="post-classic-format">
@@ -149,7 +148,12 @@ export function ClassicPostFormat({ isPage, id, post }) {
                     user={post?.postAuthor}
                     source="singlepost"
                   />
-                  {moment(post?.createdAt).fromNow()}
+                  <span className="post-time">
+                    {moment(post?.createdAt).fromNow()}
+                    <span className="post-time-hover">
+                      <Tooltip direction="down" text={post?.createdAt} />
+                    </span>
+                  </span>
                 </div>
               </div>
               <div
@@ -231,14 +235,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                   <div className="single-post-button">
                     <button
                       className="single-post-share-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        setShowLinkCopied(true);
-                        navigator.clipboard.writeText(
-                          `https://ribbit-app.herokuapp.com/posts/${post?.id}`
-                        );
-                      }}
+                      onClick={copyLink}
                     >
                       <svg
                         fill="currentColor"
@@ -281,17 +278,14 @@ export function ClassicPostFormat({ isPage, id, post }) {
                     </div>
                   )}
                 </div>
-                {user && user.id === post?.postAuthor.id ? (
+                {user &&
+                (user.id === post?.postAuthor.id || isCommunityOwner) ? (
                   <div className="logged-in-btns">
                     <div className="single-post-button">
                       {post?.imgUrl === null && post?.linkUrl === null && (
                         <button
                           className="single-post-edit-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            history.push(`/posts/${post?.id}/edit`);
-                          }}
+                          onClick={editPost}
                         >
                           <i className="fa-solid fa-pencil"></i>
                           Edit
@@ -301,11 +295,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                     <div className="single-post-button">
                       <button
                         className="single-post-delete-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          setShowDeleteModal(true);
-                        }}
+                        onClick={handleDelete}
                       >
                         <i className="fa-regular fa-trash-can"></i>
                         Delete

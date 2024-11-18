@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IconComponent, ErrorsDisplay } from "../components";
 import { generateUsername } from "../utils";
+import { useAuthFormInput } from "../hooks";
 
 export function AuthFormInput({ props, onBlur, icon }) {
   const {
@@ -18,30 +19,16 @@ export function AuthFormInput({ props, onBlur, icon }) {
     setFocused,
   } = props;
 
-  const [classValue, setClassValue] = useState("errors-true");
-  const [showIcon, setShowIcon] = useState(false);
-
-  useEffect(() => {
-    setErrors(errors);
-    setClassValue(errors && errors.length > 0 ? " errors-true" : "");
-  }, [errors]);
-
-  const pickRandomUsername = () => {
-    setInputValue(generateUsername());
-    setErrors([]);
-  };
-
-  useEffect(() => {
-    setShowIcon(inputValue.length > 0 && errors.length === 0 && !focused);
-  }, [inputValue, errors, focused]);
+  const { showIcon, classValue, setClassValue, pickRandomUsername } =
+    useAuthFormInput(onBlur, props);
 
   return (
     <div
-      className={`form-field-box${name === "signup-email" ? " h-100" : ""}${
+      className={`form-field-box${name === " signup-email" ? " h-100" : ""}${
         name === "username" ? " form-field-username" : ""
       }`}
     >
-      <div className={`form-field${classValue}`}>
+      <div className={`form-field ${classValue}`}>
         <input
           id={name}
           data-testid={testId}
@@ -71,7 +58,7 @@ export function AuthFormInput({ props, onBlur, icon }) {
           <span className="asterisk">*</span>
         </label>
         <div className="input-trailing-icons">
-          {classValue === " errors-true" && (
+          {errors.length > 0 && !focused && (
             <IconComponent iconType="error" name={name} />
           )}
           {inputValue.length > 0 && errors.length === 0 && showIcon && (
@@ -89,6 +76,7 @@ export function AuthFormInput({ props, onBlur, icon }) {
           )}
         </div>
       </div>
+
       <ErrorsDisplay
         errors={errors}
         inputValue={inputValue}

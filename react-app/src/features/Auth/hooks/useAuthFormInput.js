@@ -2,34 +2,43 @@ import { useState, useEffect } from "react";
 import { generateUsername } from "../utils";
 
 export function useAuthFormInput(validateFn, inputProps) {
-  const [focused, setFocused] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
   const [classValue, setClassValue] = useState("");
+  const [errors, setErrors] = useState([]);
+  const [usernameAvailable, setUsernameAvailable] = useState(
+    inputProps.inputValue.length > 2 &&
+      errors.length === 0 &&
+      !inputProps.focused
+  );
 
   useEffect(() => {
-    setErrors(validateFn(inputProps.inputValue));
+    setErrors(validateFn(inputProps?.inputValue));
+
     setClassValue(
-      inputProps.errors && inputProps.errors.length > 0 ? "errors-true" : ""
+      inputProps?.errors && inputProps?.errors.length > 0 && !inputProps.focused
+        ? " errors-true"
+        : ""
     );
-  }, [inputProps.inputValue, inputProps.errors, validateFn]);
+  }, [validateFn, inputProps.focused]);
 
   useEffect(() => {
     setShowIcon(
-      inputProps.inputValue.length > 0 &&
-        inputProps.errors.length === 0 &&
-        !focused
+      inputProps?.inputValue.length > 0 &&
+        inputProps?.errors.length === 0 &&
+        !inputProps.focused
     );
-  }, [inputProps.inputValue, inputProps.errors, focused]);
+  }, [validateFn, errors]);
 
   const pickRandomUsername = () => {
-    setInputValue(generateUsername());
+    inputProps?.setInputValue(generateUsername());
+    setUsernameAvailable(true);
     setErrors([]);
   };
 
   const handleBlur = () => {
-    setFocused(false);
-    const validationErrors = validateFn(inputProps.inputValue);
-    setErrors(validationErrors);
+    inputProps.setFocused(false);
+    const validationErrors = validateFn(inputProps?.inputValue);
+    inputProps?.setErrors(validationErrors);
     setClassValue(validationErrors.length > 0 ? "errors-true" : "");
     return validationErrors;
   };
@@ -42,9 +51,10 @@ export function useAuthFormInput(validateFn, inputProps) {
   return {
     showIcon,
     classValue,
+    setClassValue,
     pickRandomUsername,
     handleBlur,
     handleFocus,
-    focused,
+    usernameAvailable,
   };
 }

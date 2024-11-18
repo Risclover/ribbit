@@ -17,8 +17,9 @@ export const CompactPostMenu = ({ user, post, isPage, community }) => {
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const { toggleSubmenu, copyLink, editPost, handleDelete } =
+  const { toggleSubmenu, copyLink, editPost, handleDelete, isCommunityOwner } =
     usePostButtonHandlers(
+      community,
       history,
       dispatch,
       post,
@@ -63,7 +64,7 @@ export const CompactPostMenu = ({ user, post, isPage, community }) => {
             <div className="compact-post-menu-btn-title">Share</div>
           </button>
           {user &&
-            user.id === post?.postAuthor.id &&
+            (user.id === post?.postAuthor.id || isCommunityOwner) &&
             !post?.imgUrl &&
             !post?.linkUrl && (
               <button

@@ -681,6 +681,20 @@ li {
   line-height: 26px;
 }
 
+.post-time {
+  position: relative;
+}
+
+.post-time-hover {
+  display: none;
+  position: absolute;
+  top: -5px;
+}
+
+.post-time:hover .post-time-hover {
+  display: block;
+}
+
 @media (max-width: 1120px) {
   .single-post-right-col {
     display: none;

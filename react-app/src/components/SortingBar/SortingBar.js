@@ -17,6 +17,7 @@ const SortButton = ({ active, onClick, community, icon, label }) => {
 
 export function SortingBar({ community, sortMode, setSortMode, isPage }) {
   const { format } = useContext(PostFormatContext);
+  
   const sortModes = [
     { key: "new", label: "New", icon: "fa-solid fa-certificate" },
     { key: "top", label: "Top", icon: "fa-solid fa-ranking-star" },

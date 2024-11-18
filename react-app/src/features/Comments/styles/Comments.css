@@ -381,7 +381,6 @@
   margin: 24px 40px 24px 48px;
   border-radius: 4px;
   overflow: hidden;
-  z-index: 999;
   position: relative;
 }
 

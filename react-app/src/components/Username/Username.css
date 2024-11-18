@@ -86,6 +86,7 @@
   text-decoration: none;
   line-height: 16px;
   transition: 0s;
+  margin: 0 4px;
 }
 
 .single-post-author-info .username-component-wrapper {
@@ -94,10 +95,6 @@
 
 .username-component {
   cursor: pointer;
-}
-
-.single-post-author-info .username-component {
-  margin: 0 4px;
 }
 
 .username-component-wrapper:hover {

@@ -1,6 +1,6 @@
 import React from "react";
-import { UsernameAvailability } from "./UsernameAvailability";
 import { v4 as uuidv4 } from "uuid";
+import { UsernameAvailability } from "./UsernameAvailability";
 
 export function ErrorsDisplay({ errors, inputValue, focused, name }) {
   return (

@@ -95,7 +95,7 @@ export function Comment({ commentId, comment, specificCommentActive }) {
   const { isPopupOpen, setIsPopupOpen } = usePopup(); // Access the global popup state
 
   const handleMouseEnter = () => {
-    if (foundUser[0].id === currentUser?.id) {
+    if (foundUser[0]?.id === currentUser?.id) {
       return;
     }
     if (hideTimeout) {

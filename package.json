@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "pg-schema-dump": "^1.0.6"
+  }
+}

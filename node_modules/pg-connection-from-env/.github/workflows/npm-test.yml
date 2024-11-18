@@ -1,0 +1,19 @@
+name: NPM Test
+on: [push]
+jobs:
+  npm_test:
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    name: Run NPM Test
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+          cache: "npm"
+      - name: Run NPM Install
+        run: npm install
+      - name: Run NPM Test
+        run: npm run test

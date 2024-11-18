@@ -14,6 +14,7 @@ import "./CompactPostFormat.css";
 import { usePostVote } from "../../hooks/usePostVote";
 import { CompactPostMenu } from "./CompactPostMenu";
 import { CompactPostTypeIcon } from "./CompactPostTypeIcon";
+import { Tooltip } from "components/Tooltip/Tooltip";
 
 export function CompactPostFormat({ id, isPage, post }) {
   const history = useHistory();
@@ -156,7 +157,12 @@ export function CompactPostFormat({ id, isPage, post }) {
                     user={post?.postAuthor}
                     source="singlepost"
                   />
-                  {moment(post?.createdAt).fromNow()}
+                  <span className="post-time">
+                    {moment(post?.createdAt).fromNow()}
+                    <span className="post-time-hover">
+                      <Tooltip direction="down" text={post?.createdAt} />
+                    </span>
+                  </span>
                 </div>
               </div>
             </div>

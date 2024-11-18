@@ -38,7 +38,7 @@ export default function useComment({ comment, commentId }) {
   const wasEdited = comment?.createdAt !== comment?.updatedAt;
 
   const handleMouseEnter = () => {
-    if (foundUser[0].id === currentUser?.id) {
+    if (foundUser[0]?.id === currentUser?.id) {
       return;
     }
     if (hideTimeout) {

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { PostFormatContext } from "@/context/PostFormat";
 import {
@@ -20,7 +20,14 @@ export const SinglePost = ({ id, isPage, post }) => {
   const [tempFormat, setTempFormat] = useState(
     isPage === "profile" ? "Card" : ""
   );
-  const { format } = useContext(PostFormatContext);
+  const { format, setFormat } = useContext(PostFormatContext);
+
+  useEffect(() => {
+    if (isPage !== "profile") {
+      const savedFormat = localStorage.getItem("selectedPostFormat");
+      setFormat(savedFormat);
+    }
+  }, []);
 
   return (
     <article>

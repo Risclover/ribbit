@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import moment from "moment";
 import { Username } from "@/components";
 import { CommunityImg } from "components/CommunityImg";
+import { Tooltip } from "components/Tooltip/Tooltip";
 
 moment.updateLocale("en-post", {
   relativeTime: {
@@ -69,7 +70,12 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
           user={post?.postAuthor}
           source="singlepost"
         />
-        {moment(new Date(post?.createdAt)).locale("en-post").fromNow()}
+        <span className="post-time">
+          {moment(new Date(post?.createdAt)).locale("en-post").fromNow()}
+          <span className="post-time-hover">
+            <Tooltip direction="down" text={post?.createdAt} />
+          </span>
+        </span>
       </div>
     </div>
   );

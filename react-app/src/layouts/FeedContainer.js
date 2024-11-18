@@ -14,7 +14,9 @@ export function FeedContainer({ children }) {
 }
 
 export function FeedLeftColContainer({ children }) {
-  const { format } = useContext(PostFormatContext);
+  const { format, setFormat } = useContext(PostFormatContext);
+
+  
 
   return (
     <div
