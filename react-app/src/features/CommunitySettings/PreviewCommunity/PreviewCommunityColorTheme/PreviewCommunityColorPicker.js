@@ -3,7 +3,12 @@ import { PreviewCommunityColorPickerSquare } from "./PreviewCommunityColorPicker
 import { colorThemeColors as colors } from "features/CommunitySettings/data/colorThemeColors";
 import { v4 as uuidv4 } from "uuid";
 
-export function PreviewCommunityColorPicker({ theme, setTheme, community }) {
+export function PreviewCommunityColorPicker({
+  theme,
+  setTheme,
+  community,
+  setOpenPicker,
+}) {
   const [showBrowserColorPicker, setShowBrowserColorPicker] = useState(false);
 
   useEffect(() => {
@@ -25,6 +30,7 @@ export function PreviewCommunityColorPicker({ theme, setTheme, community }) {
             community={community}
             color={color}
             setTheme={setTheme}
+            setOpenPicker={setOpenPicker}
           />
         ))}
       </div>

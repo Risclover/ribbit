@@ -148,7 +148,7 @@ const Chat = ({ setOpenChat }) => {
           userFound={userFound}
           showMessageInviteOverlay={showMessageInviteOverlay}
           setShowMessageInviteOverlay={setShowMessageInviteOverlay}
-          onInputChange={(text) => handleInputChange(selectedChat.id, text)}
+          onInputChange={(text) => handleInputChange(selectedChat?.id, text)}
           inputText={currentInputText}
         />
       </div>

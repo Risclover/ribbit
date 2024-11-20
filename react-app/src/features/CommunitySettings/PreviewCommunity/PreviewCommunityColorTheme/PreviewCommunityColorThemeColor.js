@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+// PreviewCommunityColorThemeColor.jsx
+import React, { useEffect, useRef, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { PreviewCommunityColorPicker } from "./PreviewCommunityColorPicker";
 import { useOutsideClick } from "@/hooks";
@@ -11,6 +12,10 @@ export function PreviewCommunityColorThemeColor({
 }) {
   const wrapperRef = useRef(null);
   const [openPicker, setOpenPicker] = useState(false);
+
+  useEffect(() => {
+    console.log("openPicker:", openPicker);
+  }, [openPicker]);
 
   useOutsideClick(wrapperRef, () => setOpenPicker(false));
 
@@ -37,7 +42,11 @@ export function PreviewCommunityColorThemeColor({
         )}
       </div>
       {openPicker && (
-        <div className="preview-community-color-picker" ref={wrapperRef}>
+        <div
+          className="preview-community-color-picker"
+          ref={wrapperRef}
+          onClick={(e) => e.stopPropagation()} // Prevent event bubbling
+        >
           <PreviewCommunityColorPicker
             theme={theme}
             setTheme={setTheme}

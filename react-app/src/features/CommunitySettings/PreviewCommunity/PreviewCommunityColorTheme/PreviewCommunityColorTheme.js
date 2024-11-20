@@ -116,10 +116,8 @@ export function PreviewCommunityColorTheme({
         {colorThemes.map((theme) => (
           <PreviewCommunityColorThemeColor
             theme={theme === "Base" ? base : highlight}
-            base={base}
             community={community}
             setTheme={theme === "Base" ? setBase : setHighlight}
-            highlight={highlight}
             name={theme}
             key={uuidv4()}
           />

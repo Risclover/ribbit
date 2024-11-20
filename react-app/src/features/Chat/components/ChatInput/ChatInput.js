@@ -1,13 +1,10 @@
-import { SelectedChatContext } from "context";
-import { Emojis, Gifs } from "features/ChatWindow";
-import { useAutosizeTextArea } from "@/hooks";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getChatThread } from "store";
-import { createChatMessage } from "store";
+import { SelectedChatContext } from "context";
+import { createChatMessage, createChatThread, getChatThread } from "store";
 import { liveChatIcons } from "@/assets";
-import { createChatThread } from "store";
-import { useUserSearch } from "features/Chat/hooks/useUserSearch";
+import { Emojis, Gifs } from "features/ChatWindow";
+import { useAutosizeTextArea } from "@/hooks";
 
 export const ChatInput = ({
   socket,
@@ -88,11 +85,19 @@ export const ChatInput = ({
   };
 
   const handleCreateNewThread = async () => {
-    const data = await dispatch(createChatThread(userFound?.id));
-    setSelectedChat(data);
-    setShowMessageInviteOverlay(false);
-    setPendingReceiver(null);
-    return data;
+    try {
+      const data = await dispatch(createChatThread(userFound?.id));
+      if (data) {
+        setSelectedChat(data);
+        setShowMessageInviteOverlay(false);
+        setPendingReceiver(null);
+        return data;
+      } else {
+        console.error("Failed to create chat thread: No data returned.");
+      }
+    } catch (error) {
+      console.error("Error creating chat thread:", error);
+    }
   };
 
   return (
