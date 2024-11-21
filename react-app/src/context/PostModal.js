@@ -82,7 +82,7 @@ export function PostModal({ onClose, post }) {
                     viewBox="0 0 24 24"
                     strokeWidth="1.3"
                     stroke="currentColor"
-                    class="size-6"
+                    className="size-6"
                   >
                     <path
                       stroke-linecap="round"

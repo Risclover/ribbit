@@ -1,7 +1,7 @@
 export function ChevronDownFilled() {
   return (
     <svg
-      class="XHbKeEqnW58ib9mTN6jnS u_kypUXmB-k1A5TcC8MI9 _2MGxQvIhmM2I5CzPdSJTtM"
+      className="XHbKeEqnW58ib9mTN6jnS u_kypUXmB-k1A5TcC8MI9 _2MGxQvIhmM2I5CzPdSJTtM"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
     >
