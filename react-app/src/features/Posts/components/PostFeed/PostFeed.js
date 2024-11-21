@@ -24,42 +24,33 @@ export const PostFeed = ({
   const [postsPerPage, setPostsPerPage] = useState(0); // Default value
   const [loading, setLoading] = useState(false);
 
-  const { format, setFormat } = useContext(PostFormatContext);
+  const { format } = useContext(PostFormatContext);
 
-  useEffect(() => {
-    console.log("format:", format);
-  }, [format]);
-  // Function to calculate posts per page based on format
   const calculatePostsPerPage = useCallback(() => {
     const viewportHeight = window.innerHeight;
     let postHeight;
 
-    // Set approximate post height based on format
     switch (format) {
       case "Compact":
-        postHeight = 44; // Adjust this value based on actual height
+        postHeight = 44;
         break;
       case "Classic":
-        postHeight = 91; // Adjust this value based on actual height
+        postHeight = 91;
         break;
       default:
-        // For 'card' or other formats
-        postHeight = 488; // Adjust this value based on actual height
+        postHeight = 488;
         break;
     }
 
-    // Calculate the number of posts needed to fill the viewport
-    const initialPosts = Math.ceil(viewportHeight / postHeight) + 2; // Add extra posts for smooth scrolling
+    const initialPosts = Math.ceil(viewportHeight / postHeight) + 2;
     return initialPosts;
   }, [format]);
 
   useEffect(() => {
-    // Calculate and set posts per page when component mounts or format changes
     const initialPosts = calculatePostsPerPage();
     setPostsPerPage(initialPosts);
   }, [calculatePostsPerPage]);
 
-  // Update postsPerPage when window is resized
   useEffect(() => {
     const handleResize = () => {
       const initialPosts = calculatePostsPerPage();
@@ -89,7 +80,7 @@ export const PostFeed = ({
       setTimeout(() => {
         setPage((prevPage) => prevPage + 1);
         setLoading(false);
-      }, 1000); // Simulate loading delay if necessary
+      }, 1000);
     }
   }, [loading, items.length, posts.length]);
 
