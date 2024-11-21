@@ -8,20 +8,12 @@ export const DropBox = ({
   setImage,
   preview,
   setPreview,
-  handlePreview,
-  handleDelete,
-  defaultIcon,
+  defaultIcon = null,
 }) => {
   const [highlight, setHighlight] = useState(false);
   const [showBar, setShowBar] = useState(preview !== null && preview !== "");
 
-  const { handleUpload } = useFileHandler(
-    setImage,
-    setPreview,
-    setShowBar,
-    showBar,
-    handlePreview
-  );
+  const { handleUpload } = useFileHandler(setImage, setPreview, setShowBar);
 
   const handleDragEvents = (highlight) => (e) => {
     e.preventDefault();
@@ -32,7 +24,6 @@ export const DropBox = ({
   const handleErase = (e) => {
     setPreview(null);
     setShowBar(false);
-    handleDelete(e);
   };
 
   useEffect(() => {

@@ -32,8 +32,14 @@ export const getCommunitySettings = (communityId) => async (dispatch) => {
 };
 
 export const updateSettingsColorTheme = (payload) => async (dispatch) => {
-  const { settingsId, baseColor, highlight, bgColor, backgroundImgFormat } =
-    payload;
+  const {
+    settingsId,
+    baseColor,
+    highlight,
+    bgColor,
+    backgroundImgFormat,
+    backgroundImg,
+  } = payload;
 
   const response = await fetch(
     `/api/community_settings/${settingsId}/color-theme/edit`,

@@ -1,4 +1,11 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
+import React, {
+  useContext,
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import ReactDOM from "react-dom";
 import { useHistory } from "react-router-dom";
 import "./AuthModal.css";
@@ -6,19 +13,14 @@ import "./AuthModal.css";
 const AuthModalContext = React.createContext();
 
 export function AuthModalProvider({ children }) {
-  const modalRef = useRef();
-  const [value, setValue] = useState();
-
-  useEffect(() => {
-    setValue(modalRef.current);
-  }, []);
+  const [modalNode, setModalNode] = useState(null);
 
   return (
     <>
-      <AuthModalContext.Provider value={value}>
+      <AuthModalContext.Provider value={modalNode}>
         {children}
       </AuthModalContext.Provider>
-      <div ref={modalRef} />
+      <div ref={setModalNode} />
     </>
   );
 }
@@ -33,80 +35,96 @@ export function AuthModal({
 }) {
   const history = useHistory();
   const modalNode = useContext(AuthModalContext);
+
   if (!modalNode) return null;
 
-  // State to track header and footer border visibility
   const [headerBorder, setHeaderBorder] = useState(false);
   const [footerBorder, setFooterBorder] = useState(false);
-  const containerRef = useRef(null); // Ref for the scrollable container
+  const containerRef = useRef(null);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const container = containerRef.current;
-    const scrollAtTop = container.scrollTop === 0;
-    const scrollAtBottom =
+    if (!container) return;
+
+    const isAtTop = container.scrollTop === 0;
+    const isAtBottom =
       container.scrollHeight - container.scrollTop === container.clientHeight;
 
-    // Enable header border if scrolled down, disable if scrolled to the top
-    setHeaderBorder(!scrollAtTop);
+    setHeaderBorder(!isAtTop);
+    setFooterBorder(!isAtBottom);
+  }, []);
 
-    // Enable footer border if scrolled up, disable if scrolled to the bottom
-    setFooterBorder(!scrollAtBottom);
-  };
+  const topbarClassName = useMemo(() => {
+    const classes = ["auth-modal-topbar"];
+    if (headerBorder) classes.push("header-border");
+    if (topbarBtn === "back") classes.push("justify-left");
+    return classes.join(" ");
+  }, [headerBorder, topbarBtn]);
+
+  const footerClassName = useMemo(() => {
+    return `auth-modal-footer ${footerBorder ? "footer-border" : ""}`;
+  }, [footerBorder]);
+
+  const renderTopbarButton = useMemo(() => {
+    switch (topbarBtn) {
+      case "none":
+        return (
+          <div className="sign-in-switch">
+            <span role="button" onClick={() => history.push("/")}>
+              Go home
+            </span>
+          </div>
+        );
+      case "close":
+        return (
+          <button
+            aria-label="Close"
+            className="auth-modal-close"
+            onClick={onClose}
+          >
+            {/* Close icon SVG */}
+            <svg
+              fill="currentColor"
+              height="16"
+              viewBox="0 0 20 20"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M18.442 2.442l-.884-.884L10 9.116 2.442 1.558l-.884.884L9.116 10l-7.558 7.558.884.884L10 10.884l7.558 7.558.884-.884L10.884 10l7.558-7.558Z"></path>
+            </svg>
+          </button>
+        );
+      case "back":
+        return (
+          <button
+            aria-label="Back"
+            className="auth-modal-back"
+            onClick={onClose}
+          >
+            {/* Back icon SVG */}
+            <svg
+              fill="#000000"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M19 9.375H2.51l7.932-7.933-.884-.884-9 9a.625.625 0 0 0 0 .884l9 9 .884-.884-7.933-7.933H19v-1.25Z"></path>
+            </svg>
+          </button>
+        );
+      default:
+        return null;
+    }
+  }, [topbarBtn, history, onClose]);
 
   return ReactDOM.createPortal(
     <div className="auth-modal">
       <div className="auth-modal-background" onClick={onClose} />
       <div className="auth-modal-content">
-        <div
-          className={`auth-modal-topbar ${
-            headerBorder ? "header-border" : ""
-          } ${topbarBtn === "back" ? "justify-left" : ""}`}
-        >
+        <div className={topbarClassName}>
           <span></span>
-          {topbarBtn === "none" && (
-            <div className="sign-in-switch">
-              <span onClick={() => history.push("/")}>Go home</span>
-            </div>
-          )}
-          {topbarBtn === "close" && topbarBtn !== "none" ? (
-            <button
-              aria-label="Close"
-              className="auth-modal-close"
-              onClick={onClose}
-            >
-              <svg
-                rpl=""
-                fill="currentColor"
-                height="16"
-                icon-name="close-outline"
-                viewBox="0 0 20 20"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="m18.442 2.442-.884-.884L10 9.116 2.442 1.558l-.884.884L9.116 10l-7.558 7.558.884.884L10 10.884l7.558 7.558.884-.884L10.884 10l7.558-7.558Z"></path>
-              </svg>
-            </button>
-          ) : topbarBtn === "back" && topbarBtn !== "none" ? (
-            <button
-              aria-label="Back"
-              className="auth-modal-back"
-              onClick={onClose}
-            >
-              <svg
-                rpl=""
-                fill="#000000"
-                height="20"
-                icon-name="back-outline"
-                viewBox="0 0 20 20"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M19 9.375H2.51l7.932-7.933-.884-.884-9 9a.625.625 0 0 0 0 .884l9 9 .884-.884-7.933-7.933H19v-1.25Z"></path>
-              </svg>
-            </button>
-          ) : (
-            ""
-          )}
+          {renderTopbarButton}
         </div>
         <form className="auth-form" autoComplete="off" onSubmit={onSubmit}>
           <div
@@ -117,13 +135,7 @@ export function AuthModal({
             <h1 className="auth-modal-title">{title}</h1>
             {children}
           </div>
-          <div
-            className={`auth-modal-footer ${
-              footerBorder ? "footer-border" : ""
-            }`}
-          >
-            {footerBtn}
-          </div>
+          <div className={footerClassName}>{footerBtn}</div>
         </form>
       </div>
     </div>,

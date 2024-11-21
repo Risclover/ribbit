@@ -18,17 +18,21 @@ export function PreviewCommunityColorTheme({
   setBase,
   highlight,
   setHighlight,
-  bodyBg,
-  setBodyBg,
+  backgroundImg,
+  setBackgroundImg,
+  backgroundImgFormat,
+  setBackgroundImgFormat,
   bodyBgPreview,
   setBodyBgPreview,
-  bgFormat,
-  setBgFormat,
-  preview,
+  bgColor,
+  setBgColor,
 }) {
   const dispatch = useDispatch();
 
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(
+    community?.communitySettings[community?.id]?.backgroundImage
+  );
   const colorThemes = ["Base", "Highlight"];
 
   useEffect(() => {
@@ -44,8 +48,9 @@ export function PreviewCommunityColorTheme({
       settingsId: community?.communitySettings[community?.id].id,
       baseColor: base,
       highlight: highlight,
-      bgColor: bodyBg,
-      backgroundImgFormat: bgFormat,
+      bgColor: bgColor,
+      backgroundImgFormat: backgroundImgFormat,
+      backgroundImg: backgroundImg,
     };
     if (image) {
       handleUpload();
@@ -62,28 +67,27 @@ export function PreviewCommunityColorTheme({
   };
 
   const handlePreview = () => {
-    setBodyBgPreview(preview);
-    if (bgFormat === "fill") {
+    if (backgroundImgFormat === "fill") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bodyBg} url(${preview}) no-repeat center / cover`
+        `${bgColor} url(${preview}) no-repeat center / cover`
       );
-    } else if (bgFormat === "tile") {
+    } else if (backgroundImgFormat === "tile") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bodyBg} url(${preview}) repeat center top`
+        `${bgColor} url(${preview}) repeat center top`
       );
-    } else if (bgFormat === "center") {
+    } else if (backgroundImgFormat === "center") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bodyBg} url(${preview}) no-repeat center top`
+        `${bgColor} url(${preview}) no-repeat center top`
       );
     }
   };
 
   const handleDelete = () => {
-    setBodyBgPreview("");
     setImage("");
+    setPreview(null);
   };
 
   const handleUpload = async () => {
@@ -103,7 +107,6 @@ export function PreviewCommunityColorTheme({
       await res.json();
       dispatch(getSingleCommunity(community?.id));
       dispatch(getCommunities());
-      handlePreview();
       setOpenAppearance(false);
     }
   };
@@ -126,34 +129,29 @@ export function PreviewCommunityColorTheme({
       <div className="preview-community-theme-colors-box">
         <h2>Body Background</h2>
         <PreviewCommunityColorThemeColor
-          theme={bodyBg}
+          theme={bgColor}
           community={community}
-          setTheme={setBodyBg}
+          setTheme={setBgColor}
           name="Color"
         />
         <div className="preview-community-theme-background-img">
           <h3>Image</h3>
           <DropBox
-            dropboxType="community_bg"
-            community={community}
             preview={preview}
-            setPreview={setBodyBgPreview}
+            setPreview={setPreview}
             setImage={setImage}
-            image={image}
-            handlePreview={handlePreview}
-            handleDelete={handleDelete}
-            handleImgUpload={handleUpload}
           />
           <div className="body-bg-formats" role="radiogroup">
-            <input type="hidden" value={bgFormat} />
+            <input type="hidden" value={backgroundImgFormat} />
             {["fill", "tile", "center"].map((format) => (
               <BodyBgFormat
                 key={uuidv4()}
                 format={format}
-                bgFormat={bgFormat}
-                setBgFormat={setBgFormat}
-                backgroundImg={bodyBgPreview}
-                bodyBg={bodyBg}
+                backgroundImgFormat={backgroundImgFormat}
+                setBackgroundImgFormat={setBackgroundImgFormat}
+                bodyBgPreview={bodyBgPreview}
+                backgroundImg={backgroundImg}
+                bgColor={bgColor}
               />
             ))}
           </div>

@@ -3,14 +3,15 @@ import { IoGridSharp } from "react-icons/io5";
 
 export function BodyBgFormat({
   format,
-  bgFormat,
-  setBgFormat,
+  backgroundImgFormat,
+  setBackgroundImgFormat,
   backgroundImg,
-  bodyBg,
+  bodyBgPreview,
+  bgColor,
 }) {
   const handleBgFormat = (e) => {
     e.preventDefault();
-    setBgFormat(format);
+    setBackgroundImgFormat(format);
     document.documentElement.style.setProperty(
       "--preview-community-body-bg-img-format",
       format
@@ -18,21 +19,21 @@ export function BodyBgFormat({
 
     document.documentElement.style.setProperty(
       "--preview-community-body-bg-img",
-      `${bodyBg} url(${backgroundImg}) ${format}`
+      `${bgColor} url(${backgroundImg}) ${format}`
     );
   };
 
   return (
     <div
       className={`body-bg-format ${
-        format !== bgFormat ? "body-bg-format-selected" : ""
+        format !== backgroundImgFormat ? "body-bg-format-selected" : ""
       }`}
       role="radio"
       onClick={handleBgFormat}
     >
       <div
         className={`body-bg-format-border ${
-          format !== bgFormat && "body-bg-format-selected"
+          format !== backgroundImgFormat && "body-bg-format-selected"
         }`}
       >
         {format === "tile" ? (
@@ -40,13 +41,13 @@ export function BodyBgFormat({
         ) : format === "fill" ? (
           <div
             className={`square ${
-              format !== bgFormat && "body-bg-format-selected"
+              format !== backgroundImgFormat && "body-bg-format-selected"
             }`}
           ></div>
         ) : (
           <div
             className={`square square-sm ${
-              format !== bgFormat && "body-bg-format-selected"
+              format !== backgroundImgFormat && "body-bg-format-selected"
             }`}
           ></div>
         )}

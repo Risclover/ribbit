@@ -27,6 +27,7 @@ def update_color_theme(id):
     setattr(settings, "highlight", data["highlight"])
     setattr(settings, "bg_color", data["bgColor"])
     setattr(settings, "background_img_format", data["backgroundImgFormat"])
+    setattr(settings, "background_img", data["backgroundImg"])
 
     db.session.commit()
     return settings.to_dict()

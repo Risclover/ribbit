@@ -37,7 +37,7 @@ export function PreviewCommunitySidebar() {
   const [highlight, setHighlight] = useState(
     community?.communitySettings[community?.id]?.highlight
   );
-  const [bodyBg, setBodyBg] = useState(
+  const [bgColor, setBgColor] = useState(
     community?.communitySettings[community?.id]?.bgColor
   );
   const [backgroundImg, setBackgroundImg] = useState(
@@ -102,8 +102,8 @@ export function PreviewCommunitySidebar() {
     );
 
     document.documentElement.style.setProperty(
-      "--preview-community-color-theme-bodybg",
-      bodyBg
+      "--preview-community-color-theme-bgColor",
+      bgColor
     );
 
     document.documentElement.style.setProperty(
@@ -134,24 +134,24 @@ export function PreviewCommunitySidebar() {
     if (backgroundImgFormat === "fill") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bodyBg} url(${backgroundImg}) no-repeat center / cover`
+        `${bgColor} url(${backgroundImg}) no-repeat center / cover`
       );
     } else if (backgroundImgFormat === "tile") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bodyBg} url(${backgroundImg}) repeat center top`
+        `${bgColor} url(${backgroundImg}) repeat center top`
       );
     } else if (backgroundImgFormat === "center") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bodyBg} url(${backgroundImg}) no-repeat center top`
+        `${bgColor} url(${backgroundImg}) no-repeat center top`
       );
     }
   }, [
     community?.communitySettings[community?.id],
     base,
     highlight,
-    bodyBg,
+    bgColor,
     backgroundImg,
     backgroundImgFormat,
     bannerHeight,
@@ -207,8 +207,8 @@ export function PreviewCommunitySidebar() {
           setBase={setBase}
           highlight={highlight}
           setHighlight={setHighlight}
-          bodyBg={bodyBg}
-          setBodyBg={setBodyBg}
+          bgColor={bgColor}
+          setBgColor={setBgColor}
           backgroundImg={backgroundImg}
           setBackgroundImg={setBackgroundImg}
           nameFormat={nameFormat}

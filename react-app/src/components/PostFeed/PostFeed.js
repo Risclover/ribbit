@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import { SinglePost } from "@/features";
 import { SortingBar } from "../SortingBar";
-import { useHistory } from "react-router-dom";
 
-export function PostFeed({
-  posts,
+export const PostFeed = ({
+  posts = [],
   sortMode,
   isPage,
   format,
@@ -13,44 +12,46 @@ export function PostFeed({
   community,
   pageType,
   user,
-}) {
+}) => {
   const history = useHistory();
-
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (posts) {
-      setItems(posts.slice(0, 10 * page));
-    }
-  }, [posts, page, sortMode]);
+  const items = useMemo(() => posts.slice(0, 10 * page), [posts, page]);
 
-  const loadMore = () => {
+  const handlePostClick = useCallback(
+    (postId) => (e) => {
+      e.stopPropagation();
+      history.push(`/posts/${postId}`);
+    },
+    [history]
+  );
+
+  const loadMore = useCallback(() => {
     if (!loading && items.length < posts.length) {
       setLoading(true);
       setTimeout(() => {
-        setPage(page + 1);
+        setPage((prevPage) => prevPage + 1);
         setLoading(false);
       }, 1000);
     }
-  };
+  }, [loading, items.length, posts.length]);
+
+  const handleScroll = useCallback(() => {
+    if (
+      window.innerHeight + window.scrollY >=
+        document.documentElement.offsetHeight - 500 &&
+      !loading &&
+      items.length < posts.length
+    ) {
+      loadMore();
+    }
+  }, [loadMore, loading, items.length, posts.length]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop >=
-          document.documentElement.offsetHeight - 500 &&
-        !loading &&
-        items.length < posts.length
-      ) {
-        loadMore();
-      }
-    };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [items, loading, posts.length]);
+  }, [handleScroll]);
 
   useEffect(() => {
     if (isPage === "profile") {
@@ -61,10 +62,12 @@ export function PostFeed({
     }
   }, [isPage]);
 
+  const showSortingBar =
+    isPage !== "profile" || (user?.userPosts && user.userPosts > 0);
+
   return (
     <div>
-      {((isPage === "profile" && user?.userPosts > 0) ||
-        isPage !== "profile") && (
+      {showSortingBar && (
         <SortingBar
           sortMode={sortMode}
           setSortMode={setSortMode}
@@ -75,15 +78,8 @@ export function PostFeed({
         />
       )}
       {items.map((post) => (
-        <div
-          key={post.id}
-          onClick={(e) => {
-            e.stopPropagation();
-            history.push(`/posts/${post.id}`);
-          }}
-        >
+        <div key={post.id} onClick={handlePostClick(post.id)}>
           <SinglePost
-            key={post.id}
             id={post.id}
             post={post}
             isPage={isPage}
@@ -93,4 +89,4 @@ export function PostFeed({
       ))}
     </div>
   );
-}
+};

@@ -1,12 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { PostFormatDropdownBtn } from "./PostFormatDropdownBtn/PostFormatDropdownBtn";
 import "./PostFormatDropdown.css";
 
 export function PostFormatDropdown({ setShowDropdown, formats }) {
   const buttonRefs = useRef([]);
 
+  // Focus the first button when the component mounts
   useEffect(() => {
-    function handleKeyDown(e) {
+    buttonRefs.current[0]?.focus();
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (e) => {
       const { key } = e;
       const focusedIndex = buttonRefs.current.findIndex(
         (ref) => ref === document.activeElement
@@ -23,21 +28,18 @@ export function PostFormatDropdown({ setShowDropdown, formats }) {
       } else if (key === "Escape") {
         setShowDropdown(false);
       }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [formats.length, setShowDropdown]);
+    },
+    [formats.length, setShowDropdown]
+  );
 
   return (
     <div
       className="post-format-dropdown"
       data-testid="post-format-dropdown"
       aria-labelledby="postFormatDropdownToggle"
+      onKeyDown={handleKeyDown}
     >
-      <ul>
+      <ul role="menu">
         {formats.map((item, index) => (
           <li key={item.format}>
             <PostFormatDropdownBtn

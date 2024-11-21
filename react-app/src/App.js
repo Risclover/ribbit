@@ -71,7 +71,7 @@ function App() {
   const [adjustQuery, setAdjustQuery] = useState(false);
   const [postType, setPostType] = useState("post");
   const [format, setFormat] = useState("Card");
-  const [pageTitle, setPageTitle] = useState();
+  const [pageTitle, setPageTitle] = useState("");
   const [pageIcon, setPageIcon] = useState();
   const [showNavSidebar, setShowNavSidebar] = useState(false);
   const [showLoggedOutSidebar, setShowLoggedOutSidebar] = useState();

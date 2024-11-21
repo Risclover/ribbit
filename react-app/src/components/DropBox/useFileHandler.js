@@ -1,9 +1,4 @@
-export const useFileHandler = (
-  setImage,
-  setPreview,
-  setShowBar,
-  handlePreview
-) => {
+export const useFileHandler = (setImage, setPreview, setShowBar) => {
   const handleUpload = (event) => {
     const file = event.target.files[0] || event.dataTransfer.files[0];
     if (!file) {
@@ -18,7 +13,6 @@ export const useFileHandler = (
       const fileRes = btoa(reader.result);
       setPreview(`data:image/jpg;base64,${fileRes}`);
       setShowBar(true);
-      handlePreview();
     };
 
     reader.onerror = () => {

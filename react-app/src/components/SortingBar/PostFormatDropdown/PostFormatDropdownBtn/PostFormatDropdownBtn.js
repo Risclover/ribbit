@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback, useMemo } from "react";
 import { useButtonState } from "@/hooks/useButtonState";
 
 // Define a constant for the localStorage key
@@ -9,44 +9,46 @@ export const PostFormatDropdownBtn = React.forwardRef(
     const { active, setActive, highlight, setHighlight, setFormat } =
       useButtonState(item);
 
-    // Effect to load the saved format from localStorage on mount
+    // Load the saved format from localStorage on mount
     useEffect(() => {
       const savedFormat = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (savedFormat && savedFormat === item.format) {
+      if (savedFormat === item.format) {
         setActive(true);
         setFormat(savedFormat);
       }
     }, [item.format, setActive, setFormat]);
 
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
       setActive(true);
       setShowDropdown(false);
       setFormat(item.format);
-      // Save the selected format to localStorage
       try {
         localStorage.setItem(LOCAL_STORAGE_KEY, item.format);
       } catch (error) {
         console.error("Failed to save to localStorage:", error);
       }
-    };
+    }, [item.format, setActive, setFormat, setShowDropdown]);
 
-    const handleMouseOver = () => {
+    const handleMouseOver = useCallback(() => {
       if (!active) {
         setHighlight(true);
       }
-    };
+    }, [active, setHighlight]);
 
-    const handleMouseLeave = () => {
+    const handleMouseLeave = useCallback(() => {
       setHighlight(false);
-    };
+    }, [setHighlight]);
 
-    const className = `${
-      active
-        ? "format-btn-active"
-        : highlight
-        ? "post-format-btn format-btn-black"
-        : "post-format-btn format-btn-grey"
-    }`;
+    const className = useMemo(() => {
+      if (active) return "format-btn-active";
+      if (highlight) return "post-format-btn format-btn-black";
+      return "post-format-btn format-btn-grey";
+    }, [active, highlight]);
+
+    const iconSrc = useMemo(() => {
+      if (active) return item.icons.blue;
+      return highlight ? item.icons.black : item.icons.grey;
+    }, [active, highlight, item.icons]);
 
     return (
       <button
@@ -59,19 +61,14 @@ export const PostFormatDropdownBtn = React.forwardRef(
         data-testid={`dropdown-btn-${item.format}`}
       >
         {active ? (
-          <div className={`format-icon-bg`}>
+          <div className="format-icon-bg">
             <img
               alt={`${item.format.toLowerCase()} format icon`}
-              src={
-                item.icons.blue // Since active is true, no need for ternary
-              }
+              src={iconSrc}
             />
           </div>
         ) : (
-          <img
-            alt={`${item.format.toLowerCase()} format icon`}
-            src={highlight ? item.icons.black : item.icons.grey}
-          />
+          <img alt={`${item.format.toLowerCase()} format icon`} src={iconSrc} />
         )}
         {item.format}
       </button>

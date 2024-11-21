@@ -13,8 +13,8 @@ export function PreviewCommunitySidebarAppearance({
   setBase,
   highlight,
   setHighlight,
-  bodyBg,
-  setBodyBg,
+  bgColor,
+  setBgColor,
   backgroundImg,
   setBackgroundImg,
   nameFormat,
@@ -48,12 +48,12 @@ export function PreviewCommunitySidebarAppearance({
           setBase={setBase}
           highlight={highlight}
           setHighlight={setHighlight}
-          bodyBg={bodyBg}
-          setBodyBg={setBodyBg}
-          bodyBgPreview={backgroundImg}
-          setBodyBgPreview={setBackgroundImg}
-          bgFormat={backgroundImgFormat}
-          setBgFormat={setBackgroundImgFormat}
+          bgColor={bgColor}
+          setBgColor={setBgColor}
+          backgroundImg={backgroundImg}
+          setBackgroundImg={setBackgroundImg}
+          backgroundImgFormat={backgroundImgFormat}
+          setBackgroundImgFormat={setBackgroundImgFormat}
         />
       )}
       {appearanceSidebar === "Name & icon" && (

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import classNames from "classnames";
 import {
   followUser,
   getFavoriteUsers,
@@ -7,56 +8,56 @@ import {
   unfollowUser,
 } from "@/store";
 
-export function FollowBtn({ user, community, btnType }) {
+export const FollowBtn = ({ user, community, btnType }) => {
   const dispatch = useDispatch();
   const follows = useSelector((state) => state.followers?.follows);
 
-  const findIsFollowing = () =>
-    follows
-      ? Object.values(follows).some(
-          (followed) => followed.username === user.username
-        )
-      : null;
+  const { username, id: userId } = user;
 
-  const [following, setFollowing] = useState(findIsFollowing());
-  const [btnText, setBtnText] = useState("");
+  const isFollowing = useMemo(
+    () =>
+      follows
+        ? Object.values(follows).some(
+            (followedUser) => followedUser.username === username
+          )
+        : false,
+    [follows, username]
+  );
 
-  const btnClass1 = !following
-    ? "user-profile-follower-btn"
-    : "user-profile-following-btn";
+  const btnText = isFollowing ? "Unfollow" : "Follow";
 
-  const btnClass2 = `${
-    !following ? "blue-btn-filled btn-long" : "blue-btn-unfilled btn-long"
-  }${
-    community ? (!following ? " community-btn-filled" : " community-btn") : ""
-  }`;
+  const btnClass = classNames({
+    "user-profile-following-btn": isFollowing && btnType === "profile",
+    "user-profile-follower-btn": !isFollowing && btnType === "profile",
+    "blue-btn-unfilled btn-long": isFollowing && btnType !== "profile",
+    "blue-btn-filled btn-long": !isFollowing && btnType !== "profile",
+    "community-btn": isFollowing && community,
+    "community-btn-filled": !isFollowing && community,
+  });
 
-  const btnClasses = [btnClass1, btnClass2];
+  const handleFollowClick = useCallback(
+    async (e) => {
+      e.stopPropagation();
+      e.preventDefault();
 
-  useEffect(() => {
-    setFollowing(findIsFollowing());
-    setBtnText(findIsFollowing() ? "Unfollow" : "Follow");
-  }, [follows, user.username]);
-
-  const handleFollowClick = async (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    if (following) {
-      await dispatch(unfollowUser(user.id));
-      await dispatch(getFavoriteUsers());
-    } else {
-      await dispatch(followUser(user.id));
-    }
-    await dispatch(getFollowers());
-  };
+      if (isFollowing) {
+        await dispatch(unfollowUser(userId));
+        await dispatch(getFavoriteUsers());
+      } else {
+        await dispatch(followUser(userId));
+      }
+      await dispatch(getFollowers());
+    },
+    [dispatch, isFollowing, userId]
+  );
 
   return (
     <button
       aria-label={btnText}
-      className={btnType === "profile" ? btnClasses[0] : btnClasses[1]}
+      className={btnClass}
       onClick={handleFollowClick}
     >
       {btnText}
     </button>
   );
-}
+};
