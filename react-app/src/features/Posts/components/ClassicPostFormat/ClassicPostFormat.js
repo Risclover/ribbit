@@ -18,6 +18,7 @@ import "./ClassicPostFormat.css";
 import { deletePost, getUsers } from "@/store";
 import { usePostButtonHandlers } from "features/Posts/hooks/usePostButtonHandlers";
 import { Tooltip } from "components/Tooltip/Tooltip";
+import { ShareIcon } from "assets/icons/ShareIcon";
 
 export function ClassicPostFormat({ isPage, id, post }) {
   const { metadata, fetchMetadata } = useMetadata();
@@ -237,31 +238,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                       className="single-post-share-btn"
                       onClick={copyLink}
                     >
-                      <svg
-                        fill="currentColor"
-                        width="20px"
-                        height="20px"
-                        viewBox="0 0 1920.00 1920.00"
-                        xmlns="http://www.w3.org/2000/svg"
-                        stroke="currentColor"
-                        stroke-width="0.019200000000000002"
-                      >
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g
-                          id="SVGRepo_tracerCarrier"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke="#CCCCCC"
-                          stroke-width="7.68"
-                        ></g>
-                        <g id="SVGRepo_iconCarrier">
-                          {" "}
-                          <path
-                            d="m1246.246 64-90.496 90.496 477.952 477.952h-590.848C467.878 632.448.038 1100.416.038 1675.392v109.056h128v-109.056c0-504.576 410.368-914.944 914.816-914.944h590.848l-477.952 478.08 90.496 90.496 632.448-632.576L1246.246 64Z"
-                            fill-rule="evenodd"
-                          ></path>{" "}
-                        </g>
-                      </svg>
+                      <ShareIcon />
                       Share
                     </button>
                   </div>

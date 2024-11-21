@@ -4,6 +4,7 @@ import { DeleteConfirmationModal } from "@/components";
 import { deletePost, getPosts, getUsers, getViewedPosts } from "@/store";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { TrashIcon } from "assets/icons/TrashIcon";
 
 export function DeletePostModal({
   post,
@@ -42,7 +43,7 @@ export function DeletePostModal({
           setShowDeleteModal(true);
         }}
       >
-        <i className="fa-regular fa-trash-can"></i>
+        <TrashIcon />
         Delete
       </button>
     </div>

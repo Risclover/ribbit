@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useOutsideClick } from "hooks";
 import "../styles/Comments.css";
+import { ChevronDownFilled } from "assets/icons/ChevronDownFilled";
 
 export function CommentSorting({ sortType, setSortType }) {
   const [showSortingDropdown, setShowSortingDropdown] = useState(false);
@@ -21,13 +22,7 @@ export function CommentSorting({ sortType, setSortType }) {
         onClick={() => setShowSortingDropdown(!showSortingDropdown)}
       >
         <span className="comment-sorting-sortby">Sort By: {sortType}</span>{" "}
-        <svg
-          className="XHbKeEqnW58ib9mTN6jnS u_kypUXmB-k1A5TcC8MI9 _2MGxQvIhmM2I5CzPdSJTtM"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M14.17,9.35,10,13.53,5.83,9.35a.5.5,0,0,1,.35-.85h7.64a.5.5,0,0,1,.35.85"></path>
-        </svg>
+        <ChevronDownFilled />
       </div>
       {showSortingDropdown && (
         <div className="comment-sorting-dropdown" ref={wrapperRef}>

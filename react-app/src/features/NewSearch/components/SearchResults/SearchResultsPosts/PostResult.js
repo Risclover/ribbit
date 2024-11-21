@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Username } from "@/components";
 import { useMetadata } from "@/context/Metadata";
 import { CommunityImg } from "components/CommunityImg";
+import { PostTypeLinkIcon } from "assets/icons/PostTypeLinkIcon";
 
 export const PostResult = ({ post }) => {
   const history = useHistory();
@@ -87,22 +88,7 @@ export const PostResult = ({ post }) => {
             <img src={metadataResult} alt={post?.title} />
 
             <div className="type-link-icon">
-              <svg
-                stroke="currentColor"
-                fill="none"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                ></path>
-              </svg>
+              <PostTypeLinkIcon />
             </div>
           </div>
         )}

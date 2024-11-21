@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import { getCommunities } from "@/store";
 import { useOutsideClick } from "hooks";
 import { CommunityImg } from "components/CommunityImg";
+import { SearchIcon } from "assets/icons/SearchIcon";
+import { CircleSeparator } from "assets/icons/CircleSeparator";
 
 export function SearchDropdown({
   searchQuery,
@@ -83,12 +85,7 @@ export function SearchDropdown({
                   c/{community.name}
                 </div>
                 <div className="search-result-community-members">
-                  Community{" "}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
-                    <g fill="inherit" stroke="none">
-                      <circle r="4" cy="4" cx="4"></circle>
-                    </g>
-                  </svg>{" "}
+                  Community <CircleSeparator />
                   {community.members} members
                 </div>
               </div>
@@ -134,18 +131,7 @@ export function SearchDropdown({
         className="search-for-query"
         onClick={handleQuery}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          height="15"
-          viewBox="0 0 15 15"
-          width="15"
-        >
-          <path
-            d="m14.5 14.5-4-4m-4 2c-3.31371 0-6-2.68629-6-6s2.68629-6 6-6 6 2.68629 6 6-2.68629 6-6 6z"
-            stroke="#878a8c"
-          />
-        </svg>{" "}
+        <SearchIcon height="20" width="20" color="currentColor" />
         Search for "{searchQuery}"
       </button>
     </div>

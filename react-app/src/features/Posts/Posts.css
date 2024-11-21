@@ -183,6 +183,14 @@
   top: 57px;
 }
 
+.single-post-delete-btn svg {
+  margin-right: 6px;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  color: #878a8c;
+}
+
 @media (max-width: 960px) {
   .posts-right-col {
     display: none;

@@ -695,6 +695,14 @@ li {
   display: block;
 }
 
+.single-post-edit-btn svg {
+  margin-right: 6px;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  color: #878a8c;
+}
+
 @media (max-width: 1120px) {
   .single-post-right-col {
     display: none;
