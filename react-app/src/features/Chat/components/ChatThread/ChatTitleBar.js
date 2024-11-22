@@ -27,7 +27,6 @@ export const ChatTitleBar = ({ showCreateChatOverlay, setOpenChat }) => {
       </button> */}
       <div></div>
       <button
-        aria-label="Close"
         title="Close chat"
         className="chat-window-close-btn"
         onClick={() => setOpenChat(false)}

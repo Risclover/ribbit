@@ -27,9 +27,9 @@ export const ChatThread = ({
   const [receiver, setReceiver] = useState(null);
   useEffect(() => {
     setReceiver(() =>
-      selectedChat?.users?.find((user) => user.id !== currentUser?.id)
+      selectedChat?.users?.find((user) => user.id !== currentUser.id)
     );
-  }, [selectedChat?.users, currentUser?.id, chatThreads]);
+  }, [selectedChat?.users, currentUser.id, chatThreads]);
   useEffect(() => {
     if (user) {
       dispatch(getUserChatThreads());
@@ -107,6 +107,7 @@ export const ChatThread = ({
         setShowDeleteConfirmation={setShowDeleteConfirmation}
         messages={messages}
       />
+      <div ref={containerRef}></div>
     </div>
   );
 };

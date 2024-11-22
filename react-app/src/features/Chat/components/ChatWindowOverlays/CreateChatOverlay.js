@@ -29,6 +29,7 @@ export const CreateChatOverlay = ({
         thread.users?.some((user) => user.id === currentUser?.id) &&
         thread.users?.some((user) => user.id === userFound.id)
     );
+    console.log("existingThread:", existingThread);
     // If the thread does not exist, close the overlays. If it does exist, set the selected chat to the existing thread and open it.
     if (existingThread === undefined) {
       setShowChatWelcomeOverlay(false);

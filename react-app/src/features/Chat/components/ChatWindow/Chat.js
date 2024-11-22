@@ -1,3 +1,5 @@
+// Chat.js
+
 import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
@@ -15,7 +17,7 @@ import {
 } from "../ChatWindowOverlays";
 import { useUserSearch } from "features/Chat/hooks/useUserSearch";
 import "../../styles/chat.css";
-import { NewChatIcon } from "assets/icons/NewChatIcon";
+import { getChatThread } from "store";
 
 let socket;
 
@@ -25,7 +27,7 @@ const Chat = ({ setOpenChat }) => {
   const chatThreads = useSelector((state) => state.chatThreads);
 
   const user = useSelector((state) => state.session.user);
-  const [previousChat, setPreviousChat] = useState(null); // New state to track the previous chat
+  const [previousChat, setPreviousChat] = useState(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [showChatWelcomeOverlay, setShowChatWelcomeOverlay] = useState(
     Object.keys(chatThreads)?.length === 0 || !chatThreads ? true : false
@@ -36,7 +38,7 @@ const Chat = ({ setOpenChat }) => {
   const [username, setUsername] = useState("");
   const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
   const { userFound } = useUserSearch(username);
-  const [inputTexts, setInputTexts] = useState({}); // New state for input texts per thread
+  const [inputTexts, setInputTexts] = useState({});
 
   // Function to handle updating input text for a specific thread
   const handleInputChange = (threadId, text) => {
@@ -84,23 +86,11 @@ const Chat = ({ setOpenChat }) => {
     };
   }, [setMessages, selectedChat, user]);
 
-  // useEffect(() => {
-  //   if (selectedChat && user) {
-  //     if (previousChat) {
-  //       socket.emit("leave", {
-  //         user: user.id,
-  //         room: previousChat,
-  //       });
-  //     }
-
-  //     socket.emit("join", {
-  //       user: user.id,
-  //       room: selectedChat.id,
-  //     });
-
-  //     setPreviousChat(selectedChat);
-  //   }
-  // }, [selectedChat, user]);
+  useEffect(() => {
+    if (selectedChat) {
+      dispatch(getChatThread(selectedChat.id));
+    }
+  }, [dispatch, selectedChat]);
 
   return (
     <div className="chat-window-container">
@@ -108,11 +98,10 @@ const Chat = ({ setOpenChat }) => {
         <div className="chat-window-chatnav-title">
           Chats{" "}
           <button
-            aria-label="Create chat"
             className="chat-window-create-chat-btn"
             onClick={() => setShowCreateChatOverlay(true)}
           >
-            <NewChatIcon height="16" width="16" />
+            {/* SVG icon code */}
           </button>
         </div>
         <ChatNavMenu
@@ -139,7 +128,11 @@ const Chat = ({ setOpenChat }) => {
           userFound={userFound}
           showMessageInviteOverlay={showMessageInviteOverlay}
           setShowMessageInviteOverlay={setShowMessageInviteOverlay}
-          onInputChange={(text) => handleInputChange(selectedChat?.id, text)}
+          onInputChange={
+            selectedChat
+              ? (text) => handleInputChange(selectedChat.id, text)
+              : () => {} // No-op function if selectedChat is null
+          }
           inputText={currentInputText}
         />
       </div>

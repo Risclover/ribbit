@@ -1,9 +1,12 @@
 import React from "react";
 import useSortedChatThreads from "features/Chat/hooks/useSortedChatThreads";
 import { ChatNavBtn } from "./ChatNavBtn";
-import { useSelectedChat } from "context/SelectedChat";
 
-export function ChatNavMenu({ setShowCreateChatOverlay, setShowMessageInviteOverlay }) {
+export function ChatNavMenu({
+  selectedChat,
+  setSelectedChat,
+  setShowMessageInviteOverlay,
+}) {
   const sortedChatThreads = useSortedChatThreads();
 
   return (
@@ -13,7 +16,8 @@ export function ChatNavMenu({ setShowCreateChatOverlay, setShowMessageInviteOver
           <ChatNavBtn
             key={chatThread.id}
             chatThread={chatThread}
-            setShowCreateChatOverlay={setShowCreateChatOverlay}
+            setSelectedChat={setSelectedChat}
+            selectedChat={selectedChat}
             setShowMessageInviteOverlay={setShowMessageInviteOverlay}
           />
         ))}

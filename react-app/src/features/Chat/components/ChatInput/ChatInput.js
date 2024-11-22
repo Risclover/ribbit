@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// ChatInput.js
+
 import { SelectedChatContext } from "context";
-import { createChatMessage, createChatThread, getChatThread } from "store";
-import { liveChatIcons } from "@/assets";
 import { Emojis, Gifs } from "features/ChatWindow";
 import { useAutosizeTextArea } from "@/hooks";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getChatThread, createChatMessage, createChatThread } from "store";
+import { liveChatIcons } from "@/assets";
 
 export const ChatInput = ({
   socket,
@@ -19,17 +21,13 @@ export const ChatInput = ({
   const textareaRef = useRef(null);
 
   const chatThreads = useSelector((state) => state.chatThreads);
-  const { selectedChat, setSelectedChat, setPendingReceiver, pendingReceiver } =
+  const { selectedChat, setSelectedChat, setPendingReceiver } =
     useContext(SelectedChatContext);
 
   const [openGiphy, setOpenGiphy] = useState(false);
   const [gifIcon, setGifIcon] = useState(liveChatIcons.GifIcon);
   const [receiver, setReceiver] = useState(null);
   const [emojisOverlay, setEmojisOverlay] = useState(false);
-
-  const chat = Object.values(chatThreads).find(
-    (chat) => chat?.id === selectedChat?.id
-  );
 
   useAutosizeTextArea(textareaRef.current, inputText);
 
@@ -46,7 +44,7 @@ export const ChatInput = ({
 
     if (showMessageInviteOverlay) {
       const newChat = await handleCreateNewThread();
-      chatThreadId = newChat.id; // Use the new thread's ID
+      chatThreadId = newChat.id;
     }
 
     const payload = {
@@ -60,16 +58,14 @@ export const ChatInput = ({
     await socket.emit("chat", data);
 
     dispatch(getChatThread(chatThreadId));
-    onInputChange("");
+    if (onInputChange) {
+      onInputChange(""); // Clear input text
+    }
   };
 
   const handleOpenGiphy = () => {
     setEmojisOverlay(false);
-    if (openGiphy) {
-      setGifIcon(liveChatIcons.GifIcon);
-    } else {
-      setGifIcon(liveChatIcons.GifIconDark);
-    }
+    setGifIcon(openGiphy ? liveChatIcons.GifIcon : liveChatIcons.GifIconDark);
     setOpenGiphy(!openGiphy);
   };
 
@@ -81,23 +77,17 @@ export const ChatInput = ({
 
   const handleChange = (e) => {
     const val = e.target?.value;
-    onInputChange(val); // Update input text in parent state
+    if (onInputChange) {
+      onInputChange(val); // Safely call onInputChange
+    }
   };
 
   const handleCreateNewThread = async () => {
-    try {
-      const data = await dispatch(createChatThread(userFound?.id));
-      if (data) {
-        setSelectedChat(data);
-        setShowMessageInviteOverlay(false);
-        setPendingReceiver(null);
-        return data;
-      } else {
-        console.error("Failed to create chat thread: No data returned.");
-      }
-    } catch (error) {
-      console.error("Error creating chat thread:", error);
-    }
+    const data = await dispatch(createChatThread(userFound?.id));
+    setSelectedChat(data);
+    setShowMessageInviteOverlay(false);
+    setPendingReceiver(null);
+    return data;
   };
 
   return (
