@@ -6,6 +6,8 @@ export function ChatNavMenu({
   selectedChat,
   setSelectedChat,
   setShowMessageInviteOverlay,
+  setShowChatWelcomeOverlay,
+  setShowCreateChatOverlay,
 }) {
   const sortedChatThreads = useSortedChatThreads();
 
@@ -19,6 +21,8 @@ export function ChatNavMenu({
             setSelectedChat={setSelectedChat}
             selectedChat={selectedChat}
             setShowMessageInviteOverlay={setShowMessageInviteOverlay}
+            setShowChatWelcomeOverlay={setShowChatWelcomeOverlay}
+            setShowCreateChatOverlay={setShowCreateChatOverlay}
           />
         ))}
     </div>

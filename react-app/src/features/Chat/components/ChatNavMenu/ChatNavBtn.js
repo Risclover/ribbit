@@ -3,7 +3,12 @@ import { useSelector } from "react-redux";
 import { formatDate } from "features/Chat/utils/formatDate";
 import { SelectedChatContext } from "context";
 
-export const ChatNavBtn = ({ chatThread, setShowMessageInviteOverlay }) => {
+export const ChatNavBtn = ({
+  chatThread,
+  setShowMessageInviteOverlay,
+  setShowChatWelcomeOverlay,
+  setShowCreateChatOverlay,
+}) => {
   const { setSelectedChat, selectedChat } = useContext(SelectedChatContext);
   const isActive = selectedChat?.id === chatThread.id;
   const currentUser = useSelector((state) => state.session.user);
@@ -31,6 +36,8 @@ export const ChatNavBtn = ({ chatThread, setShowMessageInviteOverlay }) => {
       className={`chat-window-chatnav${isActive ? " chatnav-active" : ""}`}
       onClick={() => {
         setShowMessageInviteOverlay(false);
+        setShowChatWelcomeOverlay(false);
+        setShowCreateChatOverlay(false);
         setSelectedChat(chatThread);
       }}
     >

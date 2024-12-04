@@ -96,7 +96,12 @@ export const CreateChatOverlay = ({
         <div className="new-chat-overlay-btns-container">
           <button
             className="overlay-btn-left"
-            onClick={() => setShowCreateChatOverlay(false)}
+            onClick={() => {
+              if (selectedChat === null) {
+                setShowChatWelcomeOverlay(true);
+              }
+              setShowCreateChatOverlay(false);
+            }}
           >
             Cancel
           </button>

@@ -28,11 +28,7 @@ export function CommunityPage() {
     icon:
       community !== undefined ? (
         <CommunityImg
-          imgStyle={{
-            backgroundColor: `${
-              community?.communitySettings[community?.id].baseColor
-            }`,
-          }}
+          imgStyle={{backgroundColor: `${community?.communitySettings[community?.id].baseColor}`}}
           imgSrc={community?.communitySettings[community?.id].communityIcon}
           imgClass="nav-left-dropdown-item-icon item-icon-circle"
           imgAlt="Community"

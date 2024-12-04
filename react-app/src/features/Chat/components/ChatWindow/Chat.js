@@ -138,7 +138,10 @@ const Chat = ({ setOpenChat, setMinimizeChat }) => {
           Chats{" "}
           <button
             className="chat-window-create-chat-btn"
-            onClick={() => setShowCreateChatOverlay(true)}
+            onClick={() => {
+              setSelectedChat(null);
+              setShowCreateChatOverlay(true);
+            }}
           >
             <NewChatIcon height={16} width={16} />
           </button>
@@ -147,11 +150,14 @@ const Chat = ({ setOpenChat, setMinimizeChat }) => {
           socket={socketRef.current}
           setShowCreateChatOverlay={setShowCreateChatOverlay}
           setShowMessageInviteOverlay={setShowMessageInviteOverlay}
+          setShowChatWelcomeOverlay={setShowChatWelcomeOverlay}
         />
       </div>
       <div className="chat-window-right">
         <ChatTitleBar
           showCreateChatOverlay={showCreateChatOverlay}
+          setShowChatWelcomeOverlay={setShowChatWelcomeOverlay}
+          showChatWelcomeOverlay={showChatWelcomeOverlay}
           setOpenChat={setOpenChat}
           setMinimizeChat={setMinimizeChat}
         />
@@ -191,6 +197,7 @@ const Chat = ({ setOpenChat, setMinimizeChat }) => {
       {showChatWelcomeOverlay && (
         <ChatWelcomeOverlay
           setShowCreateChatOverlay={setShowCreateChatOverlay}
+          setShowChatWelcomeOverlay={setShowChatWelcomeOverlay}
         />
       )}
       {showMessageInviteOverlay && <MessageInviteOverlay />}

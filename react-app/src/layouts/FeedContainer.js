@@ -14,10 +14,7 @@ export function FeedContainer({ children }) {
 }
 
 export function FeedLeftColContainer({ children }) {
-  const { format, setFormat } = useContext(PostFormatContext);
-
-  
-
+  const { format } = useContext(PostFormatContext);
   return (
     <div
       className={format === "Card" ? "posts-left-col" : "posts-left-col-alt"}

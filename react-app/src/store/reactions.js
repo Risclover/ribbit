@@ -1,3 +1,5 @@
+/* ------------------------- ACTIONS ------------------------- */
+
 const ADD_REACTION = "reactions/ADD";
 const REMOVE_REACTION = "reactions/REMOVE";
 const SET_REACTIONS = "reactions/SET";
@@ -16,6 +18,8 @@ const setReactions = (reactions) => ({
   type: SET_REACTIONS,
   reactions,
 });
+
+/* ------------------------- THUNKS ------------------------- */
 
 export const createReaction = (payload) => async (dispatch) => {
   const { messageId, reactionType } = payload;
@@ -69,6 +73,8 @@ export const fetchReactionsForMessage = (messageId) => async (dispatch) => {
     console.error("Failed to fetch reactions");
   }
 };
+
+/* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
 

@@ -3,7 +3,10 @@ import { ribbitBanners } from "@/assets";
 import { ChatWindowOverlayContainer } from "./ChatWindowOverlayContainer";
 import { NewChatIcon } from "assets/icons/NewChatIcon";
 
-export const ChatWelcomeOverlay = ({ setShowCreateChatOverlay }) => {
+export const ChatWelcomeOverlay = ({
+  setShowCreateChatOverlay,
+  setShowChatWelcomeOverlay,
+}) => {
   return (
     <ChatWindowOverlayContainer>
       <div className="welcome-overlay">
@@ -18,7 +21,10 @@ export const ChatWelcomeOverlay = ({ setShowCreateChatOverlay }) => {
         </div>
         <button
           className="welcome-overlay-btn"
-          onClick={() => setShowCreateChatOverlay(true)}
+          onClick={() => {
+            setShowChatWelcomeOverlay(false);
+            setShowCreateChatOverlay(true);
+          }}
         >
           <NewChatIcon height="24" width="24" />
           Start new chat

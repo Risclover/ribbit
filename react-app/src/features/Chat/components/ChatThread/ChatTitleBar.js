@@ -5,13 +5,16 @@ import { useSelector } from "react-redux";
 
 export const ChatTitleBar = ({
   showCreateChatOverlay,
+  setShowChatWelcomeOverlay,
+  showChatWelcomeOverlay,
   setOpenChat,
   setMinimizeChat,
 }) => {
   const currentUser = useSelector((state) => state.session.user);
   const [receiver, setReceiver] = useState(null);
 
-  const { selectedChat, pendingReceiver } = useContext(SelectedChatContext);
+  const { selectedChat, setSelectedChat, pendingReceiver } =
+    useContext(SelectedChatContext);
 
   useEffect(() => {
     if (pendingReceiver !== null) {
@@ -25,7 +28,34 @@ export const ChatTitleBar = ({
 
   return (
     <div className="chat-thread-window-titlebar">
-      {showCreateChatOverlay ? "New Chat" : receiver || ""}
+      {!showChatWelcomeOverlay && (
+        <div className="chat-window-titlebar-left">
+          {!showCreateChatOverlay && (
+            <button
+              className="chat-window-close-btn"
+              onClick={() => {
+                setSelectedChat(null);
+                setShowChatWelcomeOverlay(true);
+              }}
+              title="Back"
+            >
+              <svg
+                rpl=""
+                fill="currentColor"
+                height="16"
+                icon-name="back-outline"
+                viewBox="0 0 20 20"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M19 9.375H2.51l7.932-7.933-.884-.884-9 9a.625.625 0 0 0 0 .884l9 9 .884-.884-7.933-7.933H19v-1.25Z"></path>
+              </svg>
+            </button>
+          )}
+          {showCreateChatOverlay ? "New Chat" : receiver || ""}
+        </div>
+      )}
+      {showChatWelcomeOverlay && <div></div>}
       <div className="chat-window-title-btns">
         <button
           className="chat-window-close-btn"

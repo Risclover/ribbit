@@ -22,7 +22,7 @@ export function ModalProvider({ children }) {
 }
 
 export function Modal({ onClose, children, title, open }) {
-  useDisableBodyScroll(open === true);
+  useDisableBodyScroll(open);
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;
 

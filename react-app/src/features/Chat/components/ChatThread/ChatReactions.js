@@ -15,18 +15,6 @@ export default function ChatReactions({
 }) {
   const [openFull, setOpenFull] = useState(false);
 
-  useEffect(() => {
-    if (openFull) {
-      lockScroll();
-    } else {
-      unlockScroll();
-    }
-
-    return () => {
-      unlockScroll();
-    };
-  }, [openFull]);
-
   return (
     <div className="reactions-menu">
       {!openFull && (
