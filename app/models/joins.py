@@ -1,5 +1,4 @@
 from .db import db
-from datetime import datetime
 from flask_login import current_user
 
 # Subscriptions join table (users <- subscriptions -> communities)

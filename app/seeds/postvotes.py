@@ -1,4 +1,4 @@
-from app.models import db, Post, User, PostVote
+from app.models import db, PostVote
 
 def seed_postvotes():
     db.session.add_all([

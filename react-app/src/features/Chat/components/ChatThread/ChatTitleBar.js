@@ -3,7 +3,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { TfiClose } from "react-icons/tfi";
 import { useSelector } from "react-redux";
 
-export const ChatTitleBar = ({ showCreateChatOverlay, setOpenChat }) => {
+export const ChatTitleBar = ({
+  showCreateChatOverlay,
+  setOpenChat,
+  setMinimizeChat,
+}) => {
   const currentUser = useSelector((state) => state.session.user);
   const [receiver, setReceiver] = useState(null);
 
@@ -23,7 +27,13 @@ export const ChatTitleBar = ({ showCreateChatOverlay, setOpenChat }) => {
     <div className="chat-thread-window-titlebar">
       {showCreateChatOverlay ? "New Chat" : receiver || ""}
       <div className="chat-window-title-btns">
-        <button className="chat-window-close-btn" title="Minimize chat">
+        <button
+          className="chat-window-close-btn"
+          title="Minimize chat"
+          onClick={() => {
+            setMinimizeChat(true);
+          }}
+        >
           <svg
             rpl=""
             fill="currentColor"

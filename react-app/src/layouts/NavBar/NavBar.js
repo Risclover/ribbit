@@ -33,6 +33,8 @@ export function NavBar({
   showNavSidebar,
   screenWidth,
   setScreenWidth,
+  minimizeChat,
+  setMinimizeChat,
 }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -94,10 +96,15 @@ export function NavBar({
     }
   });
 
-  const handleOpenChat = (e) =>{
+  const handleOpenChat = (e) => {
     e.preventDefault();
     setSelectedChat(sortedThreads[0]);
-    setOpenChat(!openChat);
+
+    if (minimizeChat) {
+      setMinimizeChat(false);
+    } else {
+      setOpenChat(!openChat);
+    }
   };
 
   return (

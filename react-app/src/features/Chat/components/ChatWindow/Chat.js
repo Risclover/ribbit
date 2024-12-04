@@ -20,7 +20,7 @@ import "../../styles/chat.css";
 import { getChatThread, fakeDeleteMessage } from "store";
 import { addReaction, removeReaction } from "store/reactions";
 
-const Chat = ({ setOpenChat }) => {
+const Chat = ({ setOpenChat, setMinimizeChat }) => {
   const dispatch = useDispatch();
   const [messages, setMessages] = useState([]);
   const chatThreads = useSelector((state) => state.chatThreads);
@@ -152,6 +152,7 @@ const Chat = ({ setOpenChat }) => {
         <ChatTitleBar
           showCreateChatOverlay={showCreateChatOverlay}
           setOpenChat={setOpenChat}
+          setMinimizeChat={setMinimizeChat}
         />
         <ChatThread
           setSelectedChat={setSelectedChat}

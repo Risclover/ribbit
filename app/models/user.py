@@ -6,9 +6,6 @@ from ..models.post import Post
 from ..models.message import user_threads
 from ..models.chat import user_chat_threads
 from .joins import subscriptions, favorite_communities, followers, favorite_users
-from datetime import datetime
-import json
-from time import time
 
 def default_display(context):
     return context.get_current_parameters()['username']

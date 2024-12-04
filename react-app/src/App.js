@@ -52,6 +52,7 @@ import { MetadataProvider } from "./context/Metadata";
 import Chat from "features/Chat/components/ChatWindow/Chat";
 import { PopupProvider } from "context/Popup";
 import { ProtectedRoute } from "components";
+import ChatMinimized from "features/Chat/components/ChatWindow/ChatMinimized";
 
 function App() {
   const dispatch = useDispatch();
@@ -80,6 +81,7 @@ function App() {
   const [previewPage, setPreviewPage] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [minimizeChat, setMinimizeChat] = useState(false);
 
   useEffect(() => {
     if (screenWidth <= 1250) {
@@ -148,6 +150,8 @@ function App() {
     searchbarRef: searchbarRef,
     screenWidth: screenWidth,
     setScreenWidth: setScreenWidth,
+    minimizeChat: minimizeChat,
+    setMinimizeChat: setMinimizeChat,
   };
 
   return (
@@ -184,8 +188,19 @@ function App() {
                 />
               )}
 
-              {openChat && (
-                <Chat setOpenChat={setOpenChat} openChat={openChat} />
+              {openChat && !minimizeChat && (
+                <Chat
+                  setOpenChat={setOpenChat}
+                  openChat={openChat}
+                  setMinimizeChat={setMinimizeChat}
+                />
+              )}
+
+              {openChat && minimizeChat && (
+                <ChatMinimized
+                  setOpenChat={setOpenChat}
+                  setMinimizeChat={setMinimizeChat}
+                />
               )}
 
               <Switch>
