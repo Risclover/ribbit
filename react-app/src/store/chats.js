@@ -14,7 +14,7 @@ export const receiveNewMessage = (message) => {
         content: message.content,
         senderId: message.sender_id,
         createdAt: message.created_at,
-        read: false, // Assuming the message is unread when received
+        read: false,
       },
     },
   };
@@ -102,6 +102,7 @@ export const fakeDeleteMessage = (messageId) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+
     return data;
   }
 };
@@ -118,22 +119,6 @@ export const readAllChatMessages = (threadId) => async (dispatch) => {
   }
 };
 
-export const createReaction = (payload) => async (dispatch) => {
-  const { messageId, emoji } = payload;
-
-  const response = await fetch(
-    `/api/chat_threads/messages/${messageId}/reactions`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ emoji }),
-    }
-  );
-  if (response.ok) {
-    const data = await response.json();
-    return data;
-  }
-};
 
 /* ------------------------- REDUCER ------------------------- */
 

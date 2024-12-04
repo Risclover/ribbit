@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Threadlines({ level }) {
+export function Threadlines({ level }) {
   return (
     <div className="threadlines-container">
       {Array.from({ length: level }, (_, idx) => {

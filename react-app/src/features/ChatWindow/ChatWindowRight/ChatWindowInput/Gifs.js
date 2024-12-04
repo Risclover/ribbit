@@ -17,7 +17,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const giphy = new GiphyFetch(process.env.REACT_APP_GIPHY_KEY);
 
-export function Gifs({ receiver, setOpenGiphy, setGifIcon, GifIcon }) {
+export function Gifs({ receiver, setOpenGiphy, setGifIcon, GifIcon, socket }) {
   const dispatch = useDispatch();
   const [results, setResults] = useState([]);
   const [text, setText] = useState("");
@@ -91,15 +91,19 @@ export function Gifs({ receiver, setOpenGiphy, setGifIcon, GifIcon }) {
   }, [text]);
 
   const sendGif = async (e) => {
+    const chatThreadId = selectedChat?.id;
+
     const payload = {
       content: e.target.src,
       receiverId: receiver.id,
-      chatThreadId: selectedChat.id,
+      chatThreadId: chatThreadId,
     };
 
-    await dispatch(createChatMessage(payload));
+    const data = await dispatch(createChatMessage(payload));
+    data.room = chatThreadId;
+    await socket.emit("chat", data);
+    dispatch(getChatThread(chatThreadId));
     setOpenGiphy(false);
-    await dispatch(getChatThread(selectedChat.id));
     setGifIcon(GifIcon);
   };
 

@@ -29,6 +29,7 @@ nav ul li {
   display: flex;
   align-items: center;
   /* margin-right: 20px; */
+  flex: 1;
 }
 
 .ribbit-banner,
@@ -153,6 +154,18 @@ nav ul li {
 
 .navbar-login-btn:hover:before {
   opacity: 0.08;
+}
+
+.random-logo-skeleton {
+  display: flex;
+  align-items: flex-end;
+  width: 113px;
+}
+
+@media (max-width: 1070px) {
+  .random-logo-skeleton {
+    width: 30px;
+  }
 }
 
 @media (max-width: 1200px) {

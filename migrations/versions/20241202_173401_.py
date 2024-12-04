@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d630615046f3
+Revision ID: 260114501e33
 Revises: 
-Create Date: 2024-11-05 00:17:15.936164
+Create Date: 2024-12-02 17:34:01.993114
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd630615046f3'
+revision = '260114501e33'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -110,12 +110,12 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'thread_id')
     )
-    op.create_table('chat_message_reactions',
+    op.create_table('chat_reactions',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('emoji', sa.String(), nullable=False),
     sa.Column('message_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['message_id'], ['chat_messages.id'], ),
+    sa.Column('reaction_type', sa.String(length=50), nullable=False),
+    sa.ForeignKeyConstraint(['message_id'], ['messages.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -280,7 +280,7 @@ def downgrade():
     op.drop_table('posts')
     op.drop_table('favorite_communities')
     op.drop_table('community_settings')
-    op.drop_table('chat_message_reactions')
+    op.drop_table('chat_reactions')
     op.drop_table('user_threads')
     op.drop_table('user_chat_threads')
     op.drop_table('messages')

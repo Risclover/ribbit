@@ -11,6 +11,7 @@ import {
   FeedRightColContainer,
 } from "@/layouts";
 import { PostFormatContext } from "@/context";
+import Skeleton from "@mui/material/Skeleton";
 
 export function UserProfile({ setShowLoginForm, setOpenChat }) {
   const dispatch = useDispatch();
@@ -36,14 +37,22 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
 
   usePageSettings({
     documentTitle: user?.displayName + " (u/" + user?.username + ") - Ribbit",
-    icon: (
-      <img
-        src={user?.profileImg}
-        className="nav-left-dropdown-item-icon item-icon-circle"
-        alt="User"
-      />
-    ),
-    pageTitle: `u/${user?.username}`,
+    icon:
+      user !== undefined ? (
+        <img
+          src={user?.profileImg}
+          className="nav-left-dropdown-item-icon item-icon-circle"
+          alt="User"
+        />
+      ) : (
+        <Skeleton variant="circular" animation="wave" width={20} height={20} />
+      ),
+    pageTitle:
+      user !== undefined ? (
+        `u/${user?.username}`
+      ) : (
+        <Skeleton animation="wave" variant="text" />
+      ),
   });
 
   if (!user) return null;

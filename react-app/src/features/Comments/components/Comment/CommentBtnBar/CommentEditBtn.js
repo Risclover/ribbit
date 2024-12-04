@@ -1,9 +1,6 @@
 import React from "react";
 
-export default function CommentEditBtn({
-  showEditCommentModal,
-  handleEditComment,
-}) {
+export function CommentEditBtn({ showEditCommentModal, handleEditComment }) {
   return (
     <div className="comment-edit-btn">
       {" "}

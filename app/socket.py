@@ -1,5 +1,5 @@
 from flask_socketio import SocketIO, emit, join_room, leave_room
-from app.models import db, User, ChatMessage
+from app.models import db, User, ChatMessage, Reaction
 from flask_login import current_user
 from flask import request
 import os
@@ -67,3 +67,75 @@ def on_leave(data):
     room = f'user_{user_id}'
     leave_room(room)
     emit('left', {'room': room})
+
+@socketio.on('add_reaction')
+def handle_add_reaction(data):
+    """
+    Handle adding a reaction to a message.
+    Expects data to contain:
+    - message_id
+    - reaction_type
+    - room
+    """
+    message_id = data['messageId']
+    reaction_type = data['reactionType']
+    room = data['room']
+
+    user_id = current_user.get_id()
+
+    existing_reaction = Reaction.query.filter_by(
+        message_id = message_id,
+        user_id = user_id,
+        reaction_type = reaction_type
+    ).first()
+
+    if existing_reaction:
+        emit('error', { 'error': 'Reaction already exists'}, room = request.sid)
+        return
+
+    new_reaction = Reaction(
+        message_id=message_id,
+        user_id=user_id,
+        reaction_type=reaction_type
+    )
+
+    db.session.add(new_reaction)
+    db.session.commit()
+
+    reaction_data = new_reaction.to_dict()
+
+    emit('reaction_added', reaction_data, room=room)
+
+@socketio.on('remove_reaction')
+def handle_remove_reaction(data):
+    """
+    Handle removing a reaction from a message.
+    Expects data to contain:
+    - message_id
+    - reaction_type
+    - user_id (optional if you use current_user)
+    - room
+    """
+    message_id = data['messageId']
+    reaction_type = data['reactionType']
+    room = data['room']
+
+    user_id = current_user.get_id()
+
+    # Find the reaction
+    reaction = Reaction.query.filter_by(
+        message_id=message_id,
+        user_id=user_id,
+        reaction_type=reaction_type
+    ).first()
+
+    if not reaction:
+        emit('error', {'error': 'Reaction does not exist'}, room=request.sid)
+        return
+
+    reaction_data = reaction.to_dict()
+
+    db.session.delete(reaction)
+    db.session.commit()
+
+    emit('reaction_removed', reaction_data, room=room)

@@ -122,7 +122,6 @@
   align-items: center;
   padding-right: 16px;
   padding-left: 52px;
-  margin-bottom: 8px;
 }
 
 .nav-user-dropdown-btn:hover {
@@ -134,7 +133,7 @@
 }
 
 .door-icon {
-  font-size: 24px;
+  font-size: 20px;
   margin-left: -8px;
 }
 
@@ -142,7 +141,7 @@
   display: flex;
   align-items: center;
   padding: 12px 25px;
-  margin-top: 8px;
+  margin-top: 12px;
   height: 100%;
   width: 100%;
   border: 0;
@@ -163,6 +162,7 @@
 
 .nav-user-top-section {
   border-bottom: 1px solid #edeff1;
+  padding-bottom: 12px;
 }
 
 @media (max-width: 1200px) {

@@ -39,6 +39,7 @@ export function CommentForm({
     dispatch(getPosts());
     dispatch(getCommentsForPost());
     dispatch(addCommentVote(commentId, "upvote"));
+    console.log("hello");
     if (onCancel) onCancel(); // Close the form after submission
   };
 

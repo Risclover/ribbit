@@ -94,7 +94,7 @@ export function NavBar({
     }
   });
 
-  const handleOpenChat = (e) => {
+  const handleOpenChat = (e) =>{
     e.preventDefault();
     setSelectedChat(sortedThreads[0]);
     setOpenChat(!openChat);

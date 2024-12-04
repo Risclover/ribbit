@@ -20,7 +20,7 @@ import messagesReducer from "./messages";
 import notificationsReducer from "./notifications";
 import chatThreadReducer from "./chats";
 import communitySettingsReducer from "./community_settings";
-import { composeWithDevTools } from "redux-devtools-extension";
+import reactionsReducer from "./reactions";
 
 const rootReducer = combineReducers({
   session,
@@ -43,6 +43,7 @@ const rootReducer = combineReducers({
   notifications: notificationsReducer,
   chatThreads: chatThreadReducer,
   communitySettings: communitySettingsReducer,
+  reactions: reactionsReducer,
 });
 
 let enhancer;

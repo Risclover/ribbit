@@ -2,7 +2,12 @@ import React from "react";
 import { ChatMessage } from "./ChatMessage";
 import { formatDate } from "features/Chat/utils/formatDate";
 
-export const ChatMessages = ({ messages, setShowDeleteConfirmation }) => {
+export const ChatMessages = ({
+  messages,
+  setShowDeleteConfirmation,
+  setMsgId,
+  socket,
+}) => {
   return (
     <div className="chat-messages">
       {messages.length > 0 &&
@@ -23,6 +28,8 @@ export const ChatMessages = ({ messages, setShowDeleteConfirmation }) => {
               previousMessage={previousMessage}
               message={message}
               setShowDeleteConfirmation={setShowDeleteConfirmation}
+              setMsgId={setMsgId}
+              socket={socket}
             />
           );
         })}

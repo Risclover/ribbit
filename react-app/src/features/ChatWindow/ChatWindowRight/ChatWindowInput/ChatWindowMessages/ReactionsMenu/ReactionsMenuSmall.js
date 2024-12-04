@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { TfiPlus } from "react-icons/tfi";
-import { getChatThread, createReaction } from "@/store";
 import "./ReactionsMenu.css";
 import { v4 as uuidv4 } from "uuid";
 

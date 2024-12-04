@@ -378,10 +378,13 @@
   line-height: 20px;
 }
 
-.single-post-button button:hover {
+.single-post-button button:not(.single-post-comments-btn):hover {
   background: rgba(26, 26, 27, 0.1);
 }
 
+.single-post-comments-btn {
+  cursor: default !important;
+}
 .single-comment {
   margin: 10px;
 }
@@ -716,6 +719,10 @@ li {
 
 @media (max-width: 640px) {
   .single-post-page {
+    padding: 0;
+  }
+
+  .single-post-page-main {
     padding: 0;
   }
 }

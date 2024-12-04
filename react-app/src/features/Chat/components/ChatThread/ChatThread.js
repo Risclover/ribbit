@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getUserChatThreads } from "@/store";
@@ -15,28 +9,34 @@ export const ChatThread = ({
   messages,
   setMessages,
   setShowDeleteConfirmation,
+  setMsgId,
+  socket,
 }) => {
   const containerRef = useRef(null);
+  const prevScrollHeightRef = useRef(0);
+
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
+  const reactions = useSelector((state) => state.reactions);
 
   const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
   const chatThreads = useSelector((state) => state.chatThreads);
   const user = useSelector((state) => state.session.user);
 
   const [receiver, setReceiver] = useState(null);
+
   useEffect(() => {
     setReceiver(() =>
       selectedChat?.users?.find((user) => user.id !== currentUser.id)
     );
   }, [selectedChat?.users, currentUser.id, chatThreads]);
+
   useEffect(() => {
     if (user) {
       dispatch(getUserChatThreads());
     }
   }, [user, dispatch]);
 
-  // Update selected chat and messages when selectedChat or chatThreads changes
   useEffect(() => {
     const chat = Object.values(chatThreads).find(
       (chat) => chat?.id === selectedChat?.id
@@ -46,28 +46,33 @@ export const ChatThread = ({
       setSelectedChat(chat);
     }
 
-    // Check if messages are different before setting them
     if (chat && JSON.stringify(chat.messages) !== JSON.stringify(messages)) {
       setMessages(chat.messages);
     }
-  }, [selectedChat, chatThreads]); // Remove 'messages' from the dependencies
+  }, [selectedChat, chatThreads]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (containerRef.current) {
       const containerElement = containerRef.current;
-      const isScrolledToBottom =
-        containerElement.scrollHeight - containerElement.scrollTop ===
-        containerElement.clientHeight;
-      containerElement.scrollTop = containerElement.scrollHeight;
 
-      // Delay scrolling to the bottom if not already at the bottom (fixes problem where doesn't scroll to bottom when sending multiple messages or when sending emoji stickers)
-      if (!isScrolledToBottom) {
-        setTimeout(() => {
-          containerElement.scrollTop = containerElement.scrollHeight;
-        }, 100);
+      const prevScrollHeight = prevScrollHeightRef.current || 0;
+      const currentScrollHeight = containerElement.scrollHeight;
+
+      // Determine if the user was at the bottom before the update
+      const isScrolledToBottom =
+        containerElement.scrollTop + containerElement.clientHeight >=
+        prevScrollHeight - 1; // Small threshold
+
+      if (isScrolledToBottom) {
+        // Adjust scrollTop by the change in scrollHeight
+        const scrollDifference = currentScrollHeight - prevScrollHeight;
+        containerElement.scrollTop += scrollDifference;
       }
+
+      // Update the previous scrollHeight
+      prevScrollHeightRef.current = currentScrollHeight;
     }
-  }, [messages]);
+  }, [messages, reactions]);
 
   return (
     <div className="chat-thread-messages" ref={containerRef}>
@@ -106,6 +111,8 @@ export const ChatThread = ({
       <ChatMessages
         setShowDeleteConfirmation={setShowDeleteConfirmation}
         messages={messages}
+        setMsgId={setMsgId}
+        socket={socket}
       />
       <div ref={containerRef}></div>
     </div>

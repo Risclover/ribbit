@@ -7,7 +7,8 @@ from .joins import subscriptions, favorite_communities, PostVote, CommentVote, f
 from .rule import Rule
 from .message import MessageThread, Message, user_threads
 from .notification import Notification
-from .chat import ChatMessage, ChatMessageThread, user_chat_threads, ChatMessageReaction
+from .chat import ChatMessage, ChatMessageThread, user_chat_threads
 from .community_settings import CommunitySettings
 from .viewed_post import ViewedPost
 from .search import Search
+from .chat_reactions import Reaction

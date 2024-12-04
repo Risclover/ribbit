@@ -24,6 +24,7 @@ from .api.message_routes import message_routes
 from .api.notification_routes import notification_routes
 from .api.chat_thread_routes import chat_thread_routes
 from .api.community_settings_routes import community_settings_routes
+from .api.chat_reaction_routes import chat_reaction_routes
 
 from .seeds import seed_commands
 
@@ -62,6 +63,7 @@ app.register_blueprint(message_routes, url_prefix="/api/messages")
 app.register_blueprint(notification_routes, url_prefix="/api/notifications")
 app.register_blueprint(chat_thread_routes, url_prefix='/api/chat_threads')
 app.register_blueprint(community_settings_routes, url_prefix="/api/community_settings")
+app.register_blueprint(chat_reaction_routes, url_prefix="/api/chat_reactions")
 
 db.init_app(app)
 Migrate(app, db)

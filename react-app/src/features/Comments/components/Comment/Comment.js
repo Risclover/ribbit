@@ -1,12 +1,11 @@
 import React from "react";
-import CommentThreadlines from "./CommentThreadlines";
-import CommentBtnBar from "./CommentBtnBar/CommentBtnBar";
-import CommentAuthorBar from "./CommentAuthorBar";
+import { CommentBtnBar } from "./CommentBtnBar/CommentBtnBar";
+import { CommentAuthorBar } from "./CommentAuthorBar";
 import useComment from "features/Comments/hooks/useComment";
-import "./Comment.css";
-import CommentContent from "./CommentContent";
+import { CommentContent } from "./CommentContent";
+import { CommentReplyForm } from "../CommentForms/CommentReplyForm";
 import { BsArrowsAngleExpand } from "react-icons/bs";
-import CommentReplyForm from "../CommentForms/CommentReplyForm";
+import "./Comment.css";
 
 export function Comment({
   comment,

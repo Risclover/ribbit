@@ -88,7 +88,7 @@
 .chat-window-chatnav-container::-webkit-scrollbar,
 .chat-thread-window-input-box textarea::-webkit-scrollbar,
 .chat-window-chatnav-container::-webkit-scrollbar,
-.reactions-menu-full::-webkit-scrollbar {
+.reactions-menu-full-grid::-webkit-scrollbar {
   width: 1rem;
 }
 
@@ -96,7 +96,7 @@
 .chat-window-chatnav-container::-webkit-scrollbar-track,
 .chat-thread-window-input-box textarea::-webkit-scroll-track,
 .chat-window-chatnav-container::-webkit-scrollbar-track,
-.reactions-menu-full::-webkit-scrollbar-track {
+.reactions-menu-full-grid::-webkit-scrollbar-track {
   border: 0px;
 }
 
@@ -104,12 +104,16 @@
 .chat-window-chatnav-container::-webkit-scrollbar-thumb,
 .chat-thread-window-input-box textarea::-webkit-scrollbar-thumb,
 .chat-window-chatnav-container::-webkit-scrollbar-thumb,
-.reactions-menu-full::-webkit-scrollbar-thumb {
+.reactions-menu-full-grid::-webkit-scrollbar-thumb {
   min-height: 50px;
   border-radius: calc(5rem / 2);
   border: 3px solid rgba(0, 0, 0, 0);
   background: #e4e4e4;
   background-clip: padding-box;
+}
+
+.reactions-menu-full-grid::-webkit-scrollbar-thumb:hover {
+  background-color: #acacac;
 }
 
 .chat-thread-window-right {
@@ -171,6 +175,11 @@
     "Segoe UI Symbol", sans-serif;
 }
 
+.chat-window-title-btns {
+  display: flex;
+  align-items: center;
+}
+
 .chat-window-close-btn {
   border: 0;
   padding: 8px;
@@ -193,7 +202,8 @@
 }
 
 .chat-window-close-btn:active {
-  background: #c9d7de;
+  background: linear-gradient(#00000026, #00000026);
+  background: linear-gradient(#00000026, #00000026), #dbe4e9;
 }
 
 .chat-thread-user-img img {
@@ -579,22 +589,57 @@
 /* ***************** */
 /* *** Reactions *** */
 /* ***************** */
+.reaction-image {
+  width: 20px;
+  height: 20px;
+}
+.reactions-menu-btn {
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+}
 
+.reactions-menu-btn:hover {
+  background: #dbe4e9;
+}
+
+.reactions-menu-small img:nth-child(1) {
+  animation: slideIn 0.3s linear 0.1s backwards;
+}
+
+.reactions-menu-small img:nth-child(2) {
+  animation: slideIn 0.3s linear 0.14s backwards;
+}
+
+.reactions-menu-small img:nth-child(3) {
+  animation: slideIn 0.3s linear 0.18s backwards;
+}
+
+.reactions-menu-small img:nth-child(4) {
+  animation: slideIn 0.3s linear 0.22s backwards;
+}
+
+.reactions-menu-small img:nth-child(5) {
+  animation: slideIn 0.3s linear 0.26s backwards;
+}
 .reactions-menu {
   position: absolute;
   z-index: 9999;
-  right: 0px;
-  bottom: 40px;
+  right: 20px;
+  bottom: 60px;
 }
 
 .reactions-menu > div {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.15);
-  padding: 5px;
   background: white;
 }
 
 .reactions-menu-small {
   border-radius: 100px;
+  animation: 0.2s linear 0s 1 normal none running revealAndScaleUp;
 }
 
 .reactions-menu-full {
@@ -603,23 +648,26 @@
   border-radius: 16px;
   padding: 12px 12px 12px 16px;
   margin: 0px 0px 4px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .reactions-menu-small,
 .reactions-menu-full-grid {
-  width: fit-content;
+  width: 100%;
   display: grid;
 }
 
 .reactions-menu-small {
   grid-template-columns: auto auto auto auto auto auto;
+  gap: 3px;
 }
 
 .reactions-menu-full-grid {
   grid-gap: 12px;
-  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: repeat(5, minmax(0px, 1fr));
+  gap: 0.75rem;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 .reactions-menu-small img,
@@ -633,7 +681,7 @@
 
 .reactions-menu-small img:hover,
 .reactions-menu-full-grid img:hover {
-  transform: scale(1.6);
+  transform: scale(1.25);
 }
 
 .reactions-menu-square {
@@ -679,5 +727,24 @@
 
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  25% {
+    opacity: 0.125;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CommentThreadlines({ setCollapsed }) {
+export function CommentThreadlines({ setCollapsed }) {
   return (
     <div
       className="comment-threadlines-container"

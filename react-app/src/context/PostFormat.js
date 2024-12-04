@@ -7,7 +7,9 @@ export default function PostFormatProvider() {
 }
 
 export const PostFormat = () => {
-  const [format, setFormat] = useState();
+  const [format, setFormat] = useState(
+    localStorage.getItem("selectedPostFormat")
+  );
 
   return (
     <PostFormatContext.Provider value={{ format, setFormat }}>

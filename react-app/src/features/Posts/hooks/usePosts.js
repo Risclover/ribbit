@@ -42,5 +42,5 @@ export function usePosts(isAllPosts) {
 
     return SortingFunction(posts, sortMode);
   }, [userPosts, subscriptions, follows, sortMode, isAllPosts, user?.id]);
-  return { sortedPosts, sortMode, setSortMode, user, viewedPosts };
+  return { sortedPosts, sortMode, setSortMode, user, viewedPosts, userPosts };
 }

@@ -124,6 +124,7 @@ export const PostFeed = ({
           user={user}
         />
       )}
+      {!posts && <div>Hello</div>}
       {items.map((post) => (
         <div key={post.id} onClick={handlePostClick(post.id)}>
           <SinglePost

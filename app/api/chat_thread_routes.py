@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, User, ChatMessageThread, ChatMessage, ChatMessageReaction
+from app.models import db, User, ChatMessageThread, ChatMessage
 
 chat_thread_routes = Blueprint("chat_threads", __name__)
 
@@ -109,37 +109,3 @@ def read_messages(id):
     db.session.commit()
 
     return chat_thread.to_dict()
-
-
-# CREATE REACTION
-@chat_thread_routes.route("/messages/<int:id>/reactions", methods=["POST"])
-def react(id):
-    data = request.get_json()
-    emoji = data["emoji"]
-    reaction = ChatMessageReaction(emoji=emoji, message_id=id, user_id=current_user.get_id())
-    message = ChatMessage.query.get(id)
-    db.session.add(reaction)
-    message.reactions.append(reaction)
-    db.session.commit()
-
-    return reaction.to_dict()
-
-
-
-# GET REACTION
-@chat_thread_routes.route("/reactions/<int:id>", methods=["GET"])
-def get_reaction(id):
-    reaction = ChatMessageReaction.query.get(id)
-    if reaction is not None:
-        return reaction.to_dict()
-    else:
-        return {"error": "Reaction not found"}
-
-
-# GET ALL MESSAGE'S REACTIONS
-@chat_thread_routes.route("/messages/<int:id>/reactions")
-def get_message_reactions(id):
-    message = ChatMessage.query.get(id)
-    reactions = message.reactions
-
-    return { "Reactions": [reaction.to_dict() for reaction in reactions]}

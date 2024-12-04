@@ -58,9 +58,7 @@ export const ChatInput = ({
     await socket.emit("chat", data);
 
     dispatch(getChatThread(chatThreadId));
-    if (onInputChange) {
-      onInputChange(""); // Clear input text
-    }
+    onInputChange(""); // Clear input text
   };
 
   const handleOpenGiphy = () => {
@@ -77,9 +75,7 @@ export const ChatInput = ({
 
   const handleChange = (e) => {
     const val = e.target?.value;
-    if (onInputChange) {
-      onInputChange(val); // Safely call onInputChange
-    }
+    onInputChange(val);
   };
 
   const handleCreateNewThread = async () => {
@@ -87,6 +83,7 @@ export const ChatInput = ({
     setSelectedChat(data);
     setShowMessageInviteOverlay(false);
     setPendingReceiver(null);
+    onInputChange(""); // Clear pending input text
     return data;
   };
 
@@ -132,6 +129,7 @@ export const ChatInput = ({
           gifIcon={gifIcon}
           GifIconDark={liveChatIcons.GifIconDark}
           setOpenGiphy={setOpenGiphy}
+          socket={socket}
         />
       )}
       <div

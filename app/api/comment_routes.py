@@ -30,10 +30,6 @@ def get_single_comment(id):
 @comment_routes.route('/<int:id>', methods=["POST"])
 @login_required
 def create_comment(id):
-    """
-    Query for a logged-in user to create a comment on a single post
-    """
-
     form = CommentForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
@@ -42,7 +38,7 @@ def create_comment(id):
             content=data["content"],
             user_id=current_user.get_id(),
             post_id=id,
-            parent_id=data.get("parentId")  # Use get() to handle missing key
+            parent_id=data.get("parentId")
         )
 
         post = Post.query.get(id)
@@ -50,11 +46,16 @@ def create_comment(id):
         post.post_comments.append(new_comment)
         db.session.commit()
 
-        return new_comment.to_dict()
+        # Add the upvote on behalf of the comment's author
+        comment_vote = CommentVote(
+            user_id=current_user.get_id(),
+            comment_id=new_comment.id,
+            is_upvote=True
+        )
+        db.session.add(comment_vote)
+        db.session.commit()
 
-    user = User.query.get(current_user.get_id())
-    user.user_comment_votes.append(new_comment)
-    new_comment.users_who_liked.append(user)
+        return new_comment.to_dict()
 
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 

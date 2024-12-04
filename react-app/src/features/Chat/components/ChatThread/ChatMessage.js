@@ -1,8 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DateSeparator } from "./DateSeparator";
-import { useSelector } from "react-redux";
-import { ReactionsMenuSmall } from "features/ChatWindow";
+import { useDispatch, useSelector } from "react-redux";
 import parse from "html-react-parser";
+import ChatReactions, {
+  ChatReactionsSmall,
+  ChatReactionsFull,
+} from "./ChatReactions";
+import {
+  createReaction,
+  deleteReaction,
+  fetchReactionsForMessage,
+} from "store/reactions";
+import { SelectedChatContext } from "context";
 
 export const ChatMessage = ({
   formattedDate,
@@ -10,10 +19,26 @@ export const ChatMessage = ({
   showDateBar,
   message,
   setShowDeleteConfirmation,
+  setMsgId,
+  socket,
 }) => {
+  const dispatch = useDispatch();
   const [openReactions, setOpenReactions] = useState(false);
   const [msgContent, setMsgContent] = useState("");
   const currentUser = useSelector((state) => state.session.user);
+  const msgReactions = useSelector((state) => state.reactions);
+  const { selectedChat } = useContext(SelectedChatContext);
+
+  // Ensure message and message.id are defined
+  if (!message || !message.id) {
+    return null;
+  }
+
+  useEffect(() => {
+    dispatch(fetchReactionsForMessage(message.id));
+  }, [dispatch, message.id]);
+
+  const messageReactions = msgReactions[message.id] || [];
 
   useEffect(() => {
     if (
@@ -37,7 +62,35 @@ export const ChatMessage = ({
     } else {
       setMsgContent(message.content);
     }
-  }, []);
+  }, [message.content]);
+
+  const extractImgUrl = (url) => {
+    const parts = url.split("/");
+    const filenameWithHash = parts[parts.length - 1];
+
+    const firstChar = filenameWithHash.charAt(0);
+
+    const newFilename = firstChar + ".gif";
+
+    console.log("newFilename:", newFilename);
+
+    return newFilename;
+  };
+
+  const handleReactionClick = (reactionData) => {
+    const hasReacted = reactionData.users.includes(currentUser.id);
+    const payload = {
+      messageId: message.id,
+      reactionType: reactionData.reactionType,
+      room: selectedChat.id,
+    };
+
+    if (hasReacted) {
+      socket.emit("remove_reaction", payload);
+    } else {
+      socket.emit("add_reaction", payload);
+    }
+  };
 
   return (
     <div className="chat-message-container" key={message.id}>
@@ -50,10 +103,11 @@ export const ChatMessage = ({
             message.sender?.username === currentUser.username && (
               <div className="chat-message-hover-component">
                 {openReactions && (
-                  <ReactionsMenuSmall
+                  <ChatReactions
+                    openReactions={openReactions}
+                    setOpenReactions={setOpenReactions}
                     message={message}
-                    selectedReaction={selectedReaction}
-                    setSelectedReaction={setSelectedReaction}
+                    socket={socket}
                   />
                 )}
                 <button
@@ -87,37 +141,61 @@ export const ChatMessage = ({
           ) : (
             typeof msgContent === "string" && parse(msgContent)
           )}
+          <div className="message-reactions">
+            {messageReactions.map((reactionData) => (
+              <div key={reactionData.reactionType} className="reaction-item">
+                <img
+                  src={`/images/frog-reactions/${extractImgUrl(
+                    reactionData.reactionType
+                  )}`}
+                  alt={reactionData.reactionType}
+                  className="reaction-image"
+                />
+                {reactionData.count >= 1 && (
+                  <span className="reaction-count">
+                    {reactionData.count > 2 ? "2+" : reactionData.count}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         <div className="chat-thread-message">
-          {msgContent !== "Message deleted by user" &&
-            message.sender?.username === currentUser.username && (
-              <div
-                className={`${
-                  openReactions
-                    ? "chat-message-hover-component-open"
-                    : "chat-message-hover-component"
-                }`}
+          {openReactions && (
+            <ChatReactions
+              openReactions={openReactions}
+              setOpenReactions={setOpenReactions}
+              message={message}
+              socket={socket}
+            />
+          )}
+          {msgContent !== "Message deleted by user" && (
+            <div
+              className={`${
+                openReactions
+                  ? "chat-message-hover-component-open"
+                  : "chat-message-hover-component"
+              }`}
+            >
+              <button
+                className="chat-message-reaction-btn"
+                onClick={() => setOpenReactions(true)}
               >
-                {openReactions && <ReactionsMenu />}
-                <button
-                  className="chat-message-reaction-btn"
-                  onClick={() => setOpenReactions(true)}
-                >
-                  <span className="material-symbols-outlined">
-                    sentiment_satisfied
-                  </span>
-                </button>
-                <button
-                  className="chat-message-delete-btn"
-                  onClick={() => {
-                    setShowDeleteConfirmation(true);
-                  }}
-                >
-                  <i className="bi bi-trash3"></i>
-                </button>
-              </div>
-            )}
+                <span className="material-symbols-outlined">
+                  sentiment_satisfied
+                </span>
+              </button>
+              <button
+                className="chat-message-delete-btn"
+                onClick={() => {
+                  setShowDeleteConfirmation(true);
+                }}
+              >
+                <i className="bi bi-trash3"></i>
+              </button>
+            </div>
+          )}
           <div className="chat-thread-message-user-img">
             {message.sender?.id !== currentUser?.id ? (
               <img
@@ -173,6 +251,25 @@ export const ChatMessage = ({
             ) : (
               typeof msgContent === "string" && parse(msgContent)
             )}
+            <div className="message-reactions">
+              {messageReactions.map((reactionData) => (
+                <div key={reactionData.reactionType} className="reaction-item">
+                  <img
+                    onClick={() => handleReactionClick(reactionData)}
+                    src={`/images/frog-reactions/${extractImgUrl(
+                      reactionData.reactionType
+                    )}`}
+                    alt={reactionData.reactionType}
+                    className="reaction-image"
+                  />
+                  {reactionData.count >= 1 && (
+                    <span className="reaction-count">
+                      {reactionData.count > 2 ? "2+" : reactionData.count}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}

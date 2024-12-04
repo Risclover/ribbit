@@ -22,17 +22,29 @@ export const ChatTitleBar = ({ showCreateChatOverlay, setOpenChat }) => {
   return (
     <div className="chat-thread-window-titlebar">
       {showCreateChatOverlay ? "New Chat" : receiver || ""}
-      {/* <button className="chat-window-close-btn" title="Minimize chat">
-        <GoChevronDown />
-      </button> */}
-      <div></div>
-      <button
-        title="Close chat"
-        className="chat-window-close-btn"
-        onClick={() => setOpenChat(false)}
-      >
-        <TfiClose />
-      </button>
+      <div className="chat-window-title-btns">
+        <button className="chat-window-close-btn" title="Minimize chat">
+          <svg
+            rpl=""
+            fill="currentColor"
+            height="16"
+            icon-name="caret-down-outline"
+            viewBox="0 0 20 20"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M10 13.125a.624.624 0 0 1-.442-.183l-5-5 .884-.884L10 11.616l4.558-4.558.884.884-5 5a.624.624 0 0 1-.442.183Z"></path>
+          </svg>
+        </button>
+        <div></div>
+        <button
+          title="Close chat"
+          className="chat-window-close-btn"
+          onClick={() => setOpenChat(false)}
+        >
+          <TfiClose />
+        </button>
+      </div>
     </div>
   );
 };

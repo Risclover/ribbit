@@ -7,6 +7,7 @@ import { sliceUrl } from "@/utils";
 import { useMetadata } from "@/context/Metadata";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Text } from "features/Comments/components/Comment/Text";
+import Skeleton from "@mui/material/Skeleton";
 
 export function SinglePostContent({ post, isPage }) {
   const { metadata, fetchMetadata } = useMetadata();
@@ -27,7 +28,13 @@ export function SinglePostContent({ post, isPage }) {
   return (
     <div className="single-post-content-box">
       <div className="single-post-content-box-left">
-        <div className="single-post-title-bar">{post.title}</div>
+        <div className="single-post-title-bar">
+          {post !== undefined ? (
+            post.title
+          ) : (
+            <Skeleton variant="text" animation="wave" />
+          )}
+        </div>
         {post.imgUrl !== null ? (
           <div className="single-post-content-image">
             <LazyLoad height={700} offset={100}>

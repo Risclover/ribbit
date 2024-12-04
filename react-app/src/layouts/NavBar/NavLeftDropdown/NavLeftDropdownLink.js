@@ -146,7 +146,7 @@ export function NavLeftDropdownLink({
             imgClass="nav-left-dropdown-item-img"
             imgAlt="Community"
           />
-          <span className="nav-left-dropdown-item">c/{item?.name}</span>
+          <span className="nav-left-dropdown-item">/{item?.name}</span>
           <div
             className="nav-left-dropdown-star star-filled"
             onClick={(e) => {

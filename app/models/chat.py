@@ -20,7 +20,7 @@ class ChatMessage(db.Model):
     chat_message_thread = db.relationship('ChatMessageThread', back_populates="messages")
     sender = db.relationship("User", back_populates="user_chat_messages", primaryjoin="User.id==ChatMessage.sender_id")
     recipient = db.relationship("User", primaryjoin="User.id==ChatMessage.receiver_id")
-    reactions = db.relationship("ChatMessageReaction", back_populates="message")
+    reactions = db.relationship("Reaction", back_populates="message")
 
 
     def to_dict(self):
@@ -60,25 +60,3 @@ class ChatMessageThread(db.Model):
 
     def __repr__(self):
         return f"<ChatMessageThread {self.id}: {[msg.to_dict() for msg in self.messages]}>"
-
-
-class ChatMessageReaction(db.Model):
-    __tablename__ = "chat_message_reactions"
-
-    id = db.Column(db.Integer, primary_key=True)
-    emoji = db.Column(db.String, nullable=False)
-    message_id = db.Column(db.Integer, db.ForeignKey("chat_messages.id"), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-
-    message = db.relationship("ChatMessage", back_populates="reactions")
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "emoji": self.emoji,
-            "messageId": self.message_id,
-            "userId": self.user_id,
-        }
-
-    def __repr__(self):
-        return f"<ChatMessageReaction {self.id}: {self.emoji}>"

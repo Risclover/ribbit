@@ -30,6 +30,8 @@ export function AllPostsFeed() {
     pageTitle: "All",
   });
 
+  console.log("recent posts:", Object.values(viewedPosts));
+
   return (
     <FeedContainer>
       <FeedLeftColContainer>

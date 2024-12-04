@@ -20,6 +20,7 @@ import { PostFormatContext } from "../context/PostFormat";
 import { usePageSettings } from "../hooks/usePageSettings";
 import { CommunityImg } from "components/CommunityImg";
 import { useHistory } from "react-router-dom";
+import Skeleton from "@mui/material/Skeleton";
 
 export function SinglePostPage() {
   const history = useHistory();
@@ -45,19 +46,27 @@ export function SinglePostPage() {
 
   usePageSettings({
     documentTitle: post?.title + " : " + post?.communityName,
-    icon: (
-      <CommunityImg
-        imgStyle={{
-          backgroundColor: `${
-            post?.communitySettings[post?.communityId].baseColor
-          }`,
-        }}
-        imgSrc={post?.communitySettings[post?.communityId].communityIcon}
-        imgClass="nav-left-dropdown-item-icon item-icon-circle"
-        imgAlt="Community"
-      />
-    ),
-    pageTitle: `c/${post?.communityName}`,
+    icon:
+      post !== undefined ? (
+        <CommunityImg
+          imgStyle={{
+            backgroundColor: `${
+              post?.communitySettings[post?.communityId].baseColor
+            }`,
+          }}
+          imgSrc={post?.communitySettings[post?.communityId].communityIcon}
+          imgClass="nav-left-dropdown-item-icon item-icon-circle"
+          imgAlt="Community"
+        />
+      ) : (
+        <Skeleton variant="circular" animation="wave" width={20} height={20} />
+      ),
+    pageTitle:
+      post !== undefined ? (
+        `c/${post?.communityName}`
+      ) : (
+        <Skeleton animation="wave" variant="text" />
+      ),
   });
 
   useEffect(() => {

@@ -13,15 +13,17 @@ export function Emojis({ receiver, setEmojisOverlay, socket }) {
 
   const handleAddEmoji = async (e, image) => {
     e.preventDefault();
+    const chatThreadId = selectedChat?.id;
     const payload = {
       content: image,
       receiverId: receiver.id,
-      chatThreadId: selectedChat.id,
+      chatThreadId: chatThreadId,
     };
 
     const data = await dispatch(createChatMessage(payload));
-    socket.emit("chat", data);
-    await dispatch(getChatThread(selectedChat.id));
+    data.room = chatThreadId;
+    await socket.emit("chat", data);
+    dispatch(getChatThread(chatThreadId));
     setEmojisOverlay(false);
   };
 

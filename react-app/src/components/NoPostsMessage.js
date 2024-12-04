@@ -1,7 +1,7 @@
 import React from "react";
 
 export function NoPostsMessage({ sortedPosts }) {
-  if (!sortedPosts || sortedPosts.length === 0)
+  if (sortedPosts.length === 0)
     return (
       <div className="no-posts-div-container">
         <div className="no-posts-div"></div>

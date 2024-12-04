@@ -1,18 +1,13 @@
 import React from "react";
 import { CommentKarmaBar } from "../../CommentKarmaBar";
-import useComment from "features/Comments/hooks/useComment";
 import { DeleteConfirmationModal } from "components";
 import { EditComment } from "../../EditComment";
 import { Modal } from "context";
-import { CommentForm } from "../../CommentForms";
-import { Comment } from "../Comment";
-import CommentReplyForm from "../../CommentForms/CommentReplyForm";
 import { PencilIcon } from "assets/icons/PencilIcon";
 import { TrashIcon } from "assets/icons/TrashIcon";
 
-export default function CommentBtnBar({
+export function CommentBtnBar({
   comment,
-  commentId,
   collapsed,
   handleReplyClick,
   handleDeleteClick,
@@ -22,9 +17,7 @@ export default function CommentBtnBar({
   setShowEditCommentModal,
   showDeleteModal,
   setShowDeleteModal,
-  showReplyForm,
   postId,
-  setShowReplyForm,
   setCommentContent,
 }) {
   return (
@@ -87,28 +80,6 @@ export default function CommentBtnBar({
               </>
             )}
           </div>
-
-          {/* {showReplyForm && (
-            <div className="reply-form-container">
-              <CommentForm
-                postId={postId}
-                parentId={comment.id}
-                onCancel={() => setShowReplyForm(false)}
-              />
-            </div>
-          )}
-
-          {comment.children && comment.children.length > 0 && (
-            <div className="nested-comments">
-              {comment.children.map((childComment) => (
-                <Comment
-                  key={childComment.id}
-                  commentId={childComment.id}
-                  comment={childComment}
-                />
-              ))}
-            </div>
-          )} */}
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
 // Chat.js
 
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { ChatNavMenu } from "../ChatNavMenu/ChatNavMenu";
@@ -17,16 +17,16 @@ import {
 } from "../ChatWindowOverlays";
 import { useUserSearch } from "features/Chat/hooks/useUserSearch";
 import "../../styles/chat.css";
-import { getChatThread } from "store";
-
-let socket;
+import { getChatThread, fakeDeleteMessage } from "store";
+import { addReaction, removeReaction } from "store/reactions";
 
 const Chat = ({ setOpenChat }) => {
   const dispatch = useDispatch();
   const [messages, setMessages] = useState([]);
   const chatThreads = useSelector((state) => state.chatThreads);
-
   const user = useSelector((state) => state.session.user);
+  const socketRef = useRef(null);
+
   const [previousChat, setPreviousChat] = useState(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [showChatWelcomeOverlay, setShowChatWelcomeOverlay] = useState(
@@ -39,6 +39,8 @@ const Chat = ({ setOpenChat }) => {
   const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
   const { userFound } = useUserSearch(username);
   const [inputTexts, setInputTexts] = useState({});
+  const [msgId, setMsgId] = useState(null);
+  const [pendingInputText, setPendingInputText] = useState("");
 
   // Function to handle updating input text for a specific thread
   const handleInputChange = (threadId, text) => {
@@ -51,46 +53,74 @@ const Chat = ({ setOpenChat }) => {
     : "";
 
   useEffect(() => {
-    socket = io();
+    // Initialize socket only once
+    if (!socketRef.current) {
+      socketRef.current = io();
 
-    socket.on("chat", (chat) => {
-      setMessages((messages) => [...messages, chat]);
-      dispatch(getUserChatThreads());
-    });
+      // Handle incoming chat messages
+      socketRef.current.on("chat", (chat) => {
+        setMessages((messages) => [...messages, chat]);
+        dispatch(getUserChatThreads());
+      });
 
-    if (selectedChat) {
-      socket.emit("join", {
-        user: user.id,
-        room: selectedChat.id,
+      // Handle reactions added
+      socketRef.current.on("reaction_added", (data) => {
+        dispatch(addReaction(data));
+      });
+
+      // Handle reactions removed
+      socketRef.current.on("reaction_removed", (data) => {
+        dispatch(removeReaction(data));
+      });
+
+      // Handle deleted messages
+      socketRef.current.on("deleted", (data) => {
+        dispatch(getChatThread(selectedChat?.id));
       });
     }
 
+    return () => {
+      // Clean up socket connection when component unmounts
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
+    };
+  }, [dispatch, selectedChat?.id]);
+
+  useEffect(() => {
     if (selectedChat && user) {
+      // Leave the previous room
       if (previousChat) {
-        socket.emit("leave", {
-          user: user.id,
+        socketRef.current.emit("leave", {
+          user_id: user.id,
           room: previousChat,
         });
       }
 
-      socket.emit("join", {
+      // Join the new room
+      socketRef.current.emit("join", {
         user: user.id,
         room: selectedChat.id,
       });
 
       setPreviousChat(selectedChat.id);
     }
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [setMessages, selectedChat, user]);
+  }, [selectedChat, user, previousChat]);
 
   useEffect(() => {
     if (selectedChat) {
       dispatch(getChatThread(selectedChat.id));
     }
   }, [dispatch, selectedChat]);
+
+  const handleDeleteMsg = (e) => {
+    e.preventDefault();
+    dispatch(fakeDeleteMessage(msgId));
+    dispatch(getChatThread(selectedChat.id));
+    socketRef.current.emit("delete", { id: msgId, room: selectedChat.id });
+    setShowDeleteConfirmation(false);
+  };
 
   return (
     <div className="chat-window-container">
@@ -105,7 +135,7 @@ const Chat = ({ setOpenChat }) => {
           </button>
         </div>
         <ChatNavMenu
-          socket={socket}
+          socket={socketRef.current}
           setShowCreateChatOverlay={setShowCreateChatOverlay}
           setShowMessageInviteOverlay={setShowMessageInviteOverlay}
         />
@@ -121,24 +151,31 @@ const Chat = ({ setOpenChat }) => {
           setMessages={setMessages}
           messages={messages}
           setShowDeleteConfirmation={setShowDeleteConfirmation}
+          setMsgId={setMsgId}
+          socket={socketRef.current}
         />
         <ChatInput
-          socket={socket}
+          socket={socketRef.current}
           selectedChat={selectedChat}
           userFound={userFound}
           showMessageInviteOverlay={showMessageInviteOverlay}
           setShowMessageInviteOverlay={setShowMessageInviteOverlay}
-          onInputChange={
-            selectedChat
-              ? (text) => handleInputChange(selectedChat.id, text)
-              : () => {} // No-op function if selectedChat is null
-          }
-          inputText={currentInputText}
+          onInputChange={(text) => {
+            if (selectedChat) {
+              handleInputChange(selectedChat.id, text);
+            } else {
+              setPendingInputText(text);
+            }
+          }}
+          inputText={selectedChat ? currentInputText : pendingInputText}
         />
       </div>
       {showDeleteConfirmation && (
         <DeleteMessageOverlay
           setShowDeleteConfirmation={setShowDeleteConfirmation}
+          selectedChat={selectedChat}
+          socket={socketRef.current}
+          handleDeleteMsg={handleDeleteMsg}
         />
       )}
       {showChatWelcomeOverlay && (

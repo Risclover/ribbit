@@ -5,6 +5,8 @@ import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { useOutsideClick } from "hooks";
 import { NavLeftDropdown } from "./NavLeftDropdown";
 import "./NavLeftDropdown.css";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export const NavLeftDropdownFace = ({
   screenWidth,
@@ -63,6 +65,7 @@ export const NavLeftDropdownFace = ({
             }`}
           >
             {/* page icon and page title */}
+
             <div className="nav-left-dropdown-face-title">
               {pageIcon}
               {screenWidth > 996 && pageTitle}
