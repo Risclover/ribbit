@@ -19,6 +19,7 @@ import { useUserSearch } from "features/Chat/hooks/useUserSearch";
 import "../../styles/chat.css";
 import { getChatThread, fakeDeleteMessage } from "store";
 import { addReaction, removeReaction } from "store/reactions";
+import { NewChatIcon } from "assets/icons/NewChatIcon";
 
 const Chat = ({ setOpenChat, setMinimizeChat }) => {
   const dispatch = useDispatch();
@@ -139,7 +140,7 @@ const Chat = ({ setOpenChat, setMinimizeChat }) => {
             className="chat-window-create-chat-btn"
             onClick={() => setShowCreateChatOverlay(true)}
           >
-            {/* SVG icon code */}
+            <NewChatIcon height={16} width={16} />
           </button>
         </div>
         <ChatNavMenu
