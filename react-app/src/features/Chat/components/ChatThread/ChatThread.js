@@ -6,11 +6,11 @@ import { SelectedChatContext } from "@/context";
 import { ChatMessages } from "./ChatMessages";
 
 export const ChatThread = ({
-  messages,
-  setMessages,
   setShowDeleteConfirmation,
   setMsgId,
   socket,
+  messages,
+  setMessages,
 }) => {
   const containerRef = useRef(null);
   const prevScrollHeightRef = useRef(0);

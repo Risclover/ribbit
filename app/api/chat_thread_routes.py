@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, User, ChatMessageThread, ChatMessage
+from app.models import db, User, ChatMessageThread, ChatMessage, ThreadUser
 
 chat_thread_routes = Blueprint("chat_threads", __name__)
 
@@ -21,12 +21,25 @@ def get_user_chats():
 
 # GET SINGLE CHAT BY ID
 @chat_thread_routes.route("/<int:id>")
+@login_required
 def get_user_chat(id):
     """
     Get a specific chat thread by its id
     """
     chat = ChatMessageThread.query.get(id)
     if chat is not None:
+        # Update has_unread status for current user
+        thread_user = ThreadUser.query.filter_by(thread_id=id, user_id=current_user.get_id()).first()
+        if thread_user:
+            thread_user.has_unread = False
+
+        # Optionally, mark messages as read
+        for message in chat.messages:
+            if not message.read and message.receiver_id == current_user.get_id():
+                message.read = True
+
+        db.session.commit()
+
         return chat.to_dict()
     else:
         return { "error": "Chat not found" }
@@ -79,6 +92,10 @@ def create_message(id):
 
     chat_thread = ChatMessageThread.query.get(id)
     chat_thread.messages.append(message)
+
+    for thread_user in chat_thread.thread_users:
+        if thread_user.user_id != current_user.get_id():
+            thread_user.has_unread = True
 
     db.session.add(message)
     db.session.commit()

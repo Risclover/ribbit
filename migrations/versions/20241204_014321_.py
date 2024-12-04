@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 260114501e33
+Revision ID: 5520b608138e
 Revises: 
-Create Date: 2024-12-02 17:34:01.993114
+Create Date: 2024-12-04 01:43:21.423158
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '260114501e33'
+revision = '5520b608138e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -96,6 +96,15 @@ def upgrade():
     sa.ForeignKeyConstraint(['thread_id'], ['message_threads.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('thread_users',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('thread_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('has_unread', sa.Boolean(), nullable=True),
+    sa.ForeignKeyConstraint(['thread_id'], ['chat_message_threads.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('user_chat_threads',
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('chat_thread_id', sa.Integer(), nullable=False),
@@ -115,7 +124,7 @@ def upgrade():
     sa.Column('message_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('reaction_type', sa.String(length=50), nullable=False),
-    sa.ForeignKeyConstraint(['message_id'], ['messages.id'], ),
+    sa.ForeignKeyConstraint(['message_id'], ['chat_messages.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -283,6 +292,7 @@ def downgrade():
     op.drop_table('chat_reactions')
     op.drop_table('user_threads')
     op.drop_table('user_chat_threads')
+    op.drop_table('thread_users')
     op.drop_table('messages')
     op.drop_table('followers')
     op.drop_table('favorite_users')

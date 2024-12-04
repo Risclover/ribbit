@@ -57,9 +57,33 @@ const Chat = ({ setOpenChat }) => {
     if (!socketRef.current) {
       socketRef.current = io();
 
-      // Handle incoming chat messages
+      socketRef.current.on("connect", () => {
+        // Join all rooms after connecting
+        if (chatThreads && user) {
+          Object.values(chatThreads).forEach((thread) => {
+            socketRef.current.emit("join", {
+              user: user.id,
+              room: thread.id,
+            });
+          });
+        }
+      });
+
       socketRef.current.on("chat", (chat) => {
-        setMessages((messages) => [...messages, chat]);
+        if (chat.threadId === selectedChat?.id) {
+          setMessages((prevMessages) => {
+            // Check if the message already exists
+            const messageExists = prevMessages.some(
+              (msg) => msg.id === chat.id
+            );
+            if (!messageExists) {
+              return [...prevMessages, chat];
+            } else {
+              return prevMessages;
+            }
+          });
+        }
+        // Update chat threads to reflect new messages
         dispatch(getUserChatThreads());
       });
 
@@ -89,28 +113,12 @@ const Chat = ({ setOpenChat }) => {
   }, [dispatch, selectedChat?.id]);
 
   useEffect(() => {
-    if (selectedChat && user) {
-      // Leave the previous room
-      if (previousChat) {
-        socketRef.current.emit("leave", {
-          user_id: user.id,
-          room: previousChat,
-        });
-      }
-
-      // Join the new room
-      socketRef.current.emit("join", {
-        user: user.id,
-        room: selectedChat.id,
-      });
-
-      setPreviousChat(selectedChat.id);
-    }
-  }, [selectedChat, user, previousChat]);
-
-  useEffect(() => {
     if (selectedChat) {
-      dispatch(getChatThread(selectedChat.id));
+      dispatch(getChatThread(selectedChat.id)).then((data) => {
+        if (data) {
+          setMessages(data.messages);
+        }
+      });
     }
   }, [dispatch, selectedChat]);
 

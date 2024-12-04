@@ -3,10 +3,10 @@ import { ChatMessage } from "./ChatMessage";
 import { formatDate } from "features/Chat/utils/formatDate";
 
 export const ChatMessages = ({
-  messages,
   setShowDeleteConfirmation,
   setMsgId,
   socket,
+  messages,
 }) => {
   return (
     <div className="chat-messages">

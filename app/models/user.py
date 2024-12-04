@@ -49,6 +49,7 @@ class User(db.Model, UserMixin):
     chat_threads = db.relationship('ChatMessageThread', back_populates='chat_thread_users', secondary=user_chat_threads, lazy='joined')
     user_chat_messages = db.relationship('ChatMessage', back_populates='sender', overlaps="recipient", primaryjoin="User.id==ChatMessage.receiver_id", cascade='all, delete')
     reactions = db.relationship('Reaction', back_populates="user")
+    thread_users = db.relationship("ThreadUser", back_populates="user", cascade="all, delete-orphan")
 
 
 

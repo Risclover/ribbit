@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.models import db, Post, User, PostVote, ViewedPost
 from .auth_routes import validation_errors_to_error_messages
-from app.forms import PostForm, PostUpdateForm, ImagePostForm, UpdateImagePostForm, LinkPostForm
+from app.forms import PostForm, PostUpdateForm, ImagePostForm, UpdateImagePostForm
 from app.s3_helpers import (upload_file_to_s3, allowed_file, get_unique_filename)
 
 post_routes = Blueprint("posts", __name__)

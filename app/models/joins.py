@@ -1,4 +1,6 @@
 from .db import db
+from datetime import datetime
+from flask_login import current_user
 
 # Subscriptions join table (users <- subscriptions -> communities)
 subscriptions = db.Table(
@@ -70,3 +72,26 @@ favorite_users = db.Table('favorite_users',
     db.Column('current_id', db.Integer, db.ForeignKey('users.id')),
     db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
 )
+
+class ThreadUser(db.Model):
+    __tablename__ = "thread_users"
+
+    id = db.Column(db.Integer, primary_key=True)
+    thread_id = db.Column(db.Integer, db.ForeignKey('chat_message_threads.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    has_unread = db.Column(db.Boolean, default=False)
+
+    thread = db.relationship('ChatMessageThread', back_populates="thread_users")
+    user = db.relationship("User", back_populates="thread_users")
+
+    def to_dict(self):
+        return {
+            "threadId": self.thread_id,
+            "userId": self.userId,
+            "hasUnread": any(
+                tu.has_unread for tu in self.thread_users if tu.user_id == current_user.get_id()
+            ),
+        }
+
+    def __repr__(self):
+        return f"<ThreadUser {self.id}: {self.has_unread}>"

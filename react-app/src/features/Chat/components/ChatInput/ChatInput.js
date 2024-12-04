@@ -7,6 +7,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getChatThread, createChatMessage, createChatThread } from "store";
 import { liveChatIcons } from "@/assets";
+import { receiveNewMessage } from "store";
 
 export const ChatInput = ({
   socket,
@@ -55,9 +56,13 @@ export const ChatInput = ({
 
     const data = await dispatch(createChatMessage(payload));
     data.room = chatThreadId;
-    await socket.emit("chat", data);
 
-    dispatch(getChatThread(chatThreadId));
+    // Emit the message to the server
+    socket.emit("chat", data);
+
+    // Optionally, optimistically update the Redux store
+    dispatch(receiveNewMessage(data));
+
     onInputChange(""); // Clear input text
   };
 

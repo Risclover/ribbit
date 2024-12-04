@@ -8,14 +8,8 @@ export const receiveNewMessage = (message) => {
   return {
     type: RECEIVE_NEW_MESSAGE,
     payload: {
-      threadId: message.thread_id,
-      message: {
-        id: message.id,
-        content: message.content,
-        senderId: message.sender_id,
-        createdAt: message.created_at,
-        read: false,
-      },
+      threadId: message.threadId || message.thread_id,
+      message: message,
     },
   };
 };
@@ -119,7 +113,6 @@ export const readAllChatMessages = (threadId) => async (dispatch) => {
   }
 };
 
-
 /* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};
@@ -140,6 +133,16 @@ export default function chatThreadReducer(state = initialState, action) {
 
     case LOAD_CHAT_THREAD:
       return { ...state, [action.chatThread.id]: action.chatThread };
+
+    case RECEIVE_NEW_MESSAGE:
+      const { threadId, message } = action.payload;
+      return {
+        ...state,
+        [threadId]: {
+          ...state[threadId],
+          messages: [...(state[threadId]?.messages || []), message],
+        },
+      };
 
     default:
       return state;

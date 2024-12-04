@@ -1,4 +1,5 @@
 from .db import db
+from flask_login import current_user
 
 user_chat_threads = db.Table('user_chat_threads',
     db.Model.metadata,
@@ -48,12 +49,16 @@ class ChatMessageThread(db.Model):
 
     messages = db.relationship('ChatMessage', back_populates='chat_message_thread', cascade='all, delete')
     chat_thread_users = db.relationship('User', back_populates='chat_threads', secondary=user_chat_threads, lazy='joined')
+    thread_users = db.relationship("ThreadUser", back_populates="thread", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
             "id": self.id,
             "messages": [msg.to_dict() for msg in self.messages],
             "users": [user.to_dict() for user in self.chat_thread_users],
+            "hasUnread": any(
+                tu.has_unread for tu in self.thread_users if tu.user_id == current_user.get_id()
+            ),
             "createdAt": self.created_at,
             "updatedAt": self.updated_at
         }
