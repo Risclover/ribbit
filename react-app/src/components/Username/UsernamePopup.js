@@ -30,14 +30,9 @@ export function UsernamePopup({ community, user }) {
             className="username-popup-user-icon"
           />
           <div className="username-popup-user-info-name">
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                history.push(`/users/${id}/profile`);
-              }}
-            >
+            <a href={`/users/${id}/profile`}>
               {displayName ? displayName : username}
-            </div>
+            </a>
             <div className="username-popup-user-info-details">
               u/{username} • {moment(createdAt).fromNow()}
             </div>

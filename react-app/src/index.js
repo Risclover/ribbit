@@ -4,14 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { configureStore } from "./store";
-import { ModalProvider } from "./context/Modal";
-import { AuthModalProvider } from "./context/AuthModal";
-import { PostModalProvider } from "./context/PostModal";
+import { ModalProvider } from "@/context";
+import { AuthModalProvider } from "@/context";
+import { PostModalProvider } from "@/context";
 import App from "./App";
 import "./assets/styles/index.css";
 import "./assets/styles/variables.css";
 import "isomorphic-fetch";
-import { SelectedChatProvider } from "context/SelectedChat";
+import { SelectedChatProvider } from "@/context";
 
 const store = configureStore();
 

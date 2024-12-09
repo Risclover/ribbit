@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { convertTime } from "../utils/convertTime";
-import { usePopup } from "context/Popup";
+import { usePopup } from "@/context";
 import { getComments } from "store";
 import { removeComment } from "store";
 import { getPosts } from "store";

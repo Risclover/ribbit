@@ -4,5 +4,8 @@ export * from "./UserProfile";
 export { SearchResults } from "./SearchResults";
 export { CommunityPage } from "./CommunityPage";
 export { SinglePostPage } from "./SinglePostPage";
+export { HomepageFeed } from "./HomepageFeed";
+export { AllPostsFeed } from "./AllPostsFeed";
+export { CreatePostPage } from "./CreatePostPage";
 // export { NotificationsPage } from "./NotificationsPage";
 // export { UserProfilePage } from "./UserProfilePage";

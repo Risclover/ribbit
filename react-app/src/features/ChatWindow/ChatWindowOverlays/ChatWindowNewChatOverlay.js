@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "@/store";
-import { SelectedChatContext } from "@/context/SelectedChat";
+import { SelectedChatContext } from "@/context";
 import "./ChatWindowOverlay.css";
 
 export function ChatWindowNewChatOverlay({

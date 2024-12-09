@@ -3,7 +3,7 @@ import moment from "moment";
 import { sliceUrl } from "@/utils";
 import { useHistory } from "react-router-dom";
 import { Username } from "@/components";
-import { useMetadata } from "@/context/Metadata";
+import { useMetadata } from "@/context";
 import { CommunityImg } from "components/CommunityImg";
 import { PostTypeLinkIcon } from "assets/icons/PostTypeLinkIcon";
 

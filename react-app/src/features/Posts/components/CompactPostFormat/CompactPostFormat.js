@@ -8,7 +8,7 @@ import moment from "moment";
 
 import { Username } from "@/components";
 import { sliceUrl } from "@/utils";
-import "../../SinglePost/SinglePost.css";
+import "../SinglePost/SinglePost.css";
 import "../ClassicPostFormat/ClassicPostFormat.css";
 import "./CompactPostFormat.css";
 import { usePostVote } from "../../hooks/usePostVote";
@@ -81,7 +81,7 @@ export function CompactPostFormat({ id, isPage, post }) {
               <CompactPostTypeIcon
                 post={post}
                 setPostExpand={setPostExpand}
-                postExpand={postExpand}
+                postExpand={postExpand}rtrtw
               />
               <div className="compact-post-details">
                 <div className="compact-post-title">

@@ -1,1818 +1,994 @@
-from app.models import db, Comment
+import random
+from app.models import db, Comment, Post
+from datetime import datetime, timedelta
+
+def generate_comment_timestamp(parent_timestamp, max_delay_hours=24):
+    """
+    Generate a random datetime after the parent_timestamp, within a specified delay.
+
+    :param parent_timestamp: The datetime of the parent post or comment.
+    :param max_delay_hours: Maximum number of hours after the parent_timestamp.
+    :return: A datetime object representing the comment's created_at.
+    """
+    now = datetime.now()
+
+    # The comment should be after the parent timestamp but not in the future
+    earliest = parent_timestamp + timedelta(seconds=1)  # Ensure it's after
+    latest = min(parent_timestamp + timedelta(hours=max_delay_hours), now)
+
+    # If the latest possible time is before the earliest, set to earliest
+    if latest < earliest:
+        return earliest
+
+    # Calculate the delta between earliest and latest
+    delta = latest - earliest
+    random_seconds = random.randint(0, int(delta.total_seconds()))
+
+    return earliest + timedelta(seconds=random_seconds)
+
 
 def seed_comments():
-    comment_1 = Comment(
-        content="What a great post. Thanks for sharing!",
-        user_id=2,
-        post_id=1
-    )
-    comment_2 = Comment(
-        content="This sucks. Please do better.",
+    # Dictionary to hold comments by a temporary key for easy reference
+    comments_dict = {}
+
+    # ----------------------- POST 1 -----------------------#
+    post1 = Post.query.get(1)
+    comment1_createdat = generate_comment_timestamp(post1.created_at)
+    comments_dict['1'] = Comment(
+        content="She’s sitting there so patiently for you 🥰🥰",
         user_id=3,
-        post_id=2,
+        post_id=1,
+        created_at=comment1_createdat,
+        updated_at=comment1_createdat
     )
-    comment_3 = Comment(
-        content="Ha ha ha. You're so funny!",
+    db.session.add(comments_dict['1'])
+    db.session.flush()  # Assigns an ID to comment '1'
+
+    comment2_createdat = generate_comment_timestamp(comments_dict['1'].created_at)
+    comments_dict['2'] = Comment(
+        content="She wants another!",
+        user_id=4,
+        post_id=1,
+        parent_id=comments_dict['1'].id,  # Correct parent reference
+        created_at=comment2_createdat,
+        updated_at=comment2_createdat
+    )
+    db.session.add(comments_dict['2'])
+    db.session.flush()  # Assigns an ID to comment '2'
+
+    comment3_createdat = generate_comment_timestamp(comments_dict['2'].created_at)
+    comments_dict['3'] = Comment(
+        content="i'm scrolling this damn thread looking for solution (even though i dont own a cat) and y'all fawning over the cute cat",
+        user_id=5,
+        post_id=1,
+        parent_id=comments_dict['2'].id,  # Correct parent reference
+        created_at=comment3_createdat,
+        updated_at=comment3_createdat
+    )
+    db.session.add(comments_dict['3'])
+
+    comment4_createdat=generate_comment_timestamp(post1.created_at)
+    comments_dict['4'] = Comment(
+        content="this is what i thought animal testing for cosmetic products was when i was a kid",
+        user_id=6,
+        post_id=1,
+        created_at=comment4_createdat,
+        updated_at=comment4_createdat
+    )
+    db.session.add(comments_dict['4'])
+
+    comment5_createdat = generate_comment_timestamp(post1.created_at)
+    comments_dict['5'] = Comment(
+        content="The merchandise for the BBC Top Gear series has(had?) a label in them that said \"we tested these clothes on animals. They didn't fit.\"",
+        user_id=4,
+        post_id=1,
+        created_at=comment5_createdat,
+        updated_at=comment5_createdat
+    )
+    db.session.add(comments_dict['5'])
+
+    comment6_createdat = generate_comment_timestamp(post1.created_at)
+    comments_dict['6'] = Comment(
+        content="Try white lipstick",
+        user_id=7,
+        post_id=1,
+        created_at=comment6_createdat,
+        updated_at=comment6_createdat
+    )
+    db.session.add(comments_dict['6'])
+    db.session.flush()  # Assigns an ID to comment '6'
+
+    comment7_createdat = generate_comment_timestamp(comments_dict['6'].created_at)
+    comments_dict['7'] = Comment(
+        content="Lmao might cover",
         user_id=2,
+        post_id=1,
+        parent_id=comments_dict['6'].id,  # Correct parent reference
+        created_at=comment7_createdat,
+        updated_at=comment7_createdat
+    )
+    db.session.add(comments_dict['7'])
+
+    # ----------------------- POST 2 -----------------------#
+    comments_dict['8'] = Comment(
+        content="Stepan looks like a cool cat. Happy Birthday to one swish feline",
+        user_id=8,
+        post_id=2
+    )
+    db.session.add(comments_dict['8'])
+
+    comments_dict['9'] = Comment(
+        content="""Such a cute picture.
+
+Stephan doesn't look impressed by the cake at all 🤣""",
+        user_id=9,
+        post_id=2
+    )
+    db.session.add(comments_dict['9'])
+    db.session.flush()  # Assigns an ID to comment '9'
+
+    comments_dict['10'] = Comment(
+        content="It looks like chocolate and sugar. Stephan is pissed because he definitely won't be allowed a slice betcause it's made of two things that are bad for cats.",
+        user_id=10,
+        post_id=2,
+        parent_id=comments_dict['9'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['10'])
+    db.session.flush()
+
+    comments_dict['11'] = Comment(
+        content="Perfect birthday for a cat would be a \"cake\" which is literally just an open can of tuna or sardines, a cardboard box to play in, and random bread ties spread around the floor. Maybe even a few bonus decoy valuables for them to push off of the shelves.",
+        user_id=11,
+        post_id=2,
+        parent_id=comments_dict['10'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['11'])
+    db.session.flush()  # Assigns an ID to comment '11'
+
+    comments_dict['12'] = Comment(
+        content="This guy cats.",
+        user_id=12,
+        post_id=2,
+        parent_id=comments_dict['11'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['12'])
+
+    comments_dict['13'] = Comment(
+        content="Some after-dinner catnip.",
+        user_id=13,
+        post_id=2,
+        parent_id=comments_dict['11'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['13'])
+
+    comments_dict['14'] = Comment(
+        content="\"16 already? I'm getting to old for this\"",
+        user_id=14,
+        post_id=2
+    )
+    db.session.add(comments_dict['14'])
+
+    comments_dict['15'] = Comment(
+        content="That cat needs a gold chain with the way he's sitting",
+        user_id=15,
+        post_id=2
+    )
+    db.session.add(comments_dict['15'])
+
+    # ----------------------- POST 3 -----------------------#
+    comments_dict['16'] = Comment(
+        content="Me pretending to be in a music video to a sad song",
+        user_id=16,
         post_id=3
     )
-    comment_4 = Comment(
-        content="You should seal that in resin, save it for posterity.",
-        user_id=3,
-        post_id=4
-    )
-    comment_5 = Comment(
-        content="Brings a tear to your eye....",
-        user_id=8,
-        post_id=4
-    )
-    comment_6 = Comment(
-        content="Oño?",
-        user_id=5,
-        post_id=4
-    )
-    comment_7 = Comment(
-        content="She is beauty she is grace",
-        user_id = 10,
-        post_id = 4
-    )
-    comment_8 = Comment(
-        content="She is a calico, not a tortie, due to the red, blackish brown and white patches. Torties lack the white and colors are more blended.\n\n https://parade.com/156291/marilynvossavant/is-this-a-tortoiseshell-cat-or-a-calico/",
-        user_id = 4,
-        post_id = 5
-    )
-    comment_9 = Comment(
-        content="A very cute one!",
-        user_id = 8,
-        post_id = 5
-    )
-    comment_10 = Comment(
-        content="Cuteus Adorablea",
-        user_id = 6,
-        post_id = 5
-    )
-    comment_11 = Comment(
-        content="Cat",
-        user_id = 2,
-        post_id = 5
-    )
-    comment_12 = Comment(
-        content="My results were similar to yours. The doctor said \"Well, you're basically allergic to the outside and... the inside\"",
-        user_id=12,
-        post_id=6
-    )
-    comment_13 = Comment(
-        content="Looks like you’re not allergic to PP, so that’s good.",
-        user_id=3,
-        post_id=6
-    )
-    comment_14 = Comment(
-        content="I had this same crazy reaction. Did allergy shots for a couple years. Moved cities and stopped. Got tested again 5 years later. Turns out I wasn't allergic to all those things, I was allergic to the control substance they mix all the allergens with.",
-        user_id=9,
-        post_id=6
-    )
-    comment_15 = Comment(
-        content="""I had similar results. My allergy was terrible spring through fall and was on Zyrtec 3x a day, steroid eye drops, and nasal spray. I had a HEPA filter in every room, had to shower if I went outside, went through 2 pairs of contacts a day, etc. This was going on since I was a kid.
+    db.session.add(comments_dict['16'])
+    db.session.flush()
 
-        I was hesitant to try the shots but decided on it since I worked across the hall from an allergy center. 6 mos into it I had no allergy symptoms and medication free. It's been 2 years now and still doing good. Stuff I didn't think about like driving with the windows down and not carrying allergy meds everywhere (oral and eye drops) has been nice.
+    comments_dict['17'] = Comment(
+        content="For some reason when I saw this picture I had Dido's song Thank You play in my head.",
+        user_id=17,
+        post_id=3,
+        parent_id=comments_dict['16'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['17'])
+    db.session.flush()  # Assigns an ID to comment '17'
 
-        The schedule and cost is a huge deterrent. It was weekly for the first 6 weeks.""",
-        user_id=2,
-        post_id=6
-    )
-    comment_16 = Comment(
-        content="The one performance review trick companies don't want you to know",
-        user_id=11,
-        post_id=7
-    )
-    comment_17 = Comment(
-        content="You don't remove the time out... You lower it, then you can easily improve it again later.",
-        user_id=5,
-        post_id=7
-    )
-    comment_18 = Comment(
-        content="It is always good to build in timeouts. That way you can always increase the performance easily at a later stage",
-        user_id=6,
-        post_id=7
-    )
-    comment_19 = Comment(
-        content="I’ve heard this exact same joke on here at least 25 times",
-        user_id=2,
-        post_id=7
-    )
-    comment_20 = Comment(
-        content="""My physician friend said that in all of her career, the worst is when a teenage girl is dying in agony over a week, regretting her decision, with her family all there watching her die, and there's nothing that can be done to prevent it.
-
-        But, as you say, OP, much of the time there's just permanent damage, not death. She said that's hard to see, too.""",
-        user_id = 7,
-        post_id = 8
-    )
-    comment_21 = Comment(
-        content="I can definitely attest to this. Fucking awful experience and now I’ve got the liver of a lifelong alcoholic 🙃",
-        user_id = 10,
-        post_id = 8
-    )
-    comment_22 = Comment(
-        content="""This and insulin OD.
-
-        If you survive insulin OD but were hypolgycaemic for long enough to cause brain damage, you are left as "alive" as a vegetable.""",
-        user_id = 9,
-        post_id = 8
-    )
-    comment_23 = Comment(
-        content="I was annoyed about the increased packaging my antidepressants came in, until I read that it had a similar effect in preventing purposeful overdoses. Seems like such a simple solution, especially if there's a way to compost/recycle the extra packaging!",
-        user_id = 11,
-        post_id = 8
-    )
-    comment_24 = Comment(
-        content="She doesn’t want to listen to your thoughts or problems. She is only concerned about herself.",
-        user_id = 4,
-        post_id = 9
-    )
-    comment_25 = Comment(
-        content="When the problems mysteriously dissappear when she's not around.",
-        user_id = 6,
-        post_id = 9
-    )
-    comment_26 = Comment(
-        content="Cries every time you mention an issue on her end, and then the conversation only gets resolved when YOU apologize — leading to no actual change",
-        user_id = 12,
-        post_id = 9
-    )
-    comment_27 = Comment(
-        content="Everyone is a problem or at fault except her.",
-        user_id = 1,
-        post_id = 9
-    )
-    comment_28 = Comment(
-        content="If everyone she meets is doing something that pisses her off, she might be the problem.",
-        user_id = 11,
-        post_id = 9
-    )
-    comment_29 = Comment(
-        content=""""I hate drama" - another way of saying that she thrives on drama
-
-        "I can't wait to show this to My Followers On Instagram" - incapable to live the moment, 24/7 validation needed
-
-        "I am not like the other girls" - this sentence usually means some serious fucked up shit
-
-        "All of my exes turned out to be idiots" - there was one thing in common between all of your exes, yourself""",
-        user_id = 2,
-        post_id = 9
-    )
-    comment_30 = Comment(
-        content="\"All my exes were crazy\"",
-        user_id = 8,
-        post_id = 9
-    )
-    comment_31 = Comment(
-        content="\"I can't be friends with women\" has never worked out well for me.",
-        user_id = 7,
-        post_id = 9
-    )
-    comment_32 = Comment(
-        content="Man I think your cats Spanish",
-        user_id = 9,
-        post_id = 10
-    )
-    comment_33 = Comment(
-        content="Maine Coon",
-        user_id = 1,
-        post_id = 10
-    )
-    comment_34 = Comment(
-        content="What an example of waste, that raccoon could’ve been shipped in a much smaller box..",
-        user_id = 11,
-        post_id = 10
-    )
-    comment_35 = Comment(
-        content="Blind people ride in cars sometimes.",
-        user_id=5,
-        post_id=15
-    )
-    comment_36=Comment(
-        content="Well I’m sure as hell not going to read the entire menu out to my blind buddy.",
-        user_id=6,
-        post_id=15
-    )
-    comment_37 = Comment(
-        content="Yknow in case you have a blind passenger",
-        user_id=7,
-        post_id=15
-    )
-    comment_38 = Comment(
-        content="Ice... use lots of ice.",
-        user_id=8,
-        post_id=14
-    )
-    comment_39 = Comment(
-        content="Some women buy their men cookies after a vasectomy. Mine bought me gauze that STUCK TO MY STITCHES. No amount of soaking got it unstuck either. I basically ripped my stitches out trying to get it off. So much pain.",
-        user_id=9,
-        post_id=14
-    )
-    comment_40 = Comment(
-        content="Yikes announced on the same day as the contraceptive pill for men that works.",
-        user_id=10,
-        post_id=14
-    )
-    comment_41 = Comment(
-        content="This post is peak Ribbit.",
-        user_id=11,
-        post_id=14
-    )
-    comment_42=Comment(
-        content="Unlabeled liquid containers, no lids on the cotton/gauze, used(?) rectal thermometer on the countertop. Sneaky kitty hiding in the sink.",
-        user_id=12,
-        post_id=15
-    )
-    comment_43=Comment(
-        content="Sharps should not be ‘disposed’ in the sink",
-        user_id=2,
-        post_id=15
-    )
-    comment_44 = Comment(
-        content="""Saw absolutely nothing. Went to the comments to see what the OSHA violations were, hoping to learn something I didn't already know.
-
-Top comment said "Stealth 100." I did not read further, and angrily scrolled back up to find what I missed. Took me WAY too long. I now sympathize with all the NPCs I've killed as a Kajiit stealth archer.""",
-        user_id=2,
-        post_id=15
-    )
-    comment_45 = Comment(
-        content="""I went to a security talk on this from github.
-GitHub have a system where they will search through every bit of public code uploaded, then they have patten detection to find api keys/security tokens and they can match them to say Google, Slack, AWS, in your case OpenAI. Then github will send the found keys to the relevant organization through a batch process, then the organization will see if its real, disable it and let the customer know they stuffed up.
-
-They build the system with Slack I think, to stop slack having to scrape GitHub constantly looking for leaked API keys in public code.""",
-        user_id=12,
-        post_id=16
-    )
-    comment_46 = Comment(
-        content="Does anyone else feel a bit weary trusting their code to a third party, such as github? Wouldn't it be more secure to run on-premise GitLab self hosted solution, and use their CI/CD pipelines to publish to the cloud?",
-        user_id=11,
-        post_id=16
-    )
-    comment_47=Comment(
-        content="If their bots can find the key, so have thousands of others.",
-        user_id=10,
-        post_id=16
-    )
-    comment_48=Comment(
-        content="I usually use copy and paste",
-        user_id=9,
-        post_id=17
-    )
-    comment_49=Comment(
-        content="All you need to do is copy the code, copy the license file and any copyright information. That's it. You must include the copyright and license information for the code used. You are otherwise free to do whatever you please including use the code commercially.",
-        user_id=8,
-        post_id=17
-    )
-    comment_50=Comment(
-        content="@lurkinislife - Alright but where do I put the license file?",
-        user_id=3,
-        post_id=17
-    )
-    comment_51=Comment(
-        content="Hippity hoppity your code is now my property",
-        user_id=2,
-        post_id=17
-    )
-    comment_52=Comment(
-        content="Love it, but as others have said - you need to look out for yourself here - they can use this against you and make things even worse",
-        user_id=5,
-        post_id=18
-    )
-    comment_53=Comment(
-        content="""This is dangerous op, you could get sued.
-
-If a 500 error screen pops up, however, it's not your fault and they will need to contact you.
-
-You know, from time to time a permission may get reset, or run out of storage capacity because an unnecessary debug log level you forgot to drop, or a database host was changed by the hosting company, or whatever issue that lead to a 500.
-
-Explicitly doing this is dangerous.""",
-        user_id=7,
-        post_id=18
-    )
-    comment_54=Comment(
-        content="A week isn’t that long, some companies process all their invoices once a month for example, this seems far too extreme for a week",
-        user_id=8,
-        post_id=18
-    )
-    comment_55=Comment(
-        content="Expect a lawsuit. A week?! Let's maybe slow our roll here yeah?",
-        user_id=3,
-        post_id=18
-    )
-
-    post19_comment1=Comment(
-        content="We had a similar scare with our 8 year old cat. We found a lump on her shoulder and freaked out. We took her to vet in the height of covid and couldn’t go in with her. When they brought her out to the car they told us she was fine, she just has fat shoulders! Anyway she’s on a diet now lol",
-        user_id=21,
-        post_id=19
-    )
-    post19_comment2=Comment(
-        content="""So, our "fat" cat Rosie got sick during lockdowns in UAE. We lived in a remote city that truly locked down. No vet within 250km. No leaving town, except for emergencies. Rosie was sick, losing weight, vomiting all of the time (anytime she ate or drank water). Luckily, after a few days of the serious concern setting in my wife and I were able to get a 12 hour pass to leave and come back for a "Dental emergency", which we actually went to the appointment.
-
-Rosie had surgery. She had swallowed a rubber piece to a kids toy. It was blocking her stomach. We had to leave her at the vet for a bit, since we had to leave. We had the dentist office give us a followup appointment and state that it was medically required, to get another pass.
-
-The vet said we were lucky that she had been slightly overweight, a skinnier kitty would not have had the reserves to last as long as she had to wait.""",
-        user_id=24,
-        post_id=19
-    )
-    post19_comment3=Comment(
-        content="Look at her little face. That's a cat who knows she's just fat and is 100% fine with it.",
-        user_id=29,
-        post_id=19
-    )
-    post19_comment4=Comment(
-        content="As someone who’s cat won over FIP, Richard is sending good vibes and munchies!",
-        user_id=34,
-        post_id=19
-    )
-    post19_comment5=Comment(
-        content="I lost a kitten to FIP, I’m so glad you don’t have to go through that. Thank god it’s only a little chubs 😂",
-        user_id=35,
-        post_id=19
-    )
-
-    post20_comment1=Comment(
-        content="OC credit to Faris <a href='https://www.instagram.com/sirfaristhevoid/?igshid=YmMyMTA2M2Y%3D' target='_blank'>@sirfaristhevoid</a>.",
-        user_id=24,
-        post_id=20
-    )
-    post20_comment2=Comment(
-        content="This is so adorable <3",
-        user_id=49,
-        post_id=20
-    )
-    post20_comment3=Comment(
-        content="Which one’s Faris and which one’s squishy again?",
-        user_id=4,
-        post_id=20
-    )
-    post20_comment4=Comment(
-        content="What kind of edibles did he get into",
-        user_id=9,
-        post_id=20
-    )
-
-    post21_comment1=Comment(
-        content="\"Fuck your historical documents. Pet me! WITH YOUR EYES!\" *bites*",
-        user_id=35,
-        post_id=21
-    )
-    post21_comment2=Comment(
-        content="Cats have no chill and I'm all about it. 😼",
-        user_id=10,
-        post_id=21
-    )
-    post21_comment3=Comment(
-        content="""Weird thought but like maybe out of frustration people connected them to the devil and witche's because they were mischievous, and it just got blown out of proportion at some point.
-
-I know I say my cat is Satan sometimes because she's an asshole....""",
-        user_id=21,
-        post_id=21
-    )
-
-    post22_comment1=Comment(
-        content="Plot twist, he’s only renting Goosebumps books.",
-        user_id=3,
-        post_id=22
-    )
-    post22_comment2=Comment(
-        content="This should not be as funny to me as it is",
-        user_id=28,
-        post_id=22
-    )
-    post22_comment3=Comment(
-        content="So this is how megamind came to be",
-        user_id=38,
-        post_id=22
-    )
-    post22_comment4=Comment(
-        content="I want to know how the story ends",
-        user_id=47,
-        post_id=22
-    )
-    post22_comment5=Comment(
-        content="Imagine what he could accomplish if he used his powers for good",
-        user_id=5,
-        post_id=22
-    )
-    post22_comment6=Comment(
-        content="""/s the librarian is making a killing renting out books, and would pretend not to notice if he came in the next day looking like sloth from the goonies. /s
-
-Rent seems like the wrong word here.""",
-        user_id=27,
-        post_id=22
-    )
-
-    post23_comment1=Comment(
-        content="""Back in the day it was normal for parents to leave their kids in the car while they went into stores, gas station bathrooms, etc. We were always told, “Don’t touch the lighter!”
-
-So of course the first thing we did was push in the lighter then wave it around and pretend we were lighting a cigarette. Ahhhhh…..youth.""",
-        user_id=50,
-        post_id=23
-    )
-    post23_comment2=Comment(
-        content="Oh yeah I burned the shit out of my finger when I was a kid once. Never again.",
-        user_id=13,
-        post_id=23
-    )
-
-    post24_comment1=Comment(
-        content="It’s worth reading this all the way through. This guy has suffered for his work and we have all benefitted from it.",
-        user_id=2,
-        post_id=24
-    )
-    post24_comment2=Comment(
-        content="This poor guy can't catch a fucking break. Been following his story since years ago, I remember when I first saw core-js in my vue template and decided to do some research on him. He probably is the sole reason why the modern web even exists. I don't think we would have seen all this breakout of libraries and frameworks if his contributions to backwards compatibility wouldn't exist",
-        user_id=7,
-        post_id=24
-    )
-    post24_comment3=Comment(
-        content="He needs to send that write up to each of the top 1000 companies using his work. Everything aside, damn this guy is a rockstar. Any company would be lucky to have him on their team. He should be getting job offers left and right.",
+    comments_dict['18'] = Comment(
+        content="Honestly it fits.",
         user_id=16,
-        post_id=24
+        post_id=3,
+        parent_id=comments_dict['17'].id  # Correct parent reference
     )
-    post24_comment4=Comment(
-        content="People are dickhead assholes. Jesus Christ this guy suffered so much writing open source code. Fuck people",
+    db.session.add(comments_dict['18'])
+
+    comments_dict['19'] = Comment(
+        content="This made my day.",
         user_id=18,
-        post_id=24
+        post_id=3
     )
+    db.session.add(comments_dict['19'])
+    db.session.flush()
 
-    post25_comment1=Comment(
-        content="""i feel like slack is the device by which most of these things actually occur
-
-managers needing to check up on you several times a day because they don't have any of their own work to do and because 30 years of "fuck off i'm busy" hasn't gotten them fired yet
-
-i actually have managers underneath of me doing this to me and i have no idea how to communicate to them to stop
-
-every time i tell them "you reach out too much" they try phrasing it more artificially politely, adding to the mess the greasy slime of insincerity, instead of just stopping
-
-three times yesterday, by someone i've been telling literally every day "i do not know when this is in, stop asking me to make external promises"
-
-so he just carbon copies other people and keeps asking, like he thinks ramping up the pressure and manufacturing shame will help. i don't know what to do
-
-fundamentally, it's because we're still pretending that managers exist for a reason
-
-burnout is the direct result of having the extra workload of making your manager feel like they exist for a business reason""",
-        user_id=47,
-        post_id=25
-    )
-    post25_comment2=Comment(
-        content="""This reminds me when I was working in a company that wanted us to polish software for months. It was ready in December, but we had to make sure every little things sparks and released 8 months later.
-
-Then I was a part-time consultant to a startup company, they said "we're releasing next Monday, here we have another Jira board for bugs". And sure, bugs were reported, but the software was released and used and devs were happier fixing bugs found in a live app rather than ones found internally.""",
-        user_id=2,
-        post_id=25
-    )
-    post25_comment3=Comment(
-        content="Drives me nuts these are never articles. I don’t want to listen to a podcast.",
-        user_id=46,
-        post_id=25
-    )
-    post25_comment4=Comment(
-        content="I agree with the sentiment, I want to add a caveat. If you ship things every week, great. If you have a deadline every week, this will lead to burnout even quicker than a deadline every 6 months.",
-        user_id=43,
-        post_id=25
-    )
-    post25_comment5=Comment(
-        content="Burn out is not getting a break... or not getting even some down time to learn something new",
-        user_id=41,
-        post_id=25
-    )
-    post25_comment6=Comment(
-        content="So much truth to this, when I first started at this company we were shipping every 3-6 months it was super stressful. Now we're shipping multiple times a week and even at my worst I haven't felt nearly as stressed as I did years ago. I still get burned out from time to time but that's usually because I've become a bit of workaholic as I get to code for like 95% of my days and I tend lose track of time, but usually a couple extra days off tacked onto a weekend is enough for me to recharge.",
-        user_id=36,
-        post_id=25
-    )
-
-    post26_comment1=Comment(
-        content="All about the TypeScript tbh. I could never go back",
-        user_id=2,
-        post_id=26
-    )
-    post26_comment2=Comment(
-        content="I started an IT undergrad this year and they told us after their 5 year review, they changed what programming language is taught in first from C++ to JS. So im really glad for that :).",
-        user_id=27,
-        post_id=26
-    )
-
-    post27_comment1=Comment(
-        content="""I work with vanilla Js.
-
-My environment is sealed. And any library has to go through an intensive inspection to be approved for use. 4 weeks to be able to link bootstrap cdn. Imagine a JS library.
-
-I asked to use date.js and never got an answer.""",
-        user_id=16,
-        post_id=27
-    )
-
-    post28_comment1=Comment(
-        content="There is a special kind of awe that you feel when you see those things by yourself.",
-        user_id=10,
-        post_id=28
-    )
-    post28_comment2=Comment(
-        content="Mesmerizing!! Thanks for sharing your amazing photo!",
-        user_id=30,
-        post_id=28
-    )
-    post28_comment3=Comment(
-        content="Holy shit that's cool",
-        user_id=35,
-        post_id=28
-    )
-    post28_comment4=Comment(
-        content="Does it look even better in person? Because that’s beautiful",
-        user_id=49,
-        post_id=28
-    )
-
-    post29_comment1=Comment(
-        content="\"write what you know\" really paid off there.",
-        user_id=5,
-        post_id=29
-    )
-    post29_comment2=Comment(
-        content="""Imagine being a rapper in the late 80's, rapping in the style that was popular at the time and being successful at it, and then NWA drops Straight Outta Compton and changes the entire landscape, completely changing what many people expected and wanted to hear in rap music.
-
-It had to be jarring for a lot of artists.""",
-        user_id=21,
-        post_id=29
-    )
-    post29_comment3=Comment(
-        content="I remember when this song came out. I was a high school senior and had a part time job in a tool supply warehouse. A guy I worked with didn't quite know the words and would walk around singing \"I'm gonna knock you out! Mama's gonna knock you out!\" It still works.",
-        user_id=30,
-        post_id=29
-    )
-
-    post30_comment1=Comment(
-        content="Are those spoons hanging?",
-        user_id=2,
-        post_id=30
-    )
-    post30_comment2=Comment(
-        content="now THIS is cool. these kind of pictures are why i joined.",
-        user_id=3,
-        post_id=30
-    )
-    post30_comment3=Comment(
-        content="I absolutely LOVE this. Looks like hanging polaroids on the wall has been a staple college students decor for over 100 years. I totally love that.",
-        user_id=8,
-        post_id=30
-    )
-    post30_comment4=Comment(
-        content="The bed screams back pain treated with a cocaine tonic",
-        user_id=9,
-        post_id=30
-    )
-
-    post31_comment1=Comment(
-        content="The team even posted a farewell tweet as if they were sad to see him go. Truly scummy behaviour from them.",
+    comments_dict['20'] = Comment(
+        content="Glad it brought a smile to your face! I think it's competing with all of us in the art of deep thinking",
         user_id=4,
-        post_id=31
+        post_id=3,
+        parent_id=comments_dict['19'].id
     )
-    post31_comment2=Comment(
-        content="""What's the team? Time to name and shame.
+    db.session.add(comments_dict['20'])
 
-edit: it's <a href='https://esports.gg/news/dota-2/ninjaboogie-kicked-from-team-smg-talks-about-the-messy-situation/' target='_blank'>Team SMG</a>.""",
-        user_id=7,
-        post_id=31
+    # ----------------------- POST 4 -----------------------#
+    comments_dict['21'] = Comment(
+        content="That'll get you <em>maybe</em> to round two, but without a parent or sibling who died of cancer before they got a chance to see you perform on stage, you have 0 chance of making the finals.",
+        user_id=19,
+        post_id=4
     )
-    post31_comment3=Comment(
-        content="A leave of absence would have been more appropriate",
-        user_id=12,
-        post_id=31
-    )
-    post31_comment4=Comment(
-        content="This is not just mildly infuriating",
-        user_id=18,
-        post_id=31
-    )
+    db.session.add(comments_dict['21'])
+    db.session.flush()  # Assigns an ID to comment '21'
 
-    post32_comment1=Comment(
-        content="Thanks OP I needed this 💙 Currently watching Wes. Bos’ advanced React and GraphQL and feeling a bit lost 😓",
+    comments_dict['22'] = Comment(
+        content="Ao are you saying I can win if I make some sacrifices?",
+        user_id=20,
+        post_id=4,
+        parent_id=comments_dict['21'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['22'])
+    db.session.flush()
+
+    comments_dict['23'] = Comment(
+        content="<em>The hardest choices require the strongest wills.</em>",
+        user_id=19,
+        post_id=4,
+        parent_id=comments_dict['22'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['23'])
+
+    comments_dict['24'] = Comment(
+        content="She’s not just a mom, she’s a PR mastermind—AGT’s next season opener!",
         user_id=21,
-        post_id=32
+        post_id=4
     )
-    post32_comment2=Comment(
-        content="Thanks OP! You goddamn wholesome bastard, you.",
+    db.session.add(comments_dict['24'])
+
+    comments_dict['25'] = Comment(
+        content="Perfect match - you: comedy, her: drama",
+        user_id=22,
+        post_id=4
+    )
+    db.session.add(comments_dict['25'])
+
+    comments_dict['26'] = Comment(
+        content="""I don't know if AGT has these, but if the American version is anything like Britain's Got Talent, the surest way to get to the finals is to be in a choir of disabled children and sing either "A Million Dreams" or "This Is Me" from The Greatest Showman.
+
+No matter how objectively shitty they sound, that's an immediate golden buzzer from a teary-eyed judge during the audition round.""",
+        user_id=23,
+        post_id=4
+    )
+    db.session.add(comments_dict['26'])
+    db.session.flush()  # Assigns an ID to comment '26'
+
+    comments_dict['27'] = Comment(
+        content="Seeing the final round is always so surreal to me because im like what happened to the sick contortionist i was rooting for?",
+        user_id=24,
+        post_id=4,
+        parent_id=comments_dict['26'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['27'])
+
+    comments_dict['28'] = Comment(
+        content="RuPaul's Drag Race has a similar problem, with production pushing contestants to share sob stories they might not want on TV. Contestants joke about strategically sharing trauma to get production to keep them around, and Alexis Mateo is revered by the fandom for straight up inventing a KIA/MIA boyfriend for a 4th of July episode.",
+        user_id=25,
+        post_id=4,
+        parent_id=comments_dict['26'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['28'])
+
+    comments_dict['29'] = Comment(
+        content="Cute, but I really really dislike that everything has to be a sob story. Just swing from those monkey bars or sing/ dance your heart out, that's what I want to see",
         user_id=26,
-        post_id=32
+        post_id=4
     )
-    post32_comment3=Comment(
-        content="""That's one thing I am loving about getting into a developer career. We're just people who love making cool stuff and are willing to continually learn. The whole profession is built on learning and practicing and experimenting. I love that. It's a cool space to be in.
+    db.session.add(comments_dict['29'])
 
-I'm learning React and JavaScript at the same time (my path was more on the design side of things for a long time, and I'm just now taking the deep dive beyond HTML/CSS, and my company uses React), so it's been quite a ride.. sometimes I feel like I'll go insane trying to figure out how some of this stuff works. But it's always encouraging to know that so many people have been on the same journey, and so many people are helpful and willing to share their knowledge and ideas.
+    # ----------------------- POST 5 -----------------------#
+    comments_dict['30'] = Comment(
+        content="My grandpa was daydoo. He’d come home from work and see me every day, immediately saying \"hey dude!\" I would try, but the best I could do was \"daydoo!\"",
+        user_id=27,
+        post_id=5
+    )
+    db.session.add(comments_dict['30'])
+    db.session.flush()  # Assigns an ID to comment '30'
 
-It's the only job where I feel like I'm actually getting paid to learn and have fun.. and by fun, I mean puzzling over a labyrinthine problem for hours until the lightbulb goes off and your work comes to life. It's like being in college, except I get paid to be there.""",
+    comments_dict['31'] = Comment(
+        content="""I really hope you were like 43 years old when this happened.
+
+You had no speech impediments, you just wanted to fuck with him.""",
+        user_id=28,
+        post_id=5,
+        parent_id=comments_dict['30'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['31'])
+    db.session.flush()  # Assigns an ID to comment '31'
+
+    comments_dict['32'] = Comment(
+        content="Hahaha that would have been hilarious, but sadly I was like 2-3 years old",
+        user_id=27,
+        post_id=5,
+        parent_id=comments_dict['31'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['32'])
+
+    comments_dict['33'] = Comment(
+        content="This is so cute",
+        user_id=29,
+        post_id=5,
+        parent_id=comments_dict['31'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['33'])
+
+    comments_dict['34'] = Comment(
+        content="My toddler calls me \"Dadoo\" sometimes and I wondered why, but I say \"hey dude!\" to him all the time so this all makes sense now lmao",
+        user_id=30,
+        post_id=5,
+        parent_id=comments_dict['30'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['34'])
+
+    comments_dict['35'] = Comment(
+        content="""Pretty much what happened to my mum with our first child.
+
+She wanted to be Grandma, he couldn't say Grandma, so now's she's Bana.
+
+Eldest is now 6 and we have another kid who's 3 with whom she is also Bana.
+
+Sorry mum!""",
+        user_id=31,
+        post_id=5
+    )
+    db.session.add(comments_dict['35'])
+    db.session.flush()  # Assigns an ID to comment '35'
+
+    comments_dict['36'] = Comment(
+        content="I'm buba and I love it. I have none of those letters in my name.",
+        user_id=32,
+        post_id=5,
+        parent_id=comments_dict['35'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['36'])
+    db.session.flush()
+
+    comments_dict['37'] = Comment(
+        content="My grandpa was named Maurice. He got called Dippy",
         user_id=33,
-        post_id=32
+        post_id=5,
+        parent_id=comments_dict['36'].id  # Correct parent reference
     )
-    post32_comment4=Comment(
-        content="Much needed. Haha",
+    db.session.add(comments_dict['37'])
+
+    # ----------------------- POST 6 -----------------------#
+    comments_dict['38'] = Comment(
+        content="Well. Where was it?!?",
+        user_id=34,
+        post_id=1
+    )
+    db.session.add(comments_dict['38'])
+    db.session.flush()
+
+    comments_dict['39'] = Comment(
+        content="Right!?!? Cliffhanger!!!",
+        user_id=35,
+        post_id=1,
+        parent_id=comments_dict['38'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['39'])
+    db.session.flush()  # Assigns an ID to comment '39'
+
+    comments_dict['40'] = Comment(
+        content="LOST",
+        user_id=36,
+        post_id=1,
+        parent_id=comments_dict['39'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['40'])
+
+    comments_dict['41'] = Comment(
+        content="Not behind her bed",
         user_id=37,
-        post_id=32
+        post_id=1,
+        parent_id=comments_dict['39'].id  # Correct parent reference
     )
-    post32_comment5=Comment(
-        content="""This. You're in an industry that is bound to give you an imposter complex. I'm a lead engineer for a critical organisation. My knowledge pool is vast and wide. I've been developing applications, websites and games for two decades now. And yet there isn't a day that I don't encounter something that will make me feel like a compete n00b.
+    db.session.add(comments_dict['41'])
+    db.session.flush()
 
-To any starter; it's not you. Don't be discouraged. Don't see it as not knowing but as a chance to learn. You will encounter snob seniors, ignore them. Make learning things your enjoyment. Make teaching your enjoyment. Sooner or later there will come a day when you are starting to remove things from you linked in profile because you know too much and you will realise that you have become a senior.""",
+    comments_dict['42'] = Comment(
+        content="I can almost guarantee it is not there.",
+        user_id=38,
+        post_id=1,
+        parent_id=comments_dict['41'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['42'])
+
+    comments_dict['43'] = Comment(
+        content="4 year old me was specifically told not to tell my Father we got him a hammer for Christmas. As he was opening his gift I blurted out, \"It's not a hammer.\"",
+        user_id=39,
+        post_id=1
+    )
+    db.session.add(comments_dict['43'])
+
+    comments_dict['44'] = Comment(
+        content="Holy shit! A post that's actually oddly specific. Well, it's actually suspiciously specific, but hey, you guys got close.",
+        user_id=40,
+        post_id=1
+    )
+    db.session.add(comments_dict['44'])
+
+    # ----------------------- POST 7 -----------------------#
+    comments_dict['45'] = Comment(
+        content="What chance of success do they have? I'm all for it, should've been done a long while ago.",
+        user_id=41,
+        post_id=7
+    )
+    db.session.add(comments_dict['45'])
+    db.session.flush()
+
+    comments_dict['46'] = Comment(
+        content="It's a valid argument, but it's up against a giant pile of money. Money has been winning lately.",
         user_id=42,
-        post_id=32
+        post_id=7,
+        parent_id=comments_dict['45'].id  # Correct parent reference
     )
+    db.session.add(comments_dict['46'])
 
-    post33_comment1=Comment(
-        content="I've been working with the <a href='https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world' target='_blank'>Flask Mega Tutorial</a>, it's been great so far. I didn't see it in your list, but it has been a great tool for me.",
-        user_id=13,
-        post_id=33
-    )
-    post33_comment2=Comment(
-        content="""Looks like you gathered up quite a few!
-
-Which ones are worth people's time, though? Such a list would be more valuable if it recommended the best tutorials. The summaries read like cut-and-paste advertisements for the tutorials, rather than evaluations. Combined with all the referral links, it makes you seem biased.
-
-Thanks for collecting these. Even better would be a curated list of recommendations.""",
-        user_id=11,
-        post_id=33
-    )
-    post33_comment3=Comment(
-        content="Thanks for sharing this 😻",
-        user_id=25,
-        post_id=33
-    )
-    post33_comment4=Comment(
-        content="Solid effort! Have bookmarked that. Well done.",
-        user_id=39,
-        post_id=33
-    )
-
-    post34_comment1=Comment(
-        content="I’ll be honest, I was expecting a Cease and Desist from Amazon.",
-        user_id=10,
-        post_id=34
-    )
-    post34_comment2=Comment(
-        content="""Very cool. That’s the beauty of sharing. You never know who or how it will help someone, but you post it anyway because that’s just being awesome.
-
-Thanks for sharing.""",
-        user_id=20,
-        post_id=34
-    )
-    post34_comment3=Comment(
-        content="I feel that. It must be gratifying to do some good in the world, even if by accident. To diminish another's suffering just a little bit. RIP Mrs. Roberts.",
-        user_id=30,
-        post_id=34
-    )
-    post34_comment4=Comment(
-        content="reminds me of that black mirror episode",
-        user_id=40,
-        post_id=34
-    )
-    post34_comment5=Comment(
-        content="Beautiful! :-)",
-        user_id=50,
-        post_id=34
-    )
-
-    post35_comment1=Comment(
-        content="Victories are victories, regardless of size. Enjoy the feeling! :)",
-        user_id=5,
-        post_id=35
-    )
-    post35_comment2=Comment(
-        content="""Now you’ll be trying to automate everything… and you won’t be satisfied with “good enough”. Plodding through hours upon hours trying to optimize some inconsequential details when just doing it manually would save you all the time that you spent working on it already.
-
-Oh the humanity!
-
-But also, congrats. It does make you feel like you have an “insiders” view of things once you build your first program.""",
-        user_id=15,
-        post_id=35
-    )
-    post35_comment3=Comment(
-        content="THIS is why we do what we do. :-)",
-        user_id=25,
-        post_id=35
-    )
-    post35_comment4=Comment(
-        content="Congrats. Soon you’ll be fiddling with classes and objects and building APIs, maybe training some models along the way. Good luck on your long learning journey ahead.",
-        user_id=35,
-        post_id=35
-    )
-    post35_comment5=Comment(
-        content="No matter how simple the script, the first time it runs and executes properly, it's magical.",
-        user_id=45,
-        post_id=35
-    )
-
-    post36_comment1=Comment(
-        content="ipads can be exchanged for goods and services",
-        user_id=48,
-        post_id=36
-    )
-    post36_comment2=Comment(
-        content="300 iPads can buy many grills",
-        user_id=46,
-        post_id=36
-    )
-    post36_comment3=Comment(
-        content="Nobody thinks about the guy expecting 300 iPads but got a grill instead.",
-        user_id=44,
-        post_id=36
-    )
-
-    post37_comment1=Comment(
-        content="Now if you can find one that illustrates sort bc I can’t fully understand that for the life of me",
-        user_id=17,
-        post_id=37
-    )
-    post37_comment2=Comment(
-        content="That's awesome thanks for sharing.",
-        user_id=27,
-        post_id=37
-    )
-
-    post38_comment1=Comment(
-        content="Yes it’s self adhesive and opens up and pops back together ",
-        user_id=45,
-        post_id=38
-    )
-    post38_comment2=Comment(
-        content="Glad you could find a creative outlet.",
-        user_id=31,
-        post_id=38
-    )
-    post38_comment3=Comment(
-        content="I work for Coca Cola in Atlanta and I am considered an \"essential employee\" and work was gonna be slow today so I took a vacation day.",
-        user_id=45,
-        post_id=38
-    )
-    post38_comment4=Comment(
-        content="Sexy",
-        user_id=29,
-        post_id=38
-    )
-    post38_comment5=Comment(
-        content="OP totally gettin' laid for this.",
-        user_id=49,
-        post_id=38
-    )
-    post38_comment6=Comment(
-        content="""And then there's me:
-
-*Stuffs all the cables behind cabinet where no one can see*""",
-        user_id=2,
-        post_id=38
-    )
-
-    post39_comment1=Comment(
-        content="Also they sew bells into their clothes so parents can work around without have the need of keeping the eyes on them all the time",
-        user_id=3,
-        post_id=39
-    )
-    post39_comment2=Comment(
-        content="Weebles wobble but they don’t fall down.",
-        user_id=13,
-        post_id=39
-    )
-    post39_comment3=Comment(
-        content="That not a baby, that's a walking marshmallow.",
-        user_id=23,
-        post_id=39
-    )
-
-    post40_comment1=Comment(
-        content="\"And not everyone understands what they say to me\" Truer words could not be spoken",
-        user_id=15,
-        post_id=40
-    )
-    post40_comment2=Comment(
-        content="Please tell us you gave him a good review 🙂",
-        user_id=19,
-        post_id=40
-    )
-    post40_comment3=Comment(
-        content="Oleksii is a certified homie in my book",
-        user_id=18,
-        post_id=40
-    )
-    post40_comment4=Comment(
-        content="Seems like a nice dude, I hope my fellow Americans show him our good side",
-        user_id=23,
-        post_id=40
-    )
-
-    post41_comment1=Comment(
-        content="""\"It would have been nice if you'd mentioned you were entertaining other offers 😠 😡 😤 \"
-
-Also them
-
-\"Sorry we hired someone else, we hired them 3 months ago and decided not to tell you even tho we told you we'd be in touch, get fucked\"""",
-        user_id=18,
-        post_id=41
-    )
-    post41_comment2=Comment(
-        content="""I just interviewed with a fairly large bank. The first tech screen was 4 leetcode questions that had to be completed in 70 mins.
-
-I don't practice leetcode but I've been in a number of companies and worn many hats. This bank wasn't making anything revolutionary and their questions were harder than the ones I got from Microsoft.""",
-        user_id=28,
-        post_id=41
-    )
-
-    post42_comment1=Comment(
-        content="""I took CS50 in Fall 2017 with no prior coding experience. I’m not sure what all’s changed since then, but it was a nice intro into programming and I highly encourage anyone who is interested to check it out.
-
-They spent a lot of time initially teaching the basics in C (I.e. lists, dicts, for loops, while, functions, pointers, recursion, stack/heap, etc.) and then gave other languages about a week or two so we could see the syntax and usage differences - I remember we looked at Python, HTML and CSS, SQL, and maybe JavaScript (but I can’t recall). Like another commenter mentioned, a lot of the homework projects were strange, seemingly useless tasks, but I think it was more about getting students familiar with aspects of programming. There was also a final project that you basically had free reign on (for example- I chose to make a game app using Swift).
-
-I will say that CS50 is a nice introduction to the basics of programming (which does ultimately make it ‘easier’ to learn other languages), but you’ll also need to put in solo effort and keep learning and practicing afterwards to fully understand and be comfortable with whatever language.
-
-I worked as a Computational Neuroscientist from 2018-2022, and now work as a Data Analyst. CS50 was a great stepping stone that pushed me towards these careers, but I definitely had to put in the hours to make my skills useful to employers.""",
-        user_id=7,
-        post_id=42
-    )
-    post42_comment2=Comment(
-        content="This is awesome, thanks for sharing. I'm starting the free Data Analytics and Python programming courses now!",
-        user_id=27,
-        post_id=42
-    )
-
-    post43_comment1=Comment(
-        content="Wearing the same dress twice",
-        user_id=38,
-        post_id=43
-    )
-    post43_comment2=Comment(
-        content="Those new eyebrows. Don't know what they're called",
-        user_id=29,
-        post_id=43
-    )
-    post43_comment3=Comment(
-        content="Seeing you without make up, when my girlfriend came round my house without her make up on for the first time I was so happy, like unbelievably happy, to me it meant that she was comfortable around me and that really meant the world to me",
-        user_id=19,
-        post_id=43
-    )
-    post43_comment4=Comment(
-        content="""Whatever the newest beauty trend that women are supposedly supposed to look up to.
-
-I've never once thought, \"Damn, she’s cute but her thighs are touching. Guess I'm not attracted to her anymore.\"""",
-        user_id=9,
-        post_id=43
-    )
-
-    post44_comment1=Comment(
-        content="What I especially love about this letter is that Tolkien is like, \"thank god people are buying this thing,\" which I find super endearing",
-        user_id=38,
-        post_id=44
-    )
-    post44_comment2=Comment(
-        content="But what is it that your dad had been doing ?!",
-        user_id=11,
-        post_id=44
-    )
-    post44_comment3=Comment(
-        content="Fuck that signature is sick",
-        user_id=3,
-        post_id=44
-    )
-
-    post45_comment1=Comment(
-        content="""I like to play with backdrop-filter: hue-rotate() in small increments when using a frosted glass effect. It can add a nice color effect coming through the "glass".
-
-Also, Firefox for the love of God please add support.""",
-        user_id=18,
-        post_id=45
-    )
-    post45_comment2=Comment(
-        content="Love a backdrop filter, but be aware that it's still not universal. https://caniuse.com/?search=backdrop-filter",
-        user_id=29,
-        post_id=45
-    )
-
-    post46_comment1=Comment(
-        content="It was a bitch to live through but the end result is beautiful! One of my favorite places to hang out.",
-        user_id=20,
-        post_id=46
-    )
-    post46_comment2=Comment(
-        content="Philly did this with I-95 back in 1978-79 as it parallels the Delaware waterfront. The problem is they didn’t build anything functional over it so the highway simply divided the waterfront from the rest of the city.",
-        user_id=10,
-        post_id=46
-    )
-
-    post47_comment1=Comment(
-        content="\"I see you have tests, they passed, we’re good.\" ☑️",
-        user_id=11,
-        post_id=47
-    )
-    post47_comment2=Comment(
-        content="Ask me to do 500 lines and I'll tell you to come back with many smaller PRs",
-        user_id=33,
-        post_id=47
-    )
-    post47_comment3=Comment(
-        content="""Well, yeah.
-
-If you hand me a massive code base I’m just going to test it to see if it works and if it does say \"looks good to me\"""",
-        user_id=44,
-        post_id=47
-    )
-
-    post48_comment1=Comment(
-        content="""That's something about the argument I really don't understand. My literal dream in life since I was 10 ish was to have a kid of my own. I waited till I had a good partner, good paying job, and finances in order. It's still really, really hard to be a parent and I WANTED the kid.
-
-So now you're going to tell me that someone in a bad situation or that isn't ready having a kid is a good thing? All that will do is put more strain on the system and make a kid that is full of trauma and issues. And recent news in the US shows what that creates...""",
-        user_id=4,
-        post_id=48
-    )
-    post48_comment2=Comment(
-        content="""Girl: I want to adopt a baby. I have to admit, I'm a sixteen year old high school student with no income, and my 'partner' is an abusive uncle.
-
-Florida: Are you fucking insane?! You're totally irresponsible! You're going to ruin the lives of everyone involved! Absolutely no way would we approve an adoption like that.
-
-Girl: JK. I was raped, and I want an abortion.
-
-Florida: It's a CHILD, not a CHOICE, slut.""",
-        user_id=14,
-        post_id=48
-    )
-
-    post49_comment1=Comment(
-        content="""They are aimed at different audiences
-
-I like the content in PCC, but ATBS is still the best thing to hand a frustrated desk jockey with limited time who wants to make their lives easier
-
-It pays immediate practical dividends, which is the most important thing for keeping those sorts of people motivated and learning""",
-        user_id=3,
-        post_id=49
-    )
-    post49_comment2=Comment(
-        content="""PCC is for programming/software engineering
-
-ATBS is for automating things
-
-Each has their own audience""",
-        user_id=13,
-        post_id=49
-    )
-
-    post50_comment1=Comment(
-        content="Very cool. Would be cool to dockerize, just for funzies.",
-        user_id=8,
-        post_id=50
-    )
-    post50_comment2=Comment(
-        content="""**OP**
-Source: https://github.com/spashii/music-server
-
-It's the first web app that I built on my own after learning flask. Open to any remarks! (stars too)""",
-        user_id=2,
-        post_id=50
-    )
-    post50_comment3=Comment(
-        content="Really like your project directory setup, did you refer any tutorial where they followed such a style?",
+    comments_dict['47'] = Comment(
+        content="Just rename it KotlinScript.",
         user_id=43,
-        post_id=50
+        post_id=7
     )
+    db.session.add(comments_dict['47'])
+    db.session.flush()
 
-    post51_comment1=Comment(
-        content="Looks fantastic. I would vote for this redesign any day",
-        user_id=16,
-        post_id=51
+    comments_dict['48'] = Comment(
+        content="Jetbrains would like a word.",
+        user_id=44,
+        post_id=7,
+        parent_id=comments_dict['47'].id  # Correct parent reference
     )
-    post51_comment2=Comment(
-        content="Looks really cool! You should submit it to the PSF :)",
-        user_id=26,
-        post_id=51
-    )
-    post51_comment3=Comment(
-        content="I like flat designs more, but your design is cool!",
-        user_id=36,
-        post_id=51
-    )
-    post51_comment4=Comment(
-        content="Changing the logo is really gonna mess up my tattoo choice",
-        user_id=46,
-        post_id=51
-    )
+    db.session.add(comments_dict['48'])
 
-    post52_comment1=Comment(
-        content="""\"You have 60 minutes to write this test."
-
-Hands in test in 59 minutes
-
-"You have to understand, that's a last minute effort, so I'm going to deduct points for being too late.\"""",
-        user_id=10,
-        post_id=52
-    )
-    post52_comment2=Comment(
-        content="Report it. You're paying too much for that bull.",
-        user_id=2,
-        post_id=52
-    )
-    post52_comment3=Comment(
-        content="What is the point of a due date then? Go to the next in line of power. Don’t let it go",
-        user_id=30,
-        post_id=52
-    )
-    post52_comment4=Comment(
-        content="This is completely unacceptable. You need to fight this.",
-        user_id=40,
-        post_id=52
-    )
-
-    post53_comment1=Comment(
-        content="""I used to work on ATM’s back in the late 80’s, and there was one trick we knew of that was fixed pretty damn quick once the banks found out.
-
-The customer puts their card in and asks for, say, $100. The machine spits out ten $10 notes and holds them in the dispenser. If they’re not taken within about 15 seconds, the machine pulls the notes back in to a hopper and cancels the transaction.
-
-Because of the way the sensors worked, you had 15 seconds to carefully pull $80 from the middle of the stack, leaving the two outer notes in place. If it worked, you got $80 and the transaction was cancelled.
-
-To clarify: you can’t do this any more, these were very early ATM’s and this “bug” doesn’t exist in modern machines.""",
-        user_id=15,
-        post_id=53
-    )
-    post53_comment2=Comment(
-        content="Turned himself in to the bank before they had even caught on, they called the cops who then took so long to do anything the anxiety drove him to do a media tour confessing to everything that finally got him arrested. The judge and prosecutor had no idea what he'd actually done and after pleading guilty he ended up getting one year in jail with eighteen months community service.",
-        user_id=25,
-        post_id=53
-    )
-    post53_comment3=Comment(
-        content="My sister had a similar story, she went abroad to study (south korea) and when she came back, the university had to transfer her security deposit back to her european account. They transfered the money. Then did it again. Then contacted my sister to know how they could send the money to her because their 2 first tries did not succeed. She just said not to worry about it. About a year later, that korean bank went bankrupt.",
-        user_id=35,
-        post_id=53
-    )
-    post53_comment4=Comment(
-        content=""""Being able to make your account balance move up into the millions by the stroke of a key was a very addictive thing; I felt like a caveman discovering fire"
-
-basically all you need to know""",
+    comments_dict['49'] = Comment(
+        content="Let's get MySQL back too. Adobe can keep Acrobat, but websites need to stop saying to download it to view pdfs.",
         user_id=45,
-        post_id=53
+        post_id=7
     )
-    post53_comment5=Comment(
-        content="The article didn’t say anything about him pay it back, so I’m guessing he didn’t have to?",
-        user_id=50,
-        post_id=53
-    )
-    post53_comment6=Comment(
-        content="Reminds me of a story: in the mid-80s, I missed a train back to London (to make flight back to USA) and had to spend the night in the Gare Saint-Lazare in Paris. I did happen to have exactly enough money in pocket to fly to London next morning, but not enough for the train fare to the airport. Only reason I ever made it back is… there was a public phone in the train station that gave you back twice as much money as you put in it, for any call you made. Otherwise, I'd probably still be there.",
-        user_id=8,
-        post_id=53
-    )
+    db.session.add(comments_dict['49'])
 
-    post54_comment1=Comment(
-        content="Really really helpful...",
-        user_id=6,
-        post_id=54
+    comments_dict['50'] = Comment(
+        content="This sounds an awul lot like poking the bear. Hopefully the slumbering beast doesn't wake and decide that all JS runtimes need to pay licensing costs back to the owners of the trademark. Or worse, users of the runtime.",
+        user_id=46,
+        post_id=7
     )
-    post54_comment2=Comment(
-        content="""That's nice ^^
-thanks for creating such cool open source project collection
+    db.session.add(comments_dict['50'])
 
-great work ;D""",
-        user_id=16,
-        post_id=54
-    )
-    post54_comment3=Comment(
-        content="This is cool, thanks",
-        user_id=21,
-        post_id=54
-    )
+    # ----------------------- POST 8 -----------------------#
+    comments_dict['51'] = Comment(
+        content="""Beginners don't know what they don't know :)
 
-    post55_comment1=Comment(
-        content="""My stepdad is very frugal but he loves coffee, especially cappuccinos. He recently retired and so won’t have the free fancy office coffee machines available to him anymore and was going to stick with Nescafé coffee at home.
+I have mentored folks for about a decade. The common concepts beginners struggle with are:
 
-My brother overheard him lamenting the loss of his fancy coffee to my mom, so we bought an expensive coffee machine for Father’s Day that will allow him to make his own cappuccinos at home. I’ve also set up a monthly gourmet coffee subscription for him so he can enjoy the variety/quality he would have had at the office too.
+Passing by value vs passing by reference.
 
-He has always insisted we return any gifts we try to buy him (which of course we never do) but this time, for the first time in 19 years, he was so happy he simply said, “Thank you, I love it.”
+What a reference is. How references are accessed in JavaScript. Garbage collection.
 
-Still riding that high.""",
-        user_id=9,
-        post_id=55
-    )
-    post55_comment2=Comment(
-        content="Got my pops a card and a ton of chocolate he likes. Then we went to harbor freight.",
-        user_id=18,
-        post_id=55
-    )
-    post55_comment3=Comment(
-        content="""My kids are with me. That's all I care about. Wish they hadnt been assholes all weekend but it is what it is.
+Mutability vs immutability
 
-Got a text from their mom. Probably the nicest, most touching thing she has ever said to me.""",
-        user_id=27,
-        post_id=55
-    )
-    post55_comment4=Comment(
-        content="I always take my dad out for dinner and get him something he'd like. This year he got a charcoal grill he wanted. (I'm a woman) I always make a big deal about birthdays, holidays and special occasions. I call my ex husband to wish him a happy father's day and give my kids money to pick something out for him. He sends me flowers on mothers day.",
-        user_id=34,
-        post_id=55
-    )
+The event loop and asynchronous operations
 
-    post56_comment1=Comment(
-        content="""I remember working at Five Guys and a $100 went missing on one of the tills during my shift.
+Prototypal inheritance
 
-The store manager demanded we all equally paid out of pocket or our next check to cover the cost of that missing bill.
+Basic client/server architecture
 
-Well there was that giant poster thing of all the workers rights and I found one thing saying how that’s very illegal.
+Basic HTTP and network concepts
 
-The store manager had one of those angry shocked reaction after that and didn’t make us pay… however he treated me like garbage the rest of the time I was there.""",
-        user_id=6,
-        post_id=56
-    )
-    post56_comment2=Comment(
-        content="""From article, and it's for the USA:
+Headers
 
-"What is wage theft?
-
-Wage theft is the failure to pay workers the full wages to which they are legally entitled. Wage theft can take many forms, including but not limited to:
-
-Minimum wage violations: Paying workers less than the legal minimum wage
-
-Overtime violations: Failing to pay nonexempt employees time-and-a-half for hours worked in excess of 40 hours per week
-
-Off-the-clock violations: Asking employees to work off-the-clock before or after their shifts
-
-Meal break violations: Denying workers their legal meal breaks
-
-Pay stub and illegal deductions: Taking illegal deductions from wages or not distributing pay stubs
-
-Tipped minimum wage violations: Confiscating tips from workers or failing to pay tipped workers the difference between their tips and the legal minimum wage
-
-Employee misclassification violations: Misclassifying employees as independent contractors to pay a wage lower than the legal minimum
-
-For more information about the different forms of wage theft, see Bernhardt et al. (2009) or Gordon et al. (2012).""",
-        user_id=12,
-        post_id=56
-    )
-    post56_comment3=Comment(
-        content="This is very helpful info. Unfortunately, many minimum wage workers are in a perfect position to be exploited because of lack of education and other factors.",
-        user_id=18,
-        post_id=56
-    )
-
-    post57_comment1=Comment(
-        content="""In a published article following the contest, Malcomson provided others with her 10 rules for beauty. Listed briefly, they are:
-
-Rise early.
-Eat a hearty breakfast.
-Exercise.
-No alcohol.
-Smoking is detrimental.
-Get outdoors.
-Eat a light lunch.
-Eat a satisfying dinner.
-Early to bed.
-Sleep""",
-        user_id=14,
-        post_id=57
-    )
-    post57_comment2=Comment(
-        content="That hair should win a prize",
-        user_id=24,
-        post_id=57
-    )
-    post57_comment3=Comment(
-        content="I was like \"what's up with her legs....ohhhh, those are stockings.\" Lol",
-        user_id=34,
-        post_id=57
-    )
-    post57_comment4=Comment(
-        content="Those shoes though. I need a pair",
-        user_id=44,
-        post_id=57
-    )
-    post57_comment5=Comment(
-        content="Ruth Malcolmson April 16th 1906-May 25th 1988. It's interesting looking at a picture of someone so young from the future, we can basically look up their entire life. We know everything that will happen in their future. The same will happen to us. Our pictures we take today will be some old photo someday and someone can just look us up and see our future. We're already living in the past for someone in our future.",
-        user_id=49,
-        post_id=57
-    )
-
-    post58_comment1=Comment(
-        content="\"...under the rest\" man and I've been saying it wrong all these years",
-        user_id=5,
-        post_id=58
-    )
-    post58_comment2=Comment(
-        content="I hate being under the rest... You'd best pay them.",
-        user_id=10,
-        post_id=58
-    )
-    post58_comment3=Comment(
-        content="I love how its just the uk government. No specific part of it, but the entirety of the uk government.",
-        user_id=15,
-        post_id=58
-    )
-    post58_comment4=Comment(
-        content="Seems they want to stack it up on top of you, so you'll end up under the rest. No fun",
-        user_id=20,
-        post_id=58
-    )
-    post58_comment5=Comment(
-        content="\"Come and get me. I’m tired of working. I could use the break. 3 hots and a cot, for a few days, sounds pretty good. I’ll be waiting on the front stoop\".",
-        user_id=30,
-        post_id=58
-    )
-    post58_comment6=Comment(
-        content="\"Jokes on you buddy, I work for UK law enforcement. I know your name and location, you will send me 1500 in subway gift cards or you will be the one under the rest. You have 5 minutes to comply.\"",
-        user_id=35,
-        post_id=58
-    )
-
-    post59_comment1=Comment(
-        content="""Hi folks,
-
-I always have trouble remembering how to set up the boilerplate for simple Flask APIs so I wrote up my notes over the years into a concise reference guide. Any feedback, comments, suggestions for improvement, and rants are always welcome.
-
-It focuses entirely on Flask and doesn't go into many extensions or any specific functionality (e.g. auth). It also doesn't cover data modeling and database setup. I try to keep things as simple as possible and avoid too much "magic"; I find it helps me reading code I've written months or years back.
-
-Anyway, here's hoping someone finds it useful! If you like the style of writing, do let me know if there are specific topics you would like to see covered :-)""",
-        user_id=26,
-        post_id=59
-    )
-    post59_comment2=Comment(
-        content="""Really cool, Flask is so underrated, I found it really straightforward to create a simple app
-
-You definitely need to make a guide to structure large Flask apps""",
-        user_id=22,
-        post_id=59
-    )
-    post59_comment3=Comment(
-        content="Yeah ,the flask structure has always fucked me . Flask is flexible but the initial configuaration has a lot of options and always startles me to get started. Nice one but what about registering extensions and managing environments.",
-        user_id=24,
-        post_id=59
-    )
-    post59_comment4=Comment(
-        content="This is very well done one of the most \"down to earth\" collections I’ve seen on flask. I’m going to keep this for a reference. Thank you for sharing this.",
-        user_id=33,
-        post_id=59
-    )
-
-    post60_comment1=Comment(
-        content="""Great documentary on YouTube about a tribe that was contacted in the 80s for the first time. Although they had never been in contact with a modern society, they knew there was other people out side their group, knew about planes and vehicles (at least that they existed).
-
-Previously they just didn't want to meet anyone new as they had met other groups in the past and it ended in fighting. For the most part the group still continued their way of life after making contact.""",
-        user_id=34,
-        post_id=60
-    )
-    post60_comment2=Comment(
-        content="So if they're uncontacted, then what do they think of this flying machine taking their picture?",
-        user_id=36,
-        post_id=60
-    )
-    post60_comment3=Comment(
-        content="""Source
-
-https://www.survivalinternational.org/news/11503""",
-        user_id=35,
-        post_id=60
-    )
-    post60_comment4=Comment(
-        content="I wonder if UFOs take pictures of us in this manner?",
-        user_id=41,
-        post_id=60
-    )
-
-    post61_comment1=Comment(
-        content="""I love how this thread has caused all of us Gen X'rs start to have a break down 😂
-
-Your Grammy was punk as shit, and I bet deep down, she still is.
-
-Punk will never die""",
-        user_id=48,
-        post_id=61
-    )
-    post61_comment2=Comment(
-        content="I just realized in the future we'll have a bunch of scene kids/emo's who will show their grandkids meticulously angled pictures consisting of 90% hair",
-        user_id=44,
-        post_id=61
-    )
-    post61_comment3=Comment(
-        content="The sass drips from her. Love her style. Is she still like this?",
-        user_id=41,
-        post_id=61
-    )
-
-    post62_comment1=Comment(
-        content="Nice Btw u forgot the worst of them all == and =",
-        user_id=19,
-        post_id=62
-    )
-    post62_comment2=Comment(
-        content="<a href='https://rubberduckdebugging.com/' target='_blank'>Rubber Duck Debugging</a>",
-        user_id=12,
-        post_id=62
-    )
-    post62_comment3=Comment(
-        content="Great sheet! If you don't mind me asking, what did you make it with?",
-        user_id=5,
-        post_id=62
-    )
-
-    post63_comment1=Comment(
-        content="Honestly, the town should get together are run that entire department out of town. Could you imagine getting pulled over for speeding by one of these fuckheads in a week or so? Can you imagine seeing these cowards walking around town with their BS cop swagger and you know what cowards they really are?",
-        user_id=2,
-        post_id=63
-    )
-    post63_comment2=Comment(
-        content="They should be named and shamed. Outed on every form of media. Also be charged with neglect of duty.",
-        user_id=7,
-        post_id=63
-    )
-    post63_comment3=Comment(
-        content="So what exactly is a cops job?",
-        user_id=15,
-        post_id=63
-    )
-
-    post64_comment1=Comment(
-        content="And I still got bullied for wearing them cause it was dead giveaway that your parents were broke. Elementary and middle schoolers are ruthless.",
-        user_id=12,
-        post_id=64
-    )
-    post64_comment2=Comment(
-        content="I had a pair of those shoes. They weren't great, but they weren't terrible either.",
-        user_id=17,
-        post_id=64
-    )
-    post64_comment3=Comment(
-        content="How much were the Reeboks?",
-        user_id=27,
-        post_id=64
-    )
-    post64_comment4=Comment(
-        content="Forwent. I like that word. Form now on, I shall forgo saying \"ain't did\" and start saying \"forwent\".",
-        user_id=50,
-        post_id=64
-    )
-
-    post65_comment1=Comment(
-        content="Love custom hooks. Writing a custom hook is almost like a mental exercise. Tricky but rewarding .",
-        user_id=48,
-        post_id=65
-    )
-    post65_comment2=Comment(
-        content="**OP** Sorry if this is widely known about, I only just came across it. So far there's a bunch of super useful hooks I've already started using. Figured I'd let others know about it too.",
-        user_id=38,
-        post_id=65
-    )
-    post65_comment3=Comment(
-        content="So many awesome useful hooks really, this should get some sort of React \"Nobel prize\"",
-        user_id=28,
-        post_id=65
-    )
-
-    post66_comment1=Comment(
-        content="""Good thought. I would also recommend looking at free APIs and specifically those available for services you use, such as Spotify, Google, etc. Look at the endpoints and all the ways you can manipulate the services programmatically.
-
-From an automation perspective, once you learn the basics of calling APIs, you can do so much.""",
-        user_id=40,
-        post_id=66
-    )
-    post66_comment2=Comment(
-        content="Here’s another good idea but this is a bit of a process. Name.com or some website has a brand name and logo generator. I just pick something out at random and try to build off of it. I try think of what kind of company would this name and brand suit, what kind of products would these fictional companies put out and i get a lot of ideas from this.",
-        user_id=31,
-        post_id=66
-    )
-    post66_comment3=Comment(
-        content="I recently realized I could start automating a lot of my work. I just want to mention that. If you have an office job you're probably working with a lot of emails and spreadsheets.",
-        user_id=22,
-        post_id=66
-    )
-    post66_comment4=Comment(
-        content="So basically do a freshman's homework lol",
-        user_id=13,
-        post_id=66
-    )
-
-    post67_comment1=Comment(
-        content="""I once got insecure about my Python knowledge (more of a SQL cat) and my boss said "you know Python". I said "no I know how to Google when something doesn't work". He said "see, you know Python".
-
-Took me a while to realize it but he was right. If you know the basic rules of the game and you know the outcome you want, with enough determination you can Google your way through basically anything.
-
-You'll end up with 40 tabs open, some of which are duplicates you have open from 2 or more distinct SO threads, but you can do it if you try!""",
-        user_id=9,
-        post_id=67
-    )
-    post67_comment2=Comment(
-        content="One of my teachers wanted to teach us how to google properly. In the end, we taught her how to google properly.",
-        user_id=29,
-        post_id=67
-    )
-    post67_comment3=Comment(
-        content="To be fair, there are way too many people that do not know how to google shit. I have seen people write shit like \"I need to buy a new screw for a cabinet I have where do I buy it?\" and then get mad when google doesn't magically understand what they mean.",
-        user_id=39,
-        post_id=67
-    )
-
-    post68_comment1=Comment(
-        content="Oh no, not again.",
+More broadly, beginners hyper focus on syntax, libraries and frameworks because "they want to get a job" and massively underinvest in DS&A, which immediately filters them out from the jobs they are seeking. Even in frontend, you need a good grasp on how to use data structures in JS to solve common problems (traversing a DOM tree, building a cache, general data munging).""",
         user_id=47,
-        post_id=68
+        post_id=8
     )
-    post68_comment2=Comment(
-        content="""[].reduce((acc, curr) => acc + curr)
+    db.session.add(comments_dict['51'])
 
-Requires a nonempty array. So, it's not the most general formula.""",
-        user_id=6,
-        post_id=68
-    )
-    post68_comment3=Comment(
-        content="That's a photograph. Can't copy code from it.",
-        user_id=16,
-        post_id=68
-    )
-    post68_comment4=Comment(
-        content="missing forEach which is really commonly used",
-        user_id=36,
-        post_id=68
-    )
-
-    post69_comment1=Comment(
-        content="Does she not have a small trash can by her bed?!!",
-        user_id=8,
-        post_id=69
-    )
-    post69_comment2=Comment(
-        content="Are you dating a girl named Melanie? Hope she's doing alright. I still find those things in my house 10 years later",
-        user_id=18,
-        post_id=69
-    )
-    post69_comment3=Comment(
-        content="People like this blow my mind. Like where do you think it’s gonna go? Clean that shit up.",
+    comments_dict['52'] = Comment(
+        content="They probably don't know it (and I guess it's not strictly JavaScript), but they're really confused about CORS.",
         user_id=48,
-        post_id=69
+        post_id=8
     )
+    db.session.add(comments_dict['52'])
+    db.session.flush()
 
-    post70_comment1=Comment(
-        content="I drew a perfect circle in paint to compare. <a href='https://i.imgur.com/P0IfYsH.jpg' target='_blank'>Pretty close.</a>",
-        user_id=2,
-        post_id=70
-    )
-
-    post71_comment1 = Comment(
-        content="My wife and I take turns tucking the dog in each night… then 10 seconds later he kicks the blanket off and nests anyway. Still a fun tradition we both love.",
-        user_id=50,
-        post_id=31
-    )
-    post71_comment2 = Comment(
-        content="""Every night before bed I tell the dog I hope he had a good day.
-
-I also tell him 'be a good boy, have a good day. Love you & I'll see you after work' every morning as I leave. My toddler has now started saying 'love you bubba!' to him as we leave.""",
-        user_id=20,
-        post_id=31
-    )
-    post71_comment3=Comment(
-        content="Sounds like good dad stuff.",
-        user_id=5,
-        post_id=31
-    )
-    post71_comment4=Comment(
-        content="Thazza goodboy",
-        user_id=16,
-        post_id=31
-    )
-    post71_comment5=Comment(
-        content="My veterinarian says it's the big, tough-looking guys who break down the most when their dog dies. She tells of grungy biker dudes weeping as they carry their sick little fluff-ball into the vet's office.",
-        user_id=29,
-        post_id=31
-    )
-
-    post72_comment1=Comment(
-        content="Little kids are generous with their positive- and sometimes negative - take on things. They are saying they enjoy your company",
-        user_id=2,
-        post_id=32
-    )
-    post72_comment2=Comment(
-        content="Not only generous, but also sincere! I adore kids because of this. They're so honest and pure and full of life! Helps me remember the joy of living whenever I get to spend the day with my youngest sister.",
+    comments_dict['53'] = Comment(
+        content="CORS isn't a JavaScript concept, but an HTTP one",
         user_id=9,
-        post_id=32
+        post_id=8,
+        parent_id=comments_dict['52'].id  # Correct parent reference
     )
-    post72_comment3=Comment(
-        content="""I've experienced this! I volunteered for a week with a young elementary school class and had so many compliments from the little kids. I'm not even particularly pretty or anything, it'd be for something as simple as wearing a blouse with butterflies on it lol
+    db.session.add(comments_dict['53'])
 
-Thing is, I don't remember kids doing this back when I was in school. We all seemed like brats 😂 maybe it's just a super casual thing for kids to do without even thinking about it!""",
-        user_id=22,
-        post_id=32
+    comments_dict['54'] = Comment(
+        content="Structuring a project",
+        user_id=49,
+        post_id=8
     )
-    post72_comment4=Comment(
-        content="Kids will just say what they’re thinking, good or bad. It’s so refreshing. But sometimes it can be brutal lol. Glad you’re getting the good comments!",
-        user_id=23,
-        post_id=32
-    )
+    db.session.add(comments_dict['54'])
 
-    post73_comment1=Comment(
-        content="""The structure seems fine, however for me with the experience I have with coding. I wouldn't even bother with the login form. For more experienced developers I would recommend giving them some sample code that has some logical errors (not syntax based) and see if the candidate can offer suggestions of improvement. You could also phrase so that you're a junior developer and see how they give feedback.
-
-Some of the better interviews I've had were ones where writing code wasn't a requirement. The interpersonal skills that relate to others and feedback feel more important for a team than knowing how to build a login form or SMS/2FA workflow. Or at the very least have the candidate draw out what the flow process is for that type of interaction at a high level.""",
-        user_id=23,
-        post_id=73
+    comments_dict['55'] = Comment(
+        content="Any videos to learn it?",
+        user_id=50,
+        post_id=8
     )
-    post73_comment2=Comment(
-        content="One thing that I’ve started to do is showing real code from our codebase and having the candidate walk me through what it’s doing. I find that reading code is a skill that isn’t selected for enough. I start with simple or very readable code and then progress towards complicated or spaghetti code. I occasionally ask how they might do it differently but I don’t make them rewrite code or essentially do “work” for us. I do drill down on their answers though, asking them to get specific.",
-        user_id=11,
-        post_id=73
-    )
-    post73_comment3=Comment(
-        content="""I work in a non-agile environment, in which I have zero control over.
+    db.session.add(comments_dict['55'])
+    db.session.flush()  # Assigns an ID to comment '55'
 
-Seems silly that an environment outside of a devs control counts against them as a red flag.""",
-        user_id=19,
-        post_id=73
+    comments_dict['56'] = Comment(
+        content="Not yet, I might adapt it to video form as well",
+        user_id=9,
+        post_id=8,
+        parent_id=comments_dict['55'].id  # Correct parent reference
     )
+    db.session.add(comments_dict['56'])
 
-    post74_comment1=Comment(
-        content="Okay but really you should be using Apache or Gunicorn in the Dockerfile IMO... at least make it challenging",
-        user_id=20,
-        post_id=74
+    # ----------------------- POST 9 -----------------------#
+    comments_dict['57'] = Comment(
+        content="""This is cool. Migrated my own website. No noticeable changes.
+
+The only thing now blocking Remix (RRv7) from getting RSC is React v19 release.
+
+Would be crazy if it dropped before the holiday season.""",
+        user_id=1,
+        post_id=9
     )
-    post74_comment2=Comment(
-        content="""This is cute.
+    db.session.add(comments_dict['57'])
+    db.session.flush()
 
-But woah, gcc and musl? I hope they’re not planning on shipping this as a production container, this is fine for an intermediate build container but needs to get cleaned up for prod.
+    comments_dict['58'] = Comment(
+        content="""I'm reading the migration docs and it doesn't seem like there's anything which affects my project - pretty nice for a major version bump I guess.
 
-Tidy up those build dependencies folks""",
-        user_id=43,
-        post_id=74
-    )
-    post74_comment3=Comment(
-        content="I understand this was a bad example but I'd definitely use this tool to explain code",
-        user_id=40,
-        post_id=74
-    )
-
-    post75_comment1=Comment(
-        content="Cameroon gave $3.77 to the USA in relief aid during the Great Depression",
+Was it that easy for you?""",
         user_id=2,
-        post_id=33
+        post_id=9,
+        parent_id=comments_dict['57'].id  # Correct parent reference
     )
-    post75_comment2=Comment(
-        content="""It was a Maasai village, and they didn’t just try, they went ahead and did it. (To be fully accurate, they did give the cows to the US ambassador and they were accepted, but they didn’t get shipped to the US.)
+    db.session.add(comments_dict['58'])
+    db.session.flush()  # Assigns an ID to comment '58'
 
-I remember when that happened and honestly I took a lot of comfort in it. It was a very meaningful and valuable gift in that culture and it was nice to know they cared.""",
+    comments_dict['59'] = Comment(
+        content="Literally didn't change anything in the codebase.",
+        user_id=1,
+        post_id=9,
+        parent_id=comments_dict['58'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['59'])
+
+    comments_dict['60'] = Comment(
+        content="The moment Remix gets RSC I’m gonna have to strongly consider switching us over from Next. I’m not on the anti-vercel bandwagon, I just don’t have high hopes in Next being basically the sole remaining Webpack-based framework",
+        user_id=3,
+        post_id=9,
+        parent_id=comments_dict['58'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['60'])
+
+    comments_dict['61'] = Comment(
+        content="""Congratulations to the Vite team on another awesome release! The environment API is a game-changer for framework authors. It will make it much easier to implement runtime dependent features like RSCs.
+
+Vite is so powerful yet so easy to use. There's a reason that the entire ecosystem (except Next.js lol) has gravitated towards it to the point that it's basically the industry standard. Vue is great, but I think Vite will be Evan You's lasting legacy.""",
+        user_id=4,
+        post_id=9
+    )
+    db.session.add(comments_dict['61'])
+    db.session.flush()
+
+    comments_dict['62'] = Comment(
+        content="Industry standard? What industry are you talking about my bro? The industry of fairy land?",
+        user_id=5,
+        post_id=9,
+        parent_id=comments_dict['61'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['62'])
+
+    # ----------------------- POST 10 -----------------------#
+    comments_dict['63'] = Comment(
+        content="""Perfect fluffy round paws.
+
+*fixed it for you""",
+        user_id=6,
+        post_id=10
+    )
+    db.session.add(comments_dict['63'])
+    db.session.flush()
+
+    comments_dict['64'] = Comment(
+        content="Purrfect fluffy round paws. *fixed it for you",
+        user_id=7,
+        post_id=10,
+        parent_id=comments_dict['63'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['64'])
+    db.session.flush()
+
+    comments_dict['65'] = Comment(
+        content="I call em Proper Paws. Idk if I fixed it or not, but I contributed :P",
+        user_id=8,
+        post_id=10,
+        parent_id=comments_dict['64'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['65'])
+    db.session.flush()  # Assigns an ID to comment '65'
+
+    comments_dict['66'] = Comment(
+        content="Like cotton balls",
+        user_id=9,
+        post_id=10
+    )
+    db.session.add(comments_dict['66'])
+    db.session.flush()
+
+    comments_dict['67'] = Comment(
+        content="But with retractable needles.",
+        user_id=10,
+        post_id=10,
+        parent_id=comments_dict['66'].id  # Correct parent reference
+    )
+    db.session.add(comments_dict['67'])
+
+    comments_dict['68'] = Comment(
+        content="Oh my god…. i am mesmerized 🤩🫶",
+        user_id=12,
+        post_id=10
+    )
+    db.session.add(comments_dict['68'])
+
+    # ----------------------- POST 11 -----------------------#
+    comments_dict['69'] = Comment(
+        content="what cat?",
         user_id=13,
-        post_id=33
+        post_id=11
     )
-    post75_comment3=Comment(
-        content="Every year Nova Scotia sends the city of Boston a big Christmas tree - always thought that was so wholesome! They started doing this over 100 years ago when Boston sent medical aid and supplies to Nova Scotia after a huge explosion in the Halifax Harbor.",
+    db.session.add(comments_dict['69'])
+    db.session.flush()
+
+    comments_dict['70'] = Comment(
+        content="Doesn't look like anything to me",
+        user_id=14,
+        post_id=11,
+        parent_id=comments_dict['69'].id
+    )
+    db.session.add(comments_dict['70'])
+
+    comments_dict['71'] = Comment(
+        content="After a ton of editing, yes.",
         user_id=15,
-        post_id=33
+        post_id=11
     )
+    db.session.add(comments_dict['71'])
+    db.session.flush()
 
+    comments_dict['72'] = Comment(
+        content="I might blend into the wood if you color shift and saturate me this much.",
+        user_id=16,
+        post_id=11,
+        parent_id=comments_dict['71'].id
+    )
+    db.session.add(comments_dict['72'])
 
-    db.session.add(comment_1)
-    db.session.add(comment_2)
-    db.session.add(comment_3)
-    db.session.add(comment_4)
-    db.session.add(comment_5)
-    db.session.add(comment_6)
-    db.session.add(comment_7)
-    db.session.add(comment_8)
-    db.session.add(comment_9)
-    db.session.add(comment_10)
-    db.session.add(comment_11)
-    db.session.add(comment_12)
-    db.session.add(comment_13)
-    db.session.add(comment_14)
-    db.session.add(comment_15)
-    db.session.add(comment_16)
-    db.session.add(comment_17)
-    db.session.add(comment_18)
-    db.session.add(comment_19)
-    db.session.add(comment_20)
-    db.session.add(comment_21)
-    db.session.add(comment_22)
-    db.session.add(comment_23)
-    db.session.add(comment_24)
-    db.session.add(comment_25)
-    db.session.add(comment_26)
-    db.session.add(comment_27)
-    db.session.add(comment_28)
-    db.session.add(comment_29)
-    db.session.add(comment_30)
-    db.session.add(comment_31)
-    db.session.add(comment_32)
-    db.session.add(comment_33)
-    db.session.add(comment_34)
-    db.session.add(comment_35)
-    db.session.add(comment_36)
-    db.session.add(comment_37)
-    db.session.add(comment_38)
-    db.session.add(comment_39)
-    db.session.add(comment_40)
-    db.session.add(comment_41)
-    db.session.add(comment_42)
-    db.session.add(comment_43)
-    db.session.add(comment_44)
-    db.session.add(comment_45)
-    db.session.add(comment_46)
-    db.session.add(comment_47)
-    db.session.add(comment_48)
-    db.session.add(comment_49)
-    db.session.add(comment_50)
-    db.session.add(comment_51)
-    db.session.add(comment_52)
-    db.session.add(comment_53)
-    db.session.add(comment_54)
-    db.session.add(comment_55)
-    db.session.add(post19_comment1)
-    db.session.add(post19_comment2)
-    db.session.add(post19_comment3)
-    db.session.add(post19_comment4)
-    db.session.add(post19_comment5)
-    db.session.add(post20_comment1)
-    db.session.add(post20_comment2)
-    db.session.add(post20_comment3)
-    db.session.add(post20_comment4)
-    db.session.add(post21_comment1)
-    db.session.add(post21_comment2)
-    db.session.add(post21_comment3)
-    db.session.add(post22_comment1)
-    db.session.add(post22_comment2)
-    db.session.add(post22_comment3)
-    db.session.add(post22_comment4)
-    db.session.add(post22_comment5)
-    db.session.add(post22_comment6)
-    db.session.add(post23_comment1)
-    db.session.add(post23_comment2)
-    db.session.add(post24_comment1)
-    db.session.add(post24_comment2)
-    db.session.add(post24_comment3)
-    db.session.add(post24_comment4)
-    db.session.add(post25_comment1)
-    db.session.add(post25_comment2)
-    db.session.add(post25_comment3)
-    db.session.add(post25_comment4)
-    db.session.add(post25_comment5)
-    db.session.add(post25_comment6)
-    db.session.add(post26_comment1)
-    db.session.add(post26_comment2)
-    db.session.add(post27_comment1)
-    db.session.add(post28_comment1)
-    db.session.add(post28_comment2)
-    db.session.add(post28_comment3)
-    db.session.add(post28_comment4)
-    db.session.add(post29_comment1)
-    db.session.add(post29_comment2)
-    db.session.add(post29_comment3)
-    db.session.add(post30_comment1)
-    db.session.add(post30_comment2)
-    db.session.add(post30_comment3)
-    db.session.add(post30_comment4)
-    # db.session.add(post31_comment1)
-    # db.session.add(post31_comment2)
-    # db.session.add(post31_comment3)
-    # db.session.add(post31_comment4)
-    # db.session.add(post32_comment1)
-    # db.session.add(post32_comment2)
-    # db.session.add(post32_comment3)
-    # db.session.add(post32_comment4)
-    # db.session.add(post32_comment5)
-    # db.session.add(post33_comment1)
-    # db.session.add(post33_comment2)
-    # db.session.add(post33_comment3)
-    # db.session.add(post33_comment4)
-    # db.session.add(post34_comment1)
-    # db.session.add(post34_comment2)
-    # db.session.add(post34_comment3)
-    # db.session.add(post34_comment4)
-    # db.session.add(post34_comment5)
-    # db.session.add(post35_comment1)
-    # db.session.add(post35_comment2)
-    # db.session.add(post35_comment3)
-    # db.session.add(post35_comment4)
-    # db.session.add(post36_comment1)
-    # db.session.add(post36_comment2)
-    # db.session.add(post36_comment3)
-    # db.session.add(post37_comment1)
-    # db.session.add(post37_comment2)
-    # db.session.add(post38_comment1)
-    # db.session.add(post38_comment2)
-    # db.session.add(post38_comment3)
-    # db.session.add(post38_comment4)
-    # db.session.add(post38_comment5)
-    # db.session.add(post38_comment6)
-    # db.session.add(post39_comment1)
-    # db.session.add(post39_comment2)
-    # db.session.add(post39_comment3)
-    # db.session.add(post40_comment1)
-    # db.session.add(post40_comment2)
-    # db.session.add(post40_comment3)
-    # db.session.add(post40_comment4)
-    # db.session.add(post41_comment1)
-    # db.session.add(post41_comment2)
-    # db.session.add(post42_comment1)
-    # db.session.add(post42_comment2)
-    # db.session.add(post43_comment1)
-    # db.session.add(post43_comment2)
-    # db.session.add(post43_comment3)
-    # db.session.add(post43_comment4)
-    # db.session.add(post44_comment1)
-    # db.session.add(post44_comment2)
-    # db.session.add(post44_comment3)
-    # db.session.add(post45_comment1)
-    # db.session.add(post45_comment2)
-    # db.session.add(post46_comment1)
-    # db.session.add(post46_comment2)
-    # db.session.add(post47_comment1)
-    # db.session.add(post47_comment2)
-    # db.session.add(post47_comment3)
-    # db.session.add(post48_comment1)
-    # db.session.add(post48_comment2)
-    # db.session.add(post49_comment1)
-    # db.session.add(post49_comment2)
-    # db.session.add(post50_comment1)
-    # db.session.add(post50_comment2)
-    # db.session.add(post50_comment3)
-    # db.session.add(post51_comment1)
-    # db.session.add(post51_comment2)
-    # db.session.add(post51_comment3)
-    # db.session.add(post51_comment4)
-    # db.session.add(post52_comment1)
-    # db.session.add(post52_comment2)
-    # db.session.add(post52_comment3)
-    # db.session.add(post52_comment4)
-    # db.session.add(post53_comment1)
-    # db.session.add(post53_comment2)
-    # db.session.add(post53_comment3)
-    # db.session.add(post53_comment4)
-    # db.session.add(post53_comment5)
-    # db.session.add(post53_comment6)
-    # db.session.add(post54_comment1)
-    # db.session.add(post54_comment2)
-    # db.session.add(post54_comment3)
-    # db.session.add(post55_comment1)
-    # db.session.add(post55_comment2)
-    # db.session.add(post55_comment3)
-    # db.session.add(post55_comment4)
-    # db.session.add(post56_comment1)
-    # db.session.add(post56_comment2)
-    # db.session.add(post56_comment3)
-    # db.session.add(post57_comment1)
-    # db.session.add(post57_comment2)
-    # db.session.add(post57_comment3)
-    # db.session.add(post57_comment4)
-    # db.session.add(post57_comment5)
-    # db.session.add(post58_comment1)
-    # db.session.add(post58_comment2)
-    # db.session.add(post58_comment3)
-    # db.session.add(post58_comment4)
-    # db.session.add(post58_comment5)
-    # db.session.add(post58_comment6)
-    # db.session.add(post59_comment1)
-    # db.session.add(post59_comment2)
-    # db.session.add(post59_comment3)
-    # db.session.add(post59_comment4)
-    # db.session.add(post60_comment1)
-    # db.session.add(post60_comment2)
-    # db.session.add(post60_comment3)
-    # db.session.add(post60_comment4)
-    # db.session.add(post61_comment1)
-    # db.session.add(post61_comment2)
-    # db.session.add(post61_comment3)
-    # db.session.add(post62_comment1)
-    # db.session.add(post62_comment2)
-    # db.session.add(post62_comment3)
-    # db.session.add(post63_comment1)
-    # db.session.add(post63_comment2)
-    # db.session.add(post63_comment3)
-    # db.session.add(post64_comment1)
-    # db.session.add(post64_comment2)
-    # db.session.add(post64_comment3)
-    # db.session.add(post64_comment4)
-    # db.session.add(post65_comment1)
-    # db.session.add(post65_comment2)
-    # db.session.add(post65_comment3)
-    # db.session.add(post66_comment1)
-    # db.session.add(post66_comment2)
-    # db.session.add(post66_comment3)
-    # db.session.add(post66_comment4)
-    # db.session.add(post67_comment1)
-    # db.session.add(post67_comment2)
-    # db.session.add(post67_comment3)
-    # db.session.add(post68_comment1)
-    # db.session.add(post68_comment2)
-    # db.session.add(post68_comment3)
-    # db.session.add(post68_comment4)
-    # db.session.add(post69_comment1)
-    # db.session.add(post69_comment2)
-    # db.session.add(post69_comment3)
-    # db.session.add(post70_comment1)
-    db.session.add(post71_comment1)
-    db.session.add(post71_comment2)
-    db.session.add(post71_comment3)
-    db.session.add(post71_comment4)
-    db.session.add(post71_comment5)
-    db.session.add(post72_comment1)
-    db.session.add(post72_comment2)
-    db.session.add(post72_comment3)
-    db.session.add(post72_comment4)
-    # db.session.add(post73_comment1)
-    # db.session.add(post73_comment2)
-    # db.session.add(post73_comment3)
-    # db.session.add(post74_comment1)
-    # db.session.add(post74_comment2)
-    # db.session.add(post74_comment3)
-    db.session.add(post75_comment1)
-    db.session.add(post75_comment2)
-    db.session.add(post75_comment3)
+    comments_dict['73'] = Comment(
+        content="In the original image, the cat is a brown tabby.",
+        user_id=17,
+        post_id=11,
+        parent_id=comments_dict['71'].id
+    )
+    db.session.add(comments_dict['73'])
+
+    comments_dict['74'] = Comment(
+        content="This is ca(t)mouflage.",
+        user_id=18,
+        post_id=11
+    )
+    db.session.add(comments_dict['74'])
+
+    # ----------------------- POST 12 -----------------------#
+    comments_dict['75'] = Comment(
+        content="I like how the feet shake off the sand before getting back into the shoes",
+        user_id=19,
+        post_id=12
+    )
+    db.session.add(comments_dict['75'])
+    db.session.flush()
+
+    comments_dict['76'] = Comment(
+        content="I couldn't comprehend doing that. You are not getting all the sand off. I hate to admit I was kinda triggered by clay feet shaking off nonexistent sand and putting on clay shoes. lol I just avoid sand at all costs",
+        user_id=20,
+        post_id=12,
+        parent_id=comments_dict['75'].id
+    )
+    db.session.add(comments_dict['76'])
+
+    comments_dict['77'] = Comment(
+        content="Honestly, I would compare this to Avatar",
+        user_id=21,
+        post_id=12
+    )
+    db.session.add(comments_dict['77'])
+
+    comments_dict['78'] = Comment(
+        content="8 kg of clay, but how much time did you use?",
+        user_id=22,
+        post_id=12
+    )
+    db.session.add(comments_dict['78'])
+    db.session.flush()
+
+    comments_dict['79'] = Comment(
+        content="We need someone to do the math on the time spent to progress ratio of Ben Wyatt's claymation and then apply it here.",
+        user_id=23,
+        post_id=12,
+        parent_id=comments_dict['78'].id
+    )
+    db.session.add(comments_dict['79'])
+    db.session.flush()
+
+    comments_dict['80'] = Comment(
+        content="STAND IN THE PLACE WHERE YOU L-",
+        user_id=24,
+        post_id=12,
+        parent_id=comments_dict['79'].id
+    )
+    db.session.add(comments_dict['80'])
+    db.session.flush()
+
+    comments_dict['81'] = Comment(
+        content="Oh my god...... That's the whole thing....",
+        user_id=25,
+        post_id=12,
+        parent_id=comments_dict['80'].id
+    )
+    db.session.add(comments_dict['81'])
+
+    # ----------------------- POST 13 -----------------------#
+    comments_dict['82'] = Comment(
+        content="Omgggg she’s so tiny 🥹🥹",
+        user_id=26,
+        post_id=13
+    )
+    db.session.add(comments_dict['82'])
+    db.session.flush()
+
+    comments_dict['83'] = Comment(
+        content="That's because she's under the compressor.",
+        user_id=27,
+        post_id=13,
+        parent_id=comments_dict['82'].id
+    )
+    db.session.add(comments_dict['83'])
+
+    comments_dict['84'] = Comment(
+        content="OMG. You did not exaggerate, OP. 🥹❤️",
+        user_id=28,
+        post_id=13
+    )
+    db.session.add(comments_dict['84'])
+    db.session.flush()
+
+    comments_dict['85'] = Comment(
+        content="My boyfriend sent this to me from his woodshop downstairs and I truly almost fell over when I saw her lol. Had to share.",
+        user_id=12,
+        post_id=13,
+        parent_id=comments_dict['84'].id
+    )
+    db.session.add(comments_dict['85'])
+
+    comments_dict['86'] = Comment(
+        content="The embodiment of 🥺",
+        user_id=29,
+        post_id=13
+    )
+    db.session.add(comments_dict['86'])
+    db.session.flush()
+
+    comments_dict['87'] = Comment(
+        content="💯",
+        user_id=12,
+        post_id=13,
+        parent_id=comments_dict['86'].id
+    )
+    db.session.add(comments_dict['87'])
+
+    # ----------------------- POST 14 -----------------------#
+    comments_dict['88'] = Comment(
+        content="Keeping it?? 🥹",
+        user_id=30,
+        post_id=14
+    )
+    db.session.add(comments_dict['88'])
+    db.session.flush()
+
+    comments_dict['89'] = Comment(
+        content="No but she was adopted :)",
+        user_id=13,
+        post_id=14,
+        parent_id=comments_dict['88'].id
+    )
+    db.session.add(comments_dict['89'])
+
+    comments_dict['90'] = Comment(
+        content="What a cute little kitty 🐈",
+        user_id=31,
+        post_id=14
+    )
+    db.session.add(comments_dict['90'])
+
+    comments_dict['91'] = Comment(
+        content="You were the lucky one to be blessed with this smile! Kitten looks so calm and protected!!",
+        user_id=32,
+        post_id=14
+    )
+    db.session.add(comments_dict['91'])
+
+    # ----------------------- POST 15 -----------------------#
+    comments_dict['92'] = Comment(
+        content="Whiskey doesn’t age — it matures.",
+        user_id=33,
+        post_id=15
+    )
+    db.session.add(comments_dict['92'])
+    db.session.flush()
+
+    comments_dict['93'] = Comment(
+        content="Phenomenal comment.No notes.",
+        user_id=34,
+        post_id=15,
+        parent_id=comments_dict['92'].id
+    )
+    db.session.add(comments_dict['93'])
+
+    comments_dict['94'] = Comment(
+        content="The fluff of a kitten. The dead eyed rage of a senior.",
+        user_id=35,
+        post_id=15
+    )
+    db.session.add(comments_dict['94'])
+    db.session.flush()
+
+    comments_dict['95'] = Comment(
+        content="😂 so true.",
+        user_id=36,
+        post_id=15,
+        parent_id=comments_dict['94'].id
+    )
+    db.session.add(comments_dict['95'])
+
+    comments_dict['96'] = Comment(
+        content="The posture of an owl.",
+        user_id=37,
+        post_id=15,
+        parent_id=comments_dict['94'].id
+    )
+    db.session.add(comments_dict['96'])
+
+    # ----------------------- POST 16 -----------------------#
+    comments_dict['97'] = Comment(
+        content="Gotta be in Hawaii lol",
+        user_id=38,
+        post_id=16
+    )
+    db.session.add(comments_dict['97'])
+
+    comments_dict['98'] = Comment(
+        content="It’s police only. If you’re not police you can proceed",
+        user_id=39,
+        post_id=16
+    )
+    db.session.add(comments_dict['98'])
+
+    comments_dict['99'] = Comment(
+        content="If the stop sign is blue, you should probably slow down. Congrats on the fast shutter speed to get the picture though.",
+        user_id=40,
+        post_id=16
+    )
+    db.session.add(comments_dict['99'])
+
+    # ----------------------- POST 17 -----------------------#
+    comments_dict['100'] = Comment(
+        content="\"Due to none of your fucking business we are closing Tuesdays.\"",
+        user_id=41,
+        post_id=17
+    )
+    db.session.add(comments_dict['100'])
+
+    comments_dict['101'] = Comment(
+        content="Usually Tuesday is the slowest day off the week for restaurant. In US, a lot of Chinese take out places are closed on Tuesday for this reason",
+        user_id=42,
+        post_id=17
+    )
+    db.session.add(comments_dict['101'])
+    db.session.flush()
+
+    comments_dict['102'] = Comment(
+        content="Yup. My favorite Chinese place in town is closed Tuesdays and so is my favorite Ramen place",
+        user_id=43,
+        post_id=17,
+        parent_id=comments_dict['101'].id
+    )
+    db.session.add(comments_dict['102'])
+    db.session.flush()
+
+    comments_dict['103'] = Comment(
+        content="Are they both the same Closed Tuesdays, or do you have two restaurants that share a name in your town?",
+        user_id=44,
+        post_id=17,
+        parent_id=comments_dict['102'].id
+    )
+    db.session.add(comments_dict['103'])
+    db.session.flush()
+
+    comments_dict['104'] = Comment(
+        content="Must be franchised because Closed Tuesdays opened a restaurant in my town. They're frequently Closed Fridays due to staffing.",
+        user_id=45,
+        post_id=17,
+        parent_id=comments_dict['103'].id
+    )
+    db.session.add(comments_dict['104'])
+
+    comments_dict['105'] = Comment(
+        content="A small tobacco store i Sweden had a note a couple years back that said \"closed because of robbery\". They guy working there went to rob a bank.",
+        user_id=46,
+        post_id=17
+    )
+    db.session.add(comments_dict['105'])
+    db.session.flush()
+
+    comments_dict['106'] = Comment(
+        content="Brilliant.",
+        user_id=47,
+        post_id=17,
+        parent_id=comments_dict['105'].id
+    )
+    db.session.add(comments_dict['106'])
+
+    # ----------------------- POST 18 -----------------------#
+    # No comments
+
+    # ----------------------- POST 19 -----------------------#
+    comments_dict['107'] = Comment(
+        content="I witnessed enough engineers with ego problems.",
+        user_id=48,
+        post_id=19
+    )
+    db.session.add(comments_dict['107'])
+    db.session.flush()
+
+    comments_dict['108'] = Comment(
+        content="It is honestly not talked about enough in this industry. Since the CompSci boom it has been pretty bad.",
+        user_id=49,
+        post_id=19,
+        parent_id=comments_dict['107'].id
+    )
+    db.session.add(comments_dict['108'])
+
+    comments_dict['109'] = Comment(
+        content="Every team I’ve been on was severely understaffed lol. We’re always thrilled to have someone else help us get through the decades-old backlog",
+        user_id=50,
+        post_id=19
+    )
+    db.session.add(comments_dict['109'])
+
+    comments_dict['110'] = Comment(
+        content="Engineers can wildly vary on their non-negotiable opinions though. Linux/Mac/Windows... Vim/VSCode/Jetbrains...",
+        user_id=1,
+        post_id=19
+    )
+    db.session.add(comments_dict['110'])
+
+    # ----------------------- POST 20 -----------------------#
+
 
 
     db.session.commit()
@@ -1820,5 +996,3 @@ I remember when that happened and honestly I took a lot of comfort in it. It was
 def undo_comments():
     db.session.execute("DELETE FROM comments")
     db.session.commit()
-
-    4333

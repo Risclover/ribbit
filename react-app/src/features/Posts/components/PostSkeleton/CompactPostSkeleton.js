@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function CompactPostSkeleton() {
+export function CompactPostSkeleton() {
   return (
     <div>CompactPostSkeleton</div>
   )

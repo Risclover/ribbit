@@ -4,7 +4,7 @@ import "./PostSkeleton.css";
 import { UpvoteIcon } from "assets/icons/UpvoteIcon";
 import { DownvoteIcon } from "assets/icons/DownvoteIcon";
 
-export default function ClassicPostSkeleton() {
+export function ClassicPostSkeleton() {
   return (
     <div className="classic-post-skeleton-container">
       <div className="post-skeleton-voting">

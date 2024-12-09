@@ -4,7 +4,7 @@ import { createChatMessage, createChatThread, getChatThread } from "@/store";
 import { Gifs, Emojis } from "../ChatWindowInput";
 import { liveChatIcons } from "@/assets";
 import "./ChatWindowInput.css";
-import { SelectedChatContext } from "@/context/SelectedChat";
+import { SelectedChatContext } from "@/context";
 import { useAutosizeTextArea } from "@/hooks";
 
 export function ChatWindowInput({

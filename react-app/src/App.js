@@ -11,6 +11,9 @@ import {
   UserProfile,
   CommunitiesDirectory,
   SingleImagePage,
+  HomepageFeed,
+  AllPostsFeed,
+  CreatePostPage,
 } from "./pages";
 
 import { Modal } from "./context";
@@ -25,8 +28,6 @@ import {
   PreviewCommunity,
   UpdateImagePost,
   UpdatePost,
-  AllPostsFeed,
-  HomepageFeed,
   SignUpForm,
   EditCommunity,
   Notifications,
@@ -44,13 +45,13 @@ import {
   authenticate,
   getCurrentUser,
   getUsers,
+  getCommunitySettings,
 } from "./store";
 
 import { PostFormatContext, PageTitleContext } from "./context";
-import { CreatePostPage } from "./pages/CreatePostPage";
-import { MetadataProvider } from "./context/Metadata";
+import { MetadataProvider } from "@/context";
 import Chat from "features/Chat/components/ChatWindow/Chat";
-import { PopupProvider } from "context/Popup";
+import { PopupProvider } from "@/context";
 import { ProtectedRoute } from "components";
 import ChatMinimized from "features/Chat/components/ChatWindow/ChatMinimized";
 
@@ -105,6 +106,10 @@ function App() {
       setLoaded(true);
     })();
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getCommunitySettings());
+  }, []);
 
   useEffect(() => {
     dispatch(getUserChatThreads());

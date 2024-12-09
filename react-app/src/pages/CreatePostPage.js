@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { CreatePostForm } from "../features/Posts/CreatePost/CreatePostForm";
+import { CreatePostForm } from "@/features";
 import { useDispatch, useSelector } from "react-redux";
 import { CommunityDetails, CommunityRulesBox, RibbitRules } from "../features";
 import { getCommunities, getPosts, getSubscriptions } from "../store";
 import { useParams } from "react-router-dom";
 import { usePageSettings } from "hooks";
-import "../features/Posts/CreatePost/PostForm.css";
+import "@/features/Posts/components/CreatePost/PostForm.css";
 import { CreatePostIcon } from "assets/icons/CreatePostIcon";
 
 export function CreatePostPage({ postType, setPostType, val }) {

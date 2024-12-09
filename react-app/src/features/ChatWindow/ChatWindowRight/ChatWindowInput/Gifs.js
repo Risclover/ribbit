@@ -11,7 +11,7 @@ import { CiSearch } from "react-icons/ci";
 import { SlClose } from "react-icons/sl";
 import { createChatMessage, getChatThread } from "@/store";
 import "./ChatWindowInput.css";
-import { SelectedChatContext } from "@/context/SelectedChat";
+import { SelectedChatContext } from "@/context";
 import { useOutsideClick } from "hooks";
 import { v4 as uuidv4 } from "uuid";
 

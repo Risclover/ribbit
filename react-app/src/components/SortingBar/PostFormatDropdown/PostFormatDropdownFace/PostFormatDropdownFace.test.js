@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { PostFormatContext } from "@/context/PostFormat";
+import { PostFormatContext } from "@/context";
 import { PostFormatDropdownFace } from "./PostFormatDropdownFace";
 
 const renderWithPostFormatContext = (ui, { format } = {}) => {

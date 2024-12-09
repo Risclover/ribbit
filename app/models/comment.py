@@ -32,7 +32,12 @@ class Comment(db.Model):
             "postId": self.post_id,
             "userId": self.user_id,
             "parentId": self.parent_id,
-            "commentAuthor": self.comment_author.to_dict(),
+            "commentAuthor": {
+                "id": self.comment_author.id,
+                "username": self.comment_author.username,
+                "profileImg": self.comment_author.profile_img,
+                # Add other non-recursive fields as needed
+            },
             "votes": len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]]) - len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]]),
             "upvotes": len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]]),
             "downvotes": len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]]),

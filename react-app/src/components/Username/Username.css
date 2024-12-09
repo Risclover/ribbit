@@ -46,6 +46,12 @@
   font-weight: 400;
   line-height: 16px;
   color: #7c7c7c;
+  cursor: text;
+}
+
+.username-popup-karma-left,
+.username-popup-karma-right {
+  cursor: text;
 }
 
 .username-popup-karma-info {
@@ -104,4 +110,8 @@
 .username-component-wrapper:hover > .username-popup {
   visibility: visible;
   transition-delay: 0.5s;
+}
+
+.username-popup-user-info-name a:hover {
+  text-decoration: none !important;
 }

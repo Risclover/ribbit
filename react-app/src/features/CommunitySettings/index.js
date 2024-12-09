@@ -1,2 +1,1 @@
-export { EditCommunity } from "./EditCommunity";
-export * from "./PreviewCommunity";
+export * from "./components";

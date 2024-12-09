@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { PostPopup } from "components/PostPopup";
-import { PostModal } from "context/PostModal";
+import { PostModal } from "@/context";
 import { HomepageFeed } from "pages/HomepageFeed";
 import { useSelector } from "react-redux";
 

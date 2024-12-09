@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ReactQuill from "react-quill";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 import { putSinglePost } from "@/store";
 import "react-quill/dist/quill.snow.css";
-import "../CreatePost/PostForm.css";
+import "./CreatePost/PostForm.css";
 
 const modules = {
   toolbar: [
@@ -74,7 +74,9 @@ export function UpdatePost() {
           ></textarea>
           {titleErrors.length > 0 &&
             titleErrors.map((error) => (
-              <div key={uuidv4()} className="update-post-errors">{error}</div>
+              <div key={uuidv4()} className="update-post-errors">
+                {error}
+              </div>
             ))}
           <div className="update-title-length">{title?.length}/300</div>
         </div>
@@ -88,7 +90,9 @@ export function UpdatePost() {
           />
           {contentErrors.length > 0 &&
             contentErrors.map((error) => (
-              <div key={uuidv4()} className="update-post-errors">{error}</div>
+              <div key={uuidv4()} className="update-post-errors">
+                {error}
+              </div>
             ))}
         </div>
         <div className="update-post-form-buttons">

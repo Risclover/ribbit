@@ -18,7 +18,7 @@ import { UserProfileFollowers } from "@/features";
 import { UploadUserBanner, UploadUserImage, SendMessage } from "@/pages";
 import Cakeday from "@/assets/images/user-profile-icons/cakeday.png";
 import Flower from "@/assets/images/user-profile-icons/poinsettia.png";
-import { SelectedChatContext } from "@/context/SelectedChat";
+import { SelectedChatContext } from "@/context";
 import { FollowBtn } from "@/components";
 
 export function UserAboutBox({ currentUser, user, username, setOpenChat }) {

@@ -1,15 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createChatMessage, getChatThread } from "@/store";
 import { v4 as uuidv4 } from "uuid";
 import { ChatWindowEmojis } from "./emojis";
 import "./ChatWindowInput.css";
-import { SelectedChatContext } from "@/context/SelectedChat";
+import { SelectedChatContext } from "@/context";
+import { useOutsideClick } from "hooks";
 
 export function Emojis({ receiver, setEmojisOverlay, socket }) {
   const dispatch = useDispatch();
 
   const { selectedChat } = useContext(SelectedChatContext);
+
+  const wrapperRef = useRef();
 
   const handleAddEmoji = async (e, image) => {
     e.preventDefault();
@@ -27,8 +30,10 @@ export function Emojis({ receiver, setEmojisOverlay, socket }) {
     setEmojisOverlay(false);
   };
 
+  useOutsideClick(wrapperRef, () => setEmojisOverlay(false));
+
   return (
-    <div className="emojis-container">
+    <div className="emojis-container" ref={wrapperRef}>
       <div className="images-list">
         {ChatWindowEmojis.map((emoji) => (
           <button

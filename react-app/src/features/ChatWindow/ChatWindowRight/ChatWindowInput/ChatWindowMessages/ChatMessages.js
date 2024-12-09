@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { ChatMessage } from "./ChatMessage";
 import { formatDate } from "./formatDate";
-import { SelectedChatContext } from "@/context/SelectedChat";
+import { SelectedChatContext } from "@/context";
 import { v4 as uuidv4 } from "uuid";
 
 export function ChatMessages({

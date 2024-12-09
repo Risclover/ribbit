@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getChatThread, readAllChatMessages } from "@/store";
 import "./ChatNav.css";
-import { SelectedChatContext } from "@/context/SelectedChat";
+import { SelectedChatContext } from "@/context";
 import { formatDate } from "features/ChatWindow/ChatWindowRight/ChatWindowInput/ChatWindowMessages/formatDate";
 
 export function ChatNavBtn({

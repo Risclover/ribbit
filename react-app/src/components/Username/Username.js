@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { UsernamePopup } from "./UsernamePopup";
 import "./Username.css";
-import { usePopup } from "../../context/Popup";
+import { usePopup } from "@/context";
 
 export function Username({ community, username, user, source }) {
   const history = useHistory();
@@ -39,21 +39,15 @@ export function Username({ community, username, user, source }) {
     setHideTimeout(timeout);
   };
 
-  const handleUsernameClick = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    history.push(`/users/${user.id}/profile`);
-  };
-
   return (
     <div
       className="username-component-wrapper"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="username-component" onClick={handleUsernameClick}>
+      <a href={`/users/${user.id}/profile`} className="username-component">
         {source === "singlepost" ? "u/" + username : username}
-      </div>
+      </a>
 
       {showPopup && <UsernamePopup community={community} user={foundUser} />}
     </div>

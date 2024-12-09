@@ -12,9 +12,9 @@ export function CommunityImage({ user, community }) {
         <div className="community-header-info-img">
           <CommunityImg
             imgSrc={
-              community.communitySettings[community.id].hideCommunityIcon
+              community.communitySettings[community.id]?.hideCommunityIcon
                 ? "https://i.imgur.com/9CI9hiO.png"
-                : community.communitySettings[community.id].communityIcon
+                : community.communitySettings[community.id]?.communityIcon
             }
           />
           {user?.id === community.userId && (

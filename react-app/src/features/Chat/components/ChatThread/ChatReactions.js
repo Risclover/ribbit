@@ -1,22 +1,30 @@
 // ChatReactions.js
 
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { reactions } from "@/assets";
 import { lockScroll, unlockScroll } from "utils/scrollLock";
 import { useDispatch } from "react-redux";
 import { createReaction, fetchReactionsForMessage } from "store/reactions";
 import { SelectedChatContext } from "context";
+import { useOutsideClick } from "hooks";
 
 export default function ChatReactions({
   openReactions,
   setOpenReactions,
   message,
   socket,
+  compact = false,
 }) {
   const [openFull, setOpenFull] = useState(false);
+  const wrapperRef = useRef();
+
+  useOutsideClick(wrapperRef, () => setOpenReactions(false));
 
   return (
-    <div className="reactions-menu">
+    <div
+      className={`${compact ? "reactions-menu-compact" : "reactions-menu"}`}
+      ref={wrapperRef}
+    >
       {!openFull && (
         <ChatReactionsSmall
           setOpenFull={setOpenFull}

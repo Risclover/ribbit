@@ -16,7 +16,7 @@ import {
   CommunityInfoBox,
 } from "../features";
 import { BackToTop } from "../components";
-import { PostFormatContext } from "../context/PostFormat";
+import { PostFormatContext } from "@/context";
 import { usePageSettings } from "../hooks/usePageSettings";
 import { CommunityImg } from "components/CommunityImg";
 import { useHistory } from "react-router-dom";

@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addCommunity, addToSubscriptions, getSubscriptions } from "@/store";
 import { CreateCommunityForm } from "./CreateCommunityForm";
+import { lockScroll, unlockScroll } from "utils/scrollLock";
 import "./CreateCommunityModal.css";
+import { useScrollLock } from "hooks";
 
 export function CreateCommunityModal({
   showCreateCommunityModal,
@@ -14,6 +16,8 @@ export function CreateCommunityModal({
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+  useScrollLock(showCreateCommunityModal);
 
   const handleCreation = useCallback(
     async (e) => {

@@ -14,9 +14,9 @@ export function CommunityName({ community }) {
             : community.displayName}
         </h1>
         <h2>
-          {community.communitySettings[community.id].nameFormat !== "Hide" &&
-            community.communitySettings[community.id].nameFormat}
-          {community.communitySettings[community.id].nameFormat !== "Hide" &&
+          {community.communitySettings[community.id]?.nameFormat !== "Hide" &&
+            community.communitySettings[community.id]?.nameFormat}
+          {community.communitySettings[community.id]?.nameFormat !== "Hide" &&
             community.name}
         </h2>
       </div>

@@ -3,7 +3,7 @@ from app.models import db, CommunitySettings
 def seed_community_settings():
     community_1 = CommunitySettings(
         community_id=1,
-        base_color="var(--highlight-color)",
+        base_color="#fe3f00",
         highlight="#fe3f00",
         bg_color="#edeff1",
         community_icon="https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
@@ -13,7 +13,7 @@ def seed_community_settings():
         banner_height="208px",
         banner_color="#33a8ff",
         custom_banner_color=False,
-        banner_img="https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg?width=4000&format=pjpg&s=afeee53aae881677884681bf1a8bc6503ac7efdd",
+        banner_img="https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
         banner_img_format="center",
         secondary_banner_format="left",
         active_link_color="var(--highlight-color)",

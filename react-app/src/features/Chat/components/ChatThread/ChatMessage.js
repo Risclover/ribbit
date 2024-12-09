@@ -108,6 +108,7 @@ export const ChatMessage = ({
                     setOpenReactions={setOpenReactions}
                     message={message}
                     socket={socket}
+                    compact={true}
                   />
                 )}
                 <button

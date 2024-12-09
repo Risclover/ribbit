@@ -427,6 +427,7 @@
 }
 
 .images-list {
+  overscroll-behavior: contain;
   width: 304px;
   height: 372px;
   overflow-y: auto;
@@ -434,8 +435,8 @@
   border: 1px solid #f2f2f2;
   background: white;
   cursor: default;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
   gap: 12px;
   position: relative;
   padding: 12px 10px;
@@ -517,6 +518,7 @@
 }
 
 .giphy-box {
+  overscroll-behavior: contain;
   position: absolute;
   bottom: 68px;
   left: 24px;
@@ -638,7 +640,15 @@
   bottom: 60px;
 }
 
-.reactions-menu > div {
+.reactions-menu-compact {
+  position: absolute;
+  z-index: 9999;
+  right: 0;
+  bottom: 30px;
+}
+
+.reactions-menu > div,
+.reactions-menu-compact > div {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.15);
   background: white;
 }

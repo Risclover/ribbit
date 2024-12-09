@@ -4,7 +4,7 @@ import moment from "moment";
 import { CgNotes } from "react-icons/cg";
 import { FiLink } from "react-icons/fi";
 import { HiOutlineExternalLink } from "react-icons/hi";
-import { useMetadata } from "@/context/Metadata";
+import { useMetadata } from "@/context";
 
 const PostTypeIcon = ({ post, linkImg }) => {
   if (post?.imgUrl) {

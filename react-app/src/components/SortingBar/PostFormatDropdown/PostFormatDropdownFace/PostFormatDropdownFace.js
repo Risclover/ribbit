@@ -2,7 +2,7 @@ import React, { useContext, useState, useRef } from "react";
 import { TbChevronDown } from "react-icons/tb";
 import { formatIcons } from "@/assets";
 import { PostFormatDropdown } from "../PostFormatDropdown";
-import { PostFormatContext } from "@/context/PostFormat";
+import { PostFormatContext } from "@/context";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import "../PostFormatDropdown.css";
 

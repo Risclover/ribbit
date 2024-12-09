@@ -10,7 +10,7 @@ import {
   ChatWindowNewChatOverlay,
   ChatWindowMessageInviteOverlay,
 } from "..";
-import { SelectedChatContext } from "@/context/SelectedChat";
+import { SelectedChatContext } from "@/context";
 import "./ChatWindow.css";
 
 let socket;

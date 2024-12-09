@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { PostFormatContext } from "../context/PostFormat";
+import { PostFormatContext } from "@/context";
 
 export function useButtonState(item) {
   const { format, setFormat } = useContext(PostFormatContext);
