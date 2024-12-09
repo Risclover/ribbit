@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { TfiBell } from "react-icons/tfi";
 
 import {
@@ -247,13 +247,12 @@ export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
         item.toLowerCase().includes(filter.toLowerCase())
       ).length > 0 && <div className="nav-left-dropdown-title">Feeds</div>}
       {"Home".toLowerCase().includes(filter.toLowerCase()) && (
-        <div
+        <NavLink
           className="nav-left-dropdown-navitem"
-          onClick={(e) => {
-            e.preventDefault();
+          to="/"
+          onClick={() => {
             setShowIcon(false);
             setShowDropdown(false);
-            history.push("/");
           }}
         >
           <img
@@ -262,35 +261,33 @@ export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
             alt="House icon"
           />
           <span className="nav-left-dropdown-item">Home</span>
-        </div>
+        </NavLink>
       )}
 
       {"All".toLowerCase().includes(filter.toLowerCase()) && (
-        <div
+        <NavLink
           className="nav-left-dropdown-navitem"
-          onClick={(e) => {
-            e.preventDefault();
+          to="/c/all"
+          onClick={() => {
             setShowIcon(false);
             setShowDropdown(false);
-            history.push("/c/all");
           }}
         >
           <img src={All} className="nav-left-dropdown-item-icon" alt="All" />
           <span className="nav-left-dropdown-item">All</span>
-        </div>
+        </NavLink>
       )}
       {["User Settings", "Messages", "Notifications", "Create Post"].filter(
         (item) => item.toLowerCase().includes(filter.toLowerCase())
       ).length > 0 && <div className="nav-left-dropdown-title">Other</div>}
       {"User Settings".toLowerCase().includes(filter.toLowerCase()) && (
-        <div
+        <NavLink
           className="nav-left-dropdown-navitem"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             setShowIcon(false);
             setShowDropdown(false);
-            history.push(`/users/${currentUser?.id}/profile/edit`);
           }}
+          to={`/users/${currentUser?.id}/profile/edit`}
         >
           <img
             src={currentUser?.profileImg}
@@ -298,16 +295,15 @@ export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
             alt="User Settings"
           />
           <span className="nav-left-dropdown-item">User Settings</span>
-        </div>
+        </NavLink>
       )}
       {"Messages".toLowerCase().includes(filter.toLowerCase()) && (
-        <div
+        <NavLink
+          to="/message/messages"
           className="nav-left-dropdown-navitem"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             setShowIcon(false);
             setShowDropdown(false);
-            history.push("/message/messages");
           }}
         >
           {" "}
@@ -317,35 +313,33 @@ export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
             alt="Messages"
           />
           <span className="nav-left-dropdown-item">Messages</span>
-        </div>
+        </NavLink>
       )}
       {"Create Post".toLowerCase().includes(filter.toLowerCase()) && (
-        <div
+        <NavLink
           className="nav-left-dropdown-navitem"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             setShowIcon(false);
             setShowDropdown(false);
-            history.push("/submit");
           }}
+          to="/submit"
         >
           <CreatePostIcon />
           <span className="nav-left-dropdown-item">Create Post</span>
-        </div>
+        </NavLink>
       )}
       {"Notifications".toLowerCase().includes(filter.toLowerCase()) && (
-        <div
+        <NavLink
+          to="/notifications"
           className="nav-left-dropdown-navitem"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             setShowIcon(false);
             setShowDropdown(false);
-            history.push("/notifications");
           }}
         >
           <TfiBell />
           <span className="nav-left-dropdown-item">Notifications</span>
-        </div>
+        </NavLink>
       )}
     </div>
   );

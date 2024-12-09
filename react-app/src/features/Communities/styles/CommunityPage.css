@@ -256,6 +256,7 @@
 .community-btn-filled {
   background: var(--community-highlight) !important;
   border-color: var(--community-highlight) !important;
+  width: 100%;
 }
 
 .community-btn::before {

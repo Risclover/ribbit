@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import { Username } from "@/components";
 import { CommunityImg } from "components/CommunityImg";
@@ -47,7 +47,7 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
           </div>
 
           <div className="single-post-community-name">
-            <a href={communityHref}>c/{post?.communityName}</a>
+            <NavLink to={communityHref}>c/{post?.communityName}</NavLink>
           </div>
 
           <span className="single-post-dot-spacer">•</span>

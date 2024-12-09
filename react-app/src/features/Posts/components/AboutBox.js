@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { CreateCommunity } from "@/features";
 import { ribbitBanners } from "@/assets";
 
@@ -14,12 +14,9 @@ export function AboutBox({ title, description, user }) {
         <p>{description}</p>
         {user && (
           <div className="posts-home-box-buttons">
-            <button
-              className="blue-btn-filled btn-long"
-              onClick={() => history.push("/submit")}
-            >
+            <NavLink to="/submit" className="blue-btn-filled btn-long">
               Create Post
-            </button>
+            </NavLink>
             <CreateCommunity />
           </div>
         )}

@@ -7,11 +7,11 @@ import {
   SinglePostContent,
   SinglePostButtonBar,
   CompactPostFormat,
-  ClassicPostFormat
+  ClassicPostFormat,
 } from "@/features";
 import "./SinglePost.css";
 
-export const SinglePost = ({ id, isPage, post }) => {
+export const SinglePost = ({ link, id, isPage, post }) => {
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users?.[cuser?.id]);
   const community = useSelector(
@@ -51,7 +51,7 @@ export const SinglePost = ({ id, isPage, post }) => {
                   isPage={isPage}
                 />
 
-                <SinglePostContent post={post} isPage={isPage} />
+                <SinglePostContent link={link} post={post} isPage={isPage} />
 
                 <SinglePostButtonBar
                   post={post}

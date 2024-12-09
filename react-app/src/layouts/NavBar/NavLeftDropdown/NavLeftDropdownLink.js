@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { CommunityImg } from "components/CommunityImg";
 
@@ -16,13 +16,11 @@ export function NavLeftDropdownLink({
   return (
     <>
       {mode === "User" && !favorite && (
-        <div
+        <NavLink
+          to={`/users/${item?.id}/profile`}
           className="nav-left-dropdown-navitem"
-          onClick={(e) => {
-            e.preventDefault();
-
+          onClick={() => {
             setShowDropdown(false);
-            history.push(`/users/${item?.id}/profile`);
           }}
         >
           <img
@@ -54,16 +52,15 @@ export function NavLeftDropdownLink({
               <BsStarFill />
             </div>
           )}
-        </div>
+        </NavLink>
       )}
 
       {mode === "Community" && !favorite && (
-        <div
+        <NavLink
           className="nav-left-dropdown-navitem"
-          onClick={(e) => {
-            e.preventDefault();
+          to={`/c/${item?.name}`}
+          onClick={() => {
             setShowDropdown(false);
-            history.push(`/c/${item?.name}`);
           }}
         >
           <CommunityImg
@@ -98,16 +95,15 @@ export function NavLeftDropdownLink({
               <BsStarFill />
             </div>
           )}
-        </div>
+        </NavLink>
       )}
 
       {mode === "User" && favorite && (
-        <div
+        <NavLink
+          to={`/users/${item?.id}/profile`}
           className="nav-left-dropdown-navitem"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             setShowDropdown(false);
-            history.push(`/users/${item?.id}/profile`);
           }}
         >
           <img
@@ -126,16 +122,15 @@ export function NavLeftDropdownLink({
           >
             <BsStarFill />
           </div>
-        </div>
+        </NavLink>
       )}
 
       {mode === "Community" && favorite && (
-        <div
+        <NavLink
+          to={`/c/${item?.name}`}
           className="nav-left-dropdown-navitem"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             setShowDropdown(false);
-            history.push(`/c/${item?.name}`);
           }}
         >
           <CommunityImg
@@ -157,7 +152,7 @@ export function NavLeftDropdownLink({
           >
             <BsStarFill />
           </div>
-        </div>
+        </NavLink>
       )}
     </>
   );

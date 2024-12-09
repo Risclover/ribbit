@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 import Home from "@/assets/images/navbar/home-icon.png";
 import All from "@/assets/images/navbar/all-icon2.png";
@@ -16,34 +16,22 @@ export function LoggedOutSidebar({ showLoggedOutSidebar }) {
         <div className="logged-out-sidebar">
           <div className="logged-out-sidebar-top">
             <div className="nav-left-dropdown-title">Feeds</div>
-            <div
-              className="nav-left-dropdown-navitem"
-              onClick={(e) => {
-                e.preventDefault();
-                history.push("/");
-              }}
-            >
+            <NavLink to="/" className="nav-left-dropdown-navitem">
               <img
                 src={Home}
                 className="nav-left-dropdown-item-icon"
                 alt="House icon"
               />
               <span className="nav-left-dropdown-item">Home</span>
-            </div>
-            <div
-              className="nav-left-dropdown-navitem"
-              onClick={(e) => {
-                e.preventDefault();
-                history.push("/c/all");
-              }}
-            >
+            </NavLink>
+            <NavLink to="/c/all" className="nav-left-dropdown-navitem">
               <img
                 src={All}
                 className="nav-left-dropdown-item-icon"
                 alt="All"
               />
               <span className="nav-left-dropdown-item">All</span>
-            </div>
+            </NavLink>
           </div>
           <div className="logged-out-sidebar-bottom">
             <div className="logged-out-sidebar-text">

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import moment from "moment";
 import { sliceUrl } from "@/utils";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { Username } from "@/components";
 import { useMetadata } from "@/context";
 import { CommunityImg } from "components/CommunityImg";
@@ -68,13 +68,13 @@ export const PostResult = ({ post }) => {
       <div className="search-results-post-content">
         <div>
           <h3 className="search-results-post-title">{post?.title}</h3>
-          <a
-            href={post?.linkUrl || ""}
+          <NavLink
+            to={post?.linkUrl || ""}
             target="_blank"
             className="search-results-post-link"
           >
             {post?.linkUrl && sliceUrl(post?.linkUrl)}
-          </a>
+          </NavLink>
         </div>
 
         {post?.imgUrl !== null && (

@@ -128,6 +128,7 @@ export const PostFeed = ({
       {items.map((post) => (
         <div key={post.id} onClick={handlePostClick(post.id)}>
           <SinglePost
+            link={`/posts/${post.id}`}
             id={post.id}
             post={post}
             isPage={isPage}

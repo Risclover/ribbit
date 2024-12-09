@@ -31,6 +31,13 @@ export default function ChatMinimized({ setMinimizeChat, setOpenChat }) {
     }
   });
 
+  const handleClose = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpenChat(false);
+    setMinimizeChat(false);
+  };
+
   return (
     <div
       onClick={() => {
@@ -42,7 +49,7 @@ export default function ChatMinimized({ setMinimizeChat, setOpenChat }) {
       className="chat-minimized-container"
     >
       Chat
-      <button className="chat-minimized-btn">
+      <button className="chat-minimized-btn" onClick={handleClose}>
         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <polygon
             fill="#878a8c"

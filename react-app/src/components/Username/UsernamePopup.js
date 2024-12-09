@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import { Modal } from "@/context";
 import { MessageModal } from "@/features";
@@ -30,9 +30,9 @@ export function UsernamePopup({ community, user }) {
             className="username-popup-user-icon"
           />
           <div className="username-popup-user-info-name">
-            <a href={`/users/${id}/profile`}>
+            <NavLink to={`/users/${id}/profile`}>
               {displayName ? displayName : username}
-            </a>
+            </NavLink>
             <div className="username-popup-user-info-details">
               u/{username} • {moment(createdAt).fromNow()}
             </div>

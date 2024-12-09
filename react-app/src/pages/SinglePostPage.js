@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { batch, useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 import {
   getPosts,
@@ -87,40 +87,42 @@ export function SinglePostPage() {
 
   return (
     <div className="single-post-page">
-      <div className="single-post-page-banner" onClick={handleBannerClick}>
-        <div className="single-post-page-banner-content-container">
-          <div className="single-post-page-banner-content">
-            <div
-              className="single-post-page-community-icon"
-              style={{
-                backgroundImage: `url${
-                  community.communitySettings[community?.id].communityIcon
-                } no-repeat center`,
-              }}
-            >
-              <CommunityImg
-                imgClass={
-                  bannerHeight === "80px"
-                    ? "single-post-page-community-icon-img"
-                    : "single-post-page-community-icon-larger"
-                }
-                imgSrc={
-                  community.communitySettings[community?.id].communityIcon
-                }
-                imgAlt={"c/" + community.name + " icon"}
-              />
+      <NavLink to={`/c/${community?.name}`}>
+        <div className="single-post-page-banner">
+          <div className="single-post-page-banner-content-container">
+            <div className="single-post-page-banner-content">
+              <div
+                className="single-post-page-community-icon"
+                style={{
+                  backgroundImage: `url${
+                    community.communitySettings[community?.id].communityIcon
+                  } no-repeat center`,
+                }}
+              >
+                <CommunityImg
+                  imgClass={
+                    bannerHeight === "80px"
+                      ? "single-post-page-community-icon-img"
+                      : "single-post-page-community-icon-larger"
+                  }
+                  imgSrc={
+                    community.communitySettings[community?.id].communityIcon
+                  }
+                  imgAlt={"c/" + community.name + " icon"}
+                />
+              </div>
+              <span
+                className="single-post-page-community-name"
+                style={{
+                  paddingTop: bannerHeight === "80px" ? "4px" : "14px",
+                }}
+              >
+                c/{post?.communityName}
+              </span>
             </div>
-            <span
-              className="single-post-page-community-name"
-              style={{
-                paddingTop: bannerHeight === "80px" ? "4px" : "14px",
-              }}
-            >
-              c/{post?.communityName}
-            </span>
           </div>
         </div>
-      </div>
+      </NavLink>
       <div className="single-post-page-main">
         <div className="single-post-left-col">
           <SinglePost id={post.id} post={post} isPage="singlepage" />

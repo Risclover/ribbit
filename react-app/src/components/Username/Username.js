@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { UsernamePopup } from "./UsernamePopup";
 import "./Username.css";
 import { usePopup } from "@/context";
@@ -45,9 +45,12 @@ export function Username({ community, username, user, source }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <a href={`/users/${user.id}/profile`} className="username-component">
+      <NavLink
+        to={`/users/${user.id}/profile`}
+        className="username-component"
+      >
         {source === "singlepost" ? "u/" + username : username}
-      </a>
+      </NavLink>
 
       {showPopup && <UsernamePopup community={community} user={foundUser} />}
     </div>

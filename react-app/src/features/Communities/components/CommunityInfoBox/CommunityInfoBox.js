@@ -56,10 +56,7 @@ export function CommunityInfoBox({ community, user, isPage }) {
       </div>
       <div className="community-page-box-content">
         {isPage === "singlepage" && (
-          <div
-            className="single-post-community-info-name"
-            onClick={() => history.push(`/c/${community?.name}`)}
-          >
+          <div className="single-post-community-info-name">
             <CommunityImg
               imgSrc={
                 community?.communitySettings?.[community?.id]?.communityIcon
@@ -67,7 +64,7 @@ export function CommunityInfoBox({ community, user, isPage }) {
               imgAlt="Community"
               imgClass="single-post-community-info-img"
             />
-            c/{community?.name}
+            <NavLink to={`/c/${community?.name}`}>c/{community?.name}</NavLink>
           </div>
         )}
         <CommunityDescription community={community} user={user} />
@@ -84,12 +81,12 @@ export function CommunityInfoBox({ community, user, isPage }) {
             <CommunityJoinBtn community={community} isPage={isPage} />
           )}
           {user && (
-            <button
+            <NavLink
               className="blue-btn-filled btn-long community-btn-filled"
-              onClick={() => history.push(`/c/${community.name}/submit`)}
+              to={`/c/${community.name}/submit`}
             >
               Create Post
-            </button>
+            </NavLink>
           )}
 
           {!user && (
