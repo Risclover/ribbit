@@ -39,6 +39,10 @@ export function Username({ community, username, user, source }) {
     setHideTimeout(timeout);
   };
 
+  const handleNameClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <div
       className="username-component-wrapper"
@@ -46,6 +50,7 @@ export function Username({ community, username, user, source }) {
       onMouseLeave={handleMouseLeave}
     >
       <NavLink
+        onClick={handleNameClick}
         to={`/users/${user.id}/profile`}
         className="username-component"
       >

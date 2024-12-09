@@ -6,6 +6,7 @@ import { CommentContent } from "./CommentContent";
 import { CommentReplyForm } from "../CommentForms/CommentReplyForm";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import "./Comment.css";
+import { NavLink } from "react-router-dom";
 
 export function Comment({
   comment,
@@ -94,11 +95,11 @@ export function Comment({
         <button className={`comment-expand-btn`}>
           <BsArrowsAngleExpand onClick={() => setCollapsed(false)} />
         </button>
-        <div
+        <NavLink
           className="comment-user-img-container"
-          onClick={handleUserImgClick}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          to={`/users/${comment?.commentAuthor?.id}/profile`}
         >
           <div
             className="comment-user-img"
@@ -109,7 +110,7 @@ export function Comment({
           >
             &nbsp;
           </div>
-        </div>
+        </NavLink>
         <div className="comment-right">
           <CommentAuthorBar
             comment={comment}

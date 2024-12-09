@@ -25,9 +25,9 @@ moment.updateLocale("en-post", {
 });
 
 export function SinglePostAuthorBar({ communityPage, post, isPage }) {
-  const history = useHistory();
-  const communityHref = `/c/${post?.communityName}`;
-
+  const handleNavClick = (e) => {
+    e.stopPropagation();
+  };
   return (
     <div className="single-post-author-bar">
       {isPage !== "singlepage" && isPage !== "community" && (
@@ -46,9 +46,13 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
             />
           </div>
 
-          <div className="single-post-community-name">
-            <NavLink to={communityHref}>c/{post?.communityName}</NavLink>
-          </div>
+          <NavLink
+            onClick={handleNavClick}
+            to={`/c/${post?.communityName}`}
+            className="single-post-community-name"
+          >
+            c/{post?.communityName}
+          </NavLink>
 
           <span className="single-post-dot-spacer">•</span>
         </div>
