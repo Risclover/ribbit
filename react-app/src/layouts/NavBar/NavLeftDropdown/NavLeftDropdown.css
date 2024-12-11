@@ -11,6 +11,7 @@
   position: relative;
   min-width: 72px;
   border: 1px solid transparent;
+  border-radius: 4px;
 }
 
 .nav-left-dropdown-arrow svg,
@@ -52,7 +53,7 @@
   position: relative !important;
 }
 
-.nav-left-dropdown-face-left:hover {
+.nav-left-dropdown-face:hover {
   border-color: #edeff1;
 }
 
@@ -160,7 +161,6 @@
   border-top: 0;
   color: var(--main-text-color);
   margin-top: -2px;
-  left: 1px;
   background: white;
   width: 270px;
   overflow-x: hidden;
@@ -256,6 +256,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: #1c1c1c;
 }
 
 .nav-left-dropdown-star {

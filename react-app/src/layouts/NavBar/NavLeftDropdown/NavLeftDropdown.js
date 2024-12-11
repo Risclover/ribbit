@@ -260,8 +260,9 @@ export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
             version="1.1"
             x="20px"
             y="20px"
-            viewBox="10.07 15.03 79.86 69.94"
             style={{ height: "20px", width: "20px" }}
+            viewBox="10.07 15.03 79.86 69.94"
+            fill="#1c1c1c"
           >
             <style type="text/css"></style>
             <path

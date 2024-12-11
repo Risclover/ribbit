@@ -49,21 +49,19 @@ export const NavLeftDropdownFace = ({
       <div className="nav-left-dropdown-wrapper" ref={dropdownRef}>
         {/* clickable face */}
         <div
-          className="nav-left-dropdown-face"
+          className={`nav-left-dropdown-face ${
+            !showNavSidebar && showIcon
+              ? " plus-border"
+              : showNavSidebar && !showIcon
+              ? " dropdown-disabled"
+              : ""
+          }`}
           onClick={() => {
             !showNavSidebar && setShowDropdown(!showDropdown);
           }}
         >
           {/* first 2/3rds is a button */}
-          <button
-            className={`nav-left-dropdown-face-left${
-              !showNavSidebar && showIcon
-                ? " plus-border"
-                : showNavSidebar && !showIcon
-                ? " dropdown-disabled"
-                : ""
-            }`}
-          >
+          <button className="nav-left-dropdown-face-left">
             {/* page icon and page title */}
 
             <div className="nav-left-dropdown-face-title">
