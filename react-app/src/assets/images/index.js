@@ -1,6 +1,6 @@
 export { formatIcons } from "./post-format-icons";
 export { developerLinkIcons } from "./developer-links";
-export * from "./ribbit-banners";
+export * from "./ribbit-logos";
 export { liveChatIcons } from "./live-chat-icons";
 export { userProfileIcons } from "./user-profile-icons";
 export * from "./navbar";

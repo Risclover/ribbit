@@ -4,7 +4,7 @@ nav {
   position: fixed;
   background: white;
   width: 100%;
-  height: 49px;
+  height: 48px;
   top: 0;
   z-index: 80;
   padding: 0 20px;
@@ -43,6 +43,15 @@ nav ul li {
 }
 
 .ribbit-logo {
+  margin-right: 8px;
+}
+
+.logo-container {
+  margin-right: 16px;
+}
+
+.logo-container img {
+  width: 32px;
   margin-right: 8px;
 }
 

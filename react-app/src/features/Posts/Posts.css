@@ -170,6 +170,12 @@
   width: 100%;
 }
 
+.posts-home-box-banner {
+  height: 34px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
 .posts-author-box {
   background: white;
   border: 1px solid #ccc;

@@ -8,7 +8,14 @@ export function AboutBox({ title, description, user }) {
 
   return (
     <div className="posts-home-box">
-      <img src={ribbitBanners.RibbitBanner} alt="Ribbit banner" />
+      <div
+        className="posts-home-box-banner"
+        style={{
+          background: `url(${ribbitBanners.RibbitBanner}) center / cover no-repeat`,
+        }}
+      >
+        {/* <img src={ribbitBanners.RibbitBanner} alt="Ribbit banner" /> */}
+      </div>
       <div className="posts-home-box-content">
         <h1>{title}</h1>
         <p>{description}</p>

@@ -300,12 +300,16 @@
 .stats-stats svg {
   font-size: 12px;
   color: #24a0ed;
+  height: 12px;
+  width: 12px;
 }
 
-.stats-stats svg:last-of-type {
+.stats-followers svg:last-of-type {
   font-size: 10px;
   color: grey;
   margin-left: 12px;
+  height: 10px;
+  width: 10px;
 }
 
 /* USER PROFILE - FOLLOWERS */
