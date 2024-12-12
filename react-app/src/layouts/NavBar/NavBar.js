@@ -189,7 +189,6 @@ export function NavBar({
             formType="login"
           />
         )}
-        {!user && <LoggedOutDropdownWrapper />}
         {user && <NavUserDropdown />}
       </div>
     </nav>

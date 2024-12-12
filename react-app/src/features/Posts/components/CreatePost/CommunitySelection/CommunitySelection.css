@@ -10,7 +10,7 @@
   height: 40px;
   min-width: 300px;
   border: 1px solid #edeff1;
-  background: white;
+  background: var(--ribbit-main);
   box-shadow: 0 0 0 0 var(--newCommunityTheme-body);
   padding: 0 8px;
   display: flex;
@@ -91,7 +91,7 @@
 }
 
 .community-selection-dropdown {
-  background: white;
+  background: var(--ribbit-main);
   height: 400px;
   overflow-y: scroll;
   margin-top: -2px;
@@ -125,7 +125,7 @@
   font-family: var(--font-family-noto);
   font-weight: 700;
   text-transform: capitalize;
-  background: white;
+  background: var(--ribbit-main);
   color: var(--highlight-color);
   padding: 4px 8px;
   border-radius: 100px;

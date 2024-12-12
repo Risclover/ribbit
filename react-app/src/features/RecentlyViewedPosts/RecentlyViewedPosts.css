@@ -1,6 +1,6 @@
 .recent-posts-box {
   border: 1px solid #ccc;
-  background: white;
+  background: var(--ribbit-main);
   padding: 12px;
   overflow: visible;
   word-wrap: break-word;
@@ -125,7 +125,7 @@
   cursor: pointer;
   padding: 0;
   margin-top: -10px !important;
-  background: white;
+  background: var(--ribbit-main);
   border: none;
   font-family: var(--font-family-ibm);
   border-radius: 0;

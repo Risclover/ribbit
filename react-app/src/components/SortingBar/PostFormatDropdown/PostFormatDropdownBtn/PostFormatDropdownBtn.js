@@ -46,8 +46,8 @@ export const PostFormatDropdownBtn = React.forwardRef(
     }, [active, highlight]);
 
     const iconSrc = useMemo(() => {
-      if (active) return item.icons.blue;
-      return highlight ? item.icons.black : item.icons.grey;
+      if (active) return item.icons.dark;
+      return highlight ? item.icons.dark : item.icons.grey;
     }, [active, highlight, item.icons]);
 
     return (

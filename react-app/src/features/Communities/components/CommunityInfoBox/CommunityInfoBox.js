@@ -77,7 +77,7 @@ export function CommunityInfoBox({ community, user, isPage }) {
           <span>{members === 1 ? "Member" : "Members"}</span>
         </div>
         <div className="community-page-box-btn">
-          {isPage === "singlepage" && (
+          {user && isPage === "singlepage" && (
             <CommunityJoinBtn community={community} isPage={isPage} />
           )}
           {user && (

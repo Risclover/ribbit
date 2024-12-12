@@ -233,7 +233,7 @@
 }
 
 .notification-icon-bubble {
-  background: white;
+  background: var(--ribbit-main);
   border: 1px solid #edeff1;
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -256,7 +256,7 @@
   margin-top: 2px;
   z-index: 10000;
   font-size: 10px;
-  background: white;
+  background: var(--ribbit-main);
   border: 1px solid #edeff1;
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);

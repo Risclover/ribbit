@@ -16,7 +16,7 @@
   max-width: 640px;
   border-radius: 4px;
   overflow: hidden;
-  background: white;
+  background: var(--ribbit-main);
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 6%);
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@
 
 .search-results-right-box {
   border: 1px solid #ccc;
-  background: white;
+  background: var(--ribbit-main);
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 6%);
   width: 100%;
   margin-bottom: 16px;
@@ -211,7 +211,7 @@
   word-wrap: break-word;
   padding: 24px 16px;
   color: var(--main-text-color);
-  background: white;
+  background: var(--ribbit-main);
   width: 100%;
   border: 1px solid #ccc;
 }
@@ -226,7 +226,7 @@
 
 .no-search-results img {
   width: 130px;
-  background: white;
+  background: var(--ribbit-main);
   margin: 0 auto;
 }
 
@@ -464,7 +464,7 @@
   padding: 16px;
   margin-top: -1px;
   border: thin solid #ccc;
-  background: white;
+  background: var(--ribbit-main);
   position: relative;
 }
 
@@ -603,7 +603,7 @@
 .search-results-page-communities,
 .search-results-page-people {
   width: 100%;
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.06);
   margin-bottom: 20px;
@@ -840,7 +840,7 @@
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
   color: var(--main-text-color);
-  background-color: white;
+  background-color: var(--ribbit-main);
   top: 40px;
   left: -1px;
   max-height: calc(100vh - 50px);

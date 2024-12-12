@@ -161,7 +161,7 @@
   border-top: 0;
   color: var(--main-text-color);
   margin-top: -2px;
-  background: white;
+  background: var(--ribbit-main);
   width: 270px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -172,7 +172,7 @@
 .nav-left-normal {
   height: 100%;
   overflow-y: auto;
-  background: white;
+  background: var(--ribbit-main);
 }
 
 .nav-left-dropdown-filter {
@@ -190,7 +190,7 @@
 
 .nav-left-dropdown-filter:focus,
 .nav-left-dropdown-filter:hover {
-  background: white;
+  background: var(--ribbit-main);
   border: 1px solid var(--highlight-color);
 }
 

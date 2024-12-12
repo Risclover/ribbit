@@ -1,4 +1,5 @@
 :root {
+  --ribbit-main: #ffffff;
   --community-base-color: var(--highlight-color);
   --community-base-color-text: #ffffff;
   --community-highlight: var(--highlight-color);
@@ -25,10 +26,7 @@
   --highlight-color: #0079d3;
 }
 
-#root.light {
-  --community-bottom-banner: #ffffff;
-}
-
-#root.dark {
-  --community-bottom-banner: #1a1a1b;
+:root[data-theme="dark"] {
+  /* Dark theme colors */
+  --ribbit-main: #1a1a1b;
 }

@@ -46,7 +46,7 @@
 #modal-content,
 .auth-modal-content {
   position: relative;
-  background-color: white;
+  background-color: var(--ribbit-main);
   border-radius: 4px;
   box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000,
     0 0.0625rem 0.25rem 0 #00000026, 0 0.25rem 0.25rem 0 #00000026;

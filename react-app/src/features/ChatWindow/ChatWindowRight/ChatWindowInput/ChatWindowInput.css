@@ -115,7 +115,7 @@
   overflow-y: auto;
   border-radius: 16px;
   border: 1px solid #f2f2f2;
-  background: white;
+  background: var(--ribbit-main);
   cursor: default;
   display: flex;
   flex-wrap: wrap;
@@ -146,7 +146,7 @@
   border-radius: 16px;
   height: 40px;
   cursor: pointer;
-  background: white;
+  background: var(--ribbit-main);
   width: 40px;
   border: transparent;
   display: flex;
@@ -210,7 +210,7 @@
   flex-direction: column;
   gap: 12px;
   padding-top: 12px;
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 16px;
   border: 1px solid #edeff1;
 }
@@ -288,7 +288,7 @@
 
 .reactions-menu > div {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.15);
-  background: white;
+  background: var(--ribbit-main);
 }
 
 .reactions-menu-small {

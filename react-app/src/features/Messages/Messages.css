@@ -93,7 +93,7 @@
 .messages-content-item {
   padding: 10px 15px;
   margin: 0;
-  background: white;
+  background: var(--ribbit-main);
 }
 
 .messages-content-item:nth-of-type(2n + 1) {
@@ -110,7 +110,7 @@
 }
 
 .messages-content-sender {
-  background-color: white;
+  background-color: var(--ribbit-main);
   border: 1px solid #336699;
   color: var(--highlight-color);
   display: inline-block;
@@ -299,7 +299,7 @@
 }
 
 .messages-content-main {
-  background: white;
+  background: var(--ribbit-main);
   margin: 20px auto;
   width: 70%;
   min-width: 700px;

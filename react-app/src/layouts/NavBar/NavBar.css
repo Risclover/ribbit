@@ -2,7 +2,7 @@
 nav {
   display: flex;
   position: fixed;
-  background: white;
+  background: var(--ribbit-main);
   width: 100%;
   height: 48px;
   top: 0;
@@ -48,6 +48,8 @@ nav ul li {
 
 .logo-container {
   margin-right: 16px;
+  display: flex;
+  align-items: center;
 }
 
 .logo-container img {
@@ -143,7 +145,7 @@ nav ul li {
 
 .navbar-login-btn {
   width: 120px;
-  background-color: #ff4500;
+  background-color: #67b54d;
   position: relative;
   border: none;
   color: white;
@@ -157,7 +159,7 @@ nav ul li {
   width: 100%;
   height: 100%;
   border-radius: 9999px;
-  background: white;
+  background: var(--ribbit-main);
   opacity: 0;
 }
 

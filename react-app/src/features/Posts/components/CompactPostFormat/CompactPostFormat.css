@@ -66,7 +66,7 @@
 }
 
 .compact-post-main {
-  background: white;
+  background: var(--ribbit-main);
   width: 100%;
   display: flex;
   align-items: center;
@@ -85,7 +85,7 @@
 }
 
 .compact-post-icon-btn {
-  background: white;
+  background: var(--ribbit-main);
   border: none;
   border-radius: 4px;
   font-size: 20px;
@@ -113,7 +113,7 @@
 }
 
 .compact-post-icon-btn.expandless:hover {
-  background: white;
+  background: var(--ribbit-main);
 }
 
 .compact-post-icon-btn-expand {
@@ -121,7 +121,7 @@
 }
 .compact-post-expanded {
   width: 100%;
-  background: white;
+  background: var(--ribbit-main);
   display: flex;
 }
 
@@ -203,7 +203,7 @@
   color: rgb(135, 138, 140);
   border: transparent;
   font-family: var(--font-family-ibm);
-  background: white;
+  background: var(--ribbit-main);
 }
 
 .compact-post-comments:hover {
@@ -243,7 +243,7 @@
 
 .compact-post-menu-face {
   border: transparent;
-  background: white;
+  background: var(--ribbit-main);
   font-size: 20px;
   display: flex;
   align-items: center;
@@ -291,7 +291,7 @@
   font-family: var(--font-family-ibm);
   border: none;
   border-top: 1px solid #edeff1;
-  background: white;
+  background: var(--ribbit-main);
   width: 100%;
 }
 .compact-post-menu:first-child {

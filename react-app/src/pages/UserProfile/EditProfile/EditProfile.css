@@ -2,7 +2,7 @@
   max-width: 850px;
   padding: 24px;
   border-radius: 4px;
-  background: white;
+  background: var(--ribbit-main);
   margin: 24px auto;
   overflow: hidden;
   height: auto;
@@ -35,7 +35,7 @@
 }
 
 .display-name-input {
-  background: white;
+  background: var(--ribbit-main);
   border: 1px solid #edeff1;
   border-radius: 4px;
   padding: 12px 24px 4px 12px;
@@ -108,7 +108,7 @@
 }
 
 .cancel-profile-edit {
-  background: white;
+  background: var(--ribbit-main);
   margin-right: 10px;
   color: var(--highlight-color);
 }

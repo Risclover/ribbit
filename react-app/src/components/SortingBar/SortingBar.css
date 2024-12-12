@@ -1,6 +1,6 @@
 .post-sorting-bar {
   width: 100%;
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 4px;
   border: 1px solid #ccc;
   padding: 10px 12px;

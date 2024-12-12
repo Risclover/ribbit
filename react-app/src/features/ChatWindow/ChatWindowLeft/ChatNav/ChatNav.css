@@ -23,7 +23,7 @@
   grid-column-gap: 8px;
   cursor: pointer;
   color: #131313;
-  background: white;
+  background: var(--ribbit-main);
   padding: 8px 12px;
 } */
 
@@ -37,7 +37,7 @@
   text-decoration: none;
   font-size: 12px;
   border: none;
-  background: white;
+  background: var(--ribbit-main);
   cursor: pointer;
 }
 

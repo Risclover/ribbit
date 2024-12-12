@@ -5,7 +5,7 @@
   display: block;
   z-index: 999;
   position: fixed;
-  background: white;
+  background: var(--ribbit-main);
   left: 0px;
   right: 0px;
   width: fit-content;
@@ -78,7 +78,7 @@
   justify-content: end;
   gap: 0.75rem;
   width: 100%;
-  background: white;
+  background: var(--ribbit-main);
   padding: 16px;
   overflow: hidden;
 }
@@ -98,7 +98,7 @@
 .warning-button-left {
   margin-right: auto;
   color: #1870f4;
-  background: white;
+  background: var(--ribbit-main);
 }
 
 .warning-button-left:hover {

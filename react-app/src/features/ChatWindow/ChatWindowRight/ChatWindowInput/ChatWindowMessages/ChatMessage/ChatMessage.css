@@ -92,7 +92,7 @@
   display: none;
   align-items: center;
   border-radius: 24px;
-  background: white;
+  background: var(--ribbit-main);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.15);
   color: #131313;
   padding: 4px 8px;
@@ -106,7 +106,7 @@
   display: flex;
   align-items: center;
   border-radius: 24px;
-  background: white;
+  background: var(--ribbit-main);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.15);
   color: #131313;
   padding: 4px 8px;

@@ -49,7 +49,7 @@ button {
   cursor: pointer;
   line-height: 17px;
   padding: 4px 16px;
-  border: 1px solid var(--highlight-color);
+  border: 1px solid var(--community-highlight);
 }
 
 button:disabled {
@@ -78,14 +78,14 @@ a.blue-btn-filled {
 .blue-btn-filled {
   color: white;
   position: relative;
-  background: var(--highlight-color);
+  background: var(--community-highlight);
   fill: var(--highlight-color);
 }
 
 .blue-btn-unfilled {
   position: relative;
   color: var(--highlight-color);
-  background: white;
+  background: var(--ribbit-main);
 }
 
 .btn-long {
@@ -105,7 +105,7 @@ a.blue-btn-filled {
   width: 100%;
   height: 100%;
   border-radius: 9999px;
-  background: white;
+  background: var(--ribbit-main);
   opacity: 0;
 }
 
@@ -117,7 +117,7 @@ a.blue-btn-filled {
   width: 100%;
   height: 100%;
   border-radius: 9999px;
-  background: var(--highlight-color);
+  background: var(--community-highlight);
   opacity: 0;
 }
 
@@ -166,7 +166,7 @@ a.blue-btn-filled {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 4px;
 }
 

@@ -2,7 +2,7 @@
   margin: 20px auto;
   width: 70%;
   min-width: 700px;
-  background: white;
+  background: var(--ribbit-main);
 }
 
 .sent-messages > .sent-message:nth-of-type(2n + 1) {

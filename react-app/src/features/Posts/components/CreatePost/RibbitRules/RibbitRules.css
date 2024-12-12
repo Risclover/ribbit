@@ -1,5 +1,5 @@
 .ribbit-rules-box {
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 4px;
   padding: 12px;
   max-width: 312px;

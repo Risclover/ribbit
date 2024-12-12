@@ -48,7 +48,7 @@
 }
 
 .create-post-content {
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -118,7 +118,7 @@
   padding: 15px 17px !important;
   font-size: 14px;
   width: 50%;
-  background: white;
+  background: var(--ribbit-main);
   outline: none;
   border: none;
   border-bottom: 1px solid #edeff1;
@@ -181,7 +181,7 @@
   background: none;
   border: none;
   z-index: 10;
-  background: white;
+  background: var(--ribbit-main);
   padding: 0;
   height: auto;
   opacity: 0.8;
@@ -332,7 +332,7 @@
   width: 100%;
   height: 100%;
   border-radius: 9999px;
-  background: white;
+  background: var(--ribbit-main);
   opacity: 0;
 }
 
@@ -353,7 +353,7 @@
 
 .choose-community-dropdown {
   margin-bottom: 8px;
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 4px;
   min-width: 300px;
   font-family: var(--font-family-noto);
@@ -377,7 +377,7 @@
 }
 
 .update-post-form {
-  background: white;
+  background: var(--ribbit-main);
   padding: 20px;
   padding-top: 10px;
   max-width: 740px;
@@ -511,7 +511,7 @@
 }
 
 .update-post-cancel {
-  background: white;
+  background: var(--ribbit-main);
   margin-right: 10px;
   color: var(--community-highlight);
 }
@@ -593,7 +593,7 @@ pre.ql-syntax {
   width: 100%;
   border-radius: 4px;
   overflow: hidden;
-  background: white;
+  background: var(--ribbit-main);
   border: 1px solid #ccc;
   margin-bottom: 16px;
 }
@@ -707,7 +707,7 @@ pre.ql-syntax {
   position: relative;
   vertical-align: bottom;
   margin: 0 8px;
-  background: white;
+  background: var(--ribbit-main);
   cursor: pointer;
   padding: 0;
 }

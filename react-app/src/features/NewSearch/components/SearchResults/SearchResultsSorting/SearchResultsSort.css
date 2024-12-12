@@ -63,7 +63,7 @@
   border-radius: 4px;
   color: var(--main-text-color);
   overflow: hidden;
-  background: white;
+  background: var(--ribbit-main);
   position: absolute;
   width: 120px;
   z-index: 10;
@@ -89,7 +89,7 @@
   color: #878a8c;
   cursor: pointer;
   text-align: left;
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 0;
 }
 

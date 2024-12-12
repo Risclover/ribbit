@@ -5,7 +5,7 @@
   max-width: 380px;
   position: absolute;
   z-index: 99999;
-  background: white;
+  background: var(--ribbit-main);
   cursor: default;
   padding: 12px 12px 6px;
 }

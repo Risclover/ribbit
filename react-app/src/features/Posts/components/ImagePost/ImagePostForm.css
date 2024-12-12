@@ -1,5 +1,5 @@
 .image-post-form {
-  background: white;
+  background: var(--ribbit-main);
   text-align: center;
   padding: 20px;
 }

@@ -64,7 +64,7 @@
 
 .single-post-community-box {
   width: 312px;
-  background: white;
+  background: var(--ribbit-main);
   border: 1px solid #ccc;
   border-radius: 4px;
   z-index: 100;
@@ -145,7 +145,7 @@
 }
 
 .single-post-main {
-  background-color: white;
+  background-color: var(--ribbit-main);
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -333,7 +333,7 @@
   width: 100%;
   border-radius: 4px;
   height: 100%;
-  background: white;
+  background: var(--ribbit-main);
 }
 
 /* .single-page-content .single-post-left-col:hover {
@@ -568,7 +568,7 @@ ol {
 }
 
 .single-post-community-rules {
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 4px;
   margin-top: 16px;
   border: 1px solid #ccc;

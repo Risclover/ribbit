@@ -43,7 +43,7 @@
 .posts-home-box,
 .posts-author-box {
   border-radius: 4px;
-  background: var(--main-bg-color);
+  background: var(--ribbit-main);
   border: 1px solid var(--border-color);
 }
 
@@ -177,7 +177,7 @@
 }
 
 .posts-author-box {
-  background: white;
+  background: var(--ribbit-main);
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;

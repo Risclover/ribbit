@@ -30,7 +30,10 @@ export function UsernamePopup({ community, user }) {
             className="username-popup-user-icon"
           />
           <div className="username-popup-user-info-name">
-            <NavLink to={`/users/${id}/profile`}>
+            <NavLink
+              onClick={(e) => e.stopPropagation()}
+              to={`/users/${id}/profile`}
+            >
               {displayName ? displayName : username}
             </NavLink>
             <div className="username-popup-user-info-details">

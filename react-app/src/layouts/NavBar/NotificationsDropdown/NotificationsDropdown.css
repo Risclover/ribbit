@@ -6,7 +6,7 @@
   position: absolute;
   padding-top: 8px;
   z-index: 1000000;
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 4px;
   width: 375px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -324,7 +324,7 @@
   justify-content: center;
   flex-direction: column;
   padding: 20px;
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 4px;
   padding-bottom: 32px;
   min-height: 200px;

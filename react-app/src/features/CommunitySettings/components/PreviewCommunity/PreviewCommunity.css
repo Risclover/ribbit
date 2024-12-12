@@ -1,7 +1,7 @@
 .preview-community-sidebar {
   height: 100vh;
   position: fixed;
-  background: white;
+  background: var(--ribbit-main);
   top: 0px;
   width: 284px;
   left: 0;
@@ -177,7 +177,7 @@
   box-shadow: 0 2px 4px 0 #edeff1;
   border-radius: 4px;
   border: 1px solid #edeff1;
-  background: white;
+  background: var(--ribbit-main);
   cursor: default;
   top: 30px;
   /* left: 12px; */
@@ -228,7 +228,7 @@
   width: 96px;
   border-radius: 4px;
   border: 1px solid #edeff1;
-  background: white;
+  background: var(--ribbit-main);
   color: #878a8c;
   height: 30px;
   font-size: 14px;

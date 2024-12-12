@@ -7,7 +7,7 @@
 }
 
 .inbox-messages {
-  background: white;
+  background: var(--ribbit-main);
   margin: 20px auto;
   width: 70%;
   min-width: 700px;

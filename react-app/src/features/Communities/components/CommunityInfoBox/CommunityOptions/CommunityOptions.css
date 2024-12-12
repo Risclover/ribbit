@@ -120,7 +120,7 @@
   width: 19.5px;
   left: 1px;
   bottom: 3px;
-  background-color: white;
+  background-color: var(--ribbit-main);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }

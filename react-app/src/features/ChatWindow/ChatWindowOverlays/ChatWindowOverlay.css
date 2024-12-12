@@ -6,7 +6,7 @@
   width: 410px;
   height: calc(405px + 56px);
   position: absolute;
-  background: white;
+  background: var(--ribbit-main);
 }
 
 .overlay-btn-right {
@@ -108,7 +108,7 @@
 .newchat-overlay-container {
   min-height: 64px;
   padding: 0 16px;
-  background: white;
+  background: var(--ribbit-main);
   color: #0f1a1c;
   border-radius: 1rem;
 }
@@ -128,7 +128,7 @@
 .new-chat-username-input {
   height: 64px;
   width: 100%;
-  background: white;
+  background: var(--ribbit-main);
   border-radius: 20px;
   padding: 0 16px;
   border: 4px solid transparent;
@@ -226,7 +226,7 @@
 }
 
 .new-chat-user-found {
-  background: white;
+  background: var(--ribbit-main);
   color: #0f1a1c;
   font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -364,7 +364,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background: white;
+  background: var(--ribbit-main);
   top: 44px;
   right: 0;
   bottom: 0;

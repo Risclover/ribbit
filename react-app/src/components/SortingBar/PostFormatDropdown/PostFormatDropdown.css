@@ -16,7 +16,7 @@
   height: 32px;
   padding: 0 8px;
   border-color: transparent;
-  background: white;
+  background: var(--ribbit-main);
 }
 
 .post-format-face:hover {
@@ -36,7 +36,7 @@
   box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
   color: var(--main-text-color);
   overflow: hidden;
-  background-color: white;
+  background-color: var(--ribbit-main);
   position: absolute;
   z-index: 1000;
   width: max-content;
@@ -51,7 +51,7 @@
   text-transform: capitalize;
   white-space: nowrap;
   border-radius: 0;
-  background: white;
+  background: var(--ribbit-main);
   border-color: transparent;
   display: flex;
   align-items: center;
@@ -100,7 +100,7 @@
   text-transform: capitalize;
   white-space: nowrap;
   border-radius: 0;
-  background: white;
+  background: var(--ribbit-main);
   border-color: transparent;
   display: flex;
   align-items: center;

@@ -13,7 +13,7 @@
 .edit-community-top-bar {
   height: 40px;
   width: 100%;
-  background: white;
+  background: var(--ribbit-main);
   padding-left: 24px;
   font-size: 12px;
   font-weight: 700;
@@ -54,7 +54,7 @@
   max-width: 850px;
   padding: 24px;
   border-radius: 4px;
-  background: white;
+  background: var(--ribbit-main);
   margin: 114px auto;
   overflow: hidden;
   height: auto;
@@ -87,7 +87,7 @@
 }
 
 .community-name-input {
-  background: white;
+  background: var(--ribbit-main);
   border: 1px solid #edeff1;
   border-radius: 4px;
   padding: 12px 24px 4px 12px;
@@ -141,7 +141,7 @@
 }
 
 .community-rules-edit {
-  background: white;
+  background: var(--ribbit-main);
   width: 100%;
   font-family: var(--font-family-noto);
   font-size: 14px;

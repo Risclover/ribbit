@@ -9,7 +9,7 @@
 }
 
 .comments-container {
-  background: white;
+  background: var(--ribbit-main);
   width: 100%;
   margin-bottom: 20px;
 }
@@ -354,7 +354,7 @@
 
 .insert-link-modal {
   position: absolute;
-  background: white;
+  background: var(--ribbit-main);
   display: flex;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -488,7 +488,7 @@
 
 .comments-sort-btn-container button {
   color: var(--highlight-color);
-  background: white;
+  background: var(--ribbit-main);
   font-family: var(--font-family-ibm);
   font-size: 12px;
   font-weight: 700;
@@ -578,7 +578,7 @@
 
 .comment-sorting-dropdown {
   z-index: 999;
-  background: white;
+  background: var(--ribbit-main);
   box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
   border: 1px solid #edeff1;
   position: absolute;
@@ -599,7 +599,7 @@
   padding: 8px;
   white-space: nowrap;
   color: #878a8c;
-  background: white;
+  background: var(--ribbit-main);
   border: none;
   font-family: var(--font-family-ibm);
   cursor: pointer;

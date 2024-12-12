@@ -69,7 +69,7 @@
 }
 
 .classic-post-main {
-  background: white;
+  background: var(--ribbit-main);
   width: 100%;
   display: flex;
   position: relative;
@@ -211,7 +211,7 @@
 }
 
 .classic-post-button {
-  background: white;
+  background: var(--ribbit-main);
   border-color: white;
   border-radius: 4px;
   width: auto;

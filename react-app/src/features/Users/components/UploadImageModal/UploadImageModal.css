@@ -12,7 +12,7 @@
   object-fit: cover;
   overflow: hidden;
   border-radius: 6px;
-  background: white;
+  background: var(--ribbit-main);
   border: 1px solid #edeff1;
   margin-bottom: 5px;
 }
@@ -43,7 +43,7 @@
   overflow: hidden;
   border-radius: 6px;
   position: relative;
-  background: white;
+  background: var(--ribbit-main);
   border: 1px solid #edeff1;
   margin-bottom: 5px;
 }
