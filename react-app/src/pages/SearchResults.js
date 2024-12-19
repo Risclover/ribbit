@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SearchResultsNav } from "../features";
 import "../features/NewSearch/Search.css";
 import { usePageSettings } from "../hooks";
@@ -14,6 +14,13 @@ export const SearchResults = ({ children, query, searchPage }) => {
     ),
     pageTitle: "Search Results",
   });
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--community-highlight",
+      "var(--highlight-color)"
+    );
+  }, []);
 
   return (
     <div className="search-results-page">

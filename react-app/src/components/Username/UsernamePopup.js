@@ -22,7 +22,7 @@ export function UsernamePopup({ community, user }) {
 
   return (
     <>
-      <div className="username-popup">
+      <div className="username-popup" onClick={(e) => e.stopPropagation()}>
         <div className="username-popup-user-info">
           <img
             src={profileImg}
