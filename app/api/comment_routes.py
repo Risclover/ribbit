@@ -91,6 +91,12 @@ def delete_comment(id):
     return {"message": "Successfully deleted", "status_code": 200}
 
 
+
+
+
+# ------------------------- COMMENT VOTES ------------------------- #
+
+
 # ADD A COMMENT VOTE
 @comment_routes.route('/<int:id>/vote/<votetype>', methods=["POST"])
 @login_required
@@ -129,7 +135,7 @@ def delete_vote(id):
     return comment.to_dict()
 
 
-# GET COMMENTS
+# GET A SPECIFIC POST'S COMMENTS COMMENTS
 @comment_routes.route("/<int:id>/comments")
 def get_post_comments(id):
     """

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { SortingBar } from "@/components";
 import { PostFeed } from "@/components";
-import { SortingFunction } from "@/utils";
+import { sortPosts } from "@/utils";
 
 export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
   const [sortedPosts, setSortedPosts] = useState([]);
 
   useEffect(() => {
-    const sorted = SortingFunction(posts, sortMode);
+    const sorted = sortPosts(posts, sortMode);
     setSortedPosts(sorted);
   }, [posts, sortMode]);
 

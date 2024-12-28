@@ -1,7 +1,6 @@
 export { getTextColor } from "./getTextColor";
-export { LinkText } from "./LinkText";
+export { parseLinkText } from "./parseLinkText";
 export { loadMore } from "./loadMore";
 export { ScrollToTop } from "./ScrollToTop";
-export { SortingFunction } from "./SortingFunction";
-export { useIsClickOut } from "./useIsClickOut";
+export { sortPosts } from "./sortPosts";
 export { sliceUrl } from "./sliceUrl";

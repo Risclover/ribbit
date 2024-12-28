@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts, getViewedPosts } from "@/store";
-import { SortingFunction } from "@/utils";
+import { sortPosts } from "@/utils";
 
 export function usePosts(isAllPosts) {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ export function usePosts(isAllPosts) {
       posts = posts.filter((post) => subbedPostsIds.has(post.id));
     }
 
-    return SortingFunction(posts, sortMode);
+    return sortPosts(posts, sortMode);
   }, [userPosts, subscriptions, follows, sortMode, isAllPosts, user?.id]);
   return { sortedPosts, sortMode, setSortMode, user, viewedPosts, userPosts };
 }

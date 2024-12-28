@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { PostFeed, CreatePostBar } from "@/components";
-import { SortingFunction } from "@/utils";
+import { sortPosts } from "@/utils";
 import { useHistory } from "react-router-dom";
 
 export function CommunityPosts({ commPosts, communityName, user }) {
   const history = useHistory();
   const [sortMode, setSortMode] = useState("new");
 
-  const posts = SortingFunction(commPosts, sortMode);
+  const posts = sortPosts(commPosts, sortMode);
 
   return (
     <div>
