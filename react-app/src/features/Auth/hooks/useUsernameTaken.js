@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { checkUsername } from "store";
 
 export const useUsernameTaken = (username) => {
+  const dispatch = useDispatch();
   const [usernameTaken, setUsernameTaken] = useState(false);
 
   const checkUsernameTaken = async () => {

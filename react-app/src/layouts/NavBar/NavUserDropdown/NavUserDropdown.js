@@ -40,7 +40,7 @@ export function NavUserDropdown() {
           <div className="navbar-user-info-details">
             <img
               className="navbar-user-img"
-              src={cuser?.profileImg}
+              src={user?.profileImg}
               alt="User"
             />
             <div className="navbar-user-info">

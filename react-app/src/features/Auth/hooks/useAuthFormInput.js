@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { generateUsername } from "../utils";
 
-export function useAuthFormInput(validateFn, inputProps) {
+export function useAuthFormInput(validateFn, inputProps, usernameTaken) {
   const [showIcon, setShowIcon] = useState(false);
   const [classValue, setClassValue] = useState("");
   const [errors, setErrors] = useState([]);
@@ -31,8 +31,9 @@ export function useAuthFormInput(validateFn, inputProps) {
 
   const pickRandomUsername = () => {
     inputProps?.setInputValue(generateUsername());
-    setUsernameAvailable(true);
+    setUsernameAvailable(usernameTaken);
     setErrors([]);
+    console.log("usernameAvailable:", usernameAvailable);
   };
 
   const handleBlur = () => {

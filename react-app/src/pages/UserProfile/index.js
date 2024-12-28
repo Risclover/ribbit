@@ -1,10 +1,9 @@
 export { SendMessage } from "./SendMessage";
 export { StartChat } from "./StartChat";
-export { UploadUserBanner } from "./UploadUserBanner";
-export { UploadUserImage } from "./UploadUserImage";
 export { UserAboutBox } from "./UserAboutBox";
 export { UserOwnedCommunities } from "./UserOwnedCommunities";
 export { UserOwnedCommunity } from "./UserOwnedCommunity";
 export { UserProfile } from "./UserProfile";
 export { UserProfilePosts } from "./UserProfilePosts";
 export { EditProfile } from "./EditProfile";
+export { UserUploadModal } from "./UserUploadModal";

@@ -35,7 +35,7 @@ export const SinglePost = ({ link, id, isPage, post }) => {
   }, []);
 
   return (
-    <article>
+    <article className="single-post">
       {(tempFormat === "Card" || format === "Card") && (
         <div className="post-card-format">
           {post && (

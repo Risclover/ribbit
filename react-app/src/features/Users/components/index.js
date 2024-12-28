@@ -1,2 +1,2 @@
-export { UploadBannerImageModal, UploadImage } from "./UploadImageModal";
 export { UserProfileFollowers } from "./UserProfileFollowers";
+export * from "./UploadImageModal";

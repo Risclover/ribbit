@@ -34,17 +34,18 @@
   font-size: 14px;
   outline: none;
   cursor: pointer;
-  border: 1px solid var(--highlight-color);
+  border: 1px solid var(--community-highlight);
 }
 
 .delete-modal-btn-left {
   background: inherit;
-  color: var(--highlight-color);
+  color: var(--community-highlight);
   margin-right: 10px;
+  border: 1px solid #0079d3;
 }
 
 .delete-modal-btn-right {
-  background: var(--highlight-color);
+  background: var(--community-highlight);
   color: white;
 }
 

@@ -30,7 +30,6 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
 
   useEffect(() => {
     dispatch(getPosts());
-    dispatch(getUsers());
     dispatch(getCommunities());
     setFormat("Card");
   }, [dispatch]);

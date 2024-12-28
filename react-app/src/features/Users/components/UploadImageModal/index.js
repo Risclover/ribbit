@@ -1,2 +1,1 @@
-export { UploadBannerImageModal } from "./UploadBannerImageModal";
-export { UploadImage } from "./UploadUserImageModal";
+export { UploadImageModal } from "./UploadImageModal";

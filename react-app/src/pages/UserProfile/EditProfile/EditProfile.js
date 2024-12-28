@@ -31,7 +31,6 @@ export function EditProfile() {
     const data = dispatch(editProfile(user?.id, { display_name, about }));
     if (data.length > 0) {
     } else {
-      dispatch(getUsers());
       history.push(`/users/${user?.id}/profile`);
     }
   };

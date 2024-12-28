@@ -40,15 +40,15 @@
 }
 
 .user-profile-img-box {
-  border-radius: 0;
   display: flex;
   position: relative;
   justify-content: flex-start;
   height: auto;
   margin-top: 16px;
   margin-left: -3px;
-  padding: 3px;
-  width: fit-content;
+  border: 3px solid white;
+  width: 80px;
+  height: 80px;
   border-radius: 6px;
   background: var(--ribbit-main);
 }

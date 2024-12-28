@@ -30,8 +30,8 @@ export const getUsers = () => async (dispatch) => {
   }
 };
 
-export const getCurrentUser = (id) => async (dispatch) => {
-  const response = await fetch(`/api/users/${id}`);
+export const getCurrentUser = () => async (dispatch) => {
+  const response = await fetch(`/api/users`);
 
   if (response.ok) {
     const user = await response.json();

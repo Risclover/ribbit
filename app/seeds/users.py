@@ -5,73 +5,95 @@ from app.models import db, User
 def seed_users():
     admin = User(username='Ribbit', email='ribbit@aa.io', password='password', about='', profile_img='https://i.imgur.com/OkrlO4H.png')
     demo = User(
-        username='Demo', email='demo@aa.io', password='password', about="", profile_img="https://i.imgur.com/OkrlO4H.png")
+        username='Demo', email='demo@aa.io', password='password', about="Hi, I'm Demo", profile_img="https://i.imgur.com/OkrlO4H.png", banner_img="https://wallpapersok.com/images/hd/widescreen-blue-moon-qa91zekh1cl86k1k.jpg")
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', about="", profile_img="https://i.imgur.com/OkrlO4H.png")
+        username='marnie', email='marnie@aa.io', password='password', about="Marnieee", profile_img="https://i.imgur.com/OkrlO4H.png", banner_img="https://wallpapersmug.com/download/2560x1080/8d554d/celestial-world-digital-art-space-colorful.jpg")
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', about="", profile_img="https://cdn-icons-png.flaticon.com/512/4139/4139981.png")
+        username='bobbie', email='bobbie@aa.io', password='password', about="Bobbie", profile_img="https://cdn-icons-png.flaticon.com/512/4139/4139981.png", banner_img="https://i.pinimg.com/736x/d4/32/30/d4323062065c96e06e794370cfc01571.jpg")
 
     user_4 = User(
         username="Videowulff",
         email="Videowulff@aa.io",
         password="password",
         profile_img="https://cdn-icons-png.flaticon.com/512/4140/4140047.png",
+        about="Hi I'm Rita",
+        display_name="Rita",
+        banner_img="https://images8.alphacoders.com/135/thumb-1920-1354012.png"
     )
     user_5 = User(
         username="pedrowyatt",
         email="pedrowyatt@aa.io",
         password="password",
-        profile_img="https://cdn-icons-png.flaticon.com/512/6997/6997674.png"
+        profile_img="https://cdn-icons-png.flaticon.com/512/6997/6997674.png",
+        about="😂😂😂",
+        display_name="Pedro the Meme Queen",
+        banner_img="https://wallpapers.com/images/hd/astronaut-4k-ultra-widescreen-3anbtnv46uqaugpp.jpg"
     )
     user_6 = User(
         username="lexi_the_leo",
         email="lexi_the_leo@aa.io",
         password="password",
-        profile_img="https://cdn-icons-png.flaticon.com/512/6997/6997662.png"
+        profile_img="https://cdn-icons-png.flaticon.com/512/6997/6997662.png",
+        about="Just here to mess things up. 😈",
+        display_name="Lexi the Leo",
+        banner_img="https://wallpapercave.com/wp/wp8566312.jpg"
     )
     user_7 = User(
         username="Cheris_P",
         email="Cheris_P@aa.io",
         password="password",
-        profile_img="https://cdn-icons-png.flaticon.com/512/4140/4140051.png"
+        profile_img="https://cdn-icons-png.flaticon.com/512/4140/4140051.png",
+        about="Nope.",
+        banner_img="https://wallpapercave.com/wp/wp11893074.jpg"
     )
     user_8 = User(
         username="lurkinislife",
         email="lurkinislife@aa.io",
         password="password",
-        profile_img="https://cdn-icons-png.flaticon.com/512/4140/4140044.png"
+        profile_img="https://cdn-icons-png.flaticon.com/512/4140/4140044.png",
+        about="Nothing here.",
+        display_name="Lurkin",
+        banner_img="https://wallpapercave.com/wp/wp11893042.jpg"
     )
     user_9 = User(
         username="asilvertintedrose",
         email="asilvertintedrose@aa.io",
         password="password",
-        profile_img="https://cdn-icons-png.flaticon.com/512/5189/5189024.png"
+        profile_img="https://cdn-icons-png.flaticon.com/512/5189/5189024.png",
+        about="lolk",
+        display_name="🌹"
     )
     user_10 = User(
         username="Siri0usly",
         email="Siri0usly@aa.io",
         password="password",
-        profile_img="https://cdn-icons-png.flaticon.com/512/2716/2716285.png"
+        profile_img="https://cdn-icons-png.flaticon.com/512/2716/2716285.png",
+        about="Meow meow",
+        display_name="Robin"
     )
     user_11 = User(
         username="scot816",
         email="scot816@aa.io",
         password="password",
-        profile_img="https://cdn-icons-png.flaticon.com/512/4140/4140052.png"
+        profile_img="https://cdn-icons-png.flaticon.com/512/4140/4140052.png",
+        about="Hi I'm Scot",
+        display_name="Scot"
     )
     user_12 = User(
         username="Frigglefragglewaggit",
         email="Frigglefragglewaggit@aa.io",
         password="password",
-        profile_img="https://cdn-icons-png.flaticon.com/512/2319/2319672.png"
+        profile_img="https://cdn-icons-png.flaticon.com/512/2319/2319672.png",
+        about="Wiggity waggety wat?",
+        display_name="Wiggity"
     )
     user_13 = User(
         username="digitaljohn",
         email="digitaljohn@aa.io",
         password="password",
-        about="Testing",
         display_name="DigiJohn",
-        profile_img="https://cdn-icons-png.flaticon.com/512/4128/4128196.png"
+        profile_img="https://cdn-icons-png.flaticon.com/512/4128/4128196.png",
+        about="Software engineer with a passion for fashion. Jk.",
     )
     user_14 = User(
         username="Pinturicchio1897",

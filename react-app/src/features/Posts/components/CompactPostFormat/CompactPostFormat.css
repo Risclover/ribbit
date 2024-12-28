@@ -342,6 +342,7 @@
   color: var(--community-highlight) !important;
 }
 
+.classic-post-expanded-text code,
 .compact-post-expanded-text code {
   font-family: "Noto Sans Mono", monospace;
   font-size: 13px;

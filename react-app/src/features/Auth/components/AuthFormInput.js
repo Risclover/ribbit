@@ -3,7 +3,7 @@ import { IconComponent, ErrorsDisplay } from "../components";
 import { generateUsername } from "../utils";
 import { useAuthFormInput } from "../hooks";
 
-export function AuthFormInput({ props, onBlur, icon }) {
+export function AuthFormInput({ props, onBlur, icon, usernameTaken }) {
   const {
     type,
     name,
@@ -19,8 +19,8 @@ export function AuthFormInput({ props, onBlur, icon }) {
     setFocused,
   } = props;
 
-  const { showIcon, classValue, setClassValue, pickRandomUsername } =
-    useAuthFormInput(onBlur, props);
+  const { showIcon, classValue, setClassValue, pickRandomUsername, usernameAvailable } =
+    useAuthFormInput(onBlur, props, usernameTaken);
 
   return (
     <div

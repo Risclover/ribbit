@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getUsers } from "@/store";
-// import "@/components/Modals/Modals.css";
 import "./UploadImageModal.css";
 
-export function UploadImage({ img_url, setShowUploadModal, userId }) {
+export function UploadImageModal({ imgUrl, setShowModal, userId, uploadType }) {
   const dispatch = useDispatch();
 
-  const [imgPreview, setImgPreview] = useState(img_url);
+  const [imgPreview, setImgPreview] = useState(imgUrl);
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -30,7 +29,7 @@ export function UploadImage({ img_url, setShowUploadModal, userId }) {
 
     setImageLoading(true);
 
-    const res = await fetch(`/api/users/${+userId}/img/profile`, {
+    const res = await fetch(`/api/users/${+userId}/img/${uploadType}`, {
       method: "POST",
       body: formData,
     });
@@ -38,7 +37,7 @@ export function UploadImage({ img_url, setShowUploadModal, userId }) {
       await res.json();
       setImageLoading(false);
       dispatch(getUsers());
-      setShowUploadModal(false);
+      setShowModal(false);
     } else {
       setImageLoading(false);
       setErrorMsg(
@@ -54,7 +53,11 @@ export function UploadImage({ img_url, setShowUploadModal, userId }) {
           <div className="upload-user-img">
             <div className="user-img-preview-box">
               <img
-                className="user-img-preview"
+                className={
+                  uploadType === "banner"
+                    ? "banner-preview user-img-preview"
+                    : "user-img-preview"
+                }
                 src={imgPreview}
                 alt="Preview"
               />
@@ -78,23 +81,18 @@ export function UploadImage({ img_url, setShowUploadModal, userId }) {
         <div className="modal-buttons">
           <button
             className="blue-btn-unfilled-modal btn-short"
-            onClick={() => setShowUploadModal(false)}
+            onClick={() => setShowModal(false)}
           >
             Cancel
           </button>
-          {image ? (
-            <button
-              className="blue-btn-filled btn-short"
-              type="submit"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-          ) : (
-            <button className="modal-buttons-disabled" disabled>
-              Submit
-            </button>
-          )}
+          <button
+            className="blue-btn-filled btn-short"
+            type="submit"
+            onClick={handleSubmit}
+            disabled={!image}
+          >
+            Submit
+          </button>
         </div>
       </form>
     </div>

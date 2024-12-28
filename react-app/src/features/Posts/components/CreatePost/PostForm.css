@@ -565,10 +565,14 @@ pre.ql-syntax {
 .ql-editor h1 {
   font-family: Noto Sans, Arial, sans-serif;
   font-weight: 400;
-  margin-bottom: 8px;
-  margin-top: 1.4em;
+  margin-bottom: 8px !important;
+  margin-top: 1.4em !important;
   font-size: 22px !important;
   line-height: 26px;
+}
+
+.ql-editor h1:first-of-type {
+  margin-top: 0 !important;
 }
 .ql-editor li:not(.ql-direction-rtl)::before {
   margin-left: 0;
@@ -576,17 +580,17 @@ pre.ql-syntax {
   content: none;
 }
 
+.ql-editor ol li:not(.ql-direction-rtl),
 .ql-editor ul li:not(.ql-direction-rtl) {
   padding-left: 1px !important;
 }
 
 .ql-editor ul li {
-  list-style-type: disc;
+  list-style-type: disc !important;
 }
 
 .ql-editor ol > li {
   list-style-type: number !important;
-  padding-left: 0.5rem;
 }
 
 .community-page-community-info {

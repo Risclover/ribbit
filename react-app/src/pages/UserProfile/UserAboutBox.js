@@ -20,6 +20,8 @@ import Cakeday from "@/assets/images/user-profile-icons/cakeday.png";
 import Flower from "@/assets/images/user-profile-icons/poinsettia.png";
 import { SelectedChatContext } from "@/context";
 import { FollowBtn } from "@/components";
+import { UserUploadModal } from "./UserUploadModal";
+import { UploadBannerImageModal, UploadImage } from "features";
 
 export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const dispatch = useDispatch();
@@ -33,6 +35,8 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const follows = useSelector((state) => state.followers?.follows);
   const userFollowers = useSelector((state) => state.followers.userFollowers);
   const userChats = useSelector((state) => Object.values(state.chatThreads));
+  const [showBannerModal, setShowBannerModal] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
 
   const isFollowing = () => follows && user && follows[user.id];
 
@@ -83,21 +87,48 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
 
   return (
     <div className="user-profile-about-box">
-      <div className="user-profile-about-box-banner">
-        {banner === null ? (
-          ""
-        ) : (
-          <img src={banner} className="user-profile-banner" alt="Banner" />
-        )}
+      <div
+        className="user-profile-about-box-banner"
+        style={{
+          background:
+            banner === null
+              ? "#0079d3"
+              : `center / cover no-repeat url(${banner})`,
+        }}
+      >
         {currentUser?.id === +userId && (
+          <UserUploadModal
+            title="Change User Profile Banner"
+            showModal={showBannerModal}
+            setShowModal={setShowBannerModal}
+            imgUrl={user?.bannerImg}
+            userId={currentUser?.id}
+            uploadType="banner"
+          />
+        )}
+        {/* {currentUser?.id === +userId && (
           <UploadUserBanner user={user} currentUser={currentUser} />
-        )}
+        )} */}
       </div>
-      <div className="user-profile-img-box">
-        {currentUser?.id === +userId && (
+      <div
+        className="user-profile-img-box"
+        style={{
+          background: `center / cover no-repeat url(${user?.profileImg}) #FFF`,
+        }}
+      >
+        {/* {currentUser?.id === +userId && (
           <UploadUserImage user={user} currentUser={currentUser} />
+        )} */}
+        {currentUser?.id === +userId && (
+          <UserUploadModal
+            title="Change User Image"
+            showModal={showUploadModal}
+            setShowModal={setShowUploadModal}
+            imgUrl={user?.profileImg}
+            userId={currentUser?.id}
+            uploadType="profile"
+          />
         )}
-        <img src={user?.profileImg} alt="User" className="user-profile-img" />
       </div>
       <div className="user-profile-about-content">
         {currentUser?.id === +userId && (

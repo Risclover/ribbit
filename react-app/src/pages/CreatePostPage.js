@@ -33,6 +33,15 @@ export function CreatePostPage({ postType, setPostType, val }) {
   });
 
   useEffect(() => {
+    if (!communityName) {
+      document.documentElement.style.setProperty(
+        "--community-highlight",
+        "var(--highlight-color)"
+      );
+    }
+  }, []);
+
+  useEffect(() => {
     const currentCommunity = Object.values(communities).find(
       (comm) => comm.name === communityName
     );

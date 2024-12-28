@@ -22,6 +22,11 @@ def get_all_users():
     users = User.query.all()
     return {"users": [user.to_dict() for user in users]}, 200
 
+@user_routes.route("")
+@login_required
+def get_current_user():
+    user = User.query.get(current_user.get_id())
+    return user.to_dict()
 
 @user_routes.route('/<int:id>')
 @login_required

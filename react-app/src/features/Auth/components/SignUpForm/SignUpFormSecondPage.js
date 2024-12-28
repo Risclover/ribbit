@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AuthModal } from "@/context";
 import { AuthFormInput } from "../../components";
 import { useSignUpFormSecondPage } from "../../hooks";
@@ -27,6 +27,10 @@ export function SignUpFormSecondPage({
     email,
   });
 
+  useEffect(() => {
+    console.log("usernameTaken:", usernameTaken);
+  }, [usernameTaken]);
+
   return (
     <AuthModal
       title="Create your username and password"
@@ -46,6 +50,7 @@ export function SignUpFormSecondPage({
             onChange={setUsername}
             onBlur={() => validateUsername(username, usernameTaken)}
             icon="rotate"
+            usernameTaken={usernameTaken}
           />
           <AuthFormInput
             props={passwordInputProps}
