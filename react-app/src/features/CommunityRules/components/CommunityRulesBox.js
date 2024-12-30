@@ -23,4 +23,3 @@ export function CommunityRulesBox({ community, post }) {
     </div>
   );
 }
-

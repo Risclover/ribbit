@@ -12,7 +12,13 @@ export const ChatNavBtn = ({
   const { setSelectedChat, selectedChat } = useContext(SelectedChatContext);
   const isActive = selectedChat?.id === chatThread.id;
   const currentUser = useSelector((state) => state.session.user);
-  const recipient = chatThread.users.find((user) => user.id !== currentUser.id);
+  const recipient = chatThread?.users?.find(
+    (user) => user.id !== currentUser.id
+  );
+
+  console.log("recipient:", recipient);
+  console.log("chatThread:", chatThread);
+  console.log("chatThread.users:", chatThread.users);
 
   const [time, setTime] = useState("");
 
@@ -45,7 +51,7 @@ export const ChatNavBtn = ({
       <div className="chat-window-chatnav-details">
         <div className="chat-window-chatnav-details-top">
           <span className="chat-window-chatnav-username">
-            {recipient.username}
+            {recipient?.username}
           </span>
           <span className="chat-window-chatnav-date">
             {chatThread.messages?.length
@@ -62,18 +68,18 @@ export const ChatNavBtn = ({
         </div>
         <div className="chat-window-chatnav-details-bottom">
           {chatThread.messages?.length
-            ? (currentUser.username ===
+            ? (currentUser?.username ===
               chatThread.messages[chatThread.messages.length - 1]?.sender
-                .username
+                ?.username
                 ? "You: "
                 : chatThread.messages[chatThread.messages.length - 1]?.sender
-                    .username + ": ") +
+                    ?.username + ": ") +
               (chatThread.messages[
                 chatThread.messages.length - 1
               ]?.content?.endsWith(".png") ||
               chatThread.messages[
                 chatThread.messages.length - 1
-              ]?.content.includes(".giphy")
+              ]?.content?.includes(".giphy")
                 ? "🖼️"
                 : chatThread.messages[chatThread.messages.length - 1]?.content)
             : ""}
