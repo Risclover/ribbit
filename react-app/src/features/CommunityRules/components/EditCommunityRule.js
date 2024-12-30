@@ -23,45 +23,39 @@ export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
   const rules = useSelector((state) => Object.values(state.rules));
 
   useEffect(() => {
-    title?.length === 0 ? setDisabled(true) : setDisabled(false);
-    dispatch(getSingleCommunity(community?.id));
-    dispatch(getCommunityRules(communityId));
-    let changed = false;
-    let originalName = rule?.title;
-
-    for (let rule of rules) {
-      if (rule.title === title) {
-        changed = true;
-      }
-      if (title === originalName) {
-        changed = false;
-      }
+    // 1) If the title is empty, disable the form
+    if (!title.trim()) {
+      setDisabled(true);
+      setTitleError(false);
+      return;
     }
 
-    if (changed) {
+    // 2) Check duplicates among existing rules
+    const isOriginal = title === rule?.title;
+    const isDuplicate = !isOriginal && rules.some((r) => r.title === title);
+
+    if (isDuplicate) {
       setTitleError(true);
       setDisabled(true);
-    } else if (!changed) {
+    } else {
       setTitleError(false);
+      setDisabled(false);
     }
-  }, [title, titleError, community?.id, communityId, dispatch, rule?.title]);
+  }, [title, rules, rule?.title]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(updateRule({ title, description }, rule.id));
-    dispatch(getCommunityRules(communityId));
-    dispatch(getSingleCommunity(communityId));
     setShowEditRuleModal(false);
+    dispatch(getSingleCommunity(communityId));
   };
 
   const handleDeleteRule = async () => {
     await dispatch(deleteRule(rule.id));
     setShowDeleteModal(false);
     setShowEditRuleModal(false);
-    dispatch(getCommunityRules(communityId));
     dispatch(getSingleCommunity(communityId));
   };
-  
 
   return (
     <div className="modal-container">

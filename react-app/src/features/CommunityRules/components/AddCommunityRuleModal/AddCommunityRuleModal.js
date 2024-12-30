@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+
 import { createRule, getCommunityRules, getSingleCommunity } from "@/store";
+
 import "@/assets/styles/Modals.css";
 import "./AddCommunityRuleModal.css";
 
@@ -13,58 +15,85 @@ export function AddCommunityRuleModal({
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // Local states
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [disabled, setDisabled] = useState(title?.length === 0 ? true : false);
-  const [titleError, setTitleError] = useState(false);
+  const [titleError, setTitleError] = useState("");
   const [errors, setErrors] = useState([]);
+  const [disabled, setDisabled] = useState(true);
+
+  // Select current rules from Redux
   const rules = useSelector((state) => Object.values(state.rules));
 
+  // Fetch community rules upon component mount or communityId change
   useEffect(() => {
-    title.length === 0 ? setDisabled(true) : setDisabled(false);
-
     dispatch(getCommunityRules(communityId));
-    let changed = false;
+  }, [communityId, dispatch]);
 
-    for (let rule of rules) {
-      if (rule.title === title) {
-        changed = true;
-      }
+  // Validate title
+  useEffect(() => {
+    const trimmedTitle = title.trim();
+
+    // If there's no title or it's only whitespace
+    if (!trimmedTitle) {
+      setTitleError("");
+      setErrors([]);
+      setDisabled(true);
+      return;
     }
 
-    if (changed) {
+    // Check for duplicates
+    const isDuplicateTitle = rules.some((rule) => rule.title === trimmedTitle);
+
+    if (isDuplicateTitle) {
       setTitleError("You have another rule with this title. Please change.");
       setErrors([]);
       setDisabled(true);
-    } else if (!changed) {
+    } else {
       setTitleError("");
+      setDisabled(false);
     }
-  }, [title, titleError, communityId, dispatch]);
+  }, [title]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errors = [];
-    if (title.trim().length === 0) {
-      errors.push("You must set a title for this rule.");
+
+    const currentErrors = [];
+    const trimmedTitle = title.trim();
+    const trimmedDescription = description.trim();
+
+    if (!trimmedTitle) {
+      currentErrors.push("You must set a title for this rule.");
     }
-    if (errors.length > 0) {
-      setErrors(errors);
-    } else {
-      await dispatch(
-        createRule(
-          { title: title.trim(), description: description.trim() },
-          +communityId
-        )
-      );
-      setShowRuleModal(false);
-      await dispatch(getCommunityRules(communityId));
-      dispatch(getSingleCommunity(communityId));
-      history.push(`/c/${communityName}/edit`);
+
+    if (currentErrors.length > 0) {
+      setErrors(currentErrors);
+      return;
     }
+
+    // Create rule in the backend
+    await dispatch(
+      createRule(
+        { title: trimmedTitle, description: trimmedDescription },
+        +communityId
+      )
+    );
+
+    // Close modal
+    setShowRuleModal(false);
+
+    // Refresh rules & community
+    await dispatch(getCommunityRules(communityId));
+    dispatch(getSingleCommunity(communityId));
+
+    // Redirect
+    history.push(`/c/${communityName}/edit`);
   };
+
   return (
     <div className="modal-container">
       <div className="modal-content">
+        {/* Rule Title Input */}
         <div className="rule-modal-section">
           <h2 className="rule-modal-section-title">Rule</h2>
           <textarea
@@ -73,10 +102,10 @@ export function AddCommunityRuleModal({
             maxLength={100}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-          ></textarea>
+          />
+          {/* Display errors and/or titleError */}
           <p className="title-exists-error">
-            {errors.map((error) => error)}
-            {titleError}
+            {[...errors, titleError].join(" ")}
           </p>
           <p
             className={
@@ -88,6 +117,8 @@ export function AddCommunityRuleModal({
             {100 - title.length} Characters remaining
           </p>
         </div>
+
+        {/* Rule Description Input */}
         <div className="rule-modal-section">
           <h2 className="rule-modal-section-title">Full description</h2>
           <textarea
@@ -96,7 +127,7 @@ export function AddCommunityRuleModal({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Enter the full description of the rule."
-          ></textarea>
+          />
           <p
             className={
               description.length === 500
@@ -108,6 +139,8 @@ export function AddCommunityRuleModal({
           </p>
         </div>
       </div>
+
+      {/* Buttons */}
       <div className="modal-buttons">
         <button
           className="blue-btn-unfilled-modal btn-short"
