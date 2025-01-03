@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
 import { useCheckCommunityName } from "../services/apiService";
 
-export const useCommunityNameTaken = (name) => {
+/**
+ * A custom hook that checks whether or not a community's name is already taken.
+ *
+ * @param {string} communityName - The name of the community.
+ * @returns {boolean} Whether or not the community name (communityName) is already taken.
+ */
+
+export const useCommunityNameTaken = (communityName) => {
   const [communityNameTaken, setCommunityNameTaken] = useState(false);
-  const { checkNameTaken } = useCheckCommunityName(name);
+  const { checkNameTaken } = useCheckCommunityName(communityName);
 
   useEffect(() => {
     const fetchCommunityNameTaken = async () => {
@@ -12,7 +19,7 @@ export const useCommunityNameTaken = (name) => {
     };
 
     fetchCommunityNameTaken().catch(console.error);
-  }, [name, checkNameTaken]);
+  }, [communityName, checkNameTaken]);
 
   return communityNameTaken;
 };

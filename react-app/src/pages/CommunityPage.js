@@ -3,11 +3,22 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCommunities, getCommunitySettings, getPosts } from "../store";
 
-import { CommunityPageMain, CommunityPageHeader } from "../features";
+import {
+  CommunityPageHeader,
+  CommunityPosts,
+  CommunityInfoBox,
+  CommunityRulesBox,
+} from "../features";
 import { usePageSettings } from "../hooks/usePageSettings";
 import { getIdFromName } from "utils/getCommunityIdFromName";
 import { CommunityImg } from "components/CommunityImg";
 import Skeleton from "@mui/material/Skeleton";
+import {
+  BackToTop,
+  FeedContainer,
+  FeedLeftColContainer,
+  FeedRightColContainer,
+} from "components";
 
 export function CommunityPage() {
   const { communityName } = useParams();
@@ -19,9 +30,14 @@ export function CommunityPage() {
     dispatch(getPosts());
   }, [dispatch]);
 
+  const user = useSelector((state) => state.session.user);
   const communities = useSelector((state) => state.communities);
   const communityId = getIdFromName(communityName, communities);
   const community = useSelector((state) => state.communities[communityId]);
+  const posts = useSelector((state) => Object.values(state.posts));
+  const communityPosts = posts.filter(
+    (post) => post.communityId === community.id
+  );
 
   usePageSettings({
     documentTitle: community?.displayName,
@@ -53,7 +69,25 @@ export function CommunityPage() {
   return (
     <div className="community-page-container">
       <CommunityPageHeader community={community} />
-      <CommunityPageMain community={community} />
+      <FeedContainer>
+        <div className="community-body-bg-div"></div>
+        <FeedLeftColContainer>
+          <CommunityPosts
+            commPosts={communityPosts}
+            communityName={community.name}
+            user={user}
+          />
+        </FeedLeftColContainer>
+        <FeedRightColContainer>
+          <CommunityInfoBox user={user} community={community} />
+
+          {Object.values(community.communityRules).length > 0 && (
+            <CommunityRulesBox community={community} />
+          )}
+
+          <BackToTop community={true} />
+        </FeedRightColContainer>
+      </FeedContainer>
       {/* <CommunityWelcome /> */}
     </div>
   );

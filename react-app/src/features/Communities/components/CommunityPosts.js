@@ -11,7 +11,7 @@ export function CommunityPosts({ commPosts, communityName, user }) {
 
   return (
     <div>
-      {user && <CreatePostBar page="community" communityName={communityName} />}
+      {user && <CreatePostBar isCommunityPage communityName={communityName} />}
 
       <PostFeed
         setSortMode={setSortMode}
