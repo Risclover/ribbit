@@ -21,13 +21,13 @@
   - [Other User Profile](#other-user-profile)
 - [Developer Links](#developer-links)
 
-# <img id="project-information" height="25" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-happy.png" />&nbsp;Project Information
+# <img id="project-information" height="30" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-happy.png" />&nbsp;Project Information
 
 (^ [Back to Top](#ribbit))
 
 This is Ribbit, a clone of <a href="https://www.reddit.com">https://www.reddit.com</a>. On this site, users can subscribe to communities that interest them and interact with other users by creating posts on communities, or by creating comments on other users' posts. Users can use their homepage to look through the posts from their subscribed communities, or the 'All' feed to view posts from all communities on the site. In addition, users can upload a profile image and a banner image on their profiles to represent themselves or their personalities. Owners of communities can customize the community's display name, description, image, and rules section.
 
-# <img id="project-information" height="25" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-laugh.png" />&nbsp;Languages, Frameworks, and Technologies
+# <img id="project-information" height="30" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-laugh.png" />&nbsp;Languages, Frameworks, and Technologies
 
 (^ <a href="#ribbit">Back to Top</a>)
 
@@ -40,7 +40,7 @@ Ribbit was made with primarily the following technologies:
 - <a href="https://flask-socketio.readthedocs.io/en/latest/" target="_blank">Flask-SocketIO</a>
 - <a href="https://devdocs.io/css/" target="_blank">CSS3</a>
 
-# <img id="features" height="25" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-love.png" />&nbsp;Features
+# <img id="features" height="30" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-love.png" />&nbsp;Features
 
 (^ [Back to Top](#ribbit))
 
@@ -63,7 +63,7 @@ Ribbit was made with primarily the following technologies:
   - Image posts
   - Community images
 
-# <img id="future-implementations" height="25" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-angry.png" />&nbsp;Future Implementations
+# <img id="future-implementations" height="30" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-angry.png" />&nbsp;Future Implementations
 
 (^ [Back to Top](#ribbit))
 
@@ -87,7 +87,7 @@ Future feature implementations include:
 - Notifications for post replies, comment replies, new community posts, new followers, and messages
 - Nested comments
 
-# <img id="getting-started" height="25" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-sad.png" />&nbsp;Getting Started
+# <img id="getting-started" height="30" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-sad.png" />&nbsp;Getting Started
 
 (^ [Back to Top](#ribbit))
 
@@ -113,7 +113,7 @@ To run this app locally:
 2. In a separate terminal, navigate to the `/react-app` directory and enter `npm start`. This should automatically launch a browser window navigated to the proper localhost address.
 3. By default, the app will be running on port `3000`.
 
-# <img id="site-screenshots" height="25" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-sparkle.png" />&nbsp;Site Screenshots
+# <img id="site-screenshots" height="30" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-sparkle.png" />&nbsp;Site Screenshots
 
 (^ [Back to Top](#ribbit))
 
@@ -157,7 +157,7 @@ To run this app locally:
 
 ![](react-app/src/assets/images/screenshots/user-profile.png)
 
-## <img id="developer-links" height="25" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-happy.png" />&nbsp;Developer Links
+## <img id="developer-links" height="30" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-happy.png" />&nbsp;Developer Links
 
 (^ [Back to Top](#ribbit))
 
