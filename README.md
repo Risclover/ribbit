@@ -31,14 +31,14 @@ This is Ribbit, a clone of <a href="https://www.reddit.com">https://www.reddit.c
 
 (^ <a href="#ribbit">Back to Top</a>)
 
-- <a href="https://beta.reactjs.org">React.js</a>
-- <a href="https://redux.js.org">Redux</a>
-- [React](https://beta.reactjs.org/)
-- [Redux](https://redux.js.org/)
-- [Flask](https://palletsprojects.com/p/flask/)
-- [SQLAlchemy](https://www.sqlalchemy.org/)
-- [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
-- [CSS3](https://devdocs.io/css/)
+Ribbit was made with primarily the following technologies:
+
+- <a href="https://beta.reactjs.org" target="_blank">React.js</a>
+- <a href="https://redux.js.org" target="_blank">Redux</a>
+- <a href="https://palletsprojects.com/p/flask/" target="_blank">Flask</a>
+- <a href="https://www.sqlalchemy.org/" target="_blank">SQLAlchemy</a>
+- <a href="https://flask-socketio.readthedocs.io/en/latest/" target="_blank">Flask-SocketIO</a>
+- <a href="https://devdocs.io/css/" target="_blank">CSS3</a>
 
 # <img id="features" width="40" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-love.png" />&nbsp;Features
 
@@ -117,45 +117,45 @@ To run this app locally:
 
 (^ [Back to Top](#ribbit))
 
-### All Feed Page
+## All Feed Page
 
-![](react-app/src/images/screenshots/feed-page.png)
+![](react-app/src/assets/images/screenshots/feed-page.png)
 
-### Classic Feed Mode
+## Classic Feed Mode
 
-![](react-app/src/images/screenshots/feed-page-classic.png)
+![](react-app/src/assets/images/screenshots/feed-page-classic.png)
 
-### Community Page
+## Community Page
 
-![](react-app/src/images/screenshots/community-page.png)
+![](react-app/src/assets/images/screenshots/community-page.png)
 
-### 'Edit Community' Page
+## 'Edit Community' Page
 
-![](react-app/src/images/screenshots/edit-community-page.png)
+![](react-app/src/assets/index.jsimages/screenshots/edit-community-page.png)
 
-### Edit Rules Section
+## Edit Rules Section
 
-<center><img src="react-app/src/images/screenshots/edit-rules-section.png" /></center>
+<center><img src="react-app/src/assets/images/screenshots/edit-rules-section.png" /></center>
 
-### Search Results Page
+## Search Results Page
 
-![](react-app/src/images/screenshots/search-results-page-full.png)
+![](react-app/src/assets/images/screenshots/search-results-page-full.png)
 
-### Single Post Page
+## Single Post Page
 
-![](react-app/src/images/screenshots/single-post-page.png)
+![](react-app/src/assets/images/screenshots/single-post-page.png)
 
-### Create Post Page
+## Create Post Page
 
-![](react-app/src/images/screenshots/create-post-page.png)
+![](react-app/src/assets/images/screenshots/create-post-page.png)
 
-### Current User Profile
+## Current User Profile
 
-![](react-app/src/images/screenshots/current-user-profile.png)
+![](react-app/src/assets/images/screenshots/current-user-profile.png)
 
-### Other User Profile
+## Other User Profile
 
-![](react-app/src/images/screenshots/user-profile.png)
+![](react-app/src/assets/images/screenshots/user-profile.png)
 
 ## <img id="developer-links" width="40" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-happy.png" />&nbsp;Developer Links
 
