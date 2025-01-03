@@ -1,8 +1,11 @@
 <p align="center"><img id="ribbit" width="500" src="./react-app/src/assets/images/ribbit-banners/ribbit_banner_love_edit.png" /></p>
-<p align="center"><a href="https://ribbit-app.herokuapp.com/" target="_blank">Check out Ribbit here!</a></p>
+<p align="center"><a href="https://ribbit-app.herokuapp.com/" style="color: #63b24e" target="_blank">Check out Ribbit here!</a></p>
 
 ## Table of Contents
 
+- <a href="#ribbit" style="color: #63b24e">Ribbit</a>
+  - <a href="#table-of-contents" style="color: #63b24e">Table of Contents</a>
+  - <a href="#project-information" style="color: #63b24e">Project Information</a>
 - [Ribbit](#ribbit)
   - [Table of Contents](#table-of-contents)
   - [Project Information](#project-information)
@@ -27,12 +30,14 @@
 
 (^ [Back to Top](#ribbit))
 
-This is Ribbit, a clone of https://www.reddit.com. On this site, users can subscribe to communities that interest them and interact with other users by creating posts on communities, or by creating comments on other users' posts. Users can use their homepage to look through the posts from their subscribed communities, or the 'All' feed to view posts from all communities on the site. In addition, users can upload a profile image and a banner image on their profiles to represent themselves or their personalities. Owners of communities can customize the community's display name, description, image, and rules section.
+This is Ribbit, a clone of <a href="https://www.reddit.com" style="color: #63b24e">https://www.reddit.com</a>. On this site, users can subscribe to communities that interest them and interact with other users by creating posts on communities, or by creating comments on other users' posts. Users can use their homepage to look through the posts from their subscribed communities, or the 'All' feed to view posts from all communities on the site. In addition, users can upload a profile image and a banner image on their profiles to represent themselves or their personalities. Owners of communities can customize the community's display name, description, image, and rules section.
 
 ## Languages, Frameworks, and Technologies
 
-(^ [Back to Top](#ribbit))
+(^ <a href="#ribbit" style="color: #63b24e">Back to Top</a>)
 
+- <a href="https://beta.reactjs.org" style="color: #63b24e">React.js</a>
+- <a href="https://redux.js.org" style="color: #63b24e">Redux</a>
 - [React](https://beta.reactjs.org/)
 - [Redux](https://redux.js.org/)
 - [Python](https://www.python.org/)
