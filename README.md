@@ -21,7 +21,7 @@
   - [Other User Profile](#other-user-profile)
 - [Developer Links](#developer-links)
 
-# <img id="project-information" width="50" src="./react-app/src/assets/images/ribbit-banners/ribbit_logo_happy.png" />&nbsp; Project Information
+# <img id="project-information" width="40" src="./react-app/src/assets/images/ribbit-banners/ribbit_logo_happy.png" />&nbsp; Project Information
 
 (^ [Back to Top](#ribbit))
 
