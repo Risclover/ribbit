@@ -1,64 +1,50 @@
 <p align="center"><img id="ribbit" width="500" src="./react-app/src/assets/images/ribbit-banners/ribbit_banner_love_edit.png" /></p>
-<p align="center"><a href="https://ribbit-app.herokuapp.com/" style="color: #63b24e" target="_blank">Check out Ribbit here!</a></p>
+<p align="center"><a href="https://ribbit-app.herokuapp.com/" target="_blank">Check out Ribbit here!</a></p>
 
-## Table of Contents
+# Table of Contents
 
-- <a href="#ribbit" style="color: #63b24e">Ribbit</a>
-  - <a href="#table-of-contents" style="color: #63b24e">Table of Contents</a>
-  - <a href="#project-information" style="color: #63b24e">Project Information</a>
-- [Ribbit](#ribbit)
-  - [Table of Contents](#table-of-contents)
-  - [Project Information](#project-information)
-  - [Languages, Frameworks, and Technologies](#languages-frameworks-and-technologies)
-  - [Features](#features)
-  - [Future Implementations](#future-implementations)
-  - [Getting Started](#getting-started)
-  - [Site Screenshots](#site-screenshots)
-    - [All Feed Page](#all-feed-page)
-    - [Classic Feed Mode](#classic-feed-mode)
-    - [Community Page](#community-page)
-    - ['Edit Community' Page](#edit-community-page)
-    - [Edit Rules Section](#edit-rules-section)
-    - [Search Results Page](#search-results-page)
-    - [Single Post Page](#single-post-page)
-    - [Create Post Page](#create-post-page)
-    - [Current User Profile](#current-user-profile)
-    - [Other User Profile](#other-user-profile)
-  - [Developer Links](#developer-links)
+- [Project Information](#project-information)
+- [Languages, Frameworks, and Technologies](#languages-frameworks-and-technologies)
+- [Features](#features)
+- [Future Implementations](#future-implementations)
+- [Getting Started](#getting-started)
+- [Site Screenshots](#site-screenshots)
+  - [All Feed Page](#all-feed-page)
+  - [Classic Feed Mode](#classic-feed-mode)
+  - [Community Page](#community-page)
+  - ['Edit Community' Page](#edit-community-page)
+  - [Edit Rules Section](#edit-rules-section)
+  - [Search Results Page](#search-results-page)
+  - [Single Post Page](#single-post-page)
+  - [Create Post Page](#create-post-page)
+  - [Current User Profile](#current-user-profile)
+  - [Other User Profile](#other-user-profile)
+- [Developer Links](#developer-links)
 
-## Project Information
+# Project Information
 
 (^ [Back to Top](#ribbit))
 
-This is Ribbit, a clone of <a href="https://www.reddit.com" style="color: #63b24e">https://www.reddit.com</a>. On this site, users can subscribe to communities that interest them and interact with other users by creating posts on communities, or by creating comments on other users' posts. Users can use their homepage to look through the posts from their subscribed communities, or the 'All' feed to view posts from all communities on the site. In addition, users can upload a profile image and a banner image on their profiles to represent themselves or their personalities. Owners of communities can customize the community's display name, description, image, and rules section.
+This is Ribbit, a clone of <a href="https://www.reddit.com">https://www.reddit.com</a>. On this site, users can subscribe to communities that interest them and interact with other users by creating posts on communities, or by creating comments on other users' posts. Users can use their homepage to look through the posts from their subscribed communities, or the 'All' feed to view posts from all communities on the site. In addition, users can upload a profile image and a banner image on their profiles to represent themselves or their personalities. Owners of communities can customize the community's display name, description, image, and rules section.
 
-## Languages, Frameworks, and Technologies
+# Languages, Frameworks, and Technologies
 
-(^ <a href="#ribbit" style="color: #63b24e">Back to Top</a>)
+(^ <a href="#ribbit">Back to Top</a>)
 
-- <a href="https://beta.reactjs.org" style="color: #63b24e">React.js</a>
-- <a href="https://redux.js.org" style="color: #63b24e">Redux</a>
+- <a href="https://beta.reactjs.org">React.js</a>
+- <a href="https://redux.js.org">Redux</a>
 - [React](https://beta.reactjs.org/)
 - [Redux](https://redux.js.org/)
-- [Python](https://www.python.org/)
-- [JavaScript](https://devdocs.io/javascript/)
-- [NodeJS](https://nodejs.org/en/docs/)
-- [NPM](https://docs.npmjs.com/)
 - [Flask](https://palletsprojects.com/p/flask/)
 - [SQLAlchemy](https://www.sqlalchemy.org/)
-- [Alembic](https://alembic.sqlalchemy.org/en/latest/)
-- [PostgreSQL](https://www.postgresql.org/docs/)
-- [Sqlite](https://www.sqlite.org/docs.html)
+- [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
 - [CSS3](https://devdocs.io/css/)
-- [HTML5](https://devdocs.io/html/)
-- [Git](https://devdocs.io/git/)
 
-## Features
+# Features
 
 (^ [Back to Top](#ribbit))
 
 - <strong>Sign-up and Login</strong>: Users may create their own accounts. They may log into their accounts after account creation.
-  [All Feed Page](#all-feed-page)
 - <strong>Communities</strong>: Users can create communities, edit the details of communities they've created, delete communities they've created, and view existing communities.
 - <strong>Posts</strong>: Users can create posts (regular text posts, image posts, or link posts) under communities, edit posts, read posts, and delete posts.
 - <strong>Comments</strong>: A user can reply to a post by leaving a comment underneath it. Users can also edit comments, read other users' comments, and delete comments.
@@ -77,7 +63,7 @@ This is Ribbit, a clone of <a href="https://www.reddit.com" style="color: #63b24
   - Image posts
   - Community images
 
-## Future Implementations
+# Future Implementations
 
 (^ [Back to Top](#ribbit))
 
@@ -101,7 +87,7 @@ Future feature implementations include:
 - Notifications for post replies, comment replies, new community posts, new followers, and messages
 - Nested comments
 
-## Getting Started
+# Getting Started
 
 (^ [Back to Top](#ribbit))
 
@@ -127,7 +113,7 @@ To run this app locally:
 2. In a separate terminal, navigate to the `/react-app` directory and enter `npm start`. This should automatically launch a browser window navigated to the proper localhost address.
 3. By default, the app will be running on port `3000`.
 
-## Site Screenshots
+# Site Screenshots
 
 (^ [Back to Top](#ribbit))
 
