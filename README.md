@@ -1,4 +1,4 @@
-<p align="center"><img id="ribbit" width="500" src="./react-app/src/assets/images/ribbit-banners/ribbit_banner_love.png" /></p>
+<p align="center"><img id="ribbit" width="500" src="./react-app/src/assets/images/ribbit-banners/ribbit_banner_love_edit.png" /></p>
 <p align="center"><a href="https://ribbit-app.herokuapp.com/" target="_blank">Check out Ribbit here!</a></p>
 
 ## Table of Contents
