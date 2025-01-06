@@ -24,12 +24,6 @@ export function CommunityPage() {
   const { communityName } = useParams();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCommunities());
-    dispatch(getCommunitySettings(communityId));
-    dispatch(getPosts());
-  }, [dispatch]);
-
   const user = useSelector((state) => state.session.user);
   const communities = useSelector((state) => state.communities);
   const communityId = getIdFromName(communityName, communities);
@@ -38,6 +32,12 @@ export function CommunityPage() {
   const communityPosts = posts.filter(
     (post) => post.communityId === community?.id
   );
+
+  useEffect(() => {
+    dispatch(getCommunitySettings(communityId));
+    dispatch(getCommunities());
+    dispatch(getPosts());
+  }, [dispatch]);
 
   usePageSettings({
     documentTitle: community?.displayName,

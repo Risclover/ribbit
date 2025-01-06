@@ -21,18 +21,19 @@ export function CommunityDescription({ community, user }) {
   useAutosizeTextArea(textareaRef.current, description);
 
   const handleSaveDescription = async () => {
+    console.log("community:", community.displayName);
+    const displayName = community.displayName;
     const data = await dispatch(
       updateCommunity(
         {
-          display_name: community.displayName,
-          description: description,
+          displayName,
+          description,
         },
         community.id
       )
     );
     setDescription(data.description);
     await dispatch(getCommunities());
-    await dispatch(getSingleCommunity(data.id));
     setShowEditDescription(false);
   };
 

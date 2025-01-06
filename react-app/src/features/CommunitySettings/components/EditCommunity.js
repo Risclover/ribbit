@@ -13,6 +13,7 @@ import { CommunityEditRule, AddCommunityRuleModal } from "@/features";
 import { deleteCommunity } from "store";
 import "../CommunitySettings.css";
 import { v4 as uuidv4 } from "uuid";
+import { getCommunities } from "store";
 
 export function EditCommunity() {
   const dispatch = useDispatch();
@@ -24,16 +25,14 @@ export function EditCommunity() {
   const communityId = getIdFromName(communityName, communities);
 
   const user = useSelector((state) => state.session.user);
-  const community = useSelector((state) => state.singleCommunity[+communityId]);
+  const community = useSelector((state) => state.communities[+communityId]);
   const rules = useSelector((state) => Object.values(state.rules));
 
   const [showRuleModal, setShowRuleModal] = useState(false);
   const [addAllowed, setAddAllowed] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [rulesNum, setRulesNum] = useState(0);
-  const [displayName, setDisplayName] = useState(
-    community ? community?.displayName : ""
-  );
+  const [displayName, setDisplayName] = useState(community?.displayName);
   const [description, setDescription] = useState(community?.description);
 
   useEffect(() => {
@@ -51,11 +50,10 @@ export function EditCommunity() {
   }, [rules.length, addAllowed, rules]);
 
   useEffect(() => {
-    setDisplayName(community?.displayName);
     setDescription(community?.description);
 
     setRulesNum(rules.length);
-  }, [rulesNum, community?.displayName, community?.description, rules.length]);
+  }, [rulesNum, community?.description, rules.length]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,6 +61,7 @@ export function EditCommunity() {
     const data = await dispatch(
       updateCommunity({ displayName, description }, community?.id)
     );
+    await dispatch(getCommunities());
 
     history.push(`/c/${data.name}`);
   };

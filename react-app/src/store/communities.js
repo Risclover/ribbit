@@ -1,3 +1,4 @@
+// store/communities.js
 /* ------------------------- ACTIONS ------------------------- */
 
 const LOAD_COMMUNITIES = "communities/LOAD";
@@ -5,6 +6,8 @@ const LOAD_COMMUNITY = "communities/LOAD_SINGLE";
 const LOAD_SUBSCRIBERS = "communities/LOAD_SUBSCRIBERS";
 const CREATE_COMMUNITY = "communities/CREATE";
 const DELETE_COMMUNITY = "communities/DELETE";
+
+/* ------------------------- ACTION CREATORS ------------------------- */
 
 const loadCommunities = (communities) => {
   return {
@@ -89,13 +92,14 @@ export const updateCommunity = (payload, communityId) => async (dispatch) => {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      display_name: displayName,
+      display_name: displayName, // Mapped to snake_case
       description,
     }),
   });
 
   if (response.ok) {
     const community = await response.json();
+    dispatch(loadCommunity(community)); // Update the Redux state
     return community;
   }
   const data = await response.json();
@@ -161,11 +165,12 @@ export const updateCommunityPreview = (payload) => async (dispatch) => {
   const response = await fetch(`/api/communities/${communityId}/style/edit`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ baseColor, highlight, bodyBackground }),
+    body: JSON.stringify({ baseColor, highlight, bodyBg, bodyBgImgFormat }),
   });
 
   if (response.ok) {
     const data = await response.json();
+    dispatch(loadCommunity(data));
     return data;
   }
 };
@@ -177,6 +182,7 @@ export const defaultCommunityImg = (communityId) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
+    dispatch(loadCommunity(data));
     return data;
   }
 };
@@ -203,7 +209,7 @@ const initialState = {};
 export default function communitiesReducer(state = initialState, action) {
   switch (action.type) {
     case CREATE_COMMUNITY:
-      return { ...state, [action.communities.id]: action.communities };
+      return { ...state, [action.community.id]: action.community };
     case LOAD_COMMUNITIES:
       if (action.communities && action.communities.Communities) {
         return action.communities.Communities.reduce(
@@ -211,18 +217,21 @@ export default function communitiesReducer(state = initialState, action) {
             communities[community.id] = community;
             return communities;
           },
-          {}
-        );
+          { ...state }
+        ); // Ensure existing state is preserved
       } else {
         return state;
       }
+    case LOAD_COMMUNITY:
+      return { ...state, [action.community.id]: action.community };
     case LOAD_SUBSCRIBERS:
-      return action.communities.Subscribers.reduce(
-        (subscribers, subscriber) => {
-          subscribers[subscriber.id] = subscriber;
-          return subscribers;
-        }
-      );
+      return {
+        ...state,
+        [action.communityId]: {
+          ...state[action.communityId],
+          subscribers: action.subscribers,
+        },
+      };
     case DELETE_COMMUNITY:
       let removeState = { ...state };
       delete removeState[action.communityId];
