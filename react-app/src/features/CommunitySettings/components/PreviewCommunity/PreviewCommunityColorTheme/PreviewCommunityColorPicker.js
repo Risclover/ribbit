@@ -8,6 +8,7 @@ export function PreviewCommunityColorPicker({
   setTheme,
   community,
   setOpenPicker,
+  openPicker,
 }) {
   const [showBrowserColorPicker, setShowBrowserColorPicker] = useState(false);
 
@@ -31,6 +32,7 @@ export function PreviewCommunityColorPicker({
             color={color}
             setTheme={setTheme}
             setOpenPicker={setOpenPicker}
+            openPicker={openPicker}
           />
         ))}
       </div>

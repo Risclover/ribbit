@@ -74,8 +74,8 @@ export function PreviewCommunitySidebarAppearance({
           community={community}
           height={bannerHeight}
           setHeight={setBannerHeight}
-          activeRadio={bannerHeight2}
-          setActiveRadio={setBannerHeight2}
+          activeRadio={bannerHeight}
+          setActiveRadio={setBannerHeight}
           bannerColor={bannerColor}
           setBannerColor={setBannerColor}
           customBannerColor={customBannerColor}

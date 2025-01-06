@@ -74,6 +74,8 @@ export function PreviewCommunitySidebar() {
     community?.communitySettings[community?.id]?.customBannerColor
   );
 
+  console.log("COMMUNITY:", community);
+
   const appearanceSidebarList = [
     "Color theme",
     "Name & icon",

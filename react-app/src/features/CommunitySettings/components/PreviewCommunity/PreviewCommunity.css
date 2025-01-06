@@ -146,7 +146,7 @@
 }
 
 .color-theme-color-bodybg {
-  background: var(--preview-community-color-theme-bodybg);
+  background: var(--preview-community-color-theme-bgColor);
 }
 
 .color-theme-color-banner {

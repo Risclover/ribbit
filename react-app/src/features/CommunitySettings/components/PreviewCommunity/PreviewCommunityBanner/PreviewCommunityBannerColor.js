@@ -13,6 +13,7 @@ export function PreviewCommunityBannerColor({
   const [openPicker, setOpenPicker] = useState(false);
 
   useOutsideClick(wrapperRef, () => setOpenPicker(false));
+
   return (
     <div
       className="preview-community-color-theme-color"
@@ -32,13 +33,17 @@ export function PreviewCommunityBannerColor({
         )}
       </div>
       {openPicker && (
-        <div className="preview-community-color-picker" ref={wrapperRef}>
+        <div
+          className="preview-community-color-picker"
+          onClick={(e) => e.stopPropagation()} // Prevent event bubbling
+          ref={wrapperRef}
+        >
           <PreviewCommunityColorPicker
             theme={theme}
             setTheme={setTheme}
             community={community}
-            openPicker={openPicker}
             setOpenPicker={setOpenPicker}
+            openPicker={openPicker}
           />
         </div>
       )}

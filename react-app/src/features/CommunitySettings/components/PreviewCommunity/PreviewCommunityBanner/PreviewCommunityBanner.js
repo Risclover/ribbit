@@ -120,6 +120,7 @@ export function PreviewCommunityBanner({
               option={option}
               activeRadio={activeRadio}
               setActiveRadio={setActiveRadio}
+              community={community}
             />
           ))}
         </div>
