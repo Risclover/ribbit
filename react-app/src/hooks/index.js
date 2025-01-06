@@ -5,3 +5,4 @@ export { usePageSettings } from "./usePageSettings";
 export { useNavigateToPath } from "./useNavigateToPath";
 export { useAutosizeTextArea } from "./useAutosizeTextArea";
 export { useScrollLock } from "./useScrollLock";
+export { useFocusTrap } from "./useFocusTrap";
