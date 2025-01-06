@@ -68,31 +68,17 @@ def update_comment(id):
     Query for a logged-in user to update their comment.
     """
     comment = Comment.query.get(id)
-    if not comment:
-        return jsonify({"error": "Comment not found"}), 404
-
-    user = current_user
-    if comment.user_id != user.id:
-        return jsonify({"error": "Unauthorized"}), 403
-
     form = CommentForm()
-    form["csrf_token"].data = request.cookies.get("csrf_token")
-
+    form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         data = form.data
-        new_content = data.get("content")
 
-        if new_content and new_content != comment.content:
-            comment.content = new_content
-            comment.updated_at = datetime.now(datetime.timezone.utc)  # Manually update the timestamp
-            db.session.commit()
-            return jsonify(comment.to_dict()), 200
-        elif not new_content:
-            return jsonify({"error": "Content cannot be empty"}), 400
-        else:
-            return jsonify({"message": "No changes detected."}), 200
+        setattr(comment, "content", data["content"])
+        setattr(comment, "updated_at", datetime.utcnow())
+        db.session.commit()
+        return comment.to_dict()
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 403
 
-    return jsonify({"errors": validation_errors_to_error_messages(form.errors)}), 400
 
 # DELETE A COMMENT BY ID:
 @comment_routes.route('/<int:id>', methods=['DELETE'])
@@ -106,6 +92,8 @@ def delete_comment(id):
     db.session.delete(comment)
     db.session.commit()
     return {"message": "Successfully deleted", "status_code": 200}
+
+
 
 
 
