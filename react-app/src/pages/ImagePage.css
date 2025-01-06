@@ -1,0 +1,53 @@
+/* src/components/MediaPage.css */
+
+.media-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top */
+  height: calc(100vh - 48px); /* Adjust based on your navbar's height */
+  background-color: white; /* Optional: Change to match your theme */
+  position: relative;
+  margin: auto;
+  min-height: 100%;
+  padding: 16px;
+}
+
+.media-image {
+  transition: transform 0.5s ease, cursor 0.3s ease;
+}
+
+.small-image {
+  max-width: 100%;
+  max-height: 100%;
+  cursor: zoom-in;
+  margin: auto;
+}
+
+.zoomed-image {
+  cursor: zoom-out;
+  max-width: none;
+  max-height: none;
+  margin: auto;
+}
+
+.media-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px); /* Adjust based on your navbar's height */
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+.loader {
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.media-container.zoomed {
+  height: (100vh - 40px - 48px);
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow: auto;
+}

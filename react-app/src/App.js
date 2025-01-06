@@ -54,6 +54,7 @@ import Chat from "features/Chat/components/ChatWindow/Chat";
 import { PopupProvider } from "@/context";
 import { ProtectedRoute } from "components";
 import ChatMinimized from "features/Chat/components/ChatWindow/ChatMinimized";
+import ImagePage from "pages/ImagePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -394,6 +395,10 @@ function App() {
                 <ProtectedRoute path="/notifications" exact={true}>
                   <Notifications />
                 </ProtectedRoute>
+
+                <Route path="/media">
+                  <ImagePage />
+                </Route>
               </Switch>
             </div>
           </PostFormatContext.Provider>

@@ -49,7 +49,7 @@ nav ul li {
 .logo-container {
   margin-right: 16px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .logo-container img {

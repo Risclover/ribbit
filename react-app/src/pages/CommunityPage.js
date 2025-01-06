@@ -36,7 +36,7 @@ export function CommunityPage() {
   const community = useSelector((state) => state.communities[communityId]);
   const posts = useSelector((state) => Object.values(state.posts));
   const communityPosts = posts.filter(
-    (post) => post.communityId === community.id
+    (post) => post.communityId === community?.id
   );
 
   usePageSettings({

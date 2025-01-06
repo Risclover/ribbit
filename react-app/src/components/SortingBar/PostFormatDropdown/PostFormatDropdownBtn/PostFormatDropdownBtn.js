@@ -64,11 +64,14 @@ export const PostFormatDropdownBtn = React.forwardRef(
           <div className="format-icon-bg">
             <img
               alt={`${item.format.toLowerCase()} format icon`}
-              src={iconSrc}
+              src={item.icons.blue}
             />
           </div>
         ) : (
-          <img alt={`${item.format.toLowerCase()} format icon`} src={iconSrc} />
+          <img
+            alt={`${item.format.toLowerCase()} format icon`}
+            src={highlight ? item.icons.black : item.icons.grey}
+          />
         )}
         {item.format}
       </button>

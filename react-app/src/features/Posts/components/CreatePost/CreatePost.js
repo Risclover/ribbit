@@ -279,6 +279,8 @@ export function CreatePost({ postType, setPostType, val }) {
     }
   };
 
+  console.log("React Quill:", ReactQuill.container.firstChild.innerHTML);
+
   if (!communities) return null;
 
   return (

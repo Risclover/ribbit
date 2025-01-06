@@ -14,7 +14,7 @@ export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
   return (
     <div className="user-profile-posts-page">
       {!user && <div>Hello</div>}
-      {user?.userPosts === 0 && (
+      {user?.userPosts === 0 ? (
         <>
           <SortingBar
             sortMode={sortMode}
@@ -28,16 +28,16 @@ export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
             </span>
           </div>
         </>
+      ) : (
+        <PostFeed
+          posts={sortedPosts}
+          isPage="profile"
+          sortMode={sortMode}
+          format="Card"
+          setSortMode={setSortMode}
+          user={user}
+        />
       )}
-
-      <PostFeed
-        posts={sortedPosts}
-        isPage="profile"
-        sortMode={sortMode}
-        format="Card"
-        setSortMode={setSortMode}
-        user={user}
-      />
     </div>
   );
 }

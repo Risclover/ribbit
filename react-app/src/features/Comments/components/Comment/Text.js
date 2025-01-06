@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export function Text({ content }) {
   const URL_REGEX =
-    /^(https?:\/\/(www\.)?|www\.)[a-z0-9]+([-.][a-z0-9]+)*\.[a-z]{2,63}(:\d{1,5})?(\/\S*)?$/gi;
+    /^(https?:\/\/)?(www\.)?[a-z0-9]+([\-\.][a-z0-9]+)*\.[a-z]{2,63}(:\d{1,5})?(\/\S*)?$/i;
 
   if (!content || typeof content !== "string") {
     return null;
@@ -30,14 +30,15 @@ export function Text({ content }) {
           <>
             {words.map((word) =>
               URL_REGEX.test(word) ? (
-                <a
-                  key={uuidv4()}
-                  href={normalizeUrl(word)}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {word + " "}
-                </a>
+                <React.Fragment key={uuidv4()}>
+                  <a
+                    href={normalizeUrl(word)}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {word}
+                  </a>{" "}
+                </React.Fragment>
               ) : (
                 word + " "
               )

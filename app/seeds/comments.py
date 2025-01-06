@@ -1330,8 +1330,128 @@ Vite is so powerful yet so easy to use. There's a reason that the entire ecosyst
     )
     db.session.add(comments_dict['110'])
 
-    # ----------------------- POST 20 -----------------------#
+    # ----------------------- POST 20 ----------------------- #
+    # No comments
 
+    # ----------------------- POST 21 ----------------------- #
+    post21 = Post.query.get(21)
+
+    comment111_createdat=generate_comment_timestamp(post21.created_at)
+    comments_dict['111'] = Comment(
+        content="That's what I told a colleague who was griping about how her older code is spaghetti: \"Be glad you think it's spaghetti. If you didn't, that would mean you haven't learned a thing in the last year.\"",
+        user_id=2,
+        post_id=21,
+        created_at=comment111_createdat,
+        updated_at=comment111_createdat
+    )
+    db.session.add(comments_dict['111'])
+    db.session.flush()
+
+    comment112_createdat=generate_comment_timestamp(comments_dict['111'].created_at)
+    comments_dict['112'] = Comment(
+        content="What if I thought it was spaghetti when I wrote it? 😅",
+        user_id=3,
+        post_id=21,
+        parent_id=comments_dict['111'].id,
+        created_at=comment112_createdat,
+        updated_at=comment112_createdat
+    )
+    db.session.add(comments_dict['112'])
+    db.session.flush()
+
+    comment113_createdat=generate_comment_timestamp(comments_dict['112'].created_at)
+    comments_dict['113'] = Comment(
+        content="You were right then, and you're right now!",
+        user_id=5,
+        post_id=21,
+        parent_id=comments_dict['112'].id,
+        created_at=comment113_createdat,
+        updated_at=comment113_createdat
+    )
+    db.session.add(comments_dict['113'])
+
+    comment114_createdat=generate_comment_timestamp(post21.created_at)
+    comments_dict['114'] = Comment(
+        content="All code sucks some just sucks a little more",
+        user_id=6,
+        post_id=21,
+        created_at=comment114_createdat,
+        updated_at=comment114_createdat
+    )
+    db.session.add(comments_dict['114'])
+    db.session.flush()
+
+    comment115_createdat=generate_comment_timestamp(comments_dict['114'].created_at)
+    comments_dict['115'] = Comment(
+        content="So said Aristotle, so said you.",
+        user_id=7,
+        post_id=21,
+        parent_id=comments_dict['114'].id,
+        created_at=comment115_createdat,
+        updated_at=comment115_createdat
+    )
+    db.session.add(comments_dict['115'])
+
+    comment116_createdat=generate_comment_timestamp(comments_dict['114'].created_at)
+    comments_dict['116'] = Comment(
+        content="Until you \"fixed\" it and all tests fail and it turns you knew exactly what you were doing and thought a comment isn't necessary because it's obvious why it is the way it is.",
+        user_id=8,
+        post_id=21,
+        parent_id=comments_dict['114'].id,
+        created_at=comment116_createdat,
+        updated_at=comment116_createdat
+    )
+    db.session.add(comments_dict['116'])
+
+    comment117_createdat=generate_comment_timestamp(post21.created_at)
+    comments_dict['117'] = Comment(
+        content="who wrote this code?? Oh me lemme js put a try catch around that",
+        user_id=9,
+        post_id=21,
+        created_at=comment117_createdat,
+        updated_at=comment117_createdat
+    )
+    db.session.add(comments_dict['117'])
+
+    comment118_createdat=generate_comment_timestamp(post21.created_at)
+    comments_dict['118'] = Comment(
+        content="""Hmm...
+
+I also remember seeing a meme a bit like this but it went:
+
+1 - Who wrote this terrible code?
+
+2 - Blame - YOU
+
+3 - Oh...
+
+4 - This code isn't too bad.
+
+lol""",
+        user_id=10,
+        post_id=21,
+        created_at=comment118_createdat,
+        updated_at=comment118_createdat
+    )
+    db.session.add(comments_dict['118'])
+
+    comment119_createdat=generate_comment_timestamp(post21.created_at)
+    comments_dict['119'] = Comment(
+        content="Then you rewrite just to realize why it was written the way it was.. then comes the realization \"I am actually getting worst!\"",
+        user_id=11,
+        post_id=21,
+        created_at=comment119_createdat,
+        updated_at=comment119_createdat
+    )
+    db.session.add(comments_dict['119'])
+
+    # ----------------------- POST 22 ----------------------- #
+    post22 = Post.query.get(22)
+
+    comment120_createdat=generate_comment_timestamp(post22.created_at)
+    comments_dict['120'] = Comment(
+        content=""
+    )
 
 
     db.session.commit()
