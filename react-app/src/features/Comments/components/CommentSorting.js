@@ -26,55 +26,35 @@ export function CommentSorting({ sortType, setSortType }) {
       </div>
       {showSortingDropdown && (
         <div className="comment-sorting-dropdown" ref={wrapperRef}>
-          {sortType === "Best" ? (
-            <button className="comment-sorting-dropdown-btn sorting-active-btn">
-              Best
-            </button>
-          ) : (
-            <button
-              className="comment-sorting-dropdown-btn"
-              onClick={(e) => handleClick(e, "Best")}
-            >
-              Best
-            </button>
-          )}
-          {sortType === "Top" ? (
-            <button className="comment-sorting-dropdown-btn sorting-active-btn">
-              Top
-            </button>
-          ) : (
-            <button
-              className="comment-sorting-dropdown-btn"
-              onClick={(e) => handleClick(e, "Top")}
-            >
-              Top
-            </button>
-          )}
-          {sortType === "New" ? (
-            <button className="comment-sorting-dropdown-btn sorting-active-btn">
-              New
-            </button>
-          ) : (
-            <button
-              className="comment-sorting-dropdown-btn"
-              onClick={(e) => handleClick(e, "New")}
-            >
-              New
-            </button>
-          )}
+          <button
+            className={`comment-sorting-dropdown-btn${
+              sortType === "Best" && " sorting-active-btn"
+            }`}
+          >
+            Best
+          </button>
 
-          {sortType === "Old" ? (
-            <button className="comment-sorting-dropdown-btn sorting-active-btn">
-              Old
-            </button>
-          ) : (
-            <button
-              className="comment-sorting-dropdown-btn"
-              onClick={(e) => handleClick(e, "Old")}
-            >
-              Old
-            </button>
-          )}
+          <button
+            className={`comment-sorting-dropdown-btn${
+              sortType === "Top" && " sorting-active-btn"
+            }`}
+          >
+            Top
+          </button>
+          <button
+            className={`comment-sorting-dropdown-btn${
+              sortType === "New" && " sorting-active-btn"
+            }`}
+          >
+            New
+          </button>
+          <button
+            className={`comment-sorting-dropdown-btn${
+              sortType === "Old" && " sorting-active-btn"
+            }`}
+          >
+            Old
+          </button>
         </div>
       )}
     </div>
