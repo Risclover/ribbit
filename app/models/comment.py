@@ -13,7 +13,7 @@ class Comment(db.Model):
     content = db.Column(db.String(10000), nullable=False)
     votes = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now())
 
     comment_author = db.relationship('User', back_populates="user_comments")
     comment_post = db.relationship('Post', back_populates='post_comments')

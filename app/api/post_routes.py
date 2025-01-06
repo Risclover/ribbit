@@ -202,7 +202,7 @@ def get_followed_posts():
 @login_required
 def add_vote(id, votetype):
     """
-    Query to like or dislike a post
+    Query to like or dislike a post, handling vote changes.
     """
     post = Post.query.get(id)
     if not post:
@@ -212,13 +212,26 @@ def add_vote(id, votetype):
     existing_vote = PostVote.query.filter_by(user_id=user.id, post_id=id).first()
 
     if existing_vote:
-        # If you prefer to update the vote instead of doing nothing, you can handle it here.
-        return jsonify({"message": "User has already voted on this post."}), 400
+        new_is_upvote = True if votetype == "upvote" else False
+        if existing_vote.is_upvote == new_is_upvote:
+            # Same vote type, possibly remove the vote or ignore
+            return jsonify({"message": "User has already voted this way."}), 400
+        else:
+            # Change the vote type
+            if new_is_upvote:
+                post.votes += 2  # From -1 to +1
+            else:
+                post.votes -= 2  # From +1 to -1
+            existing_vote.is_upvote = new_is_upvote
+            db.session.commit()
+            return jsonify(post.to_dict()), 200
 
     # Handle vote creation
     if votetype == "upvote":
+        post.votes += 1
         post_vote = PostVote(user_id=user.id, post_id=id, is_upvote=True)
     elif votetype == "downvote":
+        post.votes -= 1
         post_vote = PostVote(user_id=user.id, post_id=id, is_upvote=False)
     else:
         return jsonify({"error": "Invalid vote type"}), 400
@@ -228,7 +241,7 @@ def add_vote(id, votetype):
     db.session.add(post_vote)
     db.session.commit()
 
-    return jsonify(post.to_dict()), 201  # Assuming `post.to_dict()` serializes your post object correctly
+    return jsonify(post.to_dict()), 201  # Assuming post.to_dict() serializes your post object correctly
 
 # DELETE VOTE
 @post_routes.route("/<int:id>/vote", methods=["DELETE"])

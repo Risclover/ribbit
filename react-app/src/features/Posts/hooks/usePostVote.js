@@ -28,14 +28,13 @@ export const usePostVote = (post) => {
     }
 
     const currentVote = post?.postVoters[user?.id];
+
+    // If the vote type is the same, remove the vote
     if (vote === voteType) {
       await dispatch(removePostVote(post?.id));
       setVote(null);
     } else {
-      if (currentVote) {
-        await dispatch(removePostVote(post?.id));
-      }
-
+      // Change the vote by sending a single request
       await dispatch(addPostVote(post?.id, voteType));
       setVote(voteType);
     }

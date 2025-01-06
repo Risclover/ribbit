@@ -1,8 +1,9 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.models import db, Comment, User, CommentVote, Post
 from app.forms.comment_form import CommentForm
 from .auth_routes import validation_errors_to_error_messages
+from datetime import datetime
 
 comment_routes = Blueprint("comments", __name__)
 
@@ -67,15 +68,31 @@ def update_comment(id):
     Query for a logged-in user to update their comment.
     """
     comment = Comment.query.get(id)
+    if not comment:
+        return jsonify({"error": "Comment not found"}), 404
+
+    user = current_user
+    if comment.user_id != user.id:
+        return jsonify({"error": "Unauthorized"}), 403
+
     form = CommentForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
+    form["csrf_token"].data = request.cookies.get("csrf_token")
+
     if form.validate_on_submit():
         data = form.data
+        new_content = data.get("content")
 
-        setattr(comment, "content", data["content"])
-        db.session.commit()
-        return comment.to_dict()
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 403
+        if new_content and new_content != comment.content:
+            comment.content = new_content
+            comment.updated_at = datetime.now(datetime.timezone.utc)  # Manually update the timestamp
+            db.session.commit()
+            return jsonify(comment.to_dict()), 200
+        elif not new_content:
+            return jsonify({"error": "Content cannot be empty"}), 400
+        else:
+            return jsonify({"message": "No changes detected."}), 200
+
+    return jsonify({"errors": validation_errors_to_error_messages(form.errors)}), 400
 
 # DELETE A COMMENT BY ID:
 @comment_routes.route('/<int:id>', methods=['DELETE'])
@@ -92,8 +109,6 @@ def delete_comment(id):
 
 
 
-
-
 # ------------------------- COMMENT VOTES ------------------------- #
 
 
@@ -102,22 +117,53 @@ def delete_comment(id):
 @login_required
 def add_vote(id, votetype):
     """
-    Query to add a vote to a comment
+    Query to like or dislike a comment, handling vote changes.
     """
     comment = Comment.query.get(id)
-    user = User.query.get(current_user.get_id())
+    if not comment:
+        return jsonify({"error": "Comment not found"}), 404
 
+    user = User.query.get(current_user.get_id())
+    existing_vote = CommentVote.query.filter_by(user_id=user.id, comment_id=id).first()
+
+    if existing_vote:
+        new_is_upvote = True if votetype == "upvote" else False
+        if existing_vote.is_upvote == new_is_upvote:
+            # Same vote type, possibly remove the vote or ignore
+            # Here, we'll choose to remove the vote
+            db.session.delete(existing_vote)
+            if new_is_upvote:
+                comment.votes -= 1
+            else:
+                comment.votes += 1
+            db.session.commit()
+            return jsonify(comment.to_dict()), 200
+        else:
+            # Change the vote type
+            if new_is_upvote:
+                comment.votes += 2  # From -1 to +1
+            else:
+                comment.votes -= 2  # From +1 to -1
+            existing_vote.is_upvote = new_is_upvote
+            db.session.commit()
+            return jsonify(comment.to_dict()), 200
+
+    # Handle new vote creation
     if votetype == "upvote":
+        comment.votes += 1
         comment_vote = CommentVote(user_id=user.id, comment_id=id, is_upvote=True)
     elif votetype == "downvote":
+        comment.votes -= 1
         comment_vote = CommentVote(user_id=user.id, comment_id=id, is_upvote=False)
+    else:
+        return jsonify({"error": "Invalid vote type"}), 400
 
-    comment_vote.user_who_liked = user
-    comment_vote.comment = comment
+    # Assuming you have relationships set up correctly in your SQLAlchemy models
     comment.users_who_liked.append(comment_vote)
-
+    db.session.add(comment_vote)
     db.session.commit()
-    return comment.to_dict()
+
+    return jsonify(comment.to_dict()), 201  # Assuming comment.to_dict() serializes your comment object correctly
 
 
 # DELETE A COMMENT VOTE

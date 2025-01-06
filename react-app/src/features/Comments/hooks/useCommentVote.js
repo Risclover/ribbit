@@ -28,14 +28,13 @@ export const useCommentVote = (comment) => {
     }
 
     const currentVote = comment?.commentVoters[user?.id];
+
     if (vote === voteType) {
+      // If the user is clicking the same vote type, remove the vote
       await dispatch(removeCommentVote(comment?.id));
       setVote(null);
     } else {
-      if (currentVote) {
-        await dispatch(removeCommentVote(comment?.id));
-      }
-
+      // Change the vote by sending a single request
       await dispatch(addCommentVote(comment?.id, voteType));
       setVote(voteType);
     }
