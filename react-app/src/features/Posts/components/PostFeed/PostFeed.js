@@ -66,14 +66,6 @@ export const PostFeed = ({
     [posts, postsPerPage, page]
   );
 
-  const handlePostClick = useCallback(
-    (postId) => (e) => {
-      e.stopPropagation();
-      history.push(`/posts/${postId}`);
-    },
-    [history]
-  );
-
   const loadMore = useCallback(() => {
     if (!loading && items.length < posts.length) {
       setLoading(true);
@@ -126,7 +118,7 @@ export const PostFeed = ({
       )}
       {!posts && <div>Hello</div>}
       {items.map((post) => (
-        <div key={post.id} onClick={handlePostClick(post.id)}>
+        <div key={post.id}>
           <SinglePost
             link={`/posts/${post.id}`}
             id={post.id}
