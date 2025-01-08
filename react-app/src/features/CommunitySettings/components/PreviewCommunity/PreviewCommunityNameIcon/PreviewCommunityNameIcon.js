@@ -31,9 +31,9 @@ export function PreviewCommunityNameIcon({
     community?.communitySettings[community?.id].communityIcon !==
       "https://i.imgur.com/9CI9hiO.png"
       ? community?.communitySettings[community?.id].communityIcon
-      : null
+      : ""
   );
-  const [defaultIcon, setDefaultIcon] = useState(preview === null);
+  const [defaultIcon, setDefaultIcon] = useState(preview === "");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,7 +76,7 @@ export function PreviewCommunityNameIcon({
   };
 
   const handlePreview = () => {
-    if (preview === "https://i.imgur.com/9CI9hiO.png" || preview === null) {
+    if (preview === "https://i.imgur.com/9CI9hiO.png" || preview === "") {
       setDefaultIcon(true);
     } else {
       setDefaultIcon(false);
@@ -85,7 +85,7 @@ export function PreviewCommunityNameIcon({
 
   const handleDelete = (e) => {
     e.preventDefault();
-    setPreview(null);
+    setPreview("");
     setDefaultIcon(true);
     setCommunityIcon("https://i.imgur.com/9CI9hiO.png");
   };

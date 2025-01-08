@@ -37,6 +37,8 @@ export function PreviewCommunitySidebarAppearance({
   setCommunityIcon,
   hideCommunityIcon,
   setHideCommunityIcon,
+  preview,
+  setPreview,
 }) {
   return (
     <div>
@@ -54,6 +56,8 @@ export function PreviewCommunitySidebarAppearance({
           setBackgroundImg={setBackgroundImg}
           backgroundImgFormat={backgroundImgFormat}
           setBackgroundImgFormat={setBackgroundImgFormat}
+          preview={preview}
+          setPreview={setPreview}
         />
       )}
       {appearanceSidebar === "Name & icon" && (

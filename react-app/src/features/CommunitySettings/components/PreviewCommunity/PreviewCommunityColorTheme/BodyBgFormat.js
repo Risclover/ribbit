@@ -1,26 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IoGridSharp } from "react-icons/io5";
 
 export function BodyBgFormat({
   format,
   backgroundImgFormat,
   setBackgroundImgFormat,
-  backgroundImg,
-  bodyBgPreview,
+  preview,
+  image,
   bgColor,
 }) {
   const handleBgFormat = (e) => {
     e.preventDefault();
     setBackgroundImgFormat(format);
-    document.documentElement.style.setProperty(
-      "--preview-community-body-bg-img-format",
-      format
-    );
+    console.log("format:", format);
 
-    document.documentElement.style.setProperty(
-      "--preview-community-body-bg-img",
-      `${bgColor} url(${backgroundImg}) ${format}`
-    );
+    console.log("preview:", preview);
+    console.log("image:", image);
   };
 
   return (

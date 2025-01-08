@@ -26,13 +26,18 @@ export function PreviewCommunityColorTheme({
   setBodyBgPreview,
   bgColor,
   setBgColor,
+  preview,
+  setPreview,
 }) {
   const dispatch = useDispatch();
 
   const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState(
-    community?.communitySettings[community?.id]?.backgroundImg
-  );
+
+  useEffect(() => {
+    console.log("highlight:", highlight);
+    console.log("base:", base);
+    console.log("bg:", bgColor);
+  }, [bgColor, base, highlight]);
 
   console.log("preview:", preview);
   const colorThemes = ["Base", "Highlight"];
@@ -42,33 +47,28 @@ export function PreviewCommunityColorTheme({
     dispatch(getCommunitySettings(community?.id));
   }, [dispatch]);
 
-  const handleSaveTheme = () => {
-    if (image === null || image === "" || image === undefined) {
-      handleUpload();
-    }
+  const handleSaveTheme = async () => {
     const payload = {
       settingsId: community?.communitySettings[community?.id].id,
       baseColor: base,
       highlight: highlight,
       bgColor: bgColor,
       backgroundImgFormat: backgroundImgFormat,
-      backgroundImg: backgroundImg,
+      backgroundImg: preview || "",
     };
     if (image) {
       handleUpload();
     }
 
-    dispatch(updateSettingsColorTheme(payload));
+    const data = await dispatch(updateSettingsColorTheme(payload));
     dispatch(getCommunities());
-    dispatch(getSingleCommunity(community?.id));
+    dispatch(getCommunitySettings(community?.id));
 
-    if (preview !== null) {
-      handlePreview();
-    }
+    console.log("data:", data);
     setOpenAppearance(false);
   };
 
-  const handlePreview = () => {
+  useEffect(() => {
     if (backgroundImgFormat === "fill") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
@@ -85,12 +85,7 @@ export function PreviewCommunityColorTheme({
         `${bgColor} url(${preview}) no-repeat center top`
       );
     }
-  };
-
-  const handleDelete = () => {
-    setImage("");
-    setPreview(null);
-  };
+  }, [preview, backgroundImgFormat]);
 
   const handleUpload = async () => {
     const formData = new FormData();
@@ -107,8 +102,8 @@ export function PreviewCommunityColorTheme({
     });
     if (res.ok) {
       await res.json();
-      dispatch(getSingleCommunity(community?.id));
       dispatch(getCommunities());
+      dispatch(getCommunitySettings(community?.id));
       setOpenAppearance(false);
     }
   };
@@ -152,7 +147,9 @@ export function PreviewCommunityColorTheme({
                 backgroundImgFormat={backgroundImgFormat}
                 setBackgroundImgFormat={setBackgroundImgFormat}
                 bodyBgPreview={bodyBgPreview}
-                backgroundImg={backgroundImg}
+                backgroundImg={preview}
+                preview={preview}
+                image={image}
                 bgColor={bgColor}
               />
             ))}

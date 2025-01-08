@@ -1,16 +1,29 @@
 // src/components/MediaPage.js
 
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import "./ImagePage.css"; // Import the CSS file for styling
+import { getIdFromName } from "utils/getCommunityIdFromName";
+import { useDispatch, useSelector } from "react-redux";
+import { usePageSettings } from "hooks";
+import { CommunityImg } from "components";
+import Skeleton from "@mui/material/Skeleton";
+import { getCommunities } from "store";
 
 const ImagePage = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const url = queryParams.get("url");
+  const { communityName } = useParams();
+  const communities = useSelector((state) => state.communities);
+
   const [isZoomed, setIsZoomed] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const communityId = getIdFromName(communityName, communities);
+  const community = communities[communityId];
 
   if (!url) {
     return (
@@ -35,6 +48,35 @@ const ImagePage = () => {
   const toggleZoom = () => {
     setIsZoomed((prevZoom) => !prevZoom);
   };
+
+  useEffect(() => {
+    dispatch(getCommunities());
+  }, []);
+
+  usePageSettings({
+    documentTitle: community?.displayName,
+    icon:
+      community !== undefined ? (
+        <CommunityImg
+          imgStyle={{
+            backgroundColor: `${
+              community?.communitySettings[community?.id]?.baseColor
+            }`,
+          }}
+          imgSrc={community?.communitySettings[community?.id]?.communityIcon}
+          imgClass="nav-left-dropdown-item-icon item-icon-circle"
+          imgAlt="Community"
+        />
+      ) : (
+        <Skeleton variant="circular" animation="wave" width={20} height={20} />
+      ),
+    pageTitle:
+      community !== undefined ? (
+        `c/${community?.name}`
+      ) : (
+        <Skeleton animation="wave" variant="text" />
+      ),
+  });
 
   return (
     <div>

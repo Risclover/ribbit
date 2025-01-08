@@ -26,7 +26,7 @@ export function SinglePostContent({ link, post, isPage }) {
       // Encode the image URL to safely include it as a query parameter
       const encodedUrl = encodeURIComponent(post.imgUrl);
       // Construct the new URL pointing to Ribbit's media viewer
-      const mediaUrl = `${window.location.origin}/media?url=${encodedUrl}`;
+      const mediaUrl = `${window.location.origin}/c/${post.communityName}/media?url=${encodedUrl}`;
       // Open the media viewer in a new tab
       window.open(mediaUrl, "_blank", "noopener,noreferrer");
     }

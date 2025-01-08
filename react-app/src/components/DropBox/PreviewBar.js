@@ -8,9 +8,8 @@ export const PreviewBar = ({ onErase, showBar, preview }) => {
         className={`preview-community-icon-preview-bar ${
           showBar ? "icon-preview-appear" : "icon-preview-hidden"
         }`}
-        onClick={onErase}
       >
-        <button aria-label="Delete">
+        <button aria-label="Delete" onClick={onErase}>
           <FaTrash />
         </button>
       </div>

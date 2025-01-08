@@ -25,7 +25,7 @@ export function PreviewCommunitySidebar() {
     (community) => community.name === communityName
   );
   const [preview, setPreview] = useState(
-    community?.communitySettings[community?.id].backgroundImg
+    community?.communitySettings[community?.id]?.backgroundImg || ""
   );
   const [showWarning, setShowWarning] = useState(false);
   const [showResetWarning, setShowResetWarning] = useState(false);
@@ -109,11 +109,6 @@ export function PreviewCommunitySidebar() {
     );
 
     document.documentElement.style.setProperty(
-      "--preview-community-body-bg-img",
-      backgroundImg
-    );
-
-    document.documentElement.style.setProperty(
       "--preview-community-body-bg-img-format",
       backgroundImgFormat
     );
@@ -136,17 +131,17 @@ export function PreviewCommunitySidebar() {
     if (backgroundImgFormat === "fill") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bgColor} url(${backgroundImg}) no-repeat center / cover`
+        `${bgColor} url(${preview}) no-repeat center / cover`
       );
     } else if (backgroundImgFormat === "tile") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bgColor} url(${backgroundImg}) repeat center top`
+        `${bgColor} url(${preview}) repeat center top`
       );
     } else if (backgroundImgFormat === "center") {
       document.documentElement.style.setProperty(
         "--preview-community-body-bg-img",
-        `${bgColor} url(${backgroundImg}) no-repeat center top`
+        `${bgColor} url(${preview}) no-repeat center top`
       );
     }
   }, [
@@ -154,7 +149,6 @@ export function PreviewCommunitySidebar() {
     base,
     highlight,
     bgColor,
-    backgroundImg,
     backgroundImgFormat,
     bannerHeight,
     bannerColor,
@@ -233,6 +227,8 @@ export function PreviewCommunitySidebar() {
           setCommunityIcon={setCommunityIcon}
           hideCommunityIcon={hideCommunityIcon}
           setHideCommunityIcon={setHideCommunityIcon}
+          preview={preview}
+          setPreview={setPreview}
         />
       )}
       <div

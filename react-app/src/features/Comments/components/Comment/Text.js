@@ -28,7 +28,7 @@ export function Text({ content }) {
         const words = node.data.split(" ");
         return (
           <>
-            {words.map((word) =>
+            {words.map((word, idx) =>
               URL_REGEX.test(word) ? (
                 <React.Fragment key={uuidv4()}>
                   <a
@@ -39,6 +39,8 @@ export function Text({ content }) {
                     {word}
                   </a>{" "}
                 </React.Fragment>
+              ) : idx + 1 === words.length ? (
+                word
               ) : (
                 word + " "
               )

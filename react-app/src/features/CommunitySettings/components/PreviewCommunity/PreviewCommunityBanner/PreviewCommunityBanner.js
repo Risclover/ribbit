@@ -28,7 +28,7 @@ export function PreviewCommunityBanner({
 
   const [errorMsg, setErrorMsg] = useState("");
   const [preview, setPreview] = useState(
-    community?.communitySettings[community?.id]?.bannerImg
+    community?.communitySettings[community?.id]?.bannerImg || ""
   );
   const [image, setImage] = useState(null);
 
@@ -106,6 +106,13 @@ export function PreviewCommunityBanner({
         : community?.communitySettings[community?.id].baseColor
     );
   }, [height, bannerColor]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--preview-community-banner-img",
+      `url(${preview})`
+    );
+  }, [preview]);
 
   return (
     <div className="preview-community-color-theme">

@@ -51,6 +51,7 @@ export const updateSettingsColorTheme = (payload) => async (dispatch) => {
         highlight,
         bgColor,
         backgroundImgFormat,
+        backgroundImg,
       }),
     }
   );

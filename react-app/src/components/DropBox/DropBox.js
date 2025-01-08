@@ -22,14 +22,14 @@ export const DropBox = ({
   };
 
   const handleErase = (e) => {
-    setPreview(null);
+    setPreview("");
     setShowBar(false);
   };
 
   useEffect(() => {
     if (defaultIcon) {
       setShowBar(false);
-      setPreview(null);
+      setPreview("");
     }
   }, [defaultIcon]);
 

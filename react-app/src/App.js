@@ -396,7 +396,7 @@ function App() {
                   <Notifications />
                 </ProtectedRoute>
 
-                <Route path="/media">
+                <Route path="/c/:communityName/media">
                   <ImagePage />
                 </Route>
               </Switch>
