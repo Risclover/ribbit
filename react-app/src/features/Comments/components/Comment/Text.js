@@ -1,5 +1,4 @@
 import React from "react";
-import DOMPurify from "dompurify";
 import parse from "html-react-parser";
 import { v4 as uuidv4 } from "uuid";
 
@@ -11,9 +10,6 @@ export function Text({ content }) {
     return null;
   }
 
-  // Sanitize the content
-  const sanitizedContent = DOMPurify.sanitize(content);
-
   const normalizeUrl = (url) => {
     // If the URL doesn't start with a scheme, add https://
     if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(url)) {
@@ -24,6 +20,14 @@ export function Text({ content }) {
 
   const options = {
     replace: (node) => {
+      // If the node is within a <code> or <pre> tag, skip linkification
+      if (
+        node.parent &&
+        (node.parent.name === "code" || node.parent.name === "pre")
+      ) {
+        return undefined; // Do not replace, leave as is
+      }
+
       if (node.type === "text") {
         const words = node.data.split(" ");
         return (
@@ -51,5 +55,5 @@ export function Text({ content }) {
     },
   };
 
-  return <>{parse(sanitizedContent, options)}</>;
+  return <>{parse(content, options)}</>;
 }
