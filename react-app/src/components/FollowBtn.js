@@ -8,29 +8,37 @@ import {
   unfollowUser,
 } from "@/store";
 
-export const FollowBtn = ({ user, community, btnType }) => {
+/**
+ * A button that users can click to follow or unfollow other users.
+ * 
+ * @param {community} - The community
+ * @param {boolean} isProfile - Whether or not the page this button is on is the user profile page.
+ *
+ * @example
+ * <FollowBtn user={} community={} isProfile />
+ */
+
+export const FollowBtn = ({ user, community, isProfile = false }) => {
   const dispatch = useDispatch();
   const follows = useSelector((state) => state.followers?.follows);
-
-  const { username, id: userId } = user;
 
   const isFollowing = useMemo(
     () =>
       follows
         ? Object.values(follows).some(
-            (followedUser) => followedUser.username === username
+            (followedUser) => followedUser.username === user?.username
           )
         : false,
-    [follows, username]
+    [follows, user?.username]
   );
 
   const btnText = isFollowing ? "Unfollow" : "Follow";
 
   const btnClass = classNames({
-    "user-profile-following-btn": isFollowing && btnType === "profile",
-    "user-profile-follower-btn": !isFollowing && btnType === "profile",
-    "blue-btn-unfilled btn-long": isFollowing && btnType !== "profile",
-    "blue-btn-filled btn-long": !isFollowing && btnType !== "profile",
+    "user-profile-following-btn": isFollowing && isProfile,
+    "user-profile-follower-btn": !isFollowing && isProfile,
+    "blue-btn-unfilled btn-long": isFollowing && !isProfile,
+    "blue-btn-filled btn-long": !isFollowing && !isProfile,
     "community-btn": isFollowing && community,
     "community-btn-filled": !isFollowing && community,
   });
@@ -41,14 +49,14 @@ export const FollowBtn = ({ user, community, btnType }) => {
       e.preventDefault();
 
       if (isFollowing) {
-        await dispatch(unfollowUser(userId));
+        await dispatch(unfollowUser(user?.id));
         await dispatch(getFavoriteUsers());
       } else {
-        await dispatch(followUser(userId));
+        await dispatch(followUser(user?.id));
       }
       await dispatch(getFollowers());
     },
-    [dispatch, isFollowing, userId]
+    [dispatch, isFollowing, user?.id]
   );
 
   return (

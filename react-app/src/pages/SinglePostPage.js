@@ -44,6 +44,20 @@ export function SinglePostPage() {
     );
   }, [bannerHeight, community, document]);
 
+  useEffect(() => {
+    // Function to handle scrolling
+    const handleScroll = () => {
+      if (location.hash === "#all-comments") {
+        const commentsSection = document.getElementById("all-comments");
+        if (commentsSection) {
+          commentsSection.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    };
+
+    handleScroll();
+  }, [location]);
+
   usePageSettings({
     documentTitle: post?.title + " : " + post?.communityName,
     icon:

@@ -136,6 +136,10 @@
   margin: 0 auto;
 }
 
+.compact-post-details {
+  width: 100%;
+}
+
 .compact-post-icon-btn-expand svg,
 .compact-post-icon-btn-collapse svg {
   transform: rotate(90deg);
@@ -218,11 +222,16 @@
 }
 
 .svg-inline--fa {
-  strokewidth: 3px !important;
+  stroke-width: 3px !important;
 }
 
 .compact-post-left {
   display: flex;
+  width: 100%;
+}
+
+.compact-post-left a {
+  width: 100%;
 }
 
 .compact-post-btns {

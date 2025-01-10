@@ -43,6 +43,10 @@ const Chat = ({ setOpenChat, setMinimizeChat }) => {
   const [msgId, setMsgId] = useState(null);
   const [pendingInputText, setPendingInputText] = useState("");
 
+  useEffect(() => {
+    console.log("userFound:", userFound);
+  }, [userFound]);
+
   // Function to handle updating input text for a specific thread
   const handleInputChange = (threadId, text) => {
     setInputTexts((prev) => ({ ...prev, [threadId]: text }));
@@ -171,6 +175,7 @@ const Chat = ({ setOpenChat, setMinimizeChat }) => {
           socket={socketRef.current}
         />
         <ChatInput
+          setUsername={setUsername}
           socket={socketRef.current}
           selectedChat={selectedChat}
           userFound={userFound}
@@ -206,6 +211,7 @@ const Chat = ({ setOpenChat, setMinimizeChat }) => {
           setShowCreateChatOverlay={setShowCreateChatOverlay}
           setShowChatWelcomeOverlay={setShowChatWelcomeOverlay}
           setShowMessageInviteOverlay={setShowMessageInviteOverlay}
+          showMessageInviteOverlay={showMessageInviteOverlay}
           username={username}
           setUsername={setUsername}
           userFound={userFound}

@@ -60,7 +60,7 @@ export function UserProfileFollowers({ setShowFollowersModal }) {
               />
               {follower.username}
             </div>
-            <FollowBtn btnType="profile" user={follower} follows={follows} />
+            <FollowBtn isProfile user={follower} follows={follows} />
           </div>
         ))}
       </div>

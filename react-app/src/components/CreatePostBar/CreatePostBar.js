@@ -7,8 +7,11 @@ import { v4 as uuidv4 } from "uuid";
 import "./CreatePostBar.css";
 
 /**
- *
- * @param {string} param0
+ * A simple component representing the right-most buttons on the post creation bar.
+ * @param {string} icon -
+ * @param {onClick} onClick
+ * @param {integer} testId
+ * @param
  * @returns
  */
 
@@ -19,11 +22,10 @@ const PostBarButton = ({ icon: Icon, onClick, testId, ariaLabel }) => (
 );
 
 /**
- * The post creation bar at the top of the Homepage feed, All feed, and community page feeds.
+ * The post creation bar at the top of some of the post feeds (Homepage feed, 'All' feed, and community feeds).
  *
- * @param {Object} props
- * @param {boolean} props.isCommunityPage - Whether CreatePostBar is on a community page
- * @param {string} props.communityName - The name of the community that this is being linked from
+ * @param {boolean} isCommunityPage -
+ * @param {string} communityName - Name of the community
  *
  * @example
  * <CreatePostBar isCommunityPage communityName="cats" />
@@ -54,8 +56,6 @@ export const CreatePostBar = ({ isCommunityPage, communityName }) => {
       ariaLabel: "Create link post",
     },
   ];
-
-  console.log("FiLink:", FiLink);
 
   return (
     <>

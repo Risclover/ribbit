@@ -1450,8 +1450,51 @@ lol""",
 
     comment120_createdat=generate_comment_timestamp(post22.created_at)
     comments_dict['120'] = Comment(
-        content=""
+        content="Thanks! And do check out Archive.org for more movies, vids, albums, books and more - all for free",
+        user_id=12,
+        post_id=22,
+        created_at=comment120_createdat,
+        updated_at=comment120_createdat
     )
+    db.session.add(comments_dict['120'])
+
+    comment121_createdat=generate_comment_timestamp(post22.craeted_at)
+    comments_dict['121'] = Comment(
+        content = "This is what Reddit should be about. Cool stuff from weird corners of the internet. Hell yeah.",
+        user_id=13,
+        post_id=22,
+        created_at=comment121_createdat,
+        updated_at=comment110_createdat
+    )
+    db.session.add(comments_dict['121'])
+    db.session.flush()
+
+    comment122_createdat=generate_comment_timestamp(comments_dict['121'].created_at)
+    comments_dict['122'] = Comment(
+        content = "If you're subbed to the right places, that's exactly what it is!",
+        user_id=14,
+        post_id=22,
+        parent_id=121,
+        created_at=comment122_createdat,
+        updated_at=comment122_createdat
+    )
+    db.session.add(comments_dict['122'])
+
+    comment123_createdat=generate_comment_timestamp(comments_dict['121'].created_at)
+    comments_dict['123'] = Comment(
+        content = "I agree. Posts like this remind me why Ribbit is the only social media I use",
+        user_id=15,
+        post_id=22,
+        parent_id=121,
+        created_at=comment123_createdat,
+        updated_at=comment123_createdat
+    )
+    db.session.add(comments_dict['123'])
+
+    # ----------------------- POST 23 ----------------------- #
+    
+
+
 
 
     db.session.commit()

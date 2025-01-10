@@ -16,10 +16,6 @@ export const ChatNavBtn = ({
     (user) => user.id !== currentUser.id
   );
 
-  console.log("recipient:", recipient);
-  console.log("chatThread:", chatThread);
-  console.log("chatThread.users:", chatThread.users);
-
   const [time, setTime] = useState("");
 
   useEffect(() => {

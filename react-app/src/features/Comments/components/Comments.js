@@ -54,7 +54,6 @@ export function Comments({ post }) {
 
   const [sortedComments, setSortedComments] = useState(comments || []);
   const [sortType, setSortType] = useState("Best");
-  const showLoader = useLoader();
   const [searchValue, setSearchValue] = useState("");
   const [searchActive, setSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchValue);
@@ -125,54 +124,48 @@ export function Comments({ post }) {
           </button>
         </div>
       )}
-      {showLoader && (
-        <div className="comments-loading">
-          <LoadingEllipsis loader={showLoader} />
-        </div>
-      )}
-      {!showLoader && (
-        <div className="all-comments">
-          {sortedComments.length > 0 &&
-            !specificCommentActive &&
-            sortedComments?.map((comment) => (
-              <Comment
-                comment={comment}
-                key={comment.id}
-                commentId={comment.id}
-                postId={post.id}
-                level={1}
-              />
-            ))}
-          {specificCommentActive && (
-            <div className="specific-comment">
-              <button
-                className="view-all-comments-btn"
-                onClick={() => {
-                  setSpecificCommentActive(false);
-                  history.push(`/posts/${post.id}`);
-                }}
-              >
-                View all comments
-              </button>
-              <Comment
-                key={+commentUrl}
-                commentId={+commentUrl}
-                postId={post.id}
-                specificCommentActive={specificCommentActive}
-                comment={specificComment}
-                level={1}
-              />
-            </div>
-          )}
 
-          {searchActive && comments.length === 0 && (
-            <div className="comments-search-no-results">
-              <NoResults query={searchQuery} focusSearchBox={focusSearchBox} />
-            </div>
-          )}
-          {!searchActive && comments.length === 0 && <NoCommentsMsg />}
-        </div>
-      )}
+      <div className="all-comments" id="all-comments">
+        {sortedComments.length > 0 &&
+          !specificCommentActive &&
+          sortedComments?.map((comment) => (
+            <Comment
+              comment={comment}
+              key={comment.id}
+              commentId={comment.id}
+              postId={post.id}
+              level={1}
+            />
+          ))}
+        {specificCommentActive && (
+          <div className="specific-comment">
+            <button
+              className="view-all-comments-btn"
+              onClick={() => {
+                setSpecificCommentActive(false);
+                history.push(`/posts/${post.id}`);
+              }}
+            >
+              View all comments
+            </button>
+            <Comment
+              key={+commentUrl}
+              commentId={+commentUrl}
+              postId={post.id}
+              specificCommentActive={specificCommentActive}
+              comment={specificComment}
+              level={1}
+            />
+          </div>
+        )}
+
+        {searchActive && comments.length === 0 && (
+          <div className="comments-search-no-results">
+            <NoResults query={searchQuery} focusSearchBox={focusSearchBox} />
+          </div>
+        )}
+        {!searchActive && comments.length === 0 && <NoCommentsMsg />}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import parse from "html-react-parser";
@@ -81,78 +81,83 @@ export function CompactPostFormat({ id, isPage, post }) {
               <CompactPostTypeIcon
                 post={post}
                 setPostExpand={setPostExpand}
-                postExpand={postExpand}rtrtw
+                postExpand={postExpand}
+                rtrtw
               />
-              <div className="compact-post-details">
-                <div className="compact-post-title">
-                  {post?.title}{" "}
-                  {post?.linkUrl && (
-                    <div
-                      className="classic-post-link"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        window.open(post?.linkUrl);
-                      }}
-                    >
-                      {sliceUrl(post?.linkUrl)} <HiOutlineExternalLink />
-                    </div>
-                  )}
-                </div>
-                <div className="compact-post-author-bar-alt">
-                  {post?.votes === 1
-                    ? post?.votes + " point"
-                    : post?.votes + " points"}
-                  <span className="single-post-dot-spacer">•</span>
-                  {commentNum === 1
-                    ? commentNum + " comment"
-                    : commentNum + " comments"}
-                  <span className="single-post-dot-spacer">•</span>
-                  c/{post?.communityName} Posted by{" "}
-                  <Username
-                    community={community}
-                    username={post?.postAuthor?.username}
-                    user={post?.postAuthor}
-                    source="singlepost"
-                  />
-                </div>
-                <div className="compact-post-author-bar">
-                  {isPage !== "community" && (
-                    <>
-                      <span
-                        className="compact-post-community"
+              <NavLink to={`/posts/${post.id}`}>
+                <div className="compact-post-details">
+                  <div className="compact-post-title">
+                    {post?.title}{" "}
+                    {post?.linkUrl && (
+                      <div
+                        className="classic-post-link"
                         onClick={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
-                          history.push(`/c/${post?.communityName}`);
+                          window.open(post?.linkUrl);
                         }}
                       >
-                        c/{post?.communityName}{" "}
+                        {sliceUrl(post?.linkUrl)} <HiOutlineExternalLink />
+                      </div>
+                    )}
+                  </div>
+                  <div className="compact-post-author-bar-alt">
+                    {post?.votes === 1
+                      ? post?.votes + " point"
+                      : post?.votes + " points"}
+                    <span className="single-post-dot-spacer">•</span>
+                    {commentNum === 1
+                      ? commentNum + " comment"
+                      : commentNum + " comments"}
+                    <span className="single-post-dot-spacer">•</span>
+                    c/{post?.communityName} Posted by{" "}
+                    <Username
+                      community={community}
+                      username={post?.postAuthor?.username}
+                      user={post?.postAuthor}
+                      source="singlepost"
+                    />
+                  </div>
+                  <div className="compact-post-author-bar">
+                    {isPage !== "community" && (
+                      <>
+                        <span
+                          className="compact-post-community"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            history.push(`/c/${post?.communityName}`);
+                          }}
+                        >
+                          c/{post?.communityName}{" "}
+                        </span>
+                        <span className="single-post-dot-spacer">•</span>
+                      </>
+                    )}
+                    Posted by
+                    <Username
+                      community={community}
+                      username={post?.postAuthor?.username}
+                      user={post?.postAuthor}
+                      source="singlepost"
+                    />
+                    <span className="post-time">
+                      {moment(post?.createdAt).fromNow()}
+                      <span className="post-time-hover">
+                        <Tooltip direction="down" text={post?.createdAt} />
                       </span>
-                      <span className="single-post-dot-spacer">•</span>
-                    </>
-                  )}
-                  Posted by
-                  <Username
-                    community={community}
-                    username={post?.postAuthor?.username}
-                    user={post?.postAuthor}
-                    source="singlepost"
-                  />
-                  <span className="post-time">
-                    {moment(post?.createdAt).fromNow()}
-                    <span className="post-time-hover">
-                      <Tooltip direction="down" text={post?.createdAt} />
                     </span>
-                  </span>
+                  </div>
                 </div>
-              </div>
+              </NavLink>
             </div>
             <div className="compact-post-btns">
-              <button aria-label="Comments" className="compact-post-comments">
-                <i className="fa-regular fa-message"></i>
-                {commentNum}
-              </button>
+              <Link to={`/posts/${post.id}/#all-comments`}>
+                <button aria-label="Comments" className="compact-post-comments">
+                  <i className="fa-regular fa-message"></i>
+                  {commentNum}
+                </button>
+              </Link>
               <CompactPostMenu
                 post={post}
                 community={community}

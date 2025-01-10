@@ -8,11 +8,12 @@ export const CreateChatOverlay = ({
   setShowCreateChatOverlay,
   setShowChatWelcomeOverlay,
   setShowMessageInviteOverlay,
+  showMessageInviteOverlay,
   username,
   setUsername,
   userFound,
 }) => {
-  const { selectedChat, setSelectedChat, setPendingReceiver } =
+  const { selectedChat, setSelectedChat, pendingReceiver, setPendingReceiver } =
     useContext(SelectedChatContext);
 
   const [isChosen, setIsChosen] = useState(false);
@@ -23,7 +24,7 @@ export const CreateChatOverlay = ({
   // Get to point between message invitation and actually creating the thread
   const handleStartChat = async (e) => {
     e.preventDefault();
-
+    console.log("userFound2:", userFound);
     const existingThread = userChats.find(
       (thread) =>
         thread.users?.some((user) => user.id === currentUser?.id) &&
@@ -34,11 +35,13 @@ export const CreateChatOverlay = ({
     if (existingThread === undefined) {
       setShowChatWelcomeOverlay(false);
       setShowMessageInviteOverlay(true);
+      console.log("messageInviteOverlay:", showMessageInviteOverlay);
       setPendingReceiver(username);
     } else {
       setSelectedChat(existingThread);
     }
-
+    console.log("selectedChat:", selectedChat);
+    console.log("pendingReceiver:", pendingReceiver);
     setShowCreateChatOverlay(false);
   };
 

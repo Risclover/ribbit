@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
 import { BsArrowsAngleExpand, BsArrowsAngleContract } from "react-icons/bs";
@@ -104,59 +104,61 @@ export function ClassicPostFormat({ isPage, id, post }) {
               )}
             </div>
             <div className="classic-post-content-body">
-              <div className="classic-post-content-body-top">
-                <div className="classic-post-title">
-                  <h3>{post?.title}</h3>
-                  {post?.linkUrl && (
-                    <div
-                      className={`classic-post-link ${
-                        isPage === "community" && "community-post"
-                      }`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        window.open(post?.linkUrl);
-                        if (e.target.classList.contains("community-post"))
-                          e.target.classList.remove("community-post");
-                      }}
-                    >
-                      {sliceUrl(post?.linkUrl)} <HiOutlineExternalLink />
+              <NavLink to={`/posts/${post?.id}`}>
+                <div className="classic-post-content-body-top">
+                  <div className="classic-post-title">
+                    <h3>{post?.title}</h3>
+                    {post?.linkUrl && (
+                      <div
+                        className={`classic-post-link ${
+                          isPage === "community" && "community-post"
+                        }`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          window.open(post?.linkUrl);
+                          if (e.target.classList.contains("community-post"))
+                            e.target.classList.remove("community-post");
+                        }}
+                      >
+                        {sliceUrl(post?.linkUrl)} <HiOutlineExternalLink />
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="classic-post-author-bar">
+                  {isPage !== "community" && (
+                    <div className="classic-post-community-info">
+                      <span
+                        className="classic-post-community"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          history.push(`/c/${post?.communityName}`);
+                        }}
+                      >
+                        c/{post?.communityName}{" "}
+                      </span>
+                      <span className="single-post-dot-spacer">•</span>
                     </div>
                   )}
-                </div>
-              </div>
-              <div className="classic-post-author-bar">
-                {isPage !== "community" && (
-                  <div className="classic-post-community-info">
-                    <span
-                      className="classic-post-community"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        history.push(`/c/${post?.communityName}`);
-                      }}
-                    >
-                      c/{post?.communityName}{" "}
+                  <div className="classic-post-author-info">
+                    Posted by{" "}
+                    <Username
+                      community={community}
+                      username={post?.postAuthor?.username}
+                      user={post?.postAuthor}
+                      source="singlepost"
+                    />
+                    <span className="post-time">
+                      {moment(post?.createdAt).fromNow()}
+                      <span className="post-time-hover">
+                        <Tooltip direction="down" text={post?.createdAt} />
+                      </span>
                     </span>
-                    <span className="single-post-dot-spacer">•</span>
                   </div>
-                )}
-                <div className="classic-post-author-info">
-                  Posted by{" "}
-                  <Username
-                    community={community}
-                    username={post?.postAuthor?.username}
-                    user={post?.postAuthor}
-                    source="singlepost"
-                  />
-                  <span className="post-time">
-                    {moment(post?.createdAt).fromNow()}
-                    <span className="post-time-hover">
-                      <Tooltip direction="down" text={post?.createdAt} />
-                    </span>
-                  </span>
                 </div>
-              </div>
+              </NavLink>
               <div
                 className="classic-post-buttons"
                 onClick={(e) => e.preventDefault()}

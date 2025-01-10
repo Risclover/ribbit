@@ -33,16 +33,6 @@ export const DropBox = ({
     }
   }, [defaultIcon]);
 
-  // useEffect(() => {
-  //   if (dropboxType === "community_icon") {
-  //     if (preview === "https://i.imgur.com/9CI9hiO.png") {
-  //       setShowBar(false);
-  //     } else {
-  //       setDefaultIcon(false);
-  //     }
-  //   }
-  // }, [preview, dropboxType]);
-
   return (
     <div className="dropbox">
       {!showBar && (
