@@ -12,7 +12,7 @@ import React from "react";
  * <PostBarBtn icon={} onClick={} testId={} ariaLabel={} />
  */
 
-export const PostBarButton = ({ icon: Icon, onClick, testId, ariaLabel }) => (
+export const PostBarBtn = ({ icon: Icon, onClick, testId, ariaLabel }) => (
   <button aria-label={ariaLabel} onClick={onClick} data-testid={testId}>
     <Icon />
   </button>

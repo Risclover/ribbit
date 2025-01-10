@@ -4,6 +4,17 @@ import { PreviewBar } from "./PreviewBar";
 import { useFileHandler } from "./useFileHandler";
 import "./DropBox.css";
 
+/**
+ * A custom-made image dropbox, where images can be drag-and-dropped or uploaded from their device.
+ *
+ * @param {} setImage -
+ * @param {} preview -
+ * @param {} setPreview -
+ * @param {} defaultIcon -
+ *
+ * @example
+ * <DropBox setImage={setImage} preview={preview} setPreview={setPreview} defaultIcon={defaultIcon} />
+ */
 export const DropBox = ({
   setImage,
   preview,

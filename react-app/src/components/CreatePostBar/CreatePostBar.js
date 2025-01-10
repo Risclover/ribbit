@@ -7,21 +7,6 @@ import { v4 as uuidv4 } from "uuid";
 import "./CreatePostBar.css";
 
 /**
- * A simple component representing the right-most buttons on the post creation bar.
- * @param {string} icon -
- * @param {onClick} onClick
- * @param {integer} testId
- * @param
- * @returns
- */
-
-const PostBarButton = ({ icon: Icon, onClick, testId, ariaLabel }) => (
-  <button aria-label={ariaLabel} onClick={onClick} data-testid={testId}>
-    <Icon />
-  </button>
-);
-
-/**
  * The post creation bar at the top of some of the post feeds (Homepage feed, 'All' feed, and community feeds).
  *
  * @param {boolean} isCommunityPage -
@@ -81,7 +66,7 @@ export const CreatePostBar = ({ isCommunityPage, communityName }) => {
 
           {/* Buttons for image and link post creation pages */}
           {postBarButtons.map((btn) => (
-            <PostBarButton
+            <PostBarBtn
               ariaLabel={btn.ariaLabel}
               key={uuidv4()}
               icon={btn.icon}
