@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, getSubscriptions, getCommunities } from "@/store";
 import {
@@ -17,6 +17,7 @@ import "./PreviewCommunity.css";
 
 export function PreviewCommunity() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { communityName } = useParams();
 
   const { format } = useContext(PostFormatContext);
@@ -31,6 +32,7 @@ export function PreviewCommunity() {
   )?.id;
   const user = useSelector((state) => state.session.user);
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
+  const currentUser = useSelector((state) => state.session.user);
 
   const community = communities?.find(
     (community) => community.name === communityName
@@ -43,6 +45,12 @@ export function PreviewCommunity() {
     dispatch(getSubscriptions());
     dispatch(getPosts());
   }, [communityName, communityId, dispatch]);
+
+  useEffect(() => {
+    if (currentUser.id !== community?.userId) {
+      history.push(`/c/${communityName}`);
+    }
+  }, []);
 
   usePageSettings({
     documentTitle: community?.displayName,

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useHistory, useParams } from "react-router-dom";
 import { SlArrowRight } from "react-icons/sl";
 import moment from "moment";
 
@@ -21,11 +21,15 @@ import Flower from "@/assets/images/user-profile-icons/poinsettia.png";
 import { SelectedChatContext } from "@/context";
 import { FollowBtn } from "@/components";
 import { UserUploadModal } from "./UserUploadModal";
-import { UploadBannerImageModal, UploadImage } from "features";
+import {
+  LoginSignupModal,
+  UploadBannerImageModal,
+  UploadImage,
+} from "features";
 
 export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const { userId } = useParams();
 
   const [showFollowersModal, setShowFollowersModal] = useState(false);
@@ -37,6 +41,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const userChats = useSelector((state) => Object.values(state.chatThreads));
   const [showBannerModal, setShowBannerModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const isFollowing = () => follows && user && follows[user.id];
 
@@ -132,7 +137,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
       </div>
       <div className="user-profile-about-content">
         {currentUser?.id === +userId && (
-          <NavLink to={`/users/${userId}/profile/edit`}>
+          <NavLink to={`/settings/profile`}>
             <i className="fa-solid fa-gear user-settings"></i>
           </NavLink>
         )}
@@ -235,17 +240,45 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
         </div>
 
         <div className="half-btns">
-          {currentUser?.id !== +userId && <FollowBtn user={user} />}
-          {currentUser?.id !== +userId && (
+          {currentUser && currentUser?.id !== +userId && (
+            <FollowBtn user={user} />
+          )}
+          {!currentUser && (
+            <LoginSignupModal
+              btnText="Follow"
+              className="blue-btn-filled btn-long"
+              formType="login"
+            />
+          )}
+          {currentUser && currentUser?.id !== +userId && (
             <button className="blue-btn-filled btn-long" onClick={handleChat}>
               Chat
             </button>
+          )}{" "}
+          {!currentUser && (
+            <LoginSignupModal
+              btnText="Chat"
+              className="blue-btn-filled btn-long"
+              formType="login"
+            />
           )}
         </div>
-        {currentUser?.id !== +userId && (
-          <SendMessage userId={userId} username={username} />
+        {currentUser && currentUser?.id !== +userId && (
+          <SendMessage
+            userId={userId}
+            currentUser={currentUser}
+            username={username}
+          />
+        )}
+        {!currentUser && (
+          <LoginSignupModal
+            btnText="Send Message"
+            className="blue-btn-filled btn-long"
+            formType="login"
+          />
         )}
       </div>
+
       {showFollowersModal && (
         <Modal
           onClose={() => setShowFollowersModal(false)}

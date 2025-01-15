@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "@/store";
 import { handleErrors } from "../utils";
+import { getUsers } from "store";
 
 export function useLoginForm() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ export function useLoginForm() {
       setLoginEmailErrors([""]);
       setLoginPasswordErrors(errors);
     }
+    await dispatch(getUsers());
   };
 
   const submitBtn = (

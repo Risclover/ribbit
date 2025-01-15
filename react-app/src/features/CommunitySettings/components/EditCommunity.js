@@ -21,7 +21,7 @@ export function EditCommunity() {
   // const { communityId } = useParams();
   const { communityName } = useParams();
   const communities = useSelector((state) => state.communities);
-
+  const currentUser = useSelector((state) => state.session.user);
   const communityId = getIdFromName(communityName, communities);
 
   const user = useSelector((state) => state.session.user);
@@ -38,6 +38,7 @@ export function EditCommunity() {
   useEffect(() => {
     dispatch(getCommunityRules(communityId));
     dispatch(getSingleCommunity(communityId));
+    dispatch(getCommunities());
   }, [community?.id, communityId, dispatch]);
 
   useEffect(() => {
@@ -70,6 +71,13 @@ export function EditCommunity() {
     await dispatch(deleteCommunity(communityId));
     history.push(`/`);
   };
+
+  useEffect(() => {
+    console.log(community?.userId, currentUser.id);
+    if (community?.communityOwner.id !== currentUser.id) {
+      history.push(`/c/${communityName}`);
+    }
+  }, []);
 
   // if (!community || !community) return null;
   return (

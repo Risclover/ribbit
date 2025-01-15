@@ -43,7 +43,7 @@ export function CommunityJoinBtn({ community, isPage }) {
           {btnWord}
         </button>
       )}
-      {!subscribed && (
+      {user && !subscribed && (
         <button
           className={
             isPage === "singlepage"

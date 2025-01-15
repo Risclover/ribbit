@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 export const User = ({ user }) => {
   const currentUser = useSelector((state) => state.session.user);
-  if (!user || !currentUser) return null;
   return (
     <NavLink to={`/users/${user.id}/profile`}>
       <div className="search-results-page-community">
@@ -25,7 +24,7 @@ export const User = ({ user }) => {
             </div>
           </div>
         </div>
-        {currentUser?.id !== user.id && (
+        {currentUser && currentUser?.id !== user.id && (
           <div className="search-results-page-community-right">
             <UserFollowBtn user={user} />
           </div>

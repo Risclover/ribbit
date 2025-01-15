@@ -360,7 +360,7 @@ function App() {
                   <EditCommunity />
                 </ProtectedRoute>
 
-                <ProtectedRoute path="/users/:userId/profile/edit" exact={true}>
+                <ProtectedRoute path="/settings/profile" exact={true}>
                   <EditProfile />
                 </ProtectedRoute>
 

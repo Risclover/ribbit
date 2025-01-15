@@ -14,12 +14,15 @@ import Cake from "@/assets/images/misc/piece4.png";
 import { useHistory } from "react-router-dom";
 import { CommunityImg } from "components/CommunityImg";
 import { useCommunitySettings } from "features/Posts/hooks/useCommunitySettings";
+import { useSelector } from "react-redux";
 
 export function CommunityInfoBox({ community, user, isPage }) {
   const { checked, setChecked } = useCommunitySettings(community);
 
   const history = useHistory();
   const [members, setMembers] = useState(0);
+
+  const currentUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
     setMembers(community?.members);
@@ -51,7 +54,7 @@ export function CommunityInfoBox({ community, user, isPage }) {
               <BiShieldAlt /> Mod Tools
             </NavLink>
           )}
-          <CommunityInfoMenu community={community} />
+          {currentUser && <CommunityInfoMenu community={community} />}
         </div>
       </div>
       <div className="community-page-box-content">

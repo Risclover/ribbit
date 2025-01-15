@@ -40,7 +40,7 @@ export function NavUserDropdown() {
           <div className="navbar-user-info-details">
             <img
               className="navbar-user-img"
-              src={user?.profileImg}
+              src={cuser?.profileImg}
               alt="User"
             />
             <div className="navbar-user-info">
@@ -112,7 +112,7 @@ export function NavUserDropdown() {
             <NavLink to={`/directory`}>
               <div className="nav-user-dropdown-btn">Communities Directory</div>
             </NavLink>
-            <NavLink to={`/users/${cuser.id}/profile/edit`}>
+            <NavLink to={`/settings/profile`}>
               <div className="nav-user-dropdown-btn">User Settings</div>
             </NavLink>
             <div

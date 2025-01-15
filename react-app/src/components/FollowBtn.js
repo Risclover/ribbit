@@ -7,10 +7,11 @@ import {
   getFollowers,
   unfollowUser,
 } from "@/store";
+import { useHistory } from "react-router-dom";
 
 /**
  * A button that users can click to follow or unfollow other users.
- * 
+ *
  * @param {community} - The community
  * @param {boolean} isProfile - Whether or not the page this button is on is the user profile page.
  *
@@ -19,8 +20,11 @@ import {
  */
 
 export const FollowBtn = ({ user, community, isProfile = false }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const follows = useSelector((state) => state.followers?.follows);
+
+  const currentUser = useSelector((state) => state.session.user);
 
   const isFollowing = useMemo(
     () =>
@@ -45,6 +49,10 @@ export const FollowBtn = ({ user, community, isProfile = false }) => {
 
   const handleFollowClick = useCallback(
     async (e) => {
+      if (!currentUser) {
+        history.push("/login");
+        return;
+      }
       e.stopPropagation();
       e.preventDefault();
 

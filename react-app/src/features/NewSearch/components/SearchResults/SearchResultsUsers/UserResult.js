@@ -32,7 +32,7 @@ export const UserResult = ({ user }) => {
             </div>
           </div>
         </div>
-        {currentUser?.id !== user.id && (
+        {currentUser && currentUser?.id !== user.id && (
           <div className="search-results-page-community-right">
             <UserFollowBtn user={user} />
           </div>

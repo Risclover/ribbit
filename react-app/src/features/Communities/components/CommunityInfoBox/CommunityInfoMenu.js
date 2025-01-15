@@ -24,6 +24,8 @@ export function CommunityInfoMenu({ community }) {
   const [btnState, setBtnState] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
 
+  const currentUser = useSelector(state => state.session.user);
+
   const communityId = getIdFromName(communityName, communities);
 
   useEffect(() => {

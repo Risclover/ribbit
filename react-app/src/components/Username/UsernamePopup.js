@@ -5,10 +5,12 @@ import { Modal } from "@/context";
 import { MessageModal } from "@/features";
 import { FollowBtn } from "../FollowBtn";
 import "./Username.css";
+import { useSelector } from "react-redux";
 
 export function UsernamePopup({ community, user }) {
   const history = useHistory();
   const [showMsgModal, setShowMsgModal] = useState(false);
+  const currentUser = useSelector((state) => state.session.user);
 
   const {
     id,
@@ -20,7 +22,7 @@ export function UsernamePopup({ community, user }) {
     commentKarma,
   } = user[0] || {};
 
-  console.log('user[0]:', user[0])
+  console.log("user[0]:", user[0]);
 
   return (
     <>
@@ -53,18 +55,20 @@ export function UsernamePopup({ community, user }) {
             <div className="username-popup-karma-body">Comment Karma</div>
           </div>
         </div>
-        <button
-          className={`blue-btn-unfilled btn-long username-popup-btn-top ${
-            community ? " community-btn" : ""
-          }`}
-          onClick={(e) => {
-            e.stopPropagation();
-            setShowMsgModal(true);
-          }}
-        >
-          Send a Message
-        </button>
-        <FollowBtn user={user[0]} community={community} />
+        {currentUser && (
+          <button
+            className={`blue-btn-unfilled btn-long username-popup-btn-top ${
+              community ? " community-btn" : ""
+            }`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowMsgModal(true);
+            }}
+          >
+            Send a Message
+          </button>
+        )}
+        {currentUser && <FollowBtn user={user[0]} community={community} />}
       </div>
       {showMsgModal && (
         <Modal

@@ -1492,10 +1492,69 @@ lol""",
     db.session.add(comments_dict['123'])
 
     # ----------------------- POST 23 ----------------------- #
-    
+    post23 = Post.query.get(23)
 
+    comment124_createdat=generate_comment_timestamp(post23.created_at)
+    comments_dict['124'] = Comment(
+        content="Going to use your post to plug Navy Federal. The credit union has a completely hassle-free shutdown assistance program for government employees enrolled in direct deposit with them. All you have to do is register for the program and they will spot your paycheck at the normal amount and at the normal time.",
+        user_id=16,
+        post_id=23,
+        created_at=comment124_createdat,
+        updated_at=comment124_createdat
+    )
+    db.session.add(comments_dict['124'])
+    db.session.flush()
 
+    comment125_createdat=generate_comment_timestamp(comments_dict['124'].created_at)
+    comments_dict['125'] = Comment(
+        content="Can confirm, was in the navy during a shutdown, signed up for Navy Federal in boot camp and still got paid",
+        user_id=17,
+        post_id=23,
+        parent_id=124,
+        created_at=comment125_createdat,
+        updated_at=comment125_createdat
+    )
+    db.session.add(comments_dict['125'])
 
+    comment126_createdat=generate_comment_timestamp(comments_dict['124'].created_at)
+    comments_dict['126'] = Comment(
+        content="When they covered our checks during the 2011 near shutdown(?), they earned my deposits for life. At the time, they were the only bank that did so. I believe a few other military affiliated banks did so afterwards. But they rock. Also, generally pretty competitive rates on many things.",
+        user_id=18,
+        post_id=23,
+        parent_id=124,
+        created_at=comment126_createdat,
+        updated_at=comment126_createdat
+    )
+    db.session.add(comments_dict['126'])
+    db.session.flush()
+
+    comment127_createdat=generate_comment_timestamp(comments_dict['126'].created_at)
+    comments_dict['127'] = Comment(
+        content="They paid us like nothing happened.",
+        user_id=19,
+        post_id=23,
+        parent_id=126,
+        created_at=comment127_createdat,
+        updated_at=comment127_createdat
+    )
+    db.session.add(comments_dict['127'])
+
+    comment128_createdat=generate_comment_timestamp(post23)
+    comments_dict['128'] = Comment(
+        content="""As a veteran that was active duty during a government shutdown, this is absolutely not correct.
+
+See how long any military branch lasts when their people are not being taken care of.
+
+Stop with the click bait.""",
+        user_id=20,
+        post_id=23,
+        created_at=comment128_createdat,
+        updated_at=comment128_createdat
+    )
+    db.session.add(comments_dict['128'])
+
+    # ----------------------- POST 25 ----------------------- #
+    post25 = Post.query.get(25)
 
     db.session.commit()
 

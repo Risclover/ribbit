@@ -298,7 +298,7 @@ export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
             setShowIcon(false);
             setShowDropdown(false);
           }}
-          to={`/users/${currentUser?.id}/profile/edit`}
+          to={`/settings/profile`}
         >
           <img
             src={user?.profileImg}

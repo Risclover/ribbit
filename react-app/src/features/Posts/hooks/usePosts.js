@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts, getViewedPosts } from "@/store";
 import { sortPosts } from "@/utils";
+import { getUsers } from "store";
 
 export function usePosts(isAllPosts) {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export function usePosts(isAllPosts) {
   const [sortMode, setSortMode] = useState("new");
 
   useEffect(() => {
+    dispatch(getUsers());
     dispatch(getViewedPosts());
     if (Object.values(userPosts).length === 0) dispatch(getPosts());
   }, [userPosts]);

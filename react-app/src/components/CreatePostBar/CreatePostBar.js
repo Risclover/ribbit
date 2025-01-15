@@ -5,6 +5,7 @@ import { RxImage } from "react-icons/rx";
 import { FiLink } from "react-icons/fi";
 import { v4 as uuidv4 } from "uuid";
 import "./CreatePostBar.css";
+import { PostBarBtn } from "./PostBarBtn";
 
 /**
  * The post creation bar at the top of some of the post feeds (Homepage feed, 'All' feed, and community feeds).

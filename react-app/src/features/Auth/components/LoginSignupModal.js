@@ -15,8 +15,8 @@ export function LoginSignupModal({ btnText, className, formType }) {
   };
 
   return (
-    <div style={{ color: "white" }}>
-      {formType !== "protected" && (
+    <>
+      {formType !== "protected" && formType !== "profile" && (
         <button className={className} onClick={handleOpenModal}>
           {btnText}
         </button>
@@ -47,6 +47,6 @@ export function LoginSignupModal({ btnText, className, formType }) {
           email={email}
         />
       )}
-    </div>
+    </>
   );
 }

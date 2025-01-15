@@ -12,6 +12,7 @@ import {
 } from "@/layouts";
 import { PostFormatContext } from "@/context";
 import Skeleton from "@mui/material/Skeleton";
+import { getUser } from "store";
 
 export function UserProfile({ setShowLoginForm, setOpenChat }) {
   const dispatch = useDispatch();
@@ -22,6 +23,10 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
 
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[userId]);
+
+  useEffect(() => {
+    console.log("USER:::", user);
+  }, [user]);
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => Object.values(state.posts));
   const currentUser = useSelector((state) => state.session.user);
@@ -29,6 +34,7 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
   const profilePosts = posts.filter((post) => post.postAuthor.id === +userId);
 
   useEffect(() => {
+    dispatch(getUsers());
     dispatch(getPosts());
     dispatch(getCommunities());
     setFormat("Card");
@@ -53,8 +59,6 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
         <Skeleton animation="wave" variant="text" />
       ),
   });
-
-  if (!user) return null;
 
   return (
     <FeedContainer>
