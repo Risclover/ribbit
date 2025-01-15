@@ -34,7 +34,6 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
   const profilePosts = posts.filter((post) => post.postAuthor.id === +userId);
 
   useEffect(() => {
-    dispatch(getUsers());
     dispatch(getPosts());
     dispatch(getCommunities());
     setFormat("Card");

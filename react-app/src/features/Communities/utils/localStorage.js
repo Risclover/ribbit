@@ -15,3 +15,24 @@ export const setCommunityThemes = (themes) => {
     console.error("Failed to set community-themes in localStorage:", error);
   }
 };
+
+export const getSidebarState = () => {
+  try {
+    const sidebarState = localStorage.getItem("sidebar-state");
+    return sidebarState ? JSON.parse(sidebarState) : null;
+  } catch (error) {
+    console.error(
+      "Failed to retrieve state of sidebar from localStorage:",
+      error
+    );
+    return null;
+  }
+};
+
+export const setSidebarState = (state) => {
+  try {
+    localStorage.setItem("sidebar-state", JSON.stringify(state));
+  } catch (error) {
+    console.error("Failed to set sidebar state in localStorage:", error);
+  }
+};

@@ -55,6 +55,10 @@ import { PopupProvider } from "@/context";
 import { ProtectedRoute } from "components";
 import ChatMinimized from "features/Chat/components/ChatWindow/ChatMinimized";
 import ImagePage from "pages/ImagePage";
+import {
+  getSidebarState,
+  setSidebarState,
+} from "features/Communities/utils/localStorage";
 
 function App() {
   const dispatch = useDispatch();
@@ -76,7 +80,7 @@ function App() {
   const [format, setFormat] = useState("Card");
   const [pageTitle, setPageTitle] = useState("testing");
   const [pageIcon, setPageIcon] = useState();
-  const [showNavSidebar, setShowNavSidebar] = useState(false);
+  const [showNavSidebar, setShowNavSidebar] = useState(() => getSidebarState());
   const [showLoggedOutSidebar, setShowLoggedOutSidebar] = useState();
   const [openChat, setOpenChat] = useState(false);
   const [userCommunities, setUserCommunities] = useState([]);
@@ -138,6 +142,10 @@ function App() {
 
   //   setUserCommunities(userComs);
   // }, [communities]);
+
+  useEffect(() => {
+    setSidebarState(showNavSidebar);
+  }, [showNavSidebar]);
 
   if (!loaded) {
     return null;
