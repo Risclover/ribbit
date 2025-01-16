@@ -1,6 +1,5 @@
 export * from "./PopupContext";
 export * from "./PostModalContext";
-export * from "./ScrollLockContext";
 export * from "./SearchQueryContext";
 export * from "./AuthModalContext";
 export * from "./ModalContext";

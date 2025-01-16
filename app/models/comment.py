@@ -1,4 +1,5 @@
 from .db import db
+from .joins import CommentVote
 
 ################
 # COMMENT MODEL:
@@ -25,6 +26,11 @@ class Comment(db.Model):
         cascade="all, delete-orphan"
     )
 
+    def calculated_votes(self):
+        upvotes = db.session.query(CommentVote).filter_by(comment_id=self.id, is_upvote=True).count()
+        downvotes = db.session.query(CommentVote).filter_by(comment_id=self.id, is_upvote=False).count()
+        return upvotes - downvotes
+
     def to_dict(self):
         return {
             "id": self.id,
@@ -38,9 +44,9 @@ class Comment(db.Model):
                 "profileImg": self.comment_author.profile_img,
                 # Add other non-recursive fields as needed
             },
-            "votes": len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]]) - len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]]),
-            "upvotes": len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]]),
-            "downvotes": len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]]),
+            "votes": self.calculated_votes(),
+            "upvotes": db.session.query(CommentVote).filter_by(comment_id=self.id, is_upvote=True).count(),
+            "downvotes": db.session.query(CommentVote).filter_by(comment_id=self.id, is_upvote=False).count(),
             "commentVoters": {item.to_dict()["userId"]: item.to_dict() for item in self.users_who_liked},
             "createdAt": self.created_at,
             "updatedAt": self.updated_at,

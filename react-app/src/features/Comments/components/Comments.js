@@ -53,7 +53,7 @@ export function Comments({ post }) {
   }, [commentsState]);
 
   const [sortedComments, setSortedComments] = useState(comments || []);
-  const [sortType, setSortType] = useState("Best");
+  const [sortType, setSortType] = useState("New");
   const [searchValue, setSearchValue] = useState("");
   const [searchActive, setSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchValue);

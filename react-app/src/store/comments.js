@@ -112,6 +112,7 @@ export const createComment = (payload, postId) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(addComment(data));
+    dispatch(getCommentsForPost(postId));
     return data;
   } else {
     // Handle errors appropriately

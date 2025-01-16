@@ -55,8 +55,12 @@ def create_comment(id):
         )
         db.session.add(comment_vote)
         db.session.commit()
+        # Expire the new_comment instance so that its relationships are reloaded
+        db.session.refresh(new_comment)
 
-        return new_comment.to_dict()
+        # Refetch the comment so that the users_who_liked relationship is fresh and the votes are recalculated
+        updated_comment = Comment.query.get(new_comment.id)
+        return updated_comment.to_dict()
 
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
@@ -150,7 +154,7 @@ def add_vote(id, votetype):
     comment.users_who_liked.append(comment_vote)
     db.session.add(comment_vote)
     db.session.commit()
-
+    db.session.refresh(comment)  # Force reload of joined relationships
     return jsonify(comment.to_dict()), 201  # Assuming comment.to_dict() serializes your comment object correctly
 
 
@@ -166,6 +170,7 @@ def delete_vote(id):
     comment_vote = CommentVote.query.filter_by(user_id=user.id, comment_id=comment.id).first()
     db.session.delete(comment_vote)
     db.session.commit()
+    db.session.refresh(comment)  # Force reload of joined relationships
     return comment.to_dict()
 
 

@@ -4,7 +4,6 @@ export * from "./CreatePost";
 export * from "./DeveloperLinksBox";
 export * from "./ImagePost";
 export * from "./PostFeed";
-export * from "./PostSkeleton";
 export * from "./SinglePost";
 export * from "./AboutBox";
 export * from "./DeletePost";

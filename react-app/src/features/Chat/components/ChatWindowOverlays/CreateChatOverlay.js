@@ -17,6 +17,7 @@ export const CreateChatOverlay = ({
     useContext(SelectedChatContext);
 
   const [isChosen, setIsChosen] = useState(false);
+  const [error, setError] = useState(false);
 
   const userChats = useSelector((state) => Object.values(state.chatThreads));
   const currentUser = useSelector((state) => state.session.user);
@@ -58,6 +59,7 @@ export const CreateChatOverlay = ({
                 value={username}
                 onChange={(e) => {
                   setIsChosen(false);
+                  setError(false);
                   setUsername(e.target.value);
                 }}
                 placeholder=" "
@@ -73,10 +75,17 @@ export const CreateChatOverlay = ({
               Search for people by username to chat with them.
             </div>
           )}
+          {error && (
+            <div className="new-chat-error">You can't talk to yourself.</div>
+          )}
           {userFound && (
             <button
               className="new-chat-user-found"
-              onClick={() => setIsChosen(!isChosen)}
+              onClick={() =>
+                userFound.id === currentUser.id
+                  ? setError(true)
+                  : setIsChosen(!isChosen)
+              }
             >
               <div className="new-chat-user-found-left">
                 <img src={userFound?.profileImg} alt="User" />{" "}

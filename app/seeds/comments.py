@@ -1458,7 +1458,7 @@ lol""",
     )
     db.session.add(comments_dict['120'])
 
-    comment121_createdat=generate_comment_timestamp(post22.craeted_at)
+    comment121_createdat=generate_comment_timestamp(post22.created_at)
     comments_dict['121'] = Comment(
         content = "This is what Reddit should be about. Cool stuff from weird corners of the internet. Hell yeah.",
         user_id=13,
@@ -1539,7 +1539,7 @@ lol""",
     )
     db.session.add(comments_dict['127'])
 
-    comment128_createdat=generate_comment_timestamp(post23)
+    comment128_createdat=generate_comment_timestamp(post23.created_at)
     comments_dict['128'] = Comment(
         content="""As a veteran that was active duty during a government shutdown, this is absolutely not correct.
 
@@ -1555,6 +1555,825 @@ Stop with the click bait.""",
 
     # ----------------------- POST 25 ----------------------- #
     post25 = Post.query.get(25)
+
+    comment129_createdat=generate_comment_timestamp(post25.created_at)
+    comments_dict['129'] = Comment(
+        content="I manage a high price bed store. I do 80k-90k a year depending on how sales go.",
+        user_id=21,
+        post_id=25,
+        created_at=comment129_createdat,
+        updated_at=comment129_createdat
+    )
+    db.session.add(comments_dict['129'])
+    db.session.flush()
+
+    comment130_createdat=generate_comment_timestamp(comments_dict['129'].created_at)
+    comments_dict['130'] = Comment(
+        content="How do you sleep at night?",
+        user_id=22,
+        post_id=25,
+        parent_id=129,
+        created_at=comment130_createdat,
+        updated_at=comment130_createdat
+    )
+    db.session.add(comments_dict['130'])
+    db.session.flush()
+
+    comment131_createdat=generate_comment_timestamp(comments_dict['130'].created_at)
+    comments_dict['131'] = Comment(
+        content="In a big bed with his wife.",
+        user_id=23,
+        post_id=25,
+        parent_id=130,
+        created_at=comment131_createdat,
+        updated_at=comment131_createdat
+    )
+    db.session.add(comments_dict['131'])
+
+    comment132_createdat=generate_comment_timestamp(post25.created_at)
+    comments_dict['132'] = Comment(
+        content="Started sucking a lot of dick for coke, and then sold the coke.",
+        user_id=24,
+        post_id=25,
+        created_at=comment132_createdat,
+        updated_at=comment132_createdat
+    )
+    db.session.add(comments_dict['132'])
+
+    comment133_createdat=generate_comment_timestamp(post25.created_at)
+    comments_dict['133'] = Comment(
+        content="Raise your standards, 85-100k is borderline poverty nowadays.",
+        user_id=25,
+        post_id=25,
+        created_at=comment133_createdat,
+        updated_at=comment133_createdat
+    )
+    db.session.add(comments_dict['133'])
+
+
+    # ----------------------- POST 26 ----------------------- #
+    post26 = Post.query.get(26)
+
+    comment134_createdat=generate_comment_timestamp(post26.created_at)
+    comments_dict['134'] = Comment(
+        content="You'll have to risk hurting her feelings to bring it up.",
+        user_id=26,
+        post_id=26,
+        created_at=comment134_createdat,
+        updated_at=comment134_createdat
+    )
+    db.session.add(comments_dict['134'])
+    db.session.flush()
+
+    comment135_createdat=generate_comment_timestamp(comments_dict['134'].created_at)
+    comments_dict['135'] = Comment(
+        content="Agreed. But one way to might be to say you’re interested in starting a new routine and could she join in to help motivate you and because it will be fun, etc. If she used to care about being in shape she hasn’t lost the muscle memory (no pun intended) and stuff like work, kids, etc., really requires you to set aside time.",
+        user_id=27,
+        post_id=26,
+        parent_id=134,
+        created_at=comment135_createdat,
+        updated_at=comment135_createdat
+    )
+    db.session.add(comments_dict['135'])
+    db.session.flush()
+
+    comment136_createdat=generate_comment_timestamp(comments_dict['135'].created_at)
+    comments_dict['136'] = Comment(
+        content="Where's the pun? 🤔",
+        user_id=28,
+        post_id=26,
+        parent_id=135,
+        created_at=comment136_createdat,
+        updated_at=comment136_createdat
+    )
+    db.session.add(comments_dict['136'])
+
+    comment137_createdat=generate_comment_timestamp(post26.created_at)
+    comments_dict['137'] = Comment(
+        content="To be honest, it sounds like she’s suffering from depression and it might be her workplace. You’ve listed many of the symptoms of depression. Maybe have that discussion first. If you tell her you’re worried about how’s she’s “letting herself go” no matter how gently, you’ll just be piling on. I promise you she’s ALSO not okay with the weight gain and not enjoying things she used to love.",
+        user_id=29,
+        post_id=26,
+        created_at=comment137_createdat,
+        updated_at=comment137_createdat
+    )
+    db.session.add(comments_dict['137'])
+    db.session.flush()
+
+    comment138_createdat=generate_comment_timestamp(comments_dict['137'].created_at)
+    comments_dict['138'] = Comment(
+        content="Usually that is the case for most obese people. There is usually some psychological factor driving the weight gain. If it is not addressed, you will probably just be running in circles with them.",
+        user_id=30,
+        post_id=26,
+        parent_id=137,
+        created_at=comment138_createdat,
+        updated_at=comment138_createdat
+    )
+    db.session.add(comments_dict['138'])
+
+    comment139_createdat=generate_comment_timestamp(comments_dict['137'].created_at)
+    comments_dict['139'] = Comment(
+        content="""This should be the top post! She sounds like her mental health isn't good right now, and she is probably acutely aware of how her appearance and health has changed. At this point tell her thatshe is out of shape, no matter how gently, is just going to add to her burden.
+
+OP, please discuss her mental health and help her get therapy and / or medication BEFORE you talk about her appearance or fitness.""",
+        user_id=31,
+        post_id=26,
+        parent_id=137,
+        created_at=comment139_createdat,
+        updated_at=comment139_createdat
+    )
+    db.session.add(comments_dict['139'])
+
+    comment140_createdat=generate_comment_timestamp(post26.created_at)
+    comments_dict['140'] = Comment(
+        content="Hire a tuba player to follow her around.",
+        user_id=32,
+        post_id=26,
+        created_at=comment140_createdat,
+        updated_at=comment140_createdat
+    )
+    db.session.add(comments_dict['140'])
+
+    comment141_createdat=generate_comment_timestamp(post26.created_at)
+    comments_dict['141'] = Comment(
+        content="I think the phrase \"letting yourself go\" is super judgmental and negative. We assume people just stop caring about taking care of themselves but honestly she's probably noticing it just as much as you are and is struggling. You said that she says she's tired or that it's due to her work? Well then that's your answer. When our mental health suffers, so does our physical health. If you're going to talk to her about it, make it about changes you can both make. Change YOUR eating habits and ask that she join you. Start going to the gym/exercising more yourself and invite her along. Make it fun and connective",
+        user_id=33,
+        post_id=26,
+        created_at=comment141_createdat,
+        updated_at=comment141_createdat
+    )
+    db.session.add(comments_dict['141'])
+    db.session.flush()
+
+    comment142_createdat=generate_comment_timestamp(comments_dict['141'].created_at)
+    comments_dict['142'] = Comment(
+        content="Would you prefer “getting fat?“ There’s been a noticeable change in her appearance. “Letting yourself go“ is about as diplomatic as you can get.",
+        user_id=34,
+        post_id=26,
+        parent_id=141,
+        created_at=comment142_createdat,
+        updated_at=comment142_createdat
+    )
+    db.session.add(comments_dict['142'])
+    db.session.flush()
+
+    comment143_createdat=generate_comment_timestamp(comments_dict['142'].created_at)
+    comments_dict['143'] = Comment(
+        content="""Every woman understands that when a man says she's \"letting herself go,\" it means he thinks she's getting fat and has a problem with it. So, in a way, yes, actually. If what you really mean is \"You're getting fat and I don't like it,\" just say it, because that's what's coming across either way
+
+The real problem with saying \"letting yourself go\" (or \"you're getting fat\") is that it's making her physical appearance the problem when her physical appearance is more likely just a symptom of her mental health. Approach it as a mental health problem and be compassionate and supportive, you'll have more success than implying she just needs to try harder to get back in shape""",
+        user_id=35,
+        post_id=26,
+        parent_id=142,
+        created_at=comment143_createdat,
+        updated_at=comment143_createdat
+    )
+    db.session.add(comments_dict['143'])
+
+
+    # ----------------------- POST 27 ----------------------- #
+    post27 = Post.query.get(27)
+
+    comment144_createdat=generate_comment_timestamp(post27.created_at)
+    comments_dict['144'] = Comment(
+        content="""We're real warm during the winter.
+
+And we die sooner.
+
+The silver lining is inside the coffin.""",
+        user_id=36,
+        post_id=27,
+        created_at=comment144_createdat,
+        updated_at=comment144_createdat
+    )
+    db.session.add(comments_dict['144'])
+    db.session.flush()
+
+    comment145_createdat=generate_comment_timestamp(comments_dict['144'].created_at)
+    comments_dict['145'] = Comment(
+        content="""Straight ballin if you can afford a casket lined in silver.
+
+Die like a proper pauper at least: with dignity and mountains of debts 🫠""",
+        user_id=37,
+        post_id=27,
+        parent_id=144,
+        created_at=comment145_createdat,
+        updated_at=comment145_createdat
+    )
+    db.session.add(comments_dict['145'])
+    db.session.flush()
+
+    comment146_createdat=generate_comment_timestamp(comments_dict['145'].created_at)
+    comments_dict['146'] = Comment(
+        content="If I ever get a terminal illness, I'm gonna get exceptionally drunk and high and be launched into an active volcano, lol.",
+        user_id=38,
+        post_id=27,
+        parent_id=145,
+        created_at=comment146_createdat,
+        updated_at=comment146_createdat
+    )
+    db.session.add(comments_dict['146'])
+
+    comment147_createdat=generate_comment_timestamp(comments_dict['145'].created_at)
+    comments_dict['147'] = Comment(
+        content="Straight baller if you can afford a casket",
+        user_id=39,
+        post_id=27,
+        parent_id=145,
+        created_at=comment147_createdat,
+        updated_at=comment147_createdat
+    )
+    db.session.add(comments_dict['147'])
+
+    comment148_createdat=generate_comment_timestamp(comments_dict['144'].created_at)
+    comments_dict['148'] = Comment(
+        content="The sweet sweet release of death.",
+        user_id=40,
+        post_id=27,
+        parent_id=144,
+        created_at=comment148_createdat,
+        updated_at=comment148_createdat
+    )
+    db.session.add(comments_dict['148'])
+
+    comment149_createdat=generate_comment_timestamp(comments_dict['144'].created_at)
+    comments_dict['149'] = Comment(
+        content="Dont forget the life insurance policy for the wife after you kick the bucket.",
+        user_id=41,
+        post_id=27,
+        parent_id=144,
+        created_at=comment149_createdat,
+        updated_at=comment149_createdat
+    )
+    db.session.add(comments_dict['149'])
+
+    comment150_createdat=generate_comment_timestamp(post27.created_at)
+    comments_dict['150'] = Comment(
+        content="Some heavier guys who walk regularly develop huge calves.",
+        user_id=42,
+        post_id=27,
+        created_at=comment150_createdat,
+        updated_at=comment150_createdat
+    )
+    db.session.add(comments_dict['150'])
+
+    comment151_createdat=generate_comment_timestamp(post27.created_at)
+    comments_dict['151'] = Comment(
+        content="Bigger boobs and ass",
+        user_id=43,
+        post_id=27,
+        created_at=comment151_createdat,
+        updated_at=comment151_createdat
+    )
+    db.session.add(comments_dict['151'])
+
+
+    # ----------------------- POST 28 ----------------------- #
+    post28 = Post.query.get(28)
+
+    comment152_createdat=generate_comment_timestamp(post28.created_at)
+    comments_dict['152'] = Comment(
+        content="Your Nick evolved into Nicholas. He must have used some stone.",
+        user_id=44,
+        post_id=28,
+        created_at=comment152_createdat,
+        updated_at=comment152_createdat
+    )
+    db.session.add(comments_dict['152'])
+    db.session.flush()
+
+    comment153_createdat=generate_comment_timestamp(comments_dict['152'].created_at)
+    comments_dict['153'] = Comment(
+        content="McStone.",
+        user_id=45,
+        post_id=28,
+        parent_id=152,
+        created_at=comment153_createdat,
+        updated_at=comment153_createdat
+    )
+    db.session.add(comments_dict['153'])
+    db.session.flush()
+
+    comment154_createdat=generate_comment_timestamp(comments_dict['153'].created_at)
+    comments_dict['154'] = Comment(
+        content="sounds like an edible",
+        user_id=46,
+        post_id=28,
+        parent_id=153,
+        created_at=comment154_createdat,
+        updated_at=comment154_createdat
+    )
+    db.session.add(comments_dict['154'])
+    db.session.flush()
+
+    comment155_createdat=generate_comment_timestamp(comments_dict['154'].created_at)
+    comments_dict['155'] = Comment(
+        content="McStone<strong>d</strong>",
+        user_id=47,
+        post_id=28,
+        parent_id=154,
+        created_at=comment155_createdat,
+        updated_at=comment155_createdat
+    )
+    db.session.add(comments_dict['155'])
+
+    comment156_createdat=generate_comment_timestamp(post28.created_at)
+    comments_dict['156'] = Comment(
+        content="The hell is a Market People Lead",
+        user_id=48,
+        post_id=28,
+        created_at=comment156_createdat,
+        updated_at=comment156_createdat
+    )
+    db.session.add(comments_dict['156'])
+
+    comment157_createdat=generate_comment_timestamp(post28.created_at)
+    comments_dict['157'] = Comment(
+        content="Assistant TO the regional manager",
+        user_id=49,
+        post_id=28,
+        created_at=comment157_createdat,
+        updated_at=comment157_createdat
+    )
+    db.session.add(comments_dict['157'])
+
+    comment158_createdat=generate_comment_timestamp(post28.created_at)
+    comments_dict['158'] = Comment(
+        content="Climb that ladder Nick! Got to be part of the machine to fix those ice-cream machines !",
+        user_id=50,
+        post_id=28,
+        created_at=comment158_createdat,
+        updated_at=comment158_createdat
+    )
+    db.session.add(comments_dict['158'])
+
+    # ----------------------- POST 29 ----------------------- #
+    post29 = Post.query.get(29)
+
+    comment159_createdat=generate_comment_timestamp(post29.created_at)
+    comments_dict['159'] = Comment(
+        content="I'm <em>NOT</em> fat! I'm <strong>fluffy</strong>!",
+        user_id=2,
+        post_id=29,
+        created_at=comment159_createdat,
+        updated_at=comment159_createdat
+    )
+    db.session.add(comments_dict['159'])
+    db.session.flush()
+
+    comment160_createdat=generate_comment_timestamp(comments_dict['159'].created_at)
+    comments_dict['160'] = Comment(
+        content="It's... So... FLUFFY!!!",
+        user_id=3,
+        post_id=29,
+        parent_id=159,
+        created_at=comment160_createdat,
+        updated_at=comment160_createdat
+    )
+    db.session.add(comments_dict['160'])
+
+    comment161_createdat=generate_comment_timestamp(post29.created_at)
+    comments_dict['161'] = Comment(
+        content="I look the same when I stand with my back to the sun.",
+        user_id=4,
+        post_id=29,
+        created_at=comment161_createdat,
+        updated_at=comment161_createdat
+    )
+    db.session.add(comments_dict['161'])
+    db.session.flush()
+
+    comment162_createdat=generate_comment_timestamp(comments_dict['161'].created_at)
+    comments_dict['162'] = Comment(
+        content="How close to the sun are you standing?",
+        user_id=5,
+        post_id=29,
+        parent_id=161,
+        created_at=comment162_createdat,
+        updated_at=comment162_createdat
+    )
+    db.session.add(comments_dict['162'])
+
+    comment163_createdat=generate_comment_timestamp(post29.created_at)
+    comments_dict['163'] = Comment(
+        content="\"its was just bad lighting 😰\"",
+        user_id=6,
+        post_id=29,
+        created_at=comment163_createdat,
+        updated_at=comment163_createdat
+    )
+    db.session.add(comments_dict['163'])
+
+    comment164_createdat=generate_comment_timestamp(post29.created_at)
+    comments_dict['164'] = Comment(
+        content="Is it a cat or a rabbit?",
+        user_id=7,
+        post_id=29,
+        created_at=comment164_createdat,
+        updated_at=comment164_createdat
+    )
+    db.session.add(comments_dict['164'])
+    db.session.flush()
+
+    comment165_createdat=generate_comment_timestamp(comments_dict['164'].created_at)
+    comments_dict['165'] = Comment(
+        content="a dog lil",
+        user_id=12,
+        post_id=29,
+        parent_id=164,
+        created_at=comment165_createdat,
+        updated_at=comment165_createdat
+    )
+    db.session.add(comments_dict['165'])
+    db.session.flush()
+
+    comment166_createdat=generate_comment_timestamp(comments_dict['165'].created_at)
+    comments_dict['166'] = Comment(
+        content="😯",
+        user_id=9,
+        post_id=29,
+        parent_id=165,
+        created_at=comment166_createdat,
+        updated_at=comment166_createdat
+    )
+    db.session.add(comments_dict['166'])
+
+    comment167_createdat=generate_comment_timestamp(post29.created_at)
+    comments_dict['167'] = Comment(
+        content="Frodog.",
+        user_id=10,
+        post_id=29,
+        created_at=comment167_createdat,
+        updated_at=comment167_createdat
+    )
+    db.session.add(comments_dict['167'])
+    db.session.flush()
+
+    comment168_createdat=generate_comment_timestamp(comments_dict['167'].created_at)
+    comments_dict['168'] = Comment(
+        content="yeahhh that's more like it",
+        user_id=12,
+        post_id=29,
+        parent_id=167,
+        created_at=comment168_createdat,
+        updated_at=comment168_createdat
+    )
+    db.session.add(comments_dict['168'])
+
+    # ----------------------- POST 30 ----------------------- #
+    post30 = Post.query.get(30)
+
+    comment169_createdat=generate_comment_timestamp(post30.created_at)
+    comments_dict['169'] = Comment(
+        content="You can unlock it with icloud if he didn't remove it",
+        user_id=11,
+        post_id=30,
+        created_at=comment169_createdat,
+        updated_at=comment169_createdat
+    )
+    db.session.add(comments_dict['169'])
+
+    comment170_createdat=generate_comment_timestamp(post30.created_at)
+    comments_dict['170'] = Comment(
+        content="I always thought this was a stupid feature, even before I had a kid. Who the hell thought that was reasonable",
+        user_id=12,
+        post_id=30,
+        created_at=comment170_createdat,
+        updated_at=comment170_createdat
+    )
+    db.session.add(comments_dict['170'])
+
+    comment171_createdat=generate_comment_timestamp(post30.created_at)
+    comments_dict['171'] = Comment(
+        content="It’s very cool to call your phone disabled, man.",
+        user_id=14,
+        post_id=30,
+        created_at=comment171_createdat,
+        updated_at=comment171_createdat
+    )
+    db.session.add(comments_dict['171'])
+
+    comment172_createdat=generate_comment_timestamp(post30.created_at)
+    comments_dict['172'] = Comment(
+        content="I had this happen last week. Kinda sucks.",
+        user_id=15,
+        post_id=30,
+        created_at=comment172_createdat,
+        updated_at=comment172_createdat
+    )
+    db.session.add(comments_dict['172'])
+
+
+    # ----------------------- POST 31 ----------------------- #
+    post31 = Post.query.get(31)
+
+    comment173_createdat=generate_comment_timestamp(post31.created_at)
+    comments_dict['173'] = Comment(
+        content="I wouldn't put my name under such a message honestly (the \"About dev\" button). I am sure there are better ways to sort this out.",
+        user_id=16,
+        post_id=31,
+        created_at=comment173_createdat,
+        updated_at=comment173_createdat
+    )
+    db.session.add(comments_dict['173'])
+    db.session.flush()
+
+    comment174_createdat=generate_comment_timestamp(comments_dict['173'].created_at)
+    comments_dict['174'] = Comment(
+        content="Besides this I'm pretty sure I heard others insist the client can sue the developer for adding \"stuff\" not stipulated in the contract, cause this doesn't seem like a thing it would just appear in official papers. Not saying the client is in the right for not paying but still",
+        user_id=17,
+        post_id=31,
+        parent_id=173,
+        created_at=comment174_createdat,
+        updated_at=comment174_createdat
+    )
+    db.session.add(comments_dict['174'])
+
+    comment175_createdat=generate_comment_timestamp(post31.created_at)
+    comments_dict['175'] = Comment(
+        content="I'm not sure what hurts more: the fact that 'until' was written with 2 L's, or the fact that 'until' doesn't even fit in this sentence.",
+        user_id=18,
+        post_id=31,
+        created_at=comment175_createdat,
+        updated_at=comment175_createdat
+    )
+    db.session.add(comments_dict['175'])
+
+    comment176_createdat=generate_comment_timestamp(post31.created_at)
+    comments_dict['176'] = Comment(
+        content="It's a fake website and poorly done.",
+        user_id=19,
+        post_id=31,
+        created_at=comment176_createdat,
+        updated_at=comment176_createdat
+    )
+    db.session.add(comments_dict['176'])
+
+    # ----------------------- POST 32 ----------------------- #
+    post32 = Post.query.get(32)
+
+    comment177_createdat=generate_comment_timestamp(post32.created_at)
+    comments_dict['177'] = Comment(
+        content="""1. Get out of non-profits.
+
+2. Don’t work for family.
+
+3. Switch jobs to get a raise.""",
+        user_id=20,
+        post_id=32,
+        created_at=comment177_createdat,
+        updated_at=comment177_createdat
+    )
+    db.session.add(comments_dict['177'])
+    db.session.flush()
+
+    comment178_createdat=generate_comment_timestamp(comments_dict['177'].created_at)
+    comments_dict['178'] = Comment(
+        content="""Yeah fair, working for family is always a risk.
+
+At the time, it was worth it to me if for nothing else than the experience.""",
+        user_id=15,
+        post_id=32,
+        parent_id=177,
+        created_at=comment178_createdat,
+        updated_at=comment178_createdat
+    )
+    db.session.add(comments_dict['178'])
+    db.session.flush()
+
+    comment179_createdat=generate_comment_timestamp(comments_dict['178'].created_at)
+    comments_dict['179'] = Comment(
+        content="You've done your time now. 18 months is plenty. You need to upgrade.",
+        user_id=21,
+        post_id=32,
+        parent_id=178,
+        created_at=comment179_createdat,
+        updated_at=comment179_createdat
+    )
+    db.session.add(comments_dict['179'])
+
+    comment180_createdat=generate_comment_timestamp(post32.created_at)
+    comments_dict['180'] = Comment(
+        content="""Non-profit... for you.
+
+The answer is always the same, if you're unhappy with your salary and get a "no" when you ask for more, it is time to see what the market is willing to pay. Devs at my company are making U$150-$200k and they got a small bonus this year too. Everybody fully remote. Your boss is either full of shit or you're not a very good dev or both.""",
+        user_id=22,
+        post_id=32,
+        created_at=comment180_createdat,
+        updated_at=comment180_createdat
+    )
+    db.session.add(comments_dict['180'])
+
+    comment181_createdat=generate_comment_timestamp(post32.created_at)
+    comments_dict['181'] = Comment(
+        content="No matter what job you have,never ever believe when someone's telling you that you have reached the ceiling or you already get paid enough. For every crappy company with no money there's one that has more money than sense and is willing to pay top dollar. Whether your skills can get you there is a different thing,but that's a separate subject.",
+        user_id=23,
+        post_id=32,
+        created_at=comment181_createdat,
+        updated_at=comment181_createdat
+    )
+    db.session.add(comments_dict['181'])
+
+
+    # ----------------------- POST 33 ----------------------- #
+    post33 = Post.query.get(33)
+
+    comment182_createdat=generate_comment_timestamp(post33.created_at)
+    comments_dict['182'] = Comment(
+        content="Thats funny. I actually use chatgpt for this all the time",
+        user_id=24,
+        post_id=33,
+        created_at=comment182_createdat,
+        updated_at=comment182_createdat
+    )
+    db.session.add(comments_dict['182'])
+
+    comment183_createdat=generate_comment_timestamp(post33.created_at)
+    comments_dict['183'] = Comment(
+        content="This is basically a wrapper around a single prompt, right? Its kinda crazy single prompts are products.",
+        user_id=25,
+        post_id=33,
+        created_at=comment183_createdat,
+        updated_at=comment183_createdat
+    )
+    db.session.add(comments_dict['183'])
+
+    comment184_createdat=generate_comment_timestamp(post33.created_at)
+    comments_dict['184'] = Comment(
+        content="it's a sad thing that this tool will be useful",
+        user_id=26,
+        post_id=33,
+        created_at=comment184_createdat,
+        updated_at=comment184_createdat
+    )
+    db.session.add(comments_dict['184'])
+
+    comment185_createdat=generate_comment_timestamp(post33.created_at)
+    comments_dict['185'] = Comment(
+        content="""I would consider stripping final output of "I hope this email finds you well".
+
+Or for satirical means, just add more gpt standard phrases""",
+        user_id=27,
+        post_id=33,
+        created_at=comment185_createdat,
+        updated_at=comment185_createdat
+    )
+    db.session.add(comments_dict['185'])
+    db.session.flush()
+
+    comment186_createdat=generate_comment_timestamp(comments_dict['185'].created_at)
+    comments_dict['186'] = Comment(
+        content="\"As a professional...\"",
+        user_id=28,
+        post_id=33,
+        parent_id=185,
+        created_at=comment186_createdat,
+        updated_at=comment186_createdat
+    )
+    db.session.add(comments_dict['186'])
+
+
+    # ----------------------- POST 34 ----------------------- #
+    post34 = Post.query.get(34)
+
+    comment187_createdat=generate_comment_timestamp(post34.created_at)
+    comments_dict['187'] = Comment(
+        content="I fought with my insurance company over bills they denied from my cancer treatments. I was sick, lethargic, unenergized and other wise fighting for life. The last thing anyone in that position should be worried about is whether or not your insurance company is going cover costs. The worst part about the whole ordeal was that it was being denied due to a date being improperly applied to paperwork. They wanted to make me eat the cost of tens of thousands of dollars due to a clerical error that was obviously a typo. What’s worse is that while I’m literally fighting for life, I have to fight with multiple people on the phone for weeks before someone took pity on me and let me know what happened and how they would fix it. Bless that person. Her name was Sarah. She fixed. Our system is broken and controlled by greedy people.",
+        user_id=29,
+        post_id=34,
+        created_at=comment187_createdat,
+        updated_at=comment187_createdat
+    )
+    db.session.add(comments_dict['187'])
+    db.session.flush()
+
+    comment188_createdat=generate_comment_timestamp(comments_dict['187'].created_at)
+    comments_dict['188'] = Comment(
+        content="You pay them thousands and never claim. The one time you actually claim, they decline. Now, I’m not saying what he did is right…..",
+        user_id=30,
+        post_id=34,
+        parent_id=187,
+        created_at=comment188_createdat,
+        updated_at=comment188_createdat
+    )
+    db.session.add(comments_dict['188'])
+    db.session.flush()
+
+    comment189_createdat=generate_comment_timestamp(comments_dict['188'].created_at)
+    comments_dict['189'] = Comment(
+        content="I will. It was.",
+        user_id=31,
+        post_id=34,
+        parent_id=188,
+        created_at=comment189_createdat,
+        updated_at=comment189_createdat
+    )
+    db.session.add(comments_dict['189'])
+    db.session.flush()
+
+    comment190_createdat=generate_comment_timestamp(comments_dict['189'].created_at)
+    comments_dict['190'] = Comment(
+        content="It's kind of beautiful that basically everyone thinks this guy's death is justified. If/when they catch the guy, I hope the jury is educated on jury nullification",
+        user_id=32,
+        post_id=34,
+        parent_id=189,
+        created_at=comment190_createdat,
+        updated_at=comment190_createdat
+    )
+    db.session.add(comments_dict['190'])
+
+    comment191_createdat=generate_comment_timestamp(post34.created_at)
+    comments_dict['191'] = Comment(
+        content="I take zofran due to my horrible nausea and gastro issues… it’s such a life saver without it I probably would have ended it all being ill all the time. I hope this child gets the medicine they need because I legit will share my zofran stash with them 😭",
+        user_id=33,
+        post_id=34,
+        created_at=comment191_createdat,
+        updated_at=comment191_createdat
+    )
+    db.session.add(comments_dict['191'])
+
+
+    # ----------------------- POST 35 ----------------------- #
+    post35 = Post.query.get(35)
+
+    comment192_createdat=generate_comment_timestamp(post35.created_at)
+    comments_dict['192'] = Comment(
+        content="Legit hope she's ok. Things like this often don't end up well for Iranian women.",
+        user_id=34,
+        post_id=35,
+        created_at=comment192_createdat,
+        updated_at=comment192_createdat
+    )
+    db.session.add(comments_dict['192'])
+    db.session.flush()
+
+
+    comment193_createdat=generate_comment_timestamp(comments_dict['192'].created_at)
+    comments_dict['193'] = Comment(
+        content="Even things not like this don't end up well for them",
+        user_id=36,
+        post_id=35,
+        parent_id=192,
+        created_at=comment193_createdat,
+        updated_at=comment193_createdat
+    )
+    db.session.add(comments_dict['193'])
+    db.session.flush()
+
+    comment194_createdat=generate_comment_timestamp(comments_dict['193'].created_at)
+    comments_dict['194'] = Comment(
+        content="They spend their lives walking a thin line covered in eggshells.",
+        user_id=37,
+        post_id=35,
+        parent_id=193,
+        created_at=comment194_createdat,
+        updated_at=comment194_createdat
+    )
+    db.session.add(comments_dict['194'])
+
+    comment195_createdat=generate_comment_timestamp(comments_dict['192'].created_at)
+    comments_dict['195'] = Comment(
+        content="Lately, most things don’t end up well for them.",
+        user_id=38,
+        post_id=35,
+        parent_id=192,
+        created_at=comment195_createdat,
+        updated_at=comment195_createdat
+    )
+    db.session.add(comments_dict['195'])
+
+    comment196_createdat=generate_comment_timestamp(post35.created_at)
+    comments_dict['196'] = Comment(
+        content="Damn, that's bold af but extremely risky. Iran recently passed a law saying women who don't wear a hijab can be sentenced to death",
+        user_id=39,
+        post_id=35,
+        created_at=comment196_createdat,
+        updated_at=comment196_createdat
+    )
+    db.session.add(comments_dict['196'])
+    db.session.flush()
+
+    comment197_createdat=generate_comment_timestamp(comments_dict['196'].created_at)
+    comments_dict['197'] = Comment(
+        content="Wait…… what???? Death????",
+        user_id=40,
+        post_id=35,
+        parent_id=196,
+        created_at=comment197_createdat,
+        updated_at=comment197_createdat
+    )
+    db.session.add(comments_dict['197'])
+    db.session.flush()
+
+    comment198_createdat=generate_comment_timestamp(comments_dict['197'].created_at)
+    comments_dict['198'] = Comment(
+        content="Sadly yes. They were already in danger of being tortured to death in custody like Mahsa Amini. This just makes it legal",
+        user_id=39,
+        post_id=35,
+        parent_id=197,
+        created_at=comment198_createdat,
+        updated_at=comment198_createdat
+    )
+    db.session.add(comments_dict['198'])
 
     db.session.commit()
 
