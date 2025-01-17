@@ -18,7 +18,7 @@ export const CompactPostMenu = ({ user, post, isPage, community }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const { toggleSubmenu, copyLink, editPost, handleDelete, isCommunityOwner } =
-    usePostButtonHandlers(
+    usePostButtonHandlers({
       community,
       history,
       dispatch,
@@ -26,8 +26,8 @@ export const CompactPostMenu = ({ user, post, isPage, community }) => {
       setShowLinkCopied,
       isPage,
       setShowDeleteModal,
-      setShowSubmenu
-    );
+      setShowSubmenu,
+    });
 
   useEffect(() => {
     if (showLinkCopied) {

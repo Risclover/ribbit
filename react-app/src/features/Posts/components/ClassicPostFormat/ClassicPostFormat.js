@@ -37,14 +37,14 @@ export function ClassicPostFormat({ isPage, id, post }) {
   const [commentNum, setCommentNum] = useState(post?.commentNum || 0);
 
   const { copyLink, editPost, handleDelete, isCommunityOwner } =
-    usePostButtonHandlers(
+    usePostButtonHandlers({
       history,
       dispatch,
       post,
       setShowLinkCopied,
       isPage,
-      setShowDeleteModal
-    );
+      setShowDeleteModal,
+    });
 
   useEffect(() => {
     if (post.linkUrl && !metadata[post.linkUrl]) {
@@ -64,265 +64,262 @@ export function ClassicPostFormat({ isPage, id, post }) {
 
   return (
     <div className="post-classic-format">
-      <div className="classic-post-container">
-        <SinglePostKarmabar post={post} />
-        <div className="classic-post-main">
-          <div className="classic-post-content-box">
-            <div className="classic-post-content-img">
-              {post?.imgUrl !== null && <img src={post?.imgUrl} alt="Post" />}
-              {!post?.imgUrl && !post?.linkUrl && (
-                <div className="classic-post-img-placeholder">
-                  <CgNotes />
-                </div>
-              )}
-              {post?.linkUrl && (
-                <div className="classic-post-img-placeholder">
-                  {metadataResult && (
-                    <img
-                      className="link-url-img"
-                      src={metadataResult}
-                      alt="Link preview"
-                    />
-                  )}
-                  {!metadataResult && (
-                    <span
-                      className={`placeholder-link ${
+      <NavLink to={`/posts/${post?.id}`}>
+        <div className="classic-post-container">
+          <SinglePostKarmabar post={post} />
+          <div className="classic-post-main">
+            <div className="classic-post-content-box">
+              <div className="classic-post-content-img">
+                {post?.imgUrl !== null && <img src={post?.imgUrl} alt="Post" />}
+                {!post?.imgUrl && !post?.linkUrl && (
+                  <div className="classic-post-img-placeholder">
+                    <CgNotes />
+                  </div>
+                )}
+                {post?.linkUrl && (
+                  <div className="classic-post-img-placeholder">
+                    {metadataResult && (
+                      <img
+                        className="link-url-img"
+                        src={metadataResult}
+                        alt="Link preview"
+                      />
+                    )}
+                    {!metadataResult && (
+                      <span
+                        className={`placeholder-link ${
+                          isPage === "community" && "community-post"
+                        }`}
+                      >
+                        <FiLink />
+                      </span>
+                    )}
+                    <div
+                      className={`placeholder-external ${
                         isPage === "community" && "community-post"
                       }`}
                     >
-                      <FiLink />
-                    </span>
-                  )}
-                  <div
-                    className={`placeholder-external ${
-                      isPage === "community" && "community-post"
-                    }`}
-                  >
-                    <HiOutlineExternalLink />
+                      <HiOutlineExternalLink />
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-            <div className="classic-post-content-body">
-              <NavLink to={`/posts/${post?.id}`}>
-                <div className="classic-post-content-body-top">
-                  <div className="classic-post-title">
-                    <h3>{post?.title}</h3>
-                    {post?.linkUrl && (
-                      <div
-                        className={`classic-post-link ${
-                          isPage === "community" && "community-post"
-                        }`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          window.open(post?.linkUrl);
-                          if (e.target.classList.contains("community-post"))
-                            e.target.classList.remove("community-post");
-                        }}
-                      >
-                        {sliceUrl(post?.linkUrl)} <HiOutlineExternalLink />
+                )}
+              </div>
+              <div className="classic-post-content-body">
+                <NavLink to={`/posts/${post?.id}`}>
+                  <div className="classic-post-content-body-top">
+                    <div className="classic-post-title">
+                      <h3>{post?.title}</h3>
+                      {post?.linkUrl && (
+                        <div
+                          className={`classic-post-link ${
+                            isPage === "community" && "community-post"
+                          }`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            window.open(post?.linkUrl);
+                            if (e.target.classList.contains("community-post"))
+                              e.target.classList.remove("community-post");
+                          }}
+                        >
+                          {sliceUrl(post?.linkUrl)} <HiOutlineExternalLink />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="classic-post-author-bar">
+                    {isPage !== "community" && (
+                      <div className="classic-post-community-info">
+                        <span
+                          className="classic-post-community"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            history.push(`/c/${post?.communityName}`);
+                          }}
+                        >
+                          c/{post?.communityName}{" "}
+                        </span>
+                        <span className="single-post-dot-spacer">•</span>
                       </div>
                     )}
+                    <div className="classic-post-author-info">
+                      Posted by{" "}
+                      <Username
+                        community={community}
+                        username={post?.postAuthor?.username}
+                        user={post?.postAuthor}
+                        source="singlepost"
+                      />
+                      <span className="post-time">
+                        {moment(post?.createdAt).fromNow()}
+                        <span className="post-time-hover">
+                          <Tooltip direction="down" text={post?.createdAt} />
+                        </span>
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className="classic-post-author-bar">
-                  {isPage !== "community" && (
-                    <div className="classic-post-community-info">
-                      <span
-                        className="classic-post-community"
+                </NavLink>
+                <div className="classic-post-buttons">
+                  {post?.linkUrl === null &&
+                    post?.content !== "" &&
+                    !postExpand && (
+                      <button
+                        aria-label="Expand post"
+                        className="classic-post-button btn-expand"
                         onClick={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
-                          history.push(`/c/${post?.communityName}`);
+                          setPostExpand(true);
                         }}
                       >
-                        c/{post?.communityName}{" "}
-                      </span>
-                      <span className="single-post-dot-spacer">•</span>
-                    </div>
-                  )}
-                  <div className="classic-post-author-info">
-                    Posted by{" "}
-                    <Username
-                      community={community}
-                      username={post?.postAuthor?.username}
-                      user={post?.postAuthor}
-                      source="singlepost"
-                    />
-                    <span className="post-time">
-                      {moment(post?.createdAt).fromNow()}
-                      <span className="post-time-hover">
-                        <Tooltip direction="down" text={post?.createdAt} />
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </NavLink>
-              <div
-                className="classic-post-buttons"
-                onClick={(e) => e.preventDefault()}
-              >
-                {post?.linkUrl === null &&
-                  post?.content !== "" &&
-                  !postExpand && (
+                        <BsArrowsAngleExpand />
+                      </button>
+                    )}
+                  {post?.linkUrl === null && postExpand && (
                     <button
-                      aria-label="Expand post"
+                      aria-label="Close expanded post"
                       className="classic-post-button btn-expand"
                       onClick={(e) => {
                         e.stopPropagation();
-                        setPostExpand(true);
+                        e.preventDefault();
+                        setPostExpand(false);
                       }}
                     >
-                      <BsArrowsAngleExpand />
+                      <BsArrowsAngleContract />
                     </button>
                   )}
-                {post?.linkUrl === null && postExpand && (
-                  <button
-                    aria-label="Close expanded post"
-                    className="classic-post-button btn-expand"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setPostExpand(false);
-                    }}
-                  >
-                    <BsArrowsAngleContract />
-                  </button>
-                )}
-                {post?.linkUrl !== null && (
-                  <button
-                    aria-label="Open external link"
-                    className="classic-post-button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(post?.linkUrl);
-                    }}
-                  >
-                    <HiOutlineExternalLink />
-                  </button>
-                )}
-                {post?.linkUrl === null &&
-                  post?.content === "" &&
-                  post?.imgUrl === null && (
+                  {post?.linkUrl !== null && (
                     <button
-                      aria-label="Open text post"
+                      aria-label="Open external link"
                       className="classic-post-button"
                       onClick={(e) => {
                         e.stopPropagation();
                         window.open(post?.linkUrl);
                       }}
                     >
-                      <CgNotes />
+                      <HiOutlineExternalLink />
                     </button>
                   )}
-                <div className="post-btn-separator"></div>
-                <div className="single-post-button">
-                  <button
-                    aria-label="Comments"
-                    className="single-post-comments-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      history.push(`/posts/${post?.id}`);
-                    }}
-                  >
-                    <i className="fa-regular fa-message"></i>{" "}
-                    <span className="single-post-comments-num">
-                      {commentNum}{" "}
-                      {post && Object.values(post?.postComments).length === 1
-                        ? "Comment"
-                        : "Comments"}
-                    </span>
-                  </button>
-                </div>
-                <div className="share-btn-stuff">
+                  {post?.linkUrl === null &&
+                    post?.content === "" &&
+                    post?.imgUrl === null && (
+                      <button
+                        aria-label="Open text post"
+                        className="classic-post-button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(post?.linkUrl);
+                        }}
+                      >
+                        <CgNotes />
+                      </button>
+                    )}
+                  <div className="post-btn-separator"></div>
                   <div className="single-post-button">
                     <button
-                      className="single-post-share-btn"
-                      onClick={copyLink}
+                      aria-label="Comments"
+                      className="single-post-comments-btn"
                     >
-                      <ShareIcon />
-                      Share
+                      <i className="fa-regular fa-message"></i>{" "}
+                      <span className="single-post-comments-num">
+                        {commentNum}{" "}
+                        {post && Object.values(post?.postComments).length === 1
+                          ? "Comment"
+                          : "Comments"}
+                      </span>
                     </button>
                   </div>
-
-                  {showLinkCopied && (
-                    <div
-                      className={
-                        showLinkCopied
-                          ? "animate-mount tooltiptext"
-                          : "animate-unmount tooltiptext"
-                      }
-                    >
-                      Link Copied to Clipboard
-                    </div>
-                  )}
-                </div>
-                {user &&
-                (user.id === post?.postAuthor.id || isCommunityOwner) ? (
-                  <div className="logged-in-btns">
-                    <div className="single-post-button">
-                      {post?.imgUrl === null && post?.linkUrl === null && (
-                        <button
-                          className="single-post-edit-btn"
-                          onClick={editPost}
-                        >
-                          <i className="fa-solid fa-pencil"></i>
-                          Edit
-                        </button>
-                      )}
-                    </div>
+                  <div className="share-btn-stuff">
                     <div className="single-post-button">
                       <button
-                        className="single-post-delete-btn"
-                        onClick={handleDelete}
+                        className="single-post-share-btn"
+                        onClick={copyLink}
                       >
-                        <i className="fa-regular fa-trash-can"></i>
-                        Delete
+                        <ShareIcon />
+                        Share
                       </button>
-                      {showDeleteModal && (
-                        <Modal
-                          onClose={() => setShowDeleteModal(false)}
-                          title="Delete post?"
-                          open={() => setShowDeleteModal(true)}
-                        >
-                          <DeleteConfirmationModal
-                            showDeleteModal={showDeleteModal}
-                            setShowDeleteModal={setShowDeleteModal}
-                            postId={post?.id}
-                            communityId={community?.id}
-                            item="post"
-                            post={post}
-                            isPage="singlepost"
-                            handleDelete={handleDelete}
-                          />
-                        </Modal>
-                      )}
                     </div>
+
+                    {showLinkCopied && (
+                      <div
+                        className={
+                          showLinkCopied
+                            ? "animate-mount tooltiptext"
+                            : "animate-unmount tooltiptext"
+                        }
+                      >
+                        Link Copied to Clipboard
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  ""
-                )}
+                  {user &&
+                  (user.id === post?.postAuthor.id || isCommunityOwner) ? (
+                    <div className="logged-in-btns">
+                      <div className="single-post-button">
+                        {post?.imgUrl === null && post?.linkUrl === null && (
+                          <button
+                            className="single-post-edit-btn"
+                            onClick={editPost}
+                          >
+                            <i className="fa-solid fa-pencil"></i>
+                            Edit
+                          </button>
+                        )}
+                      </div>
+                      <div className="single-post-button">
+                        <button
+                          className="single-post-delete-btn"
+                          onClick={handleDelete}
+                        >
+                          <i className="fa-regular fa-trash-can"></i>
+                          Delete
+                        </button>
+                        {showDeleteModal && (
+                          <Modal
+                            onClose={() => setShowDeleteModal(false)}
+                            title="Delete post?"
+                            open={() => setShowDeleteModal(true)}
+                          >
+                            <DeleteConfirmationModal
+                              showDeleteModal={showDeleteModal}
+                              setShowDeleteModal={setShowDeleteModal}
+                              postId={post?.id}
+                              communityId={community?.id}
+                              item="post"
+                              post={post}
+                              isPage="singlepost"
+                              handleDelete={handleDelete}
+                            />
+                          </Modal>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
             </div>
+            {postExpand && (
+              <div className="classic-post-expanded">
+                {post.imgUrl ? (
+                  <div className="classic-post-expanded-img">
+                    <img src={post.imgUrl} alt="Post" />
+                  </div>
+                ) : (
+                  <div
+                    className="classic-post-expanded-text"
+                    style={{ whiteSpace: "pre-line" }}
+                  >
+                    {parse(post.content)}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-          {postExpand && (
-            <div className="classic-post-expanded">
-              {post.imgUrl ? (
-                <div className="classic-post-expanded-img">
-                  <img src={post.imgUrl} alt="Post" />
-                </div>
-              ) : (
-                <div
-                  className="classic-post-expanded-text"
-                  style={{ whiteSpace: "pre-line" }}
-                >
-                  {parse(post.content)}
-                </div>
-              )}
-            </div>
-          )}
         </div>
-      </div>
+      </NavLink>
     </div>
   );
 }

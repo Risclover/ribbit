@@ -15,15 +15,15 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { copyLink, editPost, handleDelete, isCommunityOwner } =
-    usePostButtonHandlers(
+    usePostButtonHandlers({
       community,
       history,
       dispatch,
       post,
       setShowLinkCopied,
       isPage,
-      setShowDeleteModal
-    );
+      setShowDeleteModal,
+    });
 
   useEffect(() => {
     if (showLinkCopied) {

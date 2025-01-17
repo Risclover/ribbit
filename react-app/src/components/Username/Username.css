@@ -1,7 +1,7 @@
 .username-popup {
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  max-width: 380px;
+  min-width: 240px;
   position: absolute;
   z-index: 99999;
   background: var(--ribbit-main);
@@ -31,7 +31,6 @@
   font-weight: 500;
   color: var(--main-text-color);
   line-height: 20px;
-  display: inline-block;
   margin-right: 4px;
 }
 
@@ -45,6 +44,7 @@
   line-height: 16px;
   color: #7c7c7c;
   cursor: text;
+  white-space: nowrap;
 }
 
 .username-popup-karma-left,

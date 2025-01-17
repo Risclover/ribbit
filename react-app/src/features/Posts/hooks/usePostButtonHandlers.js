@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getIdFromName } from "utils/getCommunityIdFromName";
 
-export const usePostButtonHandlers = (
+export const usePostButtonHandlers = ({
   community = null,
   history,
   dispatch,
@@ -12,8 +12,8 @@ export const usePostButtonHandlers = (
   setShowLinkCopied,
   isPage,
   setShowDeleteModal,
-  setShowSubmenu = null
-) => {
+  setShowSubmenu = null,
+}) => {
   const { communityName } = useParams();
   const communities = useSelector((state) => state.communities);
   const communityId = getIdFromName(communityName, communities);

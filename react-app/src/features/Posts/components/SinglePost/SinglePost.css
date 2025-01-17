@@ -391,9 +391,6 @@
   background: rgba(26, 26, 27, 0.1);
 }
 
-.single-post-comments-btn {
-  cursor: default !important;
-}
 .single-comment {
   margin: 10px;
 }

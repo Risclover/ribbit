@@ -1,6 +1,5 @@
 export * from "./CommunitySelection";
 export * from "./RibbitRules";
-export { CreatePost } from "./CreatePost";
 export { CreatePostForm } from "./CreatePostForm";
 export { CreatePostFormContent } from "./CreatePostFormContent";
 export { CreatePostFormErrors } from "./CreatePostFormErrors";
