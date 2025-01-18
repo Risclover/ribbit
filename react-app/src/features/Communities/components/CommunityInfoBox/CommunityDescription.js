@@ -5,7 +5,7 @@ import { getCommunities, updateCommunity } from "@/store";
 import { useOutsideClick, useAutosizeTextArea } from "@/hooks";
 import { getSingleCommunity } from "store";
 
-export function CommunityDescription({ community, user }) {
+export function CommunityDescription({ community, user, isPage }) {
   const textareaRef = useRef(null);
   const wrapperRef = useRef(null);
 
@@ -32,6 +32,8 @@ export function CommunityDescription({ community, user }) {
         community.id
       )
     );
+
+    console.log('data:', data)
     setDescription(data.description);
     await dispatch(getCommunities());
     setShowEditDescription(false);
@@ -39,7 +41,7 @@ export function CommunityDescription({ community, user }) {
 
   return (
     <div className="community-page-description">
-      {user?.id === community.userId && (
+      {isPage !== "singlepage" && user?.id === community.userId && (
         <div
           onClick={() => {
             setShowEditDescription(true);
@@ -128,7 +130,7 @@ export function CommunityDescription({ community, user }) {
           )}
         </div>
       )}
-      {user?.id !== community.userId && (
+      {(isPage === "singlepage" || user?.id !== community.userId) && (
         <div className="community-page-box-description-plain">
           {community.description}
         </div>

@@ -107,14 +107,16 @@ export function SinglePostButtonBar({
               )}
             </div>
 
-            <div className="single-post-button">
-              <DeletePostModal
-                post={post}
-                community={community}
-                isPage={isPage}
-                setShowDeleteModal={setShowDeleteModal}
-              />
-            </div>
+            {(isCommunityOwner || user.id === post.postAuthor?.id) && (
+              <div className="single-post-button">
+                <DeletePostModal
+                  post={post}
+                  community={community}
+                  isPage={isPage}
+                  setShowDeleteModal={setShowDeleteModal}
+                />
+              </div>
+            )}
             {showDeleteModal && (
               <Modal
                 onClose={() => setShowDeleteModal(false)}

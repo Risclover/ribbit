@@ -70,7 +70,7 @@ export function CommunityInfoBox({ community, user, isPage }) {
             <NavLink to={`/c/${community?.name}`}>c/{community?.name}</NavLink>
           </div>
         )}
-        <CommunityDescription community={community} user={user} />
+        <CommunityDescription isPage={isPage} community={community} user={user} />
         <div className="community-page-box-date">
           <img src={Cake} className="community-cake-icon" alt="Cake" />
           Created {moment(new Date(community.createdAt)).format("MMM DD, YYYY")}
