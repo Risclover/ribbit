@@ -150,6 +150,14 @@
   margin-right: 6px;
 }
 
+.single-post-comments-btn.num-btn {
+  cursor: pointer;
+}
+
+.single-post-comments-btn.num-btn:hover {
+  background: rgba(26, 26, 27, 0.1);
+}
+
 .post-btn-separator {
   border-right: 1px solid #edeff1;
   height: 16px;

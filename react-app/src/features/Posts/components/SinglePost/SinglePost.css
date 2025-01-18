@@ -128,7 +128,6 @@
 
 .single-post-container {
   border-radius: 4px;
-  cursor: pointer;
   margin: 0 auto;
   margin-bottom: 10px;
   display: flex;
@@ -371,7 +370,6 @@
   font-size: 12px;
   color: rgb(135, 138, 140);
   font-family: var(--font-family-ibm);
-  cursor: pointer;
   border-radius: 2px;
   margin-right: 4px;
   padding: 4px;
@@ -389,6 +387,7 @@
 
 .single-post-button button:not(.single-post-comments-btn):hover {
   background: rgba(26, 26, 27, 0.1);
+  cursor: pointer;
 }
 
 .single-comment {

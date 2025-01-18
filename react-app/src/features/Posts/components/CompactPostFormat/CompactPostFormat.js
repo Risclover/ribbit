@@ -45,46 +45,46 @@ export function CompactPostFormat({ id, isPage, post }) {
 
   return (
     <div className="post-compact-format">
-      <div className="compact-post-container">
-        <div className="compact-post-principle">
-          <div className="compact-post-karmabar">
-            <div className="compact-post-karmabar-btns">
-              <button
-                aria-label="Upvote"
-                className={
-                  vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"
-                }
-                onClick={(e) => handleVoteClick(e, "upvote")}
-              >
-                <UpvoteIcon />
-              </button>
-              <span className="karmabar-votes">
-                {post?.votes === 0 && vote !== null
-                  ? 0
-                  : post?.votes === 0 && vote === null
-                  ? "Vote"
-                  : post?.votes}
-              </span>
-              <button
-                aria-label="Downvote"
-                className={
-                  vote === "downvote" ? "vote-btn-blue" : "downvote-btn-grey"
-                }
-                onClick={(e) => handleVoteClick(e, "downvote")}
-              >
-                <DownvoteIcon />
-              </button>
+      <NavLink to={`/posts/${post.id}`}>
+        <div className="compact-post-container">
+          <div className="compact-post-principle">
+            <div className="compact-post-karmabar">
+              <div className="compact-post-karmabar-btns">
+                <button
+                  aria-label="Upvote"
+                  className={
+                    vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"
+                  }
+                  onClick={(e) => handleVoteClick(e, "upvote")}
+                >
+                  <UpvoteIcon />
+                </button>
+                <span className="karmabar-votes">
+                  {post?.votes === 0 && vote !== null
+                    ? 0
+                    : post?.votes === 0 && vote === null
+                    ? "Vote"
+                    : post?.votes}
+                </span>
+                <button
+                  aria-label="Downvote"
+                  className={
+                    vote === "downvote" ? "vote-btn-blue" : "downvote-btn-grey"
+                  }
+                  onClick={(e) => handleVoteClick(e, "downvote")}
+                >
+                  <DownvoteIcon />
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="compact-post-main">
-            <div className="compact-post-left">
-              <CompactPostTypeIcon
-                post={post}
-                setPostExpand={setPostExpand}
-                postExpand={postExpand}
-                rtrtw
-              />
-              <NavLink to={`/posts/${post.id}`}>
+            <div className="compact-post-main">
+              <div className="compact-post-left">
+                <CompactPostTypeIcon
+                  post={post}
+                  setPostExpand={setPostExpand}
+                  postExpand={postExpand}
+                  rtrtw
+                />
                 <div className="compact-post-details">
                   <div className="compact-post-title">
                     {post?.title}{" "}
@@ -149,38 +149,41 @@ export function CompactPostFormat({ id, isPage, post }) {
                     </span>
                   </div>
                 </div>
-              </NavLink>
-            </div>
-            <div className="compact-post-btns">
-              <Link to={`/posts/${post.id}/#all-comments`}>
-                <button aria-label="Comments" className="compact-post-comments">
-                  <i className="fa-regular fa-message"></i>
-                  {commentNum}
-                </button>
-              </Link>
-              <CompactPostMenu
-                post={post}
-                community={community}
-                isPage={isPage}
-                user={user}
-              />
-            </div>
-          </div>
-        </div>
-        {postExpand && (
-          <div className="compact-post-expanded">
-            {post?.imgUrl && <img src={post?.imgUrl} alt="Post" />}
-            {post?.content && (
-              <div
-                className="compact-post-expanded-text"
-                style={{ whiteSpace: "pre-line" }}
-              >
-                {parse(post?.content)}
               </div>
-            )}
+              <div className="compact-post-btns">
+                <Link to={`/posts/${post.id}/#all-comments`}>
+                  <button
+                    aria-label="Comments"
+                    className="compact-post-comments"
+                  >
+                    <i className="fa-regular fa-message"></i>
+                    {commentNum}
+                  </button>
+                </Link>
+                <CompactPostMenu
+                  post={post}
+                  community={community}
+                  isPage={isPage}
+                  user={user}
+                />
+              </div>
+            </div>
           </div>
-        )}
-      </div>
+          {postExpand && (
+            <div className="compact-post-expanded">
+              {post?.imgUrl && <img src={post?.imgUrl} alt="Post" />}
+              {post?.content && (
+                <div
+                  className="compact-post-expanded-text"
+                  style={{ whiteSpace: "pre-line" }}
+                >
+                  {parse(post?.content)}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </NavLink>
     </div>
   );
 }

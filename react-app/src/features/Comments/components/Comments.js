@@ -1,5 +1,5 @@
 // Comments.js
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCommentsForPost } from "@/store"; // Updated Thunk
@@ -13,13 +13,16 @@ import { useLoader } from "../hooks/useLoader";
 import { NoCommentsMsg } from "./NoCommentsMsg";
 import { sortComments } from "../utils/sortComments";
 import "../styles/Comments.css";
+import ScrollContext from "context/ScrollContext";
 
-export function Comments({ post }) {
+export function Comments({ post, triggerScroll, setTriggerScroll }) {
+  const { targetRef } = useContext(ScrollContext);
   const history = useHistory();
   const url = window.location.href;
   const dispatch = useDispatch();
   const { postId } = useParams();
   const inputRef = useRef();
+  const commentsRef = useRef(null);
 
   const commentsState = useSelector((state) => state.comments);
 
@@ -57,6 +60,7 @@ export function Comments({ post }) {
   const [searchValue, setSearchValue] = useState("");
   const [searchActive, setSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchValue);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const commentIdPattern = /#comment-(\d+)/;
   const match = url.match(commentIdPattern);
@@ -68,7 +72,18 @@ export function Comments({ post }) {
 
   useEffect(() => {
     dispatch(getCommentsForPost(postId));
+    setIsLoaded(true);
   }, [dispatch, postId]);
+
+  useEffect(() => {
+    console.log("isLoaded:", isLoaded);
+    console.log("triggerScroll:", triggerScroll);
+    console.log("targetRef:", targetRef);
+    if (isLoaded && triggerScroll) {
+      targetRef.current.scrollIntoView({ behavior: "smooth" });
+      setTriggerScroll(false);
+    }
+  }, [isLoaded, triggerScroll, targetRef]);
 
   useEffect(() => {
     if (specificComment) setSpecificCommentActive(true);
@@ -96,7 +111,7 @@ export function Comments({ post }) {
   return (
     <div className="comments-container">
       {!specificCommentActive && <CommentForm postId={post.id} />}
-      <div className="sort-search">
+      <div className="sort-search" ref={targetRef}>
         {!searchActive && (
           <CommentSorting sortType={sortType} setSortType={setSortType} />
         )}
@@ -125,7 +140,7 @@ export function Comments({ post }) {
         </div>
       )}
 
-      <div className="all-comments" id="all-comments">
+      <div className="all-comments">
         {sortedComments.length > 0 &&
           !specificCommentActive &&
           sortedComments?.map((comment) => (

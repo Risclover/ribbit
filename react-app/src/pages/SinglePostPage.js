@@ -34,7 +34,13 @@ export function SinglePostPage() {
     (state) => state.communities[post?.communityId]
   );
 
+  const [scrollToCommentsRequested, setScrollToCommentsRequested] =
+    useState(false);
   const [bannerHeight, setBannerHeight] = useState(null);
+
+  const handleCommentsButtonClick = () => {
+    setScrollToCommentsRequested(true);
+  };
 
   useEffect(() => {
     setBannerHeight(
@@ -59,7 +65,9 @@ export function SinglePostPage() {
   }, [location]);
 
   usePageSettings({
-    documentTitle: post?.title + " : " + post?.communityName,
+    documentTitle: post
+      ? post?.title + " : " + post?.communityName
+      : "Ribbit - Splash into anything",
     icon:
       post !== undefined ? (
         <CommunityImg
@@ -139,8 +147,17 @@ export function SinglePostPage() {
       </NavLink>
       <div className="single-post-page-main">
         <div className="single-post-left-col">
-          <SinglePost id={post.id} post={post} isPage="singlepage" />
-          <Comments post={post} />
+          <SinglePost
+            id={post.id}
+            post={post}
+            isPage="singlepage"
+            handleCommentsButtonClick={handleCommentsButtonClick}
+          />
+          <Comments
+            triggerScroll={scrollToCommentsRequested}
+            setTriggerScroll={setScrollToCommentsRequested}
+            post={post}
+          />
         </div>
         <div className="single-post-right-col">
           <CommunityInfoBox

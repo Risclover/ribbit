@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DeletePostModal } from "../DeletePost";
@@ -7,10 +7,19 @@ import { DeleteConfirmationModal } from "@/components";
 import { usePostButtonHandlers } from "../../hooks/usePostButtonHandlers";
 import { PencilIcon } from "assets/icons/PencilIcon";
 import { ShareIcon } from "assets/icons/ShareIcon";
+import ScrollContext from "context/ScrollContext";
 
-export function SinglePostButtonBar({ post, community, isPage, user }) {
+export function SinglePostButtonBar({
+  post,
+  community,
+  isPage,
+  user,
+  handleCommentsButtonClick,
+}) {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const { scrollToTarget } = useContext(ScrollContext);
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -33,10 +42,26 @@ export function SinglePostButtonBar({ post, community, isPage, user }) {
     }
   }, [showLinkCopied]);
 
+  const handleScrollToComments = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    history.push(`/posts/${post.id}`);
+    setTimeout(() => {
+      scrollToTarget();
+    }, 1000); // delay by 100 ms (adjust if needed)
+  };
+
   return (
     <div className="single-post-button-bar">
       <div className="single-post-button">
-        <button className="single-post-comments-btn">
+        <button
+          className={
+            isPage === "singlepage"
+              ? "single-post-comments-btn num-btn"
+              : "single-post-comments-btn"
+          }
+          onClick={handleCommentsButtonClick}
+        >
           <i className="fa-regular fa-message"></i>{" "}
           <span className="single-post-comments-num">
             {post?.commentNum || 0}{" "}

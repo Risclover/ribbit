@@ -40,7 +40,9 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
   }, [dispatch]);
 
   usePageSettings({
-    documentTitle: user?.displayName + " (u/" + user?.username + ") - Ribbit",
+    documentTitle: user
+      ? user?.displayName + " (u/" + user?.username + ") - Ribbit"
+      : "Ribbit - Splash into anything",
     icon:
       user !== undefined ? (
         <img

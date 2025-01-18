@@ -10,8 +10,15 @@ import {
   ClassicPostFormat,
 } from "@/features";
 import "./SinglePost.css";
+import { NavLink } from "react-router-dom";
 
-export const SinglePost = ({ link, id, isPage, post }) => {
+export const SinglePost = ({
+  link,
+  id,
+  isPage,
+  post,
+  handleCommentsButtonClick,
+}) => {
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users?.[cuser?.id]);
   const community = useSelector(
@@ -36,34 +43,36 @@ export const SinglePost = ({ link, id, isPage, post }) => {
 
   return (
     <article className="single-post">
-      {(tempFormat === "Card" || format === "Card") && (
-        <div className="post-card-format">
-          {post && (
-            <div className="single-post-container">
-              <SinglePostKarmabar post={post} />
+      <NavLink to={`/posts/${post.id}`}>
+        {(tempFormat === "Card" || format === "Card") && (
+          <div className="post-card-format">
+            {post && (
+              <div className="single-post-container">
+                <SinglePostKarmabar post={post} />
+                <div className="single-post-main">
+                  <SinglePostAuthorBar
+                    communityPage={
+                      isPage === "singlepage" || isPage === "community"
+                    }
+                    post={post}
+                    isPage={isPage}
+                  />
 
-              <div className="single-post-main">
-                <SinglePostAuthorBar
-                  communityPage={
-                    isPage === "singlepage" || isPage === "community"
-                  }
-                  post={post}
-                  isPage={isPage}
-                />
+                  <SinglePostContent link={link} post={post} isPage={isPage} />
 
-                <SinglePostContent link={link} post={post} isPage={isPage} />
-
-                <SinglePostButtonBar
-                  post={post}
-                  community={community}
-                  isPage={isPage}
-                  user={user}
-                />
+                  <SinglePostButtonBar
+                    post={post}
+                    community={community}
+                    isPage={isPage}
+                    user={user}
+                    handleCommentsButtonClick={handleCommentsButtonClick}
+                  />
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      )}
+            )}
+          </div>
+        )}
+      </NavLink>
       {tempFormat !== "Card" && format === "Classic" && (
         <ClassicPostFormat id={id} isPage={isPage} post={post} />
       )}

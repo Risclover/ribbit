@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { HiOutlineExternalLink } from "react-icons/hi";
@@ -19,8 +19,10 @@ import { deletePost, getUsers } from "@/store";
 import { usePostButtonHandlers } from "features/Posts/hooks/usePostButtonHandlers";
 import { Tooltip } from "components/Tooltip/Tooltip";
 import { ShareIcon } from "assets/icons/ShareIcon";
+import ScrollContext from "context/ScrollContext";
 
 export function ClassicPostFormat({ isPage, id, post }) {
+  const { scrollToTarget } = useContext(ScrollContext);
   const { metadata, fetchMetadata } = useMetadata();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -105,61 +107,59 @@ export function ClassicPostFormat({ isPage, id, post }) {
                 )}
               </div>
               <div className="classic-post-content-body">
-                <NavLink to={`/posts/${post?.id}`}>
-                  <div className="classic-post-content-body-top">
-                    <div className="classic-post-title">
-                      <h3>{post?.title}</h3>
-                      {post?.linkUrl && (
-                        <div
-                          className={`classic-post-link ${
-                            isPage === "community" && "community-post"
-                          }`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            window.open(post?.linkUrl);
-                            if (e.target.classList.contains("community-post"))
-                              e.target.classList.remove("community-post");
-                          }}
-                        >
-                          {sliceUrl(post?.linkUrl)} <HiOutlineExternalLink />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="classic-post-author-bar">
-                    {isPage !== "community" && (
-                      <div className="classic-post-community-info">
-                        <span
-                          className="classic-post-community"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            history.push(`/c/${post?.communityName}`);
-                          }}
-                        >
-                          c/{post?.communityName}{" "}
-                        </span>
-                        <span className="single-post-dot-spacer">•</span>
+                <div className="classic-post-content-body-top">
+                  <div className="classic-post-title">
+                    <h3>{post?.title}</h3>
+                    {post?.linkUrl && (
+                      <div
+                        className={`classic-post-link ${
+                          isPage === "community" && "community-post"
+                        }`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          window.open(post?.linkUrl);
+                          if (e.target.classList.contains("community-post"))
+                            e.target.classList.remove("community-post");
+                        }}
+                      >
+                        {sliceUrl(post?.linkUrl)} <HiOutlineExternalLink />
                       </div>
                     )}
-                    <div className="classic-post-author-info">
-                      Posted by{" "}
-                      <Username
-                        community={community}
-                        username={post?.postAuthor?.username}
-                        user={post?.postAuthor}
-                        source="singlepost"
-                      />
-                      <span className="post-time">
-                        {moment(post?.createdAt).fromNow()}
-                        <span className="post-time-hover">
-                          <Tooltip direction="down" text={post?.createdAt} />
-                        </span>
-                      </span>
-                    </div>
                   </div>
-                </NavLink>
+                </div>
+                <div className="classic-post-author-bar">
+                  {isPage !== "community" && (
+                    <div className="classic-post-community-info">
+                      <span
+                        className="classic-post-community"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          history.push(`/c/${post?.communityName}`);
+                        }}
+                      >
+                        c/{post?.communityName}{" "}
+                      </span>
+                      <span className="single-post-dot-spacer">•</span>
+                    </div>
+                  )}
+                  <div className="classic-post-author-info">
+                    Posted by{" "}
+                    <Username
+                      community={community}
+                      username={post?.postAuthor?.username}
+                      user={post?.postAuthor}
+                      source="singlepost"
+                    />
+                    <span className="post-time">
+                      {moment(post?.createdAt).fromNow()}
+                      <span className="post-time-hover">
+                        <Tooltip direction="down" text={post?.createdAt} />
+                      </span>
+                    </span>
+                  </div>
+                </div>
                 <div className="classic-post-buttons">
                   {post?.linkUrl === null &&
                     post?.content !== "" &&
@@ -220,6 +220,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                     <button
                       aria-label="Comments"
                       className="single-post-comments-btn"
+                      onClick={scrollToTarget}
                     >
                       <i className="fa-regular fa-message"></i>{" "}
                       <span className="single-post-comments-num">

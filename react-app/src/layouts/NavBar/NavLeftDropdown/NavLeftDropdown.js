@@ -278,7 +278,7 @@ export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
       {"All".toLowerCase().includes(filter.toLowerCase()) && (
         <NavLink
           className="nav-left-dropdown-navitem"
-          to="/c/all"
+          to="/all"
           onClick={() => {
             setShowIcon(false);
             setShowDropdown(false);

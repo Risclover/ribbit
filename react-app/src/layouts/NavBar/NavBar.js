@@ -141,7 +141,7 @@ export function NavBar({
           <div className="navbar-buttons">
             <div
               className="navbar-button"
-              onClick={() => history.push("/c/all")}
+              onClick={() => history.push("/all")}
             >
               <img
                 src={AllIcon}

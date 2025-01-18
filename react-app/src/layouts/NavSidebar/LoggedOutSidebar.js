@@ -33,7 +33,7 @@ export function LoggedOutSidebar({ showLoggedOutSidebar }) {
               </svg>
               <span className="nav-left-dropdown-item">Home</span>
             </NavLink>
-            <NavLink to="/c/all" className="nav-left-dropdown-navitem">
+            <NavLink to="/all" className="nav-left-dropdown-navitem">
               <img
                 src={All}
                 className="nav-left-dropdown-item-icon"

@@ -7,11 +7,11 @@ import {
   FeedRightColContainer,
 } from "../layouts";
 import { DeveloperLinksBox, AboutBox, RecentlyViewedPosts } from "../features";
-import { usePageSettings } from "../hooks";
 import { usePosts } from "../features/Posts/hooks/usePosts";
 
 import { AllIcon } from "../assets";
 import "../features/Posts/Posts.css";
+import { usePageSettings } from "hooks";
 
 export function AllPostsFeed() {
   const { sortedPosts, sortMode, setSortMode, user, viewedPosts } =

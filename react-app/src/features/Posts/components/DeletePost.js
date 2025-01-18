@@ -25,7 +25,7 @@ export function DeletePostModal({
     if (isPage === "community") {
       history.push(`/c/${post?.communityName}`);
     } else {
-      history.push("/c/all");
+      history.push("/all");
     }
   };
 
