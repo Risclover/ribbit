@@ -8,6 +8,8 @@ export const LoginForm = ({
   setShowLoginForm,
   setShowSignupForm,
   formType,
+  switchAuthForms,
+  showLoginForm,
 }) => {
   const {
     emailInputProps,
@@ -27,6 +29,7 @@ export const LoginForm = ({
       topbarBtn={formType === "protected" ? "none" : "close"}
       footerBtn={submitBtn}
       onSubmit={handleLogin}
+      active={showLoginForm}
     >
       <div className="login-form-container">
         <div className="login-form">
@@ -46,10 +49,7 @@ export const LoginForm = ({
           />
           <SignInSwitch
             prompt="New to Ribbit? "
-            onClick={() => {
-              setShowLoginForm(false);
-              setShowSignupForm(true);
-            }}
+            switchAuthForms={switchAuthForms}
             linkText="Sign Up"
           />
         </div>

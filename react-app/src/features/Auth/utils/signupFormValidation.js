@@ -1,3 +1,4 @@
+// signupFormValidation.js
 export const validateUsername = (username, usernameTaken) => {
   let errors = [];
   if (username === "") {
@@ -10,12 +11,10 @@ export const validateUsername = (username, usernameTaken) => {
     );
   } else if (!/^[A-Za-z0-9_-]*$/.test(username)) {
     errors.push('username can only contain letters, numbers, "-", and "_"');
+  } else if (usernameTaken) {
+    errors.push("that username is already taken");
   } else {
-    if (usernameTaken) {
-      errors.push("that username is already taken");
-    } else {
-      errors = [];
-    }
+    errors = [];
   }
   return errors;
 };

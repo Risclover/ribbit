@@ -12,6 +12,7 @@ export function FormHeader({ setShowSignupForm, setShowLoginForm }) {
       </p>
       <button
         className="demo-btn"
+        tabIndex={0}
         onClick={() => setShowDemoWarning(true)}
         type="button"
       >
@@ -23,6 +24,7 @@ export function FormHeader({ setShowSignupForm, setShowLoginForm }) {
           setShowSignupForm={setShowSignupForm}
           setShowDemoWarning={setShowDemoWarning}
           setShowLoginForm={setShowLoginForm}
+          showDemoWarning={showDemoWarning}
         />
       )}
       <div className="or-dividers">

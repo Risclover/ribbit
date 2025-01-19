@@ -7,6 +7,7 @@ export function useSignUpForm({
   setEmail,
   email,
   setOpenSecondPage,
+  setShowLoginForm,
   setShowSignupForm,
 }) {
   const dispatch = useDispatch();
@@ -45,7 +46,11 @@ export function useSignUpForm({
   };
 
   const continueBtn = (
-    <button className=" signup-form-submit" disabled={disabled} type="submit">
+    <button
+      className=" signup-form-submit"
+      disabled={disabled}
+      type="submit"
+    >
       Continue
     </button>
   );
@@ -56,11 +61,18 @@ export function useSignUpForm({
     setShowSignupForm(false);
   };
 
+  const switchAuthForms = () => {
+    console.log("hello");
+    setShowLoginForm(true);
+    setShowSignupForm(false);
+  };
+
   return {
     emailInputProps,
     emailTaken,
     disabled,
     continueToSecondPage,
     continueBtn,
+    switchAuthForms,
   };
 }

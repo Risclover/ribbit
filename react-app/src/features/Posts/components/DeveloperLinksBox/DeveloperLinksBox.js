@@ -8,7 +8,7 @@ export function DeveloperLinksBox() {
       <h1>Developer Links</h1>
       <ul>
         {developerLinks.map((link) => (
-          <li key={link.title} className="tooltip">
+          <li key={link.title} className="tooltip" tabIndex={0}>
             <DeveloperLink
               title={link.title}
               link={link.link}

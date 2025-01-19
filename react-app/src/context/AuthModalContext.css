@@ -127,7 +127,6 @@
   border: 1px solid #dadce0;
   margin-top: 1.5rem;
   height: 40px;
-  outline: none;
   padding: 0 12px;
   cursor: pointer;
   border-radius: 100px;
@@ -151,7 +150,8 @@
   margin: 2px 8px 0 0;
 }
 
-.demo-btn:hover {
+.demo-btn:hover,
+.demo-btn:focus {
   background: rgba(66, 133, 244, 0.04);
 }
 
@@ -185,7 +185,6 @@
   font-weight: 600;
   padding: 0 16px;
   border: 0;
-  outline: none;
   font-size: 14px;
   cursor: pointer;
 }

@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "@/store";
+import { useRef } from "react";
 
 export function useDemoAccountWarning({
   setShowDemoWarning,
@@ -9,6 +10,8 @@ export function useDemoAccountWarning({
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const wrapperRef = useRef(null);
 
   const handleCancel = (e) => {
     e.preventDefault();
@@ -29,5 +32,5 @@ export function useDemoAccountWarning({
     setShowDemoWarning(false);
   };
 
-  return { handleCancel, handleLogin, handleSignup };
+  return { handleCancel, handleLogin, handleSignup, wrapperRef };
 }

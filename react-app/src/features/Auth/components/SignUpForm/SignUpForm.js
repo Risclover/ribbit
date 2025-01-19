@@ -12,12 +12,15 @@ export const SignUpForm = ({
   formType,
   setOpenSecondPage,
   openSecondPage,
+  switchAuthForms,
+  showSignupForm,
 }) => {
   const { emailInputProps, emailTaken, continueToSecondPage, continueBtn } =
     useSignUpForm({
       setEmail,
       email,
       setOpenSecondPage,
+      setShowLoginForm,
       setShowSignupForm,
     });
 
@@ -30,6 +33,7 @@ export const SignUpForm = ({
       openSecondPage={openSecondPage}
       footerBtn={continueBtn}
       onSubmit={continueToSecondPage}
+      active={showSignupForm}
     >
       <div className="signup-form-container">
         <div className="signup-form">
@@ -45,10 +49,7 @@ export const SignUpForm = ({
           <SignInSwitch
             prompt="Already a ribbitor? "
             linkText="Log In"
-            onClick={() => {
-              setShowLoginForm(true);
-              setShowSignupForm(false);
-            }}
+            switchAuthForms={switchAuthForms}
           />
         </div>
       </div>

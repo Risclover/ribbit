@@ -2,7 +2,13 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { UsernameAvailability } from "./UsernameAvailability";
 
-export function ErrorsDisplay({ errors, inputValue, focused, name }) {
+export function ErrorsDisplay({
+  errors,
+  inputValue,
+  focused,
+  name,
+  usernameTaken,
+}) {
   return (
     <div className="error-container">
       {errors && errors.length > 0 && (
@@ -17,6 +23,7 @@ export function ErrorsDisplay({ errors, inputValue, focused, name }) {
           value={inputValue}
           errors={errors}
           focused={focused}
+          usernameTaken={usernameTaken}
         />
       )}
     </div>

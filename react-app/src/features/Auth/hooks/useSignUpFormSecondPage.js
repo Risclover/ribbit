@@ -20,8 +20,18 @@ export function useSignUpFormSecondPage({
   const [passwordErrors, setPasswordErrors] = useState([]);
   const [disabled, setDisabled] = useState();
   const [focused, setFocused] = useState(false);
+  const [taken, setTaken] = useState(false);
 
-  const usernameTaken = useUsernameTaken(username);
+  let usernameTaken = useUsernameTaken(username);
+
+  useEffect(() => {
+    setTaken(usernameTaken);
+  }, [usernameTaken]);
+
+  useEffect(() => {
+    console.log("usernameTaken:", usernameTaken);
+  }, []);
+
   const allUsers = useSelector((state) => state.users);
 
   const inputProps = (name, value, setValue, errors) => ({
@@ -99,7 +109,8 @@ export function useSignUpFormSecondPage({
     setPassword,
     usernameErrors,
     passwordErrors,
-    usernameTaken,
+    taken,
+    setTaken,
     usernameInputProps,
     passwordInputProps,
     handleSignUp,

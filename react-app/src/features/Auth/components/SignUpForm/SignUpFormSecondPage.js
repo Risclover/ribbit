@@ -9,13 +9,15 @@ export function SignUpFormSecondPage({
   setOpenSecondPage,
   setShowSignupForm,
   email,
+  openSecondPage,
 }) {
   const {
     username,
     password,
     setUsername,
     setPassword,
-    usernameTaken,
+    taken,
+    setTaken,
     usernameInputProps,
     passwordInputProps,
     handleSignUp,
@@ -28,8 +30,8 @@ export function SignUpFormSecondPage({
   });
 
   useEffect(() => {
-    console.log("usernameTaken:", usernameTaken);
-  }, [usernameTaken]);
+    console.log("usernameTaken:", taken);
+  }, [taken]);
 
   return (
     <AuthModal
@@ -38,6 +40,7 @@ export function SignUpFormSecondPage({
       topbarBtn={formType === "protected" ? "none" : "back"}
       footerBtn={submitBtn}
       onSubmit={(e) => handleSignUp(e)}
+      active={openSecondPage}
     >
       <div>
         <p className="auth-modal-agreement">
@@ -48,9 +51,10 @@ export function SignUpFormSecondPage({
           <AuthFormInput
             props={usernameInputProps}
             onChange={setUsername}
-            onBlur={() => validateUsername(username, usernameTaken)}
+            onBlur={() => validateUsername(username, taken)}
             icon="rotate"
-            usernameTaken={usernameTaken}
+            usernameTaken={taken}
+            setTaken={setTaken}
           />
           <AuthFormInput
             props={passwordInputProps}

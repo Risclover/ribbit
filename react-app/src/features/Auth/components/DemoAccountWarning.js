@@ -2,20 +2,25 @@ import React from "react";
 import { useDemoAccountWarning } from "../hooks";
 import { WarningIcon } from "@/assets";
 import "../styles/DemoAccountWarning.css";
+import { useFocusTrap } from "hooks";
 
 export function DemoAccountWarning({
   setShowDemoWarning,
   setShowLoginForm,
   setShowSignupForm,
+  showDemoWarning,
 }) {
-  const { handleCancel, handleLogin, handleSignup } = useDemoAccountWarning({
-    setShowDemoWarning,
-    setShowLoginForm,
-    setShowSignupForm,
-  });
+  const { handleCancel, handleLogin, handleSignup, wrapperRef } =
+    useDemoAccountWarning({
+      setShowDemoWarning,
+      setShowLoginForm,
+      setShowSignupForm,
+    });
+
+  useFocusTrap(showDemoWarning, wrapperRef);
 
   return (
-    <div className="warning-container">
+    <div className="warning-container" ref={wrapperRef}>
       <div className="warning-content">
         <div className="warning-content-title">
           <img className="warning-icon" src={WarningIcon} alt="Warning" />

@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import "./AuthModalContext.css";
 import { AuthModalCloseBtn } from "assets/icons/AuthModalCloseBtn";
 import { AuthModalBackBtn } from "assets/icons/AuthModalBackBtn";
+import { useFocusTrap } from "hooks";
 
 const AuthModalContext = React.createContext();
 
@@ -34,6 +35,8 @@ export function AuthModal({
   topbarBtn,
   footerBtn,
   onSubmit,
+  openSecondPage,
+  active,
 }) {
   const history = useHistory();
   const modalNode = useContext(AuthModalContext);
@@ -43,6 +46,7 @@ export function AuthModal({
   const [headerBorder, setHeaderBorder] = useState(false);
   const [footerBorder, setFooterBorder] = useState(false);
   const containerRef = useRef(null);
+  const wrapperRef = useRef(null);
 
   const handleScroll = useCallback(() => {
     const container = containerRef.current;
@@ -67,6 +71,8 @@ export function AuthModal({
     return `auth-modal-footer ${footerBorder ? "footer-border" : ""}`;
   }, [footerBorder]);
 
+  useFocusTrap(active, wrapperRef);
+
   const renderTopbarButton = useMemo(() => {
     switch (topbarBtn) {
       case "none":
@@ -83,6 +89,7 @@ export function AuthModal({
             aria-label="Close"
             className="auth-modal-close"
             onClick={onClose}
+            tabIndex={0}
           >
             <AuthModalCloseBtn />
           </button>
@@ -105,7 +112,7 @@ export function AuthModal({
   return ReactDOM.createPortal(
     <div className="auth-modal">
       <div className="auth-modal-background" onClick={onClose} />
-      <div className="auth-modal-content">
+      <div className="auth-modal-content" ref={wrapperRef}>
         <div className={topbarClassName}>
           <span></span>
           {renderTopbarButton}

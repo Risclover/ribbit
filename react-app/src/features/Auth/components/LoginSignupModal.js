@@ -14,6 +14,11 @@ export function LoginSignupModal({ btnText, className, formType }) {
       : setShowLoginForm(true);
   };
 
+  const switchAuthForms = () => {
+    setShowLoginForm(!showLoginForm);
+    setShowSignupForm(!showSignupForm);
+  };
+
   return (
     <>
       {formType !== "protected" && formType !== "profile" && (
@@ -26,6 +31,8 @@ export function LoginSignupModal({ btnText, className, formType }) {
           setShowLoginForm={setShowLoginForm}
           setShowSignupForm={setShowSignupForm}
           formType={formType}
+          switchAuthForms={switchAuthForms}
+          showLoginForm={showLoginForm}
         />
       )}
       {showSignupForm && (
@@ -37,6 +44,8 @@ export function LoginSignupModal({ btnText, className, formType }) {
           email={email}
           setEmail={setEmail}
           formType={formType}
+          switchAuthForms={switchAuthForms}
+          showSignupForm={showSignupForm}
         />
       )}
       {openSecondPage && (
@@ -44,6 +53,7 @@ export function LoginSignupModal({ btnText, className, formType }) {
           formType={formType}
           setOpenSecondPage={setOpenSecondPage}
           setShowSignupForm={setShowSignupForm}
+          openSecondPage={openSecondPage}
           email={email}
         />
       )}
