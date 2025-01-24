@@ -29,7 +29,7 @@ export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
   const favoriteUsers = useSelector((state) => state.favoriteUsers);
   const currentUser = useSelector((state) => state.session.user);
-  const user = useSelector((state) => state.users[currentUser.id]);
+  const user = useSelector((state) => state.users[currentUser?.id]);
 
   const [filter, setFilter] = useState("");
   const [communities, setCommunities] = useState();

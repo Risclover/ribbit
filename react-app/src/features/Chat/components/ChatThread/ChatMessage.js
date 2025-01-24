@@ -78,7 +78,7 @@ export const ChatMessage = ({
   };
 
   const handleReactionClick = (reactionData) => {
-    const hasReacted = reactionData.users.includes(currentUser.id);
+    const hasReacted = reactionData.users.includes(currentUser?.id);
     const payload = {
       messageId: message.id,
       reactionType: reactionData.reactionType,

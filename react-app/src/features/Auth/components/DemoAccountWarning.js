@@ -4,17 +4,15 @@ import { WarningIcon } from "@/assets";
 import "../styles/DemoAccountWarning.css";
 import { useFocusTrap } from "hooks";
 
-export function DemoAccountWarning({
-  setShowDemoWarning,
-  setShowLoginForm,
-  setShowSignupForm,
-  showDemoWarning,
-}) {
+/**
+ * Warning to show when someone tries logging into the Demo account
+ * - setShowDemoWarning/showDemoWarning: state variable that controls whether this warning is displayed
+ *
+ */
+export function DemoAccountWarning({ setShowDemoWarning, showDemoWarning }) {
   const { handleCancel, handleLogin, handleSignup, wrapperRef } =
     useDemoAccountWarning({
       setShowDemoWarning,
-      setShowLoginForm,
-      setShowSignupForm,
     });
 
   useFocusTrap(showDemoWarning, wrapperRef);

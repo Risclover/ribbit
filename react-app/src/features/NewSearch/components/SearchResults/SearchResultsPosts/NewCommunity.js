@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { LoginSignupModal, CreateCommunityModal } from "@/features";
+import { CreateCommunityModal } from "@/features";
 import { Modal } from "@/context";
 import { useSelector } from "react-redux";
 import { ribbitBanners } from "@/assets";
 import { BackToTop } from "@/components";
+import { useAuthFlow } from "context/AuthFlowContext";
 
 export const NewCommunity = () => {
   const [showCommunityModal, setShowCommunityModal] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
+  const { openLogin } = useAuthFlow();
 
   return (
     <div className="last-box-wrapper">
@@ -24,11 +26,9 @@ export const NewCommunity = () => {
             </button>
           )}
           {!currentUser && (
-            <LoginSignupModal
-              btnText="Log In/Sign Up"
-              className="blue-btn-filled btn-long"
-              formType="login"
-            />
+            <button className="blue-btn-filled btn-long" onClick={openLogin}>
+              Log In/Sign Up
+            </button>
           )}
         </div>
       </div>

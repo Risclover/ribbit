@@ -52,15 +52,17 @@ export function UploadImageModal({ imgUrl, setShowModal, userId, uploadType }) {
         <div className="modal-content">
           <div className="upload-user-img">
             <div className="user-img-preview-box">
-              <img
-                className={
-                  uploadType === "banner"
-                    ? "banner-preview user-img-preview"
-                    : "user-img-preview"
-                }
-                src={imgPreview}
-                alt="Preview"
-              />
+              {imgPreview && (
+                <img
+                  className={
+                    uploadType === "banner"
+                      ? "banner-preview user-img-preview"
+                      : "user-img-preview"
+                  }
+                  src={imgPreview}
+                  alt="Preview"
+                />
+              )}
               <div className="user-img-error">
                 {errorMsg}{" "}
                 {imageLoading && <p className="loading">Loading...</p>}

@@ -2,16 +2,16 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "@/store";
 import { useRef } from "react";
+import { useAuthFlow } from "context/AuthFlowContext";
 
-export function useDemoAccountWarning({
-  setShowDemoWarning,
-  setShowLoginForm,
-  setShowSignupForm,
-}) {
+export function useDemoAccountWarning({ setShowDemoWarning }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const wrapperRef = useRef(null);
+
+  const { closeModal, openLogin, openSignupPage1, openSignupPage2 } =
+    useAuthFlow();
 
   const handleCancel = (e) => {
     e.preventDefault();
@@ -21,14 +21,13 @@ export function useDemoAccountWarning({
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(login("demo@aa.io", "password"));
-    setShowLoginForm(false);
+    closeModal();
     history.push("/");
   };
 
   const handleSignup = (e) => {
     e.preventDefault();
-    setShowSignupForm(true);
-    setShowLoginForm(false);
+    openSignupPage1();
     setShowDemoWarning(false);
   };
 

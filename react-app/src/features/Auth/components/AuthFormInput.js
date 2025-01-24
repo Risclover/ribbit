@@ -1,7 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IconComponent, ErrorsDisplay } from "../components";
-import { generateUsername } from "../utils";
 import { useAuthFormInput } from "../hooks";
+
+/**
+ *
+ * Reusable input box for auth forms
+ * - props: Props specific to the type of input it is (username, email, etc.); refer to the form's custom hook to view full props
+ * - onBlur: validation function
+ * - icon:
+ * - usernameTaken: flag for whether the username is taken or not; only matters for sign-up form's username input
+ * - setTaken: flag for whether the username is taken or not; only matters for sign-up form's username input
+ */
 
 export function AuthFormInput({
   props,
@@ -25,13 +34,8 @@ export function AuthFormInput({
     setFocused,
   } = props;
 
-  const {
-    showIcon,
-    classValue,
-    setClassValue,
-    pickRandomUsername,
-    usernameAvailable,
-  } = useAuthFormInput(onBlur, props, usernameTaken, setTaken);
+  const { showIcon, classValue, setClassValue, pickRandomUsername } =
+    useAuthFormInput(onBlur, props, usernameTaken, setTaken);
 
   return (
     <div
@@ -69,11 +73,17 @@ export function AuthFormInput({
           <span className="asterisk">*</span>
         </label>
         <div className="input-trailing-icons">
-          {errors.length > 0 && !focused && (
-            <IconComponent iconType="error" name={name} />
-          )}
-          {inputValue.length > 0 && errors.length === 0 && showIcon && (
-            <IconComponent iconType="valid" name={name} />
+          {(icon === "error" || icon === "valid") && (
+            <IconComponent
+              iconType={
+                errors.length > 0 && !focused
+                  ? "error"
+                  : errors.length === 0 && showIcon && inputValue.length > 0
+                  ? "valid"
+                  : ""
+              }
+              name={name}
+            />
           )}
           {icon === "rotate" && (
             <button

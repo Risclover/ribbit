@@ -1,59 +1,40 @@
 import React from "react";
-import { AuthModal } from "@/context";
 import { AuthFormInput, FormHeader, SignInSwitch } from "../components";
 import { useLoginForm } from "../hooks";
 import { handleErrors } from "../utils";
+import { useAuthFlow } from "context/AuthFlowContext";
+import { AuthModalLayout } from "../components";
 
-export const LoginForm = ({
-  setShowLoginForm,
-  setShowSignupForm,
-  formType,
-  switchAuthForms,
-  showLoginForm,
-}) => {
-  const {
-    emailInputProps,
-    passwordInputProps,
-    setLoginEmail,
-    setLoginPassword,
-    loginEmail,
-    loginPassword,
-    handleLogin,
-    submitBtn,
-  } = useLoginForm();
+/**
+ * Login auth form
+ * - formType: type of form displayed; relevant for topbar button ("close", "back", or "go home")
+ */
+export const LoginForm = ({ formType }) => {
+  const { emailInputProps, passwordInputProps, submitBtn } = useLoginForm();
+  const { closeModal, view, loginFormData } = useAuthFlow();
 
   return (
-    <AuthModal
+    <AuthModalLayout
+      active={view}
+      onClose={closeModal}
       title="Log In"
-      onClose={() => setShowLoginForm(false)}
       topbarBtn={formType === "protected" ? "none" : "close"}
       footerBtn={submitBtn}
-      onSubmit={handleLogin}
-      active={showLoginForm}
     >
       <div className="login-form-container">
         <div className="login-form">
-          <FormHeader
-            setShowSignupForm={setShowSignupForm}
-            setShowLoginForm={setShowLoginForm}
-          />
+          <FormHeader />
           <AuthFormInput
             props={emailInputProps}
-            onChange={setLoginEmail}
-            onBlur={() => handleErrors(loginEmail)}
+            onBlur={() => handleErrors(loginFormData.email)}
           />
           <AuthFormInput
             props={passwordInputProps}
-            onChange={setLoginPassword}
-            onBlur={() => handleErrors(loginPassword)}
+            onBlur={() => handleErrors(loginFormData.password)}
           />
-          <SignInSwitch
-            prompt="New to Ribbit? "
-            switchAuthForms={switchAuthForms}
-            linkText="Sign Up"
-          />
+          <SignInSwitch prompt="New to Ribbit? " linkText="Sign Up" />
         </div>
       </div>
-    </AuthModal>
+    </AuthModalLayout>
   );
 };

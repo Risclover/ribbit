@@ -46,7 +46,14 @@ export const NavLeftDropdownFace = ({
 
   return (
     <>
-      <div className="nav-left-dropdown-wrapper" ref={dropdownRef}>
+      <div
+        className="nav-left-dropdown-wrapper"
+        tabIndex={!showNavSidebar ? 0 : -1}
+        ref={dropdownRef}
+        onKeyDown={(e) =>
+          e.key === "Enter" && !showNavSidebar && setShowDropdown(!showDropdown)
+        }
+      >
         {/* clickable face */}
         <div
           className={`nav-left-dropdown-face ${
@@ -61,7 +68,11 @@ export const NavLeftDropdownFace = ({
           }}
         >
           {/* first 2/3rds is a button */}
-          <button className="nav-left-dropdown-face-left">
+          <button
+            className="nav-left-dropdown-face-left"
+            tabIndex={-1}
+            style={{ cursor: showNavSidebar && !showIcon && "default" }}
+          >
             {/* page icon and page title */}
 
             <div className="nav-left-dropdown-face-title">
@@ -79,6 +90,8 @@ export const NavLeftDropdownFace = ({
           {showIcon && (
             <div
               className="nav-left-dropdown-face-sidebar-icon"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && setShowNavSidebar(true)}
               onClick={() => {
                 setShowNavSidebar(true);
               }}

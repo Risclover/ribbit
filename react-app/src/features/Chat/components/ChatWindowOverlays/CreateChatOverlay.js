@@ -82,7 +82,7 @@ export const CreateChatOverlay = ({
             <button
               className="new-chat-user-found"
               onClick={() =>
-                userFound.id === currentUser.id
+                userFound.id === currentUser?.id
                   ? setError(true)
                   : setIsChosen(!isChosen)
               }

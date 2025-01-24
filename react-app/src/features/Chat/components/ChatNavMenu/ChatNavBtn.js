@@ -13,7 +13,7 @@ export const ChatNavBtn = ({
   const isActive = selectedChat?.id === chatThread.id;
   const currentUser = useSelector((state) => state.session.user);
   const recipient = chatThread?.users?.find(
-    (user) => user.id !== currentUser.id
+    (user) => user.id !== currentUser?.id
   );
 
   const [time, setTime] = useState("");

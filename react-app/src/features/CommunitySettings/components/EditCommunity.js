@@ -73,8 +73,8 @@ export function EditCommunity() {
   };
 
   useEffect(() => {
-    console.log(community?.userId, currentUser.id);
-    if (community?.communityOwner.id !== currentUser.id) {
+    console.log(community?.userId, currentUser?.id);
+    if (community?.communityOwner.id !== currentUser?.id) {
       history.push(`/c/${communityName}`);
     }
   }, []);

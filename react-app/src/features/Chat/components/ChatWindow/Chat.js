@@ -52,6 +52,10 @@ const Chat = ({ setOpenChat, setMinimizeChat }) => {
     setInputTexts((prev) => ({ ...prev, [threadId]: text }));
   };
 
+  const clearInput = (threadId) => {
+    setInputTexts((prev) => ({ ...prev, [threadId]: "" }));
+  };
+
   // Get the current input text based on selectedChat
   const currentInputText = selectedChat
     ? inputTexts[selectedChat.id] || ""
@@ -189,6 +193,7 @@ const Chat = ({ setOpenChat, setMinimizeChat }) => {
             }
           }}
           inputText={selectedChat ? currentInputText : pendingInputText}
+          clearInput={clearInput}
         />
       </div>
       {showDeleteConfirmation && (

@@ -7,6 +7,7 @@ import { useAutosizeTextArea } from "@/hooks";
 import "../../styles/Comments.css";
 import { getPosts } from "store";
 import { getCommentsForPost } from "store";
+import { useAuthFlow } from "context/AuthFlowContext";
 
 export function CommentForm({
   replyForm = false,
@@ -21,6 +22,7 @@ export function CommentForm({
   const [errors, setErrors] = useState([]);
   const [disabled, setDisabled] = useState(true);
 
+  const { openLogin } = useAuthFlow();
   const user = useSelector((state) => state.session.user);
   const comments = useSelector((state) => Object.values(state.comments));
   const handleSubmit = async (e) => {
@@ -103,11 +105,15 @@ export function CommentForm({
       {!user && (
         <form className="comment-form">
           <label htmlFor="comment-box">
-            <LoginSignupModal
-              btnText="Log in"
+            <button
               className="log-in-to-comment"
-              formType="login"
-            />
+              onClick={(e) => {
+                e.preventDefault();
+                openLogin();
+              }}
+            >
+              Log in
+            </button>
             to comment
           </label>
           <textarea

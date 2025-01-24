@@ -27,9 +27,9 @@ export const ChatThread = ({
 
   useEffect(() => {
     setReceiver(() =>
-      selectedChat?.users?.find((user) => user.id !== currentUser.id)
+      selectedChat?.users?.find((user) => user.id !== currentUser?.id)
     );
-  }, [selectedChat?.users, currentUser.id, chatThreads]);
+  }, [selectedChat?.users, currentUser?.id, chatThreads]);
 
   useEffect(() => {
     if (user) {

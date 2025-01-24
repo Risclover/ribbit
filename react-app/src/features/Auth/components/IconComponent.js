@@ -1,8 +1,13 @@
+import React from "react";
 import { AuthModalErrorIcon } from "assets/icons/AuthModalErrorIcon";
 import { AuthModalRotateIcon } from "assets/icons/AuthModalRotateIcon";
 import { AuthModalValidIcon } from "assets/icons/AuthModalValidIcon";
-import React from "react";
 
+/**
+ * Reusable icon component for each input box; "valid" (input is valid), "error" (input is invalid), or "rotate" (for rotate username option)
+ * - iconType: type of icon to display
+ * - name: name of input box
+ */
 export const IconComponent = ({ iconType, name }) => {
   switch (iconType) {
     case "error":

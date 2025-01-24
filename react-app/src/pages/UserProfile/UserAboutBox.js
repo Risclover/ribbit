@@ -21,16 +21,14 @@ import Flower from "@/assets/images/user-profile-icons/poinsettia.png";
 import { SelectedChatContext } from "@/context";
 import { FollowBtn } from "@/components";
 import { UserUploadModal } from "./UserUploadModal";
-import {
-  LoginSignupModal,
-  UploadBannerImageModal,
-  UploadImage,
-} from "features";
+import { useAuthFlow } from "context/AuthFlowContext";
 
 export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { userId } = useParams();
+
+  const { openLogin } = useAuthFlow();
 
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [banner, setBanner] = useState();
@@ -244,11 +242,9 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
             <FollowBtn user={user} />
           )}
           {!currentUser && (
-            <LoginSignupModal
-              btnText="Follow"
-              className="blue-btn-filled btn-long"
-              formType="login"
-            />
+            <button className="blue-btn-filled btn-long" onClick={openLogin}>
+              Follow
+            </button>
           )}
           {currentUser && currentUser?.id !== +userId && (
             <button className="blue-btn-filled btn-long" onClick={handleChat}>
@@ -256,11 +252,9 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
             </button>
           )}{" "}
           {!currentUser && (
-            <LoginSignupModal
-              btnText="Chat"
-              className="blue-btn-filled btn-long"
-              formType="login"
-            />
+            <button className="blue-btn-filled btn-long" onClick={openLogin}>
+              Chat
+            </button>
           )}
         </div>
         {currentUser && currentUser?.id !== +userId && (
@@ -271,11 +265,9 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
           />
         )}
         {!currentUser && (
-          <LoginSignupModal
-            btnText="Send Message"
-            className="blue-btn-filled btn-long"
-            formType="login"
-          />
+          <button className="blue-btn-filled btn-long" onClick={openLogin}>
+            Send Message
+          </button>
         )}
       </div>
 

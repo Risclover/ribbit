@@ -3,16 +3,25 @@ import { useDispatch } from "react-redux";
 import { login } from "@/store";
 import { handleErrors } from "../utils";
 import { getUsers } from "store";
+import { useAuthFlow } from "context/AuthFlowContext";
 
 export function useLoginForm() {
   const dispatch = useDispatch();
 
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
   const [loginEmailErrors, setLoginEmailErrors] = useState([]);
   const [loginPasswordErrors, setLoginPasswordErrors] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [focused, setFocused] = useState(false);
+
+  const { loginFormData, setLoginFormData, closeModal } = useAuthFlow();
+
+  const setLoginEmail = (val) => {
+    setLoginFormData((prev) => ({ ...prev, email: val }));
+  };
+
+  const setLoginPassword = (val) => {
+    setLoginFormData((prev) => ({ ...prev, password: val }));
+  };
 
   const inputProps = (name, value, setValue, errors) => ({
     type: name,
@@ -31,59 +40,66 @@ export function useLoginForm() {
 
   const emailInputProps = inputProps(
     "email",
-    loginEmail,
+    loginFormData.email,
     setLoginEmail,
     loginEmailErrors
   );
 
   const passwordInputProps = inputProps(
     "password",
-    loginPassword,
+    loginFormData.password,
     setLoginPassword,
     loginPasswordErrors
   );
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const data = await dispatch(login(loginEmail.toLowerCase(), loginPassword));
+    const data = await dispatch(
+      login(loginFormData.email.toLowerCase(), loginFormData.password)
+    );
     if (data && data.length > 0) {
       let errors = [];
       errors.push("Incorrect email or password");
       setLoginEmailErrors([""]);
       setLoginPasswordErrors(errors);
+    } else {
+      closeModal();
     }
     await dispatch(getUsers());
   };
 
   const submitBtn = (
-    <button className="login-form-submit" disabled={disabled} type="submit">
+    <button
+      className="login-form-submit"
+      disabled={disabled}
+      type="submit"
+      onClick={handleLogin}
+    >
       {" "}
       Log In
     </button>
   );
 
   useEffect(() => {
-    const emailErrors = handleErrors(loginEmail);
-    const passwordErrors = handleErrors(loginPassword);
+    const emailErrors = handleErrors(loginFormData.email);
+    const passwordErrors = handleErrors(loginFormData.password);
 
     setDisabled(
-      loginEmail === "" ||
+      loginFormData.email === "" ||
         emailErrors.length > 0 ||
-        loginPassword === "" ||
+        loginFormData.password === "" ||
         passwordErrors.length > 0
     );
   }, [
-    loginEmail,
+    loginFormData.email,
     setLoginEmailErrors,
-    loginPassword,
+    loginFormData.password,
     setLoginPasswordErrors,
     setDisabled,
   ]);
 
   return {
-    loginEmail,
     setLoginEmail,
-    loginPassword,
     setLoginPassword,
     handleLogin,
     emailInputProps,

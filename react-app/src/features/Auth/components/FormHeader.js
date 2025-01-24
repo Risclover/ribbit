@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { DemoAccountWarning } from "./DemoAccountWarning";
 
-export function FormHeader({ setShowSignupForm, setShowLoginForm }) {
+/**
+ * Header of the login and sign-up forms; displays general user agreement + demo account usage button
+ *
+ */
+export function FormHeader() {
   const [showDemoWarning, setShowDemoWarning] = useState(false);
 
   return (
@@ -21,9 +25,7 @@ export function FormHeader({ setShowSignupForm, setShowLoginForm }) {
       </button>
       {showDemoWarning && (
         <DemoAccountWarning
-          setShowSignupForm={setShowSignupForm}
           setShowDemoWarning={setShowDemoWarning}
-          setShowLoginForm={setShowLoginForm}
           showDemoWarning={showDemoWarning}
         />
       )}

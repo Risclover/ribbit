@@ -47,7 +47,7 @@ export function PreviewCommunity() {
   }, [communityName, communityId, dispatch]);
 
   useEffect(() => {
-    if (currentUser.id !== community?.userId) {
+    if (currentUser?.id !== community?.userId) {
       history.push(`/c/${communityName}`);
     }
   }, []);

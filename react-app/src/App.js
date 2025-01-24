@@ -36,6 +36,7 @@ import {
   SearchResultsCommunities,
   SearchResultsUsers,
   ChatWindow,
+  LoginSignupModal,
 } from "./features";
 import { NavBar, NavSidebar, LoggedOutSidebar } from "./layouts";
 
@@ -202,7 +203,7 @@ function App() {
                   setShowDropdown={setShowDropdown}
                 />
               )}
-
+              <LoginSignupModal />
               {openChat && !minimizeChat && (
                 <Chat
                   setOpenChat={setOpenChat}

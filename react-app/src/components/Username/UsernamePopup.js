@@ -62,6 +62,8 @@ export function UsernamePopup({ community, user }) {
             }`}
             onClick={(e) => {
               e.stopPropagation();
+              e.preventDefault();
+
               setShowMsgModal(true);
             }}
           >

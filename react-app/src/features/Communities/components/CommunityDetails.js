@@ -10,15 +10,18 @@ import {
 import { CommunityOptions } from "./CommunityInfoBox";
 import Cake from "@/assets/images/misc/piece4.png";
 import { useHistory } from "react-router-dom";
-import { LoginSignupModal } from "../../Auth";
+import { LoginSignupModal } from "features/Auth";
 import { CommunityImg } from "components/CommunityImg";
 import { useCommunitySettings } from "features/Posts/hooks/useCommunitySettings";
+import { useAuthFlow } from "context/AuthFlowContext";
 
 export function CommunityDetails({ post, community }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const subscriptions = useSelector((state) => state.subscriptions);
   const user = useSelector((state) => state.session.user);
+
+  const { openSignupPage1 } = useAuthFlow();
 
   const { checked, setChecked } = useCommunitySettings(community);
   const [subscribed, setSubscribed] = useState(
@@ -92,17 +95,10 @@ export function CommunityDetails({ post, community }) {
           {user && !subscribed && (
             <button
               className="blue-btn-filled btn-long community-btn-filled"
-              onClick={handleSubscribe}
+              onClick={!user ? openSignupPage1 : handleSubscribe}
             >
               Join
             </button>
-          )}
-          {!user && (
-            <LoginSignupModal
-              btnText="Join"
-              className="blue-btn-filled btn-long community-btn-filled"
-              formType="signup"
-            />
           )}
         </div>
 

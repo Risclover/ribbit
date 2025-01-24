@@ -1,58 +1,41 @@
 import React from "react";
-import { AuthModal } from "@/context";
 import { AuthFormInput, FormHeader, SignInSwitch } from "../../components";
+import { AuthModalLayout } from "../../components";
 import { useSignUpForm } from "../../hooks";
 import { handleEmailErrors } from "../../utils";
+import { useAuthFlow } from "context/AuthFlowContext";
 
-export const SignUpForm = ({
-  email,
-  setEmail,
-  setShowSignupForm,
-  setShowLoginForm,
-  formType,
-  setOpenSecondPage,
-  openSecondPage,
-  switchAuthForms,
-  showSignupForm,
-}) => {
-  const { emailInputProps, emailTaken, continueToSecondPage, continueBtn } =
-    useSignUpForm({
-      setEmail,
-      email,
-      setOpenSecondPage,
-      setShowLoginForm,
-      setShowSignupForm,
-    });
+/**
+ * The sign-up form
+ *
+ * - formType: The type of form it is; controls the topmost form button ('close', 'back', or 'go home')
+ */
+
+export const SignUpForm = ({ formType }) => {
+  const { emailInputProps, emailTaken, continueBtn } = useSignUpForm();
+  const { signupFormData, view, openSignupPage2, closeModal } = useAuthFlow();
 
   return (
-    <AuthModal
+    <AuthModalLayout
       topbarBtn={formType === "protected" ? "none" : "close"}
       title="Sign Up"
-      onClose={() => setShowSignupForm(false)}
-      setOpenSecondPage={setOpenSecondPage}
-      openSecondPage={openSecondPage}
+      onClose={closeModal}
+      openSecondPage={openSignupPage2}
       footerBtn={continueBtn}
-      onSubmit={continueToSecondPage}
-      active={showSignupForm}
+      onSubmit={openSignupPage2}
+      active={view}
     >
       <div className="signup-form-container">
         <div className="signup-form">
-          <FormHeader
-            setShowSignupForm={setShowSignupForm}
-            setShowLoginForm={setShowLoginForm}
-          />
+          <FormHeader />
           <AuthFormInput
             props={emailInputProps}
             testId="Email"
-            onBlur={() => handleEmailErrors(email, emailTaken)}
+            onBlur={() => handleEmailErrors(signupFormData.email, emailTaken)}
           />
-          <SignInSwitch
-            prompt="Already a ribbitor? "
-            linkText="Log In"
-            switchAuthForms={switchAuthForms}
-          />
+          <SignInSwitch prompt="Already a ribbitor? " linkText="Log In" />
         </div>
       </div>
-    </AuthModal>
+    </AuthModalLayout>
   );
 };

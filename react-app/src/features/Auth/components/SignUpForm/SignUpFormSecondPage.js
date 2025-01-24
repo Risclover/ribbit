@@ -1,21 +1,20 @@
-import React, { useEffect } from "react";
-import { AuthModal } from "@/context";
+import React from "react";
 import { AuthFormInput } from "../../components";
 import { useSignUpFormSecondPage } from "../../hooks";
 import { validatePassword, validateUsername } from "../../utils";
+import { useAuthFlow } from "context/AuthFlowContext";
+import { AuthModalLayout } from "../../components";
 
-export function SignUpFormSecondPage({
-  formType,
-  setOpenSecondPage,
-  setShowSignupForm,
-  email,
-  openSecondPage,
-}) {
+/**
+ *
+ * The second page of the sign-up form
+ * - formType: The type of form; controls the topmost form button ('close', 'back', or 'go home')
+ *
+ */
+
+export function SignUpFormSecondPage({ formType }) {
+  const { view, signupFormData } = useAuthFlow();
   const {
-    username,
-    password,
-    setUsername,
-    setPassword,
     taken,
     setTaken,
     usernameInputProps,
@@ -23,24 +22,16 @@ export function SignUpFormSecondPage({
     handleSignUp,
     submitBtn,
     returnToFirstPage,
-  } = useSignUpFormSecondPage({
-    setShowSignupForm,
-    setOpenSecondPage,
-    email,
-  });
-
-  useEffect(() => {
-    console.log("usernameTaken:", taken);
-  }, [taken]);
+  } = useSignUpFormSecondPage();
 
   return (
-    <AuthModal
+    <AuthModalLayout
       title="Create your username and password"
       onClose={returnToFirstPage}
       topbarBtn={formType === "protected" ? "none" : "back"}
       footerBtn={submitBtn}
       onSubmit={(e) => handleSignUp(e)}
-      active={openSecondPage}
+      active={view}
     >
       <div>
         <p className="auth-modal-agreement">
@@ -50,19 +41,17 @@ export function SignUpFormSecondPage({
         <form>
           <AuthFormInput
             props={usernameInputProps}
-            onChange={setUsername}
-            onBlur={() => validateUsername(username, taken)}
+            onBlur={() => validateUsername(signupFormData.username, taken)}
             icon="rotate"
             usernameTaken={taken}
             setTaken={setTaken}
           />
           <AuthFormInput
             props={passwordInputProps}
-            onChange={setPassword}
-            onBlur={() => validatePassword(password)}
+            onBlur={() => validatePassword(signupFormData.password)}
           />
         </form>
       </div>
-    </AuthModal>
+    </AuthModalLayout>
   );
 }

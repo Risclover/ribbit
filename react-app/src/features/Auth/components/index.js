@@ -8,3 +8,4 @@ export { UsernameAvailability } from "./UsernameAvailability";
 export { IconComponent } from "./IconComponent";
 export { ErrorsDisplay } from "./ErrorsDisplay";
 export * from "./SignUpForm";
+export { AuthModalLayout } from "./AuthModalLayout";

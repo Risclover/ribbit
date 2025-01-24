@@ -7,8 +7,8 @@ import {
   getFavoriteCommunities,
   getSingleCommunity,
 } from "@/store";
-import { LoginSignupModal } from "@/features";
 import { getCommunities } from "store";
+import { useAuthFlow } from "context/AuthFlowContext";
 
 export function CommunitySubscribeBtn({
   user,
@@ -19,6 +19,8 @@ export function CommunitySubscribeBtn({
   const dispatch = useDispatch();
   const subscriptions = useSelector((state) => state.subscriptions);
   const [subscribed, setSubscribed] = useState(false);
+
+  const { openLogin } = useAuthFlow();
 
   useEffect(() => {
     if (subscriptions[community?.id]) setSubscribed(true);
@@ -48,28 +50,25 @@ export function CommunitySubscribeBtn({
             Joined
           </button>
         )}
-        {user && !subscribed && (
+        {(!user || !subscribed) && (
           <button
             className="blue-btn-filled btn-short join-btn community-btn-filled join"
             onClick={async (e) => {
               e.preventDefault();
-              await dispatch(addToSubscriptions(community.id));
-              dispatch(getSubscriptions(+communityId));
-              dispatch(getCommunities());
+              if (!user) {
+                openLogin();
+              } else if (user && !subscribed) {
+                await dispatch(addToSubscriptions(community.id));
+                dispatch(getSubscriptions(+communityId));
+                dispatch(getCommunities());
 
-              user && setSubscribed(true);
-              !user && setShowLoginForm(true);
+                user && setSubscribed(true);
+                !user && setShowLoginForm(true);
+              }
             }}
           >
             Join
           </button>
-        )}
-        {!user && (
-          <LoginSignupModal
-            btnText="Join"
-            className="blue-btn-filled btn-short join-btn"
-            formType="signup"
-          />
         )}
       </div>
       <div className="community-header-info-unsubscribe"></div>

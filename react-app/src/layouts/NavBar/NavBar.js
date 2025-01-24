@@ -12,13 +12,14 @@ import {
   LoggedOutDropdownWrapper,
 } from "../NavBar";
 import { SelectedChatContext } from "@/context";
-import { Searchbar, LoginSignupModal } from "@/features";
+import { Searchbar } from "@/features";
 import { AllIcon } from "@/assets";
 
 import { ribbitBanners, ribbitLogos } from "@/assets";
 import { RandomLogo } from "../RandomLogo";
 import "./NavBar.css";
 import "../../features/NewSearch/Search.css";
+import { useAuthFlow } from "context/AuthFlowContext";
 
 export function NavBar({
   adjustQuery,
@@ -36,6 +37,7 @@ export function NavBar({
   minimizeChat,
   setMinimizeChat,
 }) {
+  const { openLogin } = useAuthFlow();
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -139,10 +141,7 @@ export function NavBar({
       <div className="navbar-right">
         {user && (
           <div className="navbar-buttons">
-            <div
-              className="navbar-button"
-              onClick={() => history.push("/all")}
-            >
+            <div className="navbar-button" onClick={() => history.push("/all")}>
               <img
                 src={AllIcon}
                 className="nav-left-dropdown-item-icon"
@@ -183,12 +182,11 @@ export function NavBar({
           </div>
         )}
         {!user && (
-          <LoginSignupModal
-            btnText="Log In"
-            className="navbar-login-btn"
-            formType="login"
-          />
+          <button className="navbar-login-btn" onClick={openLogin}>
+            Log In
+          </button>
         )}
+
         {user && <NavUserDropdown />}
       </div>
     </nav>

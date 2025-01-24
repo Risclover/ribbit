@@ -17,6 +17,7 @@ export const ChatInput = ({
   userFound,
   inputText,
   onInputChange,
+  clearInput,
 }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
@@ -63,11 +64,8 @@ export const ChatInput = ({
       chatThreadId: selectedChat.id,
     };
 
-    console.log("payload:", payload);
-
     // Create the message via Redux
     const data = await dispatch(createChatMessage(payload));
-    console.log("data:", data);
     data.room = selectedChat.id;
 
     // Emit over socket
@@ -75,6 +73,8 @@ export const ChatInput = ({
 
     // Optionally fetch the thread again or do an optimistic update
     dispatch(getChatThread(selectedChat.id));
+
+    clearInput(selectedChat.id);
   };
 
   // 3) The actual submit handler
@@ -132,7 +132,7 @@ export const ChatInput = ({
     setNewlyCreatedChatId(newChat.id);
     setSelectedChat(newChat);
     socket.emit("join", {
-      user: currentUser.id,
+      user: currentUser?.id,
       room: newChat.id,
     });
     setPendingReceiver(null);

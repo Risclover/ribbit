@@ -290,3 +290,9 @@
 .auth-modal-back:active {
   background: linear-gradient(#00000029, #00000029);
 }
+
+.auth-layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}

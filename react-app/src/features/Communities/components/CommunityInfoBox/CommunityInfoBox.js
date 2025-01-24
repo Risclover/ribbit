@@ -6,7 +6,6 @@ import {
   CommunityInfoMenu,
   CommunityDescription,
   CommunityOptions,
-  LoginSignupModal,
   CommunityJoinBtn,
 } from "@/features";
 import { getTextColor } from "@/utils";
@@ -15,10 +14,11 @@ import { useHistory } from "react-router-dom";
 import { CommunityImg } from "components/CommunityImg";
 import { useCommunitySettings } from "features/Posts/hooks/useCommunitySettings";
 import { useSelector } from "react-redux";
+import { useAuthFlow } from "context/AuthFlowContext";
 
 export function CommunityInfoBox({ community, user, isPage }) {
   const { checked, setChecked } = useCommunitySettings(community);
-
+  const { openLogin } = useAuthFlow();
   const history = useHistory();
   const [members, setMembers] = useState(0);
 
@@ -70,7 +70,11 @@ export function CommunityInfoBox({ community, user, isPage }) {
             <NavLink to={`/c/${community?.name}`}>c/{community?.name}</NavLink>
           </div>
         )}
-        <CommunityDescription isPage={isPage} community={community} user={user} />
+        <CommunityDescription
+          isPage={isPage}
+          community={community}
+          user={user}
+        />
         <div className="community-page-box-date">
           <img src={Cake} className="community-cake-icon" alt="Cake" />
           Created {moment(new Date(community.createdAt)).format("MMM DD, YYYY")}
@@ -91,13 +95,13 @@ export function CommunityInfoBox({ community, user, isPage }) {
               Create Post
             </NavLink>
           )}
-
           {!user && (
-            <LoginSignupModal
-              btnText="Log In/Sign Up"
+            <button
               className="blue-btn-filled btn-long community-btn-filled"
-              formType="login"
-            />
+              onClick={openLogin}
+            >
+              Log In/Sign Up
+            </button>
           )}
         </div>
         <CommunityOptions

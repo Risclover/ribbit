@@ -4,10 +4,11 @@ import { NavLink, useHistory } from "react-router-dom";
 import Home from "@/assets/images/navbar/home-icon.png";
 import All from "@/assets/images/navbar/all-icon2.png";
 
-import { LoginSignupModal } from "@/features";
 import "./NavSidebar.css";
+import { useAuthFlow } from "context/AuthFlowContext";
 
 export function LoggedOutSidebar({ showLoggedOutSidebar }) {
+  const { openSignupPage1 } = useAuthFlow();
   const history = useHistory();
 
   return (
@@ -47,12 +48,12 @@ export function LoggedOutSidebar({ showLoggedOutSidebar }) {
               Create an account to follow your favorite communities and start
               taking part in conversations.
             </div>
-
-            <LoginSignupModal
-              btnText="Join Ribbit"
+            <button
               className="logged-out-sidebar-btn"
-              formType="signup"
-            />
+              onClick={openSignupPage1}
+            >
+              Join Ribbit
+            </button>
           </div>
         </div>
       )}

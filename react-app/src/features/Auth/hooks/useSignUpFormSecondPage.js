@@ -5,34 +5,42 @@ import { signUp } from "@/store";
 import { useUsernameTaken } from "../hooks";
 import { validatePassword, validateUsername } from "../utils";
 import { getUsers } from "store";
+import { useAuthFlow } from "context/AuthFlowContext";
 
-export function useSignUpFormSecondPage({
-  setShowSignupForm,
-  setOpenSecondPage,
-  email,
-}) {
+export function useSignUpFormSecondPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [usernameErrors, setUsernameErrors] = useState([]);
   const [passwordErrors, setPasswordErrors] = useState([]);
   const [disabled, setDisabled] = useState();
   const [focused, setFocused] = useState(false);
   const [taken, setTaken] = useState(false);
 
-  let usernameTaken = useUsernameTaken(username);
+  const {
+    signupFormData,
+    setSignupFormData,
+    openLogin,
+    openSignupPage1,
+    openSignupPage2,
+    closeModal,
+  } = useAuthFlow();
+
+  let usernameTaken = useUsernameTaken(signupFormData.username);
 
   useEffect(() => {
     setTaken(usernameTaken);
   }, [usernameTaken]);
 
-  useEffect(() => {
-    console.log("usernameTaken:", usernameTaken);
-  }, []);
-
   const allUsers = useSelector((state) => state.users);
+
+  const setUsername = (val) => {
+    setSignupFormData((prev) => ({ ...prev, username: val }));
+  };
+
+  const setPassword = (val) => {
+    setSignupFormData((prev) => ({ ...prev, password: val }));
+  };
 
   const inputProps = (name, value, setValue, errors) => ({
     type: name,
@@ -51,60 +59,71 @@ export function useSignUpFormSecondPage({
 
   const usernameInputProps = inputProps(
     "username",
-    username,
+    signupFormData.username,
     setUsername,
     usernameErrors
   );
 
   const passwordInputProps = inputProps(
     "password",
-    password,
+    signupFormData.password,
     setPassword,
     passwordErrors
   );
 
   useEffect(() => {
-    const usernameErrors = validateUsername(username, usernameTaken);
-    const passwordErrors = validatePassword(password);
+    const usernameErrors = validateUsername(
+      signupFormData.username,
+      usernameTaken
+    );
+    const passwordErrors = validatePassword(signupFormData.password);
 
     setDisabled(
-      username === "" ||
+      signupFormData.username === "" ||
         usernameErrors.length > 0 ||
-        password === "" ||
+        signupFormData.password === "" ||
         passwordErrors.length > 0
     );
   }, [
-    username,
+    signupFormData.username,
     setDisabled,
     setUsernameErrors,
-    password,
+    signupFormData.password,
     setPasswordErrors,
     usernameTaken,
   ]);
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    dispatch(signUp(username, email.toLowerCase(), password));
-    setShowSignupForm(false);
+    dispatch(
+      signUp(
+        signupFormData.username,
+        signupFormData.email.toLowerCase(),
+        signupFormData.password
+      )
+    );
+    closeModal();
     const id = Object.values(allUsers).length + 1;
     history.push(`/users/${id}/profile`);
     dispatch(getUsers());
   };
 
   const returnToFirstPage = () => {
-    setOpenSecondPage(false);
-    setShowSignupForm(true);
+    openSignupPage1();
   };
 
   const submitBtn = (
-    <button className="signup-form-submit" disabled={disabled} type="submit">
+    <button
+      className="signup-form-submit"
+      disabled={disabled}
+      type="submit"
+      onClick={handleSignUp}
+    >
       Sign Up
     </button>
   );
 
   return {
-    username,
-    password,
     setUsername,
     setPassword,
     usernameErrors,
