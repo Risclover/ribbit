@@ -201,3 +201,20 @@
   margin-left: 2px;
   vertical-align: baseline;
 }
+
+.recent-posts-skeleton {
+  width: 100%;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.recent-posts-skeleton-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.recent-posts-skeleton-title {
+  margin-bottom: 4px;
+}

@@ -5,6 +5,7 @@ import { CgNotes } from "react-icons/cg";
 import { FiLink } from "react-icons/fi";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { useMetadata } from "@/context";
+import { Skeleton } from "@mui/material";
 
 const PostTypeIcon = ({ post, linkImg }) => {
   if (post?.imgUrl) {
@@ -38,7 +39,7 @@ const PostTypeIcon = ({ post, linkImg }) => {
   );
 };
 
-export const RecentlyViewedPost = ({ post, idx }) => {
+const RecentlyViewedPost = ({ post, idx }) => {
   const { metadata, fetchMetadata } = useMetadata();
 
   useEffect(() => {
@@ -72,3 +73,42 @@ export const RecentlyViewedPost = ({ post, idx }) => {
     </li>
   );
 };
+
+const RecentlyViewedSkeleton = () => {
+  return (
+    <li className="recent-post-li">
+      <div className="recent-post">
+        <div className="recent-posts-skeleton">
+          <Skeleton variant="rounded" width={63} height={47} animation="wave" />
+          <div className="recent-posts-skeleton-right">
+            <div className="recent-posts-skeleton-title">
+              <Skeleton
+                variant="text"
+                sx={{ fontSize: "1rem" }}
+                width={214}
+                animation="wave"
+              />
+              <Skeleton
+                variant="text"
+                sx={{ fontSize: "1rem" }}
+                width={166}
+                animation="wave"
+              />
+            </div>
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "0.25rem" }}
+              animation="wave"
+              width={150}
+              height={"1rem"}
+            />
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+};
+
+RecentlyViewedPost.Skeleton = RecentlyViewedSkeleton;
+
+export { RecentlyViewedPost };

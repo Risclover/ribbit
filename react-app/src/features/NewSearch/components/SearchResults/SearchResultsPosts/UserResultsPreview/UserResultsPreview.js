@@ -22,9 +22,6 @@ export const UserResultsPreview = ({ query, isLoading }) => {
           See more people
         </div>
       )}
-      {(query.trim().length === 0 || users.length === 0) && (
-        <div className="no-results">No results</div>
-      )}
     </div>
   );
 };
