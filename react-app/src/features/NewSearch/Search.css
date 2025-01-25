@@ -485,6 +485,24 @@
   margin-left: 8px;
 }
 
+.communities-results-skeleton {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.communities-results-skeleton-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+}
+
+.communities-results-skeleton-middle {
+  display: flex;
+  align-items: center;
+}
+
 .search-results-page-comments {
   width: 100%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.06);

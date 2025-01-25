@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SearchResults } from "@/pages";
 import { getSearchQuery } from "../../../utils/getSearchQuery";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
@@ -6,14 +6,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchUsers } from "@/store";
 import { NoResults } from "../NoResults";
 import { UserResult } from "./UserResult";
+import { UserResultType } from "./UserResultType";
 
 export const SearchResultsUsers = ({ searchbarRef }) => {
   const dispatch = useDispatch();
   const users = useSelector((state) => Object.values(state.search.users));
   const query = getSearchQuery();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    dispatch(searchUsers(query));
+    if (users.length === 0) {
+      setIsLoading(true);
+      dispatch(searchUsers(query)).finally(() => {
+        setIsLoading(false);
+      });
+    }
   }, [query, dispatch]);
 
   const focusSearchBox = () => {
@@ -24,11 +32,12 @@ export const SearchResultsUsers = ({ searchbarRef }) => {
     <SearchResults query={query} searchPage="People">
       <div className="search-results">
         <div className="search-results-page-people">
-          {(query.trim().length === 0 || users.length === 0) && (
-            <NoResults query={query} focusSearchBox={focusSearchBox} />
-          )}
-          {query.trim().length > 0 &&
-            users.map((user) => <UserResult key={user.id} user={user} />)}
+          <UserResultType
+            isLoading={isLoading}
+            query={query}
+            users={users}
+            focusSearchBox={focusSearchBox}
+          />
         </div>
       </div>
     </SearchResults>

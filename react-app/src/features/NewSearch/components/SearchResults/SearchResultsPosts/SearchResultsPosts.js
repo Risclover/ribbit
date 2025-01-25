@@ -9,9 +9,7 @@ import { CommunityResultsPreview } from "./CommunityResultsPreview";
 import { UserResultsPreview } from "./UserResultsPreview";
 import { NewCommunity } from "./NewCommunity";
 import { stripHtml } from "@/utils/stripHtml";
-import { NoResults } from "../NoResults";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
-import { v4 as uuidv4 } from "uuid";
 import { PostResultType } from "./PostResultType";
 import { getPosts } from "store";
 
@@ -19,21 +17,25 @@ export const SearchResultsPosts = ({ searchbarRef }) => {
   const dispatch = useDispatch();
 
   const posts = useSelector((state) => Object.values(state.search.posts));
+  const communities = useSelector((state) =>
+    Object.values(state.search.communities)
+  );
+  const users = useSelector((state) => Object.values(state.search.users));
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   let query = getSearchQuery();
 
   useEffect(() => {
     setIsLoading(true);
-    dispatch(getPosts());
 
     let cleanQuery = stripHtml(query);
-    dispatch(searchPosts(stripHtml(cleanQuery)));
-    dispatch(searchCommunities(cleanQuery));
-    dispatch(searchUsers(cleanQuery)).finally(() => {
-      setIsLoading(false);
-    });
+
+    Promise.all([
+      dispatch(searchPosts(stripHtml(cleanQuery))),
+      dispatch(searchCommunities(cleanQuery)),
+      dispatch(searchUsers(cleanQuery)),
+    ]).finally(() => setIsLoading(false));
   }, [query, dispatch]);
 
   const focusSearchBox = () => {

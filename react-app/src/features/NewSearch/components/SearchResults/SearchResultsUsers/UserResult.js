@@ -2,8 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { UserFollowBtn } from "../SearchResultsPosts";
 import { useSelector } from "react-redux";
+import { Skeleton } from "@mui/material";
 
-export const UserResult = ({ user }) => {
+const UserResult = ({ user }) => {
   const history = useHistory();
   const currentUser = useSelector((state) => state.session.user);
 
@@ -41,3 +42,45 @@ export const UserResult = ({ user }) => {
     </div>
   );
 };
+
+const UserSkeleton = () => {
+  return (
+    <div className="search-results-page-person">
+      <div className="communities-results-skeleton">
+        <div className="communities-results-skeleton-middle">
+          <Skeleton
+            variant="circular"
+            width={36}
+            height={36}
+            animation="wave"
+          />
+          <div className="communities-results-skeleton-text">
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "0.75rem" }}
+              width={170}
+              animation="wave"
+            />
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "0.75rem" }}
+              width={600}
+              animation="wave"
+            />
+          </div>
+        </div>
+        <Skeleton
+          variant="rounded"
+          sx={{ borderRadius: "1000px" }}
+          height={32}
+          width={86}
+          animation="wave"
+        />
+      </div>
+    </div>
+  );
+};
+
+UserResult.Skeleton = UserSkeleton;
+
+export { UserResult };

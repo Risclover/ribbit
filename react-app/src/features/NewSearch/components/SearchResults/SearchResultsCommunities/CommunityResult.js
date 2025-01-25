@@ -2,8 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { CommunityJoinBtn } from "../SearchResultsPosts";
 import { CommunityImg } from "components/CommunityImg";
+import { Skeleton } from "@mui/material";
 
-export const CommunityResult = ({ community }) => {
+const CommunityResult = ({ community }) => {
   const history = useHistory();
 
   const handleCommunityClick = (e) => {
@@ -46,3 +47,45 @@ export const CommunityResult = ({ community }) => {
     </div>
   );
 };
+
+const CommunitySkeleton = () => {
+  return (
+    <div className="search-results-community">
+      <div className="communities-results-skeleton">
+        <div className="communities-results-skeleton-middle">
+          <Skeleton
+            variant="circular"
+            width={36}
+            height={36}
+            animation="wave"
+          />
+          <div className="communities-results-skeleton-text">
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "0.75rem" }}
+              width={170}
+              animation="wave"
+            />
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "0.75rem" }}
+              width={600}
+              animation="wave"
+            />
+          </div>
+        </div>
+        <Skeleton
+          variant="rounded"
+          sx={{ borderRadius: "1000px" }}
+          height={32}
+          width={86}
+          animation="wave"
+        />
+      </div>
+    </div>
+  );
+};
+
+CommunityResult.Skeleton = CommunitySkeleton;
+
+export { CommunityResult };

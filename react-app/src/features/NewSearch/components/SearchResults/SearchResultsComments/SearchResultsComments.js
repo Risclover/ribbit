@@ -14,14 +14,12 @@ export function SearchResultsComments({ searchbarRef }) {
   const query = getSearchQuery();
 
   const comments = useSelector((state) => Object.values(state.search.comments));
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
     dispatch(getPosts());
-    dispatch(searchComments(query)).finally(() => {
-      setIsLoading(false);
-    });
+    dispatch(searchComments(query)).finally(() => setIsLoading(false));
   }, [query, dispatch]);
 
   const focusSearchBox = () => {
