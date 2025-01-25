@@ -1,82 +1,67 @@
+// AuthFormInput.js
 import React from "react";
+import { useAuthFormInput } from "../hooks/useAuthFormInput";
 import { IconComponent, ErrorsDisplay } from "../components";
-import { useAuthFormInput } from "../hooks";
 
-/**
- * Reusable input box for auth forms
- * - props: Props specific to the type of input it is (username, email, etc.); refer to the form's custom hook to view full props
- * - onBlur: validation function
- * - icon:
- * - usernameTaken: flag for whether the username is taken or not; only matters for sign-up form's username input
- * - setTaken: flag for whether the username is taken or not; only matters for sign-up form's username input
- */
-
-export function AuthFormInput({
-  props,
-  onBlur,
-  icon,
-  usernameTaken,
-  setTaken,
-}) {
+export function AuthFormInput({ props, icon, blurred }) {
   const {
-    type,
+    handleLabelClick,
+    handleBlur,
+    pickRandomUsername,
+    iconType,
+    classValue,
+  } = useAuthFormInput(props, blurred);
+
+  const {
     name,
+    type,
     inputValue,
     setInputValue,
-    errors = [],
-    setErrors,
+    errors,
+    setBlurred,
+    onBlur, // from parent
+    onRotate, // from parent
     label,
-    autoCompleteStatus,
     maxLength,
+    autoCompleteStatus,
     testId,
-    focused,
-    setFocused,
   } = props;
-
-  const {
-    handleBlur,
-    handleFocus,
-    handleLabelClick,
-    showIcon,
-    classValue,
-    setClassValue,
-    pickRandomUsername,
-  } = useAuthFormInput(onBlur, props, usernameTaken, setTaken);
 
   return (
     <div
-      className={`form-field-box${name === " signup-email" ? " h-100" : ""}${
+      className={`form-field-box${
         name === "username" ? " form-field-username" : ""
       }`}
     >
       <div className={`form-field ${classValue}`}>
         <input
           id={name}
-          data-testid={testId}
           type={type}
+          data-testid={testId}
           name={name}
-          onChange={(e) => setInputValue(e.target.value)}
-          autoComplete={autoCompleteStatus}
-          placeholder=" "
           value={inputValue}
-          maxLength={maxLength}
-          className={classValue}
+          onChange={(e) => setInputValue(e.target.value)}
           onBlur={handleBlur}
-          onFocus={handleFocus}
+          placeholder=" "
+          maxLength={maxLength}
+          autoComplete={autoCompleteStatus}
+          onFocus={() => setBlurred(false)}
+          // no real-time focus, etc.
         />
         <label htmlFor={name} onClick={handleLabelClick}>
           {label}
           <span className="asterisk">*</span>
         </label>
         <div className="input-trailing-icons">
-          {classValue === " errors-true" && (
+          {iconType === "error" && (
             <IconComponent iconType="error" name={name} />
           )}
-          {inputValue.length > 0 && errors.length === 0 && showIcon && (
+          {iconType === "valid" && (
             <IconComponent iconType="valid" name={name} />
           )}
           {icon === "rotate" && (
             <button
+              aria-label="Get randomized username"
               className="generate-username-btn"
               type="button"
               onClick={pickRandomUsername}
@@ -90,10 +75,9 @@ export function AuthFormInput({
       <ErrorsDisplay
         errors={errors}
         inputValue={inputValue}
-        focused={focused}
         name={name}
-        usernameTaken={usernameTaken}
-        setTaken={setTaken}
+        // We'll also pass `blurred` to show "Nice! Username available" only if blurred is true
+        blurred={blurred}
       />
     </div>
   );

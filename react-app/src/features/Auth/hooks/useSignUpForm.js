@@ -12,6 +12,7 @@ export function useSignUpForm() {
 
   const [emailErrors, setEmailErrors] = useState([]);
   const [disabled, setDisabled] = useState(true);
+  const [emailBlurred, setEmailBlurred] = useState(false);
   const [focused, setFocused] = useState(false);
 
   const emailTaken = Object.values(users).find(
@@ -37,6 +38,7 @@ export function useSignUpForm() {
     inputValue: signupFormData.email,
     errors: emailErrors,
     setErrors: setEmailErrors,
+    setBlurred: setEmailBlurred,
     label: "Email",
     maxLength: 255,
     autoCompleteStatus: "off",

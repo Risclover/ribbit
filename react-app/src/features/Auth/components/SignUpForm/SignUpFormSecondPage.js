@@ -16,6 +16,8 @@ export function SignUpFormSecondPage({ formType }) {
     setTaken,
     usernameInputProps,
     passwordInputProps,
+    usernameBlurred,
+    passwordBlurred,
     handleSignUp,
     submitBtn,
     returnToFirstPage,
@@ -38,15 +40,10 @@ export function SignUpFormSecondPage({ formType }) {
         <form>
           <AuthFormInput
             props={usernameInputProps}
-            onBlur={() => validateUsername(signupFormData.username, taken)}
             icon="rotate"
-            usernameTaken={taken}
-            setTaken={setTaken}
+            blurred={usernameBlurred}
           />
-          <AuthFormInput
-            props={passwordInputProps}
-            onBlur={() => validatePassword(signupFormData.password)}
-          />
+          <AuthFormInput props={passwordInputProps} blurred={passwordBlurred} />
         </form>
       </div>
     </AuthModalLayout>
