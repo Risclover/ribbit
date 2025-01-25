@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { checkUsername } from "store";
+import { checkUsername } from "@/store";
 
 export const useUsernameTaken = (username) => {
   const dispatch = useDispatch();

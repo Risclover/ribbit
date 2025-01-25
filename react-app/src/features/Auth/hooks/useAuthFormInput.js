@@ -17,6 +17,10 @@ export function useAuthFormInput(
   );
 
   useEffect(() => {
+    console.log("INPUT PROPS:", inputProps);
+  }, []);
+
+  useEffect(() => {
     setErrors(validateFn(inputProps?.inputValue));
 
     setClassValue(
@@ -42,6 +46,10 @@ export function useAuthFormInput(
     console.log("usernameAvailable:", usernameAvailable);
   };
 
+  const handleLabelClick = (e) => {
+    e.target.parentElement.children[0].focus();
+  };
+
   const handleBlur = () => {
     inputProps.setFocused(false);
     const validationErrors = validateFn(inputProps?.inputValue);
@@ -52,7 +60,7 @@ export function useAuthFormInput(
 
   const handleFocus = () => {
     setClassValue("");
-    setFocused(true);
+    inputProps.setFocused(true);
   };
 
   return {
@@ -62,6 +70,7 @@ export function useAuthFormInput(
     pickRandomUsername,
     handleBlur,
     handleFocus,
+    handleLabelClick,
     usernameAvailable,
   };
 }

@@ -1,13 +1,12 @@
 import React from "react";
+import { useFocusTrap } from "@/hooks";
 import { useDemoAccountWarning } from "../hooks";
 import { WarningIcon } from "@/assets";
 import "../styles/DemoAccountWarning.css";
-import { useFocusTrap } from "hooks";
 
 /**
  * Warning to show when someone tries logging into the Demo account
  * - setShowDemoWarning/showDemoWarning: state variable that controls whether this warning is displayed
- *
  */
 export function DemoAccountWarning({ setShowDemoWarning, showDemoWarning }) {
   const { handleCancel, handleLogin, handleSignup, wrapperRef } =

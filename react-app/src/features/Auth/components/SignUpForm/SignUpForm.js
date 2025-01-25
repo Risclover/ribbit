@@ -1,13 +1,16 @@
 import React from "react";
-import { AuthFormInput, FormHeader, SignInSwitch } from "../../components";
-import { AuthModalLayout } from "../../components";
+import { useAuthFlow } from "@/context";
+import {
+  AuthFormInput,
+  FormHeader,
+  SignInSwitch,
+  AuthModalLayout,
+} from "../../components";
 import { useSignUpForm } from "../../hooks";
 import { handleEmailErrors } from "../../utils";
-import { useAuthFlow } from "context/AuthFlowContext";
 
 /**
  * The sign-up form
- *
  * - formType: The type of form it is; controls the topmost form button ('close', 'back', or 'go home')
  */
 

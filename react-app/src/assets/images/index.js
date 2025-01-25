@@ -7,9 +7,9 @@ export * from "./navbar";
 export { AllIcon, HomeIcon } from "./navbar";
 
 import WarningIcon from "./warning-icon.png";
-import SearchIcon from "./search-icon.png";
+import NoResultsIcon from "./search-icon.png";
 import CommunityDefaultLogo from "./community-default-logo.png";
 
-export { WarningIcon, SearchIcon, CommunityDefaultLogo };
+export { WarningIcon, NoResultsIcon, CommunityDefaultLogo };
 
 export * from "./frog-reactions";

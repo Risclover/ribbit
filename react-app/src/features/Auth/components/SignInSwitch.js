@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuthFlow } from "context/AuthFlowContext";
+import useSignInSwitch from "../hooks/useSignInSwitch";
 
 /**
  * Button that switches between login and signup forms
@@ -7,15 +7,8 @@ import { useAuthFlow } from "context/AuthFlowContext";
  * - linkText: text link should display
  */
 export const SignInSwitch = ({ prompt, linkText }) => {
-  const { openLogin, openSignupPage1 } = useAuthFlow();
+  const { switchAuthForms } = useSignInSwitch({ linkText });
 
-  const switchAuthForms = () => {
-    if (linkText === "Log In") {
-      openLogin();
-    } else {
-      openSignupPage1();
-    }
-  };
   return (
     <p className="sign-in-switch">
       {prompt}

@@ -3,8 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { SearchDropdown } from "./SearchDropdown";
 import { getSearchQuery } from "../../utils/getSearchQuery";
 import "../../Search.css";
-import { SearchIcon } from "assets/icons/SearchIcon";
-import { SearchbarCloseIcon } from "assets/icons/SearchbarCloseIcon";
+import { SearchIcon, SearchbarCloseIcon } from "@/assets";
 
 export function Searchbar({ loggedIn, searchbarRef }) {
   const formRef = useRef(null);

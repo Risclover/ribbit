@@ -4,8 +4,7 @@ import { useHistory } from "react-router-dom";
 import { getCommunities } from "@/store";
 import { useOutsideClick } from "hooks";
 import { CommunityImg } from "components/CommunityImg";
-import { SearchIcon } from "assets/icons/SearchIcon";
-import { CircleSeparator } from "assets/icons/CircleSeparator";
+import { SearchIcon, CircleSeparator } from "@/assets";
 
 export function SearchDropdown({
   searchQuery,

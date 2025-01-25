@@ -1,9 +1,13 @@
 import React from "react";
-import { AuthFormInput, FormHeader, SignInSwitch } from "../components";
+import { useAuthFlow } from "@/context";
+import {
+  AuthFormInput,
+  AuthModalLayout,
+  FormHeader,
+  SignInSwitch,
+} from "../components";
 import { useLoginForm } from "../hooks";
 import { handleErrors } from "../utils";
-import { useAuthFlow } from "context/AuthFlowContext";
-import { AuthModalLayout } from "../components";
 
 /**
  * Login auth form

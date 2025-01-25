@@ -1,15 +1,12 @@
 import React from "react";
-import { AuthFormInput } from "../../components";
+import { useAuthFlow } from "@/context";
+import { AuthFormInput, AuthModalLayout } from "../../components";
 import { useSignUpFormSecondPage } from "../../hooks";
 import { validatePassword, validateUsername } from "../../utils";
-import { useAuthFlow } from "context/AuthFlowContext";
-import { AuthModalLayout } from "../../components";
 
 /**
- *
  * The second page of the sign-up form
  * - formType: The type of form; controls the topmost form button ('close', 'back', or 'go home')
- *
  */
 
 export function SignUpFormSecondPage({ formType }) {

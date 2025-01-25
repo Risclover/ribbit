@@ -3,7 +3,6 @@ import { IconComponent, ErrorsDisplay } from "../components";
 import { useAuthFormInput } from "../hooks";
 
 /**
- *
  * Reusable input box for auth forms
  * - props: Props specific to the type of input it is (username, email, etc.); refer to the form's custom hook to view full props
  * - onBlur: validation function
@@ -34,8 +33,15 @@ export function AuthFormInput({
     setFocused,
   } = props;
 
-  const { showIcon, classValue, setClassValue, pickRandomUsername } =
-    useAuthFormInput(onBlur, props, usernameTaken, setTaken);
+  const {
+    handleBlur,
+    handleFocus,
+    handleLabelClick,
+    showIcon,
+    classValue,
+    setClassValue,
+    pickRandomUsername,
+  } = useAuthFormInput(onBlur, props, usernameTaken, setTaken);
 
   return (
     <div
@@ -55,39 +61,22 @@ export function AuthFormInput({
           value={inputValue}
           maxLength={maxLength}
           className={classValue}
-          onBlur={() => {
-            setFocused(false);
-            setErrors(onBlur());
-            if (errors && errors.length > 0) setClassValue(" errors-true");
-          }}
-          onFocus={() => {
-            setClassValue("");
-            setFocused(true);
-          }}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
         />
-        <label
-          htmlFor={name}
-          onClick={(e) => e.target.parentElement.children[0].focus()}
-        >
+        <label htmlFor={name} onClick={handleLabelClick}>
           {label}
           <span className="asterisk">*</span>
         </label>
         <div className="input-trailing-icons">
-          {(icon === "error" || icon === "valid") && (
-            <IconComponent
-              iconType={
-                errors.length > 0 && !focused
-                  ? "error"
-                  : errors.length === 0 && showIcon && inputValue.length > 0
-                  ? "valid"
-                  : ""
-              }
-              name={name}
-            />
+          {classValue === " errors-true" && (
+            <IconComponent iconType="error" name={name} />
+          )}
+          {inputValue.length > 0 && errors.length === 0 && showIcon && (
+            <IconComponent iconType="valid" name={name} />
           )}
           {icon === "rotate" && (
             <button
-              aria-label="Get randomized username"
               className="generate-username-btn"
               type="button"
               onClick={pickRandomUsername}

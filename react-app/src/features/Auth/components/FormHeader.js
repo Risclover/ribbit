@@ -3,7 +3,6 @@ import { DemoAccountWarning } from "./DemoAccountWarning";
 
 /**
  * Header of the login and sign-up forms; displays general user agreement + demo account usage button
- *
  */
 export function FormHeader() {
   const [showDemoWarning, setShowDemoWarning] = useState(false);

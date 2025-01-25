@@ -1,7 +1,9 @@
 import React from "react";
-import { AuthModalErrorIcon } from "assets/icons/AuthModalErrorIcon";
-import { AuthModalRotateIcon } from "assets/icons/AuthModalRotateIcon";
-import { AuthModalValidIcon } from "assets/icons/AuthModalValidIcon";
+import {
+  AuthModalErrorIcon,
+  AuthModalRotateIcon,
+  AuthModalValidIcon,
+} from "@/assets";
 
 /**
  * Reusable icon component for each input box; "valid" (input is valid), "error" (input is invalid), or "rotate" (for rotate username option)

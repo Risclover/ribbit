@@ -1,18 +1,11 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo } from "react";
 import { useHistory } from "react-router-dom";
+import { useAuthFlow } from "@/context";
+import { AuthModalCloseBtn, AuthModalBackBtn } from "@/assets";
 import { useModalScrollBorders } from "./useModalScrollBorders";
-import { useAuthFlow } from "context/AuthFlowContext";
-import { AuthModalCloseBtn } from "assets/icons/AuthModalCloseBtn";
-import { AuthModalBackBtn } from "assets/icons/AuthModalBackBtn";
 
-export function useAuthModalLayout({
-  containerRef,
-  topbarBtn,
-  onClose,
-  formType,
-}) {
+export function useAuthModalLayout({ containerRef, topbarBtn, onClose }) {
   const history = useHistory();
-  const wrapperRef = useRef();
 
   const { openSignupPage1, closeModal } = useAuthFlow();
 

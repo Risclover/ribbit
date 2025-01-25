@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "@/store";
+import { useAuthFlow } from "@/context";
+import { login, getUsers } from "@/store";
 import { handleErrors } from "../utils";
-import { getUsers } from "store";
-import { useAuthFlow } from "context/AuthFlowContext";
 
 export function useLoginForm() {
   const dispatch = useDispatch();
@@ -34,7 +33,7 @@ export function useLoginForm() {
     label: name.charAt(0).toUpperCase() + name.slice(1),
     autoCompleteStatus: name === "password" ? "new-password" : "off",
     testId: name.charAt(0).toUpperCase() + name.slice(1),
-    focused: focused,
+    focused,
     setFocused: setFocused,
   });
 

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useFocusTrap } from "hooks";
+import { useFocusTrap } from "@/hooks";
 import { useAuthModalLayout } from "../hooks";
 
 /**

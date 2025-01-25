@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { signUp } from "@/store";
+import { useAuthFlow } from "@/context";
+import { signUp, getUsers } from "@/store";
 import { useUsernameTaken } from "../hooks";
 import { validatePassword, validateUsername } from "../utils";
-import { getUsers } from "store";
-import { useAuthFlow } from "context/AuthFlowContext";
 
 export function useSignUpFormSecondPage() {
   const dispatch = useDispatch();

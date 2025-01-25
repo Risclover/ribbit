@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useAuthFlow } from "@/context";
 import { getUsers } from "@/store";
 import { handleEmailErrors } from "../utils";
-import { useAuthFlow } from "context/AuthFlowContext";
 
 export function useSignUpForm() {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ export function useSignUpForm() {
   const { signupFormData, setSignupFormData, openSignupPage2 } = useAuthFlow();
 
   const [emailErrors, setEmailErrors] = useState([]);
-  const [disabled, setDisabled] = useState();
+  const [disabled, setDisabled] = useState(true);
   const [focused, setFocused] = useState(false);
 
   const emailTaken = Object.values(users).find(

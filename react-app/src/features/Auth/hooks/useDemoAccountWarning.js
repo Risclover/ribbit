@@ -1,8 +1,8 @@
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "@/store";
-import { useRef } from "react";
-import { useAuthFlow } from "context/AuthFlowContext";
+import { useAuthFlow } from "@/context";
 
 export function useDemoAccountWarning({ setShowDemoWarning }) {
   const dispatch = useDispatch();
