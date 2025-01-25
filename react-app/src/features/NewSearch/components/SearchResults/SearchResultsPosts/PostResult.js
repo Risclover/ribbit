@@ -6,8 +6,9 @@ import { Username } from "@/components";
 import { useMetadata } from "@/context";
 import { CommunityImg } from "components/CommunityImg";
 import { PostTypeLinkIcon } from "assets/icons/PostTypeLinkIcon";
+import { Skeleton } from "@mui/material";
 
-export const PostResult = ({ post }) => {
+const PostResult = ({ post }) => {
   const history = useHistory();
 
   const { metadata, fetchMetadata } = useMetadata();
@@ -107,3 +108,66 @@ export const PostResult = ({ post }) => {
     </div>
   );
 };
+
+const PostSkeleton = () => {
+  return (
+    <div className="search-results-post">
+      <div className="post-result-skeleton">
+        <div className="post-result-top">
+          <Skeleton
+            variant="circular"
+            width={20}
+            height={20}
+            animation="wave"
+          />
+          <Skeleton
+            variant="text"
+            sx={{ fontSize: "0.75rem" }}
+            width={200}
+            animation="wave"
+          />
+        </div>
+        <div className="post-result-middle">
+          <div className="post-result-title">
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "2rem" }}
+              width={400}
+              animation="wave"
+            />
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "2rem" }}
+              width={400}
+              animation="wave"
+            />
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "2rem" }}
+              width={320}
+              animation="wave"
+            />
+          </div>
+          <Skeleton
+            variant="rounded"
+            width={138}
+            height={98}
+            animation="wave"
+          />
+        </div>
+        <div className="post-result-bottom">
+          <Skeleton
+            variant="text"
+            sx={{ fontSize: "0.75rem" }}
+            animation="wave"
+            width={150}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+PostResult.PostSkeleton = PostSkeleton;
+
+export { PostResult };

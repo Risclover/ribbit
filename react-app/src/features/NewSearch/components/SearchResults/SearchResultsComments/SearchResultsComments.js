@@ -7,16 +7,21 @@ import { getPosts, searchComments } from "@/store";
 import { CommentResult } from "./CommentResult";
 import { NoResults } from "../NoResults";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
+import CommentResultType from "./CommentResultType";
 
 export function SearchResultsComments({ searchbarRef }) {
   const dispatch = useDispatch();
   const query = getSearchQuery();
 
   const comments = useSelector((state) => Object.values(state.search.comments));
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     dispatch(getPosts());
-    dispatch(searchComments(query));
+    dispatch(searchComments(query)).finally(() => {
+      setIsLoading(false);
+    });
   }, [query, dispatch]);
 
   const focusSearchBox = () => {
@@ -28,13 +33,12 @@ export function SearchResultsComments({ searchbarRef }) {
       <SearchResultsSortBtn searchPage="Comments" />
       <div className="search-results">
         <div className="search-results-page-comments">
-          {(query.trim().length === 0 || comments.length === 0) && (
-            <NoResults query={query} focusSearchBox={focusSearchBox} />
-          )}
-          {query.trim().length > 0 &&
-            comments.map((comment) => (
-              <CommentResult key={comment.id} comment={comment} />
-            ))}
+          <CommentResultType
+            isLoading={isLoading}
+            comments={comments}
+            query={query}
+            focusSearchBox={focusSearchBox}
+          />
         </div>
       </div>
     </SearchResults>

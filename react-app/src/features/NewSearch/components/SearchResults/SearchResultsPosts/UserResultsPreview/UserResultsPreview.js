@@ -3,20 +3,18 @@ import { User } from "./User";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUsers } from "store";
+import { UserResultType } from "./UserResultType";
 
-export const UserResultsPreview = ({ query }) => {
+export const UserResultsPreview = ({ query, isLoading }) => {
   const history = useHistory();
   const users = useSelector((state) => Object.values(state.search.users));
-
-  console.log("users:", users.map((user) => user).slice(0, 5));
 
   return (
     <div className="search-results-right-box">
       <h4>People</h4>
-      {query.trim().length > 0 &&
-        users.map((user) => <User key={user.id} user={user} />).slice(0, 5)}
+      <UserResultType isLoading={isLoading} users={users} />
 
-      {query.trim().length > 0 && users.length > 5 && (
+      {query.trim().length > 0 && users.length > 5 && !isLoading && (
         <div
           className="see-more-btn"
           onClick={() => history.push(`/search/users?q=${query}`)}

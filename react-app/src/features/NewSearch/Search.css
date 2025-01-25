@@ -399,6 +399,92 @@
   margin-bottom: 4px;
 }
 
+.post-result-skeleton {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-result-top {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.post-result-middle {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.comments-results-skeleton-top {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.comments-results-skeleton-title {
+  margin-bottom: 12px;
+}
+
+.comments-results-skeleton-comment {
+  margin: 0 12px 12px;
+  padding: 8px 8px;
+  background: #e9f5fd;
+  border-radius: 4px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.comments-results-skeleton-comment-left {
+  margin-top: 4px;
+}
+.comments-results-skeleton-comment-right {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
+  margin-left: 4px;
+  width: 80%;
+}
+
+.comments-results-skeleton-comment-author-box {
+  margin-bottom: 12px;
+}
+
+.comments-results-skeleton-comment-body {
+  margin-top: 12px;
+}
+
+.comments-results-skeleton-comment-upvotes {
+  margin-top: 8px;
+}
+
+.comments-results-skeleton-link {
+  margin-left: 12px;
+  margin-bottom: 8px;
+}
+
+.post-result-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-results-communities-skeleton {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.post-results-communities-skeleton-left {
+  display: flex;
+}
+.post-results-communities-skeleton-mid {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+}
+
 .search-results-page-comments {
   width: 100%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.06);

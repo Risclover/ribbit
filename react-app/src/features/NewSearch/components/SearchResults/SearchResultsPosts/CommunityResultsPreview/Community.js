@@ -2,8 +2,9 @@ import React from "react";
 import { CommunityJoinBtn } from "./CommunityJoinBtn";
 import { useHistory } from "react-router-dom";
 import { CommunityImg } from "components/CommunityImg";
+import { Skeleton } from "@mui/material";
 
-export const Community = ({ community }) => {
+const Community = ({ community }) => {
   const history = useHistory();
   return (
     <div onClick={() => history.push(`/c/${community.name}`)}>
@@ -37,3 +38,45 @@ export const Community = ({ community }) => {
     </div>
   );
 };
+
+const CommunitySkeleton = () => {
+  return (
+    <div className="search-results-page-community">
+      <div className="post-results-communities-skeleton">
+        <div className="post-results-communities-skeleton-left">
+          <Skeleton
+            variant="circular"
+            height={36}
+            width={36}
+            animation="wave"
+          />
+          <div className="post-results-communities-skeleton-mid">
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "0.75rem" }}
+              width={100}
+              animation="wave"
+            />
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "0.75rem" }}
+              width={67}
+              animation="wave"
+            />
+          </div>
+        </div>
+        <Skeleton
+          variant="rounded"
+          sx={{ borderRadius: "1000px" }}
+          height={32}
+          width={86}
+          animation="wave"
+        />
+      </div>
+    </div>
+  );
+};
+
+Community.CommunitySkeleton = CommunitySkeleton;
+
+export { Community };

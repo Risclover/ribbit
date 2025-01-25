@@ -12,19 +12,28 @@ import { stripHtml } from "@/utils/stripHtml";
 import { NoResults } from "../NoResults";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
 import { v4 as uuidv4 } from "uuid";
+import { PostResultType } from "./PostResultType";
+import { getPosts } from "store";
 
 export const SearchResultsPosts = ({ searchbarRef }) => {
   const dispatch = useDispatch();
 
-  const posts = useSelector((state) => state.search.posts);
+  const posts = useSelector((state) => Object.values(state.search.posts));
+
+  const [isLoading, setIsLoading] = useState(true);
 
   let query = getSearchQuery();
 
   useEffect(() => {
+    setIsLoading(true);
+    dispatch(getPosts());
+
     let cleanQuery = stripHtml(query);
     dispatch(searchPosts(stripHtml(cleanQuery)));
     dispatch(searchCommunities(cleanQuery));
-    dispatch(searchUsers(cleanQuery));
+    dispatch(searchUsers(cleanQuery)).finally(() => {
+      setIsLoading(false);
+    });
   }, [query, dispatch]);
 
   const focusSearchBox = () => {
@@ -36,17 +45,16 @@ export const SearchResultsPosts = ({ searchbarRef }) => {
       <SearchResultsSortBtn searchPage="Posts" />
       <div className="search-results">
         <div className="search-results-left">
-          {(query.trim().length === 0 || Object.values(posts).length === 0) && (
-            <NoResults query={query} focusSearchBox={focusSearchBox} />
-          )}
-          {query.trim().length > 0 &&
-            Object.values(posts).map((post) => (
-              <PostResult key={uuidv4()} post={post} />
-            ))}
+          <PostResultType
+            isLoading={isLoading}
+            posts={posts}
+            query={query}
+            focusSearchBox={focusSearchBox}
+          />
         </div>
         <div className="search-results-right">
-          <CommunityResultsPreview query={query} />
-          <UserResultsPreview query={query} />
+          <CommunityResultsPreview query={query} isLoading={isLoading} />
+          <UserResultsPreview query={query} isLoading={isLoading} />
           <NewCommunity />
         </div>
       </div>
