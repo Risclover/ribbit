@@ -16,7 +16,6 @@ export function usePosts(isAllPosts) {
   const [sortMode, setSortMode] = useState("new");
 
   useEffect(() => {
-    dispatch(getUsers());
     dispatch(getViewedPosts());
     if (Object.values(userPosts).length === 0) dispatch(getPosts());
   }, [userPosts]);

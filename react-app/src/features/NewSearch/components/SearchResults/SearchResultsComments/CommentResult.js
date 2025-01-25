@@ -17,11 +17,6 @@ export function CommentResult({ comment }) {
     history.push(`/posts/${comment.postId}/#comment-${comment.id}`);
   };
 
-  const handleCommentClick = (e) => {
-    e.preventDefault();
-    history.push(`/posts/${comment.postId}`);
-  };
-
   const handleCommunityClick = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -31,81 +26,89 @@ export function CommentResult({ comment }) {
   if (!post || !comment) return null;
 
   return (
-    <div className="search-results-page-comment" onClick={handleCommentClick}>
-      <div className="search-results-comment-post-header">
-        <div onClick={handleCommunityClick}>
-          <div
-            className="search-results-comment-community-img"
-            style={{
-              backgroundColor:
-                post.communitySettings[post.communityId].baseColor,
-            }}
-          >
-            <CommunityImg
-              imgSrc={post.communitySettings[post.communityId].communityIcon}
-              imgAlt="Comment community"
-              imgStyle={{
-                backgroundColor: `${
-                  post.communitySettings[post.communityId].baseColor
-                }`,
+    <NavLink to={`/posts/${comment.postId}`}>
+      <div className="search-results-page-comment">
+        <div className="search-results-comment-post-header">
+          <div onClick={handleCommunityClick}>
+            <div
+              className="search-results-comment-community-img"
+              style={{
+                backgroundColor:
+                  post.communitySettings[post.communityId].baseColor,
               }}
+            >
+              <CommunityImg
+                imgSrc={post.communitySettings[post.communityId].communityIcon}
+                imgAlt="Comment community"
+                imgStyle={{
+                  backgroundColor: `${
+                    post.communitySettings[post.communityId].baseColor
+                  }`,
+                }}
+              />
+            </div>
+          </div>
+          <div
+            className="search-results-comment-community"
+            onClick={handleCommunityClick}
+          >
+            c/{post.communityName}
+          </div>
+          <div className="search-results-comment-dot">•</div>{" "}
+          <div className="search-results-comment-post-author-box">
+            Posted by{" "}
+            <Username
+              username={post?.postAuthor?.username}
+              user={post?.postAuthor}
+              source="singlepost"
             />
+            {moment(post.createdAt).fromNow()}
           </div>
         </div>
-        <div
-          className="search-results-comment-community"
-          onClick={handleCommunityClick}
+        <div className="search-results-comment-post-title">{post.title}</div>
+        <NavLink
+          to={`/posts/${comment.postId}/#comment-${comment.id}`}
+          className="search-results-comment-body"
         >
-          c/{post.communityName}
-        </div>
-        <div className="search-results-comment-dot">•</div>{" "}
-        <div className="search-results-comment-post-author-box">
-          Posted by{" "}
-          <Username
-            username={post?.postAuthor?.username}
-            user={post?.postAuthor}
-            source="singlepost"
-          />
-          {moment(post.createdAt).fromNow()}
-        </div>
-      </div>
-      <div className="search-results-comment-post-title">{post.title}</div>
-      <div className="search-results-comment-body" onClick={handleClick}>
-        <div className="search-results-comment-author-img-box">
-          <NavLink to={`/users/${comment.userId}/profile`}>
-            <img
-              src={comment.commentAuthor.profileImg}
-              className="search-results-comment-author-img"
-              alt="Comment user"
-            />
-          </NavLink>
-        </div>
-        <div className="search-results-comment-body-right">
-          <div className="search-results-comment-author-box">
+          <div className="search-results-comment-author-img-box">
             <NavLink to={`/users/${comment.userId}/profile`}>
-              <span className="search-results-comment-author">
-                {comment.commentAuthor.username}
-              </span>
+              <img
+                src={comment.commentAuthor.profileImg}
+                className="search-results-comment-author-img"
+                alt="Comment user"
+              />
             </NavLink>
-            <span className="search-results-comment-author-dot">·</span>{" "}
-            <span className="search-results-comment-author-date">
-              {moment(comment.createdAt).fromNow()}
-            </span>
           </div>
-          <div className="search-results-comment">{comment.content}</div>
-          <div className="search-results-comment-upvotes">
-            {comment.votes} {comment.votes === 1 ? "upvote" : "upvotes"}
+
+          <div className="search-results-comment-body-right">
+            <div className="search-results-comment-author-box">
+              <NavLink to={`/users/${comment.userId}/profile`}>
+                <span className="search-results-comment-author">
+                  {comment.commentAuthor.username}
+                </span>
+              </NavLink>
+              <span className="search-results-comment-author-dot">·</span>{" "}
+              <span className="search-results-comment-author-date">
+                {moment(comment.createdAt).fromNow()}
+              </span>
+            </div>
+            <div className="search-results-comment">{comment.content}</div>
+            <div className="search-results-comment-upvotes">
+              {comment.votes} {comment.votes === 1 ? "upvote" : "upvotes"}
+            </div>
           </div>
+        </NavLink>
+        <div className="search-results-comment-post-link">Go to thread</div>
+        <div className="search-results-comment-post-footer">
+          <span className="search-results-comment-post-votes">
+            {post.votes} {post.votes === 1 ? "upvote" : "upvotes"}
+          </span>{" "}
+          {Object.values(post.postComments).length}{" "}
+          {Object.values(post.postComments).length === 1
+            ? "comment"
+            : "comments"}
         </div>
       </div>
-      <div className="search-results-comment-post-link">Go to thread</div>
-      <div className="search-results-comment-post-footer">
-        <span className="search-results-comment-post-votes">
-          {post.votes} {post.votes === 1 ? "upvote" : "upvotes"}
-        </span>{" "}
-        {Object.values(post.postComments).length}{" "}
-        {Object.values(post.postComments).length === 1 ? "comment" : "comments"}
-      </div>
-    </div>
+    </NavLink>
   );
 }

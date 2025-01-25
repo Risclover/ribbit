@@ -15,8 +15,9 @@ import { handleEmailErrors } from "../../utils";
  */
 
 export const SignUpForm = ({ formType }) => {
-  const { emailInputProps, emailTaken, continueBtn } = useSignUpForm();
   const { signupFormData, view, openSignupPage2, closeModal } = useAuthFlow();
+  const { emailInputProps, emailTaken, continueBtn, emailBlurred } =
+    useSignUpForm();
 
   return (
     <AuthModalLayout
@@ -34,6 +35,7 @@ export const SignUpForm = ({ formType }) => {
           <AuthFormInput
             props={emailInputProps}
             testId="Email"
+            blurred={emailBlurred}
             onBlur={() => handleEmailErrors(signupFormData.email, emailTaken)}
           />
           <SignInSwitch prompt="Already a ribbitor? " linkText="Log In" />

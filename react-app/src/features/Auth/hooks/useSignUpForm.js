@@ -19,17 +19,18 @@ export function useSignUpForm() {
     (user) => user.email.toLowerCase() === signupFormData.email.toLowerCase()
   );
 
-  useEffect(() => {
-    const errors = handleEmailErrors(signupFormData.email, emailTaken);
-    setDisabled(signupFormData.email === "" || errors.length > 0);
-  }, [signupFormData.email, setDisabled, setEmailErrors]);
-
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
-
   const setEmail = (val) => {
     setSignupFormData((prev) => ({ ...prev, email: val }));
+  };
+
+  const handleEmailBlur = () => {
+    setEmailBlurred(true);
+
+    const errors = handleEmailErrors(signupFormData.email, emailTaken);
+    setEmailErrors(errors);
+
+    const finalDisabled = signupFormData.email === "" || errors.length > 0;
+    setDisabled(finalDisabled);
   };
 
   const emailInputProps = {
@@ -39,6 +40,7 @@ export function useSignUpForm() {
     errors: emailErrors,
     setErrors: setEmailErrors,
     setBlurred: setEmailBlurred,
+    onBlur: handleEmailBlur,
     label: "Email",
     maxLength: 255,
     autoCompleteStatus: "off",
@@ -49,12 +51,7 @@ export function useSignUpForm() {
   };
 
   const continueBtn = (
-    <button
-      className=" signup-form-submit"
-      disabled={disabled}
-      type="submit"
-      onClick={openSignupPage2}
-    >
+    <button className=" signup-form-submit" disabled={disabled} type="submit">
       Continue
     </button>
   );
@@ -70,5 +67,6 @@ export function useSignUpForm() {
     disabled,
     continueToSecondPage,
     continueBtn,
+    emailBlurred,
   };
 }

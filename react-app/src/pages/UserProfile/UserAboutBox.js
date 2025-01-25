@@ -47,7 +47,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
 
   useEffect(() => {
     dispatch(getUserChatThreads());
-    dispatch(getFollowers());
+    if (followers.length === 0) dispatch(getFollowers());
     dispatch(getUserFollowers(user?.id));
   }, [dispatch, user?.id]);
 

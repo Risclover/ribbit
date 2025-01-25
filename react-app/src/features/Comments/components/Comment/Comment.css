@@ -82,6 +82,10 @@
   align-items: center;
 }
 
+.comment-bg-blue {
+  background-color: #e9f5fd;
+}
+
 .comment-user-img-container {
   position: absolute;
   bottom: 0;

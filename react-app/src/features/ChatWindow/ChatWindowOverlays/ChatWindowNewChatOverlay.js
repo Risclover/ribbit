@@ -23,10 +23,6 @@ export function ChatWindowNewChatOverlay({
   const currentUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
-
-  useEffect(() => {
     if (username && username.length > 0) {
       setUserFound(
         users.find(

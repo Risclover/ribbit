@@ -2,7 +2,6 @@ import React from "react";
 import { useAuthFlow } from "@/context";
 import { AuthFormInput, AuthModalLayout } from "../../components";
 import { useSignUpFormSecondPage } from "../../hooks";
-import { validatePassword, validateUsername } from "../../utils";
 
 /**
  * The second page of the sign-up form
@@ -10,10 +9,8 @@ import { validatePassword, validateUsername } from "../../utils";
  */
 
 export function SignUpFormSecondPage({ formType }) {
-  const { view, signupFormData } = useAuthFlow();
+  const { view } = useAuthFlow();
   const {
-    taken,
-    setTaken,
     usernameInputProps,
     passwordInputProps,
     usernameBlurred,

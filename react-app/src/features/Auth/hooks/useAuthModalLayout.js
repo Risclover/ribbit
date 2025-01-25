@@ -65,6 +65,7 @@ export function useAuthModalLayout({ containerRef, topbarBtn, onClose }) {
         return null;
     }
   }, [topbarBtn, history, onClose]);
+  
   return {
     handleScroll,
     topbarClassName,

@@ -18,6 +18,7 @@ export function AuthModalLayout({
   topbarBtn = "close",
   footerBtn,
   formType,
+  onSubmit,
   children,
 }) {
   const wrapperRef = useRef();
@@ -29,7 +30,7 @@ export function AuthModalLayout({
     useAuthModalLayout({ containerRef, topbarBtn, onClose, formType });
 
   return (
-    <div className="auth-layout" ref={wrapperRef}>
+    <form className="auth-layout" ref={wrapperRef} onSubmit={onSubmit}>
       <div className={topbarClassName}>
         <span />
         {renderTopbarButton}
@@ -43,6 +44,6 @@ export function AuthModalLayout({
         {children}
       </div>
       <div className={footerClassName}>{footerBtn}</div>
-    </div>
+    </form>
   );
 }

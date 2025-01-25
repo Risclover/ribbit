@@ -13,7 +13,6 @@ export function Permalink() {
   useEffect(() => {
     dispatch(getMessages());
     dispatch(getThreads());
-    dispatch(getUsers());
   }, [dispatch]);
 
   return (

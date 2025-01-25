@@ -39,7 +39,6 @@ export function NavBar({
 }) {
   const { openLogin } = useAuthFlow();
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const { setSelectedChat } = useContext(SelectedChatContext);
 
@@ -53,10 +52,6 @@ export function NavBar({
   const [notificationNum, setNotificationNum] = useState(0);
   const [msgNum, setMsgNum] = useState(0);
   const [showTooltip, setShowTooltip] = useState(false);
-
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
 
   useEffect(() => {
     let list = messageList.filter((message) => message.read === false);

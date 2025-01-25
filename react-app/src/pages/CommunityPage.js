@@ -35,8 +35,12 @@ export function CommunityPage() {
 
   useEffect(() => {
     dispatch(getCommunitySettings(communityId));
-    dispatch(getCommunities());
-    dispatch(getPosts());
+    if (Object.keys(communities).length === 0) {
+      dispatch(getCommunities());
+    }
+    if (posts.length === 0) {
+      dispatch(getPosts());
+    }
   }, [dispatch]);
 
   usePageSettings({

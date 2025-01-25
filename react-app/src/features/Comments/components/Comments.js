@@ -24,27 +24,40 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
   const inputRef = useRef();
   const commentsRef = useRef(null);
 
+  function findCommentByIdInTree(commentId, commentArray) {
+    for (const c of commentArray) {
+      if (c.id === commentId) {
+        return c;
+      }
+      // if it has children, recursively search them
+      if (c.children && c.children.length > 0) {
+        const foundChild = findCommentByIdInTree(commentId, c.children);
+        if (foundChild) return foundChild;
+      }
+    }
+    return null;
+  }
+
   const commentsState = useSelector((state) => state.comments);
 
-  const comments = useMemo(() => {
+  const { nestedComments, commentMap } = useMemo(() => {
     const commentsArray = Object.values(commentsState);
     const commentMap = {};
 
-    commentsArray.forEach((comment) => {
-      // Create a copy of the comment and add a children array
-      commentMap[comment.id] = { ...comment, children: [] };
+    // 1) Build a map of all comments by id
+    commentsArray.forEach((c) => {
+      commentMap[c.id] = { ...c, children: [] };
     });
 
+    // 2) Build the tree
     const nestedComments = [];
-
-    commentsArray.forEach((comment) => {
-      const commentCopy = commentMap[comment.id];
+    commentsArray.forEach((c) => {
+      const commentCopy = commentMap[c.id];
       if (commentCopy.parentId) {
-        const parentComment = commentMap[commentCopy.parentId];
-        if (parentComment) {
-          parentComment.children.push(commentCopy);
+        if (commentMap[commentCopy.parentId]) {
+          commentMap[commentCopy.parentId].children.push(commentCopy);
         } else {
-          // Parent is missing, treat this comment as top-level
+          // parent not found, treat as top-level
           nestedComments.push(commentCopy);
         }
       } else {
@@ -52,10 +65,10 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
       }
     });
 
-    return nestedComments;
+    return { nestedComments, commentMap };
   }, [commentsState]);
 
-  const [sortedComments, setSortedComments] = useState(comments || []);
+  const [sortedComments, setSortedComments] = useState(nestedComments || []);
   const [sortType, setSortType] = useState("New");
   const [searchValue, setSearchValue] = useState("");
   const [searchActive, setSearchActive] = useState(false);
@@ -63,12 +76,13 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const commentIdPattern = /#comment-(\d+)/;
+
   const match = url.match(commentIdPattern);
-  const commentUrl = match ? match[1] : null;
-  const specificComment = match
-    ? comments?.find((comment) => comment.id === +commentUrl)
-    : null;
+  const commentUrl = match ? parseInt(match[1]) : null;
+  const specificComment = commentUrl ? commentMap[commentUrl] : null;
   const [specificCommentActive, setSpecificCommentActive] = useState(!!match);
+
+  console.log("commentUrl:", specificComment);
 
   useEffect(() => {
     dispatch(getCommentsForPost(postId));
@@ -90,8 +104,8 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
   }, [specificComment]);
 
   useEffect(() => {
-    setSortedComments(sortComments(comments, sortType));
-  }, [comments, sortType]); // Added 'comments' to dependencies
+    setSortedComments(sortComments(nestedComments, sortType));
+  }, [nestedComments, sortType]); // Added 'comments' to dependencies
 
   const dismissSearch = () => {
     dispatch(getCommentsForPost(post.id));
@@ -104,9 +118,9 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
     inputRef.current.select();
   };
 
-  const commentsList = sortComments(comments, sortType);
+  const commentsList = sortComments(nestedComments, sortType);
 
-  if (!comments || !post.postComments) return null;
+  if (!nestedComments || !post.postComments) return null;
 
   return (
     <div className="comments-container">
@@ -174,12 +188,12 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
           </div>
         )}
 
-        {searchActive && comments.length === 0 && (
+        {searchActive && nestedComments.length === 0 && (
           <div className="comments-search-no-results">
             <NoResults query={searchQuery} focusSearchBox={focusSearchBox} />
           </div>
         )}
-        {!searchActive && comments.length === 0 && <NoCommentsMsg />}
+        {!searchActive && nestedComments.length === 0 && <NoCommentsMsg />}
       </div>
     </div>
   );

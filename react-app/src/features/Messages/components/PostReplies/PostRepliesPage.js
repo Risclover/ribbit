@@ -30,7 +30,6 @@ export function PostRepliesPage() {
   useEffect(() => {
     dispatch(getUserNotifications(currentUser?.id));
     dispatch(getPosts());
-    dispatch(getUsers());
   }, [dispatch]);
 
   usePageSettings({

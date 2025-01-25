@@ -116,15 +116,9 @@ function App() {
 
   useEffect(() => {
     dispatch(getCommunitySettings());
-  }, []);
-
-  useEffect(() => {
     dispatch(getUserChatThreads());
     dispatch(getUsers());
-    console.log("user:", user);
-  }, [dispatch]);
-
-  console.log("users:", users);
+  }, []);
 
   useEffect(() => {
     if (!user) {

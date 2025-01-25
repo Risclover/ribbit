@@ -9,6 +9,8 @@ export function useLoginForm() {
 
   const [loginEmailErrors, setLoginEmailErrors] = useState([]);
   const [loginPasswordErrors, setLoginPasswordErrors] = useState([]);
+  const [emailBlurred, setEmailBlurred] = useState(false);
+  const [passwordBlurred, setPasswordBlurred] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [focused, setFocused] = useState(false);
 
@@ -22,12 +24,43 @@ export function useLoginForm() {
     setLoginFormData((prev) => ({ ...prev, password: val }));
   };
 
+  const handleEmailBlur = () => {
+    setEmailBlurred(true);
+
+    const errors = handleErrors(loginFormData.email);
+    setLoginEmailErrors(errors);
+
+    const pErrors = handleErrors(loginFormData.password);
+    setLoginPasswordErrors(pErrors);
+  };
+
+  const handlePasswordBlur = () => {
+    setPasswordBlurred(true);
+
+    const errors = handleErrors(loginFormData.password);
+    setLoginPasswordErrors(errors);
+
+    const eErrors = handleErrors(loginFormData.email);
+    setLoginEmailErrors(eErrors);
+  };
+
+  useEffect(() => {
+    const finalDisabled =
+      loginFormData.email === "" ||
+      loginEmailErrors.length > 0 ||
+      loginFormData.password === "" ||
+      loginPasswordErrors.length > 0;
+    setDisabled(finalDisabled);
+  }, [loginFormData, loginEmailErrors, loginPasswordErrors]);
+
   const inputProps = (name, value, setValue, errors) => ({
     type: name,
     name,
     inputValue: value,
     setInputValue: setValue,
     errors,
+    onBlur: name === "email" ? handleEmailBlur : handlePasswordBlur,
+    setBlurred: name === "email" ? setEmailBlurred : setPasswordBlurred,
     setErrors: name === "email" ? setLoginEmailErrors : setLoginPasswordErrors,
     maxLength: 255,
     label: name.charAt(0).toUpperCase() + name.slice(1),
@@ -68,38 +101,17 @@ export function useLoginForm() {
   };
 
   const submitBtn = (
-    <button
-      className="login-form-submit"
-      disabled={disabled}
-      type="submit"
-      onClick={handleLogin}
-    >
+    <button className="login-form-submit" disabled={disabled} type="submit">
       {" "}
       Log In
     </button>
   );
 
-  useEffect(() => {
-    const emailErrors = handleErrors(loginFormData.email);
-    const passwordErrors = handleErrors(loginFormData.password);
-
-    setDisabled(
-      loginFormData.email === "" ||
-        emailErrors.length > 0 ||
-        loginFormData.password === "" ||
-        passwordErrors.length > 0
-    );
-  }, [
-    loginFormData.email,
-    setLoginEmailErrors,
-    loginFormData.password,
-    setLoginPasswordErrors,
-    setDisabled,
-  ]);
-
   return {
     setLoginEmail,
     setLoginPassword,
+    emailBlurred,
+    passwordBlurred,
     handleLogin,
     emailInputProps,
     passwordInputProps,

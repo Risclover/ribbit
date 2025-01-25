@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CommentBtnBar } from "./CommentBtnBar/CommentBtnBar";
 import { CommentAuthorBar } from "./CommentAuthorBar";
 import useComment from "features/Comments/hooks/useComment";
@@ -6,7 +6,7 @@ import { CommentContent } from "./CommentContent";
 import { CommentReplyForm } from "../CommentForms/CommentReplyForm";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import "./Comment.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 export function Comment({
   comment,
@@ -18,6 +18,18 @@ export function Comment({
     console.error("Comment component: comment is undefined");
     return null; // Do not render the component
   }
+
+  const location = useLocation();
+
+  const [blueBg, setBlueBg] = useState(false);
+
+  useEffect(() => {
+    console.log("location:", window.location.href.split("-")[1]);
+    console.log("commentId:", specificCommentActive);
+    if (Number(window.location.href.split("-")[1]) === commentId) {
+      setBlueBg(true);
+    }
+  }, [commentId]);
 
   const {
     postId,
@@ -91,7 +103,11 @@ export function Comment({
         </div>
       )}
       {/* <CommentThreadlines setCollapsed={setCollapsed} /> */}
-      <div className={`comment${!collapsed ? " expanded" : ""}`}>
+      <div
+        className={`comment${!collapsed ? " expanded" : ""} ${
+          blueBg ? " comment-bg-blue" : ""
+        }`}
+      >
         <button className={`comment-expand-btn`}>
           <BsArrowsAngleExpand onClick={() => setCollapsed(false)} />
         </button>

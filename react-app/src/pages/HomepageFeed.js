@@ -12,7 +12,6 @@ import { AboutBox, DeveloperLinksBox, RecentlyViewedPosts } from "../features";
 import { usePageSettings } from "../hooks";
 import { usePosts } from "../features/Posts/hooks/usePosts";
 
-import { HomeIcon } from "../assets";
 import "../features/Posts/Posts.css";
 
 export function HomepageFeed() {

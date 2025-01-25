@@ -39,8 +39,9 @@ export function useSignUpFormSecondPage() {
   // For disabling submit
   const [disabled, setDisabled] = useState(true);
 
-  // Check if username is taken from your custom hook
+  // Check if username is taken
   const usernameTaken = useUsernameTaken(signupFormData.username);
+
   useEffect(() => {
     setTaken(usernameTaken);
   }, [usernameTaken]);
@@ -111,7 +112,7 @@ export function useSignUpFormSecondPage() {
     // set the parent's username
     setSignupFormData((prev) => ({ ...prev, username: newName }));
 
-    // validate now (pretend random name is never taken)
+    // validate now
     const errors = validateUsername(newName, false);
     setUsernameErrors(errors);
     setTaken(false);
@@ -128,7 +129,7 @@ export function useSignUpFormSecondPage() {
     setDisabled(finalDisabled);
 
     // Force "blurred" so that "Nice! Username available" can appear immediately
-    // if no errors
+    // since it's determined in the backend whether the username is taken
     setUsernameBlurred(true);
   };
 
@@ -141,15 +142,9 @@ export function useSignUpFormSecondPage() {
     errors,
     setErrors: name === "username" ? setUsernameErrors : setPasswordErrors,
     setInputValue: setValue,
-
-    // If it's username, wire up our parent's blur
     onBlur: name === "username" ? handleUsernameBlur : handlePasswordBlur,
-    // We no longer do onFocus => do nothing special except the child might track focus if needed
     setBlurred: name === "username" ? setUsernameBlurred : setPasswordBlurred,
-    // If it's username, let child call "onRotate"
     onRotate: name === "username" ? onRotateUsername : undefined,
-
-    // Additional fields
     label: name.charAt(0).toUpperCase() + name.slice(1),
     maxLength: name === "username" ? 20 : 255,
     autoCompleteStatus: name === "password" ? "new-password" : "off",
@@ -192,12 +187,7 @@ export function useSignUpFormSecondPage() {
   };
 
   const submitBtn = (
-    <button
-      className="signup-form-submit"
-      disabled={disabled}
-      type="submit"
-      onClick={handleSignUp}
-    >
+    <button className="signup-form-submit" disabled={disabled} type="submit">
       Sign Up
     </button>
   );
@@ -205,16 +195,12 @@ export function useSignUpFormSecondPage() {
   return {
     usernameInputProps,
     passwordInputProps,
-
     usernameErrors,
     passwordErrors,
     taken,
     setTaken,
-
-    // store "blurred" so the child or errors display can see if we've left the field
     usernameBlurred,
     passwordBlurred,
-
     disabled,
     handleSignUp,
     submitBtn,
