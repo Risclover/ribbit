@@ -10,7 +10,7 @@ import moment from "moment";
 
 import Bounce from "@/assets/images/misc/curved-arrow.png";
 import { DeleteConfirmationModal, Username } from "@/components";
-import { Modal, useMetadata } from "@/context";
+import { Modal, useMetadata, ScrollContext } from "@/context";
 import { SinglePostKarmabar } from "../SinglePost";
 import { sliceUrl } from "@/utils";
 import "../SinglePost/SinglePost.css";
@@ -19,7 +19,6 @@ import { deletePost, getUsers } from "@/store";
 import { usePostButtonHandlers } from "features/Posts/hooks/usePostButtonHandlers";
 import { Tooltip } from "components/Tooltip/Tooltip";
 import { ShareIcon } from "assets/icons/ShareIcon";
-import ScrollContext from "context/ScrollContext";
 
 export function ClassicPostFormat({ isPage, id, post }) {
   const { scrollToTarget } = useContext(ScrollContext);

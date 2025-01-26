@@ -1,6 +1,7 @@
 import React from "react";
-import { RecentlyViewedPost } from "./RecentlyViewedPost";
 import { v4 as uuidv4 } from "uuid";
+import { RecentlyViewedPost } from "./RecentlyViewedPost";
+
 export function RecentlyViewedType({ isLoading, posts }) {
   if (isLoading) {
     return (

@@ -2,12 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DeletePostModal } from "../DeletePost";
-import { Modal } from "@/context";
+import { Modal, ScrollContext } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
 import { usePostButtonHandlers } from "../../hooks/usePostButtonHandlers";
 import { PencilIcon } from "assets/icons/PencilIcon";
 import { ShareIcon } from "assets/icons/ShareIcon";
-import ScrollContext from "context/ScrollContext";
 
 export function SinglePostButtonBar({
   post,

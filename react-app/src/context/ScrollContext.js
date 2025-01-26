@@ -1,7 +1,6 @@
-// ScrollContext.js
 import React, { createContext, useRef } from "react";
 
-const ScrollContext = createContext();
+export const ScrollContext = createContext();
 
 export const ScrollProvider = ({ children }) => {
   const targetRef = useRef(null);
@@ -19,4 +18,3 @@ export const ScrollProvider = ({ children }) => {
   );
 };
 
-export default ScrollContext;

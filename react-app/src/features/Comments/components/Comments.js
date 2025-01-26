@@ -1,19 +1,16 @@
 // Comments.js
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getCommentsForPost } from "@/store"; // Updated Thunk
-import { CommentSorting, CommentForm } from "../..";
-import { Comment } from "./Comment/Comment";
-import { useHistory } from "react-router-dom";
-import { CommentSearch } from "./CommentSearch/CommentSearch";
-import { NoResults } from "../../NewSearch/components/SearchResults/NoResults";
-import { LoadingEllipsis } from "components";
-import { useLoader } from "../hooks/useLoader";
-import { NoCommentsMsg } from "./NoCommentsMsg";
+import { useHistory, useParams } from "react-router-dom";
+
+import { getCommentsForPost } from "@/store";
+import { ScrollContext } from "@/context";
+import { CommentSorting, CommentForm, Comment } from "@/features";
 import { sortComments } from "../utils/sortComments";
 import "../styles/Comments.css";
-import ScrollContext from "context/ScrollContext";
+import { CommentSearch } from "./CommentSearch";
+import { NoResults } from "features/NewSearch/components/SearchResults/NoResults";
+import { NoCommentsMsg } from "./NoCommentsMsg";
 
 export function Comments({ post, triggerScroll, setTriggerScroll }) {
   const { targetRef } = useContext(ScrollContext);
@@ -22,21 +19,6 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
   const dispatch = useDispatch();
   const { postId } = useParams();
   const inputRef = useRef();
-  const commentsRef = useRef(null);
-
-  function findCommentByIdInTree(commentId, commentArray) {
-    for (const c of commentArray) {
-      if (c.id === commentId) {
-        return c;
-      }
-      // if it has children, recursively search them
-      if (c.children && c.children.length > 0) {
-        const foundChild = findCommentByIdInTree(commentId, c.children);
-        if (foundChild) return foundChild;
-      }
-    }
-    return null;
-  }
 
   const commentsState = useSelector((state) => state.comments);
 
@@ -82,17 +64,12 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
   const specificComment = commentUrl ? commentMap[commentUrl] : null;
   const [specificCommentActive, setSpecificCommentActive] = useState(!!match);
 
-  console.log("commentUrl:", specificComment);
-
   useEffect(() => {
     dispatch(getCommentsForPost(postId));
     setIsLoaded(true);
   }, [dispatch, postId]);
 
   useEffect(() => {
-    console.log("isLoaded:", isLoaded);
-    console.log("triggerScroll:", triggerScroll);
-    console.log("targetRef:", targetRef);
     if (isLoaded && triggerScroll) {
       targetRef.current.scrollIntoView({ behavior: "smooth" });
       setTriggerScroll(false);
@@ -117,8 +94,6 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
     inputRef.current.focus();
     inputRef.current.select();
   };
-
-  const commentsList = sortComments(nestedComments, sortType);
 
   if (!nestedComments || !post.postComments) return null;
 

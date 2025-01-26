@@ -8,3 +8,4 @@ export * from "./SelectedChatContext";
 export * from "./MetadataContext";
 export * from "./AuthContext";
 export * from "./AuthFlowContext";
+export * from "./ScrollContext";

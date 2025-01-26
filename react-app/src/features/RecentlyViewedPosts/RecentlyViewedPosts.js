@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import moment from "moment";
 
 import { getViewedPosts, removeViewedPosts } from "@/store";
-
-import "./RecentlyViewedPosts.css";
-import { RecentlyViewedPost } from "./RecentlyViewedPost";
-import { v4 as uuidv4 } from "uuid";
 import { RecentlyViewedType } from "./RecentlyViewedType";
+import "./RecentlyViewedPosts.css";
 
 moment.updateLocale("en-cust", {
   relativeTime: {
