@@ -1,4 +1,6 @@
-// signupFormValidation.js
+// Validation functions for input boxes in sign-up form (email, username, and password)
+// Sets errors that appear beneath inputs
+
 export const validateUsername = (username, usernameTaken) => {
   let errors = [];
   if (username === "") {

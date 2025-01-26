@@ -1,8 +1,10 @@
-// ErrorsDisplay.js
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { UsernameAvailability } from "./UsernameAvailability";
 
+/**
+ * 
+ */
 export function ErrorsDisplay({
   errors,
   inputValue,

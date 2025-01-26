@@ -6,7 +6,7 @@ import { useAuthModalLayout } from "../hooks";
  * Layout for the auth modal
  * - active: which auth form is currently active (i.e. login, signup page 1, etc)
  * - onClose: function to run when modal is closed
- * - title: title to display
+ * - title: title to display on the form
  * - topbarBtn: topbar button to display
  * - footerBtn: footer button to display
  * - formType: type of form displayed; matters for the topbar button

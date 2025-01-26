@@ -6,7 +6,7 @@ import "../styles/DemoAccountWarning.css";
 
 /**
  * Warning to show when someone tries logging into the Demo account
- * - setShowDemoWarning/showDemoWarning: state variable that controls whether this warning is displayed
+ * - setShowDemoWarning/showDemoWarning: setter for whether or not the warning is visible
  */
 export function DemoAccountWarning({ setShowDemoWarning, showDemoWarning }) {
   const { handleCancel, handleLogin, handleSignup, wrapperRef } =

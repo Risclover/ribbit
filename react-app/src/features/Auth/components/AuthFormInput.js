@@ -1,7 +1,6 @@
-// AuthFormInput.js
 import React from "react";
-import { useAuthFormInput } from "../hooks/useAuthFormInput";
 import { IconComponent, ErrorsDisplay } from "../components";
+import { useAuthFormInput } from "../hooks/useAuthFormInput";
 
 export function AuthFormInput({ props, icon, blurred }) {
   const {
@@ -19,8 +18,6 @@ export function AuthFormInput({ props, icon, blurred }) {
     setInputValue,
     errors,
     setBlurred,
-    onBlur, // from parent
-    onRotate, // from parent
     label,
     maxLength,
     autoCompleteStatus,
@@ -46,12 +43,13 @@ export function AuthFormInput({ props, icon, blurred }) {
           maxLength={maxLength}
           autoComplete={autoCompleteStatus}
           onFocus={() => setBlurred(false)}
-          // no real-time focus, etc.
         />
+
         <label htmlFor={name} onClick={handleLabelClick}>
           {label}
           <span className="asterisk">*</span>
         </label>
+
         <div className="input-trailing-icons">
           {iconType === "error" && (
             <IconComponent iconType="error" name={name} />
@@ -76,7 +74,6 @@ export function AuthFormInput({ props, icon, blurred }) {
         errors={errors}
         inputValue={inputValue}
         name={name}
-        // We'll also pass `blurred` to show "Nice! Username available" only if blurred is true
         blurred={blurred}
       />
     </div>

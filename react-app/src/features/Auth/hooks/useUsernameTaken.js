@@ -14,10 +14,10 @@ export const useUsernameTaken = (username) => {
     try {
       const res = await dispatch(checkUsername(username));
       const result = await res.json();
-      setUsernameTaken(result.Message); // Adjust based on your API response
+      setUsernameTaken(result.Message);
     } catch (error) {
       console.error("Error checking username:", error);
-      setUsernameTaken(false); // Assume not taken if there's an error
+      setUsernameTaken(false);
     }
   }, [dispatch, username]);
 

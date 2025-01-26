@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useAuthFlow } from "@/context";
-import { getUsers } from "@/store";
 import { handleEmailErrors } from "../utils";
 
 export function useSignUpForm() {
-  const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
 
   const { signupFormData, setSignupFormData, openSignupPage2 } = useAuthFlow();

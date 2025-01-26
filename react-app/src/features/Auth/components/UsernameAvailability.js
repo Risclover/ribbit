@@ -1,18 +1,19 @@
-// UsernameAvailability.js
 import React from "react";
 
+/**
+ * The little green "Nice! Username available" message that shows under the username input box of the sign-up form if the username is available. Requirements:
+ * - user must not be focused on the box
+ * - the username must not be taken
+ * - there must be no errors
+ * - there is something in the input box (it isn't empty)
+ */
 export function UsernameAvailability({
   usernameTaken,
   errors,
   blurred,
   value,
 }) {
-  if (
-    blurred && // only show if user has blurred
-    !usernameTaken &&
-    errors.length === 0 &&
-    value.trim() !== ""
-  ) {
+  if (blurred && !usernameTaken && errors.length === 0 && value.trim() !== "") {
     return <div className="username-accepted">Nice! Username available</div>;
   }
   return null;

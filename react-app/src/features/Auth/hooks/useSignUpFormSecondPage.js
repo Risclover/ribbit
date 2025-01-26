@@ -7,15 +7,9 @@ import { useUsernameTaken } from "../hooks";
 import { validatePassword, validateUsername, generateUsername } from "../utils";
 
 /**
- * Single source of truth for:
- *   - username, password
- *   - field-level errors
- *   - whether the user blurred the field
- *   - sign-up submission
- *
- * Validations happen on blur + on "rotate."
- * "Nice! Username available" only shows if user has blurred the field
- *   (or we forcibly blur on rotate).
+ * Custom hook for sign up form's second page.
+ * - Logic for page's input boxes (username and password)
+ * - Logic for page's submit button
  */
 export function useSignUpFormSecondPage() {
   const dispatch = useDispatch();
@@ -24,28 +18,24 @@ export function useSignUpFormSecondPage() {
 
   const { signupFormData, setSignupFormData, openSignupPage1, closeModal } =
     useAuthFlow();
+  const usernameTaken = useUsernameTaken(signupFormData.username);
 
-  // Errors stored here
   const [usernameErrors, setUsernameErrors] = useState([]);
   const [passwordErrors, setPasswordErrors] = useState([]);
+  const [taken, setTaken] = useState(false);   // Flag to track if username is taken
 
-  // Track if username is taken
-  const [taken, setTaken] = useState(false);
-
-  // Instead of focusing logic, track "has the user blurred?"
+  // Tracks "Has the user blurred?", for behavior for errors, icons, and styles
   const [usernameBlurred, setUsernameBlurred] = useState(false);
   const [passwordBlurred, setPasswordBlurred] = useState(false);
 
-  // For disabling submit
+  // For disabling submit button
   const [disabled, setDisabled] = useState(true);
-
-  // Check if username is taken
-  const usernameTaken = useUsernameTaken(signupFormData.username);
 
   useEffect(() => {
     setTaken(usernameTaken);
   }, [usernameTaken]);
 
+  // If the username input box is focused, show no errors.
   useEffect(() => {
     if (!usernameBlurred) {
       setUsernameErrors([]);
@@ -103,21 +93,21 @@ export function useSignUpFormSecondPage() {
     setDisabled(finalDisabled);
   };
 
-  // ========== "ROTATE" USERNAME ==========
+  // ========== GENERATE RANDOM USERNAME ==========
 
-  // If user clicks the rotate button
+  // If user clicks the "rotate" button
   const onRotateUsername = () => {
     const newName = generateUsername();
 
-    // set the parent's username
+    // Set the username
     setSignupFormData((prev) => ({ ...prev, username: newName }));
 
-    // validate now
+    // Validate username
     const errors = validateUsername(newName, false);
     setUsernameErrors(errors);
-    setTaken(false);
+    setTaken(false); // Automatically set to false because backend handles logic for determining whether a username is taken BEFORE suggesting it to user
 
-    // also check password again for disabling
+    // Check password again for disabling
     const pErrors = validatePassword(signupFormData.password);
     setPasswordErrors(pErrors);
 
@@ -129,19 +119,17 @@ export function useSignUpFormSecondPage() {
     setDisabled(finalDisabled);
 
     // Force "blurred" so that "Nice! Username available" can appear immediately
-    // since it's determined in the backend whether the username is taken
     setUsernameBlurred(true);
   };
 
   // ========== BUILD INPUT PROPS ==========
-
   const inputProps = (name, value, setValue, errors) => ({
     type: name,
     name,
     inputValue: value,
+    setInputValue: setValue,
     errors,
     setErrors: name === "username" ? setUsernameErrors : setPasswordErrors,
-    setInputValue: setValue,
     onBlur: name === "username" ? handleUsernameBlur : handlePasswordBlur,
     setBlurred: name === "username" ? setUsernameBlurred : setPasswordBlurred,
     onRotate: name === "username" ? onRotateUsername : undefined,
@@ -168,7 +156,9 @@ export function useSignUpFormSecondPage() {
 
   const handleSignUp = (e) => {
     e.preventDefault();
+
     if (disabled) return;
+
     dispatch(
       signUp(
         signupFormData.username,
@@ -176,9 +166,12 @@ export function useSignUpFormSecondPage() {
         signupFormData.password
       )
     );
+
     closeModal();
+
     const id = Object.values(allUsers).length + 1;
     history.push(`/users/${id}/profile`);
+
     dispatch(getUsers());
   };
 

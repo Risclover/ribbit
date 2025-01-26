@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext } from "react";
 import ReactDOM from "react-dom";
-import "./AuthModalContext.css"; // optional CSS
+import "./AuthModalContext.css";
 
 const AuthModalContext = createContext();
 
@@ -12,7 +12,6 @@ export function AuthModalProvider({ children }) {
       <AuthModalContext.Provider value={modalNode}>
         {children}
       </AuthModalContext.Provider>
-      {/* This div is where we mount the modal */}
       <div ref={setModalNode} />
     </>
   );
@@ -23,7 +22,7 @@ export function useAuthModalNode() {
 }
 
 /**
- * AuthModal:
+ * AuthModal: The modal in which the auth forms (login and signup) live; includes clickable background behind modal
  * - `active` determines if the modal is displayed.
  * - `onClose` is a function to close the modal (click background or close button).
  */

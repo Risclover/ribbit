@@ -1,4 +1,3 @@
-// useAuthFormInput.js
 import { useCallback, useEffect, useMemo } from "react";
 
 /**

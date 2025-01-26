@@ -64,7 +64,7 @@ export const CompactPostMenu = ({ user, post, isPage, community }) => {
             <div className="compact-post-menu-btn-title">Share</div>
           </button>
           {user &&
-            (user.id === post?.postAuthor.id || isCommunityOwner) &&
+            (user?.id === post?.postAuthor.id || isCommunityOwner) &&
             !post?.imgUrl &&
             !post?.linkUrl && (
               <button
@@ -78,7 +78,7 @@ export const CompactPostMenu = ({ user, post, isPage, community }) => {
                 <div className="compact-post-menu-btn-title">Edit</div>
               </button>
             )}
-          {(user.id === post?.postAuthor.id || isCommunityOwner) && (
+          {(user?.id === post?.postAuthor.id || isCommunityOwner) && (
             <DeletePostModal
               post={post}
               community={community}
