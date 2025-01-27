@@ -1,50 +1,26 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { SelectedChatContext } from "@/context";
 import { ChatWindowOverlayContainer } from "./ChatWindowOverlayContainer";
+import { useCreateChatOverlay } from "../../hooks/useCreateChatOverlay";
 
 export const CreateChatOverlay = ({
   setShowCreateChatOverlay,
   setShowChatWelcomeOverlay,
   setShowMessageInviteOverlay,
-  showMessageInviteOverlay,
   username,
   setUsername,
   userFound,
 }) => {
-  const { selectedChat, setSelectedChat, pendingReceiver, setPendingReceiver } =
-    useContext(SelectedChatContext);
-
-  const [isChosen, setIsChosen] = useState(false);
-  const [error, setError] = useState(false);
-
-  const userChats = useSelector((state) => Object.values(state.chatThreads));
   const currentUser = useSelector((state) => state.session.user);
 
-  // Get to point between message invitation and actually creating the thread
-  const handleStartChat = async (e) => {
-    e.preventDefault();
-    console.log("userFound2:", userFound);
-    const existingThread = userChats.find(
-      (thread) =>
-        thread.users?.some((user) => user.id === currentUser?.id) &&
-        thread.users?.some((user) => user.id === userFound.id)
-    );
-    console.log("existingThread:", existingThread);
-    // If the thread does not exist, close the overlays. If it does exist, set the selected chat to the existing thread and open it.
-    if (existingThread === undefined) {
-      setShowChatWelcomeOverlay(false);
-      setShowMessageInviteOverlay(true);
-      console.log("messageInviteOverlay:", showMessageInviteOverlay);
-      setPendingReceiver(username);
-    } else {
-      setSelectedChat(existingThread);
-    }
-    console.log("selectedChat:", selectedChat);
-    console.log("pendingReceiver:", pendingReceiver);
-    setShowCreateChatOverlay(false);
-  };
-
+  const { isChosen, setIsChosen, error, setError, handleStartChat } =
+    useCreateChatOverlay({
+      username,
+      setShowChatWelcomeOverlay,
+      setShowCreateChatOverlay,
+      setShowMessageInviteOverlay,
+      userFound,
+    });
   return (
     <ChatWindowOverlayContainer>
       <div className="new-chat-overlay">

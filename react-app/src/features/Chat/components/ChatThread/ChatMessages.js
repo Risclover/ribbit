@@ -1,6 +1,6 @@
 import React from "react";
 import { ChatMessage } from "./ChatMessage";
-import { formatDate } from "../../utils/formatDate";
+import { useChatMessages } from "../../hooks/useChatMessages";
 
 export const ChatMessages = ({
   setShowDeleteConfirmation,
@@ -8,24 +8,18 @@ export const ChatMessages = ({
   socket,
   messages,
 }) => {
+  const decorated = useChatMessages({ messages });
+
   return (
     <div className="chat-messages">
       {messages.length > 0 &&
-        messages?.map((message, idx) => {
-          const previousMessage = messages[idx - 1];
-          const currentDate = new Date(message.createdAt).setHours(0, 0, 0, 0);
-          const previousDate =
-            previousMessage &&
-            new Date(previousMessage.createdAt).setHours(0, 0, 0, 0);
-          const showDateBar = !previousMessage || currentDate != previousDate;
-          const formattedDate = formatDate(message.createdAt);
-
+        decorated?.map((message) => {
           return (
             <ChatMessage
               key={message.id}
-              formattedDate={formattedDate}
-              showDateBar={showDateBar}
-              previousMessage={previousMessage}
+              formattedDate={message.formattedDate}
+              showDateBar={message.showDateBar}
+              previousMessage={message.previousMessage}
               message={message}
               setShowDeleteConfirmation={setShowDeleteConfirmation}
               setMsgId={setMsgId}

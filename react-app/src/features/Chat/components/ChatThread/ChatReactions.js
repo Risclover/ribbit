@@ -1,7 +1,7 @@
-import React, { useState, useContext, useRef } from "react";
-import { SelectedChatContext } from "@/context";
+import React, { useState, useRef } from "react";
 import { useOutsideClick } from "@/hooks";
 import { reactions } from "@/assets";
+import { useChatReactions } from "features/Chat/hooks/useChatReactions";
 
 export function ChatReactions({
   setOpenReactions,
@@ -41,20 +41,12 @@ export function ChatReactionsSmall({
   message,
   socket,
 }) {
-  const { selectedChat } = useContext(SelectedChatContext);
+  const { handleClickReaction } = useChatReactions({
+    setOpenReactions,
+    message,
+    socket,
+  });
 
-  const handleClickReaction = async (reaction) => {
-    const payload = {
-      messageId: message?.id,
-      reactionType: reaction,
-      room: selectedChat.id,
-    };
-    // const data = await dispatch(createReaction(payload));
-    // console.log("data:", data);
-    // dispatch(fetchReactionsForMessage(message.id));
-    socket.emit("add_reaction", payload);
-    setOpenReactions(false);
-  };
   return (
     <div className="reactions-menu-small">
       {Object.values(reactions).map((reaction, idx) =>

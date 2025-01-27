@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useContext } from "react";
 import { TfiClose } from "react-icons/tfi";
 import { SelectedChatContext } from "@/context";
+import { useChatTitleBar } from "../../hooks/useChatTitleBar";
 
 export const ChatTitleBar = ({
   showCreateChatOverlay,
@@ -10,21 +10,8 @@ export const ChatTitleBar = ({
   setOpenChat,
   setMinimizeChat,
 }) => {
-  const currentUser = useSelector((state) => state.session.user);
-  const [receiver, setReceiver] = useState(null);
-
-  const { selectedChat, setSelectedChat, pendingReceiver } =
-    useContext(SelectedChatContext);
-
-  useEffect(() => {
-    if (pendingReceiver !== null) {
-      setReceiver(pendingReceiver);
-    } else if (selectedChat && selectedChat.users) {
-      setReceiver(
-        selectedChat.users.find((user) => user.id !== currentUser?.id).username
-      );
-    }
-  }, [selectedChat?.users, currentUser?.id, pendingReceiver]);
+  const { setSelectedChat } = useContext(SelectedChatContext);
+  const { receiver } = useChatTitleBar();
 
   return (
     <div className="chat-thread-window-titlebar">

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { SelectedChatContext } from "@/context";
 import { formatDate } from "../../utils/formatDate";
+import useChatNavBtn from "features/Chat/hooks/useChatNavBtn";
 
 export const ChatNavBtn = ({
   chatThread,
@@ -9,29 +10,9 @@ export const ChatNavBtn = ({
   setShowChatWelcomeOverlay,
   setShowCreateChatOverlay,
 }) => {
-  const { setSelectedChat, selectedChat } = useContext(SelectedChatContext);
-  const isActive = selectedChat?.id === chatThread.id;
+  const { setSelectedChat } = useContext(SelectedChatContext);
   const currentUser = useSelector((state) => state.session.user);
-  const recipient = chatThread?.users?.find(
-    (user) => user.id !== currentUser?.id
-  );
-
-  const [time, setTime] = useState("");
-
-  useEffect(() => {
-    const lastMessage = chatThread.messages?.[chatThread.messages.length - 1];
-    if (lastMessage) {
-      const formattedTime = new Date(lastMessage.createdAt).toLocaleString(
-        "en-US",
-        {
-          hour: "numeric",
-          minute: "numeric",
-          hour12: true,
-        }
-      );
-      setTime(formattedTime);
-    }
-  }, [chatThread.messages]);
+  const { isActive, recipient, time } = useChatNavBtn({ chatThread });
 
   return (
     <div
