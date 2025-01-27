@@ -307,7 +307,7 @@ export function useCommunitySettingsState(community) {
     setCommunityIcon,
     hideCommunityIcon,
     setHideCommunityIcon,
-
+    community,
     // actions
     handleResetToDefault,
     saveColorTheme,

@@ -151,6 +151,13 @@
   margin: 20px 0;
 }
 
+.community-image-post-preview {
+  height: 80px;
+  width: 80px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
 .image-post-img {
   max-height: 700px;
 }

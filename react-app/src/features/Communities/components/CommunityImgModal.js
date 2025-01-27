@@ -57,7 +57,7 @@ export function CommunityImgModal({ setShowCommunityImgModal, communityId }) {
           />
           {imgPreview && (
             <img
-              className="image-post-preview"
+              className="community-image-post-preview"
               src={imgPreview}
               alt="Preview"
             />
