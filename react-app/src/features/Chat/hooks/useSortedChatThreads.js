@@ -1,8 +1,7 @@
-// useSortedChatThreads.js
-import { useSelector } from "react-redux";
 import { useMemo } from "react";
+import { useSelector } from "react-redux";
 
-const useSortedChatThreads = () => {
+export const useSortedChatThreads = () => {
   const chatThreads = useSelector((state) => state.chatThreads);
 
   const sortedChatThreads = useMemo(() => {
@@ -33,5 +32,3 @@ const useSortedChatThreads = () => {
 
   return sortedChatThreads;
 };
-
-export default useSortedChatThreads;

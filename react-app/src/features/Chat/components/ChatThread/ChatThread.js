@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { getUserChatThreads } from "@/store";
 import { SelectedChatContext } from "@/context";
+import { getUserChatThreads } from "@/store";
 import { ChatMessages } from "./ChatMessages";
 
 export const ChatThread = ({

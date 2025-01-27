@@ -1,7 +1,7 @@
-import { SelectedChatContext } from "context";
 import React, { useContext, useEffect, useState } from "react";
-import { TfiClose } from "react-icons/tfi";
 import { useSelector } from "react-redux";
+import { TfiClose } from "react-icons/tfi";
+import { SelectedChatContext } from "@/context";
 
 export const ChatTitleBar = ({
   showCreateChatOverlay,

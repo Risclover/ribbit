@@ -4,8 +4,6 @@ import { getSearchQuery } from "../../../utils/getSearchQuery";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
 import { useDispatch, useSelector } from "react-redux";
 import { searchCommunities } from "@/store";
-import { NoResults } from "../NoResults";
-import { CommunityResult } from "./CommunityResult";
 import CommunityResultType from "./CommunityResultType";
 
 export const SearchResultsCommunities = ({ searchbarRef }) => {

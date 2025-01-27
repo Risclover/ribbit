@@ -1,34 +1,36 @@
-// Chat.js
-
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
-import { ChatNavMenu } from "../ChatNavMenu/ChatNavMenu";
-import { ChatThread } from "../ChatThread/ChatThread";
-import { ChatTitleBar } from "../ChatThread/ChatTitleBar";
-import { ChatInput } from "../ChatInput/ChatInput";
-import { DeleteMessageOverlay } from "../ChatWindowOverlays/DeleteMessageOverlay";
-import { SelectedChatContext } from "@/context";
-import { getUserChatThreads } from "@/store";
-import { CreateChatOverlay } from "../ChatWindowOverlays/CreateChatOverlay";
+
+import { ChatNavMenu } from "../ChatNavMenu";
+import { ChatThread, ChatTitleBar } from "../ChatThread";
+import { ChatInput } from "../ChatInput";
 import {
+  DeleteMessageOverlay,
+  CreateChatOverlay,
   ChatWelcomeOverlay,
   MessageInviteOverlay,
 } from "../ChatWindowOverlays";
-import { useUserSearch } from "features/Chat/hooks/useUserSearch";
-import "../../styles/chat.css";
-import { getChatThread, fakeDeleteMessage } from "store";
-import { addReaction, removeReaction } from "store/reactions";
-import { NewChatIcon } from "assets/icons/NewChatIcon";
+import { useUserSearch } from "../../hooks";
 
-const Chat = ({ setOpenChat, setMinimizeChat }) => {
+import { SelectedChatContext } from "@/context";
+import {
+  getUserChatThreads,
+  getChatThread,
+  fakeDeleteMessage,
+  addReaction,
+  removeReaction,
+} from "@/store";
+import { NewChatIcon } from "@/assets";
+import "../../styles/chat.css";
+
+export const Chat = ({ setOpenChat, setMinimizeChat }) => {
   const dispatch = useDispatch();
   const [messages, setMessages] = useState([]);
   const chatThreads = useSelector((state) => state.chatThreads);
   const user = useSelector((state) => state.session.user);
   const socketRef = useRef(null);
 
-  const [previousChat, setPreviousChat] = useState(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [showChatWelcomeOverlay, setShowChatWelcomeOverlay] = useState(
     Object.keys(chatThreads)?.length === 0 || !chatThreads ? true : false

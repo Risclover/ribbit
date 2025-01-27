@@ -1,15 +1,9 @@
-// ChatReactions.js
-
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
+import { SelectedChatContext } from "@/context";
+import { useOutsideClick } from "@/hooks";
 import { reactions } from "@/assets";
-import { lockScroll, unlockScroll } from "utils/scrollLock";
-import { useDispatch } from "react-redux";
-import { createReaction, fetchReactionsForMessage } from "store/reactions";
-import { SelectedChatContext } from "context";
-import { useOutsideClick } from "hooks";
 
-export default function ChatReactions({
-  openReactions,
+export function ChatReactions({
   setOpenReactions,
   message,
   socket,
@@ -47,7 +41,6 @@ export function ChatReactionsSmall({
   message,
   socket,
 }) {
-  const dispatch = useDispatch();
   const { selectedChat } = useContext(SelectedChatContext);
 
   const handleClickReaction = async (reaction) => {

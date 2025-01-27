@@ -8,17 +8,15 @@ import { CgNotes } from "react-icons/cg";
 import parse from "html-react-parser";
 import moment from "moment";
 
-import Bounce from "@/assets/images/misc/curved-arrow.png";
 import { DeleteConfirmationModal, Username } from "@/components";
 import { Modal, useMetadata, ScrollContext } from "@/context";
 import { SinglePostKarmabar } from "../SinglePost";
 import { sliceUrl } from "@/utils";
-import "../SinglePost/SinglePost.css";
-import "./ClassicPostFormat.css";
-import { deletePost, getUsers } from "@/store";
 import { usePostButtonHandlers } from "features/Posts/hooks/usePostButtonHandlers";
 import { Tooltip } from "components/Tooltip/Tooltip";
 import { ShareIcon } from "assets/icons/ShareIcon";
+import "../SinglePost/SinglePost.css";
+import "./ClassicPostFormat.css";
 
 export function ClassicPostFormat({ isPage, id, post }) {
   const { scrollToTarget } = useContext(ScrollContext);

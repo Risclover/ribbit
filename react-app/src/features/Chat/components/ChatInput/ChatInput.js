@@ -1,13 +1,11 @@
-// ChatInput.js
-
-import { SelectedChatContext } from "context";
-import { Emojis, Gifs } from "features/ChatWindow";
-import { useAutosizeTextArea } from "@/hooks";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getChatThread, createChatMessage, createChatThread } from "store";
+import { SelectedChatContext } from "@/context";
+import { ChatEmojis, ChatGifs } from "@/features";
+import { useAutosizeTextArea } from "@/hooks";
+import { getChatThread, createChatMessage, createChatThread } from "@/store";
 import { liveChatIcons } from "@/assets";
-import { receiveNewMessage } from "store";
+import "../../styles/ChatInput.css";
 
 export const ChatInput = ({
   setUsername,
@@ -23,7 +21,6 @@ export const ChatInput = ({
   const currentUser = useSelector((state) => state.session.user);
   const textareaRef = useRef(null);
 
-  const chatThreads = useSelector((state) => state.chatThreads);
   const { selectedChat, setSelectedChat, setPendingReceiver } =
     useContext(SelectedChatContext);
 
@@ -175,7 +172,7 @@ export const ChatInput = ({
         </div>
       </div>
       {openGiphy && (
-        <Gifs
+        <ChatGifs
           receiver={receiver}
           setGifIcon={setGifIcon}
           GifIcon={liveChatIcons.GifIcon}
@@ -200,7 +197,7 @@ export const ChatInput = ({
         ></i>
       </div>
       {emojisOverlay && (
-        <Emojis
+        <ChatEmojis
           receiver={receiver}
           setEmojisOverlay={setEmojisOverlay}
           socket={socket}

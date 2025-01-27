@@ -1,5 +1,4 @@
 import React from "react";
-import { fakeDeleteMessage } from "store";
 
 export const DeleteMessageOverlay = ({
   setShowDeleteConfirmation,

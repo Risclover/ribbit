@@ -1,5 +1,5 @@
 export * from "./Auth";
-export * from "./ChatWindow";
+export * from "./Chat";
 export * from "./Comments";
 export * from "./Communities";
 export * from "./CommunityRules";

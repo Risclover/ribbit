@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { formatDate } from "features/Chat/utils/formatDate";
-import { SelectedChatContext } from "context";
+import { SelectedChatContext } from "@/context";
+import { formatDate } from "../../utils/formatDate";
 
 export const ChatNavBtn = ({
   chatThread,

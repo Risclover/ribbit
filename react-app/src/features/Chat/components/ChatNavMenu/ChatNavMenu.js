@@ -1,6 +1,6 @@
 import React from "react";
-import useSortedChatThreads from "features/Chat/hooks/useSortedChatThreads";
 import { ChatNavBtn } from "./ChatNavBtn";
+import { useSortedChatThreads } from "../../hooks";
 
 export function ChatNavMenu({
   selectedChat,

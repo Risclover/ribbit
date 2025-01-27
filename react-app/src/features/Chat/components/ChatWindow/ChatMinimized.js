@@ -1,6 +1,6 @@
-import { SelectedChatContext } from "context";
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
+import { SelectedChatContext } from "@/context";
 
 export default function ChatMinimized({ setMinimizeChat, setOpenChat }) {
   const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);

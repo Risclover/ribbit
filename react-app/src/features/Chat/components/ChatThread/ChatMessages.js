@@ -1,6 +1,6 @@
 import React from "react";
 import { ChatMessage } from "./ChatMessage";
-import { formatDate } from "features/Chat/utils/formatDate";
+import { formatDate } from "../../utils/formatDate";
 
 export const ChatMessages = ({
   setShowDeleteConfirmation,

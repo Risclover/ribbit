@@ -77,6 +77,7 @@ export * from "./one_comment";
 export * from "./one_community";
 export * from "./one_post";
 export * from "./posts";
+export * from "./reactions";
 export * from "./rules";
 export * from "./search";
 export * from "./session";

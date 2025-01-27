@@ -28,10 +28,9 @@ moment.updateLocale("en-cust", {
 export function RecentlyViewedPosts() {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
     const fetchPosts = async () => {
       const arr = [];
       const postList = await dispatch(getViewedPosts());
@@ -40,10 +39,16 @@ export function RecentlyViewedPosts() {
       setPosts(arr);
     };
 
-    fetchPosts().finally(() => {
-      setIsLoading(false);
-    });
+    fetchPosts();
   }, []);
+
+  useEffect(() => {
+    if (posts.length === 0) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [posts]);
 
   const handleClear = () => {
     fetch("/api/viewed_posts/delete", { method: "DELETE" })

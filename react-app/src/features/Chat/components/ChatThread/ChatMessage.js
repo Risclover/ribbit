@@ -1,17 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DateSeparator } from "./DateSeparator";
 import { useDispatch, useSelector } from "react-redux";
 import parse from "html-react-parser";
-import ChatReactions, {
-  ChatReactionsSmall,
-  ChatReactionsFull,
-} from "./ChatReactions";
-import {
-  createReaction,
-  deleteReaction,
-  fetchReactionsForMessage,
-} from "store/reactions";
-import { SelectedChatContext } from "context";
+import { SelectedChatContext } from "@/context";
+import { fetchReactionsForMessage } from "@/store";
+import { DateSeparator } from "./DateSeparator";
+import { ChatReactions } from "./ChatReactions";
 
 export const ChatMessage = ({
   formattedDate,

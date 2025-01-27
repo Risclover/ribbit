@@ -1,7 +1,6 @@
 import React from "react";
-import { ribbitBanners } from "@/assets";
 import { ChatWindowOverlayContainer } from "./ChatWindowOverlayContainer";
-import { NewChatIcon } from "assets/icons/NewChatIcon";
+import { ribbitBanners, NewChatIcon } from "@/assets";
 
 export const ChatWelcomeOverlay = ({
   setShowCreateChatOverlay,

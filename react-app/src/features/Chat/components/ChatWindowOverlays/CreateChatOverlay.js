@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
-import { ChatWindowOverlayContainer } from "./ChatWindowOverlayContainer";
-import { useUserSearch } from "features/Chat/hooks/useUserSearch";
 import { useSelector } from "react-redux";
-import { SelectedChatContext } from "context";
+import { SelectedChatContext } from "@/context";
+import { ChatWindowOverlayContainer } from "./ChatWindowOverlayContainer";
 
 export const CreateChatOverlay = ({
   setShowCreateChatOverlay,
