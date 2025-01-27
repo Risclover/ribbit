@@ -22,7 +22,7 @@ import {
   removeReaction,
 } from "@/store";
 import { NewChatIcon } from "@/assets";
-import "../../styles/chat.css";
+import "../../styles/index.css";
 
 export const Chat = ({ setOpenChat, setMinimizeChat }) => {
   const dispatch = useDispatch();

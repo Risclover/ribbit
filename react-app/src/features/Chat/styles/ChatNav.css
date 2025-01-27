@@ -15,17 +15,17 @@
 }
 
 /* .chat-window-chatnav {
-  display: grid;
-  grid-template-columns: min-content 1fr;
-  align-items: center;
-  justify-content: left;
-  font-size: 12px;
-  grid-column-gap: 8px;
-  cursor: pointer;
-  color: #131313;
-  background: var(--ribbit-main);
-  padding: 8px 12px;
-} */
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    align-items: center;
+    justify-content: left;
+    font-size: 12px;
+    grid-column-gap: 8px;
+    cursor: pointer;
+    color: #131313;
+    background: var(--ribbit-main);
+    padding: 8px 12px;
+  } */
 
 .chat-window-chatnav {
   min-height: 60px;
