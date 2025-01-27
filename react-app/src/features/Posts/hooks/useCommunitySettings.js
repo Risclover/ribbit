@@ -60,7 +60,9 @@ export const useCommunitySettings = (community) => {
 
       document.documentElement.style.setProperty(
         "--community-banner-img",
-        `url("${community?.communitySettings[community?.id]?.bannerImg}")`
+        `url("${
+          community?.communitySettings[community?.id]?.bannerImg
+        }") no-repeat center / cover`
       );
 
       if (

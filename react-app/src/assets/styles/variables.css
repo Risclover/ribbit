@@ -19,6 +19,7 @@
   --preview-community-banner-color: #33a8ff;
   --preview-community-banner-img: "";
   --preview-community-icon: "";
+  --preview-community-name-format: "c/";
 
   --font-family-noto: "Noto Sans", sans-serif;
   --font-family-ibm: "IBM Plex Sans", sans-serif;

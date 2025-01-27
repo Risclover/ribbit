@@ -1,7 +1,8 @@
+// src/features/CommunitySettings/components/PreviewCommunityBannerColor.jsx
 import React, { useRef, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { PreviewCommunityColorPicker } from "../PreviewCommunityColorTheme/PreviewCommunityColorPicker";
-import { useOutsideClick } from "hooks";
+import { useOutsideClick } from "@/hooks";
 
 export function PreviewCommunityBannerColor({
   name,
@@ -20,22 +21,13 @@ export function PreviewCommunityBannerColor({
       onClick={() => setOpenPicker(true)}
     >
       <h3>{name}</h3>
-      <div className={`color-theme-color ${"color-theme-color-banner"}`}>
-        {!openPicker && (
-          <span className="color-theme-color-down">
-            <FaChevronDown />
-          </span>
-        )}
-        {openPicker && (
-          <span className="color-theme-color-up">
-            <FaChevronUp />
-          </span>
-        )}
+      <div className={`color-theme-color color-theme-color-banner`}>
+        {!openPicker ? <FaChevronDown /> : <FaChevronUp />}
       </div>
       {openPicker && (
         <div
           className="preview-community-color-picker"
-          onClick={(e) => e.stopPropagation()} // Prevent event bubbling
+          onClick={(e) => e.stopPropagation()}
           ref={wrapperRef}
         >
           <PreviewCommunityColorPicker

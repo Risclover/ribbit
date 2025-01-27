@@ -1,3 +1,4 @@
+// src/features/CommunitySettings/components/PreviewCommunitySidebarAppearance.jsx
 import React from "react";
 import {
   PreviewCommunityColorTheme,
@@ -6,90 +7,32 @@ import {
 } from "@/features";
 
 export function PreviewCommunitySidebarAppearance({
-  community,
   appearanceSidebar,
   setOpenAppearance,
-  base,
-  setBase,
-  highlight,
-  setHighlight,
-  bgColor,
-  setBgColor,
-  backgroundImg,
-  setBackgroundImg,
-  nameFormat,
-  setNameFormat,
-  backgroundImgFormat,
-  setBackgroundImgFormat,
-  bannerHeight,
-  setBannerHeight,
-  bannerHeight2,
-  setBannerHeight2,
-  bannerColor,
-  setBannerColor,
-  customBannerColor,
-  setCustomBannerColor,
-  bannerImg,
-  setBannerImg,
-  bannerImgFormat,
-  setBannerImgFormat,
-  communityIcon,
-  setCommunityIcon,
-  hideCommunityIcon,
-  setHideCommunityIcon,
-  preview,
-  setPreview,
+  setAppearanceSidebar,
+  settingsState,
 }) {
   return (
     <div>
       {appearanceSidebar === "Color theme" && (
         <PreviewCommunityColorTheme
           setOpenAppearance={setOpenAppearance}
-          community={community}
-          base={base}
-          setBase={setBase}
-          highlight={highlight}
-          setHighlight={setHighlight}
-          bgColor={bgColor}
-          setBgColor={setBgColor}
-          backgroundImg={backgroundImg}
-          setBackgroundImg={setBackgroundImg}
-          backgroundImgFormat={backgroundImgFormat}
-          setBackgroundImgFormat={setBackgroundImgFormat}
-          preview={preview}
-          setPreview={setPreview}
+          settingsState={settingsState}
         />
       )}
       {appearanceSidebar === "Name & icon" && (
         <PreviewCommunityNameIcon
           setOpenAppearance={setOpenAppearance}
-          community={community}
-          activeRadio={nameFormat}
-          setActiveRadio={setNameFormat}
-          communityIcon={communityIcon}
-          setCommunityIcon={setCommunityIcon}
-          checked={hideCommunityIcon}
-          setChecked={setHideCommunityIcon}
+          settingsState={settingsState}
         />
       )}
       {appearanceSidebar === "Banner" && (
         <PreviewCommunityBanner
           setOpenAppearance={setOpenAppearance}
-          community={community}
-          height={bannerHeight}
-          setHeight={setBannerHeight}
-          activeRadio={bannerHeight}
-          setActiveRadio={setBannerHeight}
-          bannerColor={bannerColor}
-          setBannerColor={setBannerColor}
-          customBannerColor={customBannerColor}
-          setCustomBannerColor={setCustomBannerColor}
-          bannerImg={bannerImg}
-          setBannerImg={setBannerImg}
-          bannerImgFormat={bannerImgFormat}
-          setBannerImgFormat={setBannerImgFormat}
+          settingsState={settingsState}
         />
       )}
+      {/* "Menu" and "Posts" would go here if needed */}
     </div>
   );
 }

@@ -1,70 +1,83 @@
+// PreviewCommunityColorPicker.jsx
+
 import React, { useEffect, useState } from "react";
 import { PreviewCommunityColorPickerSquare } from "./PreviewCommunityColorPickerSquare";
 import { colorThemeColors as colors } from "features/CommunitySettings/data/colorThemeColors";
 import { v4 as uuidv4 } from "uuid";
 
+/**
+ * @param {string}   theme         Currently selected color (e.g. "#0079d3").
+ * @param {Function} setTheme      Callback to update the color in parent state.
+ * @param {Function} setOpenPicker Function to toggle the color picker’s visibility (if desired).
+ */
 export function PreviewCommunityColorPicker({
   theme,
   setTheme,
-  community,
   setOpenPicker,
-  openPicker,
 }) {
-  const [showBrowserColorPicker, setShowBrowserColorPicker] = useState(false);
+  const [showBrowserPicker, setShowBrowserPicker] = useState(false);
 
+  // If the user typed 6 hex chars without a "#", prepend it
   useEffect(() => {
-    if (theme?.length === 6 && !theme?.startsWith("#")) {
-      setTheme("#" + theme);
+    if (theme?.length === 6 && !theme.startsWith("#")) {
+      setTheme(`#${theme}`);
     }
-  }, [theme]);
+  }, [theme, setTheme]);
 
-  const handleShowBrowserColorPicker = () => {
-    setShowBrowserColorPicker(true);
+  const handleBrowserPickerToggle = (e) => {
+    e.stopPropagation();
+    setShowBrowserPicker((prev) => !prev);
   };
+
   return (
-    <>
+    <div>
       <div className="preview-community-color-picker-title">Color Picker</div>
+
+      {/* Preset squares */}
       <div className="preview-community-color-picker-grid">
         {colors.map((color) => (
           <PreviewCommunityColorPickerSquare
             key={uuidv4()}
-            community={community}
             color={color}
             setTheme={setTheme}
             setOpenPicker={setOpenPicker}
-            openPicker={openPicker}
           />
         ))}
       </div>
+
+      {/* Manual Hex Entry */}
       <div className="preview-community-color-picker-title">Hex Code</div>
       <div className="preview-community-color-picker-hexcode">
         <div
           className="preview-community-color-picker-hexcode-color"
           style={{ background: theme }}
-        ></div>
+        />
         <input
           type="text"
           className="preview-community-color-picker-hexcode-input"
           maxLength={7}
-          placeholder="Hex #"
+          placeholder="#000000"
           value={theme}
           onChange={(e) => setTheme(e.target.value)}
         />
       </div>
-      <label
-        className="use-browser-color-picker"
-        onClick={handleShowBrowserColorPicker}
-      >
-        Use browser color picker{" "}
-        {showBrowserColorPicker && (
+
+      {/* Optional browser color picker */}
+      <div className="preview-community-browser-color-toggle">
+        <button type="button" onClick={handleBrowserPickerToggle}>
+          {showBrowserPicker ? "Close" : "Use"} Browser Color Picker
+        </button>
+        {showBrowserPicker && (
           <input
             type="color"
             className="preview-community-browser-color-picker"
             onChange={(e) => setTheme(e.target.value)}
-            value={theme}
+            value={theme || "#ffffff"}
+            onClick={(e) => e.stopPropagation()}
+            // onBlur={() => setShowBrowserPicker(false)} // optional if you want to auto-close
           />
         )}
-      </label>
-    </>
+      </div>
+    </div>
   );
 }

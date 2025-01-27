@@ -3,7 +3,6 @@ import React from "react";
 export function CommentEditBtn({ showEditCommentModal, handleEditComment }) {
   return (
     <div className="comment-edit-btn">
-      {" "}
       {showEditCommentModal && (
         <Modal
           onClose={() => setShowEditCommentModal(false)}

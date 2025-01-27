@@ -1,111 +1,35 @@
+// src/features/CommunitySettings/components/PreviewCommunityNameIcon.jsx
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  defaultCommunityImg,
-  resetToDefaultIcon,
-  updateSettingsNameIcon,
-  getCommunitySettings,
-  getCommunities,
-} from "@/store";
 import { ToggleSwitch, DropBox } from "@/components";
 import { CommunityNameOption } from "./CommunityNameOption";
 import { v4 as uuidv4 } from "uuid";
 
-export function PreviewCommunityNameIcon({
-  setOpenAppearance,
-  community,
-  activeRadio,
-  setActiveRadio,
-  communityIcon,
-  setCommunityIcon,
-  checked,
-  setChecked,
-}) {
-  const dispatch = useDispatch();
+export function PreviewCommunityNameIcon({ setOpenAppearance, settingsState }) {
+  const {
+    community,
+    nameFormat,
+    setNameFormat,
+    communityIcon,
+    setCommunityIcon,
+    hideCommunityIcon,
+    setHideCommunityIcon,
+    saveNameIcon,
+  } = settingsState;
+
   const options = ["c/", "", "Hide"];
 
-  const [image, setImage] = useState(
-    community?.communitySettings[community?.id].communityIcon
-  );
-  const [preview, setPreview] = useState(
-    community?.communitySettings[community?.id].communityIcon !==
-      "https://i.imgur.com/9CI9hiO.png"
-      ? community?.communitySettings[community?.id].communityIcon
-      : ""
-  );
-  const [defaultIcon, setDefaultIcon] = useState(preview === "");
+  // We'll track a local file for the icon
+  const [iconFile, setIconFile] = useState(null);
+  const [preview, setPreview] = useState(communityIcon);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (image === "https://i.imgur.com/9CI9hiO.png") {
-      dispatch(defaultCommunityImg(community?.id));
-      dispatch(getCommunities());
-      setOpenAppearance(false);
-    } else if (image && image !== "https://i.imgur.com/9CI9hiO.png") {
-      handleImgUpload();
-      setDefaultIcon(false);
-      setPreview(image);
-    }
-
-    if (checked) {
-      defaultCommunityIcon();
-    } else {
-      handleImgUpload();
-    }
-
-    dispatch(
-      updateSettingsNameIcon({
-        settingsId: community?.id,
-        nameFormat: activeRadio,
-        communityIcon: communityIcon,
-        hideCommunityIcon: checked,
-      })
+  const handleSubmit = async () => {
+    // If user has chosen a new iconFile, we upload it
+    await saveNameIcon(iconFile);
+    document.documentElement.style.setProperty(
+      "--preview-community-name-format",
+      nameFormat
     );
-
-    dispatch(getCommunities());
-    dispatch(getCommunitySettings(community?.id));
     setOpenAppearance(false);
-  };
-
-  const defaultCommunityIcon = () => {
-    dispatch(
-      resetToDefaultIcon(community?.communitySettings[community?.id].id)
-    );
-
-    setCommunityIcon("https://i.imgur.com/9CI9hiO.png");
-  };
-
-  const handlePreview = () => {
-    if (preview === "https://i.imgur.com/9CI9hiO.png" || preview === "") {
-      setDefaultIcon(true);
-    } else {
-      setDefaultIcon(false);
-    }
-  };
-
-  const handleDelete = (e) => {
-    e.preventDefault();
-    setPreview("");
-    setDefaultIcon(true);
-    setCommunityIcon("https://i.imgur.com/9CI9hiO.png");
-  };
-
-  const handleImgUpload = async () => {
-    const formData = new FormData();
-    if (image === null || image === "" || image === undefined) {
-      formData.append("image", "");
-    } else {
-      formData.append("image", image);
-    }
-
-    const res = await fetch(`/api/communities/${community?.id}/img`, {
-      method: "POST",
-      body: formData,
-    });
-    if (res.ok) {
-      await res.json();
-      dispatch(getCommunities());
-    }
   };
 
   return (
@@ -119,12 +43,13 @@ export function PreviewCommunityNameIcon({
               key={uuidv4()}
               community={community}
               title={option}
-              activeRadio={activeRadio}
-              setActiveRadio={setActiveRadio}
+              activeRadio={nameFormat}
+              setActiveRadio={setNameFormat}
             />
           ))}
         </div>
       </div>
+
       <div className="preview-community-theme-colors-box">
         <h2>Community Icon</h2>
         <div className="preview-community-name-icon-box">
@@ -132,36 +57,30 @@ export function PreviewCommunityNameIcon({
           <DropBox
             dropboxType="community_icon"
             community={community}
-            setImage={setImage}
-            startingImage={
-              community?.communitySettings[community?.id].communityIcon
-            }
+            setImage={setIconFile}
+            startingImage={communityIcon}
             preview={preview}
             setPreview={setPreview}
-            handlePreview={handlePreview}
-            handleDelete={handleDelete}
-            handleImgUpload={handleImgUpload}
-            defaultIcon={defaultIcon}
           />
           <p>Required size: 256x256px</p>
         </div>
       </div>
+
       <div className="preview-community-theme-colors-box">
         <h2 style={{ color: "var(--main-text-color)" }}>Community Icon</h2>
         <label className="preview-community-toggle-switch" name="switch">
           <ToggleSwitch
-            checked={checked}
-            setChecked={setChecked}
+            checked={hideCommunityIcon}
+            setChecked={setHideCommunityIcon}
             community={community}
           />
           <div className="preview-community-toggle-switch-txt">
             <h3>Hide Community Icon in Banner</h3>
-            <p>
-              Your Community Icon will still display in other areas of Ribbit
-            </p>
+            <p>Your Community Icon will still display in other areas</p>
           </div>
         </label>
       </div>
+
       <div className="preview-community-theme-btns">
         <button className="blue-btn-filled btn-long" onClick={handleSubmit}>
           Save

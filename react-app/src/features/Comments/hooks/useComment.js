@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { convertTime } from "../utils/convertTime";
 import { usePopup } from "@/context";
-import { getComments } from "store";
 import { removeComment } from "store";
 import { getPosts } from "store";
 
-export default function useComment({ comment, commentId }) {
+export function useComment({ comment, commentId }) {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const { postId } = useParams();
 
@@ -26,7 +24,6 @@ export default function useComment({ comment, commentId }) {
   const currentUser = useSelector((state) => state.session.user);
   const users = useSelector((state) => Object.values(state.users));
   const post = useSelector((state) => state.posts[postId]);
-  const communities = useSelector((state) => state.communities);
 
   const editedTime = convertTime(comment, "edit");
   const commentTime = convertTime(comment);
@@ -63,12 +60,6 @@ export default function useComment({ comment, commentId }) {
     setShowDeleteModal(false);
     dispatch(removeComment(commentId));
     dispatch(getPosts());
-  };
-
-  const handleUserImgClick = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    history.push(`/users/${comment?.commentAuthor?.id}/profile`);
   };
 
   const handleReplyClick = () => {
@@ -126,20 +117,13 @@ export default function useComment({ comment, commentId }) {
     setShowReplyForm,
     commentContent,
     setCommentContent,
-    showPopup,
-    setShowPopup,
-    hideTimeout,
-    setHideTimeout,
     post,
-    communities,
     currentUser,
-    users,
     editedTime,
     commentTime,
     handleMouseEnter,
     handleMouseLeave,
     handleDeleteClick,
-    handleUserImgClick,
     handleReplyClick,
     handleEditComment,
     wasEdited,

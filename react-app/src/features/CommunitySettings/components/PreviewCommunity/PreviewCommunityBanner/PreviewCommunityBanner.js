@@ -1,129 +1,74 @@
-import React, { useEffect, useState } from "react";
+// src/features/CommunitySettings/components/PreviewCommunityBanner.jsx
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {
-  getCommunitySettings,
-  updateSettingsBanner,
-  getSingleCommunity,
-  getCommunities,
-} from "@/store";
 import { DropBox } from "@/components";
-import { PreviewCommunityBannerColor, BannerHeight } from "..";
+import { BannerHeight, PreviewCommunityBannerColor } from "..";
 import { v4 as uuidv4 } from "uuid";
 
-export function PreviewCommunityBanner({
-  setOpenAppearance,
-  community,
-  activeRadio,
-  setActiveRadio,
-  bannerColor,
-  setBannerColor,
-  height,
-  setHeight,
-  customBannerColor,
-  setCustomBannerColor,
-  bannerImg,
-  bannerImgFormat,
-}) {
-  const dispatch = useDispatch();
+export function PreviewCommunityBanner({ setOpenAppearance, settingsState }) {
+  const {
+    community,
+    bannerHeight,
+    setBannerHeight,
+    bannerColor,
+    setBannerColor,
+    customBannerColor,
+    setCustomBannerColor,
+    bannerImg,
+    setBannerImg,
+    bannerImgFormat,
+    setBannerImgFormat,
+    saveBanner,
+  } = settingsState;
 
-  const [errorMsg, setErrorMsg] = useState("");
-  const [preview, setPreview] = useState(
-    community?.communitySettings[community?.id]?.bannerImg || ""
-  );
-  const [image, setImage] = useState(null);
+  const [activeRadio, setActiveRadio] = useState("");
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
-    if (activeRadio === "small") setHeight("80px");
-    if (activeRadio === "medium") setHeight("144px");
-    if (activeRadio === "large") setHeight("208px");
-  }, [activeRadio]);
-
-  const options = ["Small", "Medium", "Large"];
+    if (bannerHeight === "80px") setActiveRadio("small");
+    if (bannerHeight === "144px") setActiveRadio("medium");
+    if (bannerHeight === "208px") setActiveRadio("large");
+  }, [bannerHeight]);
 
   useEffect(() => {
     if (bannerColor !== "#33a8ff") {
       setCustomBannerColor(true);
     }
-  }, [bannerColor]);
+  }, [bannerColor, setCustomBannerColor]);
 
-  const handleBanner = async () => {
-    if (image) {
-      changeBannerImg();
-    } else {
-      setImage(null);
-    }
-
-    const payload = {
-      settingsId: community?.communitySettings[community?.id].id,
-      bannerHeight: height,
-      bannerColor: bannerColor,
-      customBannerColor: customBannerColor,
-      bannerImg: image ? bannerImg : "",
-      bannerImgFormat: bannerImgFormat,
-      secondaryBannerImg:
-        community?.communitySettings[community?.id].secondaryBannerImg,
-      hoverBannerImg:
-        community?.communitySettings[community?.id].hoverBannerImg,
-      secondaryBannerFormat:
-        community?.communitySettings[community?.id].secondaryBannerFormat,
-      mobileBannerImg:
-        community?.communitySettings[community?.id].mobileBannerImg,
-    };
-    const data = await dispatch(updateSettingsBanner(payload));
-    dispatch(getCommunitySettings(community?.id));
-    dispatch(getCommunities());
-  };
-
-  const changeBannerImg = async () => {
-    const formData = new FormData();
-    formData.append("image", image);
-
-    const res = await fetch(`/api/communities/${community?.id}/banner_img`, {
-      method: "POST",
-      body: formData,
-    });
-    if (res.ok) {
-      await res.json();
-      dispatch(getSingleCommunity(community?.id));
-      setOpenAppearance(false);
-    } else {
-      setErrorMsg(
-        "There was a problem with your upload. Make sure your file is a .jpg or .png file, and try again."
-      );
-    }
-  };
-
+  // If user chooses "Small", set bannerHeight etc.
   useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--preview-community-banner-height",
-      height
-    );
+    switch (activeRadio) {
+      case "small":
+        setBannerHeight("80px");
+        break;
+      case "medium":
+        setBannerHeight("144px");
+        break;
+      case "large":
+        setBannerHeight("208px");
+        break;
+      default:
+        break;
+    }
+  }, [activeRadio, setBannerHeight]);
 
-    document.documentElement.style.setProperty(
-      "--preview-community-banner-color",
-      community?.communitySettings[community?.id].customBannerColor
-        ? bannerColor
-        : community?.communitySettings[community?.id].baseColor
-    );
-  }, [height, bannerColor]);
-
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--preview-community-banner-img",
-      `url(${preview})`
-    );
-  }, [preview]);
+  const handleSaveClick = async () => {
+    await saveBanner(imageFile);
+    setOpenAppearance(false);
+  };
 
   return (
     <div className="preview-community-color-theme">
       <h1>Banner</h1>
+
       <div className="preview-community-theme-colors-box">
         <h2>Height</h2>
         <div className="preview-community-name-icon-box">
-          {options.map((option) => (
+          {["Small", "Medium", "Large"].map((option) => (
             <BannerHeight
               key={uuidv4()}
-              height={height}
+              height={bannerHeight}
               option={option}
               activeRadio={activeRadio}
               setActiveRadio={setActiveRadio}
@@ -132,6 +77,7 @@ export function PreviewCommunityBanner({
           ))}
         </div>
       </div>
+
       <div className="preview-community-theme-colors-box">
         <h2>Background</h2>
         <PreviewCommunityBannerColor
@@ -145,24 +91,17 @@ export function PreviewCommunityBanner({
           <DropBox
             dropboxType="banner_img"
             community={community}
-            setImage={setImage}
-            startingImage={
-              community?.communitySettings[community?.id].bannerImg
-            }
-            preview={preview}
-            setPreview={setPreview}
+            setImage={setImageFile}
+            startingImage={bannerImg}
+            preview={bannerImg}
+            setPreview={setBannerImg} // updates local preview
           />
           <p>Required size: 256x256px</p>
         </div>
       </div>
+
       <div className="preview-community-theme-btns">
-        <button
-          className="blue-btn-filled btn-long"
-          onClick={() => {
-            setOpenAppearance(false);
-            handleBanner();
-          }}
-        >
+        <button className="blue-btn-filled btn-long" onClick={handleSaveClick}>
           Save
         </button>
         <button

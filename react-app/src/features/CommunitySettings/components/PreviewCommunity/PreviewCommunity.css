@@ -247,7 +247,7 @@
 
 .preview-community-page-container .community-page-header-top {
   background-color: var(--preview-community-banner-color);
-  background-image: var(--preview-community-banner-img);
+  background: var(--preview-community-banner-img);
 }
 
 .preview-community-prevent-outside-click {
@@ -307,12 +307,12 @@
 
 .preview-community-page-container .community-header-info-img img,
 .preview-community-page-container .community-page-box-header,
-.preview-community-page-container .community-page-box-btn button,
+.preview-community-page-container .community-page-box-btn a,
 .preview-community-page-container .community-page-rules-header {
   background-color: var(--preview-community-color-theme-base) !important;
 }
 
-.preview-community-page-container .community-page-box-btn button {
+.preview-community-page-container .community-page-box-btn a {
   border-color: var(--preview-community-color-theme-base) !important;
 }
 
@@ -335,7 +335,8 @@
 .preview-community-page-container .community-page-box-description svg,
 .preview-community-page-container .community-sorting-bar-btn.active-sort-btn,
 .preview-community-page-container .joined,
-.preview-community-page-container .edit-community-description-save {
+.preview-community-page-container .edit-community-description-save,
+.preview-community-page-container .post-sorting-bar-left button {
   color: var(--preview-community-color-theme-highlight) !important;
 }
 
@@ -516,7 +517,7 @@ svg:not(:root) {
 .preview-community-page-container .community-page-header-top {
   height: var(--preview-community-banner-height);
   background-color: var(--preview-community-banner-color);
-  background-image: var(--preview-community-banner-img);
+  background: var(--preview-community-banner-img);
 }
 
 .preview-community-page-right-col {

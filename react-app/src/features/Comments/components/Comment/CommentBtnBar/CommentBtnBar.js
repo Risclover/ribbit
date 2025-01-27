@@ -1,10 +1,9 @@
 import React from "react";
+import { DeleteConfirmationModal } from "@/components";
+import { Modal } from "@/context";
 import { CommentKarmaBar } from "../../CommentKarmaBar";
-import { DeleteConfirmationModal } from "components";
 import { EditComment } from "../../EditComment";
-import { Modal } from "context";
-import { PencilIcon } from "assets/icons/PencilIcon";
-import { TrashIcon } from "assets/icons/TrashIcon";
+import { PencilIcon, TrashIcon } from "@/assets";
 
 export function CommentBtnBar({
   comment,
@@ -27,7 +26,6 @@ export function CommentBtnBar({
           <CommentKarmaBar comment={comment} />
           <div className="comment-owner-btns">
             <button onClick={handleReplyClick}>
-              {" "}
               <i className="fa-regular fa-message"></i>
               Reply
             </button>

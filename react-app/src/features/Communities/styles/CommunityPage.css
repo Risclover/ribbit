@@ -21,7 +21,7 @@
 .community-page-header-top {
   height: var(--community-banner-height);
   width: 100%;
-  background-image: var(--community-banner-img);
+  background: var(--community-banner-img);
   background-color: var(--community-banner-color);
   padding: 8px 16px;
 }

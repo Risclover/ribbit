@@ -131,8 +131,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--highlight-color);
-  border: 1px solid var(--highlight-color);
+  background: var(--community-highlight);
+  border: 1px solid var(--community-highlight);
   padding: 4px 16px;
   height: 32px;
   outline: none;

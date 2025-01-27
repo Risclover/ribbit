@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  getCommunities,
-  getSingleCommunity,
-  getCommunitySettings,
-  updateSettingsColorTheme,
-} from "@/store";
+// src/features/CommunitySettings/components/PreviewCommunityColorTheme.jsx
+import React, { useState } from "react";
 import { DropBox } from "@/components";
 import { PreviewCommunityColorThemeColor, BodyBgFormat } from "@/features";
 import "../PreviewCommunity.css";
@@ -13,151 +7,79 @@ import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunityColorTheme({
   setOpenAppearance,
-  community,
-  base,
-  setBase,
-  highlight,
-  setHighlight,
-  backgroundImg,
-  setBackgroundImg,
-  backgroundImgFormat,
-  setBackgroundImgFormat,
-  bodyBgPreview,
-  setBodyBgPreview,
-  bgColor,
-  setBgColor,
-  preview,
-  setPreview,
+  settingsState,
 }) {
-  const dispatch = useDispatch();
+  const {
+    community,
+    base,
+    setBase,
+    highlight,
+    setHighlight,
+    bgColor,
+    setBgColor,
+    backgroundImgFormat,
+    setBackgroundImgFormat,
+    backgroundImg,
+    setBackgroundImg,
+    saveColorTheme,
+  } = settingsState;
 
-  const [image, setImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
-  useEffect(() => {
-    console.log("highlight:", highlight);
-    console.log("base:", base);
-    console.log("bg:", bgColor);
-  }, [bgColor, base, highlight]);
-
-  console.log("preview:", preview);
-  const colorThemes = ["Base", "Highlight"];
-
-  useEffect(() => {
-    dispatch(getCommunities());
-    dispatch(getCommunitySettings(community?.id));
-  }, [dispatch]);
-
-  const handleSaveTheme = async () => {
-    const payload = {
-      settingsId: community?.communitySettings[community?.id].id,
-      baseColor: base,
-      highlight: highlight,
-      bgColor: bgColor,
-      backgroundImgFormat: backgroundImgFormat,
-      backgroundImg: preview || "",
-    };
-    if (image) {
-      handleUpload();
-    }
-
-    const data = await dispatch(updateSettingsColorTheme(payload));
-    dispatch(getCommunities());
-    dispatch(getCommunitySettings(community?.id));
-
-    console.log("data:", data);
+  const handleSave = async () => {
+    await saveColorTheme(imageFile);
     setOpenAppearance(false);
-  };
-
-  useEffect(() => {
-    if (backgroundImgFormat === "fill") {
-      document.documentElement.style.setProperty(
-        "--preview-community-body-bg-img",
-        `${bgColor} url(${preview}) no-repeat center / cover`
-      );
-    } else if (backgroundImgFormat === "tile") {
-      document.documentElement.style.setProperty(
-        "--preview-community-body-bg-img",
-        `${bgColor} url(${preview}) repeat center top`
-      );
-    } else if (backgroundImgFormat === "center") {
-      document.documentElement.style.setProperty(
-        "--preview-community-body-bg-img",
-        `${bgColor} url(${preview}) no-repeat center top`
-      );
-    }
-  }, [preview, backgroundImgFormat]);
-
-  const handleUpload = async () => {
-    const formData = new FormData();
-
-    if (image === null || image === undefined || image === "") {
-      formData.append("image", "");
-    } else {
-      formData.append("image", image);
-    }
-
-    const res = await fetch(`/api/communities/${community?.id}/bg_img`, {
-      method: "POST",
-      body: formData,
-    });
-    if (res.ok) {
-      await res.json();
-      dispatch(getCommunities());
-      dispatch(getCommunitySettings(community?.id));
-      setOpenAppearance(false);
-    }
   };
 
   return (
     <div className="preview-community-color-theme">
       <h1>Color theme</h1>
+
       <div className="preview-community-theme-colors-box">
         <h2>Theme Colors</h2>
-        {colorThemes.map((theme) => (
-          <PreviewCommunityColorThemeColor
-            theme={theme === "Base" ? base : highlight}
-            community={community}
-            setTheme={theme === "Base" ? setBase : setHighlight}
-            name={theme}
-            key={uuidv4()}
-          />
-        ))}
+        <PreviewCommunityColorThemeColor
+          name="Base"
+          theme={base}
+          setTheme={setBase}
+        />
+        <PreviewCommunityColorThemeColor
+          name="Highlight"
+          theme={highlight}
+          setTheme={setHighlight}
+        />
       </div>
+
       <div className="preview-community-theme-colors-box">
         <h2>Body Background</h2>
         <PreviewCommunityColorThemeColor
-          theme={bgColor}
-          community={community}
-          setTheme={setBgColor}
           name="Color"
+          theme={bgColor}
+          setTheme={setBgColor}
         />
+
         <div className="preview-community-theme-background-img">
           <h3>Image</h3>
           <DropBox
-            preview={preview}
-            setPreview={setPreview}
-            setImage={setImage}
+            preview={backgroundImg}
+            setPreview={setBackgroundImg}
+            setImage={setImageFile}
           />
           <div className="body-bg-formats" role="radiogroup">
-            <input type="hidden" value={backgroundImgFormat} />
+            <input type="hidden" value={backgroundImgFormat} readOnly />
             {["fill", "tile", "center"].map((format) => (
               <BodyBgFormat
                 key={uuidv4()}
                 format={format}
                 backgroundImgFormat={backgroundImgFormat}
                 setBackgroundImgFormat={setBackgroundImgFormat}
-                bodyBgPreview={bodyBgPreview}
-                backgroundImg={preview}
-                preview={preview}
-                image={image}
-                bgColor={bgColor}
               />
             ))}
           </div>
         </div>
       </div>
+
       <div className="preview-community-theme-btns">
-        <button className="blue-btn-filled btn-long" onClick={handleSaveTheme}>
+        <button className="blue-btn-filled btn-long" onClick={handleSave}>
           Save
         </button>
         <button

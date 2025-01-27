@@ -3,10 +3,7 @@ import { useDispatch } from "react-redux";
 import { getCommunities } from "@/store";
 import "@/assets/styles/Modals.css";
 
-export function CommunityImgModal({
-  setShowCommunityImgModal,
-  communityId,
-}) {
+export function CommunityImgModal({ setShowCommunityImgModal, communityId }) {
   const dispatch = useDispatch();
   const [imgPreview, setImgPreview] = useState();
   const [image, setImage] = useState(null);
@@ -55,7 +52,7 @@ export function CommunityImgModal({
             id="post-img"
             type="file"
             onChange={showPreview}
-            accept="image/png, image/jpeg, image/jpg"
+            accept="image/png, image/jpg"
             hidden
           />
           {imgPreview && (

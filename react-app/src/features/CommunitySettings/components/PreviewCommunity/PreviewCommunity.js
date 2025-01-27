@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+// src/features/CommunitySettings/components/PreviewCommunity.jsx
+import React, { useEffect, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, getSubscriptions, getCommunities } from "@/store";
@@ -19,90 +20,59 @@ export function PreviewCommunity() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { communityName } = useParams();
-
   const { format } = useContext(PostFormatContext);
 
-  const [favorited, setFavorited] = useState(false);
-
+  // Global state
+  const user = useSelector((state) => state.session.user);
   const posts = useSelector((state) => Object.values(state.posts));
   const communities = useSelector((state) => Object.values(state.communities));
-
-  const communityId = communities?.find(
-    (community) => community.name === communityName
-  )?.id;
-  const user = useSelector((state) => state.session.user);
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
-  const currentUser = useSelector((state) => state.session.user);
 
-  const community = communities?.find(
-    (community) => community.name === communityName
-  );
+  // Identify the relevant community & ID
+  const community = communities?.find((c) => c.name === communityName);
+  const communityId = community?.id;
 
-  let commPosts = posts.filter((post) => post.communityId == communityId);
+  // Filter posts for this community
+  const commPosts = posts.filter((post) => post.communityId === communityId);
 
+  // Fetch data on mount (and/or when communityName changes)
   useEffect(() => {
+    // Single effect to load what we need
     dispatch(getCommunities());
     dispatch(getSubscriptions());
     dispatch(getPosts());
-  }, [communityName, communityId, dispatch]);
+  }, [dispatch]);
 
+  // If current user is not the community owner, redirect to actual community page
   useEffect(() => {
-    if (currentUser?.id !== community?.userId) {
+    if (!community || !user) return;
+    if (user.id !== community.userId) {
       history.push(`/c/${communityName}`);
     }
-  }, []);
+  }, [community, user, communityName, history]);
 
+  // Page Settings Hook
   usePageSettings({
-    documentTitle: community?.displayName,
+    documentTitle: community?.displayName || "Community",
     icon: (
       <img
         style={{
-          backgroundColor: `${
-            community?.communitySettings[community?.id].baseColor
-          }`,
+          backgroundColor:
+            community?.communitySettings?.[communityId]?.baseColor,
         }}
-        src={community?.communitySettings[community?.id].communityIcon}
+        src={community?.communitySettings?.[communityId]?.communityIcon}
         className="nav-left-dropdown-item-icon item-icon-circle"
         alt="Community"
       />
     ),
-    pageTitle: `c/${community?.name}`,
+    pageTitle: `c/${communityName}`,
   });
 
-  useEffect(() => {
-    if (favoriteCommunities[community?.id]) {
-      setFavorited(true);
-    } else {
-      setFavorited(false);
-    }
-  }, [favorited, favoriteCommunities, community?.id]);
+  if (!community) return null; // or return <LoadingSpinner />
 
-  if (!community || !posts) return null;
   return (
     <div className="preview-community-page-container">
       <CommunityPageHeader community={community} />
-      {/* <div className="community-page-header">
-        <div className="community-page-header-top"></div>
-        <div className="community-page-header-btm">
-          <div
-            className={
-              format === "Card"
-                ? "community-header-info"
-                : "community-header-info-alt"
-            }
-          >
-            <div className="community-header-info-details">
-              <CommunityImage user={user} community={community} />
-              <CommunityName community={community} />
-              <CommunitySubscribeBtn
-                user={user}
-                community={community}
-                communityId={+communityId}
-              />
-            </div>
-          </div>
-        </div>
-      </div> */}
 
       <div className="posts-container">
         <div className="preview-community-body-bg-div"></div>
@@ -119,16 +89,13 @@ export function PreviewCommunity() {
         </div>
         <div className="posts-right-col">
           <CommunityInfoBox
-            setFavorited={setFavorited}
             user={user}
             favoriteCommunities={favoriteCommunities}
             community={community}
           />
-
-          {Object.values(community.communityRules).length > 0 && (
+          {Object.values(community?.communityRules || {}).length > 0 && (
             <CommunityRulesBox community={community} />
           )}
-
           <BackToTop community={true} />
         </div>
       </div>

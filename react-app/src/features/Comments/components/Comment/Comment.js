@@ -1,31 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { CommentBtnBar } from "./CommentBtnBar/CommentBtnBar";
 import { CommentAuthorBar } from "./CommentAuthorBar";
-import useComment from "features/Comments/hooks/useComment";
+import { useComment } from "../../hooks/useComment";
 import { CommentContent } from "./CommentContent";
 import { CommentReplyForm } from "../CommentForms/CommentReplyForm";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import "./Comment.css";
-import { NavLink, useLocation } from "react-router-dom";
 
-export function Comment({
-  comment,
-  commentId,
-  specificCommentActive,
-  level = 1,
-}) {
+export function Comment({ comment, commentId, level = 1 }) {
   if (!comment) {
     console.error("Comment component: comment is undefined");
     return null; // Do not render the component
   }
 
-  const location = useLocation();
-
   const [blueBg, setBlueBg] = useState(false);
 
   useEffect(() => {
-    console.log("location:", window.location.href.split("-")[1]);
-    console.log("commentId:", specificCommentActive);
     if (Number(window.location.href.split("-")[1]) === commentId) {
       setBlueBg(true);
     }
@@ -43,20 +34,13 @@ export function Comment({
     setShowReplyForm,
     commentContent,
     setCommentContent,
-    showPopup,
-    setShowPopup,
-    hideTimeout,
-    setHideTimeout,
     post,
-    communities,
     currentUser,
-    users,
     editedTime,
     commentTime,
     handleMouseEnter,
     handleMouseLeave,
     handleDeleteClick,
-    handleUserImgClick,
     handleReplyClick,
     handleEditComment,
     wasEdited,
