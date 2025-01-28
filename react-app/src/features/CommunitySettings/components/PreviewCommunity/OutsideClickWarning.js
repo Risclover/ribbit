@@ -19,7 +19,7 @@ export function OutsideClickWarning({ community, setShowWarning }) {
         </button>
         <button
           className="blue-btn-filled btn-short"
-          onClick={() => history.push(`/c/${community.name}`)}
+          onClick={() => history.push(`/c/${community?.name}`)}
         >
           Discard
         </button>

@@ -80,7 +80,7 @@ export function useCommunitySettingsState(community) {
 
     // Body background
     let finalBgImg = `${bgColor}`;
-    if (backgroundImg) {
+    if (backgroundImg.length > 0) {
       switch (backgroundImgFormat) {
         case "fill":
           finalBgImg += ` url(${backgroundImg}) no-repeat center / cover`;
@@ -95,11 +95,11 @@ export function useCommunitySettingsState(community) {
           finalBgImg += ` url(${backgroundImg}) no-repeat center / cover`;
           break;
       }
+      document.documentElement.style.setProperty(
+        "--preview-community-body-bg-img",
+        finalBgImg || ""
+      );
     }
-    document.documentElement.style.setProperty(
-      "--preview-community-body-bg-img",
-      finalBgImg
-    );
 
     // Banner style variables
     document.documentElement.style.setProperty(

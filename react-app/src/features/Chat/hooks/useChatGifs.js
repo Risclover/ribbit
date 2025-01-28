@@ -1,9 +1,8 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 import { SelectedChatContext } from "@/context";
-import { createChatMessage } from "store";
-import { getChatThread } from "store";
+import { createChatMessage, getChatThread } from "@/store";
 
 const giphy = new GiphyFetch(process.env.REACT_APP_GIPHY_KEY);
 

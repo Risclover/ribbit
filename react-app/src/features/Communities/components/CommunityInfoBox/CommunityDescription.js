@@ -21,7 +21,6 @@ export function CommunityDescription({ community, user, isPage }) {
   useAutosizeTextArea(textareaRef.current, description);
 
   const handleSaveDescription = async () => {
-    console.log("community:", community.displayName);
     const displayName = community.displayName;
     const data = await dispatch(
       updateCommunity(
@@ -33,7 +32,6 @@ export function CommunityDescription({ community, user, isPage }) {
       )
     );
 
-    console.log('data:', data)
     setDescription(data.description);
     await dispatch(getCommunities());
     setShowEditDescription(false);
@@ -120,6 +118,7 @@ export function CommunityDescription({ community, user, isPage }) {
                   className="edit-community-description-save"
                   onClick={(e) => {
                     e.stopPropagation();
+                    e.preventDefault();
                     handleSaveDescription();
                   }}
                 >

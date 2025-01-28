@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ChatWindowEmojis } from "@/assets";
-import useChatEmojis from "features/Chat/hooks/useChatEmojis";
+import { useChatEmojis } from "../../hooks/useChatEmojis";
 
 export function ChatEmojis({ receiver, setEmojisOverlay, socket }) {
   const wrapperRef = useRef();

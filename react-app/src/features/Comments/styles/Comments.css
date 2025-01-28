@@ -775,7 +775,15 @@
   display: flex;
   align-items: center;
   font-size: 12px;
+
   font-family: var(--font-family-noto);
+}
+
+.comments-with {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 500px;
 }
 
 .all-comments-btn button {

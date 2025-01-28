@@ -3,7 +3,6 @@ import { ChatEmojis, ChatGifs } from "@/features";
 import { useAutosizeTextArea } from "@/hooks";
 import { useChatInput } from "../../hooks/useChatInput";
 import { liveChatIcons } from "@/assets";
-import "../../styles/ChatInput.css";
 
 export const ChatInput = ({
   setUsername,

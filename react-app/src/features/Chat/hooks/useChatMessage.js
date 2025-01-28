@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReactionsForMessage } from "store";
 
-export default function useChatMessage({ socket, message }) {
+export function useChatMessage({ socket, message }) {
   const dispatch = useDispatch();
 
   const [openReactions, setOpenReactions] = useState(false);

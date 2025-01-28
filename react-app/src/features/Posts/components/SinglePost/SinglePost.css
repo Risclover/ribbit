@@ -7,6 +7,11 @@
   min-height: calc(100vh - 49px);
   position: relative;
   padding: 20px 24px;
+  pointer-events: all !important;
+}
+
+a {
+  pointer-events: all !important;
 }
 
 .single-post-community-info-img {

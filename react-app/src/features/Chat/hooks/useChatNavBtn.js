@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { SelectedChatContext } from "@/context";
 import { useSelector } from "react-redux";
+import { SelectedChatContext } from "@/context";
 
-export default function useChatNavBtn({ chatThread }) {
+export function useChatNavBtn({ chatThread }) {
   const { selectedChat } = useContext(SelectedChatContext);
   const currentUser = useSelector((state) => state.session.user);
   const [time, setTime] = useState("");

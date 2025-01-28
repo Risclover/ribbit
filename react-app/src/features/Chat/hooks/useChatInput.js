@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SelectedChatContext } from "@/context";
-import { createChatMessage, getChatThread } from "@/store";
+import { createChatMessage, getChatThread, createChatThread } from "@/store";
 import { liveChatIcons } from "@/assets";
-import { createChatThread } from "store";
 
 export function useChatInput({
   setUsername,

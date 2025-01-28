@@ -9,8 +9,55 @@ export const ResetToDefaultsWarning = ({ community, setShowResetWarning }) => {
 
   const handleDefaultReset = () => {
     dispatch(resetToDefault(community?.id));
-    dispatch(getCommunities());
+
+    document.documentElement.style.setProperty(
+      "--preview-community-color-theme-base",
+      "#0079d3"
+    );
+
+    document.documentElement.style.setProperty(
+      "--preview-community-color-theme-highlight",
+      "#0079d3"
+    );
+
+    document.documentElement.style.setProperty(
+      "--preview-community-theme-bodybg",
+      "#dae0e6"
+    );
+
+    document.documentElement.style.setProperty(
+      "--preview-community-color-picker-square",
+      "#000000"
+    );
+
+    document.documentElement.style.setProperty(
+      "--preview-community-body-bg-img",
+      ""
+    );
+    document.documentElement.style.setProperty(
+      "--preview-community-body-bg-img-format",
+      ""
+    );
+    document.documentElement.style.setProperty(
+      "--preview-community-banner-height",
+      "80px"
+    );
+    document.documentElement.style.setProperty(
+      "--preview-community-banner-color",
+      "#33a8ff"
+    );
+    document.documentElement.style.setProperty(
+      "--preview-community-banner-img",
+      "#33A8FF"
+    );
+    document.documentElement.style.setProperty("--preview-community-icon", "");
+    document.documentElement.style.setProperty(
+      "--preview-community-name-format",
+      "c/"
+    );
+
     dispatch(getCommunitySettings(community?.id));
+    dispatch(getCommunities());
     setShowResetWarning(false);
   };
 

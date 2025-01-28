@@ -1,6 +1,6 @@
-import { SelectedChatContext } from "context";
 import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
+import { SelectedChatContext } from "@/context";
 
 export function useCreateChatOverlay({
   username,

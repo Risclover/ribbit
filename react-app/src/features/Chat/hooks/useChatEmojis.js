@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { SelectedChatContext } from "@/context";
 import { createChatMessage, getChatThread } from "@/store";
 
-export default function useChatEmojis({ receiver, socket, setEmojisOverlay }) {
+export function useChatEmojis({ receiver, socket, setEmojisOverlay }) {
   const dispatch = useDispatch();
 
   const { selectedChat } = useContext(SelectedChatContext);

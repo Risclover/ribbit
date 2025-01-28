@@ -121,7 +121,7 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
       </div>
       {searchActive && (
         <div className="all-comments-btn">
-          Comments with "{searchQuery}"
+          <span className="comments-with">Comments with "{searchQuery}</span>"
           <span className="comment-sort-search-separator">|</span>
           <button onClick={dismissSearch} className="view-all-comments-btn">
             All Comments

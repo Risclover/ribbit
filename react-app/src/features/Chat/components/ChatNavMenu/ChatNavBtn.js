@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SelectedChatContext } from "@/context";
 import { formatDate } from "../../utils/formatDate";
-import useChatNavBtn from "features/Chat/hooks/useChatNavBtn";
+import { useChatNavBtn } from "../../hooks/useChatNavBtn";
 
 export const ChatNavBtn = ({
   chatThread,

@@ -78,6 +78,21 @@ export function PreviewCommunityColorPicker({
           />
         )}
       </div>
+
+      <label
+        className="use-browser-color-picker"
+        onClick={handleBrowserPickerToggle}
+      >
+        Use browser color picker{" "}
+        {showBrowserPicker && (
+          <input
+            type="color"
+            className="preview-community-browser-color-picker"
+            onChange={(e) => setTheme(e.target.value)}
+            value={theme}
+          />
+        )}
+      </label>
     </div>
   );
 }
