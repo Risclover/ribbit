@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { User } from "./User";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getUsers } from "store";
+import { getUsers } from "@/store";
 import { UserResultType } from "./UserResultType";
 
 export const UserResultsPreview = ({ query, isLoading }) => {

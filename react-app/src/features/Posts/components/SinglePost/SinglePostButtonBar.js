@@ -5,8 +5,8 @@ import { DeletePostModal } from "../DeletePost";
 import { Modal, ScrollContext } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
 import { usePostButtonHandlers } from "../../hooks/usePostButtonHandlers";
-import { PencilIcon } from "assets/icons/PencilIcon";
-import { ShareIcon } from "assets/icons/ShareIcon";
+import { PencilIcon } from "@/assets/icons/PencilIcon";
+import { ShareIcon } from "@/assets/icons/ShareIcon";
 
 export function SinglePostButtonBar({
   post,

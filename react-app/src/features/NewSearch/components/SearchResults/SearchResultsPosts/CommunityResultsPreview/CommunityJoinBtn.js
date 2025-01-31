@@ -6,7 +6,7 @@ import {
   getFavoriteCommunities,
   getSubscriptions,
 } from "@/store";
-import { getCommunities } from "store";
+import { getCommunities } from "@/store";
 
 export function CommunityJoinBtn({ community, isPage }) {
   const dispatch = useDispatch();

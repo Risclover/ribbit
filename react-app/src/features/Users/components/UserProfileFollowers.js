@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { getFollowers } from "@/store";
-import { FollowBtn } from "components";
+import { FollowBtn } from "@/components";
 
 export function UserProfileFollowers({ setShowFollowersModal }) {
   const dispatch = useDispatch();

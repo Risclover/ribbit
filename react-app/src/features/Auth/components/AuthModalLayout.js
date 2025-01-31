@@ -3,7 +3,7 @@ import { useFocusTrap } from "@/hooks";
 import { useAuthModalLayout } from "../hooks";
 
 /**
- * Layout for the auth modal
+ * Provides the overall structure for an auth modal: top bar, scroll container, footer, etc.
  * - active: which auth form is currently active (i.e. login, signup page 1, etc)
  * - onClose: function to run when modal is closed
  * - title: title to display on the form

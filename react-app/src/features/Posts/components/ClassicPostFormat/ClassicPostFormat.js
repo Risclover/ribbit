@@ -12,9 +12,9 @@ import { DeleteConfirmationModal, Username } from "@/components";
 import { Modal, useMetadata, ScrollContext } from "@/context";
 import { SinglePostKarmabar } from "../SinglePost";
 import { sliceUrl } from "@/utils";
-import { usePostButtonHandlers } from "features/Posts/hooks/usePostButtonHandlers";
-import { Tooltip } from "components/Tooltip/Tooltip";
-import { ShareIcon } from "assets/icons/ShareIcon";
+import { usePostButtonHandlers } from "@/features/Posts/hooks/usePostButtonHandlers";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
+import { ShareIcon } from "@/assets/icons/ShareIcon";
 import "../SinglePost/SinglePost.css";
 import "./ClassicPostFormat.css";
 

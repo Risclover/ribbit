@@ -12,7 +12,7 @@ import {
 } from "@/layouts";
 import { PostFormatContext } from "@/context";
 import Skeleton from "@mui/material/Skeleton";
-import { getUser } from "store";
+import { getUser } from "@/store";
 
 export function UserProfile({ setShowLoginForm, setOpenChat }) {
   const dispatch = useDispatch();

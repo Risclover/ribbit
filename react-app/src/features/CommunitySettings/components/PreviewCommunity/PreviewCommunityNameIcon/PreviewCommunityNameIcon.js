@@ -1,8 +1,7 @@
-// src/features/CommunitySettings/components/PreviewCommunityNameIcon.jsx
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { ToggleSwitch, DropBox } from "@/components";
 import { CommunityNameOption } from "./CommunityNameOption";
-import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunityNameIcon({ setOpenAppearance, settingsState }) {
   const {

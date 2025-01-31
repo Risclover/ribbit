@@ -12,8 +12,8 @@ export function DeleteCommentConfirmation({
   const handleDeleteClick = async (e) => {
     e.preventDefault();
     setShowDeleteModal(false);
-    dispatch(removeComment(commentId));
-    dispatch(getPosts());
+    await dispatch(removeComment(commentId));
+    dispatch(getPosts()); // If you need to refresh entire posts list
   };
 
   const handleKeepClick = (e) => {
@@ -21,29 +21,21 @@ export function DeleteCommentConfirmation({
     setShowDeleteModal(false);
   };
 
+  if (!showDeleteModal) return null;
+
   return (
-    <>
-      {showDeleteModal && (
-        <div className="modal-container">
-          <div className="modal-content">
-            Are you sure you want to delete your comment?
-          </div>
-          <div className="modal-buttons">
-            <button
-              className="delete-modal-btn-left"
-              onClick={(e) => handleKeepClick(e)}
-            >
-              Keep
-            </button>
-            <button
-              className="delete-modal-btn-right"
-              onClick={(e) => handleDeleteClick(e)}
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      )}
-    </>
+    <div className="modal-container">
+      <div className="modal-content">
+        Are you sure you want to delete your comment?
+      </div>
+      <div className="modal-buttons">
+        <button className="delete-modal-btn-left" onClick={handleKeepClick}>
+          Keep
+        </button>
+        <button className="delete-modal-btn-right" onClick={handleDeleteClick}>
+          Delete
+        </button>
+      </div>
+    </div>
   );
 }

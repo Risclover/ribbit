@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { createComment, getComments, addCommentVote } from "@/store";
+import {
+  createComment,
+  getCommentsForPost,
+  getPosts,
+  addCommentVote,
+} from "@/store";
 import { LoginSignupModal } from "@/features";
 import { useAutosizeTextArea } from "@/hooks";
+import { useAuthFlow } from "@/context/AuthFlowContext";
 import "../../styles/Comments.css";
-import { getPosts } from "store";
-import { getCommentsForPost } from "store";
-import { useAuthFlow } from "context/AuthFlowContext";
 
 export function CommentForm({
   replyForm = false,
@@ -15,8 +18,8 @@ export function CommentForm({
   parentId = null,
   onCancel,
 }) {
-  const textareaRef = useRef();
   const dispatch = useDispatch();
+  const textareaRef = useRef();
 
   const [content, setContent] = useState("");
   const [errors, setErrors] = useState([]);
@@ -24,85 +27,43 @@ export function CommentForm({
 
   const { openLogin } = useAuthFlow();
   const user = useSelector((state) => state.session.user);
-  const comments = useSelector((state) => Object.values(state.comments));
+
+  useAutosizeTextArea(textareaRef.current, content);
+
+  useEffect(() => {
+    setDisabled(content.trim().length === 0);
+  }, [content]);
+
+  if (!postId) return null;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!content.trim()) return;
 
     const payload = {
       content,
-      parentId, // Include parentId if replying
+      parentId,
     };
 
-    dispatch(createComment(payload, postId));
-    const commentId = comments[comments?.length - 1]?.id + 1;
+    try {
+      // createComment might return newly-created comment data
+      dispatch(createComment(payload, postId));
+      // Optionally upvote the new comment automatically:
 
-    setContent("");
-    dispatch(getPosts());
-    dispatch(getCommentsForPost());
-    dispatch(addCommentVote(commentId, "upvote"));
-    console.log("hello");
-    if (onCancel) onCancel(); // Close the form after submission
+      // Refresh or fetch updated comment data
+      dispatch(getPosts());
+
+      setContent("");
+
+      if (onCancel) onCancel(); // If it's a reply form, close after submission
+    } catch (err) {
+      setErrors(["There was an error creating your comment"]);
+    }
   };
 
-  useEffect(() => {
-    if (content === "") {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
-  }, [content]);
-
-  useAutosizeTextArea(textareaRef.current, content);
-
-  if (!postId) return null;
-
-  return (
-    <div className="comment-form-container">
-      {user && (
-        <form className="comment-form" onSubmit={(e) => handleSubmit(e)}>
-          {!replyForm && (
-            <label htmlFor="comment-box">
-              Comment as{" "}
-              <NavLink to={`/users/${user.id}/profile`}>
-                {" "}
-                {user.username}
-              </NavLink>
-            </label>
-          )}
-          <div className="post-comment-box">
-            <textarea
-              ref={textareaRef}
-              className="post-comment-textarea"
-              onChange={(e) => setContent(e.target.value)}
-              value={content}
-              maxLength={10000}
-              placeholder="What are your thoughts?"
-            ></textarea>
-            <div className="comment-form-button-container">
-              <div className="comment-form-errors">
-                {errors.length > 0 && errors.map((error) => error)}
-              </div>
-              <button
-                type="submit"
-                className="comment-submit"
-                disabled={disabled}
-              >
-                {replyForm ? "Reply" : "Comment"}
-              </button>
-              {replyForm && (
-                <button
-                  className="comment-reply-form-cancel"
-                  onClick={onCancel}
-                >
-                  Cancel
-                </button>
-              )}
-            </div>
-          </div>
-        </form>
-      )}
-      {!user && (
+  if (!user) {
+    return (
+      <div className="comment-form-container">
         <form className="comment-form">
           <label htmlFor="comment-box">
             <button
@@ -123,9 +84,61 @@ export function CommentForm({
             onChange={(e) => setContent(e.target.value)}
             value={content}
             disabled
-          ></textarea>
+          />
         </form>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="comment-form-container">
+      <form className="comment-form" onSubmit={handleSubmit}>
+        {!replyForm && (
+          <label htmlFor="comment-box">
+            Comment as{" "}
+            <NavLink to={`/users/${user.id}/profile`}>{user.username}</NavLink>
+          </label>
+        )}
+        <div className="post-comment-box">
+          <textarea
+            ref={textareaRef}
+            className="post-comment-textarea"
+            onChange={(e) => setContent(e.target.value)}
+            value={content}
+            maxLength={10000}
+            placeholder="What are your thoughts?"
+            id="comment-box"
+          />
+
+          <div className="comment-form-button-container">
+            <div className="comment-form-errors">
+              {errors.map((error, idx) => (
+                <p key={idx} style={{ color: "red" }}>
+                  {error}
+                </p>
+              ))}
+            </div>
+
+            <button
+              type="submit"
+              className="comment-submit"
+              disabled={disabled}
+            >
+              {replyForm ? "Reply" : "Comment"}
+            </button>
+
+            {replyForm && (
+              <button
+                type="button"
+                className="comment-reply-form-cancel"
+                onClick={onCancel}
+              >
+                Cancel
+              </button>
+            )}
+          </div>
+        </div>
+      </form>
     </div>
   );
 }

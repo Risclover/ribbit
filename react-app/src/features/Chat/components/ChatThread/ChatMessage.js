@@ -1,21 +1,237 @@
-import React from "react";
+// import React from "react";
+// import { useSelector } from "react-redux";
+// import parse from "html-react-parser";
+// import { DateSeparator } from "./DateSeparator";
+// import { ChatReactions } from "./ChatReactions";
+// import { useChatMessage } from "../../hooks/useChatMessage";
+
+// export const ChatMessage = ({
+//   formattedDate,
+//   previousMessage,
+//   showDateBar,
+//   message,
+//   setShowDeleteConfirmation,
+//   setMsgId,
+//   socket,
+// }) => {
+//   const currentUser = useSelector((state) => state.session.user);
+
+//   const {
+//     openReactions,
+//     setOpenReactions,
+//     msgContent,
+//     messageReactions,
+//     extractImgUrl,
+//     handleReactionClick,
+//   } = useChatMessage({ socket, message });
+
+//   return (
+//     <div className="chat-message-container" key={message.id}>
+//       {showDateBar && <DateSeparator date={formattedDate} />}
+//       {message.sender?.username === previousMessage?.sender?.username &&
+//       new Date(message.createdAt) - new Date(previousMessage.createdAt) <=
+//         60000 ? (
+//         <div className="chat-thread-message-compact">
+//           {msgContent !== "Message deleted by user" &&
+//             message.sender?.username === currentUser.username && (
+//               <div className="chat-message-hover-component">
+//                 {openReactions && (
+//                   <ChatReactions
+//                     openReactions={openReactions}
+//                     setOpenReactions={setOpenReactions}
+//                     message={message}
+//                     socket={socket}
+//                     compact={true}
+//                   />
+//                 )}
+//                 <button
+//                   className="chat-message-reaction-btn"
+//                   onClick={() => setOpenReactions(!openReactions)}
+//                 >
+//                   <span className="material-symbols-outlined">
+//                     sentiment_satisfied
+//                   </span>
+//                 </button>
+//                 <button
+//                   className="chat-message-delete-btn"
+//                   onClick={() => {
+//                     setShowDeleteConfirmation(true);
+//                     setMsgId(message.id);
+//                   }}
+//                 >
+//                   <i className="bi bi-trash3"></i>
+//                 </button>
+//               </div>
+//             )}
+//           <div className="chat-thread-message-compact-time">
+//             {new Date(message.createdAt).toLocaleString("en-US", {
+//               hour: "numeric",
+//               minute: "numeric",
+//               hour12: true,
+//             })}
+//           </div>
+//           {msgContent === "Message deleted by user" ? (
+//             <span className="fake-deleted-msg">{msgContent}</span>
+//           ) : (
+//             typeof msgContent === "string" && parse(msgContent)
+//           )}
+//           <div className="message-reactions">
+//             {messageReactions.map((reactionData) => (
+//               <div key={reactionData.reactionType} className="reaction-item">
+//                 <img
+//                   src={`/images/frog-reactions/${extractImgUrl(
+//                     reactionData.reactionType
+//                   )}`}
+//                   alt={reactionData.reactionType}
+//                   className="reaction-image"
+//                 />
+//                 {reactionData.count >= 1 && (
+//                   <span className="reaction-count">
+//                     {reactionData.count > 2 ? "2+" : reactionData.count}
+//                   </span>
+//                 )}
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       ) : (
+//         <div className="chat-thread-message">
+//           {openReactions && (
+//             <ChatReactions
+//               openReactions={openReactions}
+//               setOpenReactions={setOpenReactions}
+//               message={message}
+//               socket={socket}
+//             />
+//           )}
+//           {msgContent !== "Message deleted by user" && (
+//             <div
+//               className={`${
+//                 openReactions
+//                   ? "chat-message-hover-component-open"
+//                   : "chat-message-hover-component"
+//               }`}
+//             >
+//               <button
+//                 className="chat-message-reaction-btn"
+//                 onClick={() => setOpenReactions(true)}
+//               >
+//                 <span className="material-symbols-outlined">
+//                   sentiment_satisfied
+//                 </span>
+//               </button>
+//               <button
+//                 className="chat-message-delete-btn"
+//                 onClick={() => {
+//                   setShowDeleteConfirmation(true);
+//                 }}
+//               >
+//                 <i className="bi bi-trash3"></i>
+//               </button>
+//             </div>
+//           )}
+//           <div className="chat-thread-message-user-img">
+//             {message.sender?.id !== currentUser?.id ? (
+//               <img
+//                 className="pointer"
+//                 onClick={() =>
+//                   window.open(
+//                     `/users/${message.sender?.id}/profile`,
+//                     "_blank",
+//                     "noreferrer"
+//                   )
+//                 }
+//                 src={message.sender?.profileImg}
+//                 alt="User Avatar"
+//               />
+//             ) : (
+//               <img src={message.sender?.profileImg} alt="User Avatar" />
+//             )}
+//           </div>
+//           <div className="chat-thread-message-main">
+//             <div className="chat-thread-message-author">
+//               {message.sender?.id === currentUser?.id ? (
+//                 <span className="chat-thread-author">
+//                   {message.content === "Message deleted by user"
+//                     ? "Removed"
+//                     : message.sender?.username}{" "}
+//                 </span>
+//               ) : (
+//                 <span
+//                   onClick={() =>
+//                     window.open(
+//                       `/users/${message.sender?.id}/profile`,
+//                       "_blank",
+//                       "noreferrer"
+//                     )
+//                   }
+//                   className="chat-thread-author pointer"
+//                 >
+//                   {message.content === "Message deleted by user"
+//                     ? "Removed"
+//                     : message.sender?.username}
+//                 </span>
+//               )}
+//               <span className="chat-thread-time">
+//                 {new Date(message.createdAt).toLocaleString("en-US", {
+//                   hour: "numeric",
+//                   minute: "numeric",
+//                   hour12: true,
+//                 })}
+//               </span>
+//             </div>
+//             {msgContent === "Message deleted by user" ? (
+//               <span className="fake-deleted-msg">{msgContent}</span>
+//             ) : (
+//               typeof msgContent === "string" && parse(msgContent)
+//             )}
+//             <div className="message-reactions">
+//               {messageReactions.map((reactionData) => (
+//                 <div key={reactionData.reactionType} className="reaction-item">
+//                   <img
+//                     onClick={() => handleReactionClick(reactionData)}
+//                     src={`/images/frog-reactions/${extractImgUrl(
+//                       reactionData.reactionType
+//                     )}`}
+//                     alt={reactionData.reactionType}
+//                     className="reaction-image"
+//                   />
+//                   {reactionData.count >= 1 && (
+//                     <span className="reaction-count">
+//                       {reactionData.count > 2 ? "2+" : reactionData.count}
+//                     </span>
+//                   )}
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
 import { DateSeparator } from "./DateSeparator";
 import { ChatReactions } from "./ChatReactions";
-import { useChatMessage } from "features/Chat/hooks/useChatMessage";
+import { useChatMessage } from "../../hooks/useChatMessage";
 
 export const ChatMessage = ({
-  formattedDate,
-  previousMessage,
+  id,
+  sender,
   showDateBar,
-  message,
-  setShowDeleteConfirmation,
-  setMsgId,
+  formattedDate,
   socket,
+  content,
+  createdAt,
+  previousMessage,
+  setActiveOverlay,
+  setMsgIdToDelete,
+  OVERLAYS,
 }) => {
   const currentUser = useSelector((state) => state.session.user);
-
   const {
     openReactions,
     setOpenReactions,
@@ -23,25 +239,36 @@ export const ChatMessage = ({
     messageReactions,
     extractImgUrl,
     handleReactionClick,
-  } = useChatMessage({ socket, message });
+  } = useChatMessage({ socket, messageId: id, content });
+
+  const handleDelete = () => {
+    if (sender?.id !== currentUser?.id) return;
+    setMsgIdToDelete(id);
+    setActiveOverlay(OVERLAYS.DELETE);
+  };
+
+  // Quick check if user repeated + short time window => “compact”
+  const isCompact =
+    sender?.username === previousMessage?.sender?.username &&
+    new Date(createdAt) - new Date(previousMessage?.createdAt) <= 60000;
 
   return (
-    <div className="chat-message-container" key={message.id}>
+    <div className="chat-message-container" key={id}>
       {showDateBar && <DateSeparator date={formattedDate} />}
-      {message.sender?.username === previousMessage?.sender?.username &&
-      new Date(message.createdAt) - new Date(previousMessage.createdAt) <=
-        60000 ? (
+
+      {isCompact ? (
         <div className="chat-thread-message-compact">
-          {msgContent !== "Message deleted by user" &&
-            message.sender?.username === currentUser.username && (
+          {/* Reaction / Delete for message owner */}
+          {sender?.id === currentUser?.id &&
+            msgContent !== "Message deleted by user" && (
               <div className="chat-message-hover-component">
                 {openReactions && (
                   <ChatReactions
                     openReactions={openReactions}
                     setOpenReactions={setOpenReactions}
-                    message={message}
+                    messageId={id}
                     socket={socket}
-                    compact={true}
+                    compact
                   />
                 )}
                 <button
@@ -54,27 +281,28 @@ export const ChatMessage = ({
                 </button>
                 <button
                   className="chat-message-delete-btn"
-                  onClick={() => {
-                    setShowDeleteConfirmation(true);
-                    setMsgId(message.id);
-                  }}
+                  onClick={handleDelete}
                 >
                   <i className="bi bi-trash3"></i>
                 </button>
               </div>
             )}
+
           <div className="chat-thread-message-compact-time">
-            {new Date(message.createdAt).toLocaleString("en-US", {
+            {new Date(createdAt).toLocaleString("en-US", {
               hour: "numeric",
               minute: "numeric",
               hour12: true,
             })}
           </div>
+
           {msgContent === "Message deleted by user" ? (
             <span className="fake-deleted-msg">{msgContent}</span>
           ) : (
             typeof msgContent === "string" && parse(msgContent)
           )}
+
+          {/* Reactions */}
           <div className="message-reactions">
             {messageReactions.map((reactionData) => (
               <div key={reactionData.reactionType} className="reaction-item">
@@ -96,21 +324,24 @@ export const ChatMessage = ({
         </div>
       ) : (
         <div className="chat-thread-message">
+          {/* Reaction overlay */}
           {openReactions && (
             <ChatReactions
               openReactions={openReactions}
               setOpenReactions={setOpenReactions}
-              message={message}
+              messageId={id}
               socket={socket}
             />
           )}
+
+          {/* Hover actions */}
           {msgContent !== "Message deleted by user" && (
             <div
-              className={`${
+              className={
                 openReactions
                   ? "chat-message-hover-component-open"
                   : "chat-message-hover-component"
-              }`}
+              }
             >
               <button
                 className="chat-message-reaction-btn"
@@ -120,71 +351,77 @@ export const ChatMessage = ({
                   sentiment_satisfied
                 </span>
               </button>
-              <button
-                className="chat-message-delete-btn"
-                onClick={() => {
-                  setShowDeleteConfirmation(true);
-                }}
-              >
-                <i className="bi bi-trash3"></i>
-              </button>
+              {sender?.id === currentUser?.id && (
+                <button
+                  className="chat-message-delete-btn"
+                  onClick={handleDelete}
+                >
+                  <i className="bi bi-trash3"></i>
+                </button>
+              )}
             </div>
           )}
+
+          {/* User avatar */}
           <div className="chat-thread-message-user-img">
-            {message.sender?.id !== currentUser?.id ? (
+            {sender?.id !== currentUser?.id ? (
               <img
                 className="pointer"
                 onClick={() =>
                   window.open(
-                    `/users/${message.sender?.id}/profile`,
+                    `/users/${sender?.id}/profile`,
                     "_blank",
                     "noreferrer"
                   )
                 }
-                src={message.sender?.profileImg}
+                src={sender?.profileImg}
                 alt="User Avatar"
               />
             ) : (
-              <img src={message.sender?.profileImg} alt="User Avatar" />
+              <img src={sender?.profileImg} alt="User Avatar" />
             )}
           </div>
+
           <div className="chat-thread-message-main">
             <div className="chat-thread-message-author">
-              {message.sender?.id === currentUser?.id ? (
+              {sender?.id === currentUser?.id ? (
                 <span className="chat-thread-author">
-                  {message.content === "Message deleted by user"
+                  {msgContent === "Message deleted by user"
                     ? "Removed"
-                    : message.sender?.username}{" "}
+                    : sender?.username}
                 </span>
               ) : (
                 <span
                   onClick={() =>
                     window.open(
-                      `/users/${message.sender?.id}/profile`,
+                      `/users/${sender?.id}/profile`,
                       "_blank",
                       "noreferrer"
                     )
                   }
                   className="chat-thread-author pointer"
                 >
-                  {message.content === "Message deleted by user"
+                  {msgContent === "Message deleted by user"
                     ? "Removed"
-                    : message.sender?.username}
+                    : sender?.username}
                 </span>
               )}
               <span className="chat-thread-time">
-                {new Date(message.createdAt).toLocaleString("en-US", {
+                {new Date(createdAt).toLocaleString("en-US", {
                   hour: "numeric",
                   minute: "numeric",
                   hour12: true,
                 })}
               </span>
             </div>
+
             {msgContent === "Message deleted by user" ? (
               <span className="fake-deleted-msg">{msgContent}</span>
             ) : (
               typeof msgContent === "string" && parse(msgContent)
             )}
+
+            {/* Reactions */}
             <div className="message-reactions">
               {messageReactions.map((reactionData) => (
                 <div key={reactionData.reactionType} className="reaction-item">

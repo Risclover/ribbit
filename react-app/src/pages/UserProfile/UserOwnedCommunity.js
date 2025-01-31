@@ -1,4 +1,4 @@
-import { CommunityImg } from "components/CommunityImg";
+import { CommunityImg } from "@/components/CommunityImg";
 import React from "react";
 import { NavLink } from "react-router-dom";
 

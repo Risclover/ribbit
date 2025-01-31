@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink, useParams, Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import {
   updateCommunity,
   getCommunityRules,
   getSingleCommunity,
+  deleteCommunity,
+  getCommunities,
 } from "@/store";
 import { Modal } from "@/context";
 import { DeleteConfirmationModal, CommunityImg } from "@/components";
-import { getIdFromName } from "utils/getCommunityIdFromName";
+import { getIdFromName } from "@/utils/getCommunityIdFromName";
 import { CommunityEditRule, AddCommunityRuleModal } from "@/features";
-import { deleteCommunity } from "store";
 import "../CommunitySettings.css";
-import { v4 as uuidv4 } from "uuid";
-import { getCommunities } from "store";
 
 export function EditCommunity() {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const { communityId } = useParams();
   const { communityName } = useParams();
   const communities = useSelector((state) => state.communities);
   const currentUser = useSelector((state) => state.session.user);

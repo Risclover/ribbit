@@ -1,7 +1,7 @@
-import { Username } from "components";
-import { Tooltip } from "components/Tooltip/Tooltip";
-import "../../../../components/Tooltip/Tooltip.css";
 import React from "react";
+import { Username } from "@/components";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
+import "../../../../components/Tooltip/Tooltip.css";
 
 export function CommentAuthorBar({
   comment,
@@ -10,17 +10,18 @@ export function CommentAuthorBar({
   wasEdited,
   editedTime,
 }) {
+  const isOP = post?.postAuthor?.username === comment?.commentAuthor?.username;
+
   return (
     <div className="comment-author-bar-container">
       <div className="comment-author-bar">
         <Username
-          community={true}
+          community
           username={comment?.commentAuthor?.username}
           user={comment?.commentAuthor}
         />
-        {post.postAuthor?.username === comment?.commentAuthor?.username && (
-          <span className="op-sign">OP</span>
-        )}
+        {isOP && <span className="op-sign">OP</span>}
+
         <span className="single-post-topbar-dot"> · </span>
         <span className="comment-original-time">
           <span className="comment-time-hover">
@@ -28,6 +29,7 @@ export function CommentAuthorBar({
           </span>
           {commentTime}
         </span>
+
         {wasEdited && (
           <span className="comment-was-edited">
             <span className="single-post-topbar-dot"> · </span>

@@ -1,55 +1,84 @@
-import React, { useMemo, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-export default function useComments() {
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const inputRef = useRef(null);
+export function useComments() {
   const { postId } = useParams();
+  const commentsState = useSelector((state) => state.comments);
+  const commentsArray = Object.values(commentsState);
 
-  const [sortedComments, setSortedComments] = useState(nestedComments || []);
+  // Example local states
   const [sortType, setSortType] = useState("New");
   const [searchValue, setSearchValue] = useState("");
-  const [searchActive, setSearchActive] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(searchValue);
-  const [isLoaded, setIsLoaded] = useState(false);
 
-  const commentIdPattern = /#comment-(\d+)/;
+  const nestedComments = useMemo(() => {
+    // Some logic to build nested
+    // ...
+    return [];
+  }, [commentsArray]);
 
-  const match = url.match(commentIdPattern);
-  const commentUrl = match ? parseInt(match[1]) : null;
+  return {
+    postId,
+    sortType,
+    setSortType,
+    searchValue,
+    setSearchValue,
+    nestedComments,
+  };
+}
+import { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-  const specificComment = commentUrl ? commentMap[commentUrl] : null;
-
-  const url = window.location.href;
-
+export function useComments() {
+  const { postId } = useParams();
   const commentsState = useSelector((state) => state.comments);
+  const commentsArray = Object.values(commentsState);
 
-  const { nestedComments, commentMap } = useMemo(() => {
-    const commentsArray = Object.values(commentsState);
-    const commentMap = {};
+  // Example local states
+  const [sortType, setSortType] = useState("New");
+  const [searchValue, setSearchValue] = useState("");
 
-    commentsArray.forEach((comment) => {
-      commentMap[comment.id] = { ...comment, children: [] };
-    });
+  const nestedComments = useMemo(() => {
+    // Some logic to build nested
+    // ...
+    return [];
+  }, [commentsArray]);
 
-    const nestedComments = [];
+  return {
+    postId,
+    sortType,
+    setSortType,
+    searchValue,
+    setSearchValue,
+    nestedComments,
+  };
+}
+import { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-    commentsArray.forEach((comment) => {
-      const commentCopy = commentMap[comment.id];
+export function useComments() {
+  const { postId } = useParams();
+  const commentsState = useSelector((state) => state.comments);
+  const commentsArray = Object.values(commentsState);
 
-      if (commentCopy.parentId) {
-        if (commentMap[commentCopy.parentId]) {
-          commentMap[commentCopy.parentId].children.push(commentCopy);
-        } else {
-          nestedComments.push(commentCopy);
-        }
-      } else {
-        nestedComments.push(commentCopy);
-      }
-    });
+  // Example local states
+  const [sortType, setSortType] = useState("New");
+  const [searchValue, setSearchValue] = useState("");
 
-    return { nestedComments, commentMap };
-  }, [commentsState]);
+  const nestedComments = useMemo(() => {
+    // Some logic to build nested
+    // ...
+    return [];
+  }, [commentsArray]);
+
+  return {
+    postId,
+    sortType,
+    setSortType,
+    searchValue,
+    setSearchValue,
+    nestedComments,
+  };
 }

@@ -6,8 +6,11 @@ import {
 } from "@/assets";
 
 /**
- * Reusable icon component for each input box; "valid" (input is valid), "error" (input is invalid), or "rotate" (for rotate username option)
+ * A small component rendering the correct icon image or SVG based on iconType.
  * - iconType: type of icon to display
+ *     - "error": input is invalid
+ *     - "valid": input is valid
+ *     - "rotate": for 'generate random username' tool
  * - name: name of input box
  */
 export const IconComponent = ({ iconType, name }) => {

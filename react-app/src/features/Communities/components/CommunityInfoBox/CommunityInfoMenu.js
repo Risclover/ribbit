@@ -7,11 +7,11 @@ import {
   getFavoriteCommunities,
   removeFavoriteCommunity,
 } from "@/store";
-import { useOutsideClick } from "hooks";
-import { getIdFromName } from "utils/getCommunityIdFromName";
-import { addToSubscriptions } from "store";
-import { getCommunities } from "store";
-import { getSubscriptions } from "store";
+import { useOutsideClick } from "@/hooks";
+import { getIdFromName } from "@/utils/getCommunityIdFromName";
+import { addToSubscriptions } from "@/store";
+import { getCommunities } from "@/store";
+import { getSubscriptions } from "@/store";
 
 export function CommunityInfoMenu({ community }) {
   const wrapperRef = useRef(null);
@@ -24,7 +24,7 @@ export function CommunityInfoMenu({ community }) {
   const [btnState, setBtnState] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
 
-  const currentUser = useSelector(state => state.session.user);
+  const currentUser = useSelector((state) => state.session.user);
 
   const communityId = getIdFromName(communityName, communities);
 

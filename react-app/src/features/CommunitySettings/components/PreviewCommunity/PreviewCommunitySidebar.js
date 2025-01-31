@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { getCommunities } from "@/store";
 import { Modal } from "@/context";
 import { PreviewCommunitySidebarAppearance, OutsideClickWarning } from "..";
 import { ResetToDefaultsWarning } from "./ResetToDefaultsWarning";
-import { v4 as uuidv4 } from "uuid";
-import { useCommunitySettingsState } from "features/CommunitySettings/hooks/useCommunitySettingsState";
+import { useCommunitySettingsState } from "../../hooks";
 import "./PreviewCommunity.css";
 
 export function PreviewCommunitySidebar() {

@@ -11,10 +11,10 @@ import {
 import { getTextColor } from "@/utils";
 import Cake from "@/assets/images/misc/piece4.png";
 import { useHistory } from "react-router-dom";
-import { CommunityImg } from "components/CommunityImg";
-import { useCommunitySettings } from "features/Posts/hooks/useCommunitySettings";
+import { CommunityImg } from "@/components/CommunityImg";
+import { useCommunitySettings } from "@/features/Posts/hooks/useCommunitySettings";
 import { useSelector } from "react-redux";
-import { useAuthFlow } from "context/AuthFlowContext";
+import { useAuthFlow } from "@/context/AuthFlowContext";
 
 export function CommunityInfoBox({ community, user, isPage }) {
   const { checked, setChecked } = useCommunitySettings(community);

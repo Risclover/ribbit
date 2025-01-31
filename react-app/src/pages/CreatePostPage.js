@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { CommunityDetails, CommunityRulesBox, RibbitRules } from "../features";
 import { getCommunities, getPosts, getSubscriptions } from "../store";
 import { useParams } from "react-router-dom";
-import { usePageSettings } from "hooks";
+import { usePageSettings } from "@/hooks";
 import "@/features/Posts/components/CreatePost/PostForm.css";
-import { CreatePostIcon } from "assets/icons/CreatePostIcon";
+import { CreatePostIcon } from "@/assets/icons/CreatePostIcon";
 
 export function CreatePostPage({ postType, setPostType, val }) {
   const { communityName } = useParams();

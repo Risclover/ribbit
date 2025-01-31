@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DemoAccountWarning } from "./DemoAccountWarning";
 
 /**
- * Header of the login and sign-up forms
+ * Renders a user agreement text and a “Demo account” button at the top of the auth forms.
  * - displays general user agreement + demo account usage button
  */
 export function FormHeader() {

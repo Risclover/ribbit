@@ -10,15 +10,15 @@ import {
   CommunityRulesBox,
 } from "../features";
 import { usePageSettings } from "../hooks/usePageSettings";
-import { getIdFromName } from "utils/getCommunityIdFromName";
-import { CommunityImg } from "components/CommunityImg";
+import { getIdFromName } from "@/utils/getCommunityIdFromName";
+import { CommunityImg } from "@/components/CommunityImg";
 import Skeleton from "@mui/material/Skeleton";
 import {
   BackToTop,
   FeedContainer,
   FeedLeftColContainer,
   FeedRightColContainer,
-} from "components";
+} from "@/components";
 
 export function CommunityPage() {
   const { communityName } = useParams();

@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addCommunity, addToSubscriptions, getSubscriptions } from "@/store";
 import { CreateCommunityForm } from "./CreateCommunityForm";
-import { lockScroll, unlockScroll } from "utils/scrollLock";
+import { lockScroll, unlockScroll } from "@/utils/scrollLock";
 import "./CreateCommunityModal.css";
-import { useScrollLock } from "hooks";
+import { useScrollLock } from "@/hooks";
 
 export function CreateCommunityModal({
   showCreateCommunityModal,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { render, screen, waitFor } from "@testing-library/react";
-import { SignUpForm } from "./SignUpForm/SignUpForm";
+import { SignUpForm } from "./AuthForms/SignUpForm";
 import { configureStore } from "@/store";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";

@@ -5,7 +5,7 @@ export function CommentReplyForm({ postId, parentId, onCancel }) {
   return (
     <div className="comment-reply-form-container">
       <CommentForm
-        replyForm={true}
+        replyForm
         postId={postId}
         parentId={parentId}
         onCancel={onCancel}

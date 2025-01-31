@@ -2,7 +2,7 @@ import React from "react";
 import useSignInSwitch from "../hooks/useSignInSwitch";
 
 /**
- * Button that switches between login and signup forms
+ * A small link that toggles between "Log In" and "Sign Up", taking the user to the respective form when clicked.
  * - prompt: text prompt to display before link
  * - linkText: text link should display
  */

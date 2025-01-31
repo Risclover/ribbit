@@ -7,8 +7,8 @@ import {
   getFavoriteCommunities,
   getSingleCommunity,
 } from "@/store";
-import { getCommunities } from "store";
-import { useAuthFlow } from "context/AuthFlowContext";
+import { getCommunities } from "@/store";
+import { useAuthFlow } from "@/context/AuthFlowContext";
 
 export function CommunitySubscribeBtn({
   user,

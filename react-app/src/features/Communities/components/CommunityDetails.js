@@ -10,10 +10,10 @@ import {
 import { CommunityOptions } from "./CommunityInfoBox";
 import Cake from "@/assets/images/misc/piece4.png";
 import { useHistory } from "react-router-dom";
-import { LoginSignupModal } from "features/Auth";
-import { CommunityImg } from "components/CommunityImg";
-import { useCommunitySettings } from "features/Posts/hooks/useCommunitySettings";
-import { useAuthFlow } from "context/AuthFlowContext";
+import { LoginSignupModal } from "@/features/Auth";
+import { CommunityImg } from "@/components/CommunityImg";
+import { useCommunitySettings } from "@/features/Posts/hooks/useCommunitySettings";
+import { useAuthFlow } from "@/context/AuthFlowContext";
 
 export function CommunityDetails({ post, community }) {
   const history = useHistory();

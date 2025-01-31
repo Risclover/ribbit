@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getCommunities } from "@/store";
-import { useOutsideClick } from "hooks";
-import { CommunityImg } from "components/CommunityImg";
+import { useOutsideClick } from "@/hooks";
+import { CommunityImg } from "@/components/CommunityImg";
 import { SearchIcon, CircleSeparator } from "@/assets";
 
 export function SearchDropdown({

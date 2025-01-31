@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaPen } from "react-icons/fa";
 import { getCommunities, updateCommunity } from "@/store";
 import { useOutsideClick, useAutosizeTextArea } from "@/hooks";
-import { getSingleCommunity } from "store";
+import { getSingleCommunity } from "@/store";
 
 export function CommunityDescription({ community, user, isPage }) {
   const textareaRef = useRef(null);

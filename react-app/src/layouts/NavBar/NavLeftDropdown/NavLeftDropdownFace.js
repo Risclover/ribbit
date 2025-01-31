@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { VscChevronDown } from "react-icons/vsc";
 import { PageTitleContext } from "@/context";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
-import { useOutsideClick } from "hooks";
+import { useOutsideClick } from "@/hooks";
 import { NavLeftDropdown } from "./NavLeftDropdown";
 import "./NavLeftDropdown.css";
 import Skeleton from "react-loading-skeleton";

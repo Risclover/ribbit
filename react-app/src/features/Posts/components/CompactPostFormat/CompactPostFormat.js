@@ -14,9 +14,9 @@ import "./CompactPostFormat.css";
 import { usePostVote } from "../../hooks/usePostVote";
 import { CompactPostMenu } from "./CompactPostMenu";
 import { CompactPostTypeIcon } from "./CompactPostTypeIcon";
-import { Tooltip } from "components/Tooltip/Tooltip";
-import { UpvoteIcon } from "assets/icons/UpvoteIcon";
-import { DownvoteIcon } from "assets/icons/DownvoteIcon";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
+import { UpvoteIcon } from "@/assets/icons/UpvoteIcon";
+import { DownvoteIcon } from "@/assets/icons/DownvoteIcon";
 
 export function CompactPostFormat({ id, isPage, post }) {
   const history = useHistory();

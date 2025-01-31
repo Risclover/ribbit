@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Community } from "./Community";
 import { useHistory } from "react-router-dom";
 import CommunityResultType from "./CommunityResultType";
-import { stripHtml } from "utils/stripHtml";
-import { searchCommunities } from "store";
+import { stripHtml } from "@/utils/stripHtml";
+import { searchCommunities } from "@/store";
 
 export const CommunityResultsPreview = ({ query, isLoading }) => {
   const history = useHistory();

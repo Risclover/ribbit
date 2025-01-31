@@ -1,60 +1,50 @@
-// src/components/CommentSorting.js
-
 import React, { useState, useRef } from "react";
-import { useFocusTrap, useOutsideClick } from "hooks";
+import { useFocusTrap, useOutsideClick } from "@/hooks";
 import "../styles/Comments.css";
-import { ChevronDownFilled } from "assets/icons/ChevronDownFilled";
+import { ChevronDownFilled } from "@/assets/icons/ChevronDownFilled";
 
+/**
+ * A dropdown that lets the user pick how to sort comments.
+ */
 export function CommentSorting({ sortType, setSortType }) {
-  const [showSortingDropdown, setShowSortingDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const wrapperRef = useRef(null);
 
   const SORT_OPTIONS = ["Best", "Top", "New", "Old"];
 
-  const handleClick = (e, type) => {
+  useOutsideClick(wrapperRef, () => setShowDropdown(false));
+  useFocusTrap(showDropdown, wrapperRef);
+
+  const toggleDropdown = () => setShowDropdown((prev) => !prev);
+
+  const onOptionClick = (e, option) => {
     e.preventDefault();
-    setSortType(type);
-    setShowSortingDropdown(false);
+    setSortType(option);
+    setShowDropdown(false);
   };
 
-  useOutsideClick(wrapperRef, () => setShowSortingDropdown(false));
-
-  useFocusTrap(showSortingDropdown, wrapperRef);
-
   return (
-    <div className="comment-sorting">
-      <div
+    <div className="comment-sorting" ref={wrapperRef}>
+      <button
         className="comment-sorting-face"
-        onClick={() => setShowSortingDropdown(!showSortingDropdown)}
-        role="button"
-        tabIndex="0"
-        onKeyPress={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            setShowSortingDropdown(!showSortingDropdown);
-          }
-        }}
+        onClick={toggleDropdown}
         aria-haspopup="true"
-        aria-expanded={showSortingDropdown}
+        aria-expanded={showDropdown}
       >
-        <span className="comment-sorting-sortby">Sort By: {sortType}</span>{" "}
+        <span className="comment-sorting-sortby">Sort By: {sortType}</span>
         <ChevronDownFilled />
-      </div>
-      {showSortingDropdown && (
-        <div className="comment-sorting-dropdown" ref={wrapperRef} role="menu">
+      </button>
+
+      {showDropdown && (
+        <div className="comment-sorting-dropdown" role="menu">
           {SORT_OPTIONS.map((option) => (
             <button
               key={option}
-              className={`comment-sorting-dropdown-btn${
-                sortType === option ? " sorting-active-btn" : ""
+              className={`comment-sorting-dropdown-btn ${
+                sortType === option ? "sorting-active-btn" : ""
               }`}
-              onClick={(e) => handleClick(e, option)}
+              onClick={(e) => onOptionClick(e, option)}
               role="menuitem"
-              tabIndex="0"
-              onKeyPress={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  handleClick(e, option);
-                }
-              }}
             >
               {option}
             </button>

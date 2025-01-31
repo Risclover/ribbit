@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { CommunityJoinBtn } from "../SearchResultsPosts";
-import { CommunityImg } from "components/CommunityImg";
+import { CommunityImg } from "@/components/CommunityImg";
 import { Skeleton } from "@mui/material";
 
 const CommunityResult = ({ community }) => {

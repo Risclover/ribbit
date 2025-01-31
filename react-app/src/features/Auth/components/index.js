@@ -1,4 +1,4 @@
-export { LoginForm } from "./LoginForm";
+export { LoginForm } from "./AuthForms/LoginForm";
 export { AuthFormInput } from "./AuthFormInput";
 export { DemoAccountWarning } from "./DemoAccountWarning";
 export { FormHeader } from "./FormHeader";
@@ -7,5 +7,5 @@ export { SignInSwitch } from "./SignInSwitch";
 export { UsernameAvailability } from "./UsernameAvailability";
 export { IconComponent } from "./IconComponent";
 export { ErrorsDisplay } from "./ErrorsDisplay";
-export * from "./SignUpForm";
+export * from "./AuthForms";
 export { AuthModalLayout } from "./AuthModalLayout";

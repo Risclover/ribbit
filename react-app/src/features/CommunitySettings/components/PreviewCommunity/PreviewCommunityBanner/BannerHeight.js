@@ -1,8 +1,7 @@
-// src/features/CommunitySettings/components/BannerHeight.jsx
 import React from "react";
 import { FaDotCircle, FaRegCircle } from "react-icons/fa";
 
-export function BannerHeight({ height, option, activeRadio, setActiveRadio }) {
+export function BannerHeight({ option, activeRadio, setActiveRadio }) {
   return (
     <div
       className={`preview-community-radio ${

@@ -9,7 +9,7 @@ import { CreatePostFormErrors } from "./CreatePostFormErrors";
 import { Modal } from "@/context";
 import { DiscardPost } from "../DiscardPost";
 import validator from "validator";
-import { getIdFromName } from "utils/getCommunityIdFromName";
+import { getIdFromName } from "@/utils/getCommunityIdFromName";
 import { CommunitySelection } from "./CommunitySelection";
 
 export function CreatePostForm({

@@ -13,3 +13,9 @@ module.exports = {
     fetch: global.fetch,
   },
 };
+
+jest.mock("react-dom", () => {
+  return {
+    render: jest.fn(),
+  };
+});

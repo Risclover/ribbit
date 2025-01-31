@@ -1,9 +1,8 @@
-// src/features/CommunitySettings/components/PreviewCommunityColorTheme.jsx
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { DropBox } from "@/components";
 import { PreviewCommunityColorThemeColor, BodyBgFormat } from "@/features";
 import "../PreviewCommunity.css";
-import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunityColorTheme({
   setOpenAppearance,

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { SearchResultsNav } from "../features";
 import "../features/NewSearch/Search.css";
 import { usePageSettings } from "../hooks";
-import { MagnifyingGlass } from "assets/icons/MagnifyingGlass";
+import { MagnifyingGlass } from "@/assets/icons/MagnifyingGlass";
 
 export const SearchResults = ({ children, query, searchPage }) => {
   usePageSettings({

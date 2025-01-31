@@ -32,23 +32,23 @@ export function Text({ content }) {
         const words = node.data.split(" ");
         return (
           <>
-            {words.map((word, idx) =>
-              URL_REGEX.test(word) ? (
-                <React.Fragment key={uuidv4()}>
-                  <a
-                    href={normalizeUrl(word)}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {word}
-                  </a>{" "}
-                </React.Fragment>
-              ) : idx + 1 === words.length ? (
-                word
-              ) : (
-                word + " "
-              )
-            )}
+            {words.map((word, idx) => {
+              if (URL_REGEX.test(word)) {
+                return (
+                  <React.Fragment key={uuidv4()}>
+                    <a
+                      href={normalizeUrl(word)}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {word}
+                    </a>{" "}
+                  </React.Fragment>
+                );
+              }
+              const isLast = idx === words.length - 1;
+              return isLast ? word : word + " ";
+            })}
           </>
         );
       }

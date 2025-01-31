@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import { CommunityImg } from "components/CommunityImg";
+import { CommunityImg } from "@/components/CommunityImg";
 import "./CommunitySelection.css";
 
 export function CommunitySelectionDropdownCommunity({

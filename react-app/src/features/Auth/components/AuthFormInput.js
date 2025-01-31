@@ -2,6 +2,14 @@ import React from "react";
 import { IconComponent, ErrorsDisplay } from "../components";
 import { useAuthFormInput } from "../hooks/useAuthFormInput";
 
+/**
+ * A reusable input field with built-in error display and icons.
+ * - handleLabelClick: what should happen when the user clicks on the label
+ * - handleBlur: what should happen when the user unfocuses the input box
+ * - pickRandomUsername: generate random username
+ * - iconType: type of icon to show
+ * - classValue: class value of the input box (mostly to control error styles)
+ */
 export function AuthFormInput({ props, icon, blurred }) {
   const {
     handleLabelClick,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
-import { ribbitLogos } from "assets";
+import { ribbitLogos } from "@/assets";
 
 const preloadImage = (src) => {
   const img = new Image();

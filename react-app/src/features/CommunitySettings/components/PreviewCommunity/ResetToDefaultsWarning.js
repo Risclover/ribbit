@@ -1,8 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getCommunitySettings } from "store";
-import { getCommunities } from "store";
-import { resetToDefault } from "store";
+import { getCommunitySettings, getCommunities, resetToDefault } from "@/store";
 
 export const ResetToDefaultsWarning = ({ community, setShowResetWarning }) => {
   const dispatch = useDispatch();

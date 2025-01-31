@@ -14,7 +14,7 @@ import "./NavSidebar.css";
 import {
   getSidebarState,
   setSidebarState,
-} from "features/Communities/utils/localStorage";
+} from "@/features/Communities/utils/localStorage";
 
 export function NavSidebar({
   setShowNavSidebar,

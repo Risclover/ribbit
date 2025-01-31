@@ -4,7 +4,7 @@ import { Modal } from "@/context";
 import { useSelector } from "react-redux";
 import { ribbitBanners } from "@/assets";
 import { BackToTop } from "@/components";
-import { useAuthFlow } from "context/AuthFlowContext";
+import { useAuthFlow } from "@/context/AuthFlowContext";
 
 export const NewCommunity = () => {
   const [showCommunityModal, setShowCommunityModal] = useState(false);

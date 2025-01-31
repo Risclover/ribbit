@@ -8,8 +8,8 @@ import { logout } from "@/store";
 import Poinsettia from "@/assets/images/user-profile-icons/poinsettia.png";
 import { useOutsideClick } from "@/hooks";
 import "./NavUserDropdown.css";
-import { CommunityThemeToggle } from "features";
-import { useDarkMode } from "hooks/useDarkMode";
+import { CommunityThemeToggle } from "@/features";
+import { useDarkMode } from "@/hooks/useDarkMode";
 
 export function NavUserDropdown() {
   const history = useHistory();

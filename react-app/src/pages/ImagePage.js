@@ -3,12 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import "./ImagePage.css"; // Import the CSS file for styling
-import { getIdFromName } from "utils/getCommunityIdFromName";
+import { getIdFromName } from "@/utils/getCommunityIdFromName";
 import { useDispatch, useSelector } from "react-redux";
-import { usePageSettings } from "hooks";
-import { CommunityImg } from "components";
+import { usePageSettings } from "@/hooks";
+import { CommunityImg } from "@/components";
 import Skeleton from "@mui/material/Skeleton";
-import { getCommunities } from "store";
+import { getCommunities } from "@/store";
 
 const ImagePage = () => {
   const dispatch = useDispatch();

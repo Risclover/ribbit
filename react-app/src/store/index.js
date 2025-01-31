@@ -53,10 +53,14 @@ if (process.env.NODE_ENV === "production") {
 } else {
   const logger = require("redux-logger").default;
   const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      trace: true,
-      traceLimit: 25,
-    }) || compose;
+    (typeof window !== "undefined" &&
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        trace: true,
+        traceLimit: 25,
+      })) ||
+    compose;
+
   enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 }
 

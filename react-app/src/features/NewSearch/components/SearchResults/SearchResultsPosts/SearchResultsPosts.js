@@ -11,7 +11,7 @@ import { NewCommunity } from "./NewCommunity";
 import { stripHtml } from "@/utils/stripHtml";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
 import { PostResultType } from "./PostResultType";
-import { getPosts } from "store";
+import { getPosts } from "@/store";
 
 export const SearchResultsPosts = ({ searchbarRef }) => {
   const dispatch = useDispatch();

@@ -8,7 +8,7 @@ import React, {
 import { useHistory } from "react-router-dom";
 import { SinglePost } from "@/features";
 import { SortingBar } from "../../../../components/SortingBar";
-import { PostFormatContext } from "context";
+import { PostFormatContext } from "@/context";
 
 export const PostFeed = ({
   posts = [],

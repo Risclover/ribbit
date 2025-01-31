@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 import { TbChevronDown } from "react-icons/tb";
 
-import { CommunityImg } from "components/CommunityImg";
+import { CommunityImg } from "@/components/CommunityImg";
 import "./CommunitySelection.css";
 
 export function CommunitySelectionInput({

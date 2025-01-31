@@ -1,7 +1,6 @@
-// src/features/CommunitySettings/components/PreviewCommunityBannerColor.jsx
 import React, { useRef, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
-import { PreviewCommunityColorPicker } from "../PreviewCommunityColorTheme/PreviewCommunityColorPicker";
+import { PreviewCommunityColorPicker } from "../PreviewCommunityColorTheme";
 import { useOutsideClick } from "@/hooks";
 
 export function PreviewCommunityBannerColor({

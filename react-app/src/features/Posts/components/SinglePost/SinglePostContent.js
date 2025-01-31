@@ -6,7 +6,7 @@ import LazyLoad from "react-lazyload";
 import { sliceUrl } from "@/utils";
 import { useMetadata } from "@/context";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Text } from "features/Comments/components/Comment/Text";
+import { Text } from "@/features/Comments/components/Comment/Text";
 import Skeleton from "@mui/material/Skeleton";
 import { NavLink } from "react-router-dom";
 

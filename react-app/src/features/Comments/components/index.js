@@ -1,10 +1,10 @@
 export * from "./Comment";
 export * from "./CommentForms";
-export * from "./CommentSearch";
+export { CommentSearch } from "./CommentSearch";
 export { CommentKarmaBar } from "./CommentKarmaBar";
 export { Comments } from "./Comments";
 export { CommentSorting } from "./CommentSorting";
 export { DeleteCommentConfirmation } from "./DeleteCommentConfirmation";
-export { EditComment } from "./EditComment";
+export { EditComment } from "./CommentForms/EditComment";
 export { NoCommentsMsg } from "./NoCommentsMsg";
 export { Threadlines } from "./Threadlines";

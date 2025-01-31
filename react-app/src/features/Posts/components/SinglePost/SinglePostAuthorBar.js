@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import { Username } from "@/components";
-import { CommunityImg } from "components/CommunityImg";
-import { Tooltip } from "components/Tooltip/Tooltip";
+import { CommunityImg } from "@/components/CommunityImg";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
 
 moment.updateLocale("en-post", {
   relativeTime: {

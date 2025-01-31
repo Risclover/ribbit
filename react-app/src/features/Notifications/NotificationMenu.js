@@ -6,7 +6,7 @@ import {
   getUserNotifications,
   unreadNotification,
 } from "@/store";
-import { useOutsideClick } from "hooks";
+import { useOutsideClick } from "@/hooks";
 
 export function NotificationMenu({ notification, setNotificationMenu }) {
   const currentUser = useSelector((state) => state.session.user);

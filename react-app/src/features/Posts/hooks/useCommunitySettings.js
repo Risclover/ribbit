@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   getCommunityThemes,
   setCommunityThemes,
-} from "features/Communities/utils/localStorage";
+} from "@/features/Communities/utils/localStorage";
 
 export const useCommunitySettings = (community) => {
   const [checked, setChecked] = useState(false);

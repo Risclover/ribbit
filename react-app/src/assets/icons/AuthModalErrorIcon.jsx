@@ -1,3 +1,5 @@
+import React from "react";
+
 export function AuthModalErrorIcon({ name }) {
   return (
     <svg

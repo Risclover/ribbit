@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts, getViewedPosts } from "@/store";
 import { sortPosts } from "@/utils";
-import { getUsers } from "store";
+import { getUsers } from "@/store";
 
 export function usePosts(isAllPosts) {
   const dispatch = useDispatch();

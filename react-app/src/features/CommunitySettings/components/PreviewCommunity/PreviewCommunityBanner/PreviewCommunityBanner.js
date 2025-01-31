@@ -1,9 +1,7 @@
-// src/features/CommunitySettings/components/PreviewCommunityBanner.jsx
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 import { DropBox } from "@/components";
 import { BannerHeight, PreviewCommunityBannerColor } from "..";
-import { v4 as uuidv4 } from "uuid";
 
 export function PreviewCommunityBanner({ setOpenAppearance, settingsState }) {
   const {
@@ -12,12 +10,9 @@ export function PreviewCommunityBanner({ setOpenAppearance, settingsState }) {
     setBannerHeight,
     bannerColor,
     setBannerColor,
-    customBannerColor,
     setCustomBannerColor,
     bannerImg,
     setBannerImg,
-    bannerImgFormat,
-    setBannerImgFormat,
     saveBanner,
   } = settingsState;
 

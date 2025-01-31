@@ -1,4 +1,3 @@
-// src/features/CommunitySettings/components/PreviewCommunitySidebarAppearance.jsx
 import React from "react";
 import {
   PreviewCommunityColorTheme,
@@ -9,7 +8,6 @@ import {
 export function PreviewCommunitySidebarAppearance({
   appearanceSidebar,
   setOpenAppearance,
-  setAppearanceSidebar,
   settingsState,
 }) {
   return (
@@ -32,7 +30,6 @@ export function PreviewCommunitySidebarAppearance({
           settingsState={settingsState}
         />
       )}
-      {/* "Menu" and "Posts" would go here if needed */}
     </div>
   );
 }

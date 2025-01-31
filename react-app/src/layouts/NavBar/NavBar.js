@@ -19,7 +19,7 @@ import { ribbitBanners, ribbitLogos } from "@/assets";
 import { RandomLogo } from "../RandomLogo";
 import "./NavBar.css";
 import "../../features/NewSearch/Search.css";
-import { useAuthFlow } from "context/AuthFlowContext";
+import { useAuthFlow } from "@/context/AuthFlowContext";
 
 export function NavBar({
   adjustQuery,

@@ -1,6 +1,7 @@
 import React from "react";
 import { CommentResult } from "./CommentResult";
 import { NoResults } from "../NoResults";
+import { CommentResultSkeleton } from "./CommentResultSkeleton";
 
 export default function CommentResultType({
   isLoading,
@@ -14,7 +15,7 @@ export default function CommentResultType({
         {Array(5)
           .fill(null)
           .map((_, i) => (
-            <CommentResult.CommentSkeleton key={i} />
+            <CommentResultSkeleton key={i} />
           ))}
       </div>
     );

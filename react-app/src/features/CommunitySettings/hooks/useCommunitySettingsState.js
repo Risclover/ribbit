@@ -1,4 +1,3 @@
-// src/features/CommunitySettings/hooks/useCommunitySettingsState.js
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {

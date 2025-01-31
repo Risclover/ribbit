@@ -2,6 +2,9 @@ import React from "react";
 import { PiArrowFatUpFill, PiArrowFatDownFill } from "react-icons/pi";
 import { useCommentVote } from "../hooks/useCommentVote";
 
+/**
+ * Renders upvote/downvote buttons plus the comment's net votes.
+ */
 export function CommentKarmaBar({ comment }) {
   const { vote, handleVoteClick } = useCommentVote(comment);
 
@@ -24,11 +27,8 @@ export function CommentKarmaBar({ comment }) {
             : ""
         }`}
       >
-        {comment?.votes === 0 && vote !== null
-          ? 0
-          : comment?.votes === 0 && vote === null
-          ? "Vote"
-          : comment.votes}
+        {/* If you need special logic for zero votes, do it here */}
+        {comment?.votes === 0 && vote === null ? "Vote" : comment?.votes ?? 0}
       </span>
 
       <button

@@ -35,7 +35,7 @@ import {
   SearchResultsComments,
   SearchResultsCommunities,
   SearchResultsUsers,
-  ChatWindow,
+  Chat,
   LoginSignupModal,
 } from "./features";
 import { NavBar, NavSidebar, LoggedOutSidebar } from "./layouts";
@@ -51,16 +51,15 @@ import {
 
 import { PostFormatContext, PageTitleContext } from "./context";
 import { MetadataProvider } from "@/context";
-import Chat from "features/Chat/components/ChatWindow/Chat";
 import { PopupProvider } from "@/context";
-import { ProtectedRoute } from "components";
-import ChatMinimized from "features/Chat/components/ChatWindow/ChatMinimized";
+import { ProtectedRoute } from "@/components";
+import ChatMinimized from "@/features/Chat/components/ChatWindow/ChatMinimized";
 import ImagePage from "pages/ImagePage";
 import {
   getSidebarState,
   setSidebarState,
-} from "features/Communities/utils/localStorage";
-import { ScrollProvider } from "context/ScrollContext";
+} from "@/features/Communities/utils/localStorage";
+import { ScrollProvider } from "@/context/ScrollContext";
 
 function App() {
   const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { DeveloperLinksBox } from "./DeveloperLinksBox";
 
-jest.mock("../data/developerLinksData", () => ({
+jest.mock("../../data/developerLinksData", () => ({
   developerLinks: [
     {
       title: "Portfolio",

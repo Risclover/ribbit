@@ -4,8 +4,8 @@ import { sliceUrl } from "@/utils";
 import { NavLink, useHistory } from "react-router-dom";
 import { Username } from "@/components";
 import { useMetadata } from "@/context";
-import { CommunityImg } from "components/CommunityImg";
-import { PostTypeLinkIcon } from "assets/icons/PostTypeLinkIcon";
+import { CommunityImg } from "@/components/CommunityImg";
+import { PostTypeLinkIcon } from "@/assets/icons/PostTypeLinkIcon";
 import { Skeleton } from "@mui/material";
 
 const PostResult = ({ post }) => {

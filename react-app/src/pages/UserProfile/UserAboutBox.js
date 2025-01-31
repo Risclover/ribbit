@@ -21,7 +21,7 @@ import Flower from "@/assets/images/user-profile-icons/poinsettia.png";
 import { SelectedChatContext } from "@/context";
 import { FollowBtn } from "@/components";
 import { UserUploadModal } from "./UserUploadModal";
-import { useAuthFlow } from "context/AuthFlowContext";
+import { useAuthFlow } from "@/context/AuthFlowContext";
 
 export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const dispatch = useDispatch();

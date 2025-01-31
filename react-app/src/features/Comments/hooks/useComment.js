@@ -1,46 +1,38 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { removeComment, getPosts } from "@/store";
 import { convertTime } from "../utils/convertTime";
 import { usePopup } from "@/context";
-import { removeComment } from "store";
-import { getPosts } from "store";
 
-export function useComment({ comment, commentId }) {
+/**
+ * Custom logic for an individual Comment component.
+ */
+export function useComment(comment) {
   const dispatch = useDispatch();
+  const { isPopupOpen, setIsPopupOpen } = usePopup();
 
-  const { postId } = useParams();
-
-  const [showEditCommentModal, setShowEditCommentModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
+  // Local UI states
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
-  const [commentContent, setCommentContent] = useState(comment?.content);
+  const [commentContent, setCommentContent] = useState(comment?.content || "");
   const [showPopup, setShowPopup] = useState(false);
   const [hideTimeout, setHideTimeout] = useState(null);
 
-  const { isPopupOpen, setIsPopupOpen } = usePopup();
-
   const currentUser = useSelector((state) => state.session.user);
-  const users = useSelector((state) => Object.values(state.users));
-  const post = useSelector((state) => state.posts[postId]);
+  const post = useSelector((state) => state.posts[comment?.postId]);
 
   const editedTime = convertTime(comment, "edit");
   const commentTime = convertTime(comment);
-
-  let foundUser = users.filter(
-    (user) => user.username === comment.commentAuthor?.username
-  );
-
   const wasEdited = comment?.createdAt !== comment?.updatedAt;
 
   const handleMouseEnter = () => {
-    if (foundUser[0]?.id === currentUser?.id) {
-      return;
-    }
-    if (hideTimeout) {
-      clearTimeout(hideTimeout);
-    }
+    // If it's your own user, skip
+    if (comment?.commentAuthor?.id === currentUser?.id) return;
+
+    if (hideTimeout) clearTimeout(hideTimeout);
+
     if (!isPopupOpen) {
       setShowPopup(true);
       setIsPopupOpen(true);
@@ -57,62 +49,27 @@ export function useComment({ comment, commentId }) {
 
   const handleDeleteClick = async (e) => {
     e.preventDefault();
-    setShowDeleteModal(false);
-    dispatch(removeComment(commentId));
+    setIsDeleteModalOpen(false);
+    await dispatch(removeComment(comment.id));
     dispatch(getPosts());
   };
 
   const handleReplyClick = () => {
-    setShowReplyForm(!showReplyForm);
+    setShowReplyForm((prev) => !prev);
   };
 
-  const handleEditComment = () => {
-    setShowEditCommentModal(true);
+  const handleEditClick = () => {
+    setIsEditModalOpen(true);
   };
-
-  if (!comment) {
-    console.error("useComment: comment is undefined");
-    return {
-      // Return default values or handle the case appropriately
-      postId: null,
-      showEditCommentModal: false,
-      setShowEditCommentModal: () => {},
-      showDeleteModal: false,
-      setShowDeleteModal: () => {},
-      collapsed: false,
-      setCollapsed: () => {},
-      showReplyForm: false,
-      setShowReplyForm: () => {},
-      commentContent: "",
-      setCommentContent: () => {},
-      showPopup: false,
-      setShowPopup: () => {},
-      hideTimeout: null,
-      setHideTimeout: () => {},
-      post: null,
-      communities: null,
-      currentUser: null,
-      users: [],
-      editedTime: "",
-      commentTime: "",
-      handleMouseEnter: () => {},
-      handleMouseLeave: () => {},
-      handleDeleteClick: () => {},
-      handleUserImgClick: () => {},
-      handleReplyClick: () => {},
-      handleEditComment: () => {},
-      wasEdited: false,
-    };
-  }
 
   return {
-    postId,
-    showEditCommentModal,
-    setShowEditCommentModal,
-    showDeleteModal,
-    setShowDeleteModal,
-    collapsed,
-    setCollapsed,
+    postId: comment?.postId,
+    isEditModalOpen,
+    setIsEditModalOpen,
+    isDeleteModalOpen,
+    setIsDeleteModalOpen,
+    isCollapsed,
+    setIsCollapsed,
     showReplyForm,
     setShowReplyForm,
     commentContent,
@@ -121,11 +78,11 @@ export function useComment({ comment, commentId }) {
     currentUser,
     editedTime,
     commentTime,
+    wasEdited,
     handleMouseEnter,
     handleMouseLeave,
     handleDeleteClick,
     handleReplyClick,
-    handleEditComment,
-    wasEdited,
+    handleEditClick,
   };
 }

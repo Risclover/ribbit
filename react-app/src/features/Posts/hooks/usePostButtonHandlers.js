@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { deletePost, getViewedPosts } from "@/store";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getIdFromName } from "utils/getCommunityIdFromName";
+import { getIdFromName } from "@/utils/getCommunityIdFromName";
 
 export const usePostButtonHandlers = ({
   community = null,

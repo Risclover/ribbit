@@ -1,35 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { CommentBtnBar } from "./CommentBtnBar/CommentBtnBar";
+import { CommentBtnBar } from "./CommentBtnBar";
 import { CommentAuthorBar } from "./CommentAuthorBar";
-import { useComment } from "../../hooks/useComment";
 import { CommentContent } from "./CommentContent";
 import { CommentReplyForm } from "../CommentForms/CommentReplyForm";
 import { BsArrowsAngleExpand } from "react-icons/bs";
+import { useComment } from "../../hooks/useComment";
 import "./Comment.css";
 
-export function Comment({ comment, commentId, level = 1 }) {
+export function Comment({ comment, level = 1 }) {
   if (!comment) {
     console.error("Comment component: comment is undefined");
-    return null; // Do not render the component
+    return null;
   }
 
-  const [blueBg, setBlueBg] = useState(false);
+  const [highlight, setHighlight] = useState(false);
 
-  useEffect(() => {
-    if (Number(window.location.href.split("-")[1]) === commentId) {
-      setBlueBg(true);
-    }
-  }, [commentId]);
-
+  // State from custom hook:
   const {
     postId,
-    showEditCommentModal,
-    setShowEditCommentModal,
-    showDeleteModal,
-    setShowDeleteModal,
-    collapsed,
-    setCollapsed,
+    isEditModalOpen,
+    setIsEditModalOpen,
+    isDeleteModalOpen,
+    setIsDeleteModalOpen,
+    isCollapsed,
+    setIsCollapsed,
     showReplyForm,
     setShowReplyForm,
     commentContent,
@@ -42,36 +37,35 @@ export function Comment({ comment, commentId, level = 1 }) {
     handleMouseLeave,
     handleDeleteClick,
     handleReplyClick,
-    handleEditComment,
+    handleEditClick,
     wasEdited,
-  } = useComment({ comment, commentId });
+  } = useComment(comment);
 
-  const { children } = comment;
+  // Check the URL for #comment-xxx to highlight
+  useEffect(() => {
+    const currentUrl = window.location.href;
+    const match = currentUrl.match(/#comment-(\d+)/);
+    if (match) {
+      const commentIdFromUrl = parseInt(match[1], 10);
+      if (commentIdFromUrl === comment.id) {
+        setHighlight(true);
+      }
+    }
+  }, [comment.id]);
 
-  const parentThreadlines = [...Array(level - 1)];
+  // Render child comments
+  const { children = [] } = comment;
 
-  const btnBarProps = {
-    collapsed,
-    handleReplyClick,
-    handleDeleteClick,
-    handleEditComment,
-    currentUser,
-    showEditCommentModal,
-    setShowEditCommentModal,
-    showDeleteModal,
-    setShowDeleteModal,
-    showReplyForm,
-    postId,
-    setCommentContent,
-    setShowReplyForm,
-  };
+  // Just a small helper array for threadlines
+  const parentThreadlines = Array.from({ length: level - 1 });
 
   return (
     <div
       className={`comment-container ${level === 1 ? "comment-topmargin" : ""}`}
     >
-      {!collapsed && (
-        <div className="all-threadlines" onClick={() => setCollapsed(true)}>
+      {/* Threadlines (collapsing logic) */}
+      {!isCollapsed && (
+        <div className="all-threadlines" onClick={() => setIsCollapsed(true)}>
           {parentThreadlines.map((_, index) => (
             <div className="this-levels-threadline" key={index}>
               <div className="threadline-container">
@@ -86,14 +80,18 @@ export function Comment({ comment, commentId, level = 1 }) {
           </div>
         </div>
       )}
-      {/* <CommentThreadlines setCollapsed={setCollapsed} /> */}
+
+      {/* Actual comment card */}
       <div
-        className={`comment${!collapsed ? " expanded" : ""} ${
-          blueBg ? " comment-bg-blue" : ""
+        className={`comment${!isCollapsed ? " expanded" : ""}${
+          highlight ? " comment-bg-blue" : ""
         }`}
       >
-        <button className={`comment-expand-btn`}>
-          <BsArrowsAngleExpand onClick={() => setCollapsed(false)} />
+        <button
+          className="comment-expand-btn"
+          onClick={() => setIsCollapsed(false)}
+        >
+          <BsArrowsAngleExpand />
         </button>
         <NavLink
           className="comment-user-img-container"
@@ -111,6 +109,7 @@ export function Comment({ comment, commentId, level = 1 }) {
             &nbsp;
           </div>
         </NavLink>
+
         <div className="comment-right">
           <CommentAuthorBar
             comment={comment}
@@ -119,34 +118,42 @@ export function Comment({ comment, commentId, level = 1 }) {
             wasEdited={wasEdited}
             editedTime={editedTime}
           />
-          {!collapsed && (
-            <CommentContent comment={comment} commentContent={commentContent} />
-          )}
-          {!collapsed && (
-            <CommentBtnBar
-              comment={comment}
-              commentId={commentId}
-              {...btnBarProps}
-            />
-          )}
-          {showReplyForm && (
-            <CommentReplyForm
-              postId={postId}
-              parentId={comment.id}
-              onCancel={() => setShowReplyForm(false)}
-            />
+          {!isCollapsed && (
+            <>
+              <CommentContent
+                comment={comment}
+                commentContent={commentContent}
+              />
+              <CommentBtnBar
+                comment={comment}
+                collapsed={isCollapsed}
+                handleReplyClick={handleReplyClick}
+                handleDeleteClick={handleDeleteClick}
+                handleEditClick={handleEditClick}
+                currentUser={currentUser}
+                isEditModalOpen={isEditModalOpen}
+                setIsEditModalOpen={setIsEditModalOpen}
+                isDeleteModalOpen={isDeleteModalOpen}
+                setIsDeleteModalOpen={setIsDeleteModalOpen}
+                postId={postId}
+                setCommentContent={setCommentContent}
+              />
+              {showReplyForm && (
+                <CommentReplyForm
+                  postId={postId}
+                  parentId={comment.id}
+                  onCancel={() => setShowReplyForm(false)}
+                />
+              )}
+            </>
           )}
         </div>
       </div>
-      {!collapsed &&
-        children &&
-        children.map((childComment) => (
-          <Comment
-            key={childComment.id}
-            comment={childComment}
-            commentId={childComment.id}
-            level={level + 1}
-          />
+
+      {/* Render children if not collapsed */}
+      {!isCollapsed &&
+        children.map((child) => (
+          <Comment key={child.id} comment={child} level={level + 1} />
         ))}
     </div>
   );

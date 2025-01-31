@@ -5,7 +5,7 @@ import { WarningIcon } from "@/assets";
 import "../styles/DemoAccountWarning.css";
 
 /**
- * Warning to show when someone tries logging into the Demo account
+ * Shows a warning about using the shared "Demo" account.
  * - setShowDemoWarning/showDemoWarning: setter for whether or not the warning is visible
  */
 export function DemoAccountWarning({ setShowDemoWarning, showDemoWarning }) {

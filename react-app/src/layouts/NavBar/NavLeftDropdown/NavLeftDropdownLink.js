@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { BsStar, BsStarFill } from "react-icons/bs";
-import { CommunityImg } from "components/CommunityImg";
+import { CommunityImg } from "@/components/CommunityImg";
 
 export function NavLeftDropdownLink({
   favorite,

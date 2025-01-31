@@ -4,10 +4,9 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Username } from "@/components";
-import { CommunityImg } from "components/CommunityImg";
-import Skeleton from "@mui/material/Skeleton";
+import { CommunityImg } from "@/components/CommunityImg";
 
-function CommentResult({ comment }) {
+export function CommentResult({ comment }) {
   const history = useHistory();
   const posts = useSelector((state) => Object.values(state.posts));
   const post = posts.find((post) => post.id === comment.postId);
@@ -113,96 +112,3 @@ function CommentResult({ comment }) {
     </NavLink>
   );
 }
-
-const CommentSkeleton = () => {
-  return (
-    <div className="search-results-page-comment">
-      <div className="comments-results-skeleton">
-        <div className="comments-results-skeleton-top">
-          <Skeleton
-            variant="circular"
-            height={20}
-            width={20}
-            animation="wave"
-          />
-          <Skeleton
-            variant="text"
-            sx={{ fontSize: "0.75rem" }}
-            width={200}
-            animation="wave"
-          />
-        </div>
-        <div className="comments-results-skeleton-title">
-          <Skeleton
-            variant="text"
-            sx={{ fontSize: "0.75rem" }}
-            width={"80%"}
-            animation="wave"
-          />
-        </div>
-        <div className="comments-results-skeleton-comment">
-          <div className="comments-results-skeleton-comment-left">
-            <Skeleton
-              variant="circular"
-              height={20}
-              width={20}
-              animation="wave"
-            />
-          </div>
-          <div className="comments-results-skeleton-comment-right">
-            <div className="comments-results-skeleton-comment-author-box">
-              <Skeleton
-                variant="text"
-                sx={{ fontSize: "0.75rem" }}
-                width={100}
-                animation="wave"
-              />
-              <div className="comments-results-skeleton-comment-body">
-                <Skeleton
-                  variant="text"
-                  sx={{ fontSize: "1rem" }}
-                  width={"100%"}
-                  animation="wave"
-                />
-                <Skeleton
-                  variant="text"
-                  sx={{ fontSize: "1rem" }}
-                  width={"80%"}
-                  animation="wave"
-                />
-              </div>
-              <div className="comments-results-skeleton-comment-upvotes">
-                <Skeleton
-                  variant="text"
-                  sx={{ fontSize: "0.75rem" }}
-                  width={50}
-                  animation="wave"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="comments-results-skeleton-link">
-          <Skeleton
-            variant="text"
-            sx={{ fontSize: "0.75rem" }}
-            width={75}
-            animation="wave"
-          />
-        </div>
-        <div className="comments-results-skeleton-bottom">
-          <Skeleton
-            variant="text"
-            sx={{ fontSize: "0.75rem" }}
-            width={125}
-            animation="wave"
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-CommentResult.CommentSkeleton = CommentSkeleton;
-
-export { CommentResult };

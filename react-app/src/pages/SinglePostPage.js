@@ -18,7 +18,7 @@ import {
 import { BackToTop } from "../components";
 import { PostFormatContext } from "@/context";
 import { usePageSettings } from "../hooks/usePageSettings";
-import { CommunityImg } from "components/CommunityImg";
+import { CommunityImg } from "@/components/CommunityImg";
 import { useHistory } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 

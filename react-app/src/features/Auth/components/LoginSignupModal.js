@@ -1,10 +1,10 @@
 import React from "react";
 import { useAuthFlow, AuthModal } from "@/context";
-import { LoginForm } from "./LoginForm";
-import { SignUpForm, SignUpFormSecondPage } from "./SignUpForm";
+import { LoginForm } from "./AuthForms/LoginForm";
+import { SignUpForm, SignUpFormSecondPage } from "./AuthForms";
 
 /**
- * General auth modal (login, signup, and signup page 2)
+ * Decides which auth form (login, signup-first, signup-second) to render based on view.
  * - formType: type of form displayed; relevant for topbar button ("close", "back", or "go home")
  */
 export function LoginSignupModal({ formType }) {

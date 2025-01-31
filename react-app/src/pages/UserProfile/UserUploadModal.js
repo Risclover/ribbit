@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "@/context";
 import Camera from "@/assets/images/user-profile-icons/camera.png";
-import { UploadImageModal } from "features/Users/components/UploadImageModal";
+import { UploadImageModal } from "@/features/Users/components/UploadImageModal";
 
 export function UserUploadModal({
   children,
