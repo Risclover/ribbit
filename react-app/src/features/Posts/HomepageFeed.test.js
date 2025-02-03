@@ -54,7 +54,7 @@ const store = mockStore({
             "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
           bannerImgFormat: "center",
           baseColor: "var(--highlight-color)",
-          bgColor: "#edeff1",
+          bgColor: "var(--secondary-border-color)",
           communityIcon:
             "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
           communityId: 1,
@@ -159,7 +159,7 @@ const store = mockStore({
                 "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
               bannerImgFormat: "center",
               baseColor: "var(--highlight-color)",
-              bgColor: "#edeff1",
+              bgColor: "var(--secondary-border-color)",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
               communityId: 1,
@@ -244,7 +244,7 @@ const store = mockStore({
                 "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
               bannerImgFormat: "center",
               baseColor: "var(--highlight-color)",
-              bgColor: "#edeff1",
+              bgColor: "var(--secondary-border-color)",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
               communityId: 1,
@@ -322,7 +322,7 @@ const store = mockStore({
             "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
           bannerImgFormat: "center",
           baseColor: "var(--highlight-color)",
-          bgColor: "#edeff1",
+          bgColor: "var(--secondary-border-color)",
           communityIcon:
             "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
           communityId: 1,
@@ -631,7 +631,7 @@ const store = mockStore({
                 "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
               bannerImgFormat: "center",
               baseColor: "var(--highlight-color)",
-              bgColor: "#edeff1",
+              bgColor: "var(--secondary-border-color)",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
               communityId: 1,
@@ -716,7 +716,7 @@ const store = mockStore({
                 "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
               bannerImgFormat: "center",
               baseColor: "var(--highlight-color)",
-              bgColor: "#edeff1",
+              bgColor: "var(--secondary-border-color)",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
               communityId: 1,
@@ -794,7 +794,7 @@ const store = mockStore({
             "https://styles.redditmedia.com/t5_2qhta/styles/bannerBackgroundImage_9opwiul6g1r81.jpg",
           bannerImgFormat: "center",
           baseColor: "var(--highlight-color)",
-          bgColor: "#edeff1",
+          bgColor: "var(--secondary-border-color)",
           communityIcon:
             "https://styles.redditmedia.com/t5_2qhta/styles/communityIcon_2fsd7ji8awg91.png",
           communityId: 1,
@@ -1426,7 +1426,7 @@ const store = mockStore({
                 "https://styles.redditmedia.com/t5_2tex6/styles/bannerBackgroundImage_z6ejudtdz7p41.png",
               bannerImgFormat: "center",
               baseColor: "#ff4500",
-              bgColor: "#edeff1",
+              bgColor: "var(--secondary-border-color)",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2tex6/styles/communityIcon_70ds7qqgfr8b1.png",
               communityId: 7,
@@ -1504,7 +1504,7 @@ const store = mockStore({
             "https://styles.redditmedia.com/t5_2tex6/styles/bannerBackgroundImage_z6ejudtdz7p41.png",
           bannerImgFormat: "center",
           baseColor: "#ff4500",
-          bgColor: "#edeff1",
+          bgColor: "var(--secondary-border-color)",
           communityIcon:
             "https://styles.redditmedia.com/t5_2tex6/styles/communityIcon_70ds7qqgfr8b1.png",
           communityId: 7,
@@ -3437,7 +3437,7 @@ const store = mockStore({
                 "https://styles.redditmedia.com/t5_2r5rp/styles/bannerBackgroundImage_xjz99n5qt8p61.png",
               bannerImgFormat: "center",
               baseColor: "#349e48",
-              bgColor: "#edeff1",
+              bgColor: "var(--secondary-border-color)",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2r5rp/styles/communityIcon_2c4ms7mggreb1.png",
               communityId: 20,
@@ -3543,7 +3543,7 @@ const store = mockStore({
             "https://styles.redditmedia.com/t5_2r5rp/styles/bannerBackgroundImage_xjz99n5qt8p61.png",
           bannerImgFormat: "center",
           baseColor: "#349e48",
-          bgColor: "#edeff1",
+          bgColor: "var(--secondary-border-color)",
           communityIcon:
             "https://styles.redditmedia.com/t5_2r5rp/styles/communityIcon_2c4ms7mggreb1.png",
           communityId: 20,
@@ -4110,7 +4110,7 @@ const store = mockStore({
                 "https://styles.redditmedia.com/t5_2r5rp/styles/bannerBackgroundImage_xjz99n5qt8p61.png",
               bannerImgFormat: "center",
               baseColor: "#349e48",
-              bgColor: "#edeff1",
+              bgColor: "var(--secondary-border-color)",
               communityIcon:
                 "https://styles.redditmedia.com/t5_2r5rp/styles/communityIcon_2c4ms7mggreb1.png",
               communityId: 20,
@@ -4216,7 +4216,7 @@ const store = mockStore({
             "https://styles.redditmedia.com/t5_2r5rp/styles/bannerBackgroundImage_xjz99n5qt8p61.png",
           bannerImgFormat: "center",
           baseColor: "#349e48",
-          bgColor: "#edeff1",
+          bgColor: "var(--secondary-border-color)",
           communityIcon:
             "https://styles.redditmedia.com/t5_2r5rp/styles/communityIcon_2c4ms7mggreb1.png",
           communityId: 20,

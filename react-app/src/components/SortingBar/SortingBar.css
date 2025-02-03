@@ -2,7 +2,7 @@
   width: 100%;
   background: var(--ribbit-main);
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
   padding: 10px 12px;
   display: flex;
   justify-content: space-between;
@@ -70,7 +70,7 @@
 
 .post-sorting-bar-btn.active-sort-btn {
   color: var(--highlight-color);
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
 }
 
 .community-sorting-bar-btn.active-sort-btn {

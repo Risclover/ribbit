@@ -16,7 +16,8 @@
   width: 100%;
   overflow-y: auto;
   resize: none;
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
+
   border-radius: 4px;
 }
 

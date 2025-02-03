@@ -25,9 +25,24 @@
   --font-family-ibm: "IBM Plex Sans", sans-serif;
   --main-text-color: #1c1c1c;
   --highlight-color: #0079d3;
+  --background: #dae0e6;
+  --single-post-container-bg: rgba(255, 255, 255, 0.8);
+  --main-border-color: #ccc;
+  --secondary-border-color: #edeff1;
+  --main-button-color: #0079d3;
+  --logo-color: #67b54d;
+  --main-input-bg-color: #f6f7f8;
 }
 
 :root[data-theme="dark"] {
   /* Dark theme colors */
   --ribbit-main: #1a1a1b;
+  --background: #030303;
+  --single-post-container-bg: rgba(20, 20, 21, 0.8);
+  --main-text-color: #d7dadc;
+  --main-border-color: #343536;
+  --secondary-border-color: #2a2b2b;
+  --logo-color: #ffffff;
+  --highlight-color: #d7dadc;
+  --main-input-bg-color: #28272a;
 }

@@ -1,5 +1,5 @@
 .messages-page {
-  background: #edeff1;
+  background: var(--secondary-border-color);
   height: 100%;
   min-height: calc(100vh - 49px);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -31,7 +31,7 @@
 .messages-content-menu-list-item {
   margin: 0 10px;
   padding: 0 10px 3px;
-  color: #edeff1;
+  color: var(--secondary-border-color);
   border-bottom: 2px transparent solid;
   background: transparent;
   cursor: pointer;
@@ -52,7 +52,7 @@
   margin: 0 3px;
   font-size: larger;
   background-color: transparent;
-  color: #edeff1;
+  color: var(--secondary-border-color);
   text-transform: capitalize;
   border: none;
   cursor: pointer;
@@ -97,7 +97,7 @@
 }
 
 .messages-content-item:nth-of-type(2n + 1) {
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
 }
 
 .messages-content-top-box {
@@ -215,7 +215,7 @@
 }
 
 .message.message-unread {
-  background: #edeff1;
+  background: var(--secondary-border-color);
 }
 
 .messages-content-message-button-bar-inbox {

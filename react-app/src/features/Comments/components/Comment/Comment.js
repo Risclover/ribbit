@@ -137,6 +137,7 @@ export function Comment({ comment, level = 1 }) {
                 setIsDeleteModalOpen={setIsDeleteModalOpen}
                 postId={postId}
                 setCommentContent={setCommentContent}
+                post={post}
               />
               {showReplyForm && (
                 <CommentReplyForm

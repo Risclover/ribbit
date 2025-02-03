@@ -4,13 +4,14 @@
   padding: 12px;
   max-width: 312px;
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
 }
 
 .ribbit-rules-title {
   font-size: 16px;
   line-height: 20px;
-  border-bottom: 1px solid #edeff1;
+  border-bottom: 1px solid var(--secondary-border-color);
+
   align-items: center;
   display: flex;
   color: var(--main-text-color);
@@ -19,7 +20,8 @@
 
 .ribbit-rules-rule {
   padding: 10px 5px;
-  border-bottom: 1px solid #edeff1;
+  border-bottom: 1px solid var(--secondary-border-color);
+
   color: var(--main-text-color);
   font-weight: 500;
   font-size: 14px;

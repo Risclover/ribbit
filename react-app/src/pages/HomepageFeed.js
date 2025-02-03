@@ -33,6 +33,7 @@ export function HomepageFeed() {
         y="20px"
         style={{ height: "20px", width: "20px" }}
         viewBox="10.07 15.03 79.86 69.94"
+        fill="var(--main-text-color)"
       >
         <style type="text/css"></style>
         <path

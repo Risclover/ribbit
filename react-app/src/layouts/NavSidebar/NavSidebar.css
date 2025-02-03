@@ -35,7 +35,7 @@
 }
 
 .close-nav-sidebar-btn:hover {
-  background: #edeff1;
+  background: var(--secondary-border-color);
 }
 
 .logged-out-sidebar-btn {

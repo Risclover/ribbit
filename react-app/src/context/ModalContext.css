@@ -84,7 +84,7 @@
   width: 100%;
   padding: 16px;
   color: rgba(0, 0, 0, 0.4);
-  border-bottom: 1px solid #edeff1;
+  border-bottom: 1px solid var(--secondary-border-color);
 }
 
 #modal-topbar button {

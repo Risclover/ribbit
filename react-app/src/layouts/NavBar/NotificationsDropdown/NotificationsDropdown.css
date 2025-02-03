@@ -10,7 +10,7 @@
   border-radius: 4px;
   width: 375px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
   top: 38px;
   right: -42px;
 }
@@ -120,7 +120,7 @@
 }
 
 .notifications-dropdown-head-msg-box {
-  border-right: 1px solid #edeff1;
+  border-right: 1px solid var(--secondary-border-color);
 }
 
 .notifications-dropdown-head-messages-btn {
@@ -259,7 +259,7 @@
 }
 
 .notification-menu-btn:hover {
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
 }
 
 .notification-menu-btn svg {
@@ -269,7 +269,7 @@
 
 .notifications-dropdown-footer {
   align-items: center;
-  background-color: #f6f7f8;
+  background-color: var(--main-input-bg-color);
   border-radius: 0 0 4px 4px;
   display: -ms-flexbox;
   display: flex;
@@ -304,7 +304,7 @@
   align-items: center;
   justify-content: center;
   height: 36px;
-  background-color: #f6f7f8 !important;
+  background-color: var(--main-input-bg-color) !important;
   border-color: transparent;
 }
 

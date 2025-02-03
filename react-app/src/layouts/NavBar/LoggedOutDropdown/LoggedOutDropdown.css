@@ -13,7 +13,7 @@
 }
 
 .loggedout-dropdown-wrapper:hover {
-  border-color: #edeff1;
+  border-color: var(--secondary-border-color);
 }
 
 .loggedout-dropdown-wrapper svg {

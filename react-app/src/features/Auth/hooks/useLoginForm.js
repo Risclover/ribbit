@@ -40,16 +40,16 @@ export function useLoginForm() {
     setEmailBlurred(true);
     const errors = handleErrors(loginFormData.email);
     setLoginEmailErrors(errors);
-    const pErrors = handleErrors(loginFormData.password);
-    setLoginPasswordErrors(pErrors);
+    const passwordErrors = handleErrors(loginFormData.password);
+    setLoginPasswordErrors(passwordErrors);
   };
 
   const handlePasswordBlur = () => {
     setPasswordBlurred(true);
     const errors = handleErrors(loginFormData.password);
     setLoginPasswordErrors(errors);
-    const eErrors = handleErrors(loginFormData.email);
-    setLoginEmailErrors(eErrors);
+    const emailErrors = handleErrors(loginFormData.email);
+    setLoginEmailErrors(emailErrors);
   };
 
   // For disabling submit button under appropriate circumstances

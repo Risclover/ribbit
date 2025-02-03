@@ -3,6 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 import { DropBox } from "@/components";
 import { BannerHeight, PreviewCommunityBannerColor } from "..";
 
+const HEIGHT_MAP = {
+  small: "80px",
+  medium: "144px",
+  large: "208px",
+};
+
 export function PreviewCommunityBanner({ setOpenAppearance, settingsState }) {
   const {
     community,
@@ -16,38 +22,38 @@ export function PreviewCommunityBanner({ setOpenAppearance, settingsState }) {
     saveBanner,
   } = settingsState;
 
-  const [activeRadio, setActiveRadio] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+  // Figure out which radio is active based on the bannerHeight prop
+  const [activeRadio, setActiveRadio] = useState(() => {
+    const entry = Object.entries(HEIGHT_MAP).find(
+      ([, heightValue]) => heightValue === bannerHeight
+    );
+    return entry ? entry[0] : "";
+  });
 
+  // If bannerHeight changes elsewhere, keep activeRadio in sync
   useEffect(() => {
-    if (bannerHeight === "80px") setActiveRadio("small");
-    if (bannerHeight === "144px") setActiveRadio("medium");
-    if (bannerHeight === "208px") setActiveRadio("large");
+    const newActiveRadio = Object.keys(HEIGHT_MAP).find(
+      (key) => HEIGHT_MAP[key] === bannerHeight
+    );
+    setActiveRadio(newActiveRadio || "");
   }, [bannerHeight]);
 
+  // Whenever activeRadio changes, update bannerHeight
   useEffect(() => {
-    if (bannerColor !== "#33a8ff") {
-      setCustomBannerColor(true);
-    }
-  }, [bannerColor, setCustomBannerColor]);
-
-  // If user chooses "Small", set bannerHeight etc.
-  useEffect(() => {
-    switch (activeRadio) {
-      case "small":
-        setBannerHeight("80px");
-        break;
-      case "medium":
-        setBannerHeight("144px");
-        break;
-      case "large":
-        setBannerHeight("208px");
-        break;
-      default:
-        break;
+    if (activeRadio) {
+      setBannerHeight(HEIGHT_MAP[activeRadio]);
     }
   }, [activeRadio, setBannerHeight]);
 
+  // If the bannerColor is different from default, set custom color
+  useEffect(() => {
+    setCustomBannerColor(bannerColor !== "#33a8ff");
+  }, [bannerColor, setCustomBannerColor]);
+
+  // Keep track of the currently selected image file
+  const [imageFile, setImageFile] = useState(null);
+
+  // Save and close
   const handleSaveClick = async () => {
     await saveBanner(imageFile);
     setOpenAppearance(false);
@@ -60,11 +66,11 @@ export function PreviewCommunityBanner({ setOpenAppearance, settingsState }) {
       <div className="preview-community-theme-colors-box">
         <h2>Height</h2>
         <div className="preview-community-name-icon-box">
-          {["Small", "Medium", "Large"].map((option) => (
+          {Object.keys(HEIGHT_MAP).map((key) => (
             <BannerHeight
               key={uuidv4()}
               height={bannerHeight}
-              option={option}
+              option={key} // "small" / "medium" / "large"
               activeRadio={activeRadio}
               setActiveRadio={setActiveRadio}
               community={community}
@@ -89,7 +95,7 @@ export function PreviewCommunityBanner({ setOpenAppearance, settingsState }) {
             setImage={setImageFile}
             startingImage={bannerImg}
             preview={bannerImg}
-            setPreview={setBannerImg} // updates local preview
+            setPreview={setBannerImg}
           />
           <p>Required size: 256x256px</p>
         </div>

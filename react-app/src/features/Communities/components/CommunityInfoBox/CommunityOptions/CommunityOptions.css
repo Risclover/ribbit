@@ -1,5 +1,6 @@
 .community-options-container {
-  border-top: 1px solid #edeff1;
+  border-top: 1px solid var(--secondary-border-color);
+
   margin-top: 16px;
   padding-top: 16px;
 }
@@ -108,7 +109,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #edeff1;
+  background-color: var(--secondary-border-color);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }

@@ -54,7 +54,7 @@
 }
 
 .sort-open {
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
 }
 
 .search-results-sort-dropdown {

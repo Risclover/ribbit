@@ -2,7 +2,8 @@
   position: relative;
   width: 640px;
   margin: 0 auto;
-  border-bottom: 1px solid #edeff1;
+  border-bottom: 1px solid var(--secondary-border-color);
+
   margin-top: 30px;
   padding-bottom: 10px;
   margin-bottom: 4px;
@@ -104,7 +105,7 @@
 }
 /*
 .comment-threadline {
-  border-right: 2px solid #edeff1;
+  border-right: 2px solid var(--secondary-border-color);
   height: 100%;
   margin-top: 10px;
   width: 5px;
@@ -410,7 +411,7 @@
 
 .post-comment-box {
   margin-top: 7px;
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
   border-radius: 4px;
 }
 
@@ -476,7 +477,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f6f7f8;
+  background-color: var(--main-input-bg-color);
   width: 100%;
   padding: 2px;
   padding-left: 10px;
@@ -588,7 +589,7 @@
   z-index: 999;
   background: var(--ribbit-main);
   box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
   position: absolute;
   overflow: hidden;
   color: var(--main-text-color);
@@ -717,7 +718,8 @@
 }
 
 .sort-search {
-  border-bottom: 1px solid #edeff1;
+  border-bottom: 1px solid var(--secondary-border-color);
+
   padding: 0 16px 4px 0;
   margin: 4px 48px;
   display: flex;
@@ -726,12 +728,12 @@
 
 .comment-sort-search-separator {
   line-height: 20px;
-  color: #edeff1;
+  color: var(--secondary-border-color);
   padding: 0 12px;
 }
 
 .comment-search-input {
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
   border-radius: 4px;
   box-shadow: none;
   color: #1c1c1c;

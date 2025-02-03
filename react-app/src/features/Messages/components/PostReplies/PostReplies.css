@@ -40,5 +40,5 @@
 
 .post-reply-main-content.post-reply-unread {
   width: 100%;
-  background: #edeff1;
+  background: var(--secondary-border-color);
 }

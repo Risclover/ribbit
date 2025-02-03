@@ -13,7 +13,8 @@
   overflow: hidden;
   border-radius: 6px;
   background: var(--ribbit-main);
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
+
   margin-bottom: 5px;
 }
 
@@ -44,7 +45,7 @@
   border-radius: 6px;
   position: relative;
   background: var(--ribbit-main);
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
   margin-bottom: 5px;
 }
 

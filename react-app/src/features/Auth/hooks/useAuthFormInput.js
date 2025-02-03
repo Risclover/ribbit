@@ -10,11 +10,11 @@ export function useAuthFormInput(inputProps, blurred) {
   const classValue = hasErrors && blurred ? " errors-true" : "";
 
   const handleLabelClick = useCallback((e) => {
-    const inputEl = e.target.parentElement.querySelector(
+    const inputElement = e.target.parentElement.querySelector(
       "input, select, textarea"
     );
-    if (inputEl) {
-      inputEl.focus();
+    if (inputElement) {
+      inputElement.focus();
     }
   }, []);
 

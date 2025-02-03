@@ -39,6 +39,7 @@ class Post(db.Model):
             "postComments": {item.to_dict()["id"]: item.to_dict() for item in self.post_comments},
             "commentNum": len(self.post_comments),
             "communityId": self.community_id,
+            "communityOwnerId": self.post_community.community_owner.id if self.post_community else None,
             "communityName": self.post_community.name if self.post_community else None,
             "communityMembers": len(self.post_community.subscribers) if self.post_community else 0,
             "communityRules": {item.to_dict()["id"]: item.to_dict() for item in (self.post_community.community_rules if self.post_community else [])},

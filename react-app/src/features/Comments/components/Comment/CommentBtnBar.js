@@ -21,12 +21,13 @@ export function CommentBtnBar({
   setIsDeleteModalOpen,
   postId,
   setCommentContent,
+  post,
 }) {
   const isAuthor = comment?.commentAuthor?.id === currentUser?.id;
   // If you need special logic for community owners, you can integrate that:
-  // const isCommunityOwner = ...
-  // const canEditOrDelete = isAuthor || isCommunityOwner;
-  const canEditOrDelete = isAuthor; // Simplified
+
+  const isCommunityOwner = comment?.commentAuthor?.id === currentUser?.id;
+  const canEditOrDelete = isAuthor || isCommunityOwner;
 
   if (collapsed) {
     return null;

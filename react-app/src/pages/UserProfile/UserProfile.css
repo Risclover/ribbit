@@ -14,7 +14,7 @@
 .user-profile-about-box {
   background: var(--ribbit-main);
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
   position: relative;
   padding: 12px;
   height: auto;
@@ -60,7 +60,7 @@
   border-radius: 6px;
   position: relative;
   background: var(--ribbit-main);
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
 }
 
 .user-settings {
@@ -219,7 +219,7 @@
   background: var(--ribbit-main);
   margin-top: 16px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
   padding: 12px;
 }
 
@@ -321,7 +321,7 @@
 
 .user-profile-followers-head {
   display: flex;
-  background: #edeff1;
+  background: var(--secondary-border-color);
   padding: 8px 16px;
   justify-content: space-between;
   align-items: center;
@@ -405,7 +405,7 @@
 }
 
 .user-profile-follower-left:hover {
-  background: #edeff1;
+  background: var(--secondary-border-color);
 }
 
 .user-profile-follower-img {
@@ -419,7 +419,7 @@
 
 .user-profile-follower-btn {
   min-width: 112px;
-  background-color: #f6f7f8;
+  background-color: var(--main-input-bg-color);
   border: 1px solid transparent;
   color: var(--highlight-color);
   font-family: var(--font-family-noto);

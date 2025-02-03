@@ -21,7 +21,7 @@ export const colorThemeColors = [
   "#FF66AC",
   "#9E8D49",
   "#DDBD37",
-  "#EDEFF1",
+  "var(--secondary-border-color)",
   "#373C3F",
   "#005BA1",
   "#0266B3",

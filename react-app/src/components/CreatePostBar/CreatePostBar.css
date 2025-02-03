@@ -3,7 +3,7 @@
   width: 100%;
   background: var(--ribbit-main);
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
   margin-bottom: 16px;
   display: flex;
   align-items: center;
@@ -36,9 +36,9 @@
 }
 
 .create-post input {
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
   outline: none;
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
   height: 38px;
   border-radius: 4px;
   padding: 0 16px;

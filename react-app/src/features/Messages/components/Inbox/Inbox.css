@@ -1,5 +1,5 @@
 .inbox-messages-page {
-  background: #edeff1;
+  background: var(--secondary-border-color);
   height: 100%;
   min-height: calc(100vh - 49px);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -14,7 +14,7 @@
 }
 
 .inbox-messages > div:nth-of-type(2n + 1) {
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
 }
 
 .inbox-message {
@@ -47,7 +47,7 @@
 }
 
 .inbox-message-main-unread {
-  background: #edeff1;
+  background: var(--secondary-border-color);
   color: #373c3f;
   padding: 10px 15px;
 }

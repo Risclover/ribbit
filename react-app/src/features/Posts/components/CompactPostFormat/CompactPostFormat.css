@@ -55,7 +55,7 @@
 }
 
 .karmabar-votes {
-  color: rgb(26, 26, 27);
+  color: var(--main-text-color);
 }
 
 .compact-post-title {
@@ -74,7 +74,7 @@
   justify-content: space-between;
   padding: 3px 0;
   padding-top: 5px;
-  border-left: 1px solid #edeff1;
+  border-left: 1px solid var(--secondary-border-color);
 }
 
 .compact-post-content-box {
@@ -159,7 +159,7 @@
 }
 
 .post-btn-separator {
-  border-right: 1px solid #edeff1;
+  border-right: 1px solid var(--secondary-border-color);
   height: 16px;
   margin-left: 4px;
   margin-right: 4px;
@@ -280,7 +280,8 @@
 }
 
 .compact-post-menu {
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
+
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
   color: var(--main-text-color);
@@ -308,7 +309,8 @@
   border-radius: 0;
   font-family: var(--font-family-ibm);
   border: none;
-  border-top: 1px solid #edeff1;
+  border-top: 1px solid var(--secondary-border-color);
+
   background: var(--ribbit-main);
   width: 100%;
 }
@@ -367,7 +369,7 @@
   font-weight: 400;
   line-height: 20px;
   color: #ff006d !important;
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
   margin: 0 2px;
 }
 
@@ -376,7 +378,7 @@
 }
 
 .compact-post-expanded-text pre {
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
   font-family: "Noto Sans Mono", monospace;
   font-size: 13px;
   font-weight: 400;

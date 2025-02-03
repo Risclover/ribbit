@@ -27,7 +27,7 @@
   padding-left: 40px;
   /* overflow: hidden; */
   position: relative;
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
   margin-bottom: -1px;
   z-index: 0;
   background: rgba(255, 255, 255, 0.8);
@@ -65,7 +65,7 @@
 }
 
 .karmabar-votes {
-  color: rgb(26, 26, 27);
+  color: var(--main-text-color);
 }
 
 .classic-post-main {
@@ -282,7 +282,7 @@
   height: 16px;
   margin-left: 4px;
   vertical-align: middle;
-  border-right: 1px solid #edeff1;
+  border-right: 1px solid var(--secondary-border-color);
 }
 
 .placeholder-external {

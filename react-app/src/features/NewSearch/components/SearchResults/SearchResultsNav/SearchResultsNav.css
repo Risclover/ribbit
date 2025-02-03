@@ -28,15 +28,15 @@
 .search-results-time:hover,
 .search-results-sort:hover {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04)),
-    #f6f7f8;
+    var(--main-input-bg-color);
 }
 .search-results-btn:active,
 .search-results-sort:active,
 .search-results-time:active {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
-    #f6f7f8;
+    var(--main-input-bg-color);
 }
 
 .results-active {
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
 }

@@ -17,7 +17,7 @@ import { useLoginForm } from "../hooks/useLoginForm";
 import { useAuthFlow } from "../../../context/AuthFlowContext";
 import { LoginForm } from "../components/AuthForms/LoginForm";
 
-describe("LoginForm (Acceptance Tests)", () => {
+describe("Login Form", () => {
   // Common mock data / functions
   let mockCloseModal;
   let mockSetLoginEmail, mockSetLoginPassword, mockHandleLogin;

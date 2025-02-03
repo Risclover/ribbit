@@ -19,7 +19,7 @@
 }
 
 .threadline {
-  border-right: 2px solid #edeff1;
+  border-right: 2px solid var(--secondary-border-color);
   display: block;
   height: 100%;
   width: 50%;
@@ -260,7 +260,7 @@
 }
 
 .threadline {
-  border-right: 2px solid #edeff1;
+  border-right: 2px solid var(--secondary-border-color);
   display: block;
   height: 100%;
   width: 50%;
@@ -292,7 +292,7 @@
 }
 
 .comment-reply-form-container:before {
-  border-left: 2px solid #edeff1;
+  border-left: 2px solid var(--secondary-border-color);
   bottom: 0;
   content: " ";
   left: -22px;

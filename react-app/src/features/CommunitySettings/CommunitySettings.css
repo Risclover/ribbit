@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  background: #edeff1;
+  background: var(--secondary-border-color);
   padding: 0 24px;
   left: 0;
   right: 0;
@@ -66,7 +66,8 @@
   line-height: 22px;
   color: var(--main-text-color);
   margin-bottom: 16px;
-  border-bottom: 1px solid #edeff1;
+  border-bottom: 1px solid var(--secondary-border-color);
+
   padding-bottom: 6px;
 }
 
@@ -88,7 +89,8 @@
 
 .community-name-input {
   background: var(--ribbit-main);
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
+
   border-radius: 4px;
   padding: 12px 24px 4px 12px;
   width: 100%;
@@ -113,7 +115,8 @@
   resize: none;
   width: 100%;
   height: 130px;
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
+
   border-radius: 4px;
   padding: 8px;
   color: var(--main-text-color);
@@ -132,7 +135,7 @@
 
 .community-rules-button-bar {
   width: 100%;
-  background: #edeff1;
+  background: var(--secondary-border-color);
   display: flex;
   align-items: center;
   justify-content: flex-end;

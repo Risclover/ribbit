@@ -63,20 +63,20 @@ export function PreviewCommunityColorPicker({
       </div>
 
       {/* Optional browser color picker */}
-      <div className="preview-community-browser-color-toggle">
-        <button type="button" onClick={handleBrowserPickerToggle}>
+      <div className="use-browser-color-picker">
+        <label className="use-browser-color-picker" onClick={handleBrowserPickerToggle}>
           {showBrowserPicker ? "Close" : "Use"} Browser Color Picker
-        </button>
-        {showBrowserPicker && (
-          <input
-            type="color"
-            className="preview-community-browser-color-picker"
-            onChange={(e) => setTheme(e.target.value)}
-            value={theme || "#ffffff"}
-            onClick={(e) => e.stopPropagation()}
-            // onBlur={() => setShowBrowserPicker(false)} // optional if you want to auto-close
-          />
-        )}
+          {showBrowserPicker && (
+            <input
+              type="color"
+              className="preview-community-browser-color-picker"
+              onChange={(e) => setTheme(e.target.value)}
+              value={theme || "#ffffff"}
+              onClick={(e) => e.stopPropagation()}
+              onBlur={() => setShowBrowserPicker(false)} // optional if you want to auto-close
+            />
+          )}
+        </label>
       </div>
 
       <label

@@ -87,7 +87,7 @@
   border-radius: 4px;
   overflow: hidden;
   background: var(--ribbit-main);
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
   margin-bottom: 16px;
 }
 
@@ -96,7 +96,7 @@
 }
 
 .community-page-left-col .single-post-container {
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
 }
 
 .community-header-info-details {
@@ -169,7 +169,7 @@
 }
 
 .community-page-box-description.community-page-edit-description {
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
   border-radius: 4px;
   padding: 8px;
   margin-bottom: 12px;
@@ -278,7 +278,7 @@
 
 .add-description-box {
   transition: all 0.1s linear 0s;
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
   border-radius: 4px;
   padding: 8px;
   margin-bottom: 12px;
@@ -417,7 +417,7 @@
 
 .community-info-menu {
   border-radius: 4px;
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
   background: var(--ribbit-main);
   box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
   color: #1c1c1c;
@@ -453,7 +453,7 @@
 }
 
 .community-info-menu:not(:first-child) {
-  border-top: 1px solid #edeff1;
+  border-top: 1px solid var(--secondary-border-color);
   border-bottom: none;
 }
 
@@ -505,7 +505,7 @@
   top: 0;
   background: none;
   opacity: 0.4;
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
 }
 
 .community-no-posts-notice {
@@ -611,7 +611,7 @@
 .community-page-community-rules {
   background: var(--ribbit-main);
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
   overflow: hidden;
 }
 
@@ -640,7 +640,8 @@
 
 .community-page-rules li {
   color: #1a1a1b;
-  border-bottom: 1px solid #edeff1;
+  border-bottom: 1px solid var(--secondary-border-color);
+
   padding: 8px 0;
   display: flex;
   flex-direction: column;
@@ -708,7 +709,8 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
-  border-bottom: 1px solid #edeff1;
+  border-bottom: 1px solid var(--secondary-border-color);
+
   padding: 16px 8px;
 }
 
@@ -730,7 +732,7 @@
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
   border-top: none;
 }
 
@@ -767,7 +769,7 @@
 }
 
 .community-edit-rule-expanded {
-  background: #edeff1;
+  background: var(--secondary-border-color);
   padding: 4px 20px 8px;
   border: 1px solid #d6d6d6;
   word-break: break-word;

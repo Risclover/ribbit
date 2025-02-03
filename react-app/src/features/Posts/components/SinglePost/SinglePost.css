@@ -60,13 +60,13 @@
 }
 
 .single-post-page .single-post-container:hover {
-  border-color: #edeff1;
+  border-color: var(--secondary-border-color);
 }
 
 .single-post-community-box {
   width: 312px;
   background: var(--ribbit-main);
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
   border-radius: 4px;
   z-index: 100;
   overflow: hidden;
@@ -133,11 +133,11 @@
   display: flex;
   position: relative;
   padding-left: 40px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--single-post-container-bg);
 }
 
 .posts-container .single-post-container {
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
 }
 
 .single-post-container:hover {
@@ -225,7 +225,7 @@
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
-  color: #222222;
+  color: var(--main-text-color);
   word-break: break-word;
   margin: 0 8px;
 }
@@ -305,7 +305,7 @@
   font-weight: 400;
   line-height: 20px;
   color: #ff006d !important;
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
   margin: 0 2px;
 }
 
@@ -316,7 +316,7 @@
 
 .single-page-content pre,
 .single-post-content pre {
-  background: #f6f7f8;
+  background: var(--main-input-bg-color);
   font-family: "Noto Sans Mono", monospace;
   font-size: 13px;
   font-weight: 400;
@@ -346,7 +346,8 @@
 }
 
 /* .single-page-content .single-post-left-col:hover {
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
+
   width: 100%;
 } */
 
@@ -577,7 +578,7 @@ ol {
   background: var(--ribbit-main);
   border-radius: 4px;
   margin-top: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
   overflow: hidden;
   width: 100%;
 }
@@ -607,7 +608,8 @@ ol {
 
 .single-post-rules li {
   color: #1a1a1b;
-  border-bottom: 1px solid #edeff1;
+  border-bottom: 1px solid var(--secondary-border-color);
+
   padding: 8px 0;
   display: flex;
   flex-direction: column;
@@ -636,7 +638,7 @@ ol {
 .single-post-page-banner {
   height: var(--community-banner-height);
   width: 100%;
-  background-image: var(--community-banner-img);
+  background: var(--community-banner-img);
   background-color: var(--community-banner-color);
   padding: 8px 16px;
   position: relative;

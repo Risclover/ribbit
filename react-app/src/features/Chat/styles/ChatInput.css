@@ -212,7 +212,7 @@
   padding-top: 12px;
   background: var(--ribbit-main);
   border-radius: 16px;
-  border: 1px solid #edeff1;
+  border: 1px solid var(--secondary-border-color);
 }
 
 .giphy-box::-webkit-scrollbar {
