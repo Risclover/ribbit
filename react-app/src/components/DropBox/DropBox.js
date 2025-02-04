@@ -3,6 +3,9 @@ import { UploadZone } from "./UploadZone";
 import { PreviewBar } from "./PreviewBar";
 import { useFileHandler } from "./useFileHandler";
 import "./DropBox.css";
+import { updateSettingsNameIcon } from "store";
+import { useDispatch } from "react-redux";
+const DEFAULT_ICON_URL = "https://i.imgur.com/9CI9hiO.png";
 
 /**
  * A custom-made image dropbox, where images can be drag-and-dropped or uploaded from their device.
@@ -20,11 +23,13 @@ export const DropBox = ({
   preview,
   setPreview,
   defaultIcon = null,
+  handleErase,
 }) => {
+  const dispatch = useDispatch();
   const [highlight, setHighlight] = useState(false);
-  const [showBar, setShowBar] = useState(preview !== null && preview !== "");
+  const showBar = preview && preview !== "" && preview !== defaultIcon;
 
-  const { handleUpload } = useFileHandler(setImage, setPreview, setShowBar);
+  const { handleUpload } = useFileHandler(setImage, setPreview);
 
   const handleDragEvents = (highlight) => (e) => {
     e.preventDefault();
@@ -32,17 +37,20 @@ export const DropBox = ({
     setHighlight(highlight);
   };
 
-  const handleErase = (e) => {
-    setPreview("");
-    setShowBar(false);
-  };
+  console.log("DropBox - preview:", preview);
+  console.log("DropBox - default icon?:", preview === DEFAULT_ICON_URL);
+  console.log("DropBox - showBar:", showBar);
 
-  useEffect(() => {
-    if (defaultIcon) {
-      setShowBar(false);
-      setPreview("");
-    }
-  }, [defaultIcon]);
+  const dropBoxClass =
+    "upload" +
+    (highlight ? " is-highlight" : "") +
+    (showBar ? " is-preview" : "");
+
+  const handleDelete = async () => {
+    // 1. Clear out local preview
+    setPreview("");
+    if (defaultIcon !== null) handleErase();
+  };
 
   return (
     <div className="dropbox">
@@ -55,9 +63,7 @@ export const DropBox = ({
             handleDragEvents(false)(e);
             handleUpload(e);
           }}
-          className={`upload${
-            highlight ? " is-highlight" : preview ? " is-preview" : ""
-          }`}
+          className={dropBoxClass}
           style={{
             backgroundImage: defaultIcon ? "" : `url(${preview})`,
           }}
@@ -70,7 +76,7 @@ export const DropBox = ({
           highlight={highlight}
           showBar={showBar}
           preview={preview}
-          onErase={handleErase}
+          onErase={handleDelete}
         />
       )}
     </div>

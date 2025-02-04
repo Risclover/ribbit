@@ -1,4 +1,4 @@
-export const useFileHandler = (setImage, setPreview, setShowBar) => {
+export const useFileHandler = (setImage, setPreview) => {
   const handleUpload = (event) => {
     event.preventDefault();
 
@@ -18,7 +18,6 @@ export const useFileHandler = (setImage, setPreview, setShowBar) => {
     setPreview(blobUrl);
 
     // Show any upload-progress bar (if desired)
-    setShowBar(true);
 
     // Optional: If you really do need to read the file's contents,
     // you can still do so, but for most large images,

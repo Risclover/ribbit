@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ToggleSwitch, DropBox } from "@/components";
 import { CommunityNameOption } from "./CommunityNameOption";
+import { useDispatch } from "react-redux";
+import { updateSettingsNameIcon } from "store";
+import { getCommunitySettings } from "store";
+import { getCommunities } from "store";
+
+// Could be in a constants file or just inline
+const DEFAULT_ICON_URL = "https://i.imgur.com/9CI9hiO.png";
 
 export function PreviewCommunityNameIcon({ setOpenAppearance, settingsState }) {
   const {
@@ -13,21 +20,53 @@ export function PreviewCommunityNameIcon({ setOpenAppearance, settingsState }) {
     hideCommunityIcon,
     setHideCommunityIcon,
     saveNameIcon,
+    uploadCommunityIcon,
+    communitySetting,
   } = settingsState;
 
   const options = ["c/", "", "Hide"];
+  const dispatch = useDispatch();
 
   // We'll track a local file for the icon
   const [iconFile, setIconFile] = useState(null);
   const [preview, setPreview] = useState(communityIcon);
 
-  const handleSubmit = async () => {
-    // If user has chosen a new iconFile, we upload it
-    await saveNameIcon(iconFile);
-    document.documentElement.style.setProperty(
-      "--preview-community-name-format",
-      nameFormat
+  const handleErase = async () => {
+    // 2. Update in DB: set communityIcon to the default URL
+    await dispatch(
+      updateSettingsNameIcon({
+        settingsId: communitySetting.id,
+        nameFormat,
+        communityIcon: DEFAULT_ICON_URL,
+        hideCommunityIcon,
+      })
     );
+
+    // 3. Re-fetch store data so our UI sees the update
+    dispatch(getCommunities());
+    dispatch(getCommunitySettings(community.id));
+  };
+
+  // In your form's handleSubmit:
+  const handleSubmit = async () => {
+    // if the user chose a file:
+    if (iconFile) {
+      // 1. upload file to server
+      await uploadCommunityIcon(iconFile); // returns new icon path or updates DB
+      // 2. re-fetch store data
+      await dispatch(getCommunitySettings(community.id));
+    } else if (preview === "") {
+      // means user clicked trash
+      await dispatch(
+        updateSettingsNameIcon({
+          settingsId: communitySetting.id,
+          communityIcon: "", // instruct the server to remove it
+          // ...
+        })
+      );
+      await dispatch(getCommunitySettings(community.id));
+    }
+
     setOpenAppearance(false);
   };
 
@@ -60,6 +99,8 @@ export function PreviewCommunityNameIcon({ setOpenAppearance, settingsState }) {
             startingImage={communityIcon}
             preview={preview}
             setPreview={setPreview}
+            handleErase={handleErase}
+            defaultIcon={DEFAULT_ICON_URL}
           />
           <p>Required size: 256x256px</p>
         </div>
