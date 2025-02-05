@@ -8,8 +8,8 @@ import {
 } from "@/store";
 import { MessageThread, MessageHead, MessageContentMenu } from "..";
 import { usePageSettings } from "@/hooks/usePageSettings";
-import "../Messages.css";
 import { v4 as uuidv4 } from "uuid";
+import "../styles/Messages.css";
 
 export function Messages() {
   const dispatch = useDispatch();

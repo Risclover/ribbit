@@ -10,32 +10,12 @@ import {
   readNotification,
   unreadNotification,
 } from "@/store";
+import usePostReplies from "features/Messages/hooks/usePostReplies";
 
 export function PostReply({ notification }) {
-  const dispatch = useDispatch();
-
-  const users = useSelector((state) => state.users);
-  const posts = useSelector((state) => state.posts);
-
-  const community = posts[notification.postId]?.communityName;
-  const postReplySender = users[notification.senderId];
-
-  const currentUser = useSelector((state) => state.session.user);
-
-  useEffect(() => {
-    dispatch(getAllNotifications());
-  }, [dispatch]);
-
-  const handleUnread = async () => {
-    await dispatch(unreadNotification(notification?.id));
-    dispatch(getUserNotifications(currentUser?.id));
-  };
-
-  const handleRead = async () => {
-    await dispatch(readNotification(notification?.id));
-    dispatch(getUserNotifications(currentUser?.id));
-  };
-
+  const { community, postReplySender, handleUnread, handleRead } =
+    usePostReplies({ notification });
+    
   return (
     <div className="inbox-message" onClick={handleRead}>
       <div className="inbox-message-subject">

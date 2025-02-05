@@ -1,3 +1,3 @@
 export * from "./RecentlyViewedPost";
-export * from "./RecentlyViewedPosts";
+export { RecentlyViewedPosts } from "./RecentlyViewedPosts";
 export * from "./RecentlyViewedType";

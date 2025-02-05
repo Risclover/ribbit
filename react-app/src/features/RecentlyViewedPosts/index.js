@@ -1,1 +1,2 @@
-export { RecentlyViewedPosts } from "./RecentlyViewedPosts";
+export * from "./components";
+export * from "./hooks";

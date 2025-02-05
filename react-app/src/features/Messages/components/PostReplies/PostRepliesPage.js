@@ -6,31 +6,10 @@ import "./PostReplies.css";
 import "../Inbox/Inbox.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import { v4 as uuidv4 } from "uuid";
+import usePostReplies from "features/Messages/hooks/usePostReplies";
 
 export function PostRepliesPage() {
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.session.user);
-  const notifications = useSelector((state) =>
-    Object.values(state.notifications)
-  );
-
-  const postRepliesList = notifications.filter(
-    (notification) => notification.notificationType === "post-reply"
-  );
-
-  const [markedUnread, setMarkedUnread] = useState(false);
-
-  postRepliesList.sort((a, b) => {
-    let postA = new Date(a.createdAt);
-    let postB = new Date(b.createdAt);
-
-    return postB - postA;
-  });
-
-  useEffect(() => {
-    dispatch(getUserNotifications(currentUser?.id));
-    dispatch(getPosts());
-  }, [dispatch]);
+  const { markedUnread, setMarkedUnread, postRepliesList } = usePostReplies();
 
   usePageSettings({
     documentTitle: "Messages: Post Replies",

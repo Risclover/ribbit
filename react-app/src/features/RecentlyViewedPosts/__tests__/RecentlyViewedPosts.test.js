@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import configureStore from "redux-mock-store";
 import moment from "moment";
 
-import { RecentlyViewedPosts } from "./RecentlyViewedPosts";
+import { RecentlyViewedPosts } from "../components/RecentlyViewedPosts";
 const mockStore = configureStore([]);
 
 describe("RecentlyViewedPosts", () => {
@@ -51,5 +51,5 @@ describe("RecentlyViewedPosts", () => {
     });
 
     expect(headerElement).toBeInTheDocument();
-  })
+  });
 });

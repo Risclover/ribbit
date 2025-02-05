@@ -5,15 +5,8 @@ import moment from "moment";
 import { readNotification, readMessage } from "@/store";
 import { MessageReply } from "../MessageReply";
 
-export function InboxMessage({ item, marked, message, currentUser, expanded }) {
-  const dispatch = useDispatch();
-  const [markedUnread, setMarkedUnread] = useState(marked || false);
-
-  const handleRead = async () => {
-    setMarkedUnread(false);
-    await dispatch(readNotification(message.id));
-    await dispatch(readMessage(message.id));
-  };
+export function InboxMessage({ item, message, currentUser, expanded }) {
+  const { handleRead, markedUnread, setMarkedUnread } = useInbox({ message });
 
   return (
     <div className="inbox-message" onClick={handleRead}>
