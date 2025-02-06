@@ -31,7 +31,9 @@ def seed_comments():
     # Dictionary to hold comments by a temporary key for easy reference
     comments_dict = {}
 
-    # ----------------------- POST 1 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 1
+    # -------------------------------------------------------------------------
     post1 = Post.query.get(1)
     comment1_createdat = generate_comment_timestamp(post1.created_at)
     comments_dict['1'] = Comment(
@@ -109,7 +111,9 @@ def seed_comments():
     )
     db.session.add(comments_dict['7'])
 
-    # ----------------------- POST 2 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 2
+    # -------------------------------------------------------------------------
     post2 = Post.query.get(2)
 
     comment8_createdat = generate_comment_timestamp(post2.created_at)
@@ -201,7 +205,9 @@ Stephan doesn't look impressed by the cake at all 🤣""",
     )
     db.session.add(comments_dict['15'])
 
-    # ----------------------- POST 3 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 3
+    # -------------------------------------------------------------------------
     post3 = Post.query.get(3)
 
     comment16_createdat=generate_comment_timestamp(post3.created_at)
@@ -260,7 +266,9 @@ Stephan doesn't look impressed by the cake at all 🤣""",
     )
     db.session.add(comments_dict['20'])
 
-    # ----------------------- POST 4 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 4
+    # -------------------------------------------------------------------------
     post4 = Post.query.get(4)
 
     comment21_createdat=generate_comment_timestamp(post4.created_at)
@@ -362,7 +370,9 @@ No matter how objectively shitty they sound, that's an immediate golden buzzer f
     )
     db.session.add(comments_dict['29'])
 
-    # ----------------------- POST 5 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 5
+    # -------------------------------------------------------------------------
     post5 = Post.query.get(5)
 
     comment30_createdat=generate_comment_timestamp(post5.created_at)
@@ -463,7 +473,9 @@ Sorry mum!""",
     )
     db.session.add(comments_dict['37'])
 
-    # ----------------------- POST 6 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 6
+    # -------------------------------------------------------------------------
     post6 = Post.query.get(6)
 
     comment38_createdat=generate_comment_timestamp(post6.created_at)
@@ -543,7 +555,9 @@ Sorry mum!""",
     )
     db.session.add(comments_dict['44'])
 
-    # ----------------------- POST 7 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 7
+    # -------------------------------------------------------------------------
     post7 = Post.query.get(7)
 
     comment45_createdat=generate_comment_timestamp(post7.created_at)
@@ -610,7 +624,9 @@ Sorry mum!""",
     )
     db.session.add(comments_dict['50'])
 
-    # ----------------------- POST 8 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 8
+    # -------------------------------------------------------------------------
     post8 = Post.query.get(8)
 
     comment51_createdat=generate_comment_timestamp(post8.created_at)
@@ -697,7 +713,9 @@ More broadly, beginners hyper focus on syntax, libraries and frameworks because 
     )
     db.session.add(comments_dict['56'])
 
-    # ----------------------- POST 9 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 9
+    # -------------------------------------------------------------------------
     post9 = Post.query.get(9)
 
     comment57_createdat=generate_comment_timestamp(post9.created_at)
@@ -775,7 +793,9 @@ Vite is so powerful yet so easy to use. There's a reason that the entire ecosyst
     )
     db.session.add(comments_dict['62'])
 
-    # ----------------------- POST 10 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 10
+    # -------------------------------------------------------------------------
     post10 = Post.query.get(10)
 
     comment63_createdat=generate_comment_timestamp(post10.created_at)
@@ -847,7 +867,9 @@ Vite is so powerful yet so easy to use. There's a reason that the entire ecosyst
     )
     db.session.add(comments_dict['68'])
 
-    # ----------------------- POST 11 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 11
+    # -------------------------------------------------------------------------
     post11 = Post.query.get(11)
 
     comment69_createdat=generate_comment_timestamp(post11.created_at)
@@ -915,7 +937,9 @@ Vite is so powerful yet so easy to use. There's a reason that the entire ecosyst
     )
     db.session.add(comments_dict['74'])
 
-    # ----------------------- POST 12 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 12
+    # -------------------------------------------------------------------------
     post12 = Post.query.get(12)
 
     comment75_createdat=generate_comment_timestamp(post12.created_at)
@@ -996,7 +1020,9 @@ Vite is so powerful yet so easy to use. There's a reason that the entire ecosyst
     )
     db.session.add(comments_dict['81'])
 
-    # ----------------------- POST 13 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 13
+    # -------------------------------------------------------------------------
     post13 = Post.query.get(13)
 
     comment82_createdat=generate_comment_timestamp(post13.created_at)
@@ -1065,7 +1091,9 @@ Vite is so powerful yet so easy to use. There's a reason that the entire ecosyst
     )
     db.session.add(comments_dict['87'])
 
-    # ----------------------- POST 14 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 14
+    # -------------------------------------------------------------------------
     post14 = Post.query.get(14)
 
     comment88_createdat=generate_comment_timestamp(post14.created_at)
@@ -1110,7 +1138,9 @@ Vite is so powerful yet so easy to use. There's a reason that the entire ecosyst
     )
     db.session.add(comments_dict['91'])
 
-    # ----------------------- POST 15 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 16
+    # -------------------------------------------------------------------------
     post15 = Post.query.get(15)
 
     comment92_createdat=generate_comment_timestamp(post15.created_at)
@@ -1168,7 +1198,9 @@ Vite is so powerful yet so easy to use. There's a reason that the entire ecosyst
     )
     db.session.add(comments_dict['96'])
 
-    # ----------------------- POST 16 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 16
+    # -------------------------------------------------------------------------
     post16 = Post.query.get(16)
 
     comment97_createdat=generate_comment_timestamp(post16.created_at)
@@ -1201,7 +1233,9 @@ Vite is so powerful yet so easy to use. There's a reason that the entire ecosyst
     )
     db.session.add(comments_dict['99'])
 
-    # ----------------------- POST 17 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 17
+    # -------------------------------------------------------------------------
     post17 = Post.query.get(17)
 
     comment100_createdat=generate_comment_timestamp(post17.created_at)
@@ -1282,10 +1316,14 @@ Vite is so powerful yet so easy to use. There's a reason that the entire ecosyst
     )
     db.session.add(comments_dict['106'])
 
-    # ----------------------- POST 18 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 18
+    # -------------------------------------------------------------------------
     # No comments
 
-    # ----------------------- POST 19 -----------------------#
+    # -------------------------------------------------------------------------
+    # POST 19
+    # -------------------------------------------------------------------------
     post19 = Post.query.get(19)
 
     comment107_createdat=generate_comment_timestamp(post19.created_at)
@@ -1330,10 +1368,14 @@ Vite is so powerful yet so easy to use. There's a reason that the entire ecosyst
     )
     db.session.add(comments_dict['110'])
 
-    # ----------------------- POST 20 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 20
+    # -------------------------------------------------------------------------
     # No comments
 
-    # ----------------------- POST 21 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 21
+    # -------------------------------------------------------------------------
     post21 = Post.query.get(21)
 
     comment111_createdat=generate_comment_timestamp(post21.created_at)
@@ -1445,7 +1487,9 @@ lol""",
     )
     db.session.add(comments_dict['119'])
 
-    # ----------------------- POST 22 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 22
+    # -------------------------------------------------------------------------
     post22 = Post.query.get(22)
 
     comment120_createdat=generate_comment_timestamp(post22.created_at)
@@ -1491,7 +1535,9 @@ lol""",
     )
     db.session.add(comments_dict['123'])
 
-    # ----------------------- POST 23 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 23
+    # -------------------------------------------------------------------------
     post23 = Post.query.get(23)
 
     comment124_createdat=generate_comment_timestamp(post23.created_at)
@@ -1553,7 +1599,9 @@ Stop with the click bait.""",
     )
     db.session.add(comments_dict['128'])
 
-    # ----------------------- POST 25 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 25
+    # -------------------------------------------------------------------------
     post25 = Post.query.get(25)
 
     comment129_createdat=generate_comment_timestamp(post25.created_at)
@@ -1611,7 +1659,9 @@ Stop with the click bait.""",
     db.session.add(comments_dict['133'])
 
 
-    # ----------------------- POST 26 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 26
+    # -------------------------------------------------------------------------
     post26 = Post.query.get(26)
 
     comment134_createdat=generate_comment_timestamp(post26.created_at)
@@ -1730,7 +1780,9 @@ The real problem with saying \"letting yourself go\" (or \"you're getting fat\")
     db.session.add(comments_dict['143'])
 
 
-    # ----------------------- POST 27 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 27
+    # -------------------------------------------------------------------------
     post27 = Post.query.get(27)
 
     comment144_createdat=generate_comment_timestamp(post27.created_at)
@@ -1827,7 +1879,9 @@ Die like a proper pauper at least: with dignity and mountains of debts 🫠""",
     db.session.add(comments_dict['151'])
 
 
-    # ----------------------- POST 28 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 28
+    # -------------------------------------------------------------------------
     post28 = Post.query.get(28)
 
     comment152_createdat=generate_comment_timestamp(post28.created_at)
@@ -1906,7 +1960,9 @@ Die like a proper pauper at least: with dignity and mountains of debts 🫠""",
     )
     db.session.add(comments_dict['158'])
 
-    # ----------------------- POST 29 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 29
+    # -------------------------------------------------------------------------
     post29 = Post.query.get(29)
 
     comment159_createdat=generate_comment_timestamp(post29.created_at)
@@ -2019,7 +2075,9 @@ Die like a proper pauper at least: with dignity and mountains of debts 🫠""",
     )
     db.session.add(comments_dict['168'])
 
-    # ----------------------- POST 30 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 30
+    # -------------------------------------------------------------------------
     post30 = Post.query.get(30)
 
     comment169_createdat=generate_comment_timestamp(post30.created_at)
@@ -2063,7 +2121,9 @@ Die like a proper pauper at least: with dignity and mountains of debts 🫠""",
     db.session.add(comments_dict['172'])
 
 
-    # ----------------------- POST 31 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 31
+    # -------------------------------------------------------------------------
     post31 = Post.query.get(31)
 
     comment173_createdat=generate_comment_timestamp(post31.created_at)
@@ -2108,7 +2168,9 @@ Die like a proper pauper at least: with dignity and mountains of debts 🫠""",
     )
     db.session.add(comments_dict['176'])
 
-    # ----------------------- POST 32 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 32
+    # -------------------------------------------------------------------------
     post32 = Post.query.get(32)
 
     comment177_createdat=generate_comment_timestamp(post32.created_at)
@@ -2174,7 +2236,9 @@ The answer is always the same, if you're unhappy with your salary and get a "no"
     db.session.add(comments_dict['181'])
 
 
-    # ----------------------- POST 33 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 33
+    # -------------------------------------------------------------------------
     post33 = Post.query.get(33)
 
     comment182_createdat=generate_comment_timestamp(post33.created_at)
@@ -2232,7 +2296,9 @@ Or for satirical means, just add more gpt standard phrases""",
     db.session.add(comments_dict['186'])
 
 
-    # ----------------------- POST 34 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 34
+    # -------------------------------------------------------------------------
     post34 = Post.query.get(34)
 
     comment187_createdat=generate_comment_timestamp(post34.created_at)
@@ -2292,7 +2358,9 @@ Or for satirical means, just add more gpt standard phrases""",
     db.session.add(comments_dict['191'])
 
 
-    # ----------------------- POST 35 ----------------------- #
+    # -------------------------------------------------------------------------
+    # POST 35
+    # -------------------------------------------------------------------------
     post35 = Post.query.get(35)
 
     comment192_createdat=generate_comment_timestamp(post35.created_at)
@@ -2374,6 +2442,10 @@ Or for satirical means, just add more gpt standard phrases""",
         updated_at=comment198_createdat
     )
     db.session.add(comments_dict['198'])
+
+    # -------------------------------------------------------------------------
+    # POST 36
+    # -------------------------------------------------------------------------
 
     db.session.commit()
 
