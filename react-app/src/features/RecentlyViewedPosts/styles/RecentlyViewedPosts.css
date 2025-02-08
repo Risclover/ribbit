@@ -15,7 +15,7 @@
   line-height: 12px;
   text-transform: uppercase;
   padding-bottom: 4px;
-  color: #1a1a1b;
+  color: var(--main-text-color);
 }
 
 .recent-post-type {

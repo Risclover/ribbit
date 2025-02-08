@@ -5,7 +5,7 @@ export function SearchbarCloseIcon() {
       viewBox="0 0 24 24"
       width="20"
       height="20"
-      color="#1c1c1c"
+      color="var(--main-text-color)"
       fill="none"
     >
       <path

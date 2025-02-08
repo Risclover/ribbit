@@ -253,11 +253,7 @@ export function useCommunitySettingsState(community) {
       secondaryBannerFormat: communitySetting.secondaryBannerFormat,
       mobileBannerImg: communitySetting.mobileBannerImg,
     };
-    const result = await dispatch(updateSettingsBanner(payload));
-    if (result.ok) {
-      await dispatch(getCommunitySettings(community.id));
-      // Possibly also: await dispatch(getCommunities());
-    }
+    await dispatch(updateSettingsBanner(payload));
   };
 
   const uploadBannerImg = async (file) => {
@@ -271,7 +267,6 @@ export function useCommunitySettingsState(community) {
     });
     if (res.ok) {
       await res.json(); // If your endpoint returns new info, handle it or do nothing
-      // Could do: await dispatch(getSingleCommunity(community.id));
     }
   };
 

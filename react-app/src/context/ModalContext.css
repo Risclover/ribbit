@@ -93,7 +93,7 @@
   outline: none;
   border: none;
   font-size: 20px;
-  color: inherit;
+  color: var(--main-text-color);
   padding: 0;
   height: auto;
 }
@@ -178,6 +178,10 @@
 .auth-modal-footer {
   padding: 24px 80px;
 }
+
+/* .modal-close-btn svg {
+  color: var(--main-text-color);
+} */
 
 @media (max-width: 528px) {
   #modal-background {

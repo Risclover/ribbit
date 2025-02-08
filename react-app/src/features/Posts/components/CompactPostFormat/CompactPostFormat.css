@@ -62,7 +62,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #222;
+  color: var(--main-text-color);
 }
 
 .compact-post-main {
@@ -129,6 +129,7 @@
   padding: 5px 16px 5px 8px;
   max-width: 800px;
   font-family: var(--font-family-noto);
+  color: var(--main-text-color);
 }
 .compact-post-expanded img {
   max-width: 100%;

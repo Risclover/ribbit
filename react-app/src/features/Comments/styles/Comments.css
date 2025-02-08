@@ -402,6 +402,11 @@
   line-height: 21px;
   outline: none;
   resize: vertical;
+  background: transparent;
+  color: var(--main-text-color);
+}
+
+.post-comment-textarea:focus {
 }
 
 .comment-box {
@@ -429,7 +434,7 @@
   align-items: center;
   cursor: text;
   width: fit-content;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .comment-form label a {
@@ -459,7 +464,7 @@
   min-width: 24px;
   width: auto;
   cursor: pointer;
-  color: white;
+  color: var(--ribbit-main);
 }
 
 .comment-submit:hover {
@@ -602,6 +607,7 @@
 }
 
 .comment-sorting-dropdown-btn {
+  position: relative;
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
@@ -619,7 +625,21 @@
 
 .comment-sorting-dropdown-btn:hover {
   color: var(--main-text-color);
-  background: #e9f5fd;
+}
+
+.comment-sorting-dropdown-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--ribbit-main);
+  opacity: 0;
+}
+
+.comment-sorting-dropdown-btn:hover:before {
+  opacity: 0.08;
 }
 
 .sorting-active-btn {
@@ -728,7 +748,7 @@
 
 .comment-sort-search-separator {
   line-height: 20px;
-  color: var(--secondary-border-color);
+  color: var(--main-border-color);
   padding: 0 12px;
 }
 
@@ -736,12 +756,13 @@
   border: 1px solid var(--secondary-border-color);
   border-radius: 4px;
   box-shadow: none;
-  color: #1c1c1c;
+  color: var(--main-text-color);
   height: 32px;
   padding: 0 24px 0 32px;
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
+  background: transparent;
 }
 .comment-search-label {
   position: relative;
@@ -794,6 +815,7 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: 500px;
+  color: var(--main-text-color);
 }
 
 .all-comments-btn button {

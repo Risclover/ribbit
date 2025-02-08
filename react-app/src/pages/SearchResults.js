@@ -9,7 +9,11 @@ export const SearchResults = ({ children, query, searchPage }) => {
     documentTitle: `ribbit: search results - ${query}`,
     icon: (
       <div className="nav-left-dropdown-item-icon">
-        <MagnifyingGlass color="#1c1c1c" height="20px" width="20px" />
+        <MagnifyingGlass
+          color="var(--main-text-color)"
+          height="20px"
+          width="20px"
+        />
       </div>
     ),
     pageTitle: "Search Results",

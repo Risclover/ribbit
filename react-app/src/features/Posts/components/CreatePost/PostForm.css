@@ -61,12 +61,12 @@
 }
 
 .ql-snow.ql-stroke {
-  color: #ccc;
+  color: var(--secondary-border-color);
 }
 
 .quill > .ql-container > .ql-editor.ql-blank::before {
   font-style: normal;
-  color: #ccc;
+  color: var(--secondary-border-color);
   font-size: 13px;
 }
 
@@ -135,10 +135,45 @@
   position: relative;
   border-radius: 0;
   height: auto;
+  position: relative;
+}
+.create-post-bar button:hover:before {
+  opacity: 0.08;
+}
+.create-post-bar button:before {
+  background: var(--main-text-color);
+  opacity: 0;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+
+:root[data-theme="dark"] .post-type-bar button::before {
+  background: var(--main-text-color);
+  opacity: 0;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+
+:root[data-theme="dark"] .post-type-bar button:hover:before {
+  opacity: 0.8;
 }
 
 .post-type-bar button:hover {
   background: rgba(0, 121, 211, 0.05);
+}
+
+:root[data-theme="dark"] .post-type-bar button:hover {
+  background: transparent;
 }
 
 .post-type-bar .active-type {
@@ -224,10 +259,11 @@
   font-family: var(--font-family-ibm);
   border-radius: 4px;
   font-size: 14px;
+  background: transparent;
 }
 
 .create-post-input:focus {
-  border-color: #1a1a1b;
+  border-color: var(--main-text-color);
 }
 
 .title-input {
@@ -312,7 +348,7 @@
   font-weight: 700;
   background: var(--community-highlight);
   border-radius: 100px;
-  color: white;
+  color: var(--ribbit-main);
   outline: none;
   border: none;
   padding: 4px 16px;

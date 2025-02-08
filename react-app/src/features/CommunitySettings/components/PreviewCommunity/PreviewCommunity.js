@@ -38,7 +38,6 @@ export function PreviewCommunity() {
   // Fetch data on mount (and/or when communityName changes)
   useEffect(() => {
     // Single effect to load what we need
-    dispatch(getCommunities());
     dispatch(getSubscriptions());
     dispatch(getPosts());
   }, [dispatch]);

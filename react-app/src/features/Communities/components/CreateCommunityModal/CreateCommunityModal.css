@@ -5,7 +5,7 @@
 .create-community-input {
   border-radius: 4px;
   border: 1px solid var(--secondary-border-color);
-
+  background: transparent;
   color: var(--main-text-color);
   margin-bottom: 8px;
   padding: 4px 26px;
@@ -54,7 +54,7 @@
 
 .create-community-textarea {
   padding: 10px;
-  border: 1px solid #eee;
+  border: 1px solid var(--main-border-color);
   border-radius: 4px;
   min-height: 122px;
   font-family: var(--font-family-noto);
@@ -63,6 +63,8 @@
   margin-bottom: 0px;
   max-height: 65vh;
   max-height: 60vh;
+  background: transparent;
+  color: var(--main-text-color);
 }
 
 .community-name-info {

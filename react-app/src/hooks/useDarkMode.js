@@ -11,6 +11,7 @@ export function useDarkMode() {
     ).matches;
     return prefersDark ? "dark" : "light";
   });
+  const [checked, setChecked] = useState(theme === "light" ? false : true);
 
   useEffect(() => {
     // Update the HTML element's data-theme attribute
@@ -20,8 +21,9 @@ export function useDarkMode() {
   }, [theme]);
 
   const toggleTheme = () => {
+    setChecked((prev) => (prev === true ? false : true));
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   };
 
-  return { theme, toggleTheme };
+  return { theme, toggleTheme, checked };
 }

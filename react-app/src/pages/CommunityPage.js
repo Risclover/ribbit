@@ -35,9 +35,7 @@ export function CommunityPage() {
 
   useEffect(() => {
     dispatch(getCommunitySettings(communityId));
-    if (Object.keys(communities).length === 0) {
-      dispatch(getCommunities());
-    }
+    dispatch(getCommunities());
     if (posts.length === 0) {
       dispatch(getPosts());
     }

@@ -20,6 +20,7 @@ export function CommunityOptions({ checked, setChecked, community }) {
     localStorage.setItem("community-themes", JSON.stringify(themes));
     dispatch(getCommunitySettings(community?.id));
   };
+  
   return (
     <div className="community-options-container">
       <button

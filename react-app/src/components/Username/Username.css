@@ -99,6 +99,7 @@
 
 .username-component {
   cursor: pointer;
+  color: var(--main-text-color);
 }
 
 .username-component-wrapper:hover {

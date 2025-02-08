@@ -32,11 +32,6 @@ export function PreviewCommunitySidebar() {
   const [openAppearance, setOpenAppearance] = useState(false);
   const [appearanceSidebar, setAppearanceSidebar] = useState("");
 
-  // On mount, fetch communities if needed
-  useEffect(() => {
-    dispatch(getCommunities());
-  }, [dispatch]);
-
   const appearanceSidebarList = [
     "Color theme",
     "Name & icon",

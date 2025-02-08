@@ -883,13 +883,13 @@
 
 .nav-search-stuff:focus-within,
 .nav-search-stuff:hover {
-  background-color: white;
+  background-color: transparent;
   border: 1px solid var(--highlight-color);
 }
 
 .nav-search-stuff:focus-within .nav-input,
 .nav-search-stuff:hover .nav-input {
-  background-color: white;
+  background-color: transparent;
 }
 
 .nav-search-input-container label {

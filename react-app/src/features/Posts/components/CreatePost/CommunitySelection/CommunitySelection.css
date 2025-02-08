@@ -54,6 +54,7 @@
   width: 100%;
   flex: 1;
   cursor: text;
+  background: transparent;
 }
 
 .community-selection-input::placeholder {

@@ -9,6 +9,10 @@
   padding: 20px 24px;
 }
 
+:root[data-theme="dark"] .single-post-page-main {
+  background: var(--background) !important;
+}
+
 .single-post-community-info-img {
   border-radius: 100%;
   width: 54px;
@@ -83,7 +87,7 @@
   font-size: 16px;
   font-weight: 500;
   font-family: var(--font-family-ibm);
-  color: #1a1a1b;
+  color: var(--main-text-color);
   word-wrap: break-word;
   display: flex;
   align-items: center;
@@ -117,6 +121,7 @@
   line-height: 21px;
   font-family: var(--font-family-noto);
   word-wrap: break-word;
+  color: var(--main-text-color);
 }
 
 .single-post-community-date {
@@ -476,7 +481,7 @@
 }
 
 .single-post-karmabar button:hover {
-  background: rgb(226, 227, 228);
+  background: rgba(26, 26, 27, 0.1);
 }
 
 .single-post-karmabar .single-post-karmabar-upvoted:hover {

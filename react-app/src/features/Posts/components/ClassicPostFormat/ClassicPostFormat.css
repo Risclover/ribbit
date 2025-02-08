@@ -138,11 +138,11 @@
 }
 
 .classic-post-title {
-  color: #222;
+  color: var(--main-text-color);
 }
 
 .classic-post-title h3 {
-  color: #222;
+  color: var(--main-text-color);
   font-size: 16px;
   font-weight: 500;
   display: inline;

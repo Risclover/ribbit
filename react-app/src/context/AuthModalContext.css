@@ -93,7 +93,7 @@
   font-weight: 500;
   line-height: 20px;
   margin: 24px 0;
-  color: #1a1a1b;
+  color: var(--main-text-color);
 }
 
 .or-dividers {
@@ -121,22 +121,17 @@
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.demo-btn {
+.demo-btn,
+.google-btn {
   width: 100%;
   background: var(--ribbit-main);
   border: 1px solid #dadce0;
-  margin-top: 1.5rem;
   height: 40px;
   padding: 0 12px;
   cursor: pointer;
   border-radius: 100px;
   transition: all 0.3s;
   white-space: nowrap;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  color: #3c4043;
   letter-spacing: 0.25px;
   text-overflow: ellipsis;
   text-align: center;
@@ -150,9 +145,32 @@
   margin: 2px 8px 0 0;
 }
 
+.google-btn img {
+  width: 18px;
+  height: 18px;
+  margin: 2px 8px 0 0;
+}
+
 .demo-btn:hover,
-.demo-btn:focus {
+.demo-btn:focus,
+.google-btn:hover,
+.google-btn:focus {
   background: rgba(66, 133, 244, 0.04);
+}
+
+.demo-btn {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #3c4043;
+}
+.google-btn {
+  margin-top: 1.5rem;
+  color: #1f1f1f;
+  font-family: var(--font-family-roboto);
+  font-weight: 500;
 }
 
 .login-form-errors,

@@ -49,7 +49,7 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
   const commentsArray = Object.values(commentsState);
 
   // Local state
-  const [sortType, setSortType] = useState("New");
+  const [sortType, setSortType] = useState("Top");
   const [searchValue, setSearchValue] = useState("");
   const [searchActive, setSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");

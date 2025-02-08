@@ -15,8 +15,7 @@ export function NavUserDropdown() {
   const history = useHistory();
   const dispatch = useDispatch();
   const wrapperRef = useRef(null);
-  const { theme, toggleTheme } = useDarkMode();
-  const [checked, setChecked] = useState(false);
+  const { theme, toggleTheme, checked, setChecked } = useDarkMode();
 
   const [showDropdown, setShowDropdown] = useState(false);
 

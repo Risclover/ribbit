@@ -154,7 +154,6 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
                 x="0px"
                 y="0px"
                 viewBox="2 2 32 32"
-                fill="#24a0ed"
               >
                 <path
                   className="cls-1"
@@ -203,7 +202,6 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"
                 y="0px"
-                fill="#24a0ed"
                 viewBox="2.99 2 26.01 28"
               >
                 {" "}

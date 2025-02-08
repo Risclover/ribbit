@@ -755,7 +755,7 @@
   width: 126px;
   height: 40px;
   padding: 0 16px;
-  color: #1c1c1c;
+  color: var(--main-text-color);
 }
 
 .chat-minimized-btn {

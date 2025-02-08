@@ -77,6 +77,10 @@
   max-height: 65vh;
 }
 
+.modal-content-input label {
+  color: var(--main-text-color);
+}
+
 .modal-content-input:focus {
   border: 1px solid var(--main-text-color);
 }

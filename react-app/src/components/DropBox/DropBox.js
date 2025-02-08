@@ -37,10 +37,6 @@ export const DropBox = ({
     setHighlight(highlight);
   };
 
-  console.log("DropBox - preview:", preview);
-  console.log("DropBox - default icon?:", preview === DEFAULT_ICON_URL);
-  console.log("DropBox - showBar:", showBar);
-
   const dropBoxClass =
     "upload" +
     (highlight ? " is-highlight" : "") +
