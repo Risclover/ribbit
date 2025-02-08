@@ -1,8 +1,8 @@
+import pip._vendor.requests as requests
 import os
 import secrets
 import urllib.parse
 from app.utils import get_random_username  # Import your helper
-import requests  # <-- 3rd-party package for HTTP requests
 from flask import (
     Flask, request, redirect, current_app, abort, session, url_for, flash
 )
