@@ -157,6 +157,17 @@ def oauth2_authorize(provider):
         'prompt': 'consent',
     }
 
+    print("""
+
+
+
+
+
+
+
+
+          """, url_for('oauth2_callback', provider=provider, _external=True))
+
     # Construct full auth URL
     query_string = urllib.parse.urlencode(params)
     auth_redirect_url = f"{provider_conf['authorize_url']}?{query_string}"
