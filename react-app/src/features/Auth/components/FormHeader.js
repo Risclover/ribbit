@@ -8,7 +8,9 @@ import { DemoAccountWarning } from "./DemoAccountWarning";
 export function FormHeader() {
   const [showDemoWarning, setShowDemoWarning] = useState(false);
   const handleLogin = () => {
-    window.location.href = "/authorize/google";
+    const backendUrl =
+      process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+    window.location.href = `${backendUrl}/authorize/google`;
   };
   return (
     <>

@@ -13,6 +13,7 @@ from flask_login import LoginManager, login_user, current_user
 # If you want to display flash messages in server-side templates, you also need 'render_template'
 # from flask import render_template
 from werkzeug.security import generate_password_hash  # Add this import at the top with your others
+from app.models import Community
 
 from .socket import socketio
 from .models import db, User
@@ -132,6 +133,54 @@ app.config['OAUTH2_PROVIDERS'] = {
     }
 }
 
+@auth_routes.route('/signup', methods=['POST'])
+def sign_up():
+    """
+    Creates a new user and logs them in
+    """
+    form = SignUpForm()
+    form['csrf_token'].data = request.cookies.get('csrf_token', '')
+    if form.validate_on_submit():
+        user = User(
+            username=form.data['username'],
+            email=form.data['email'],
+            password=form.data['password'],
+            about=""
+        )
+
+        # List of community IDs to subscribe to
+        community_ids = [1, 2, 3, 4, 5]
+        missing_communities = []
+
+        for cid in community_ids:
+            community = Community.query.get(cid)
+            if community:
+                user.user_subscriptions.append(community)
+            else:
+                missing_communities.append(cid)
+
+        if missing_communities:
+            # Handle missing communities as needed
+            # For example, log a warning or raise an error
+            print(f"Warning: Communities with IDs {missing_communities} do not exist.")
+            # Optionally, you can return an error response
+            return {'errors': [f"Communities with IDs {missing_communities} do not exist."]}, 400
+
+        db.session.add(user)
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            # Log the error using logging instead of print for production
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Database commit failed: {e}")
+            return {'errors': ['An error occurred while creating the user. Please try again.']}, 500
+
+        login_user(user)
+        return user.to_dict(), 201
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @app.route('/authorize/<provider>')
 def oauth2_authorize(provider):
@@ -156,17 +205,6 @@ def oauth2_authorize(provider):
         'access_type': 'offline',
         'prompt': 'consent',
     }
-
-    print("""
-
-
-
-
-
-
-
-
-          """, url_for('oauth2_callback', provider=provider, _external=True))
 
     # Construct full auth URL
     query_string = urllib.parse.urlencode(params)
@@ -250,6 +288,25 @@ def oauth2_callback(provider):
             username=get_random_username(),
             hashed_password=dummy_password  # Provide a dummy password hash
         )
+
+        # List of community IDs to subscribe to
+        community_ids = [1, 2, 3, 4, 5]
+        missing_communities = []
+
+        for cid in community_ids:
+            community = Community.query.get(cid)
+            if community:
+                user.user_subscriptions.append(community)
+            else:
+                missing_communities.append(cid)
+
+        if missing_communities:
+            # Handle missing communities as needed
+            # For example, log a warning or raise an error
+            print(f"Warning: Communities with IDs {missing_communities} do not exist.")
+            # Optionally, you can return an error response
+            return {'errors': [f"Communities with IDs {missing_communities} do not exist."]}, 400
+
         db.session.add(user)
         db.session.commit()
 
