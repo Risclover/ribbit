@@ -33,6 +33,8 @@
   --main-button-color: #0079d3;
   --logo-color: #67b54d;
   --main-input-bg-color: #f6f7f8;
+
+  --current-color-scheme: "light";
 }
 
 :root[data-theme="dark"] {

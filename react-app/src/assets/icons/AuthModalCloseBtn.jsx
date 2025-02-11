@@ -1,7 +1,6 @@
 export function AuthModalCloseBtn() {
   return (
     <svg
-      fill="currentColor"
       height="16"
       viewBox="0 0 20 20"
       width="16"

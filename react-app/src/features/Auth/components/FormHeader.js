@@ -30,6 +30,7 @@ export function FormHeader() {
         className="demo-btn"
         tabIndex={0}
         onClick={() => setShowDemoWarning(true)}
+        type="button"
       >
         <i className="fa-regular fa-address-card demo-id"></i>
         Continue as Demo User <span></span>

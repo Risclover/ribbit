@@ -9,7 +9,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  background: #eaedef;
+  background: var(--main-input-bg-color);
   border-radius: 1.4rem;
   height: 56px;
   padding-left: 16px;
@@ -34,6 +34,10 @@
   cursor: default;
 }
 
+:root[data-theme="dark"] .form-field label {
+  color: var(--main-text-color);
+}
+
 .form-field input {
   font-size: 16px;
   background: transparent;
@@ -45,7 +49,7 @@
   border-color: transparent;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #0f1a1c;
+  color: var(--main-text-color);
   transform: translateY(7px);
 }
 
@@ -53,8 +57,32 @@
   background-color: #e2e7e9;
 }
 
+:root[data-theme="dark"] .form-field::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-radius: 1.4rem;
+  background: white;
+  opacity: 0;
+}
+
+:root[data-theme="dark"] .form-field:hover:before {
+  opacity: 0.08;
+}
+
+:root[data-theme="dark"] .form-field:hover {
+  background-color: transparent;
+}
+
 .form-field.errors-true {
   box-shadow: 0 0 0 0.125rem #a50016;
+}
+
+:root[data-theme="dark"] .form-field.errors-true {
+  box-shadow: 0 0 0 0.125rem #f47586;
 }
 
 .form-field input:focus + label,
@@ -121,6 +149,10 @@
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+:root[data-theme="dark"] .or-label {
+  color: var(--main-text-color);
+}
+
 .demo-btn,
 .google-btn {
   width: 100%;
@@ -139,6 +171,7 @@
   justify-content: space-between;
   align-items: center;
   color: var(--main-text-color);
+  position: relative;
 }
 
 .demo-btn svg {
@@ -172,9 +205,37 @@
   font-weight: 500;
 }
 
+:root[data-theme="dark"] .google-btn::before,
+:root[data-theme="dark"] .demo-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: white;
+  opacity: 0;
+}
+
+:root[data-theme="dark"] .google-btn:hover::before,
+:root[data-theme="dark"] .demo-btn:hover::before {
+  opacity: 0.04;
+}
+
+:root[data-theme="dark"] .google-btn:hover,
+:root[data-theme="dark"] .demo-btn:hover {
+  background: transparent;
+}
+
 .login-form-errors,
 .signup-form-errors {
   color: #a50016;
+}
+
+:root[data-theme="dark"] .login-form-errors,
+:root[data-theme="dark"] .signup-form-errors {
+  color: #f47586;
 }
 
 .error-container {
@@ -192,6 +253,7 @@
 
 .login-form-submit,
 .signup-form-submit {
+  position: relative;
   border-radius: 1000px;
   height: 48px;
   color: white;
@@ -219,10 +281,33 @@
   pointer-events: none;
 }
 
+:root[data-theme="dark"] .login-form-submit:disabled,
+:root[data-theme="dark"] .signup-form-submit:disabled {
+  background: #d93a00;
+}
+
+:root[data-theme="dark"] .login-form-submit::before,
+:root[data-theme="dark"] .signup-form-submit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: white;
+  opacity: 0;
+}
+
+:root[data-theme="dark"] .google-btn:hover::before,
+:root[data-theme="dark"] .demo-btn:hover::before {
+  opacity: 0.04;
+}
+
 .sign-in-switch,
 .log-in-switch {
   font-size: 14px;
-  color: #131313;
+  color: var(--main-text-color);
   margin-top: 8px;
 }
 
@@ -232,6 +317,11 @@
   letter-spacing: 0.05em;
   line-height: 24px;
   cursor: pointer;
+}
+
+:root[data-theme="dark"] .sign-in-switch span,
+:root[data-theme="dark"] .log-in-switch span {
+  color: #6995ff;
 }
 
 .sign-in-switch span:hover,
@@ -253,6 +343,10 @@
   color: #a50016;
 }
 
+:root[data-theme="dark"] .asterisk {
+  color: #f47586;
+}
+
 .generate-username-btn {
   width: 48px;
   height: 48px;
@@ -265,6 +359,7 @@
   cursor: active;
   padding: 0 12px;
   pointer-events: auto;
+  z-index: 99;
 }
 
 .generate-username-btn:active {
@@ -274,6 +369,18 @@
 .input-trailing-icons {
   display: flex;
   align-items: center;
+}
+
+.trailing-icon.invalid {
+  fill: #a50016;
+}
+
+:root[data-theme="dark"] .trailing-icon.invalid {
+  fill: #f47586;
+}
+
+.rotate-btn {
+  fill: var(--main-text-color);
 }
 
 .username-accepted {
@@ -306,6 +413,14 @@
 
 .auth-modal-back:active {
   background: linear-gradient(#00000029, #00000029);
+}
+
+.auth-modal-back svg {
+  fill: var(--main-text-color);
+}
+
+:root[data-theme="dark"] .auth-modal-back:hover {
+  background-color: var(--main-border-color);
 }
 
 .auth-layout {

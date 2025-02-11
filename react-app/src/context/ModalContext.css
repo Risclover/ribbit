@@ -124,6 +124,15 @@
   background: #e2e7e9;
 }
 
+:root[data-theme="dark"] .auth-modal-close {
+  fill: var(--main-text-color);
+  background: var(--main-border-color);
+}
+
+:root[data-theme="dark"] .auth-modal-close:hover {
+  background: var(--secondary-border-color);
+}
+
 .auth-modal-topbar {
   padding: 24px 24px 8px;
   border-bottom: 2px solid transparent;

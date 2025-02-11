@@ -9,7 +9,6 @@ export function AuthModalErrorIcon({ name }) {
           ? " valid-pass"
           : ""
       }`}
-      fill="#A50016"
       height="20"
       icon-name="error-outline"
       viewBox="0 0 20 20"

@@ -1,8 +1,8 @@
 export function AuthModalRotateIcon() {
   return (
     <svg
+      className="rotate-btn"
       rpl=""
-      fill="#000000"
       height="20"
       icon-name="rotate-fill"
       viewBox="0 0 20 20"

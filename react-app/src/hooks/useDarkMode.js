@@ -20,6 +20,10 @@ export function useDarkMode() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  useEffect(() => {
+    document.documentElement.style.setProperty("--current-color-scheme", theme);
+  }, [theme]);
+
   const toggleTheme = () => {
     setChecked((prev) => (prev === true ? false : true));
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));

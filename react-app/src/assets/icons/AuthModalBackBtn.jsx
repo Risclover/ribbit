@@ -1,7 +1,6 @@
 export function AuthModalBackBtn() {
   return (
     <svg
-      fill="#000000"
       height="20"
       viewBox="0 0 20 20"
       width="20"

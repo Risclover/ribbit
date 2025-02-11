@@ -107,6 +107,10 @@ function App() {
   }, [location]);
 
   useEffect(() => {
+    document.documentElement.style.setProperty("--current-color-theme", "dark");
+  }, []);
+
+  useEffect(() => {
     (async () => {
       await dispatch(authenticate());
       setLoaded(true);
