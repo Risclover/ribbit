@@ -138,6 +138,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: var(--main-text-color);
 }
 
 .demo-btn svg {
@@ -164,11 +165,9 @@
   margin-top: 10px;
   font-size: 14px;
   font-weight: 400;
-  color: #3c4043;
 }
 .google-btn {
   margin-top: 1.5rem;
-  color: #1f1f1f;
   font-family: var(--font-family-roboto);
   font-weight: 500;
 }

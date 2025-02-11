@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DemoAccountWarning } from "./DemoAccountWarning";
+import GoogleLogo from "@/assets/images/Google-Symbol.png";
 
 /**
  * Renders a user agreement text and a “Demo account” button at the top of the auth forms.
@@ -22,7 +23,7 @@ export function FormHeader() {
         type="button"
         onClick={handleLogin}
       >
-        <img src="https://developers.google.com/static/identity/images/g-logo.png" />
+        <img src={GoogleLogo} />
         Continue with Google<span></span>
       </button>
       <button
