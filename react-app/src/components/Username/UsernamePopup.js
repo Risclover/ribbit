@@ -22,8 +22,6 @@ export function UsernamePopup({ community, user }) {
     commentKarma,
   } = user[0] || {};
 
-  console.log("user[0]:", user[0]);
-
   return (
     <>
       <div className="username-popup" onClick={(e) => e.stopPropagation()}>

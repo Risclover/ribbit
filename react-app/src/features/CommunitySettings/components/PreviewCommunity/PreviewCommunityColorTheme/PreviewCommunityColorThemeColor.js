@@ -12,10 +12,6 @@ export function PreviewCommunityColorThemeColor({
   const wrapperRef = useRef(null);
   const [openPicker, setOpenPicker] = useState(false);
 
-  useEffect(() => {
-    console.log("openPicker:", openPicker);
-  }, [openPicker]);
-
   useOutsideClick(wrapperRef, () => setOpenPicker(false));
 
   return (

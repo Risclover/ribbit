@@ -62,7 +62,6 @@ export function ChatReactionsSmall({
       <button
         className="reactions-menu-btn"
         onClick={() => {
-          console.log("openReactions:", openReactions);
           setOpenFull(true);
         }}
       >

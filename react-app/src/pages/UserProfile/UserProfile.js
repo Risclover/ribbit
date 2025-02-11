@@ -24,9 +24,6 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[userId]);
 
-  useEffect(() => {
-    console.log("USER:::", user);
-  }, [user]);
   const communities = useSelector((state) => state.communities);
   const posts = useSelector((state) => Object.values(state.posts));
   const currentUser = useSelector((state) => state.session.user);

@@ -13,7 +13,6 @@ export function PreviewCommunityColorPickerSquare({
       onClick={() => {
         setOpenPicker(false);
         setTheme(color);
-        console.log("openPicker:", openPicker);
       }}
     ></div>
   );

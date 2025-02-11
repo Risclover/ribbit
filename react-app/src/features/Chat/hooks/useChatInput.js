@@ -107,7 +107,6 @@ export function useChatInput({
   };
 
   const handleCreateNewThread = async () => {
-    console.log("userFound in ChatInput:", userFound);
     const newChat = await dispatch(createChatThread(userFound?.id));
     setNewlyCreatedChatId(newChat.id);
     setSelectedChat(newChat);

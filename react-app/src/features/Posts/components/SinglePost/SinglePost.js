@@ -34,7 +34,6 @@ export const SinglePost = ({
       const savedFormat = localStorage.getItem("selectedPostFormat");
       setFormat(savedFormat);
     }
-    console.log("isPage:", isPage, format);
 
     if (isPage === "singlepage") {
       setFormat("Card");

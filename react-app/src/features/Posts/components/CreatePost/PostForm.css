@@ -792,7 +792,7 @@ pre.ql-syntax {
 }
 
 .single-post-external-link-box svg {
-  color: white;
+  color: var(--ribbit-main);
   font-size: 15px;
   line-height: 18px;
   margin-left: 2px;

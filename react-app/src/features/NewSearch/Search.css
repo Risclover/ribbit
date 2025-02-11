@@ -173,6 +173,7 @@
   border-radius: 4px;
   overflow: hidden;
   position: relative;
+  border: 1px solid var(--highlight-color);
 }
 
 .search-results-post-link-img img {

@@ -3,6 +3,8 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { TfiPlus } from "react-icons/tfi";
 import { BsChatDots } from "react-icons/bs";
+import { VscChevronDown } from "react-icons/vsc";
+import { TbChevronDown } from "react-icons/tb";
 
 import { getUsers } from "@/store";
 import {
@@ -20,6 +22,8 @@ import { RandomLogo } from "../RandomLogo";
 import "./NavBar.css";
 import "../../features/NewSearch/Search.css";
 import { useAuthFlow } from "@/context/AuthFlowContext";
+import { UserIcon } from "assets/icons/UserIcon";
+import { ChevronDownFilled } from "assets";
 
 export function NavBar({
   adjustQuery,
@@ -181,7 +185,14 @@ export function NavBar({
             Log In
           </button>
         )}
-
+        <div className="user-icon-menu">
+          <div className="user-icon">
+            <UserIcon color="#868686" />
+          </div>
+          <span className="user-icon-chevron">
+            <TbChevronDown />
+          </span>
+        </div>
         {user && <NavUserDropdown />}
       </div>
     </nav>

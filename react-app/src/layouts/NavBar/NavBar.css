@@ -173,6 +173,42 @@ nav ul li {
   width: 113px;
 }
 
+.user-icon-menu {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  color: #868686;
+  padding: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.user-icon-menu:hover {
+  border-color: var(--secondary-border-color);
+}
+
+.user-icon {
+  display: flex;
+  align-items: center;
+}
+
+.user-icon svg {
+  width: 20px;
+  font-size: 20px;
+}
+
+.user-icon-chevron {
+  height: 20px;
+  margin-right: -4px;
+}
+
+.user-icon-chevron svg {
+  font-size: 20px;
+  height: 20px;
+  margin-left: 1px;
+}
+
 @media (max-width: 1070px) {
   .random-logo-skeleton {
     width: 30px;
