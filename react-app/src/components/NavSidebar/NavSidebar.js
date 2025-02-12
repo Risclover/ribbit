@@ -9,7 +9,7 @@ import {
   getSubscriptions,
 } from "@/store";
 
-import { NavLeftDropdown } from "@/layouts";
+import { NavLeftDropdown } from "@/components";
 import "./NavSidebar.css";
 import {
   getSidebarState,

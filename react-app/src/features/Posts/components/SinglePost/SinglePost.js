@@ -40,13 +40,21 @@ export const SinglePost = ({
     }
   }, []);
 
+  useEffect(() => {
+    console.log("isPage:", isPage);
+  }, [isPage]);
+
   return (
     <article className="single-post">
       <NavLink to={`/posts/${post.id}`}>
         {(tempFormat === "Card" || format === "Card") && (
           <div className="post-card-format">
             {post && (
-              <div className="single-post-container">
+              <div
+                className={`single-post-container${
+                  isPage !== "singlepage" ? " container-dark" : ""
+                }`}
+              >
                 <SinglePostKarmabar post={post} />
                 <div className="single-post-main">
                   <SinglePostAuthorBar

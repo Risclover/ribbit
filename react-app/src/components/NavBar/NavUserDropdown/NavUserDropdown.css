@@ -142,6 +142,10 @@
   background: rgba(0, 0, 0, 0.08);
 }
 
+:root[data-theme="dark"] .nav-user-dropdown-btn:hover {
+  background: var(--main-input-bg-color);
+}
+
 .door-icon {
   font-size: 20px;
   margin-left: -8px;

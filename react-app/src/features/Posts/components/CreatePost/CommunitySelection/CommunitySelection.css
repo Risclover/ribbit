@@ -151,6 +151,10 @@
   height: 50px;
 }
 
+:root[data-theme="dark"] .community-selection-dropdown-community:hover {
+  background: var(--main-input-bg-color);
+}
+
 .community-selection-community-img {
   border-radius: 100%;
   min-width: 32px;

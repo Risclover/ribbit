@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { ScrollToTop } from "./utils";
 
+import { NavBar, NavSidebar, LoggedOutSidebar } from "./components";
+
 import {
   SinglePostPage,
   CommunityPage,
@@ -38,7 +40,6 @@ import {
   Chat,
   LoginSignupModal,
 } from "./features";
-import { NavBar, NavSidebar, LoggedOutSidebar } from "./layouts";
 
 import {
   getUserChatThreads,

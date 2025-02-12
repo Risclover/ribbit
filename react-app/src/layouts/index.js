@@ -1,3 +1,2 @@
-export * from "./NavBar";
-export * from "./NavSidebar";
 export * from "./FeedContainer";
+export { RandomLogo } from "./RandomLogo";

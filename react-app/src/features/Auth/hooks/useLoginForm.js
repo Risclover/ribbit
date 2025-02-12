@@ -105,6 +105,8 @@ export function useLoginForm() {
       errors.push("Incorrect email or password");
       setLoginEmailErrors([""]);
       setLoginPasswordErrors(errors);
+      document.getElementById("email").focus();
+      setEmailBlurred(false);
     } else {
       closeModal();
     }

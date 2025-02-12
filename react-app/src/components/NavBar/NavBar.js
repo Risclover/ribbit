@@ -12,13 +12,13 @@ import {
   NavLeftDropdownFace,
   NotificationsDropdownWrapper,
   LoggedOutDropdownWrapper,
-} from "../NavBar";
+} from ".";
 import { SelectedChatContext } from "@/context";
 import { Searchbar } from "@/features";
 import { AllIcon } from "@/assets";
 
 import { ribbitBanners, ribbitLogos } from "@/assets";
-import { RandomLogo } from "../RandomLogo";
+import { RandomLogo } from "../../layouts/RandomLogo";
 import "./NavBar.css";
 import "../../features/NewSearch/Search.css";
 import { useAuthFlow } from "@/context/AuthFlowContext";
@@ -185,7 +185,7 @@ export function NavBar({
             Log In
           </button>
         )}
-        <div className="user-icon-menu">
+        <div className="logged-out-user-menu">
           <div className="user-icon">
             <UserIcon color="#868686" />
           </div>
@@ -193,6 +193,7 @@ export function NavBar({
             <TbChevronDown />
           </span>
         </div>
+        <LoggedOutDropdownWrapper />
         {user && <NavUserDropdown />}
       </div>
     </nav>

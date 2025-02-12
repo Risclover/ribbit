@@ -6,3 +6,4 @@ export { useNavigateToPath } from "./useNavigateToPath";
 export { useAutosizeTextArea } from "./useAutosizeTextArea";
 export { useScrollLock } from "./useScrollLock";
 export { useFocusTrap } from "./useFocusTrap";
+export { useDarkMode } from "./useDarkMode";

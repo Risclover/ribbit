@@ -10,19 +10,32 @@ import {
 } from "@/features";
 import { getTextColor } from "@/utils";
 import Cake from "@/assets/images/misc/piece4.png";
+import DarkModeCake from "@/assets/images/misc/piece4-darkmode.png";
 import { useHistory } from "react-router-dom";
 import { CommunityImg } from "@/components/CommunityImg";
 import { useCommunitySettings } from "@/features/Posts/hooks/useCommunitySettings";
 import { useSelector } from "react-redux";
 import { useAuthFlow } from "@/context/AuthFlowContext";
+import CakeIcon from "assets/icons/CakeIcon";
 
 export function CommunityInfoBox({ community, user, isPage }) {
   const { checked, setChecked } = useCommunitySettings(community);
   const { openLogin } = useAuthFlow();
   const history = useHistory();
   const [members, setMembers] = useState(0);
+  const [darkCake, setDarkCake] = useState(false);
 
   const currentUser = useSelector((state) => state.session.user);
+
+  let currentTheme = localStorage.getItem("theme");
+
+  useEffect(() => {
+    if (currentTheme === "dark") {
+      setDarkCake(true);
+    } else {
+      setDarkCake(false);
+    }
+  }, [currentTheme]);
 
   useEffect(() => {
     setMembers(community?.members);
@@ -76,7 +89,9 @@ export function CommunityInfoBox({ community, user, isPage }) {
           user={user}
         />
         <div className="community-page-box-date">
-          <img src={Cake} className="community-cake-icon" alt="Cake" />
+          <span className="community-cake-icon">
+            <CakeIcon />
+          </span>
           Created {moment(new Date(community.createdAt)).format("MMM DD, YYYY")}
         </div>
         <div className="community-page-box-members">

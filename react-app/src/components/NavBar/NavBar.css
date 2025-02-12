@@ -173,7 +173,7 @@ nav ul li {
   width: 113px;
 }
 
-.user-icon-menu {
+.logged-out-user-menu {
   display: flex;
   align-items: center;
   margin-left: 10px;
@@ -184,7 +184,7 @@ nav ul li {
   border-radius: 4px;
 }
 
-.user-icon-menu:hover {
+.logged-out-user-menu:hover {
   border-color: var(--secondary-border-color);
 }
 

@@ -138,6 +138,9 @@
   display: flex;
   position: relative;
   padding-left: 40px;
+}
+
+.single-post-container.container-dark {
   background: var(--single-post-container-bg);
 }
 

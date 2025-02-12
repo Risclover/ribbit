@@ -12,7 +12,7 @@ import {
   removeFavoriteUser,
 } from "@/store";
 
-import { NavLeftDropdownLink } from "@/layouts";
+import { NavLeftDropdownLink } from "./NavLeftDropdownLink";
 import All from "@/assets/images/navbar/all-icon2.png";
 import Home from "@/assets/images/navbar/home-icon.png";
 import { getSubscriptions } from "@/store";

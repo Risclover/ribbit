@@ -13,7 +13,7 @@
   letter-spacing: 0.5px;
   font-size: 10px;
   text-transform: uppercase;
-  color: #1a1a1b;
+  color: var(--main-text-color);
   opacity: 1;
   padding: 0 12px;
   font-weight: 700;
@@ -34,7 +34,7 @@
 
 .community-options-expander:hover,
 .community-options-expander:active {
-  color: #141415;
+  color: var(--main-text-color);
 }
 
 .community-options-expander:focus:before {

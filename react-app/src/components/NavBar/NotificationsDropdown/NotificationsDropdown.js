@@ -7,7 +7,7 @@ import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 
 import { getUserNotifications, readAllNotifications } from "@/store";
-import { Notification } from "@/layouts";
+import { Notification } from "@/components";
 import SparklyFrog from "@/assets/images/ribbit-frog-sparkly.png";
 
 moment.updateLocale("en-notif", {

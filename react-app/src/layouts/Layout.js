@@ -5,7 +5,7 @@ import { PostModal } from "@/context";
 import { HomepageFeed } from "pages/HomepageFeed";
 import { useSelector } from "react-redux";
 
-function Layout() {
+export function Layout() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const user = useSelector((state) => state.session.user);
@@ -37,5 +37,3 @@ function Layout() {
     </div>
   );
 }
-
-export default Layout;

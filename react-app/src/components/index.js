@@ -13,3 +13,5 @@ export { NoPostsMessage } from "./NoPostsMessage";
 export { PostPopup } from "./PostPopup";
 export { ProtectedRoute } from "./ProtectedRoute";
 export { CommunityImg } from "./CommunityImg";
+export * from "./NavBar";
+export * from "./NavSidebar";

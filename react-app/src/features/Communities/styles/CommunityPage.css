@@ -125,9 +125,13 @@
   margin-top: 12px;
 }
 
-.community-cake-icon {
-  width: 20px;
-  margin-right: 8px;
+.community-cake-icon svg {
+  stroke: var(--main-text-color);
+  color: var(--main-text-color);
+  width: 25px;
+  margin-right: 5px;
+  transform: scaleX(-1);
+  transform-origin: center;
 }
 .community-page-box-content {
   padding: 12px;
