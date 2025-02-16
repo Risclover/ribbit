@@ -17,6 +17,7 @@ import { CompactPostTypeIcon } from "./CompactPostTypeIcon";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { UpvoteIcon } from "@/assets/icons/UpvoteIcon";
 import { DownvoteIcon } from "@/assets/icons/DownvoteIcon";
+import { SinglePostKarmabar } from "../SinglePost";
 
 export function CompactPostFormat({ id, isPage, post }) {
   const history = useHistory();
@@ -49,33 +50,7 @@ export function CompactPostFormat({ id, isPage, post }) {
         <div className="compact-post-container">
           <div className="compact-post-principle">
             <div className="compact-post-karmabar">
-              <div className="compact-post-karmabar-btns">
-                <button
-                  aria-label="Upvote"
-                  className={
-                    vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"
-                  }
-                  onClick={(e) => handleVoteClick(e, "upvote")}
-                >
-                  <UpvoteIcon />
-                </button>
-                <span className="karmabar-votes">
-                  {post?.votes === 0 && vote !== null
-                    ? 0
-                    : post?.votes === 0 && vote === null
-                    ? "Vote"
-                    : post?.votes}
-                </span>
-                <button
-                  aria-label="Downvote"
-                  className={
-                    vote === "downvote" ? "vote-btn-blue" : "downvote-btn-grey"
-                  }
-                  onClick={(e) => handleVoteClick(e, "downvote")}
-                >
-                  <DownvoteIcon />
-                </button>
-              </div>
+              <SinglePostKarmabar post={post} format="compact" />
             </div>
             <div className="compact-post-main">
               <div className="compact-post-left">

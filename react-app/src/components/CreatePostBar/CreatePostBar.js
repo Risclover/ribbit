@@ -4,13 +4,13 @@ import { useHistory, NavLink } from "react-router-dom";
 import { RxImage } from "react-icons/rx";
 import { FiLink } from "react-icons/fi";
 import { v4 as uuidv4 } from "uuid";
-import "./CreatePostBar.css";
 import { PostBarBtn } from "./PostBarBtn";
+import "./CreatePostBar.css";
 
 /**
  * The post creation bar at the top of some of the post feeds (Homepage feed, 'All' feed, and community feeds).
  *
- * @param {boolean} isCommunityPage -
+ * @param {boolean} isCommunityPage - Whether or not the current page is a community page
  * @param {string} communityName - Name of the community
  *
  * @example

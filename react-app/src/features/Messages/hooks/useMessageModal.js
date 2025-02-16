@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "store";
+import { createThread } from "store";
 import { addNotification } from "store";
 import { getThread } from "store";
 import { createMessage } from "store";

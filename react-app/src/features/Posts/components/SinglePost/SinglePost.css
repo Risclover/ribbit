@@ -342,7 +342,7 @@
 .single-page-content a,
 .single-post-content a {
   text-decoration: underline;
-  color: var(--community-highlight) !important;
+  color: var(--highlight-color) !important;
 }
 
 .single-post-left-col {
@@ -506,6 +506,10 @@
   color: rgb(236, 74, 74);
 }
 
+.compact-karmabar {
+  flex-direction: row;
+}
+
 .karmabar-votes {
   margin: 4px auto;
   font-size: 12px;
@@ -641,6 +645,8 @@ ol {
   height: 100%;
   width: 100%;
   object-fit: cover;
+  border: 1px solid var(--highlight-color);
+  border-radius: 4px;
 }
 
 .single-post-page-banner {

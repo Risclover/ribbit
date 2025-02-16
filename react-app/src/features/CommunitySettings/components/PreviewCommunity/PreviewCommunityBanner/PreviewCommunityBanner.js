@@ -90,10 +90,7 @@ export function PreviewCommunityBanner({ setOpenAppearance, settingsState }) {
         <div className="preview-community-name-icon-box">
           <h3>Custom Image</h3>
           <DropBox
-            dropboxType="banner_img"
-            community={community}
             setImage={setImageFile}
-            startingImage={bannerImg}
             preview={bannerImg}
             setPreview={setBannerImg}
           />

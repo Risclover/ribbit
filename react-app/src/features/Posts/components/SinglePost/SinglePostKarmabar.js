@@ -2,11 +2,17 @@ import React from "react";
 import { PiArrowFatUpFill, PiArrowFatDownFill } from "react-icons/pi";
 import { usePostVote } from "../../hooks/usePostVote";
 
-export function SinglePostKarmabar({ post }) {
+export function SinglePostKarmabar({ post, format }) {
   const { vote, handleVoteClick } = usePostVote(post);
 
   return (
-    <div className="single-post-karmabar">
+    <div
+      className={`${
+        format === "compact"
+          ? " compact-post-karmabar-btns"
+          : "single-post-karmabar"
+      }`}
+    >
       <button
         aria-label="Upvote"
         className={vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"}

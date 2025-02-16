@@ -19,6 +19,7 @@ export function MessageModal({ setShowMessageModal, username }) {
     setRecipient,
     subject,
     setSubject,
+    message,
     setMessage,
     receiver,
     currentUser,

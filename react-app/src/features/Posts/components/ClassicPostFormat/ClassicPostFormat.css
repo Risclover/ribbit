@@ -11,12 +11,16 @@
   overflow: hidden;
   position: relative;
   vertical-align: bottom;
-  color: #878a8c;
+  color: var(--main-border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(28, 28, 28, 0.03);
   font-size: 20px;
+}
+
+.classic-post-img-placeholder svg {
+  color: var(--ribbit-main);
 }
 
 .classic-post-container {
@@ -30,7 +34,7 @@
   border: 1px solid var(--main-border-color);
   margin-bottom: -1px;
   z-index: 0;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--single-post-container-bg);
 }
 
 .classic-post-container:hover {
@@ -177,7 +181,7 @@
 }
 
 .classic-post-link svg {
-  color: #3f9ade;
+  color: var(--highlight-color);
   font-size: 20px;
   padding-left: 4px;
 }
@@ -212,7 +216,7 @@
 
 .classic-post-button {
   background: var(--ribbit-main);
-  border-color: white;
+  border-color: transparent;
   border-radius: 4px;
   width: auto;
   padding: 0;
@@ -228,10 +232,26 @@
   justify-content: center;
   height: 36px;
   width: 36px;
+  position: relative;
 }
 
 .classic-post-button:hover {
   background-color: rgba(26, 26, 27, 0.1);
+}
+
+:root[data-theme="dark"] .classic-post-button:before {
+  background: var(--main-text-color);
+  opacity: 0;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+:root[data-theme="dark"] .classic-post-button:hover:before {
+  opacity: 0.08;
 }
 
 .classic-post-button svg {

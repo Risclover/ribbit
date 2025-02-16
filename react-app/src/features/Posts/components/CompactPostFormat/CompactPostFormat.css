@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  border: thin solid rgba(255, 255, 255, 0.8);
+  border: thin solid var(--main-border-color);
   cursor: pointer;
+  margin-bottom: -1px;
 }
 
 .compact-post-principle {
@@ -23,7 +24,7 @@
   padding-top: 9px;
   padding-right: 4px;
   align-items: flex-start;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--single-post-container-bg);
 
   width: 100%;
 }

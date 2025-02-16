@@ -51,23 +51,66 @@
 .create-post-content {
   background: var(--ribbit-main);
   border-radius: 4px;
-  overflow: hidden;
 }
 
 .ql-toolbar.ql-snow {
   background: var(--main-input-bg-color);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  border: 1px solid var(--secondary-border-color) !important;
 }
 
-.ql-snow.ql-stroke {
-  color: var(--secondary-border-color);
+.ql-container {
+  font-family: var(--font-family-ibm) !important;
+}
+
+:root[data-theme="dark"] .ql-snow .ql-stroke {
+  stroke: #848484 !important;
+}
+
+:root[data-theme="dark"] .ql-fill {
+  fill: #848484 !important;
+}
+
+:root[data-theme="dark"] .ql-snow.ql-toolbar button:hover .ql-fill {
+  fill: var(--main-text-color) !important;
+}
+
+:root[data-theme="dark"] .ql-editor.ql-blank::before {
+  color: white;
 }
 
 .quill > .ql-container > .ql-editor.ql-blank::before {
   font-style: normal;
-  color: var(--secondary-border-color);
+  color: rgb(117, 117, 117);
   font-size: 13px;
+}
+
+:root[data-theme="dark"] .ql-tooltip {
+  background: var(--ribbit-main);
+  color: var(--main-text-color);
+  box-shadow: none;
+  border-color: var(--main-border-color);
+}
+
+:root[data-theme="dark"] .ql-tootip input {
+  border-color: var(--secondary-border-color);
+}
+
+:root[data-theme="dark"] .ql-tooltip a {
+  color: var(--main-text-color);
+}
+
+:root[data-theme="dark"] .ql-tooltip .ql-preview {
+  color: white;
+}
+
+:root[data-theme="dark"] .ql-tooltip a:hover {
+  color: white;
+}
+
+:root[data-theme="dark"] .ql-snow a {
+  color: #6995ff;
 }
 
 .ql-editor {
@@ -103,9 +146,13 @@
   margin-bottom: 20px;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
+  border: 1px solid var(--secondary-border-color) !important;
+  border-top: 0px !important;
 }
 
-.create-post-content input,
+:root[data-theme="dark"] .ql-snow.ql-toolbar button:hover .ql-stroke {
+  stroke: var(--main-text-color) !important;
+}
 .create-post-content textarea {
   width: 100%;
 }
@@ -701,7 +748,7 @@ pre.ql-syntax {
 .single-page-content-link {
   display: flex;
   align-items: center;
-  color: var(--community-highlight);
+  color: var(--highlight-color);
   cursor: pointer;
   font-size: 12px;
   font-weight: 400;
@@ -740,7 +787,7 @@ pre.ql-syntax {
 }
 
 .single-post-content-box-right {
-  border: 1px solid var(--highlight-color);
+  border: none;
   color: var(--highlight-color);
   display: flex;
   align-items: center;
@@ -801,6 +848,10 @@ pre.ql-syntax {
   color: red;
   font-size: 12px;
   margin-bottom: 10px;
+}
+
+:root[data-theme="dark"] .create-post-form-errors {
+  color: #f47586;
 }
 
 @media (max-width: 960px) {

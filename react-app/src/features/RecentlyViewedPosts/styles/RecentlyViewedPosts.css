@@ -133,7 +133,6 @@
 }
 
 .recent-post-type.type-link {
-  border-color: var(--highlight-color);
   position: relative;
 }
 

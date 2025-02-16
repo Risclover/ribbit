@@ -125,12 +125,15 @@
   margin-top: 12px;
 }
 
+.community-cake-icon {
+  display: flex;
+  align-items: center;
+}
+
 .community-cake-icon svg {
   stroke: var(--main-text-color);
   color: var(--main-text-color);
-  width: 25px;
-  margin-right: 5px;
-  transform: scaleX(-1);
+  margin-right: 0.5rem;
   transform-origin: center;
 }
 .community-page-box-content {
@@ -152,7 +155,7 @@
   font-weight: 400;
   line-height: 21px;
   word-wrap: break-word;
-  color: #1a1a1b;
+  color: var(--main-text-color);
   transition: all 0.1s linear 0s;
   border: 1px solid transparent;
   border-radius: 4px;

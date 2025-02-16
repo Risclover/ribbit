@@ -4,7 +4,7 @@ import React from "react";
  * A simple component representing the right-most buttons on the post creation bar.
  *
  * @param {string} icon -
- * @param {onClick} onClick -
+ * @param {onClick} onClick - 
  * @param {string} testId - id given to component for testing purposes
  * @param {} ariaLabel -
  *

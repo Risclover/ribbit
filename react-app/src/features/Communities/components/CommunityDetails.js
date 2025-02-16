@@ -14,6 +14,7 @@ import { LoginSignupModal } from "@/features/Auth";
 import { CommunityImg } from "@/components/CommunityImg";
 import { useCommunitySettings } from "@/features/Posts/hooks/useCommunitySettings";
 import { useAuthFlow } from "@/context/AuthFlowContext";
+import CakeIcon from "assets/icons/CakeIcon";
 
 export function CommunityDetails({ post, community }) {
   const history = useHistory();
@@ -74,7 +75,7 @@ export function CommunityDetails({ post, community }) {
           {post?.communityDesc || community?.description}
         </div>
         <div className="single-post-community-date">
-          <img src={Cake} className="single-post-community-cake" alt="Cake" />{" "}
+          <span className="community-cake-icon"><CakeIcon /></span>
           Created {moment(post?.communityDate).format("MMM DD, YYYY")}
         </div>
         <div className="community-page-box-members">

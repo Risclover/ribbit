@@ -93,14 +93,11 @@ export function PreviewCommunityNameIcon({ setOpenAppearance, settingsState }) {
         <div className="preview-community-name-icon-box">
           <h3>Custom Image</h3>
           <DropBox
-            dropboxType="community_icon"
-            community={community}
             setImage={setIconFile}
-            startingImage={communityIcon}
             preview={preview}
             setPreview={setPreview}
-            handleErase={handleErase}
             defaultIcon={DEFAULT_ICON_URL}
+            handleErase={handleErase}
           />
           <p>Required size: 256x256px</p>
         </div>
