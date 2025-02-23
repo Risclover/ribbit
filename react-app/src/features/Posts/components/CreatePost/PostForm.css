@@ -210,7 +210,7 @@
 }
 
 :root[data-theme="dark"] .post-type-bar button:hover:before {
-  opacity: 0.8;
+  opacity: 0.08;
 }
 
 .post-type-bar button:hover {

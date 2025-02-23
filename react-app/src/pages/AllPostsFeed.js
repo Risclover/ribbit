@@ -12,6 +12,7 @@ import { usePosts } from "../features/Posts/hooks/usePosts";
 import { AllIcon } from "../assets";
 import "../features/Posts/Posts.css";
 import { usePageSettings } from "@/hooks";
+import AllPostsIcon from "assets/icons/AllPostsIcon";
 
 export function AllPostsFeed() {
   const { sortedPosts, sortMode, setSortMode, user, viewedPosts } =
@@ -24,9 +25,7 @@ export function AllPostsFeed() {
 
   usePageSettings({
     documentTitle: "c/all",
-    icon: (
-      <img src={AllIcon} className="nav-left-dropdown-item-icon" alt="All" />
-    ),
+    icon: <AllPostsIcon />,
     pageTitle: "All",
   });
 

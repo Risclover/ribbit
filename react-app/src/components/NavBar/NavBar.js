@@ -24,6 +24,7 @@ import "../../features/NewSearch/Search.css";
 import { useAuthFlow } from "@/context/AuthFlowContext";
 import { UserIcon } from "assets/icons/UserIcon";
 import { ChevronDownFilled } from "assets";
+import AllPostsIcon from "assets/icons/AllPostsIcon";
 
 export function NavBar({
   adjustQuery,
@@ -141,11 +142,7 @@ export function NavBar({
         {user && (
           <div className="navbar-buttons">
             <div className="navbar-button" onClick={() => history.push("/all")}>
-              <img
-                src={AllIcon}
-                className="nav-left-dropdown-item-icon"
-                alt="All"
-              />
+              <AllPostsIcon />
               {showTooltip && (
                 <span className="navbtn-tooltiptext">/c/All</span>
               )}

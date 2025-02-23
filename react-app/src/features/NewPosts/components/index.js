@@ -1,0 +1,1 @@
+export { SinglePost } from "./SinglePost";

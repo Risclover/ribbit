@@ -10,3 +10,4 @@ export * from "./Notifications";
 export * from "./RecentlyViewedPosts";
 export * from "./Users";
 export * from "./Posts";
+export * from "./NewPosts";

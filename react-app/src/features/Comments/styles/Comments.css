@@ -402,7 +402,7 @@
   line-height: 21px;
   outline: none;
   resize: vertical;
-  background: transparent;
+  background: var(--ribbit-main);
   color: var(--main-text-color);
 }
 
@@ -421,7 +421,7 @@
 }
 
 .post-comment-box:focus-within {
-  border: 1px solid #1a1a1b;
+  border: 1px solid var(--main-text-color);
 }
 
 .comment-form label {

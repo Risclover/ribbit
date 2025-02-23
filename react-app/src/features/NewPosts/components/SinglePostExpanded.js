@@ -1,7 +1,16 @@
-import React from 'react'
+import React from "react";
+import parse from "html-react-parser";
 
-export default function SinglePostExpanded() {
+export function SinglePostExpanded({ post }) {
   return (
-    <div>SinglePostExpanded</div>
-  )
+    <div className="classic-post-expanded">
+      {post.imgUrl ? (
+        <div className="classic-post-expanded-img">
+          <img src={post.imgUrl} alt="Post" />
+        </div>
+      ) : (
+        <div className="classic-post-expanded-text">{parse(post.content)}</div>
+      )}
+    </div>
+  );
 }

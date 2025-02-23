@@ -12,7 +12,7 @@ import {
 import "./SinglePost.css";
 import { NavLink } from "react-router-dom";
 
-export const SinglePost = ({
+export const OldSinglePost = ({
   link,
   id,
   isPage,
@@ -23,9 +23,6 @@ export const SinglePost = ({
   const user = useSelector((state) => state.users?.[cuser?.id]);
   const community = useSelector(
     (state) => state.communities?.[post?.communityId]
-  );
-  const [tempFormat, setTempFormat] = useState(
-    isPage === "profile" ? "Card" : ""
   );
   const { format, setFormat } = useContext(PostFormatContext);
 
@@ -40,14 +37,10 @@ export const SinglePost = ({
     }
   }, []);
 
-  useEffect(() => {
-    console.log("isPage:", isPage);
-  }, [isPage]);
-
   return (
     <article className="single-post">
       <NavLink to={`/posts/${post.id}`}>
-        {(tempFormat === "Card" || format === "Card") && (
+        {(isPage === "profile" || format === "Card") && (
           <div className="post-card-format">
             {post && (
               <div
@@ -80,10 +73,10 @@ export const SinglePost = ({
           </div>
         )}
       </NavLink>
-      {tempFormat !== "Card" && format === "Classic" && (
+      {isPage !== "profile" && format === "Classic" && (
         <ClassicPostFormat id={id} isPage={isPage} post={post} />
       )}
-      {tempFormat !== "Card" && format === "Compact" && (
+      {isPage !== "profile" && format === "Compact" && (
         <CompactPostFormat id={id} isPage={isPage} post={post} />
       )}
     </article>

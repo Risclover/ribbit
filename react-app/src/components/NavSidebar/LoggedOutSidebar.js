@@ -6,6 +6,7 @@ import All from "@/assets/images/navbar/all-icon2.png";
 
 import "./NavSidebar.css";
 import { useAuthFlow } from "@/context/AuthFlowContext";
+import AllPostsIcon from "assets/icons/AllPostsIcon";
 
 export function LoggedOutSidebar({ showLoggedOutSidebar }) {
   const { openSignupPage1 } = useAuthFlow();
@@ -35,11 +36,7 @@ export function LoggedOutSidebar({ showLoggedOutSidebar }) {
               <span className="nav-left-dropdown-item">Home</span>
             </NavLink>
             <NavLink to="/all" className="nav-left-dropdown-navitem">
-              <img
-                src={All}
-                className="nav-left-dropdown-item-icon"
-                alt="All"
-              />
+              <AllPostsIcon />
               <span className="nav-left-dropdown-item">All</span>
             </NavLink>
           </div>

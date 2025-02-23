@@ -130,6 +130,10 @@ input:checked + .community-options-slider {
   background-color: var(--community-base-color);
 }
 
+:root[data-theme="dark"] input:checked + .community-options-slider {
+  background-color: var(--main-text-color);
+}
+
 input:checked + .community-options-slider:before {
   -webkit-transform: translateX(15px);
   -ms-transform: translateX(15px);

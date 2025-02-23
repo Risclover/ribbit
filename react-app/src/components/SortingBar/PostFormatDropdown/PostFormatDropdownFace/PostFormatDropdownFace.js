@@ -1,6 +1,13 @@
 import React, { useContext, useState, useRef } from "react";
 import { TbChevronDown } from "react-icons/tb";
-import { formatIcons } from "@/assets";
+import {
+  CardFormatIcon,
+  CardFormatIconActive,
+  ClassicFormatIcon,
+  ClassicFormatIconActive,
+  CompactFormatIcon,
+  CompactFormatIconActive,
+} from "@/assets";
 import { PostFormatDropdown } from "../PostFormatDropdown";
 import { PostFormatContext } from "@/context";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
@@ -14,14 +21,26 @@ export function PostFormatDropdownFace() {
   useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
   const formats = [
-    { format: "Card", icons: formatIcons.Card },
-    { format: "Classic", icons: formatIcons.Classic },
-    { format: "Compact", icons: formatIcons.Compact },
+    {
+      format: "Card",
+      icon: <CardFormatIcon />,
+      activeIcon: <CardFormatIconActive />,
+    },
+    {
+      format: "Classic",
+      icon: <ClassicFormatIcon />,
+      activeIcon: <ClassicFormatIconActive />,
+    },
+    {
+      format: "Compact",
+      icon: <CompactFormatIcon />,
+      activeIcon: <CompactFormatIconActive />,
+    },
   ];
 
   const getFormatIcon = (format) => {
     const formatItem = formats.find((f) => f.format === format);
-    return formatItem ? formatItem.icons.grey : undefined;
+    return formatItem ? formatItem.icon : undefined;
   };
 
   return (
@@ -35,7 +54,7 @@ export function PostFormatDropdownFace() {
         aria-haspopup="true"
         id="postFormatDropdownToggle"
       >
-        <img src={getFormatIcon(format)} alt={`${format} format icon`} />
+        {getFormatIcon(format)}
         <TbChevronDown />
       </button>
       {showDropdown && (

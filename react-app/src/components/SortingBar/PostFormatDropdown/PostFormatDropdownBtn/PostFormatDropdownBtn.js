@@ -40,15 +40,10 @@ export const PostFormatDropdownBtn = React.forwardRef(
     }, [setHighlight]);
 
     const className = useMemo(() => {
-      if (active) return "format-btn-active";
+      if (active) return "post-format-btn format-btn-active";
       if (highlight) return "post-format-btn format-btn-black";
       return "post-format-btn format-btn-grey";
     }, [active, highlight]);
-
-    const iconSrc = useMemo(() => {
-      if (active) return item.icons.dark;
-      return highlight ? item.icons.dark : item.icons.grey;
-    }, [active, highlight, item.icons]);
 
     return (
       <button
@@ -60,19 +55,7 @@ export const PostFormatDropdownBtn = React.forwardRef(
         onMouseLeave={handleMouseLeave}
         data-testid={`dropdown-btn-${item.format}`}
       >
-        {active ? (
-          <div className="format-icon-bg">
-            <img
-              alt={`${item.format.toLowerCase()} format icon`}
-              src={item.icons.blue}
-            />
-          </div>
-        ) : (
-          <img
-            alt={`${item.format.toLowerCase()} format icon`}
-            src={highlight ? item.icons.black : item.icons.grey}
-          />
-        )}
+        {active ? item.activeIcon : item.icon}
         {item.format}
       </button>
     );

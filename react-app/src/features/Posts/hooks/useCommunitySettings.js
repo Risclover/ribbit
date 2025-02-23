@@ -127,7 +127,10 @@ export const useCommunitySettings = (community) => {
         "#33a8ff"
       );
 
-      document.documentElement.style.setProperty("--community-banner-img", "");
+      document.documentElement.style.setProperty(
+        "--community-banner-img",
+        "#0079d3"
+      );
 
       document.documentElement.style.setProperty(
         "--community-body-bg-img",

@@ -102,10 +102,7 @@
   height: 34px;
   background-color: var(--community-base-color);
   background-size: cover;
-  background-image: var(--community-banner-img);
-  background-position-y: center;
-  background-position-x: center;
-  background-repeat: no-repeat;
+  background: var(--community-banner-img);
   border-radius: 3px 3px 0 0;
   height: 34px;
 }
@@ -197,6 +194,9 @@
   display: flex;
   font-size: 12px;
   align-items: center;
+}
+
+.author-padding {
   margin: 0 8px 8px;
   padding: 8px;
   padding-bottom: 0;

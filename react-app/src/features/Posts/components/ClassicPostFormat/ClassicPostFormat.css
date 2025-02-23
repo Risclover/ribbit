@@ -20,7 +20,7 @@
 }
 
 .classic-post-img-placeholder svg {
-  color: var(--ribbit-main);
+  color: #878a8c;
 }
 
 .classic-post-container {
@@ -296,6 +296,7 @@
   overflow: auto;
   margin-bottom: -1px;
   color: var(--main-text-color);
+  white-space: pre-line;
 }
 
 .classic-post-separator {
@@ -313,7 +314,7 @@
   position: absolute;
   right: 0;
   width: 18px;
-  color: white;
+  color: var(--main-text-color);
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -331,4 +332,8 @@
 
 .placeholder-link.community-post {
   color: var(--community-highlight);
+}
+
+.placeholder-external svg {
+  color: var(--ribbit-main);
 }

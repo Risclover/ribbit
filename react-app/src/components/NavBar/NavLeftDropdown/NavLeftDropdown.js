@@ -17,6 +17,7 @@ import All from "@/assets/images/navbar/all-icon2.png";
 import Home from "@/assets/images/navbar/home-icon.png";
 import { getSubscriptions } from "@/store";
 import { CreatePostIcon } from "@/assets/icons/CreatePostIcon";
+import AllPostsIcon from "assets/icons/AllPostsIcon";
 
 export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
   const dispatch = useDispatch();
@@ -284,7 +285,7 @@ export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
             setShowDropdown(false);
           }}
         >
-          <img src={All} className="nav-left-dropdown-item-icon" alt="All" />
+          <AllPostsIcon />
           <span className="nav-left-dropdown-item">All</span>
         </NavLink>
       )}

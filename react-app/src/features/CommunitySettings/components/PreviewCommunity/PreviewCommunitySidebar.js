@@ -32,13 +32,7 @@ export function PreviewCommunitySidebar() {
   const [openAppearance, setOpenAppearance] = useState(false);
   const [appearanceSidebar, setAppearanceSidebar] = useState("");
 
-  const appearanceSidebarList = [
-    "Color theme",
-    "Name & icon",
-    "Banner",
-    "Menu",
-    "Posts",
-  ];
+  const appearanceSidebarList = ["Color theme", "Name & icon", "Banner"];
 
   const handleOutsideClick = () => {
     // If user clicks outside, warn them about unsaved changes

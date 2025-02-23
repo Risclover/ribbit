@@ -17,3 +17,10 @@ export { SearchIcon } from "./SearchIcon";
 export { ShareIcon } from "./ShareIcon";
 export { TrashIcon } from "./TrashIcon";
 export { UpvoteIcon } from "./UpvoteIcon";
+export { CardFormatIcon } from "./CardFormatIcon";
+export { CardFormatIconActive } from "./CardFromatIconActive";
+export { ClassicFormatIcon } from "./ClassicFormatIcon";
+export { ClassicFormatIconActive } from "./ClassicFormatIconActive";
+export { CompactFormatIcon } from "./CompactFormatIcon";
+export { CompactFormatIconActive } from "./CompactFormatIconActive";
+
