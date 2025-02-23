@@ -62,9 +62,12 @@
   position: relative;
 }
 
-.post-format-btn:hover {
-  color: black;
+:root:not([data-theme="dark"]) .post-format-btn:hover {
   background: #e9f5fd;
+}
+
+:root:not([data-theme="dark"]) .post-format-btn:not(.format-btn-active):hover {
+  color: var(--main-text-color);
 }
 
 .post-format-btn svg {
@@ -76,7 +79,7 @@
   color: var(--main-text-color);
 }
 
-:root[data-theme="dark"] .post-format-btn::before {
+.post-format-btn::before {
   background: var(--main-text-color);
   opacity: 0;
   content: "";
@@ -85,6 +88,11 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.post-format-btn:hover::before {
+  opacity: 0.08;
+  background: #e9f5fd;
 }
 
 :root[data-theme="dark"] .post-format-btn:hover::before {
@@ -121,7 +129,6 @@
 
 .format-btn-active:hover {
   color: var(--community-highlight);
-  background: #e9f5fd;
 }
 
 .format-icon-bg {
