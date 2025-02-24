@@ -167,7 +167,7 @@
 }
 
 .nav-user-dropdown-logout-btn:hover {
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--main-input-bg-color);
 }
 
 .nav-user-dropdown-logout-btn svg {

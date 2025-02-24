@@ -60,12 +60,12 @@ export function CommunityInfoBox({ community, user, isPage }) {
         </div>
         <div className="community-page-box-header-right">
           {user?.id === community?.userId && (
-            <NavLink
-              to={`/c/${community?.name}/edit`}
+            <button
               className="community-page-mod-tools"
+              onClick={() => history.push(`/c/${community?.name}/edit`)}
             >
               <BiShieldAlt /> Mod Tools
-            </NavLink>
+            </button>
           )}
           {currentUser && <CommunityInfoMenu community={community} />}
         </div>

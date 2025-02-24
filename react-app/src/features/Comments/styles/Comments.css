@@ -46,6 +46,10 @@
   text-decoration: underline;
 }
 
+:root[data-theme="dark"] .log-in-to-comment {
+  color: #6995ff;
+}
+
 .the-actual-comment {
   display: flex;
   padding: 0 10px;
@@ -217,7 +221,6 @@
 
 .comment-vote-btns button {
   background: none;
-  outline: none;
   border: none;
   font-size: 24px;
   color: rgb(135, 138, 140);
@@ -381,7 +384,6 @@
 .comment-form-container {
   margin: 24px 40px 24px 48px;
   border-radius: 4px;
-  overflow: hidden;
   position: relative;
 }
 
@@ -400,13 +402,14 @@
   border-radius: 4px 4px 0 0;
   font-weight: 400;
   line-height: 21px;
-  outline: none;
   resize: vertical;
   background: var(--ribbit-main);
   color: var(--main-text-color);
+  border: 1px solid var(--main-border-color);
 }
 
 .post-comment-textarea:focus {
+  outline: none;
 }
 
 .comment-box {
@@ -499,7 +502,6 @@
   font-size: 12px;
   font-weight: 700;
   border: none;
-  outline: none;
   position: absolute;
   bottom: 0;
   right: 0;

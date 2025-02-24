@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "@/context";
 import Camera from "@/assets/images/user-profile-icons/camera.png";
 import { UploadImageModal } from "@/features/Users/components/UploadImageModal";
+import { UploadImgIcon } from "@/assets";
 
 export function UserUploadModal({
   children,
@@ -17,12 +18,12 @@ export function UserUploadModal({
       <div
         className={
           uploadType === "banner"
-            ? "user-profile-banner-upload-btn"
+            ? "user-profile-upload-btn banner-upload-btn"
             : "user-profile-upload-btn"
         }
         onClick={() => setShowModal(true)}
       >
-        <img src={Camera} alt="Camera" />
+        <UploadImgIcon />
       </div>
       {showModal && (
         <Modal

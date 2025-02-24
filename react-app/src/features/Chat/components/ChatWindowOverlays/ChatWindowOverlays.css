@@ -150,11 +150,9 @@
 .new-chat-overlay input {
   height: 100%;
   width: 100%;
-  outline: none;
   flex: 1 1 0%;
   background: transparent;
   transform-origin: 0 50%;
-  outline: none;
   transition: all 0.2s ease-in-out;
   border: 1px solid transparent;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,

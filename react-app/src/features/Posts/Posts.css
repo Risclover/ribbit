@@ -44,7 +44,7 @@
 .posts-author-box {
   border-radius: 4px;
   background: var(--ribbit-main);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--main-border-color);
 }
 
 .posts-home-box-buttons {
@@ -161,7 +161,7 @@
 
 .posts-author-box h1 {
   font-size: 16px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--main-border-color);
   padding-bottom: 10px;
   font-weight: 500;
   padding-left: 3px;

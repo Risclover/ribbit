@@ -90,7 +90,6 @@
 #modal-topbar button {
   cursor: pointer;
   background: none;
-  outline: none;
   border: none;
   font-size: 20px;
   color: var(--main-text-color);

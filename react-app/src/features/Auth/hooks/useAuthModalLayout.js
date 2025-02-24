@@ -31,10 +31,17 @@ export function useAuthModalLayout({ containerRef, topbarBtn, onClose }) {
           <div className="sign-in-switch">
             <span
               role="button"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  closeModal();
+                  history.push("/");
+                }
+              }}
               onClick={() => {
                 closeModal();
                 history.push("/");
               }}
+              tabIndex={0}
             >
               Go home
             </span>
@@ -65,7 +72,7 @@ export function useAuthModalLayout({ containerRef, topbarBtn, onClose }) {
         return null;
     }
   }, [topbarBtn, history, onClose]);
-  
+
   return {
     handleScroll,
     topbarClassName,

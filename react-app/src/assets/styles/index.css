@@ -110,7 +110,8 @@ a.blue-btn-filled {
   opacity: 0;
 }
 
-.blue-btn-unfilled::before {
+.blue-btn-unfilled::before,
+.blue-btn-unfilled-modal::before {
   content: "";
   position: absolute;
   top: 0;
@@ -126,7 +127,8 @@ a.blue-btn-filled {
   opacity: 0.08;
 }
 
-.blue-btn-unfilled:hover::before {
+.blue-btn-unfilled:hover::before,
+.blue-btn-unfilled-modal:hover::before {
   opacity: 0.04;
 }
 
@@ -134,10 +136,7 @@ a.blue-btn-filled {
   background: inherit;
   color: var(--community-highlight);
   margin-right: 10px;
-}
-
-.blue-btn-unfilled-modal:hover {
-  background: rgba(0, 121, 211, 0.05);
+  position: relative;
 }
 
 .join-btn {

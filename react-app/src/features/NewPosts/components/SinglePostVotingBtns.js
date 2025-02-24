@@ -17,6 +17,7 @@ export default function SinglePostVotingBtns({ post, format }) {
         aria-label="Upvote"
         className={vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"}
         onClick={(e) => handleVoteClick(e, "upvote")}
+        tabIndex={0}
       >
         <PiArrowFatUpFill />
       </button>

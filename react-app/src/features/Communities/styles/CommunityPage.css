@@ -199,7 +199,6 @@
   font-weight: 400;
   color: var(--main-text-color);
   border: none;
-  outline: none;
   background: transparent;
   font-family: inherit;
   overflow: hidden;
@@ -228,7 +227,6 @@
   height: auto;
   border: none;
   padding: 0;
-  outline: none;
   background: inherit;
   font-size: 12px;
   font-weight: 700;
@@ -423,10 +421,7 @@
   height: auto;
   font-size: inherit;
   cursor: pointer;
-}
-
-.community-page-menu button:hover {
-  background-color: rgba(26, 26, 27, 0.1);
+  position: relative;
 }
 
 .community-page-menu svg {
@@ -448,6 +443,11 @@
   z-index: 10;
   right: 0;
   width: 170px;
+  overflow: hidden;
+}
+
+:root[data-theme="dark"] .community-info-menu {
+  box-shadow: 0 2px 6px 0 rgba(255, 255, 255, 0.07);
 }
 
 .community-info-menu button {
@@ -471,8 +471,26 @@
 
 .community-info-menu button:hover {
   color: var(--main-text-color);
+}
+
+:root:not([data-theme="dark"]) .community-info-menu button:hover {
   background-color: #edf5fd;
-  outline: none;
+}
+
+:root[data-theme="dark"] .community-info-menu button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--main-text-color);
+  opacity: 0;
+}
+
+:root[data-theme="dark"] .community-info-menu button:hover::before {
+  opacity: 0.08;
 }
 
 .community-info-menu:not(:first-child) {
@@ -502,10 +520,25 @@
   font-family: var(--font-family-ibm);
   color: var(--community-base-color-text);
   cursor: pointer;
+  position: relative;
+  border: none;
+  background: transparent;
 }
 
-.community-page-mod-tools:hover {
-  background-color: rgba(26, 26, 27, 0.1);
+.community-page-mod-tools::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--main-text-color);
+  opacity: 0;
+}
+
+.community-page-mod-tools:hover::before {
+  opacity: 0.08;
 }
 
 .community-page-mod-tools svg {

@@ -88,9 +88,7 @@
 }
 
 .community-name-input {
-  background: var(--ribbit-main);
   border: 1px solid var(--secondary-border-color);
-
   border-radius: 4px;
   padding: 12px 24px 4px 12px;
   width: 100%;
@@ -162,7 +160,6 @@
   height: 32px;
   color: white;
   border: 1px solid #eb001f;
-  outline: none;
   cursor: pointer;
   line-height: 17px;
   display: flex;

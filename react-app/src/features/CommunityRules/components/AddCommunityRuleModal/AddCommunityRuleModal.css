@@ -28,7 +28,6 @@
 .rule-modal-rule-input:hover,
 .rule-modal-rule-input:focus,
 .rule-modal-rule-input:active {
-  outline: none;
   border: 1px solid var(--highlight-color);
 }
 

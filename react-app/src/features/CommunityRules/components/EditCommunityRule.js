@@ -9,6 +9,7 @@ import {
 import { Modal } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
 import "@/assets/styles/Modals.css";
+import { getCommunities } from "store";
 
 export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
     await dispatch(deleteRule(rule.id));
     setShowDeleteModal(false);
     setShowEditRuleModal(false);
-    dispatch(getSingleCommunity(communityId));
+    dispatch(getCommunities());
   };
 
   return (

@@ -37,7 +37,6 @@
 
 .create-post input {
   background: var(--main-input-bg-color);
-  outline: none;
   border: 1px solid var(--secondary-border-color);
   height: 38px;
   border-radius: 4px;

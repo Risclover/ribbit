@@ -12,9 +12,6 @@ import { logout } from "@/store";
 export default function NavUserDropdownBox({ cuser, setShowDropdown }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const wrapperRef = useRef(null);
-
-  useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
   const { toggleTheme, checked } = useDarkMode();
 
@@ -24,7 +21,7 @@ export default function NavUserDropdownBox({ cuser, setShowDropdown }) {
   };
 
   return (
-    <div className="nav-user-dropdown-box" ref={wrapperRef}>
+    <div className="nav-user-dropdown-box">
       <div className="nav-user-top-section">
         <div className="nav-user-dropdown-btn-title">
           <HiOutlineUserCircle /> My Stuff

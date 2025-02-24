@@ -25,7 +25,7 @@
   min-width: 32px;
   border: 1px solid var(--highlight-color);
   background: var(--highlight-color);
-  color: white;
+  color: var(--ribbit-main);
   font-family: var(--font-family-noto);
   font-size: 14px;
   font-weight: 700;

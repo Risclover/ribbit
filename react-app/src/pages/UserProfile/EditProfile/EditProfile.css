@@ -94,18 +94,36 @@
   font-family: var(--font-family-noto);
   border: 1px solid var(--highlight-color);
   line-height: 17px;
-  outline: none;
   cursor: pointer;
   padding: 4px 16px;
+  position: relative;
 }
 
 .submit-profile-edit {
   background: var(--highlight-color);
-  color: white;
+  color: var(--ribbit-main);
 }
 
 .submit-profile-edit:hover {
   opacity: 0.9;
+}
+
+.submit-profile-edit::before,
+.cancel-profile-edit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--highlight-color);
+  opacity: 0;
+}
+
+.submit-profile-edit:hover::before,
+.cancel-profile-edit:hover::before {
+  opacity: 0.08;
 }
 
 .cancel-profile-edit {
@@ -114,6 +132,6 @@
   color: var(--highlight-color);
 }
 
-.cancel-profile-edit:hover {
+/* .cancel-profile-edit:hover {
   background: rgba(0, 121, 211, 0.05);
-}
+} */

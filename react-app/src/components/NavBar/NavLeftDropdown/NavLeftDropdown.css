@@ -182,7 +182,6 @@
 .nav-left-dropdown-filter {
   height: 30px;
   margin: 16px 16px 0;
-  outline: none;
   padding: 0 6px;
   box-sizing: border-box;
   width: calc(100% - 32px);

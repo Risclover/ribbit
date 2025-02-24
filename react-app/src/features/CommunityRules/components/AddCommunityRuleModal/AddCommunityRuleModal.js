@@ -6,6 +6,7 @@ import { createRule, getCommunityRules, getSingleCommunity } from "@/store";
 
 import "@/assets/styles/Modals.css";
 import "./AddCommunityRuleModal.css";
+import { getCommunities } from "store";
 
 export function AddCommunityRuleModal({
   setShowRuleModal,
@@ -83,8 +84,8 @@ export function AddCommunityRuleModal({
     setShowRuleModal(false);
 
     // Refresh rules & community
-    await dispatch(getCommunityRules(communityId));
-    dispatch(getSingleCommunity(communityId));
+    dispatch(getCommunityRules(communityId));
+    dispatch(getCommunities());
 
     // Redirect
     history.push(`/c/${communityName}/edit`);

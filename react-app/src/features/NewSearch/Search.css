@@ -876,7 +876,6 @@
   font-size: 14px;
   line-height: 14px;
   margin-right: 16px;
-  outline: none;
   width: 100%;
   background-color: var(--main-input-bg-color);
   border: none;
@@ -1020,7 +1019,6 @@
   cursor: pointer;
   font: inherit;
   height: auto;
-  outline: none;
   background: inherit;
   border: none;
   border-top: 2px solid var(--secondary-border-color);

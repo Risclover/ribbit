@@ -92,27 +92,6 @@
   margin: 4px 0;
 }
 
-.user-profile-banner-upload-btn {
-  position: absolute;
-  background: var(--ribbit-main);
-  border-radius: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3px;
-  border: 1px solid var(--highlight-color);
-  right: 8px;
-  top: 50px;
-  cursor: pointer;
-}
-
-.user-profile-banner-upload-btn img {
-  width: 20px;
-  height: 20px;
-  margin: 4px;
-  cursor: pointer;
-}
-
 .user-profile-upload-btn {
   position: absolute;
   right: -12px;
@@ -123,13 +102,19 @@
   align-items: center;
   justify-content: center;
   border: 1px solid var(--highlight-color);
+  color: var(--highlight-color);
   cursor: pointer;
   z-index: 11;
   width: 36px;
   height: 36px;
 }
 
-.user-profile-upload-btn img {
+.user-profile-upload-btn.banner-upload-btn {
+  right: 8px;
+  top: 50px;
+}
+
+.user-profile-upload-btn svg {
   background: var(--ribbit-main);
   width: 20px;
   height: 20px;
@@ -199,7 +184,6 @@
   font-size: 14px;
   font-family: var(--font-family-noto);
   height: 34px;
-  outline: none;
   border: 1px solid var(--highlight-color);
   padding: 4px 16px;
   width: 100%;

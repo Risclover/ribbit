@@ -23,4 +23,4 @@ export { ClassicFormatIcon } from "./ClassicFormatIcon";
 export { ClassicFormatIconActive } from "./ClassicFormatIconActive";
 export { CompactFormatIcon } from "./CompactFormatIcon";
 export { CompactFormatIconActive } from "./CompactFormatIconActive";
-
+export { UploadImgIcon } from "./UploadImgIcon";

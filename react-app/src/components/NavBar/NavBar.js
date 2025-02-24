@@ -182,14 +182,7 @@ export function NavBar({
             Log In
           </button>
         )}
-        <div className="logged-out-user-menu">
-          <div className="user-icon">
-            <UserIcon color="#868686" />
-          </div>
-          <span className="user-icon-chevron">
-            <TbChevronDown />
-          </span>
-        </div>
+
         <LoggedOutDropdownWrapper />
         {user && <NavUserDropdown />}
       </div>

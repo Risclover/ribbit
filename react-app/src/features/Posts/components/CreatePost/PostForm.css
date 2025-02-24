@@ -167,7 +167,6 @@
   font-size: 14px;
   width: 50%;
   background: var(--ribbit-main);
-  outline: none;
   border: none;
   border-bottom: 1px solid var(--secondary-border-color);
 
@@ -299,7 +298,6 @@
   overflow: hidden;
   font-size: 14px;
   border: 1px solid var(--secondary-border-color);
-  outline: none;
   margin-bottom: 8px;
   font-family: var(--font-family-ibm);
   border-radius: 4px;
@@ -348,7 +346,6 @@
 .create-post-form-cancel {
   border-radius: 1000px;
   background: inherit;
-  outline: none;
   border: 1px solid var(--community-highlight);
   color: var(--community-highlight);
   min-height: 32px;
@@ -394,7 +391,6 @@
   background: var(--community-highlight);
   border-radius: 100px;
   color: var(--ribbit-main);
-  outline: none;
   border: none;
   padding: 4px 16px;
   min-height: 32px;
@@ -448,7 +444,6 @@
   line-height: 18px;
   vertical-align: middle;
   padding-left: 15px;
-  outline: none;
   cursor: pointer;
 }
 
@@ -508,7 +503,6 @@
   border-radius: 4px;
   font-family: var(--font-family-ibm);
   font-size: 14px;
-  outline: none;
   padding: 8px 64px 8px 16px;
   resize: none;
   overflow: hidden;
@@ -542,7 +536,6 @@
   font-family: var(--font-family-ibm);
   font-size: 14px;
   overflow-wrap: break-word;
-  outline: none;
   line-height: 16px;
   overflow-y: auto;
   padding: 8px 64px 8px 16px;
@@ -580,7 +573,6 @@
 
 .update-post-form-buttons button {
   border-radius: 100px;
-  outline: none;
   font-family: var(--font-family-noto);
   font-weight: 700;
   min-width: 32px;
