@@ -117,6 +117,7 @@ nav ul li {
   font-family: var(--font-family-ibm);
   font-size: 12px;
   overflow-wrap: normal;
+  font-weight: normal;
 }
 
 .navbar-button .navbtn-tooltiptext.text2 {
@@ -139,7 +140,8 @@ nav ul li {
   border-color: transparent transparent black transparent;
 }
 
-.navbar-button:hover .navbtn-tooltiptext {
+.navbar-button:hover .navbtn-tooltiptext,
+.navbar-button:focus .navbtn-tooltiptext {
   visibility: visible;
 }
 

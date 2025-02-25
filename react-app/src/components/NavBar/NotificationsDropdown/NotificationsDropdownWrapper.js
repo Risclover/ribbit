@@ -21,7 +21,7 @@ export function NotificationsDropdownWrapper({ msgNum, notificationNum }) {
 
   return (
     <div className="notifications-dropdown-wrapper">
-      <span
+      <button
         className="navbar-button"
         onClick={handleOpenDropdown}
         onMouseEnter={() => setTimeout(() => setShowTooltip(true), 500)}
@@ -34,7 +34,7 @@ export function NotificationsDropdownWrapper({ msgNum, notificationNum }) {
         {notificationNum > 0 && (
           <div className="notification-number">{notificationNum}</div>
         )}
-      </span>
+      </button>
       {showDropdown && (
         <NotificationsDropdown
           msgNum={msgNum}

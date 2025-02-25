@@ -44,7 +44,7 @@
   overflow: hidden;
   border-radius: 6px;
   position: relative;
-  background: var(--ribbit-main);
+  background: white;
   border: 1px solid var(--secondary-border-color);
   margin-bottom: 5px;
 }

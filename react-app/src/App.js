@@ -187,20 +187,6 @@ function App() {
                   : "main"
               }
             >
-              {!user && (
-                <LoggedOutSidebar
-                  setShowSignupForm={setShowSignupForm}
-                  showLoggedOutSidebar={showLoggedOutSidebar}
-                />
-              )}
-
-              {user && (
-                <NavSidebar
-                  setShowNavSidebar={setShowNavSidebar}
-                  showNavSidebar={showNavSidebar}
-                  setShowDropdown={setShowDropdown}
-                />
-              )}
               <LoginSignupModal />
               {openChat && !minimizeChat && (
                 <Chat
@@ -413,6 +399,21 @@ function App() {
                   </Route>
                 </ScrollProvider>
               </Switch>
+
+              {!user && (
+                <LoggedOutSidebar
+                  setShowSignupForm={setShowSignupForm}
+                  showLoggedOutSidebar={showLoggedOutSidebar}
+                />
+              )}
+
+              {user && (
+                <NavSidebar
+                  setShowNavSidebar={setShowNavSidebar}
+                  showNavSidebar={showNavSidebar}
+                  setShowDropdown={setShowDropdown}
+                />
+              )}
             </div>
           </PostFormatContext.Provider>
         </PageTitleContext.Provider>

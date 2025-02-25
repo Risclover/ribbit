@@ -305,7 +305,7 @@
   text-align: center;
   align-items: center;
   max-height: 100%;
-  color: #1a1a1a;
+  color: var(--main-text-color);
   padding: 16px;
   height: 100%;
   overflow: auto;

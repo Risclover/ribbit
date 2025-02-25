@@ -23,6 +23,7 @@ import { FollowBtn } from "@/components";
 import { UserUploadModal } from "./UserUploadModal";
 import { useAuthFlow } from "@/context/AuthFlowContext";
 import KarmaIcon from "assets/icons/KarmaIcon";
+import { OVERLAYS } from "features/Chat/components/ChatWindow/Chat";
 
 export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const dispatch = useDispatch();
@@ -80,6 +81,14 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
         thread.users?.some((aUser) => aUser.id === currentUser?.id) &&
         thread.users?.some((bUser) => bUser.id === user.id)
     );
+
+    if(existingThread) {
+      setSelectedChat(existingThread);
+    } else {
+      setSelectedChat(null);
+      setPendingReceiver(user.username);
+      setActiveOverlay(OVERLAYS.INVITE)
+    }
 
     if (!existingThread) {
       const newChat = await dispatch(createChatThread(userId));

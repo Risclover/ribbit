@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { PostFeed, CreatePostBar } from "@/components";
 import { sortPosts } from "@/utils";
 import { useHistory } from "react-router-dom";
+import { useAuthFlow } from "context";
 
 export function CommunityPosts({ commPosts, communityName, user }) {
   const history = useHistory();
@@ -9,13 +10,15 @@ export function CommunityPosts({ commPosts, communityName, user }) {
 
   const posts = sortPosts(commPosts, sortMode);
 
+  const { openLogin } = useAuthFlow();
+
   return (
     <div>
       {user && <CreatePostBar isCommunityPage communityName={communityName} />}
 
       <PostFeed
         setSortMode={setSortMode}
-        community={communityName}
+        community={communityName}e
         posts={posts}
         sortMode={sortMode}
         isPage="community"
@@ -34,7 +37,11 @@ export function CommunityPosts({ commPosts, communityName, user }) {
               </div>
               <button
                 className="community-btn-filled blue-btn-filled community-no-posts-btn"
-                onClick={() => history.push(`/c/${communityName}/submit`)}
+                onClick={() =>
+                  user
+                    ? history.push(`/c/${communityName}/submit`)
+                    : openLogin()
+                }
               >
                 Add a post
               </button>

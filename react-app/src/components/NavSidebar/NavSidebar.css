@@ -100,12 +100,17 @@
 }
 
 .logged-out-sidebar-text {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--main-border-color);
   font-family: "Noto Sans", Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
   padding: 19px 24px 22px 0;
+}
+
+.logged-out-sidebar-section {
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 1250px) {

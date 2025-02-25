@@ -141,13 +141,16 @@ export function NavBar({
       <div className="navbar-right">
         {user && (
           <div className="navbar-buttons">
-            <div className="navbar-button" onClick={() => history.push("/all")}>
+            <button
+              className="navbar-button"
+              onClick={() => history.push("/all")}
+            >
               <AllPostsIcon />
               {showTooltip && (
                 <span className="navbtn-tooltiptext">/c/All</span>
               )}
-            </div>
-            <div
+            </button>
+            <button
               className="navbar-button"
               onMouseEnter={() => setTimeout(() => setShowTooltip(true), 500)}
               onMouseLeave={() => setShowTooltip(false)}
@@ -155,7 +158,7 @@ export function NavBar({
             >
               <BsChatDots />
               {showTooltip && <span className="navbtn-tooltiptext">Chat</span>}
-            </div>
+            </button>
             {user && (
               <div className="notification-wrapper">
                 <NotificationsDropdownWrapper
@@ -164,7 +167,7 @@ export function NavBar({
                 />
               </div>
             )}
-            <div
+            <button
               className="navbar-button"
               onClick={() => history.push("/submit")}
               onMouseEnter={() => setTimeout(() => setShowTooltip(true), 500)}
@@ -174,7 +177,7 @@ export function NavBar({
               {showTooltip && (
                 <span className="navbtn-tooltiptext text2">Create Post</span>
               )}
-            </div>
+            </button>
           </div>
         )}
         {!user && (
@@ -183,7 +186,7 @@ export function NavBar({
           </button>
         )}
 
-        <LoggedOutDropdownWrapper />
+        {!user && <LoggedOutDropdownWrapper />}
         {user && <NavUserDropdown />}
       </div>
     </nav>
