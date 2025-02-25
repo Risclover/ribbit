@@ -113,6 +113,21 @@
   flex-direction: column;
 }
 
+.logged-out-sidebar-hr {
+  border: 0;
+  border-bottom: 1px solid var(--main-border-color);
+  background-color: transparent;
+  margin: 0;
+  width: calc(100% - 48px);
+  margin-top: 0.75rem;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+.logged-out-sidebar-top {
+  overflow: auto;
+}
+
 @media (max-width: 1250px) {
   .nav-sidebar-container {
     display: none;

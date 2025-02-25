@@ -3,9 +3,11 @@ import {
   getCommunityThemes,
   setCommunityThemes,
 } from "@/features/Communities/utils/localStorage";
+import { useDarkMode } from "hooks";
 
 export const useCommunitySettings = (community) => {
   const [checked, setChecked] = useState(false);
+  const { theme } = useDarkMode();
 
   useEffect(() => {
     if (community?.id) {
@@ -97,10 +99,17 @@ export const useCommunitySettings = (community) => {
         );
       }
     } else if (!checked) {
-      document.documentElement.style.setProperty(
-        "--community-base-color",
-        "var(--highlight-color)"
-      );
+      if (theme === "light") {
+        document.documentElement.style.setProperty(
+          "--community-base-color",
+          "var(--highlight-color)"
+        );
+      } else {
+        document.documentElement.style.setProperty(
+          "--community-base-color",
+          "#0079d3"
+        );
+      }
 
       document.documentElement.style.setProperty(
         "--community-highlight",

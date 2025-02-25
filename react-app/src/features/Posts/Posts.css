@@ -129,11 +129,11 @@
   padding: 5px 10px;
   position: absolute;
   z-index: 1;
-  bottom: 50px;
+  bottom: 65px;
   font-family: var(--font-family-ibm);
   font-size: 13px;
   font-weight: 500;
-  left: -23px;
+  left: -25%;
   width: 85px;
 }
 
@@ -149,14 +149,15 @@
   margin-bottom: 16px;
 }
 
-.tooltip a {
+/* .tooltip a {
   height: 40px;
-}
+} */
 
 .posts-author-box img {
-  height: 45px;
+  height: 55px;
   cursor: pointer;
   width: 100%;
+  margin-bottom: -5px;
 }
 
 .posts-author-box h1 {

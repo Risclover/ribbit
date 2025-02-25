@@ -7,8 +7,8 @@ export function CommunityThemeToggle({ checked, handleThemeToggle }) {
       <input
         type="checkbox"
         checked={checked}
-        name="switch"
         onChange={handleThemeToggle}
+        tabIndex={-1}
       />
       <span className="community-options-slider round"></span>
     </div>

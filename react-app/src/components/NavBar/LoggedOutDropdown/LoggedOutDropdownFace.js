@@ -5,7 +5,14 @@ import { TbChevronDown } from "react-icons/tb";
 
 export default function LoggedOutDropdownFace({ onClick }) {
   return (
-    <div className="logged-out-user-menu" onClick={onClick}>
+    <div
+      className="logged-out-user-menu"
+      onClick={onClick}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") onClick();
+      }}
+    >
       <div className="user-icon">
         <UserIcon color="#868686" />
       </div>

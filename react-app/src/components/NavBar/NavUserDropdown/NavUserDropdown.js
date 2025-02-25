@@ -19,8 +19,18 @@ export function NavUserDropdown() {
       className="navbar-user-dropdown"
       onClick={() => setShowDropdown(!showDropdown)}
       ref={wrapperRef}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          setShowDropdown(!showDropdown);
+        }
+      }}
     >
-      <NavUserDropdownFace cuser={cuser} />
+      <NavUserDropdownFace
+        cuser={cuser}
+        setShowDropdown={setShowDropdown}
+        showDropdown={showDropdown}
+      />
       {showDropdown && (
         <NavUserDropdownBox
           setShowDropdown={setShowDropdown}

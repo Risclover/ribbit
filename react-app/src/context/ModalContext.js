@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useDisableBodyScroll } from "../hooks/useDisableBodyScroll";
 import "./ModalContext.css";
+import { useScrollLock } from "hooks";
 
 const ModalContext = React.createContext();
 
@@ -22,7 +23,7 @@ export function ModalProvider({ children }) {
 }
 
 export function Modal({ onClose, children, title, open }) {
-  useDisableBodyScroll(open);
+  useScrollLock(open);
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;
 

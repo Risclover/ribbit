@@ -48,6 +48,7 @@
   left: 0;
   right: 0;
   top: 88px;
+  z-index: 99;
 }
 
 .edit-community-page-settings {

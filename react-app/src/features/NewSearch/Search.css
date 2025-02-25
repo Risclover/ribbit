@@ -838,6 +838,7 @@
   width: auto;
   height: auto;
   position: relative;
+  outline: none;
 }
 
 .nav-search-stuff {
@@ -879,6 +880,7 @@
   width: 100%;
   background-color: var(--main-input-bg-color);
   border: none;
+  outline: none;
 }
 
 .nav-search-stuff:focus-within,

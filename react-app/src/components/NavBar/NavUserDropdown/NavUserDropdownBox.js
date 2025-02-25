@@ -20,19 +20,35 @@ export default function NavUserDropdownBox({ cuser, setShowDropdown }) {
     history.push("/");
   };
 
+  const handleKeyDown = (e, link) => {
+    e.stopPropagation();
+    if (e.key === "Enter") {
+      history.push(link);
+    }
+  };
+
   return (
     <div className="nav-user-dropdown-box">
       <div className="nav-user-top-section">
         <div className="nav-user-dropdown-btn-title">
           <HiOutlineUserCircle /> My Stuff
         </div>
-        <NavLink to={`/users/${cuser.id}/profile`}>
+        <NavLink
+          to={`/users/${cuser.id}/profile`}
+          onKeyDown={(e) => handleKeyDown(e, `/users/${cuser.id}/profile`)}
+        >
           <div className="nav-user-dropdown-btn">Profile</div>
         </NavLink>
-        <NavLink to={`/directory`}>
+        <NavLink
+          to={`/directory`}
+          onKeyDown={(e) => handleKeyDown(e, `/directory`)}
+        >
           <div className="nav-user-dropdown-btn">Communities Directory</div>
         </NavLink>
-        <NavLink to={`/settings/profile`}>
+        <NavLink
+          to={`/settings/profile`}
+          onKeyDown={(e) => handleKeyDown(e, `/settings/profile`)}
+        >
           <div className="nav-user-dropdown-btn">User Settings</div>
         </NavLink>
         <div
@@ -40,6 +56,13 @@ export default function NavUserDropdownBox({ cuser, setShowDropdown }) {
           onClick={(e) => {
             e.stopPropagation();
             toggleTheme();
+          }}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            e.stopPropagation();
+            if (e.key === "Enter") {
+              toggleTheme();
+            }
           }}
         >
           Dark Mode{" "}
@@ -49,7 +72,17 @@ export default function NavUserDropdownBox({ cuser, setShowDropdown }) {
           />
         </div>
       </div>
-      <div className="nav-user-dropdown-logout-btn" onClick={onLogout}>
+      <div
+        className="nav-user-dropdown-logout-btn"
+        onClick={onLogout}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          e.stopPropagation();
+          if (e.key === "Enter") {
+            onLogout();
+          }
+        }}
+      >
         <div className="door-icon">
           <SlLogin />
         </div>

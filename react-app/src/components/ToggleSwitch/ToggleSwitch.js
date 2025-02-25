@@ -9,6 +9,7 @@ export function ToggleSwitch({ checked, setChecked }) {
         checked={checked}
         name="switch"
         onChange={() => setChecked(!checked)}
+        tabIndex={-1}
       />
       <span className="slider round"></span>
     </div>

@@ -29,6 +29,12 @@ export function LoggedOutDropdown({ setShowDropdown }) {
             e.stopPropagation();
             toggleTheme();
           }}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              toggleTheme();
+            }
+          }}
         >
           Dark Mode{" "}
           <CommunityThemeToggle
@@ -37,7 +43,16 @@ export function LoggedOutDropdown({ setShowDropdown }) {
           />
         </div>
       </div>
-      <div className="nav-user-dropdown-logout-btn" onClick={handleOpenLogin}>
+      <div
+        className="nav-user-dropdown-logout-btn"
+        onClick={handleOpenLogin}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleOpenLogin();
+          }
+        }}
+      >
         <div className="door-icon">
           <SlLogin />
         </div>

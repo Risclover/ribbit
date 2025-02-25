@@ -40,6 +40,7 @@ export function AuthFormInput({ props, icon, blurred }) {
     >
       <div className={`form-field ${classValue}`}>
         <input
+          className="auth-form-input-field"
           id={name}
           type={type}
           data-testid={testId}

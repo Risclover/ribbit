@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 
 import Home from "@/assets/images/navbar/home-icon.png";
 import All from "@/assets/images/navbar/all-icon2.png";
@@ -9,11 +9,16 @@ import { useAuthFlow } from "@/context/AuthFlowContext";
 import AllPostsIcon from "assets/icons/AllPostsIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { getCommunities } from "store";
+import { CommunityImg } from "components/CommunityImg";
 
 export function LoggedOutSidebar({ showLoggedOutSidebar }) {
+  const location = useLocation();
   const { openSignupPage1 } = useAuthFlow();
   const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector((state) => state.session.user);
+
+  const [recent, setRecent] = useState([]);
 
   const communities = useSelector((state) => Object.values(state.communities));
 
@@ -24,6 +29,19 @@ export function LoggedOutSidebar({ showLoggedOutSidebar }) {
   const sortedCommunities = communities.sort((a, b) =>
     a.members < b.members ? 1 : -1
   );
+
+  useEffect(() => {
+    if (!user) {
+      const stored =
+        JSON.parse(localStorage.getItem("recentCommunities")) || [];
+      const cleaned = stored.filter(
+        (comm) => comm && comm.id && comm.name && comm.icon
+      );
+      setRecent(cleaned);
+    } else {
+      setRecent([]);
+    }
+  }, [user, location.pathname]);
 
   return (
     <>
@@ -37,6 +55,7 @@ export function LoggedOutSidebar({ showLoggedOutSidebar }) {
                 <span className="nav-left-dropdown-item">All</span>
               </NavLink>
             </div>
+            <hr className="logged-out-sidebar-hr" />
             <div className="logged-out-sidebar-section">
               <div className="nav-left-dropdown-title">Popular Communities</div>
               <ul className="logged-out-communities">
@@ -64,6 +83,34 @@ export function LoggedOutSidebar({ showLoggedOutSidebar }) {
                   .slice(0, 5)}
               </ul>
             </div>
+            <hr className="logged-out-sidebar-hr" />
+            {recent.length > 0 && (
+              <div className="logged-out-sidebar-section">
+                <div className="nav-left-dropdown-title">Recent</div>
+                <ul>
+                  {recent.map((comm) => (
+                    <li key={comm?.id}>
+                      <NavLink
+                        to={`/c/${comm?.name}`}
+                        className="nav-left-dropdown-navitem"
+                      >
+                        <CommunityImg
+                          imgSrc={comm?.icon}
+                          imgClass="nav-left-dropdown-item-img"
+                          imgAlt="Community icon"
+                          imgStyle={{
+                            backgroundColor: `${comm?.iconBgColor}`,
+                          }}
+                        />
+                        <span className="nav-left-dropdown-item">
+                          c/{comm?.name}
+                        </span>
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
           <div className="logged-out-sidebar-bottom">
             <div className="logged-out-sidebar-text">

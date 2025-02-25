@@ -6,19 +6,17 @@ import CardPostFormat from "./CardPostFormat";
 import ClassicPostFormat from "./ClassicPostFormat";
 import CompactPostFormat from "./CompactPostFormat";
 
-export function SinglePost({
-  link,
-  id,
-  isPage,
-  post,
-  handleCommentsBtnClick,
-}) {
+export function SinglePost({ link, id, isPage, post, handleCommentsBtnClick }) {
   const { format, setFormat } = useContext(PostFormatContext);
 
   useEffect(() => {
     if (isPage !== "profile") {
-      const savedFormat = localStorage.getItem("selectedPostFormat");
-      setFormat(savedFormat);
+      if (localStorage.getItem("selectedPostFormat")) {
+        const savedFormat = localStorage.getItem("selectedPostFormat");
+        setFormat(savedFormat);
+      } else {
+        setFormat("Card");
+      }
     }
 
     if (isPage === "singlepage") {

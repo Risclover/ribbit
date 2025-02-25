@@ -41,6 +41,29 @@ export function CommunityPage() {
     }
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!user) {
+      const LOCAL_STORAGE_KEY = "recentCommunities";
+
+      let stored = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+
+      stored = stored.filter((c) => c.id !== community?.id);
+
+      stored.unshift({
+        id: community?.id,
+        name: community?.name,
+        icon: community?.communitySettings[community?.id].communityIcon,
+        iconBgColor: community?.communitySettings[community.id].baseColor,
+      });
+
+      if (stored.length > 5) {
+        stored.pop();
+      }
+
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stored));
+    }
+  }, [community, user]);
+
   usePageSettings({
     documentTitle: community?.displayName,
     icon:

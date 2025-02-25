@@ -1,7 +1,8 @@
 import React, { createContext, useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import "./AuthModalContext.css";
-import { useFocusTrap } from "hooks";
+import { useFocusTrap, useScrollLock } from "hooks";
+import { useDisableBodyScroll } from "hooks/useDisableBodyScroll";
 
 const AuthModalContext = createContext();
 
@@ -31,6 +32,7 @@ export function AuthModal({ active, onClose, formType, children }) {
   const modalNode = useAuthModalNode();
   if (!modalNode) return null;
 
+  useScrollLock(active);
   return ReactDOM.createPortal(
     active ? (
       <div className="auth-modal">

@@ -57,6 +57,7 @@ export function SearchDropdown({
           <p>Communities</p>
           {filteredCommunities.map((community) => (
             <div
+              tabIndex={0}
               className="search-result-community"
               key={community.id}
               onClick={() => {
@@ -97,6 +98,7 @@ export function SearchDropdown({
           <p>People</p>
           {filteredUsers.map((user) => (
             <div
+              tabIndex={0}
               className="search-result-community"
               key={user.id}
               onClick={() => {
