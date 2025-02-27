@@ -275,6 +275,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                         </button>
                         {showDeleteModal && (
                           <Modal
+                            close={showDeleteModal}
                             onClose={() => setShowDeleteModal(false)}
                             title="Delete post?"
                             open={() => setShowDeleteModal(true)}

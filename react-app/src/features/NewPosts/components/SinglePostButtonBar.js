@@ -183,6 +183,7 @@ export function SinglePostButtonBar({
             )}
             {showDeleteModal && (
               <Modal
+                close={showDeleteModal}
                 onClose={() => setShowDeleteModal(false)}
                 title="Delete post?"
                 open={() => setShowDeleteModal(true)}

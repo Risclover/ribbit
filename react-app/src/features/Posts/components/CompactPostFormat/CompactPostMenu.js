@@ -91,6 +91,7 @@ export const CompactPostMenu = ({ user, post, isPage, community }) => {
       )}
       {showDeleteModal && (
         <Modal
+          close={showDeleteModal}
           onClose={() => setShowDeleteModal(false)}
           title="Delete post?"
           open={() => setShowDeleteModal(true)}

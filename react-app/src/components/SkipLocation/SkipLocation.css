@@ -1,0 +1,36 @@
+.skip-location-container {
+  /* Start out offscreen so it's not visible by default. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* If we have step>0, we have a link in the DOM.
+   So let's reveal the container whenever it has focus inside. */
+.skip-location-container:focus-within {
+  clip: auto;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+.skip-link {
+  display: block;
+  background: #0079d3;
+  color: #fff;
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.skip-link:focus {
+  outline: 2px solid #ff0;
+}

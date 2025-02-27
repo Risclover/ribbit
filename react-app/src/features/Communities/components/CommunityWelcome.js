@@ -25,6 +25,7 @@ export function CommunityWelcome({ community, user, posts, commPosts }) {
     <div>
       {showWelcomeModal && (
         <Modal
+          close={showWelcomeModal}
           onClose={() => setShowWelcomeModal(false)}
           title="Create your first post"
           open={() => setShowWelcomeModal(true)}

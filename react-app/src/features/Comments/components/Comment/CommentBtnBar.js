@@ -53,6 +53,7 @@ export function CommentBtnBar({
               {/* Edit Modal */}
               {isEditModalOpen && (
                 <Modal
+                  close={isEditModalOpen}
                   onClose={() => setIsEditModalOpen(false)}
                   title="Edit Comment"
                 >
@@ -77,6 +78,7 @@ export function CommentBtnBar({
               {/* Delete Modal */}
               {isDeleteModalOpen && (
                 <Modal
+                  close={isDeleteModalOpen}
                   onClose={() => setIsDeleteModalOpen(false)}
                   title="Delete Comment"
                 >

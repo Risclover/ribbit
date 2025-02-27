@@ -82,12 +82,12 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
         thread.users?.some((bUser) => bUser.id === user.id)
     );
 
-    if(existingThread) {
+    if (existingThread) {
       setSelectedChat(existingThread);
     } else {
       setSelectedChat(null);
       setPendingReceiver(user.username);
-      setActiveOverlay(OVERLAYS.INVITE)
+      setActiveOverlay(OVERLAYS.INVITE);
     }
 
     if (!existingThread) {
@@ -238,6 +238,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
 
       {showFollowersModal && (
         <Modal
+          close={showFollowersModal}
           onClose={() => setShowFollowersModal(false)}
           title="Followers"
           open={() => setShowFollowersModal(true)}

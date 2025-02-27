@@ -71,6 +71,7 @@ export function CreatePostFormContent({
       )}
       {showImgModal && (
         <Modal
+          close={showImgModal}
           onClose={() => setShowImgModal(false)}
           open={() => setShowImgModal(true)}
         >

@@ -85,6 +85,7 @@ export function PreviewCommunitySidebar() {
 
       {showWarning && (
         <Modal
+          close={showWarning}
           onClose={() => setShowWarning(false)}
           title="Discard unsaved changes before leaving?"
           open={() => setShowWarning(true)}
@@ -98,6 +99,7 @@ export function PreviewCommunitySidebar() {
 
       {showResetWarning && (
         <Modal
+          close={showResetWarning}
           onClose={() => setShowResetWarning(false)}
           title="Reset to default styling?"
           open={() => setShowResetWarning(true)}

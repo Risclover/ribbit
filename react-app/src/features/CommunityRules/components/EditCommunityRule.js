@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateRule,
@@ -10,9 +10,18 @@ import { Modal } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
 import "@/assets/styles/Modals.css";
 import { getCommunities } from "store";
+import { useFocusTrap } from "hooks";
 
-export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
+export function EditCommunityRule({
+  showEditRuleModal,
+  setShowEditRuleModal,
+  communityId,
+  rule,
+}) {
   const dispatch = useDispatch();
+  const wrapperRef = useRef(null);
+
+  // useFocusTrap(showEditRuleModal, wrapperRef);
 
   const [title, setTitle] = useState(rule?.title);
   const [description, setDescription] = useState(rule?.description);
@@ -49,6 +58,7 @@ export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
     await dispatch(updateRule({ title, description }, rule.id));
     setShowEditRuleModal(false);
     dispatch(getSingleCommunity(communityId));
+    dispatch(getCommunities());
   };
 
   const handleDeleteRule = async () => {
@@ -59,7 +69,7 @@ export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
   };
 
   return (
-    <div className="modal-container">
+    <div className="modal-container" ref={wrapperRef}>
       <div className="modal-content">
         <div className="rule-modal-section">
           <h2 className="rule-modal-section-title">Rule</h2>
@@ -127,6 +137,7 @@ export function EditCommunityRule({ setShowEditRuleModal, communityId, rule }) {
           </button>
           {showDeleteModal && (
             <Modal
+              close={showDeleteModal}
               onClose={() => setShowDeleteModal(false)}
               title="Delete rule?"
               open={() => setShowDeleteModal(true)}

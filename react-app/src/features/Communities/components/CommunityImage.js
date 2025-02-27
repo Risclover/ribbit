@@ -38,6 +38,7 @@ export function CommunityImage({ user, community }) {
 
       {showCommunityImgModal && (
         <Modal
+          close={showCommunityImgModal}
           onClose={() => setShowCommunityImgModal(false)}
           title="Change community image"
           open={() => setShowCommunityImgModal(true)}

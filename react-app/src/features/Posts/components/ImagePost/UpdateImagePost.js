@@ -68,6 +68,7 @@ export function UpdateImagePost() {
         </button>
         {showImgModal && (
           <Modal
+            close={showImgModal}
             title="Upload Image"
             onClose={() => setShowImgModal(false)}
             open={() => setShowImgModal(true)}

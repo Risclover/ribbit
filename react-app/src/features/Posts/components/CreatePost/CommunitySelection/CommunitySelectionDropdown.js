@@ -23,10 +23,9 @@ export function CommunitySelectionDropdown({
     useState(false);
 
   useEffect(() => {
-    if(showDropdown) {
-      
+    if (showDropdown) {
     }
-  })
+  });
   return (
     <div className="community-selection-dropdown">
       <div className="community-selection-dropdown-topbar">
@@ -48,6 +47,7 @@ export function CommunitySelectionDropdown({
         </button> */}
         {showCreateCommunityModal && (
           <Modal
+            close={showCreateCommunityModal}
             onClose={() => setShowCreateCommunityModal(false)}
             title="Create community"
             open={() => setShowCreateCommunityModal(true)}

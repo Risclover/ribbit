@@ -181,6 +181,7 @@ export function EditCommunity() {
               </div>
               {showRuleModal && (
                 <Modal
+                  close={showRuleModal}
                   onClose={() => setShowRuleModal(false)}
                   title="Add rule"
                   open={() => setShowRuleModal(true)}
@@ -207,6 +208,7 @@ export function EditCommunity() {
               </button>
               {showDeleteModal && (
                 <Modal
+                  close={showDeleteModal}
                   onClose={() => setShowDeleteModal(false)}
                   title={`Delete community c/${community?.name}?`}
                   open={() => setShowDeleteModal(true)}

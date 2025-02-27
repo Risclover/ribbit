@@ -27,6 +27,7 @@ export function UserUploadModal({
       </div>
       {showModal && (
         <Modal
+          close={showModal}
           onClose={() => setShowModal(false)}
           title={title}
           open={() => setShowModal(true)}

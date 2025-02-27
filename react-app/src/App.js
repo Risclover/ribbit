@@ -61,6 +61,7 @@ import {
   setSidebarState,
 } from "@/features/Communities/utils/localStorage";
 import { ScrollProvider } from "@/context/ScrollContext";
+import SkipLocation from "components/SkipLocation/SkipLocation";
 
 function App() {
   const dispatch = useDispatch();
@@ -177,7 +178,7 @@ function App() {
           <PostFormatContext.Provider value={{ format, setFormat }}>
             <ScrollToTop />
             {previewPage && <PreviewCommunitySidebar />}
-            <NavBar {...navBarProps} />{" "}
+            <NavBar {...navBarProps} /> <SkipLocation />
             <div
               className={
                 showNavSidebar
@@ -227,6 +228,7 @@ function App() {
                     {showSignupForm && (
                       <Modal
                         title="Sign Up"
+                        close={showSignupForm}
                         onClose={() => setShowSignupForm(false)}
                         open={() => setShowSignupForm(true)}
                       >

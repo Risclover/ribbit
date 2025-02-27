@@ -19,6 +19,12 @@ export function CommunityRule({ idx, rule }) {
       onClick={() => {
         rule.description.length > 0 && setShowDesc(!showDesc);
       }}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          rule.description.length > 0 && setShowDesc(!showDesc);
+        }
+      }}
     >
       <div className="rule-title-box">
         <span className="rule-num">{idx + 1}.</span>

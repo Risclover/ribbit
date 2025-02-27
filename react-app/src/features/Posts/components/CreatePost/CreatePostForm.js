@@ -179,6 +179,7 @@ export function CreatePostForm({
           </div>
           {showDiscardModal && (
             <Modal
+              close={showDiscardModal}
               title="Discard post?"
               onClose={() => setShowDiscardModal(false)}
               open={() => setShowDiscardModal(true)}

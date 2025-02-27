@@ -79,7 +79,15 @@ export function CommunitySelectionDropdownCommunity({
   };
 
   return (
-    <NavLink to={`/c/${subscription?.name}/submit`}>
+    <NavLink
+      to={`/c/${subscription?.name}/submit`}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          history.push(`/c/${subscription?.name}/submit`);
+          setShowDropdown(false);
+        }
+      }}
+    >
       <div
         className="community-selection-dropdown-community"
         onClick={(e) => handleClick(e, subscription?.name)}

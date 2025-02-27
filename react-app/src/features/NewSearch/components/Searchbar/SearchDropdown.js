@@ -42,6 +42,12 @@ export function SearchDropdown({
     )
     .slice(0, 5);
 
+  const handleResultClick = (url) => {
+    setShowSearchDropdown(false);
+    setSearchQuery("");
+    history.push(url);
+  };
+
   return (
     <div
       className="nav-search-dropdown"
@@ -58,13 +64,14 @@ export function SearchDropdown({
           {filteredCommunities.map((community) => (
             <div
               tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleResultClick(`/c/${community.name}`);
+                }
+              }}
               className="search-result-community"
               key={community.id}
-              onClick={() => {
-                setShowSearchDropdown(false);
-                setSearchQuery("");
-                history.push(`/c/${community.name}`);
-              }}
+              onClick={() => handleResultClick(`/c/${community.name}`)}
             >
               <div className="search-result-community-img-box">
                 <CommunityImg
@@ -101,10 +108,11 @@ export function SearchDropdown({
               tabIndex={0}
               className="search-result-community"
               key={user.id}
-              onClick={() => {
-                setShowSearchDropdown(false);
-                setSearchQuery("");
-                history.push(`/users/${user.id}/profile`);
+              onClick={() => handleResultClick(`/users/${user.id}/profile`)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleResultClick(`/users/${user.id}/profile`);
+                }
               }}
             >
               <div className="search-result-community-img-box">

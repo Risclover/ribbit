@@ -72,6 +72,7 @@ export function UsernamePopup({ community, user }) {
       </div>
       {showMsgModal && (
         <Modal
+          close={showMsgModal}
           onClose={(e) => {
             e.stopPropagation();
             setShowMsgModal(false);

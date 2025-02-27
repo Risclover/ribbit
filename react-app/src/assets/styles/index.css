@@ -8,6 +8,10 @@
   -webkit-font-smoothing: antialiased;
 }
 
+#sidebar {
+  scroll-margin-top: 200px; /* or however tall your header is */
+}
+
 body,
 html {
   font-family: var(--font-family-ibm);

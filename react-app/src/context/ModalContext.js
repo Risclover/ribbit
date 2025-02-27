@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useDisableBodyScroll } from "../hooks/useDisableBodyScroll";
 import "./ModalContext.css";
-import { useScrollLock } from "hooks";
+import { useFocusTrap, useScrollLock } from "hooks";
 
 const ModalContext = React.createContext();
 
@@ -22,15 +22,18 @@ export function ModalProvider({ children }) {
   );
 }
 
-export function Modal({ onClose, children, title, open }) {
+export function Modal({ onClose, close, children, title, open }) {
   useScrollLock(open);
   const modalNode = useContext(ModalContext);
+  const wrapperRef = useRef(null);
+
+  useFocusTrap(close, wrapperRef);
   if (!modalNode) return null;
 
   return ReactDOM.createPortal(
     <div id="modal">
       <div id="modal-background" onClick={onClose}></div>
-      <div id="modal-content">
+      <div id="modal-content" ref={wrapperRef}>
         <div id="modal-topbar">
           <h1 className="login-form-title">{title}</h1>
           <button

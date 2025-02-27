@@ -62,6 +62,7 @@ export const CreatePostBar = ({ isCommunityPage, communityName }) => {
               onClick={navigate(
                 `${isCommunityPage ? "/c/" + communityName : ""}/submit`
               )}
+              readonly
             />
           </div>
 

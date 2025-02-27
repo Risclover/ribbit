@@ -34,6 +34,7 @@ export const NewCommunity = () => {
       </div>
       {showCommunityModal && (
         <Modal
+          close={showCommunityModal}
           onClose={() => setShowCommunityModal(false)}
           title="Create a community"
           open={() => setShowCommunityModal(true)}

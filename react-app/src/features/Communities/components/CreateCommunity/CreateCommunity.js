@@ -18,6 +18,7 @@ export function CreateCommunity() {
       </button>
       {showCreateCommunityModal && (
         <Modal
+          close={showCreateCommunityModal}
           onClose={() => setShowCreateCommunityModal(false)}
           title="Create a community"
           open={() => setShowCreateCommunityModal(true)}

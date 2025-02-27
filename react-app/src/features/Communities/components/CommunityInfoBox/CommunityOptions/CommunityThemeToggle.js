@@ -3,7 +3,15 @@ import "./CommunityOptions.css";
 
 export function CommunityThemeToggle({ checked, handleThemeToggle }) {
   return (
-    <div className="community-options-switch">
+    <div
+      className="community-options-switch"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          handleThemeToggle();
+        }
+      }}
+    >
       <input
         type="checkbox"
         checked={checked}

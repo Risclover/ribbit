@@ -43,6 +43,7 @@ export function NavSidebar({
             <button
               aria-label="Close nav sidebar"
               className="close-nav-sidebar-btn"
+              id="side-navigation"
               onClick={() => {
                 setShowNavSidebar(false);
                 setShowIcon(false);

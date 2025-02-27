@@ -40,6 +40,7 @@ export function MessageHead({ active }) {
       </ul>
       {showMessageModal && (
         <Modal
+          close={showMessageModal}
           onClose={() => setShowMessageModal(false)}
           title="Send Message"
           open={() => setShowMessageModal(true)}

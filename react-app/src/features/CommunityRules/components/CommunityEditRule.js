@@ -22,17 +22,25 @@ export function CommunityEditRule({ idx, rule, community }) {
           <span
             className="rule-pencil"
             onClick={() => setShowEditRuleModal(true)}
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setShowEditRuleModal(true);
+              }
+            }}
           >
             <BsPencilFill />
           </span>
           {showEditRuleModal && (
             <Modal
               onClose={() => setShowEditRuleModal(false)}
+              close={showEditRuleModal}
               title="Edit rule"
               open={showEditRuleModal}
             >
               <EditCommunityRule
                 communityId={community?.id}
+                showEditRuleModal={showEditRuleModal}
                 setShowEditRuleModal={setShowEditRuleModal}
                 rule={rule}
               />

@@ -21,7 +21,11 @@ export function AboutBox({ title, description, user }) {
         <p>{description}</p>
         {user && (
           <div className="posts-home-box-buttons">
-            <NavLink to="/submit" className="blue-btn-filled btn-long">
+            <NavLink
+              to="/submit"
+              className="blue-btn-filled btn-long"
+              id="sidebar"
+            >
               Create Post
             </NavLink>
             <CreateCommunity />
