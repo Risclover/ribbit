@@ -1,0 +1,94 @@
+.form-field {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: var(--main-input-bg-color);
+  border-radius: 1.4rem;
+  height: 56px;
+  padding-left: 16px;
+  padding-right: 8px;
+  border: 2px solid transparent;
+}
+
+.form-field-box.h-100 {
+  min-height: 100px;
+  margin-bottom: 0px;
+}
+
+.form-field label {
+  position: absolute;
+  z-index: 2;
+  font-size: 16px;
+  transition: all 150ms ease-out 0s;
+  transform: translateY(0px);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #576f76;
+  cursor: default;
+}
+
+:root[data-theme="dark"] .form-field label {
+  color: var(--main-text-color);
+}
+
+.form-field input {
+  font-size: 16px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  transform-origin: 0 50%;
+  transition: all 150ms ease-out 0s;
+  border-color: transparent;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: var(--main-text-color);
+  transform: translateY(7px);
+}
+
+.form-field:hover {
+  background-color: #e2e7e9;
+}
+
+:root[data-theme="dark"] .form-field::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-radius: 1.4rem;
+  background: white;
+  opacity: 0;
+}
+
+:root[data-theme="dark"] .form-field:hover:before {
+  opacity: 0.08;
+}
+
+:root[data-theme="dark"] .form-field:hover {
+  background-color: transparent;
+}
+
+.form-field.errors-true {
+  box-shadow: 0 0 0 0.125rem #a50016;
+}
+
+:root[data-theme="dark"] .form-field.errors-true {
+  box-shadow: 0 0 0 0.125rem #f47586;
+}
+
+.form-field input:focus + label,
+.form-field input:not(:placeholder-shown) ~ label {
+  font-size: 12px;
+  transform: translateY(-9px);
+}
+
+.form-field-username {
+  margin-top: 30px;
+  margin-bottom: 8px;
+}
+
+.auth-form-input-field {
+  outline: none;
+}

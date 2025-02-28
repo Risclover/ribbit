@@ -1,6 +1,6 @@
-import KarmaIcon from "assets/icons/KarmaIcon";
 import React from "react";
 import { TbChevronDown } from "react-icons/tb";
+import { KarmaIcon } from "@/assets";
 
 export default function NavUserDropdownFace({
   cuser,

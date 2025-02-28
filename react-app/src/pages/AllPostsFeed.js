@@ -9,10 +9,9 @@ import {
 import { DeveloperLinksBox, AboutBox, RecentlyViewedPosts } from "../features";
 import { usePosts } from "../features/Posts/hooks/usePosts";
 
-import { AllIcon } from "../assets";
 import "../features/Posts/Posts.css";
 import { usePageSettings } from "@/hooks";
-import AllPostsIcon from "assets/icons/AllPostsIcon";
+import { AllPostsIcon } from "@/assets";
 
 export function AllPostsFeed() {
   const { sortedPosts, sortMode, setSortMode, user, viewedPosts } =

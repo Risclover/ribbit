@@ -13,17 +13,13 @@ import {
   addNotification,
 } from "@/store";
 
-import { Modal } from "@/context";
-import { UserProfileFollowers } from "@/features";
-import { UploadUserBanner, UploadUserImage, SendMessage } from "@/pages";
-import Cakeday from "@/assets/images/user-profile-icons/cakeday.png";
-import Flower from "@/assets/images/user-profile-icons/poinsettia.png";
-import { SelectedChatContext } from "@/context";
 import { FollowBtn } from "@/components";
+import { Modal, SelectedChatContext, useAuthFlow } from "@/context";
+import { UserProfileFollowers } from "@/features";
+import { SendMessage } from "@/pages";
 import { UserUploadModal } from "./UserUploadModal";
-import { useAuthFlow } from "@/context/AuthFlowContext";
-import KarmaIcon from "assets/icons/KarmaIcon";
-import { OVERLAYS } from "features/Chat/components/ChatWindow/Chat";
+import { KarmaIcon } from "@/assets";
+import { OVERLAYS } from "@/features/Chat/components/ChatWindow/Chat";
 
 export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const dispatch = useDispatch();

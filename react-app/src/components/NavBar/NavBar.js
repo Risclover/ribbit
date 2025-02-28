@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { TfiPlus } from "react-icons/tfi";
 import { BsChatDots } from "react-icons/bs";
-import { VscChevronDown } from "react-icons/vsc";
-import { TbChevronDown } from "react-icons/tb";
 
-import { getUsers } from "@/store";
 import {
   NavUserDropdown,
   NavLeftDropdownFace,
@@ -15,7 +12,7 @@ import {
 } from ".";
 import { SelectedChatContext } from "@/context";
 import { Searchbar } from "@/features";
-import { AllIcon } from "@/assets";
+import { AllPostsIcon } from "@/assets";
 
 import { ribbitBanners, ribbitLogos } from "@/assets";
 import { RandomLogo } from "../../layouts/RandomLogo";
@@ -24,7 +21,6 @@ import "../../features/NewSearch/Search.css";
 import { useAuthFlow } from "@/context/AuthFlowContext";
 import { UserIcon } from "assets/icons/UserIcon";
 import { ChevronDownFilled } from "assets";
-import AllPostsIcon from "assets/icons/AllPostsIcon";
 
 export function NavBar({
   adjustQuery,

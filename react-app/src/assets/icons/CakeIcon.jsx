@@ -1,10 +1,9 @@
 import React from "react";
 
-export default function CakeIcon({ color }) {
+export function CakeIcon() {
   return (
     <svg
       rpl=""
-      class="mr-xs"
       fill="currentColor"
       height="16"
       strokeWidth="0"

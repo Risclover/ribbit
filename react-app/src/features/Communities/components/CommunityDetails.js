@@ -8,13 +8,12 @@ import {
   getSubscriptions,
 } from "@/store";
 import { CommunityOptions } from "./CommunityInfoBox";
-import Cake from "@/assets/images/misc/piece4.png";
 import { useHistory } from "react-router-dom";
 import { LoginSignupModal } from "@/features/Auth";
 import { CommunityImg } from "@/components/CommunityImg";
 import { useCommunitySettings } from "@/features/Posts/hooks/useCommunitySettings";
 import { useAuthFlow } from "@/context/AuthFlowContext";
-import CakeIcon from "assets/icons/CakeIcon";
+import { CakeIcon } from "@/assets";
 
 export function CommunityDetails({ post, community }) {
   const history = useHistory();
@@ -75,7 +74,9 @@ export function CommunityDetails({ post, community }) {
           {post?.communityDesc || community?.description}
         </div>
         <div className="single-post-community-date">
-          <span className="community-cake-icon"><CakeIcon /></span>
+          <span className="community-cake-icon">
+            <CakeIcon />
+          </span>
           Created {moment(post?.communityDate).format("MMM DD, YYYY")}
         </div>
         <div className="community-page-box-members">

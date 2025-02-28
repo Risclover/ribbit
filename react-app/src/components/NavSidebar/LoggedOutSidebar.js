@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory, useLocation } from "react-router-dom";
-
-import Home from "@/assets/images/navbar/home-icon.png";
-import All from "@/assets/images/navbar/all-icon2.png";
-
-import "./NavSidebar.css";
-import { useAuthFlow } from "@/context/AuthFlowContext";
-import AllPostsIcon from "assets/icons/AllPostsIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { getCommunities } from "store";
-import { CommunityImg } from "components/CommunityImg";
+
+import { CommunityImg } from "@/components/CommunityImg";
+import { useAuthFlow } from "@/context/AuthFlowContext";
+import { getCommunities } from "@/store";
+import { AllPostsIcon } from "@/assets";
+import "./NavSidebar.css";
 
 export function LoggedOutSidebar({ showLoggedOutSidebar }) {
   const location = useLocation();

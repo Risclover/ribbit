@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { BiShieldAlt } from "react-icons/bi";
+import { useHistory, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import moment from "moment";
+import { BiShieldAlt } from "react-icons/bi";
+
 import {
   CommunityInfoMenu,
   CommunityDescription,
@@ -9,14 +11,10 @@ import {
   CommunityJoinBtn,
 } from "@/features";
 import { getTextColor } from "@/utils";
-import Cake from "@/assets/images/misc/piece4.png";
-import DarkModeCake from "@/assets/images/misc/piece4-darkmode.png";
-import { useHistory } from "react-router-dom";
 import { CommunityImg } from "@/components/CommunityImg";
-import { useCommunitySettings } from "@/features/Posts/hooks/useCommunitySettings";
-import { useSelector } from "react-redux";
-import { useAuthFlow } from "@/context/AuthFlowContext";
-import CakeIcon from "assets/icons/CakeIcon";
+import { useCommunitySettings } from "@/features";
+import { useAuthFlow } from "@/context";
+import { CakeIcon } from "@/assets";
 
 export function CommunityInfoBox({ community, user, isPage }) {
   const { checked, setChecked } = useCommunitySettings(community);

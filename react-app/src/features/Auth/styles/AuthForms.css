@@ -1,0 +1,289 @@
+.login-form-container,
+.signup-form-container {
+  background: var(--ribbit-main);
+  border-radius: 12px;
+  color: var(--main-text-color);
+}
+
+.login-form,
+.signup-form {
+  position: relative;
+  width: 100%;
+  color: inherit;
+}
+
+.login-form-title,
+.signup-form-title {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin: 24px 0;
+  color: var(--main-text-color);
+}
+
+.or-dividers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 24px;
+  margin-top: 24px;
+}
+
+.or-line {
+  border-style: none;
+  flex-grow: 1;
+  height: 1px;
+  margin: 0px;
+  background-color: #d6d6d6;
+}
+
+.or-label {
+  color: #434343;
+  font-size: 12px;
+  padding: 0 16px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+:root[data-theme="dark"] .or-label {
+  color: var(--main-text-color);
+}
+
+.demo-btn,
+.google-btn {
+  width: 100%;
+  background: var(--ribbit-main);
+  border: 1px solid #dadce0;
+  height: 40px;
+  padding: 0 12px;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: all 0.3s;
+  white-space: nowrap;
+  letter-spacing: 0.25px;
+  text-overflow: ellipsis;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--main-text-color);
+  position: relative;
+}
+
+.demo-btn svg {
+  font-size: 18px;
+  margin: 2px 8px 0 0;
+}
+
+.google-btn img {
+  width: 18px;
+  height: 18px;
+  margin: 2px 8px 0 0;
+}
+
+.demo-btn:hover,
+.demo-btn:focus,
+.google-btn:hover,
+.google-btn:focus {
+  background: rgba(66, 133, 244, 0.04);
+}
+
+.demo-btn {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 400;
+}
+.google-btn {
+  margin-top: 1.5rem;
+  font-family: var(--font-family-roboto);
+  font-weight: 500;
+}
+
+:root[data-theme="dark"] .google-btn::before,
+:root[data-theme="dark"] .demo-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: white;
+  opacity: 0;
+}
+
+:root[data-theme="dark"] .google-btn:hover::before,
+:root[data-theme="dark"] .demo-btn:hover::before {
+  opacity: 0.04;
+}
+
+:root[data-theme="dark"] .google-btn:hover,
+:root[data-theme="dark"] .demo-btn:hover {
+  background: transparent;
+}
+
+.login-form-errors,
+.signup-form-errors {
+  color: #a50016;
+}
+
+:root[data-theme="dark"] .login-form-errors,
+:root[data-theme="dark"] .signup-form-errors {
+  color: #f47586;
+}
+
+.error-container {
+  min-height: 20px;
+  padding-top: 4px;
+  width: 100%;
+  font-size: 12px;
+  line-height: 14px;
+  padding-left: 16px;
+  margin-top: 2px;
+  transition: all 0.2s ease-in-out;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.login-form-submit,
+.signup-form-submit {
+  position: relative;
+  border-radius: 1000px;
+  height: 48px;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background: #d93a00;
+  width: 100%;
+  font-weight: 600;
+  padding: 0 16px;
+  border: 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.login-form-submit:hover,
+.signup-form-submit:hover {
+  background: #962900;
+}
+
+.login-form-submit:disabled,
+.signup-form-submit:disabled {
+  background: #0000000d;
+  color: #00000040;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+:root[data-theme="dark"] .login-form-submit:disabled,
+:root[data-theme="dark"] .signup-form-submit:disabled {
+  background: #d93a00;
+}
+
+:root[data-theme="dark"] .login-form-submit::before,
+:root[data-theme="dark"] .signup-form-submit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: white;
+  opacity: 0;
+}
+
+:root[data-theme="dark"] .google-btn:hover::before,
+:root[data-theme="dark"] .demo-btn:hover::before {
+  opacity: 0.04;
+}
+
+.sign-in-switch,
+.log-in-switch {
+  font-size: 14px;
+  color: var(--main-text-color);
+  margin-top: 8px;
+}
+
+.sign-in-switch span,
+.log-in-switch span {
+  color: #0045ac;
+  letter-spacing: 0.05em;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+:root[data-theme="dark"] .sign-in-switch span,
+:root[data-theme="dark"] .log-in-switch span {
+  color: #6995ff;
+}
+
+.sign-in-switch span:hover,
+.log-in-switch span:hover {
+  color: #003584;
+}
+
+.alert-icon {
+  color: #a50016;
+  font-size: 24px;
+}
+
+.check-icon svg {
+  color: #0e8a00;
+  font-size: 24px;
+}
+
+.asterisk {
+  color: #a50016;
+}
+
+:root[data-theme="dark"] .asterisk {
+  color: #f47586;
+}
+
+.generate-username-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: active;
+  padding: 0 12px;
+  pointer-events: auto;
+  z-index: 99;
+}
+
+.generate-username-btn:active {
+  background: #00000029;
+}
+
+.input-trailing-icons {
+  display: flex;
+  align-items: center;
+}
+
+.trailing-icon.invalid {
+  fill: #a50016;
+}
+
+:root[data-theme="dark"] .trailing-icon.invalid {
+  fill: #f47586;
+}
+
+.rotate-btn {
+  fill: var(--main-text-color);
+}
+
+.username-accepted {
+  color: #0a6000;
+}
+
+.input-trailing-icons .valid-pass {
+  margin-right: 8px;
+}

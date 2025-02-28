@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function KarmaIcon({ color }) {
+export function KarmaIcon({ color }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

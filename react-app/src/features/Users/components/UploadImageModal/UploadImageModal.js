@@ -76,7 +76,9 @@ export function UploadImageModal({ imgUrl, setShowModal, userId, uploadType }) {
                 onChange={showPreview}
                 hidden
               />
-              <span className="fake-upload-btn">Choose Image</span>
+              <span className="fake-upload-btn" tabIndex={0}>
+                Choose Image
+              </span>
             </label>
           </div>
         </div>

@@ -2,16 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
+
+import { useOutsideClick } from "@/hooks";
 import {
   addFavoriteCommunity,
   getFavoriteCommunities,
   removeFavoriteCommunity,
+  getCommunities,
+  getSubscriptions,
 } from "@/store";
-import { useOutsideClick } from "@/hooks";
-import { getIdFromName } from "@/utils/getCommunityIdFromName";
-import { addToSubscriptions } from "@/store";
-import { getCommunities } from "@/store";
-import { getSubscriptions } from "@/store";
+import { getIdFromName } from "@/utils";
 
 export function CommunityInfoMenu({ community }) {
   const wrapperRef = useRef(null);
@@ -55,14 +55,30 @@ export function CommunityInfoMenu({ community }) {
   };
 
   useOutsideClick(wrapperRef, () => setOpenMenu(false));
+
   return (
     <div className="community-page-menu">
-      <button aria-label="Menu" onClick={handleOpenMenu}>
+      <button
+        aria-label="Menu"
+        onClick={handleOpenMenu}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleOpenMenu(e);
+        }}
+      >
         <HiOutlineDotsHorizontal />
       </button>
       {openMenu && (
         <div className="community-info-menu" ref={wrapperRef}>
-          <button role="menuitem" onClick={handleFavorites}>
+          <button
+            role="menuitem"
+            onClick={handleFavorites}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleFavorites(e);
+              }
+            }}
+          >
             {btnState}
           </button>
         </div>

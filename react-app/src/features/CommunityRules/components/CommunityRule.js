@@ -15,7 +15,9 @@ export function CommunityRule({ idx, rule }) {
 
   return (
     <li
-      className="community-page-rule"
+      className={`community-page-rule${
+        rule.description.length > 0 && " rule-pointer"
+      }`}
       onClick={() => {
         rule.description.length > 0 && setShowDesc(!showDesc);
       }}

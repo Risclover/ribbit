@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function AllPostsIcon() {
+export function AllPostsIcon() {
   return (
     <svg
       rpl=""

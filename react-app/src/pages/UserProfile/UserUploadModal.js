@@ -22,6 +22,7 @@ export function UserUploadModal({
             : "user-profile-upload-btn"
         }
         onClick={() => setShowModal(true)}
+        tabIndex={0}
       >
         <UploadImgIcon />
       </div>
