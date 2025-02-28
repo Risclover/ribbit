@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useCommunitySettings } from "@/features/Posts/hooks/useCommunitySettings";
+import { useCommunitySettings } from "@/features";
 import { SinglePostPage } from "@/pages";
 
 export const PostPopup = ({ post, ref }) => {

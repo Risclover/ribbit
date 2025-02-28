@@ -214,6 +214,7 @@
   justify-content: space-between;
   cursor: pointer;
   position: relative;
+  color: var(--highlight-color);
 }
 
 .nav-left-dropdown-navitem:hover {

@@ -2,6 +2,8 @@ import React from "react";
 import { useAuthFlow, AuthModal } from "@/context";
 import { LoginForm } from "./AuthForms/LoginForm";
 import { SignUpForm, SignUpFormSecondPage } from "./AuthForms";
+import "../styles/AuthFormInput.css";
+import "../styles/AuthForms.css";
 
 /**
  * Decides which auth form (login, signup-first, signup-second) to render based on view.

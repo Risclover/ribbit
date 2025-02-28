@@ -3,7 +3,7 @@ export * from "./Chat";
 export * from "./Comments";
 export * from "./Communities";
 export * from "./CommunityRules";
-export * from "./CommunitySettings/components";
+export * from "./CommunitySettings";
 export * from "./Messages";
 export * from "./NewSearch";
 export * from "./Notifications";

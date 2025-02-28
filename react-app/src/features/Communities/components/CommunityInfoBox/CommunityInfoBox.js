@@ -9,10 +9,10 @@ import {
   CommunityDescription,
   CommunityOptions,
   CommunityJoinBtn,
+  useCommunitySettings,
 } from "@/features";
 import { getTextColor } from "@/utils";
 import { CommunityImg } from "@/components/CommunityImg";
-import { useCommunitySettings } from "@/features";
 import { useAuthFlow } from "@/context";
 import { CakeIcon } from "@/assets";
 

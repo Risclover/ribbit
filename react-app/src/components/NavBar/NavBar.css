@@ -71,6 +71,7 @@ nav ul li {
   padding: 5px;
   background: none;
   border: 0;
+  color: var(--highlight-color);
 }
 
 .chat-btn {

@@ -11,7 +11,7 @@ import { CommunityOptions } from "./CommunityInfoBox";
 import { useHistory } from "react-router-dom";
 import { LoginSignupModal } from "@/features/Auth";
 import { CommunityImg } from "@/components/CommunityImg";
-import { useCommunitySettings } from "@/features/Posts/hooks/useCommunitySettings";
+import { useCommunitySettings } from "@/features";
 import { useAuthFlow } from "@/context/AuthFlowContext";
 import { CakeIcon } from "@/assets";
 

@@ -35,7 +35,7 @@ export function Modal({ onClose, close, children, title, open }) {
       <div id="modal-background" onClick={onClose}></div>
       <div id="modal-content" ref={wrapperRef}>
         <div id="modal-topbar">
-          <h1 className="login-form-title">{title}</h1>
+          <h1 className="auth-modal-title">{title}</h1>
           <button
             className="modal-close-btn"
             aria-label="Close"

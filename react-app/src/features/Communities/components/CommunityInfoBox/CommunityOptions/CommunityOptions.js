@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { PiEyeLight, PiEyeSlashLight } from "react-icons/pi";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import { CommunityThemeToggle } from "./CommunityThemeToggle";
-import { useCommunitySettings } from "@/features/Posts/hooks/useCommunitySettings";
 import { useDispatch } from "react-redux";
 import { getCommunitySettings } from "@/store";
 import "./CommunityOptions.css";
@@ -20,7 +19,7 @@ export function CommunityOptions({ checked, setChecked, community }) {
     localStorage.setItem("community-themes", JSON.stringify(themes));
     dispatch(getCommunitySettings(community?.id));
   };
-  
+
   return (
     <div className="community-options-container">
       <button

@@ -43,6 +43,26 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,500&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (function () {
+        try {
+          // Get saved theme
+          let savedTheme = localStorage.getItem("theme");
+          // If no saved theme, fall back to system preference
+          if (!savedTheme) {
+            const prefersDark = window.matchMedia(
+              "(prefers-color-scheme: dark)"
+            ).matches;
+            savedTheme = prefersDark ? "dark" : "light";
+          }
+          // Set data-theme on <html> right away
+          document.documentElement.setAttribute("data-theme", savedTheme);
+        } catch (e) {
+          // fallback if localStorage not accessible
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
