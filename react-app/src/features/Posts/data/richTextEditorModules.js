@@ -1,4 +1,14 @@
 export const richTextEditorModules = {
+  keyboard: {
+    bindings: {
+      tab: {
+        key: 9,
+        handler: function (range, context) {
+          return true;
+        },
+      },
+    },
+  },
   toolbar: [
     [
       "bold",

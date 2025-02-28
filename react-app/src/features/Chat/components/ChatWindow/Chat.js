@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { io } from "socket.io-client";
 
 import { ChatNavMenu } from "../ChatNavMenu";
 import { ChatThread, ChatTitleBar } from "../ChatThread";

@@ -16,6 +16,8 @@ else:
 # initialize your socket instance
 socketio = SocketIO(cors_allowed_origins=origins)
 
+last_emit_time = {}
+
 chatUsers = []
 last_emit_time = {}
 

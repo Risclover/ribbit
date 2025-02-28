@@ -9,6 +9,16 @@ import "react-quill/dist/quill.snow.css";
 import "./CreatePost/PostForm.css";
 
 const modules = {
+  keyboard: {
+    bindings: {
+      tab: {
+        key: 9,
+        handler: function (range, context) {
+          return true;
+        },
+      },
+    },
+  },
   toolbar: [
     [
       "bold",

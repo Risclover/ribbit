@@ -44,6 +44,16 @@ export function useChatSocket({
 
       socketRef.current.on("deleted", onDelete);
     }
+
+    if (socketRef.current && user && chatThreads) {
+      Object.values(chatThreads).forEach((thread) => {
+        socketRef.current.emit("join", {
+          user: user.id,
+          room: thread.id,
+        });
+      });
+    }
+
     return () => {
       if (socketRef.current) {
         socketRef.current.disconnect();

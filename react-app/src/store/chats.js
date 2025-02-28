@@ -3,6 +3,7 @@
 const LOAD_CHAT_THREADS = "chat_threads/LOAD_CHAT_THREADS";
 const LOAD_CHAT_THREAD = "chat_threads/LOAD_CHAT_THREAD";
 const RECEIVE_NEW_MESSAGE = "chat_threads/RECEIVE_NEW_MESSAGE";
+const THREAD_UNREAD_UPDATE = "chat_threads/THREAD_UNREAD_UPDATE";
 
 export const receiveNewMessage = (message) => {
   return {
@@ -27,6 +28,11 @@ const loadChatThread = (chatThread) => {
     chatThread,
   };
 };
+
+export const threadUnreadUpdate = (threadId, hasUnread) => ({
+  type: THREAD_UNREAD_UPDATE,
+  payload: { threadId, hasUnread },
+});
 
 /* ------------------------- THUNKS ------------------------- */
 
@@ -143,6 +149,20 @@ export default function chatThreadReducer(state = initialState, action) {
           messages: [...(state[threadId]?.messages || []), message],
         },
       };
+
+    case THREAD_UNREAD_UPDATE: {
+      const { threadId, hasUnread } = action.payload;
+      const existingThread = state[threadId];
+      if (!existingThread) return state; // if we haven't loaded that thread yet, skip
+
+      return {
+        ...state,
+        [threadId]: {
+          ...existingThread,
+          hasUnread, // boolean
+        },
+      };
+    }
 
     default:
       return state;
