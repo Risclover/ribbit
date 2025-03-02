@@ -45,7 +45,7 @@
 
 .delete-modal-btn-right {
   background: var(--community-highlight);
-  color: white;
+  color: var(--ribbit-main);
 }
 
 .delete-modal-btn-left:hover {
@@ -57,6 +57,7 @@
 .delete-modal-btn-right:hover {
   background: rgba(234, 0, 39, 0.8);
   border-color: rgba(234, 0, 39, 0.8);
+  color: white;
 }
 
 .modal-content form {

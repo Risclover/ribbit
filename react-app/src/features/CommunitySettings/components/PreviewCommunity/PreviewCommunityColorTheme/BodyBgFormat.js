@@ -18,10 +18,16 @@ export function BodyBgFormat({
       }`}
       role="radio"
       onClick={handleBgFormat}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          handleBgFormat(e);
+        }
+      }}
     >
       <div
         className={`body-bg-format-border ${
-          format !== backgroundImgFormat && "body-bg-format-selected"
+          format !== backgroundImgFormat ? "body-bg-format-selected" : ""
         }`}
       >
         {format === "tile" ? (
@@ -29,13 +35,13 @@ export function BodyBgFormat({
         ) : format === "fill" ? (
           <div
             className={`square ${
-              format !== backgroundImgFormat && "body-bg-format-selected"
+              format !== backgroundImgFormat ? "body-bg-format-selected" : ""
             }`}
           ></div>
         ) : (
           <div
             className={`square square-sm ${
-              format !== backgroundImgFormat && "body-bg-format-selected"
+              format !== backgroundImgFormat ? "body-bg-format-selected" : ""
             }`}
           ></div>
         )}

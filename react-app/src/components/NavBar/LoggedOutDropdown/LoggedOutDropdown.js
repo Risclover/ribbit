@@ -27,13 +27,7 @@ export function LoggedOutDropdown({ setShowDropdown }) {
           className="nav-user-dropdown-btn dark-mode-toggle"
           onClick={(e) => {
             e.stopPropagation();
-            toggleTheme();
-          }}
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              toggleTheme();
-            }
+            toggleTheme(e);
           }}
         >
           Dark Mode{" "}

@@ -17,7 +17,13 @@ export function PreviewCommunityColorThemeColor({
   return (
     <div
       className="preview-community-color-theme-color"
-      onClick={() => setOpenPicker(true)}
+      onClick={() => setOpenPicker(!openPicker)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          setOpenPicker(!openPicker);
+        }
+      }}
+      tabIndex={0}
     >
       <h3>{name}</h3>
       <div

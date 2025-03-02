@@ -38,7 +38,7 @@ export function CommunityInfoMenu({ community }) {
 
   const handleOpenMenu = (e) => {
     e.preventDefault();
-    setOpenMenu(!openMenu);
+    setOpenMenu((prev) => !prev);
   };
 
   const handleFavorites = async (e) => {
@@ -57,7 +57,7 @@ export function CommunityInfoMenu({ community }) {
   useOutsideClick(wrapperRef, () => setOpenMenu(false));
 
   return (
-    <div className="community-page-menu">
+    <div className="community-page-menu" ref={wrapperRef}>
       <button
         aria-label="Menu"
         onClick={handleOpenMenu}
@@ -69,7 +69,7 @@ export function CommunityInfoMenu({ community }) {
         <HiOutlineDotsHorizontal />
       </button>
       {openMenu && (
-        <div className="community-info-menu" ref={wrapperRef}>
+        <div className="community-info-menu">
           <button
             role="menuitem"
             onClick={handleFavorites}

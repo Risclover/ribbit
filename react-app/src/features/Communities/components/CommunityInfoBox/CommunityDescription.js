@@ -37,20 +37,19 @@ export function CommunityDescription({ community, user, isPage }) {
     setShowEditDescription(false);
   };
 
+  const handleDescriptionHover = () => {
+    setShowEditDescription(true);
+    setTimeout(() => {
+      const textareaBox = document.querySelector("#edit-community-description");
+      textareaBox.style.height = textareaRef.current.scrollHeight + "px";
+    }, 5);
+  };
+
   return (
     <div className="community-page-description">
       {isPage !== "singlepage" && user?.id === community.userId && (
         <div
-          onClick={() => {
-            setShowEditDescription(true);
-            setTimeout(() => {
-              const textareaBox = document.querySelector(
-                "#edit-community-description"
-              );
-              textareaBox.style.height =
-                textareaRef.current.scrollHeight + "px";
-            }, 5);
-          }}
+          onClick={handleDescriptionHover}
           className={`${
             showEditDescription
               ? "community-page-edit-description "
@@ -58,6 +57,12 @@ export function CommunityDescription({ community, user, isPage }) {
               ? "add-description-box "
               : ""
           }community-page-box-description`}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleDescriptionHover();
+            }
+          }}
         >
           {!showEditDescription && description.length === 0 ? (
             <div className="edit-community-description-add-description">

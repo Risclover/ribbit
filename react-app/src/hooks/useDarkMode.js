@@ -24,7 +24,9 @@ export function useDarkMode() {
     document.documentElement.style.setProperty("--current-color-scheme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
+  const toggleTheme = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setChecked((prev) => (prev === true ? false : true));
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   };

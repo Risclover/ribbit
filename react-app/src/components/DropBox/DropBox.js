@@ -69,7 +69,7 @@ export const DropBox = ({
       )}
       {showBar && (
         <PreviewBar
-        onErase={handleDelete}
+          onErase={handleDelete}
           showBar={showBar}
           preview={preview}
         />

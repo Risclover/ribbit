@@ -1,973 +1,290 @@
-from app.models import db, CommentVote
+import random
+from app.models import db, CommentVote, Comment, User
 
 def seed_commentvotes():
-    db.session.add_all([
+    # Gather existing Comments and Users
+    comments = Comment.query.all()
+    users = User.query.all()
+    user_ids = [u.id for u in users]
 
-        # -------------------------------------------------------------------------
-        # POST 1
-        # -------------------------------------------------------------------------
+    desired_scores = {
+        1: 8,
+        2: 5,
+        3: -3,
+        4: 3,
+        5: 5,
+        6: 4,
+        7: 0,
+        8: 8,
+        9: 8,
+        10: 5,
+        11: 4,
+        12: 3,
+        13: 1,
+        14: 6,
+        15: 5,
+        16: 9,
+        17: 4,
+        18: 3,
+        19: 8,
+        20: 2,
+        21: 11,
+        22: 8,
+        23: 5,
+        24: 2,
+        25: 1,
+        26: 3,
+        27: 1,
+        28: 1,
+        29: -3,
+        30: 14,
+        31: 10,
+        32: 6,
+        33: 4,
+        34: 2,
+        35: 10,
+        36: 5,
+        37: 1,
+        38: 14,
+        39: 9,
+        40: 6,
+        41: 4,
+        42: 1,
+        43: 8,
+        44: -1,
+        45: 12,
+        46: 3,
+        47: 4,
+        48: 4,
+        49: 1,
+        50: 0,
+        51: 20,
+        52: 16,
+        53: 1,
+        54: 14,
+        55: 5,
+        56: 2,
+        57: 11,
+        58: 4,
+        59: 1,
+        60: 1,
+        61: 4,
+        62: -2,
+        63: 15,
+        64: 10,
+        65: 3,
+        66: 12,
+        67: 8,
+        68: 7,
+        69: 21,
+        70: 4,
+        71: 12,
+        72: 6,
+        73: 5,
+        74: 3,
+        75: 10,
+        76: 9,
+        77: 2,
+        78: 3,
+        79: 6,
+        80: 5,
+        81: 4,
+        82: 11,
+        83: 9,
+        84: 10,
+        85: 3,
+        86: 4,
+        87: 2,
+        88: 7,
+        89: 2,
+        90: 5,
+        91: 2,
+        92: 23,
+        93: 3,
+        94: 19,
+        95: 4,
+        96: 3,
+        97: 7,
+        98: 2,
+        99: 1,
+        100: 7,
+        101: 3,
+        102: 1,
+        103: 1,
+        104: 1,
+        105: 3,
+        106: 0,
+        107: 3,
+        108: 1,
+        109: 2,
+        110: 1,
+        111: 9,
+        112: 7,
+        113: 6,
+        114: -1,
+        115: 5,
+        116: 1,
+        117: -1,
+        118: 1,
+        119: 1,
+        120: 5,
+        121: 5,
+        122: 3,
+        123: 1,
+        124: 7,
+        125: 4,
+        126: 3,
+        127: 2,
+        128: -4,
+        129: 5,
+        130: 2,
+        131: 3,
+        132: -3,
+        133: 0,
+        134: 11,
+        135: 8,
+        136: 7,
+        137: 8,
+        138: 4,
+        139: 2,
+        140: -2,
+        141: 0,
+        142: 8,
+        143: 3,
+        144: 12,
+        145: 10,
+        146: 9,
+        147: 6,
+        148: 4,
+        149: 2,
+        150: 2,
+        151: 0,
+        152: 19,
+        153: 16,
+        154: 14,
+        155: 13,
+        156: -1,
+        157: 14,
+        158: 5,
+        159: 17,
+        160: 10,
+        161: 8,
+        162: 5,
+        163: 3,
+        164: 3,
+        165: 2,
+        166: 1,
+        167: 2,
+        168: 1,
+        169: 4,
+        170: 4,
+        171: 2,
+        172: 1,
+        173: 8,
+        174: 6,
+        175: 3,
+        176: 0,
+        177: 9,
+        178: 5,
+        179: 4,
+        180: 4,
+        181: 2,
+        182: 13,
+        183: 9,
+        184: 6,
+        185: 4,
+        186: 3,
+        187: 11,
+        188: 8,
+        189: 6,
+        190: 5,
+        191: 3,
+        192: 10,
+        193: 8,
+        194: 5,
+        195: 3,
+        196: -1,
+        197: -2,
+        198: 1,
+        199: 14,
+        200: 9,
+        201: 8,
+        202: 6,
+        203: 4,
+        204: 2
+    }
 
-        # -------------------------------------------------------------------------
-        # COMMENT 1 - POST 1 COMMENT 1 || Votes: 8 (+10, -2)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=3, comment_id=1, is_upvote=True),
-        CommentVote(user_id=1, comment_id=1, is_upvote=True),
-        CommentVote(user_id=2, comment_id=1, is_upvote=True),
-        CommentVote(user_id=4, comment_id=1, is_upvote=True),
-        CommentVote(user_id=7, comment_id=1, is_upvote=True),
-        CommentVote(user_id=8, comment_id=1, is_upvote=True),
-        CommentVote(user_id=9, comment_id=1, is_upvote=True),
-        CommentVote(user_id=10, comment_id=1, is_upvote=True),
-        CommentVote(user_id=11, comment_id=1, is_upvote=True),
-        CommentVote(user_id=12, comment_id=1, is_upvote=True),
-        CommentVote(user_id=5, comment_id=1, is_upvote=False),
-        CommentVote(user_id=6, comment_id=1, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 2 - POST 1 COMMENT 2 || Votes: 5 (+5, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=4, comment_id=2, is_upvote=True),
-        CommentVote(user_id=1, comment_id=2, is_upvote=True),
-        CommentVote(user_id=2, comment_id=2, is_upvote=True),
-        CommentVote(user_id=5, comment_id=2, is_upvote=True),
-        CommentVote(user_id=6, comment_id=2, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 3 - POST 1 COMMENT 3 || Votes: -3 (+1, -4)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=5, comment_id=3, is_upvote=True),
-        CommentVote(user_id=1, comment_id=3, is_upvote=False),
-        CommentVote(user_id=2, comment_id=3, is_upvote=False),
-        CommentVote(user_id=3, comment_id=3, is_upvote=False),
-        CommentVote(user_id=6, comment_id=3, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 4 - POST 1 COMMENT 4 || Votes: 3 (+4, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=6, comment_id=4, is_upvote=True),
-        CommentVote(user_id=8, comment_id=4, is_upvote=True),
-        CommentVote(user_id=9, comment_id=4, is_upvote=True),
-        CommentVote(user_id=10, comment_id=4, is_upvote=True),
-        CommentVote(user_id=11, comment_id=4, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 5 - POST 1 COMMENT 5 || Votes: 5 (+5, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=4, comment_id=5, is_upvote=True),
-        CommentVote(user_id=12, comment_id=5, is_upvote=True),
-        CommentVote(user_id=13, comment_id=5, is_upvote=True),
-        CommentVote(user_id=14, comment_id=5, is_upvote=True),
-        CommentVote(user_id=15, comment_id=5, is_upvote=True),
-        CommentVote(user_id=16, comment_id=5, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 6 - POST 1 COMMENT 6 || Votes: 4 (+4, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=7, comment_id=6, is_upvote=True),
-        CommentVote(user_id=17, comment_id=6, is_upvote=True),
-        CommentVote(user_id=18, comment_id=6, is_upvote=True),
-        CommentVote(user_id=19, comment_id=6, is_upvote=True),
-        CommentVote(user_id=20, comment_id=6, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 7 - POST 1 COMMENT 7 || Votes: 0 (+1, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=2, comment_id=7, is_upvote=True),
-        CommentVote(user_id=21, comment_id=7, is_upvote=False),
+    votes_to_add = []
 
+    for comment in comments:
+        author_id = comment.user_id
+        # 1) Author always upvotes
+        votes_to_add.append(
+            CommentVote(user_id=author_id, comment_id=comment.id, is_upvote=True)
+        )
 
+        remaining_user_ids = [u for u in user_ids if u != author_id]
 
-        # -------------------------------------------------------------------------
-        # POST 2
-        # -------------------------------------------------------------------------
+        if comment.id in desired_scores:
+            net_score = desired_scores[comment.id]
+            net_score_after_author = net_score - 1
 
-        # -------------------------------------------------------------------------
-        # COMMENT 8 - POST 2 COMMENT 1 || Votes: 8 (+8, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=8, comment_id=8, is_upvote=True),
-        CommentVote(user_id=22, comment_id=8, is_upvote=True),
-        CommentVote(user_id=23, comment_id=8, is_upvote=True),
-        CommentVote(user_id=24, comment_id=8, is_upvote=True),
-        CommentVote(user_id=25, comment_id=8, is_upvote=True),
-        CommentVote(user_id=26, comment_id=8, is_upvote=True),
-        CommentVote(user_id=27, comment_id=8, is_upvote=True),
-        CommentVote(user_id=28, comment_id=8, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 9 - POST 2 COMMENT 2 || Votes: 8 (+8, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=9, comment_id=9, is_upvote=True),
-        CommentVote(user_id=29, comment_id=9, is_upvote=True),
-        CommentVote(user_id=30, comment_id=9, is_upvote=True),
-        CommentVote(user_id=31, comment_id=9, is_upvote=True),
-        CommentVote(user_id=32, comment_id=9, is_upvote=True),
-        CommentVote(user_id=33, comment_id=9, is_upvote=True),
-        CommentVote(user_id=34, comment_id=9, is_upvote=True),
-        CommentVote(user_id=35, comment_id=9, is_upvote=True),
-        CommentVote(user_id=36, comment_id=9, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 10 - POST 2 COMMENT 3 || Votes: 5 (+7, -2)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=10, comment_id=10, is_upvote=True),
-        CommentVote(user_id=37, comment_id=10, is_upvote=True),
-        CommentVote(user_id=38, comment_id=10, is_upvote=True),
-        CommentVote(user_id=39, comment_id=10, is_upvote=True),
-        CommentVote(user_id=11, comment_id=10, is_upvote=True),
-        CommentVote(user_id=12, comment_id=10, is_upvote=True),
-        CommentVote(user_id=13, comment_id=10, is_upvote=True),
-        CommentVote(user_id=40, comment_id=10, is_upvote=False),
-        CommentVote(user_id=41, comment_id=10, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 11 - POST 2 COMMENT 4 || Votes: 4 (+5, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=11, comment_id=11, is_upvote=True),
-        CommentVote(user_id=42, comment_id=11, is_upvote=True),
-        CommentVote(user_id=43, comment_id=11, is_upvote=True),
-        CommentVote(user_id=44, comment_id=11, is_upvote=True),
-        CommentVote(user_id=45, comment_id=11, is_upvote=True),
-        CommentVote(user_id=46, comment_id=11, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 12 - POST 2 COMMENT 5 || Votes: 3 (+5, -2)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=12, comment_id=12, is_upvote=True),
-        CommentVote(user_id=47, comment_id=12, is_upvote=True),
-        CommentVote(user_id=48, comment_id=12, is_upvote=True),
-        CommentVote(user_id=49, comment_id=12, is_upvote=True),
-        CommentVote(user_id=50, comment_id=12, is_upvote=True),
-        CommentVote(user_id=1, comment_id=12, is_upvote=False),
-        CommentVote(user_id=2, comment_id=12, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 13 - POST 2 COMMENT 6 || Votes: 1 (+1, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=13, comment_id=13, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 14 - POST 2 COMMENT 7 || Votes: 6 (+8, -2)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=14, comment_id=14, is_upvote=True),
-        CommentVote(user_id=3, comment_id=14, is_upvote=True),
-        CommentVote(user_id=4, comment_id=14, is_upvote=True),
-        CommentVote(user_id=5, comment_id=14, is_upvote=True),
-        CommentVote(user_id=6, comment_id=14, is_upvote=True),
-        CommentVote(user_id=7, comment_id=14, is_upvote=True),
-        CommentVote(user_id=8, comment_id=14, is_upvote=True),
-        CommentVote(user_id=9, comment_id=14, is_upvote=True),
-        CommentVote(user_id=10, comment_id=14, is_upvote=False),
-        CommentVote(user_id=11, comment_id=14, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 15 - POST 2 COMMENT 8 || Votes: 5 (+6, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=15, comment_id=15, is_upvote=True),
-        CommentVote(user_id=12, comment_id=15, is_upvote=True),
-        CommentVote(user_id=13, comment_id=15, is_upvote=True),
-        CommentVote(user_id=14, comment_id=15, is_upvote=True),
-        CommentVote(user_id=16, comment_id=15, is_upvote=True),
-        CommentVote(user_id=17, comment_id=15, is_upvote=True),
-        CommentVote(user_id=18, comment_id=15, is_upvote=False),
+            # 2) Decide a total T (from abs(...) up to abs(...) + 10)
+            T = random.randint(abs(net_score_after_author), abs(net_score_after_author) + 10)
 
+            # Ensure T + net is even
+            while (T + net_score_after_author) % 2 != 0:
+                T += 1
 
+            # Make sure T <= the user pool for no duplications:
+            if T > len(remaining_user_ids):
+                T = len(remaining_user_ids)
+                # Could re-check the evenness condition again if desired...
 
-        # -------------------------------------------------------------------------
-        # POST 3
-        # -------------------------------------------------------------------------
+            # 3) Solve for up_count / down_count
+            up_count = (T + net_score_after_author) // 2
+            down_count = T - up_count
 
-        # -------------------------------------------------------------------------
-        # COMMENT 16 - POST 3 COMMENT 1 || Votes: 9 (+9, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=16, comment_id=16, is_upvote=True),
-        CommentVote(user_id=19, comment_id=16, is_upvote=True),
-        CommentVote(user_id=20, comment_id=16, is_upvote=True),
-        CommentVote(user_id=21, comment_id=16, is_upvote=True),
-        CommentVote(user_id=22, comment_id=16, is_upvote=True),
-        CommentVote(user_id=23, comment_id=16, is_upvote=True),
-        CommentVote(user_id=24, comment_id=16, is_upvote=True),
-        CommentVote(user_id=25, comment_id=16, is_upvote=True),
-        CommentVote(user_id=26, comment_id=16, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 17 - POST 3 COMMENT 2 || Votes: 4 (+5, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=16, comment_id=17, is_upvote=True),
-        CommentVote(user_id=17, comment_id=17, is_upvote=True),
-        CommentVote(user_id=18, comment_id=17, is_upvote=True),
-        CommentVote(user_id=19, comment_id=17, is_upvote=True),
-        CommentVote(user_id=20, comment_id=17, is_upvote=True),
-        CommentVote(user_id=21, comment_id=17, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 18 - POST 3 COMMENT 3 || Votes: 3 (+3, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=16, comment_id=18, is_upvote=True),
-        CommentVote(user_id=22, comment_id=18, is_upvote=True),
-        CommentVote(user_id=23, comment_id=18, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 19 - POST 3 COMMENT 4 || Votes: 8 (+11, -3)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=18, comment_id=19, is_upvote=True),
-        CommentVote(user_id=24, comment_id=19, is_upvote=True),
-        CommentVote(user_id=25, comment_id=19, is_upvote=True),
-        CommentVote(user_id=26, comment_id=19, is_upvote=True),
-        CommentVote(user_id=27, comment_id=19, is_upvote=True),
-        CommentVote(user_id=28, comment_id=19, is_upvote=True),
-        CommentVote(user_id=29, comment_id=19, is_upvote=True),
-        CommentVote(user_id=30, comment_id=19, is_upvote=True),
-        CommentVote(user_id=31, comment_id=19, is_upvote=True),
-        CommentVote(user_id=32, comment_id=19, is_upvote=True),
-        CommentVote(user_id=33, comment_id=19, is_upvote=True),
-        CommentVote(user_id=34, comment_id=19, is_upvote=False),
-        CommentVote(user_id=35, comment_id=19, is_upvote=False),
-        CommentVote(user_id=36, comment_id=19, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 20 - POST 3 COMMENT 5 || Votes: 2 (+2, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=4, comment_id=20, is_upvote=True),
-        CommentVote(user_id=37, comment_id=20, is_upvote=True),
+            # 4) Edge cases
+            if up_count < 0:
+                up_count = 0
+                down_count = 0
 
+            if up_count > len(remaining_user_ids):
+                up_count = len(remaining_user_ids)
 
+            # 5) Pick upvoters
+            upvoters = random.sample(remaining_user_ids, up_count)
+            votes_to_add.extend([
+                CommentVote(user_id=u_id, comment_id=comment.id, is_upvote=True)
+                for u_id in upvoters
+            ])
+            remaining_user_ids = [u for u in remaining_user_ids if u not in upvoters]
 
-        # -------------------------------------------------------------------------
-        # POST 4
-        # -------------------------------------------------------------------------
+            # 6) Pick downvoters
+            if down_count > len(remaining_user_ids):
+                down_count = len(remaining_user_ids)
 
-        # -------------------------------------------------------------------------
-        # COMMENT 21 - POST 4 COMMENT 1 || Votes: 11 (+15, -4)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=19, comment_id=21, is_upvote=True),
-        CommentVote(user_id=38, comment_id=21, is_upvote=True),
-        CommentVote(user_id=39, comment_id=21, is_upvote=True),
-        CommentVote(user_id=40, comment_id=21, is_upvote=True),
-        CommentVote(user_id=41, comment_id=21, is_upvote=True),
-        CommentVote(user_id=42, comment_id=21, is_upvote=True),
-        CommentVote(user_id=43, comment_id=21, is_upvote=True),
-        CommentVote(user_id=44, comment_id=21, is_upvote=True),
-        CommentVote(user_id=45, comment_id=21, is_upvote=True),
-        CommentVote(user_id=46, comment_id=21, is_upvote=True),
-        CommentVote(user_id=47, comment_id=21, is_upvote=True),
-        CommentVote(user_id=48, comment_id=21, is_upvote=True),
-        CommentVote(user_id=49, comment_id=21, is_upvote=True),
-        CommentVote(user_id=50, comment_id=21, is_upvote=True),
-        CommentVote(user_id=1, comment_id=21, is_upvote=True),
-        CommentVote(user_id=2, comment_id=21, is_upvote=False),
-        CommentVote(user_id=3, comment_id=21, is_upvote=False),
-        CommentVote(user_id=4, comment_id=21, is_upvote=False),
-        CommentVote(user_id=5, comment_id=21, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 22 - POST 4 COMMENT 2 || Votes: 8 (+10, -2)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=20, comment_id=22, is_upvote=True),
-        CommentVote(user_id=6, comment_id=22, is_upvote=True),
-        CommentVote(user_id=7, comment_id=22, is_upvote=True),
-        CommentVote(user_id=8, comment_id=22, is_upvote=True),
-        CommentVote(user_id=9, comment_id=22, is_upvote=True),
-        CommentVote(user_id=10, comment_id=22, is_upvote=True),
-        CommentVote(user_id=11, comment_id=22, is_upvote=True),
-        CommentVote(user_id=12, comment_id=22, is_upvote=True),
-        CommentVote(user_id=13, comment_id=22, is_upvote=True),
-        CommentVote(user_id=14, comment_id=22, is_upvote=True),
-        CommentVote(user_id=15, comment_id=22, is_upvote=False),
-        CommentVote(user_id=16, comment_id=22, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 23 - POST 4 COMMENT 3 || Votes: 5 (+8, -3)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=19, comment_id=23, is_upvote=True),
-        CommentVote(user_id=17, comment_id=23, is_upvote=True),
-        CommentVote(user_id=18, comment_id=23, is_upvote=True),
-        CommentVote(user_id=20, comment_id=23, is_upvote=True),
-        CommentVote(user_id=21, comment_id=23, is_upvote=True),
-        CommentVote(user_id=22, comment_id=23, is_upvote=True),
-        CommentVote(user_id=23, comment_id=23, is_upvote=True),
-        CommentVote(user_id=24, comment_id=23, is_upvote=True),
-        CommentVote(user_id=25, comment_id=23, is_upvote=False),
-        CommentVote(user_id=26, comment_id=23, is_upvote=False),
-        CommentVote(user_id=27, comment_id=23, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 24 - POST 4 COMMENT 4 || Votes: 2 (+2, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=21, comment_id=24, is_upvote=True),
-        CommentVote(user_id=28, comment_id=24, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 25 - POST 4 COMMENT 5 || Votes: 1 (+1, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=22, comment_id=25, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 26 - POST 4 COMMENT 6 || Votes: 3 (+4, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=23, comment_id=26, is_upvote=True),
-        CommentVote(user_id=29, comment_id=26, is_upvote=True),
-        CommentVote(user_id=30, comment_id=26, is_upvote=True),
-        CommentVote(user_id=31, comment_id=26, is_upvote=True),
-        CommentVote(user_id=32, comment_id=26, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 27 - POST 4 COMMENT 7 || Votes: 1 (+1, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=24, comment_id=27, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 28 - POST 4 COMMENT 8 || Votes: 1 (+2, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=25, comment_id=28, is_upvote=True),
-        CommentVote(user_id=33, comment_id=28, is_upvote=True),
-        CommentVote(user_id=34, comment_id=28, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 29 - POST 4 COMMENT 9 || Votes: -3 (2, -5)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=26, comment_id=29, is_upvote=True),
-        CommentVote(user_id=35, comment_id=29, is_upvote=True),
-        CommentVote(user_id=36, comment_id=29, is_upvote=False),
-        CommentVote(user_id=37, comment_id=29, is_upvote=False),
-        CommentVote(user_id=38, comment_id=29, is_upvote=False),
-        CommentVote(user_id=39, comment_id=29, is_upvote=False),
-        CommentVote(user_id=40, comment_id=29, is_upvote=False),
+            downvoters = random.sample(remaining_user_ids, down_count)
+            votes_to_add.extend([
+                CommentVote(user_id=u_id, comment_id=comment.id, is_upvote=False)
+                for u_id in downvoters
+            ])
 
+        else:
+            # For comments not in desired_scores, do random seeding
+            for u_id in remaining_user_ids:
+                # 30% chance to vote, and 70% of those are upvotes
+                if random.random() < 0.3:
+                    is_up = (random.random() < 0.7)
+                    votes_to_add.append(
+                        CommentVote(user_id=u_id, comment_id=comment.id, is_upvote=is_up)
+                    )
 
-
-        # -------------------------------------------------------------------------
-        # POST 5
-        # -------------------------------------------------------------------------
-
-        # -------------------------------------------------------------------------
-        # COMMENT 30 - POST 5 COMMENT 1 || Votes: 14 (+20, -6)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=27, comment_id=30, is_upvote=True),
-        CommentVote(user_id=41, comment_id=30, is_upvote=True),
-        CommentVote(user_id=42, comment_id=30, is_upvote=True),
-        CommentVote(user_id=43, comment_id=30, is_upvote=True),
-        CommentVote(user_id=44, comment_id=30, is_upvote=True),
-        CommentVote(user_id=45, comment_id=30, is_upvote=True),
-        CommentVote(user_id=46, comment_id=30, is_upvote=True),
-        CommentVote(user_id=47, comment_id=30, is_upvote=True),
-        CommentVote(user_id=48, comment_id=30, is_upvote=True),
-        CommentVote(user_id=49, comment_id=30, is_upvote=True),
-        CommentVote(user_id=50, comment_id=30, is_upvote=True),
-        CommentVote(user_id=1, comment_id=30, is_upvote=True),
-        CommentVote(user_id=2, comment_id=30, is_upvote=True),
-        CommentVote(user_id=3, comment_id=30, is_upvote=True),
-        CommentVote(user_id=4, comment_id=30, is_upvote=True),
-        CommentVote(user_id=5, comment_id=30, is_upvote=True),
-        CommentVote(user_id=6, comment_id=30, is_upvote=True),
-        CommentVote(user_id=7, comment_id=30, is_upvote=True),
-        CommentVote(user_id=8, comment_id=30, is_upvote=True),
-        CommentVote(user_id=9, comment_id=30, is_upvote=True),
-        CommentVote(user_id=10, comment_id=30, is_upvote=False),
-        CommentVote(user_id=11, comment_id=30, is_upvote=False),
-        CommentVote(user_id=12, comment_id=30, is_upvote=False),
-        CommentVote(user_id=13, comment_id=30, is_upvote=False),
-        CommentVote(user_id=14, comment_id=30, is_upvote=False),
-        CommentVote(user_id=15, comment_id=30, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 31 - POST 5 COMMENT 2 || Votes: 10 (+14, -4)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=28, comment_id=31, is_upvote=True),
-        CommentVote(user_id=16, comment_id=31, is_upvote=True),
-        CommentVote(user_id=17, comment_id=31, is_upvote=True),
-        CommentVote(user_id=18, comment_id=31, is_upvote=True),
-        CommentVote(user_id=19, comment_id=31, is_upvote=True),
-        CommentVote(user_id=20, comment_id=31, is_upvote=True),
-        CommentVote(user_id=21, comment_id=31, is_upvote=True),
-        CommentVote(user_id=22, comment_id=31, is_upvote=True),
-        CommentVote(user_id=23, comment_id=31, is_upvote=True),
-        CommentVote(user_id=24, comment_id=31, is_upvote=True),
-        CommentVote(user_id=25, comment_id=31, is_upvote=True),
-        CommentVote(user_id=26, comment_id=31, is_upvote=True),
-        CommentVote(user_id=27, comment_id=31, is_upvote=True),
-        CommentVote(user_id=29, comment_id=31, is_upvote=True),
-        CommentVote(user_id=30, comment_id=31, is_upvote=False),
-        CommentVote(user_id=31, comment_id=31, is_upvote=False),
-        CommentVote(user_id=32, comment_id=31, is_upvote=False),
-        CommentVote(user_id=33, comment_id=31, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 32 - POST 5 COMMENT 3 || Votes: 6 (+7, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=27, comment_id=32, is_upvote=True),
-        CommentVote(user_id=34, comment_id=32, is_upvote=True),
-        CommentVote(user_id=35, comment_id=32, is_upvote=True),
-        CommentVote(user_id=36, comment_id=32, is_upvote=True),
-        CommentVote(user_id=37, comment_id=32, is_upvote=True),
-        CommentVote(user_id=38, comment_id=32, is_upvote=True),
-        CommentVote(user_id=39, comment_id=32, is_upvote=True),
-        CommentVote(user_id=40, comment_id=32, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 33 - POST 5 COMMENT 4 || Votes: 4 (+4, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=29, comment_id=33, is_upvote=True),
-        CommentVote(user_id=41, comment_id=33, is_upvote=True),
-        CommentVote(user_id=42, comment_id=33, is_upvote=True),
-        CommentVote(user_id=43, comment_id=33, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 34 - POST 5 COMMENT 5 || Votes: 2 (+3, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=30, comment_id=34, is_upvote=True),
-        CommentVote(user_id=44, comment_id=34, is_upvote=True),
-        CommentVote(user_id=45, comment_id=34, is_upvote=True),
-        CommentVote(user_id=46, comment_id=34, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 35 - POST 5 COMMENT 6 || Votes: 10 (+15, -5)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=31, comment_id=35, is_upvote=True),
-        CommentVote(user_id=47, comment_id=35, is_upvote=True),
-        CommentVote(user_id=48, comment_id=35, is_upvote=True),
-        CommentVote(user_id=49, comment_id=35, is_upvote=True),
-        CommentVote(user_id=50, comment_id=35, is_upvote=True),
-        CommentVote(user_id=1, comment_id=35, is_upvote=True),
-        CommentVote(user_id=2, comment_id=35, is_upvote=True),
-        CommentVote(user_id=3, comment_id=35, is_upvote=True),
-        CommentVote(user_id=4, comment_id=35, is_upvote=True),
-        CommentVote(user_id=5, comment_id=35, is_upvote=True),
-        CommentVote(user_id=6, comment_id=35, is_upvote=True),
-        CommentVote(user_id=7, comment_id=35, is_upvote=True),
-        CommentVote(user_id=8, comment_id=35, is_upvote=True),
-        CommentVote(user_id=9, comment_id=35, is_upvote=True),
-        CommentVote(user_id=10, comment_id=35, is_upvote=True),
-        CommentVote(user_id=11, comment_id=35, is_upvote=False),
-        CommentVote(user_id=12, comment_id=35, is_upvote=False),
-        CommentVote(user_id=13, comment_id=35, is_upvote=False),
-        CommentVote(user_id=14, comment_id=35, is_upvote=False),
-        CommentVote(user_id=15, comment_id=35, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 36 - POST 5 COMMENT 7 || Votes: 5 (+8, -3)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=32, comment_id=36, is_upvote=True),
-        CommentVote(user_id=16, comment_id=36, is_upvote=True),
-        CommentVote(user_id=17, comment_id=36, is_upvote=True),
-        CommentVote(user_id=18, comment_id=36, is_upvote=True),
-        CommentVote(user_id=19, comment_id=36, is_upvote=True),
-        CommentVote(user_id=20, comment_id=36, is_upvote=True),
-        CommentVote(user_id=21, comment_id=36, is_upvote=True),
-        CommentVote(user_id=22, comment_id=36, is_upvote=True),
-        CommentVote(user_id=23, comment_id=36, is_upvote=False),
-        CommentVote(user_id=24, comment_id=36, is_upvote=False),
-        CommentVote(user_id=25, comment_id=36, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 37 - POST 5 COMMENT 8 || Votes: 1 (+1, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=33, comment_id=37, is_upvote=True),
-
-
-
-        # -------------------------------------------------------------------------
-        # POST 6
-        # -------------------------------------------------------------------------
-
-        # -------------------------------------------------------------------------
-        # COMMENT 38 - POST 6 COMMENT 1 || Votes: 14 (+18, -4)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=34, comment_id=38, is_upvote=True),
-        CommentVote(user_id=26, comment_id=38, is_upvote=True),
-        CommentVote(user_id=27, comment_id=38, is_upvote=True),
-        CommentVote(user_id=28, comment_id=38, is_upvote=True),
-        CommentVote(user_id=29, comment_id=38, is_upvote=True),
-        CommentVote(user_id=30, comment_id=38, is_upvote=True),
-        CommentVote(user_id=31, comment_id=38, is_upvote=True),
-        CommentVote(user_id=32, comment_id=38, is_upvote=True),
-        CommentVote(user_id=33, comment_id=38, is_upvote=True),
-        CommentVote(user_id=35, comment_id=38, is_upvote=True),
-        CommentVote(user_id=36, comment_id=38, is_upvote=True),
-        CommentVote(user_id=37, comment_id=38, is_upvote=True),
-        CommentVote(user_id=38, comment_id=38, is_upvote=True),
-        CommentVote(user_id=39, comment_id=38, is_upvote=True),
-        CommentVote(user_id=40, comment_id=38, is_upvote=True),
-        CommentVote(user_id=41, comment_id=38, is_upvote=True),
-        CommentVote(user_id=42, comment_id=38, is_upvote=True),
-        CommentVote(user_id=43, comment_id=38, is_upvote=True),
-        CommentVote(user_id=44, comment_id=38, is_upvote=False),
-        CommentVote(user_id=45, comment_id=38, is_upvote=False),
-        CommentVote(user_id=46, comment_id=38, is_upvote=False),
-        CommentVote(user_id=47, comment_id=38, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 39 - POST 6 COMMENT 2 || Votes: 9 (+12, -3)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=35, comment_id=39, is_upvote=True),
-        CommentVote(user_id=48, comment_id=39, is_upvote=True),
-        CommentVote(user_id=49, comment_id=39, is_upvote=True),
-        CommentVote(user_id=50, comment_id=39, is_upvote=True),
-        CommentVote(user_id=1, comment_id=39, is_upvote=True),
-        CommentVote(user_id=2, comment_id=39, is_upvote=True),
-        CommentVote(user_id=3, comment_id=39, is_upvote=True),
-        CommentVote(user_id=4, comment_id=39, is_upvote=True),
-        CommentVote(user_id=5, comment_id=39, is_upvote=True),
-        CommentVote(user_id=6, comment_id=39, is_upvote=True),
-        CommentVote(user_id=7, comment_id=39, is_upvote=True),
-        CommentVote(user_id=8, comment_id=39, is_upvote=True),
-        CommentVote(user_id=9, comment_id=39, is_upvote=False),
-        CommentVote(user_id=10, comment_id=39, is_upvote=False),
-        CommentVote(user_id=11, comment_id=39, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 40 - POST 6 COMMENT 3 || Votes: 6 (+8, -2)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=36, comment_id=40, is_upvote=True),
-        CommentVote(user_id=12, comment_id=40, is_upvote=True),
-        CommentVote(user_id=13, comment_id=40, is_upvote=True),
-        CommentVote(user_id=14, comment_id=40, is_upvote=True),
-        CommentVote(user_id=15, comment_id=40, is_upvote=True),
-        CommentVote(user_id=16, comment_id=40, is_upvote=True),
-        CommentVote(user_id=17, comment_id=40, is_upvote=True),
-        CommentVote(user_id=18, comment_id=40, is_upvote=True),
-        CommentVote(user_id=19, comment_id=40, is_upvote=False),
-        CommentVote(user_id=20, comment_id=40, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 41 - POST 6 COMMENT 4 || Votes: 4 (+4, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=37, comment_id=41, is_upvote=True),
-        CommentVote(user_id=21, comment_id=41, is_upvote=True),
-        CommentVote(user_id=22, comment_id=41, is_upvote=True),
-        CommentVote(user_id=23, comment_id=41, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 42 - POST 6 COMMENT 5 || Votes: 1 (+2, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=38, comment_id=42, is_upvote=True),
-        CommentVote(user_id=24, comment_id=42, is_upvote=True),
-        CommentVote(user_id=25, comment_id=42, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 43 - POST 6 COMMENT 6 || Votes: 8 (+14, -6)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=39, comment_id=43, is_upvote=True),
-        CommentVote(user_id=26, comment_id=43, is_upvote=True),
-        CommentVote(user_id=27, comment_id=43, is_upvote=True),
-        CommentVote(user_id=28, comment_id=43, is_upvote=True),
-        CommentVote(user_id=29, comment_id=43, is_upvote=True),
-        CommentVote(user_id=30, comment_id=43, is_upvote=True),
-        CommentVote(user_id=31, comment_id=43, is_upvote=True),
-        CommentVote(user_id=32, comment_id=43, is_upvote=True),
-        CommentVote(user_id=33, comment_id=43, is_upvote=True),
-        CommentVote(user_id=34, comment_id=43, is_upvote=True),
-        CommentVote(user_id=35, comment_id=43, is_upvote=True),
-        CommentVote(user_id=36, comment_id=43, is_upvote=True),
-        CommentVote(user_id=37, comment_id=43, is_upvote=True),
-        CommentVote(user_id=38, comment_id=43, is_upvote=True),
-        CommentVote(user_id=40, comment_id=43, is_upvote=False),
-        CommentVote(user_id=41, comment_id=43, is_upvote=False),
-        CommentVote(user_id=42, comment_id=43, is_upvote=False),
-        CommentVote(user_id=43, comment_id=43, is_upvote=False),
-        CommentVote(user_id=44, comment_id=43, is_upvote=False),
-        CommentVote(user_id=45, comment_id=43, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 44 - POST 6 COMMENT 7 || Votes: -1 (1, -2)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=40, comment_id=44, is_upvote=True),
-        CommentVote(user_id=46, comment_id=44, is_upvote=False),
-        CommentVote(user_id=47, comment_id=44, is_upvote=False),
-
-
-
-        # -------------------------------------------------------------------------
-        # POST 7
-        # -------------------------------------------------------------------------
-
-        # -------------------------------------------------------------------------
-        # COMMENT 45 - POST 7 COMMENT 1 || Votes: 12 (+12, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=41, comment_id=45, is_upvote=True),
-        CommentVote(user_id=48, comment_id=45, is_upvote=True),
-        CommentVote(user_id=49, comment_id=45, is_upvote=True),
-        CommentVote(user_id=50, comment_id=45, is_upvote=True),
-        CommentVote(user_id=1, comment_id=45, is_upvote=True),
-        CommentVote(user_id=2, comment_id=45, is_upvote=True),
-        CommentVote(user_id=3, comment_id=45, is_upvote=True),
-        CommentVote(user_id=4, comment_id=45, is_upvote=True),
-        CommentVote(user_id=5, comment_id=45, is_upvote=True),
-        CommentVote(user_id=6, comment_id=45, is_upvote=True),
-        CommentVote(user_id=7, comment_id=45, is_upvote=True),
-        CommentVote(user_id=8, comment_id=45, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 46 - POST 7 COMMENT 2 || Votes: 3 (+3, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=42, comment_id=46, is_upvote=True),
-        CommentVote(user_id=9, comment_id=46, is_upvote=True),
-        CommentVote(user_id=10, comment_id=46, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 47 - POST 7 COMMENT 3 || Votes: 4 (+6, -2)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=43, comment_id=47, is_upvote=True),
-        CommentVote(user_id=11, comment_id=47, is_upvote=True),
-        CommentVote(user_id=12, comment_id=47, is_upvote=True),
-        CommentVote(user_id=13, comment_id=47, is_upvote=True),
-        CommentVote(user_id=14, comment_id=47, is_upvote=True),
-        CommentVote(user_id=15, comment_id=47, is_upvote=True),
-        CommentVote(user_id=16, comment_id=47, is_upvote=False),
-        CommentVote(user_id=17, comment_id=47, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 48 - POST 7 COMMENT 4 || Votes: 4 (+4, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=44, comment_id=48, is_upvote=True),
-        CommentVote(user_id=18, comment_id=48, is_upvote=True),
-        CommentVote(user_id=19, comment_id=48, is_upvote=True),
-        CommentVote(user_id=20, comment_id=48, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 49 - POST 7 COMMENT 5 || Votes: 1 (+1, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=45, comment_id=49, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 50 - POST 7 COMMENT 6 || Votes: 0 (+1, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=46, comment_id=50, is_upvote=True),
-        CommentVote(user_id=45, comment_id=50, is_upvote=False),
-
-
-
-        # -------------------------------------------------------------------------
-        # POST 8
-        # -------------------------------------------------------------------------
-
-        # -------------------------------------------------------------------------
-        # COMMENT 51 - POST 8 COMMENT 1 || Votes: 20 (+25, -5)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=47, comment_id=51, is_upvote=True),
-        CommentVote(user_id=21, comment_id=51, is_upvote=True),
-        CommentVote(user_id=22, comment_id=51, is_upvote=True),
-        CommentVote(user_id=23, comment_id=51, is_upvote=True),
-        CommentVote(user_id=24, comment_id=51, is_upvote=True),
-        CommentVote(user_id=25, comment_id=51, is_upvote=True),
-        CommentVote(user_id=26, comment_id=51, is_upvote=True),
-        CommentVote(user_id=27, comment_id=51, is_upvote=True),
-        CommentVote(user_id=28, comment_id=51, is_upvote=True),
-        CommentVote(user_id=29, comment_id=51, is_upvote=True),
-        CommentVote(user_id=30, comment_id=51, is_upvote=True),
-        CommentVote(user_id=31, comment_id=51, is_upvote=True),
-        CommentVote(user_id=32, comment_id=51, is_upvote=True),
-        CommentVote(user_id=33, comment_id=51, is_upvote=True),
-        CommentVote(user_id=34, comment_id=51, is_upvote=True),
-        CommentVote(user_id=35, comment_id=51, is_upvote=True),
-        CommentVote(user_id=36, comment_id=51, is_upvote=True),
-        CommentVote(user_id=37, comment_id=51, is_upvote=True),
-        CommentVote(user_id=38, comment_id=51, is_upvote=True),
-        CommentVote(user_id=39, comment_id=51, is_upvote=True),
-        CommentVote(user_id=40, comment_id=51, is_upvote=True),
-        CommentVote(user_id=41, comment_id=51, is_upvote=True),
-        CommentVote(user_id=42, comment_id=51, is_upvote=True),
-        CommentVote(user_id=43, comment_id=51, is_upvote=True),
-        CommentVote(user_id=44, comment_id=51, is_upvote=True),
-        CommentVote(user_id=45, comment_id=51, is_upvote=False),
-        CommentVote(user_id=46, comment_id=51, is_upvote=False),
-        CommentVote(user_id=48, comment_id=51, is_upvote=False),
-        CommentVote(user_id=49, comment_id=51, is_upvote=False),
-        CommentVote(user_id=50, comment_id=51, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 52 - POST 8 COMMENT 2 || Votes: 16 (+19, -3)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=48, comment_id=52, is_upvote=True),
-        CommentVote(user_id=1, comment_id=52, is_upvote=True),
-        CommentVote(user_id=2, comment_id=52, is_upvote=True),
-        CommentVote(user_id=3, comment_id=52, is_upvote=True),
-        CommentVote(user_id=4, comment_id=52, is_upvote=True),
-        CommentVote(user_id=5, comment_id=52, is_upvote=True),
-        CommentVote(user_id=6, comment_id=52, is_upvote=True),
-        CommentVote(user_id=7, comment_id=52, is_upvote=True),
-        CommentVote(user_id=8, comment_id=52, is_upvote=True),
-        CommentVote(user_id=9, comment_id=52, is_upvote=True),
-        CommentVote(user_id=10, comment_id=52, is_upvote=True),
-        CommentVote(user_id=11, comment_id=52, is_upvote=True),
-        CommentVote(user_id=12, comment_id=52, is_upvote=True),
-        CommentVote(user_id=13, comment_id=52, is_upvote=True),
-        CommentVote(user_id=14, comment_id=52, is_upvote=True),
-        CommentVote(user_id=15, comment_id=52, is_upvote=True),
-        CommentVote(user_id=16, comment_id=52, is_upvote=True),
-        CommentVote(user_id=17, comment_id=52, is_upvote=True),
-        CommentVote(user_id=18, comment_id=52, is_upvote=True),
-        CommentVote(user_id=19, comment_id=52, is_upvote=False),
-        CommentVote(user_id=20, comment_id=52, is_upvote=False),
-        CommentVote(user_id=21, comment_id=52, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 53 - POST 8 COMMENT 3 || Votes: 1 (+1, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=9, comment_id=53, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 54 - POST 8 COMMENT 4 || Votes: 14 (+14, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=49, comment_id=54, is_upvote=True),
-        CommentVote(user_id=22, comment_id=54, is_upvote=True),
-        CommentVote(user_id=23, comment_id=54, is_upvote=True),
-        CommentVote(user_id=24, comment_id=54, is_upvote=True),
-        CommentVote(user_id=25, comment_id=54, is_upvote=True),
-        CommentVote(user_id=26, comment_id=54, is_upvote=True),
-        CommentVote(user_id=27, comment_id=54, is_upvote=True),
-        CommentVote(user_id=28, comment_id=54, is_upvote=True),
-        CommentVote(user_id=29, comment_id=54, is_upvote=True),
-        CommentVote(user_id=30, comment_id=54, is_upvote=True),
-        CommentVote(user_id=31, comment_id=54, is_upvote=True),
-        CommentVote(user_id=32, comment_id=54, is_upvote=True),
-        CommentVote(user_id=33, comment_id=54, is_upvote=True),
-        CommentVote(user_id=34, comment_id=54, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 55 - POST 8 COMMENT 5 || Votes: 5 (+6, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=50, comment_id=55, is_upvote=True),
-        CommentVote(user_id=35, comment_id=55, is_upvote=True),
-        CommentVote(user_id=36, comment_id=55, is_upvote=True),
-        CommentVote(user_id=37, comment_id=55, is_upvote=True),
-        CommentVote(user_id=38, comment_id=55, is_upvote=True),
-        CommentVote(user_id=39, comment_id=55, is_upvote=True),
-        CommentVote(user_id=40, comment_id=55, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 56 - POST 8 COMMENT 6 || Votes: 2 (+2, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=1, comment_id=56, is_upvote=True),
-        CommentVote(user_id=41, comment_id=56, is_upvote=True),
-
-
-
-        # -------------------------------------------------------------------------
-        # POST 9
-        # -------------------------------------------------------------------------
-
-        # -------------------------------------------------------------------------
-        # COMMENT 57 - POST 9 COMMENT 1 || Votes: 11 (+14, -3)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=1, comment_id=57, is_upvote=True),
-        CommentVote(user_id=42, comment_id=57, is_upvote=True),
-        CommentVote(user_id=43, comment_id=57, is_upvote=True),
-        CommentVote(user_id=44, comment_id=57, is_upvote=True),
-        CommentVote(user_id=45, comment_id=57, is_upvote=True),
-        CommentVote(user_id=46, comment_id=57, is_upvote=True),
-        CommentVote(user_id=47, comment_id=57, is_upvote=True),
-        CommentVote(user_id=48, comment_id=57, is_upvote=True),
-        CommentVote(user_id=49, comment_id=57, is_upvote=True),
-        CommentVote(user_id=50, comment_id=57, is_upvote=True),
-        CommentVote(user_id=2, comment_id=57, is_upvote=True),
-        CommentVote(user_id=3, comment_id=57, is_upvote=True),
-        CommentVote(user_id=4, comment_id=57, is_upvote=True),
-        CommentVote(user_id=5, comment_id=57, is_upvote=True),
-        CommentVote(user_id=6, comment_id=57, is_upvote=False),
-        CommentVote(user_id=7, comment_id=57, is_upvote=False),
-        CommentVote(user_id=8, comment_id=57, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 58 - POST 9 COMMENT 2 || Votes: 4 (+4, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=2, comment_id=58, is_upvote=True),
-        CommentVote(user_id=9, comment_id=58, is_upvote=True),
-        CommentVote(user_id=10, comment_id=58, is_upvote=True),
-        CommentVote(user_id=11, comment_id=58, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 59 - POST 9 COMMENT 3 || Votes: 1 (+1, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=1, comment_id=59, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 60 - POST 9 COMMENT 4 || Votes: 1 (+1, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=3, comment_id=60, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 61 - POST 9 COMMENT 5 || Votes: 4 (+4, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=4, comment_id=61, is_upvote=True),
-        CommentVote(user_id=12, comment_id=61, is_upvote=True),
-        CommentVote(user_id=13, comment_id=61, is_upvote=True),
-        CommentVote(user_id=14, comment_id=61, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 62 - POST 9 COMMENT 6 || Votes: -2 (+1, -3)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=5, comment_id=62, is_upvote=True),
-        CommentVote(user_id=15, comment_id=62, is_upvote=False),
-        CommentVote(user_id=16, comment_id=62, is_upvote=False),
-
-
-        # -------------------------------------------------------------------------
-        # POST 10
-        # -------------------------------------------------------------------------
-
-        # -------------------------------------------------------------------------
-        # COMMENT 63 - POST 10 COMMENT 1 || Votes: 15 (+20, -5)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=6, comment_id=63, is_upvote=True),
-        CommentVote(user_id=17, comment_id=63, is_upvote=True),
-        CommentVote(user_id=18, comment_id=63, is_upvote=True),
-        CommentVote(user_id=19, comment_id=63, is_upvote=True),
-        CommentVote(user_id=20, comment_id=63, is_upvote=True),
-        CommentVote(user_id=21, comment_id=63, is_upvote=True),
-        CommentVote(user_id=22, comment_id=63, is_upvote=True),
-        CommentVote(user_id=23, comment_id=63, is_upvote=True),
-        CommentVote(user_id=24, comment_id=63, is_upvote=True),
-        CommentVote(user_id=25, comment_id=63, is_upvote=True),
-        CommentVote(user_id=26, comment_id=63, is_upvote=True),
-        CommentVote(user_id=27, comment_id=63, is_upvote=True),
-        CommentVote(user_id=28, comment_id=63, is_upvote=True),
-        CommentVote(user_id=29, comment_id=63, is_upvote=True),
-        CommentVote(user_id=30, comment_id=63, is_upvote=True),
-        CommentVote(user_id=31, comment_id=63, is_upvote=False),
-        CommentVote(user_id=32, comment_id=63, is_upvote=False),
-        CommentVote(user_id=33, comment_id=63, is_upvote=False),
-        CommentVote(user_id=34, comment_id=63, is_upvote=False),
-        CommentVote(user_id=35, comment_id=63, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 64 - POST 10 COMMENT 2 || Votes: 10 (+13, -3)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=7, comment_id=64, is_upvote=True),
-        CommentVote(user_id=36, comment_id=64, is_upvote=True),
-        CommentVote(user_id=37, comment_id=64, is_upvote=True),
-        CommentVote(user_id=38, comment_id=64, is_upvote=True),
-        CommentVote(user_id=39, comment_id=64, is_upvote=True),
-        CommentVote(user_id=40, comment_id=64, is_upvote=True),
-        CommentVote(user_id=41, comment_id=64, is_upvote=True),
-        CommentVote(user_id=42, comment_id=64, is_upvote=True),
-        CommentVote(user_id=43, comment_id=64, is_upvote=True),
-        CommentVote(user_id=44, comment_id=64, is_upvote=True),
-        CommentVote(user_id=45, comment_id=64, is_upvote=True),
-        CommentVote(user_id=46, comment_id=64, is_upvote=True),
-        CommentVote(user_id=47, comment_id=64, is_upvote=True),
-        CommentVote(user_id=48, comment_id=64, is_upvote=False),
-        CommentVote(user_id=49, comment_id=64, is_upvote=False),
-        CommentVote(user_id=50, comment_id=64, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 65 - POST 10 COMMENT 3 || Votes: 3 (+3, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=8, comment_id=65, is_upvote=True),
-        CommentVote(user_id=1, comment_id=65, is_upvote=True),
-        CommentVote(user_id=2, comment_id=65, is_upvote=True),
-        # -------------------------------------------------------------------------
-        # COMMENT 66 - POST 10 COMMENT 4 || Votes: 12 (+15, -3)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=9, comment_id=66, is_upvote=True),
-        CommentVote(user_id=3, comment_id=66, is_upvote=True),
-        CommentVote(user_id=4, comment_id=66, is_upvote=True),
-        CommentVote(user_id=5, comment_id=66, is_upvote=True),
-        CommentVote(user_id=6, comment_id=66, is_upvote=True),
-        CommentVote(user_id=7, comment_id=66, is_upvote=True),
-        CommentVote(user_id=8, comment_id=66, is_upvote=True),
-        CommentVote(user_id=20, comment_id=66, is_upvote=True),
-        CommentVote(user_id=10, comment_id=66, is_upvote=True),
-        CommentVote(user_id=11, comment_id=66, is_upvote=True),
-        CommentVote(user_id=12, comment_id=66, is_upvote=True),
-        CommentVote(user_id=13, comment_id=66, is_upvote=True),
-        CommentVote(user_id=14, comment_id=66, is_upvote=True),
-        CommentVote(user_id=15, comment_id=66, is_upvote=True),
-        CommentVote(user_id=16, comment_id=66, is_upvote=True),
-        CommentVote(user_id=17, comment_id=66, is_upvote=False),
-        CommentVote(user_id=18, comment_id=66, is_upvote=False),
-        CommentVote(user_id=19, comment_id=66, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 67 - POST 10 COMMENT 5 || Votes: 8 (+10, -2)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=10, comment_id=67, is_upvote=True),
-        CommentVote(user_id=20, comment_id=67, is_upvote=True),
-        CommentVote(user_id=21, comment_id=67, is_upvote=True),
-        CommentVote(user_id=22, comment_id=67, is_upvote=True),
-        CommentVote(user_id=23, comment_id=67, is_upvote=True),
-        CommentVote(user_id=24, comment_id=67, is_upvote=True),
-        CommentVote(user_id=25, comment_id=67, is_upvote=True),
-        CommentVote(user_id=26, comment_id=67, is_upvote=True),
-        CommentVote(user_id=27, comment_id=67, is_upvote=True),
-        CommentVote(user_id=28, comment_id=67, is_upvote=True),
-        CommentVote(user_id=29, comment_id=67, is_upvote=False),
-        CommentVote(user_id=30, comment_id=67, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 68 - POST 10 COMMENT 6 || Votes: 7 (+10, -3)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=12, comment_id=68, is_upvote=True),
-        CommentVote(user_id=31, comment_id=68, is_upvote=True),
-        CommentVote(user_id=32, comment_id=68, is_upvote=True),
-        CommentVote(user_id=33, comment_id=68, is_upvote=True),
-        CommentVote(user_id=34, comment_id=68, is_upvote=True),
-        CommentVote(user_id=35, comment_id=68, is_upvote=True),
-        CommentVote(user_id=36, comment_id=68, is_upvote=True),
-        CommentVote(user_id=37, comment_id=68, is_upvote=True),
-        CommentVote(user_id=38, comment_id=68, is_upvote=True),
-        CommentVote(user_id=39, comment_id=68, is_upvote=True),
-        CommentVote(user_id=40, comment_id=68, is_upvote=False),
-        CommentVote(user_id=41, comment_id=68, is_upvote=False),
-        CommentVote(user_id=42, comment_id=68, is_upvote=False),
-
-
-        # -------------------------------------------------------------------------
-        # POST 11
-        # -------------------------------------------------------------------------
-
-        # -------------------------------------------------------------------------
-        # COMMENT 69 - POST 11 COMMENT 1 || Votes: 21 (+28, -7)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=13, comment_id=69, is_upvote=True),
-        CommentVote(user_id=43, comment_id=69, is_upvote=True),
-        CommentVote(user_id=44, comment_id=69, is_upvote=True),
-        CommentVote(user_id=45, comment_id=69, is_upvote=True),
-        CommentVote(user_id=46, comment_id=69, is_upvote=True),
-        CommentVote(user_id=47, comment_id=69, is_upvote=True),
-        CommentVote(user_id=48, comment_id=69, is_upvote=True),
-        CommentVote(user_id=49, comment_id=69, is_upvote=True),
-        CommentVote(user_id=50, comment_id=69, is_upvote=True),
-        CommentVote(user_id=1, comment_id=69, is_upvote=True),
-        CommentVote(user_id=2, comment_id=69, is_upvote=True),
-        CommentVote(user_id=3, comment_id=69, is_upvote=True),
-        CommentVote(user_id=4, comment_id=69, is_upvote=True),
-        CommentVote(user_id=5, comment_id=69, is_upvote=True),
-        CommentVote(user_id=6, comment_id=69, is_upvote=True),
-        CommentVote(user_id=7, comment_id=69, is_upvote=True),
-        CommentVote(user_id=8, comment_id=69, is_upvote=True),
-        CommentVote(user_id=9, comment_id=69, is_upvote=True),
-        CommentVote(user_id=10, comment_id=69, is_upvote=True),
-        CommentVote(user_id=11, comment_id=69, is_upvote=True),
-        CommentVote(user_id=12, comment_id=69, is_upvote=True),
-        CommentVote(user_id=14, comment_id=69, is_upvote=True),
-        CommentVote(user_id=15, comment_id=69, is_upvote=True),
-        CommentVote(user_id=16, comment_id=69, is_upvote=True),
-        CommentVote(user_id=17, comment_id=69, is_upvote=True),
-        CommentVote(user_id=18, comment_id=69, is_upvote=True),
-        CommentVote(user_id=19, comment_id=69, is_upvote=True),
-        CommentVote(user_id=20, comment_id=69, is_upvote=True),
-        CommentVote(user_id=21, comment_id=69, is_upvote=False),
-        CommentVote(user_id=22, comment_id=69, is_upvote=False),
-        CommentVote(user_id=23, comment_id=69, is_upvote=False),
-        CommentVote(user_id=24, comment_id=69, is_upvote=False),
-        CommentVote(user_id=25, comment_id=69, is_upvote=False),
-        CommentVote(user_id=26, comment_id=69, is_upvote=False),
-        CommentVote(user_id=27, comment_id=69, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 70 - POST 11 COMMENT 2 || Votes: 4 (+6, -2)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=14, comment_id=70, is_upvote=True),
-        CommentVote(user_id=28, comment_id=70, is_upvote=True),
-        CommentVote(user_id=29, comment_id=70, is_upvote=True),
-        CommentVote(user_id=30, comment_id=70, is_upvote=True),
-        CommentVote(user_id=31, comment_id=70, is_upvote=True),
-        CommentVote(user_id=32, comment_id=70, is_upvote=True),
-        CommentVote(user_id=33, comment_id=70, is_upvote=False),
-        CommentVote(user_id=34, comment_id=70, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 71 - POST 11 COMMENT 3 || Votes: 12 (+16, -4)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=15, comment_id=71, is_upvote=True),
-        CommentVote(user_id=35, comment_id=71, is_upvote=True),
-        CommentVote(user_id=36, comment_id=71, is_upvote=True),
-        CommentVote(user_id=37, comment_id=71, is_upvote=True),
-        CommentVote(user_id=38, comment_id=71, is_upvote=True),
-        CommentVote(user_id=39, comment_id=71, is_upvote=True),
-        CommentVote(user_id=40, comment_id=71, is_upvote=True),
-        CommentVote(user_id=41, comment_id=71, is_upvote=True),
-        CommentVote(user_id=42, comment_id=71, is_upvote=True),
-        CommentVote(user_id=43, comment_id=71, is_upvote=True),
-        CommentVote(user_id=44, comment_id=71, is_upvote=True),
-        CommentVote(user_id=45, comment_id=71, is_upvote=True),
-        CommentVote(user_id=46, comment_id=71, is_upvote=True),
-        CommentVote(user_id=47, comment_id=71, is_upvote=True),
-        CommentVote(user_id=48, comment_id=71, is_upvote=True),
-        CommentVote(user_id=49, comment_id=71, is_upvote=True),
-        CommentVote(user_id=50, comment_id=71, is_upvote=False),
-        CommentVote(user_id=1, comment_id=71, is_upvote=False),
-        CommentVote(user_id=2, comment_id=71, is_upvote=False),
-        CommentVote(user_id=3, comment_id=71, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 72 - POST 11 COMMENT 4 || Votes: 6 (+7, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=16, comment_id=72, is_upvote=True),
-        CommentVote(user_id=4, comment_id=72, is_upvote=True),
-        CommentVote(user_id=5, comment_id=72, is_upvote=True),
-        CommentVote(user_id=6, comment_id=72, is_upvote=True),
-        CommentVote(user_id=7, comment_id=72, is_upvote=True),
-        CommentVote(user_id=8, comment_id=72, is_upvote=True),
-        CommentVote(user_id=9, comment_id=72, is_upvote=True),
-        CommentVote(user_id=10, comment_id=72, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 73 - POST 11 COMMENT 5 || Votes: 5 (+6, -1)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=17, comment_id=73, is_upvote=True),
-        CommentVote(user_id=11, comment_id=73, is_upvote=True),
-        CommentVote(user_id=12, comment_id=73, is_upvote=True),
-        CommentVote(user_id=13, comment_id=73, is_upvote=True),
-        CommentVote(user_id=14, comment_id=73, is_upvote=True),
-        CommentVote(user_id=15, comment_id=73, is_upvote=True),
-        CommentVote(user_id=16, comment_id=73, is_upvote=False),
-        # -------------------------------------------------------------------------
-        # COMMENT 74 - POST 11 COMMENT 6 || Votes: 3 (+3, 0)
-        # -------------------------------------------------------------------------
-        CommentVote(user_id=18, comment_id=74, is_upvote=True),
-        CommentVote(user_id=17, comment_id=74, is_upvote=True),
-        CommentVote(user_id=19, comment_id=74, is_upvote=True),
-
-
-        # -------------------------------------------------------------------------
-        # POST 12
-        # -------------------------------------------------------------------------
-
-        # -------------------------------------------------------------------------
-        # COMMENT 75 - POST 12 COMMENT 1 || Votes: 10 (+13, -3)
-        # -------------------------------------------------------------------------
-    ])
+    # Finally, commit
+    db.session.add_all(votes_to_add)
     db.session.commit()
+
 
 def undo_commentvotes():
     db.session.execute("DELETE FROM comment_votes")

@@ -55,14 +55,7 @@ export default function NavUserDropdownBox({ cuser, setShowDropdown }) {
           className="nav-user-dropdown-btn dark-mode-toggle"
           onClick={(e) => {
             e.stopPropagation();
-            toggleTheme();
-          }}
-          tabIndex={0}
-          onKeyDown={(e) => {
-            e.stopPropagation();
-            if (e.key === "Enter") {
-              toggleTheme();
-            }
+            toggleTheme(e);
           }}
         >
           Dark Mode{" "}

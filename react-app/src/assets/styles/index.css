@@ -65,6 +65,10 @@ button:disabled {
   border: 1px solid transparent;
 }
 
+textarea {
+  outline: none;
+}
+
 a.blue-btn-filled {
   font-family: var(--font-family-noto);
   font-size: 14px;

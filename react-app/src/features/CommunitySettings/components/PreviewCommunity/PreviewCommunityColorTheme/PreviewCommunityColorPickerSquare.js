@@ -14,6 +14,13 @@ export function PreviewCommunityColorPickerSquare({
         setOpenPicker(false);
         setTheme(color);
       }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          setOpenPicker(false);
+          setTheme(color);
+        }
+      }}
+      tabIndex={0}
     ></div>
   );
 }

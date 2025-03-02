@@ -11,6 +11,9 @@
   font-family: var(--font-family-ibm);
 }
 
+.preview-community-sidebar h2 {
+  color: var(--main-text-color);
+}
 .back-to-community {
   font-family: var(--font-family-ibm);
   font-size: 16px;
@@ -70,7 +73,7 @@
   font-weight: 500;
   line-height: 22px;
   border-bottom: 2px solid var(--secondary-border-color);
-  color: #030404;
+  color: var(--main-text-color);
   margin-bottom: 4px;
   padding-bottom: 8px;
 }
@@ -79,7 +82,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #030404;
+  color: var(--main-text-color);
   padding-bottom: 8px;
   padding-top: 8px;
 }
@@ -311,20 +314,38 @@
   visibility: visible;
 }
 
-.preview-community-page-container .community-header-info-img img,
-.preview-community-page-container .community-page-box-header,
-.preview-community-page-container .community-page-box-btn a,
-.preview-community-page-container .community-page-rules-header {
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .community-header-info-img
+  img,
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .community-page-box-header,
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .community-page-box-btn
+  a,
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .community-page-rules-header {
   background-color: var(--preview-community-color-theme-base) !important;
 }
 
-.preview-community-page-container .community-page-box-btn a {
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .community-page-box-btn
+  a {
   border-color: var(--preview-community-color-theme-base) !important;
 }
 
-.preview-community-page-container .join,
-.preview-community-page-container .community-no-posts-btn,
-.preview-community-page-container .back-to-top-box button {
+:root:not([data-theme="dark"]) .preview-community-page-container .join,
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .community-no-posts-btn,
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .back-to-top-box
+  button {
   background: var(--preview-community-color-theme-highlight) !important;
 }
 
@@ -337,12 +358,24 @@
   border-color: var(--preview-community-color-theme-highlight) !important;
 }
 
-.preview-community-page-container .community-update-icon,
-.preview-community-page-container .community-page-box-description svg,
-.preview-community-page-container .community-sorting-bar-btn.active-sort-btn,
-.preview-community-page-container .joined,
-.preview-community-page-container .edit-community-description-save,
-.preview-community-page-container .post-sorting-bar-left button {
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .community-update-icon,
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .community-page-box-description
+  svg,
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .community-sorting-bar-btn.active-sort-btn,
+:root:not([data-theme="dark"]) .preview-community-page-container .joined,
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .edit-community-description-save,
+:root:not([data-theme="dark"])
+  .preview-community-page-container
+  .post-sorting-bar-left
+  button {
   color: var(--preview-community-color-theme-highlight) !important;
 }
 
@@ -369,6 +402,10 @@
   font-size: 16px;
   color: #24a0ed;
   margin-right: 4px;
+}
+
+:root[data-theme="dark"] .preview-community-radio svg {
+  color: var(--main-text-color);
 }
 
 .preview-community-radio.community-name-radio-gray svg {
@@ -432,6 +469,10 @@ svg:not(:root) {
   flex-direction: column;
 }
 
+:root[data-theme="dark"] .body-bg-format:not(.body-bg-format-selected) {
+  background: transparent;
+}
+
 .bg-format-active {
   border-color: #878a8c;
   color: var(--secondary-border-color);
@@ -460,6 +501,17 @@ svg:not(:root) {
 
 .body-bg-format-selected.square {
   background: #878a8c;
+}
+
+:root[data-theme="dark"] .body-bg-format:not(.body-bg-format-selected),
+:root[data-theme="dark"] .body-bg-format-border:not(.body-bg-format-selected) {
+  fill: var(--main-text-color);
+  color: var(--main-text-color);
+  border-color: var(--main-text-color);
+}
+
+:root[data-theme="dark"] .body-bg-format:not(.body-bg-format-selected) .square {
+  background: var(--main-text-color);
 }
 
 .light-color {
@@ -497,6 +549,12 @@ svg:not(:root) {
   left: 0;
   will-change: transform;
   background: var(--preview-community-body-bg-img);
+}
+
+:root[data-theme="dark"]
+  .posts-container
+  .preview-community-body-bg-div:before {
+  background: black;
 }
 
 .preview-community-toggle-switch {

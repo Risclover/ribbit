@@ -8,7 +8,7 @@ export function CommunityThemeToggle({ checked, handleThemeToggle }) {
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === "Enter") {
-          handleThemeToggle();
+          handleThemeToggle(e);
         }
       }}
     >

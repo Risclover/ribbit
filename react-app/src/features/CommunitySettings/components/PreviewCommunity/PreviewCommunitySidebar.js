@@ -56,6 +56,13 @@ export function PreviewCommunitySidebar() {
                 setOpenAppearance(true);
               }}
               key={uuidv4()}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  setAppearanceSidebar(item);
+                  setOpenAppearance(true);
+                }
+              }}
             >
               <span>{item}</span> <FaChevronRight />
             </div>

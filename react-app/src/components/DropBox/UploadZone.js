@@ -3,7 +3,15 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 
 export const UploadZone = ({ onFileSelect }) => {
   return (
-    <label>
+    <label
+      id="dropbox-label"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          document.getElementById("dropbox-label").click();
+        }
+      }}
+    >
       <div className="preview-community-upload-icon">
         <FaCloudUploadAlt />
       </div>
