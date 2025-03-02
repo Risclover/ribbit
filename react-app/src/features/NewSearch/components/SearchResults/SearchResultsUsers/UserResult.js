@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { UserFollowBtn } from "../SearchResultsPosts";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@mui/material";
+import { useDarkMode } from "hooks";
 
 const UserResult = ({ user }) => {
   const history = useHistory();
@@ -44,6 +45,8 @@ const UserResult = ({ user }) => {
 };
 
 const UserSkeleton = () => {
+  const { theme } = useDarkMode();
+
   return (
     <div className="search-results-page-person">
       <div className="communities-results-skeleton">
@@ -53,17 +56,24 @@ const UserSkeleton = () => {
             width={36}
             height={36}
             animation="wave"
+            sx={{ bgcolor: theme === "dark" && "grey.500" }}
           />
           <div className="communities-results-skeleton-text">
             <Skeleton
               variant="text"
-              sx={{ fontSize: "0.75rem" }}
+              sx={{
+                fontSize: "0.75rem",
+                bgcolor: theme === "dark" && "grey.500",
+              }}
               width={170}
               animation="wave"
             />
             <Skeleton
               variant="text"
-              sx={{ fontSize: "0.75rem" }}
+              sx={{
+                fontSize: "0.75rem",
+                bgcolor: theme === "dark" && "grey.500",
+              }}
               width={600}
               animation="wave"
             />
@@ -71,7 +81,10 @@ const UserSkeleton = () => {
         </div>
         <Skeleton
           variant="rounded"
-          sx={{ borderRadius: "1000px" }}
+          sx={{
+            borderRadius: "1000px",
+            bgcolor: theme === "dark" && "grey.500",
+          }}
           height={32}
           width={86}
           animation="wave"

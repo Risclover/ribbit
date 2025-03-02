@@ -13,8 +13,11 @@ import {
 import { PostFormatContext } from "@/context";
 import Skeleton from "@mui/material/Skeleton";
 import { getUser } from "@/store";
+import { useDarkMode } from "hooks";
 
 export function UserProfile({ setShowLoginForm, setOpenChat }) {
+  const { theme } = useDarkMode();
+
   const dispatch = useDispatch();
   const { userId } = useParams();
   const { setFormat } = useContext(PostFormatContext);
@@ -47,13 +50,23 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
           alt="User"
         />
       ) : (
-        <Skeleton variant="circular" animation="wave" width={20} height={20} />
+        <Skeleton
+          variant="circular"
+          animation="wave"
+          width={20}
+          height={20}
+          sx={{ bgcolor: theme === "dark" && "grey.500" }}
+        />
       ),
     pageTitle:
       user !== undefined ? (
         `u/${user?.username}`
       ) : (
-        <Skeleton animation="wave" variant="text" />
+        <Skeleton
+          animation="wave"
+          variant="text"
+          sx={{ bgcolor: theme === "dark" && "grey.500" }}
+        />
       ),
   });
 

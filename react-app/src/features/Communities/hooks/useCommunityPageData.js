@@ -7,6 +7,7 @@ import { getIdFromName } from "@/utils/getCommunityIdFromName";
 import { PageTitleContext } from "@/context";
 import { CommunityImg } from "@/components/CommunityImg";
 import Skeleton from "@mui/material/Skeleton";
+import { useDarkMode } from "hooks";
 
 /**
  * Single hook that:
@@ -16,6 +17,7 @@ import Skeleton from "@mui/material/Skeleton";
  * 4) Sets the page settings (document.title, page icon, etc.) once the community is known
  */
 export function useCommunityPage() {
+  const { theme } = useDarkMode();
   const { communityName } = useParams();
   const dispatch = useDispatch();
 
@@ -57,7 +59,13 @@ export function useCommunityPage() {
       imgAlt="Community"
     />
   ) : (
-    <Skeleton variant="circular" animation="wave" width={20} height={20} />
+    <Skeleton
+      variant="circular"
+      animation="wave"
+      width={20}
+      height={20}
+      sx={{ bgcolor: theme === "dark" && "grey.500" }}
+    />
   );
 
   // 5) Use an effect to set the document.title and context-based “pageTitle” or “pageIcon”

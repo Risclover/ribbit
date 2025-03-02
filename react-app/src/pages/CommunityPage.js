@@ -19,8 +19,11 @@ import {
   FeedLeftColContainer,
   FeedRightColContainer,
 } from "@/components";
+import { useDarkMode } from "hooks";
 
 export function CommunityPage() {
+  const { theme } = useDarkMode();
+
   const { communityName } = useParams();
   const dispatch = useDispatch();
 
@@ -79,13 +82,23 @@ export function CommunityPage() {
           imgAlt="Community"
         />
       ) : (
-        <Skeleton variant="circular" animation="wave" width={20} height={20} />
+        <Skeleton
+          variant="circular"
+          animation="wave"
+          width={20}
+          height={20}
+          sx={{ bgcolor: theme === "dark" && "grey.500" }}
+        />
       ),
     pageTitle:
       community !== undefined ? (
         `c/${community?.name}`
       ) : (
-        <Skeleton animation="wave" variant="text" />
+        <Skeleton
+          animation="wave"
+          variant="text"
+          sx={{ bgcolor: theme === "dark" && "grey.500" }}
+        />
       ),
   });
 

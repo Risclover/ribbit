@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { CommunityJoinBtn } from "../SearchResultsPosts";
 import { CommunityImg } from "@/components/CommunityImg";
 import { Skeleton } from "@mui/material";
+import { useDarkMode } from "hooks";
 
 const CommunityResult = ({ community }) => {
   const history = useHistory();
@@ -49,6 +50,8 @@ const CommunityResult = ({ community }) => {
 };
 
 const CommunitySkeleton = () => {
+  const { theme } = useDarkMode();
+
   return (
     <div className="search-results-community">
       <div className="communities-results-skeleton">
@@ -58,17 +61,24 @@ const CommunitySkeleton = () => {
             width={36}
             height={36}
             animation="wave"
+            sx={{ bgcolor: theme === "dark" && "grey.500" }}
           />
           <div className="communities-results-skeleton-text">
             <Skeleton
               variant="text"
-              sx={{ fontSize: "0.75rem" }}
+              sx={{
+                fontSize: "0.75rem",
+                bgcolor: theme === "dark" && "grey.500",
+              }}
               width={170}
               animation="wave"
             />
             <Skeleton
               variant="text"
-              sx={{ fontSize: "0.75rem" }}
+              sx={{
+                fontSize: "0.75rem",
+                bgcolor: theme === "dark" && "grey.500",
+              }}
               width={600}
               animation="wave"
             />
@@ -76,7 +86,10 @@ const CommunitySkeleton = () => {
         </div>
         <Skeleton
           variant="rounded"
-          sx={{ borderRadius: "1000px" }}
+          sx={{
+            borderRadius: "1000px",
+            bgcolor: theme === "dark" && "grey.500",
+          }}
           height={32}
           width={86}
           animation="wave"

@@ -9,8 +9,11 @@ import { usePageSettings } from "@/hooks";
 import { CommunityImg } from "@/components";
 import Skeleton from "@mui/material/Skeleton";
 import { getCommunities } from "@/store";
+import { useDarkMode } from "hooks";
 
 const ImagePage = () => {
+  const { theme } = useDarkMode();
+
   const dispatch = useDispatch();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -68,13 +71,23 @@ const ImagePage = () => {
           imgAlt="Community"
         />
       ) : (
-        <Skeleton variant="circular" animation="wave" width={20} height={20} />
+        <Skeleton
+          variant="circular"
+          animation="wave"
+          width={20}
+          height={20}
+          sx={{ bgcolor: theme === "dark" && "grey.500" }}
+        />
       ),
     pageTitle:
       community !== undefined ? (
         `c/${community?.name}`
       ) : (
-        <Skeleton animation="wave" variant="text" />
+        <Skeleton
+          animation="wave"
+          variant="text"
+          sx={{ bgcolor: theme === "dark" && "grey.500" }}
+        />
       ),
   });
 

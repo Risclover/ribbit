@@ -9,8 +9,11 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Text } from "@/features/Comments/components/Comment/Text";
 import Skeleton from "@mui/material/Skeleton";
 import { NavLink } from "react-router-dom";
+import { useDarkMode } from "hooks";
 
 export function SinglePostContent({ link, post, isPage }) {
+  const { theme } = useDarkMode();
+
   const { metadata, fetchMetadata } = useMetadata();
 
   useEffect(() => {
@@ -44,7 +47,11 @@ export function SinglePostContent({ link, post, isPage }) {
                 ) : post !== undefined && !link ? (
                   post.title
                 ) : (
-                  <Skeleton variant="text" animation="wave" />
+                  <Skeleton
+                    variant="text"
+                    animation="wave"
+                    sx={{ bgcolor: theme === "dark" && "grey.500" }}
+                  />
                 )}
               </div>
               {post.imgUrl !== null ? (
@@ -133,7 +140,11 @@ export function SinglePostContent({ link, post, isPage }) {
               ) : post !== undefined && !link ? (
                 post.title
               ) : (
-                <Skeleton variant="text" animation="wave" />
+                <Skeleton
+                  variant="text"
+                  animation="wave"
+                  sx={{ bgcolor: theme === "dark" && "grey.500" }}
+                />
               )}
             </div>
             {post.imgUrl !== null ? (

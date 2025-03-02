@@ -24,6 +24,7 @@ const TextInput = ({
       {hint}
       {label === "Name" && (
         <span
+          tabIndex={0}
           className="community-name-info"
           onMouseEnter={handleTooltip}
           onMouseLeave={() => {

@@ -7,6 +7,7 @@ import { useMetadata } from "@/context";
 import { CommunityImg } from "@/components/CommunityImg";
 import { PostTypeLinkIcon } from "@/assets/icons/PostTypeLinkIcon";
 import { Skeleton } from "@mui/material";
+import { useDarkMode } from "hooks";
 
 const PostResult = ({ post }) => {
   const history = useHistory();
@@ -110,6 +111,8 @@ const PostResult = ({ post }) => {
 };
 
 const PostSkeleton = () => {
+  const { theme } = useDarkMode();
+
   return (
     <div className="search-results-post">
       <div className="post-result-skeleton">
@@ -119,10 +122,14 @@ const PostSkeleton = () => {
             width={20}
             height={20}
             animation="wave"
+            sx={{ bgcolor: theme === "dark" && "grey.500" }}
           />
           <Skeleton
             variant="text"
-            sx={{ fontSize: "0.75rem" }}
+            sx={{
+              fontSize: "0.75rem",
+              bgcolor: theme === "dark" && "grey.500",
+            }}
             width={200}
             animation="wave"
           />
@@ -131,19 +138,19 @@ const PostSkeleton = () => {
           <div className="post-result-title">
             <Skeleton
               variant="text"
-              sx={{ fontSize: "2rem" }}
+              sx={{ fontSize: "2rem", bgcolor: theme === "dark" && "grey.500" }}
               width={400}
               animation="wave"
             />
             <Skeleton
               variant="text"
-              sx={{ fontSize: "2rem" }}
+              sx={{ fontSize: "2rem", bgcolor: theme === "dark" && "grey.500" }}
               width={400}
               animation="wave"
             />
             <Skeleton
               variant="text"
-              sx={{ fontSize: "2rem" }}
+              sx={{ fontSize: "2rem", bgcolor: theme === "dark" && "grey.500" }}
               width={320}
               animation="wave"
             />
@@ -153,12 +160,16 @@ const PostSkeleton = () => {
             width={138}
             height={98}
             animation="wave"
+            sx={{ bgcolor: theme === "dark" && "grey.500" }}
           />
         </div>
         <div className="post-result-bottom">
           <Skeleton
             variant="text"
-            sx={{ fontSize: "0.75rem" }}
+            sx={{
+              fontSize: "0.75rem",
+              bgcolor: theme === "dark" && "grey.500",
+            }}
             animation="wave"
             width={150}
           />

@@ -22,8 +22,11 @@ import { usePageSettings } from "../hooks/usePageSettings";
 import { CommunityImg } from "@/components/CommunityImg";
 import { useHistory } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
+import { useDarkMode } from "hooks";
 
 export function SinglePostPage() {
+  const { theme } = useDarkMode();
+
   const history = useHistory();
   const dispatch = useDispatch();
   const { postId } = useParams();
@@ -82,13 +85,23 @@ export function SinglePostPage() {
           imgAlt="Community"
         />
       ) : (
-        <Skeleton variant="circular" animation="wave" width={20} height={20} />
+        <Skeleton
+          variant="circular"
+          animation="wave"
+          width={20}
+          height={20}
+          sx={{ bgcolor: theme === "dark" && "grey.500" }}
+        />
       ),
     pageTitle:
       post !== undefined ? (
         `c/${post?.communityName}`
       ) : (
-        <Skeleton animation="wave" variant="text" />
+        <Skeleton
+          animation="wave"
+          variant="text"
+          sx={{ bgcolor: theme === "dark" && "grey.500" }}
+        />
       ),
   });
 

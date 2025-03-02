@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { UserFollowBtn } from "./UserFollowBtn";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@mui/material";
+import { useDarkMode } from "hooks";
 
 const User = ({ user }) => {
   const currentUser = useSelector((state) => state.session.user);
@@ -36,6 +37,8 @@ const User = ({ user }) => {
 };
 
 const UserSkeleton = () => {
+  const { theme } = useDarkMode();
+
   return (
     <div className="search-results-page-community">
       <div className="post-results-communities-skeleton">
@@ -45,17 +48,24 @@ const UserSkeleton = () => {
             height={36}
             width={36}
             animation="wave"
+            sx={{ bgcolor: theme === "dark" && "grey.500" }}
           />
           <div className="post-results-communities-skeleton-mid">
             <Skeleton
               variant="text"
-              sx={{ fontSize: "0.75rem" }}
+              sx={{
+                fontSize: "0.75rem",
+                bgcolor: theme === "dark" && "grey.500",
+              }}
               width={100}
               animation="wave"
             />
             <Skeleton
               variant="text"
-              sx={{ fontSize: "0.75rem" }}
+              sx={{
+                fontSize: "0.75rem",
+                bgcolor: theme === "dark" && "grey.500",
+              }}
               width={67}
               animation="wave"
             />
@@ -63,7 +73,10 @@ const UserSkeleton = () => {
         </div>
         <Skeleton
           variant="rounded"
-          sx={{ borderRadius: "1000px" }}
+          sx={{
+            borderRadius: "1000px",
+            bgcolor: theme === "dark" && "grey.500",
+          }}
           height={32}
           width={86}
           animation="wave"

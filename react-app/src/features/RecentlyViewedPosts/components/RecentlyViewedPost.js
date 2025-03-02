@@ -8,8 +8,12 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 
 import { useMetadata } from "@/context";
 import { Skeleton } from "@mui/material";
+import { getDarkMode } from "context/DarkModeContext";
+import { useDarkMode } from "hooks";
 
 const PostTypeIcon = ({ post, linkImg }) => {
+  const { isDarkMode } = getDarkMode();
+
   if (post?.imgUrl) {
     return (
       <div className="recent-post-type">
@@ -77,29 +81,46 @@ const RecentlyViewedPost = ({ post, idx }) => {
 };
 
 const RecentlyViewedSkeleton = () => {
+  const { theme } = useDarkMode();
+
   return (
     <li className="recent-post-li">
       <div className="recent-post">
         <div className="recent-posts-skeleton">
-          <Skeleton variant="rounded" width={63} height={47} animation="wave" />
+          <Skeleton
+            sx={{ bgcolor: theme === "dark" && "grey.500" }}
+            variant="rounded"
+            width={63}
+            height={47}
+            animation="wave"
+          />
           <div className="recent-posts-skeleton-right">
             <div className="recent-posts-skeleton-title">
               <Skeleton
                 variant="text"
-                sx={{ fontSize: "1rem" }}
+                sx={{
+                  fontSize: "1rem",
+                  bgcolor: theme === "dark" && "grey.500",
+                }}
                 width={214}
                 animation="wave"
               />
               <Skeleton
                 variant="text"
-                sx={{ fontSize: "1rem" }}
+                sx={{
+                  fontSize: "1rem",
+                  bgcolor: theme === "dark" && "grey.500",
+                }}
                 width={166}
                 animation="wave"
               />
             </div>
             <Skeleton
               variant="text"
-              sx={{ fontSize: "0.25rem" }}
+              sx={{
+                fontSize: "0.25rem",
+                bgcolor: theme === "dark" && "grey.500",
+              }}
               animation="wave"
               width={150}
               height={"1rem"}
