@@ -348,12 +348,20 @@
   font-family: var(--font-family-ibm);
 }
 
-.op-sign {
-  color: var(--highlight-color);
+.op-sign,
+.mod-sign {
   font-size: 12px;
   font-weight: 700;
   margin-left: 4px;
   font-family: var(--font-family-ibm);
+}
+
+.op-sign {
+  color: var(--highlight-color);
+}
+
+.mod-sign {
+  color: rgb(5, 161, 5);
 }
 
 .insert-link-modal {

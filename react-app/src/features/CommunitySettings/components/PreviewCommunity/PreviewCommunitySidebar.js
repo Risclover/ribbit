@@ -81,6 +81,7 @@ export function PreviewCommunitySidebar() {
       <div
         className="preview-community-prevent-outside-click"
         onClick={handleOutsideClick}
+        tabIndex={0}
       ></div>
 
       {showWarning && (

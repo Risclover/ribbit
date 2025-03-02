@@ -70,7 +70,7 @@ export function PreviewCommunity() {
   if (!community) return null; // or return <LoadingSpinner />
 
   return (
-    <div className="preview-community-page-container">
+    <div className="preview-community-page-container" tabIndex={-1}>
       <CommunityPageHeader community={community} />
 
       <div className="posts-container">

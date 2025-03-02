@@ -2,6 +2,7 @@ import React from "react";
 import { Username } from "@/components";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import "../../../../components/Tooltip/Tooltip.css";
+import { useSelector } from "react-redux";
 
 export function CommentAuthorBar({
   comment,
@@ -10,7 +11,11 @@ export function CommentAuthorBar({
   wasEdited,
   editedTime,
 }) {
+  const posts = useSelector((state) => Object.values(state.posts));
+  const communities = useSelector((state) => Object.values(state.communities));
+
   const isOP = post?.postAuthor?.username === comment?.commentAuthor?.username;
+  const isMOD = comment?.userId === communities[post?.communityId].userId;
 
   return (
     <div className="comment-author-bar-container">
@@ -21,6 +26,7 @@ export function CommentAuthorBar({
           user={comment?.commentAuthor}
         />
         {isOP && <span className="op-sign">OP</span>}
+        {isMOD && <span className="mod-sign">MOD</span>}
 
         <span className="single-post-topbar-dot"> · </span>
         <span className="comment-original-time">

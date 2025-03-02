@@ -102,6 +102,8 @@
   margin: 0;
   flex: 1 1 100%;
   width: 100%;
+  font-size: 1.15rem;
+  font-weight: 500;
 }
 
 .auth-modal-close {

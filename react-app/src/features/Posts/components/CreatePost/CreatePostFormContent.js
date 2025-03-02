@@ -39,6 +39,11 @@ export function CreatePostFormContent({
                 e.preventDefault();
                 setShowImgModal(true);
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  setShowImgModal(true);
+                }
+              }}
             >
               Choose Image
             </button>

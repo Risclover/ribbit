@@ -76,7 +76,16 @@ export function UploadImageModal({ imgUrl, setShowModal, userId, uploadType }) {
                 onChange={showPreview}
                 hidden
               />
-              <span className="fake-upload-btn" tabIndex={0}>
+              <span
+                className="fake-upload-btn"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    document.getElementById("upload-user-img").click();
+                  }
+                }}
+              >
                 Choose Image
               </span>
             </label>

@@ -21,7 +21,6 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
 
   const [sortMode, setSortMode] = useState("new");
 
-  const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[userId]);
 
   const communities = useSelector((state) => state.communities);

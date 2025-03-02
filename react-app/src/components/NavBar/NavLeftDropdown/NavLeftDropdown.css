@@ -139,6 +139,10 @@
   align-items: center;
 }
 
+.nav-left-dropdown-face-title svg {
+  color: var(--main-text-color);
+}
+
 .nav-left-dropdown-face-sidebar-icon {
   font-size: 20px;
   font-weight: 400;
