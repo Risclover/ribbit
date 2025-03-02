@@ -25,6 +25,12 @@ const TextInput = ({
       {label === "Name" && (
         <span
           tabIndex={0}
+          onFocus={() => {
+            setShowTooltip(true);
+          }}
+          onBlur={() => {
+            setShowTooltip(false);
+          }}
           className="community-name-info"
           onMouseEnter={handleTooltip}
           onMouseLeave={() => {
