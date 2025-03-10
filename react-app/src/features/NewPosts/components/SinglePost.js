@@ -26,7 +26,7 @@ export function SinglePost({ link, id, isPage, post, handleCommentsBtnClick }) {
 
   return (
     <article className="single-post">
-      <NavLink to={`/posts/${post.id}`}>
+      <NavLink to={`/posts/${post.id}`} tabIndex={format !== "Card" && -1}>
         {(isPage === "profile" || format === "Card") && (
           <CardPostFormat
             post={post}

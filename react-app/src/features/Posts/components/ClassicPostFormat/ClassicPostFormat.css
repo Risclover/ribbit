@@ -37,9 +37,11 @@
   background: var(--single-post-container-bg);
 }
 
-.classic-post-container:hover {
+.classic-post-container:hover,
+.classic-post-container:focus {
   border: 1px solid #898989;
   z-index: 1;
+  outline: none;
 }
 
 .classic-post-karmabar {

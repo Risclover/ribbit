@@ -15,7 +15,7 @@ export function CommentAuthorBar({
   const communities = useSelector((state) => Object.values(state.communities));
 
   const isOP = post?.postAuthor?.username === comment?.commentAuthor?.username;
-  const isMOD = comment?.userId === communities[post?.communityId].userId;
+  const isMOD = comment?.userId === communities[post?.communityId]?.userId;
 
   return (
     <div className="comment-author-bar-container">

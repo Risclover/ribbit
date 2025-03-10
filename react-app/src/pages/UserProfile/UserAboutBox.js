@@ -95,7 +95,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   };
 
   return (
-    <div className="user-profile-about-box">
+    <div className="user-profile-about-box" id="sidebar">
       <div
         className="user-profile-about-box-banner"
         style={{

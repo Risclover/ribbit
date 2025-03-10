@@ -42,7 +42,15 @@ export default function CompactPostFormat({ id, isPage, post }) {
 
   return (
     <div className="compact-post-format">
-      <div className="compact-post-container">
+      <div
+        className="compact-post-container"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            history.push(`/posts/${post.id}`);
+          }
+        }}
+      >
         <div className="compact-post-principle">
           <div className="compact-post-karmabar">
             <SinglePostVotingBtns post={post} format="compact" />

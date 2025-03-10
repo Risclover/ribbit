@@ -34,6 +34,25 @@
   --logo-color: #67b54d;
   --main-input-bg-color: #f6f7f8;
 
+  --chat-background: #ffffff;
+  --chat-footer-bg: #f8f8f8;
+  --new-chat-overlay-background: #e5ebee;
+  --chat-main-border: #f2f2f2;
+  --new-chat-overlay-text-color: #5c6c74;
+  --new-chat-overlay-input-color: #181c1f;
+  --new-chat-overlay-input-background: #ffffff;
+  --new-chat-overlay-found-bg: #ffffff;
+  --new-chat-overlay-found-hover: #f6f8f9;
+  --new-chat-overlay-found-active: #00000026;
+  --new-chat-overlay-btns-left: #e5ebee;
+  --new-chat-overlay-btns-left-hover: #dbe4e9;
+  --new-chat-overlay-btns-left-active: linear-gradient(#00000026, #00000026),
+    linear-gradient(
+      var(--new-chat-overlay-btns-left-hover),
+      var(--new-chat-overlay-btns-left-hover)
+    );
+  --new-chat-overlay-btns-left-disabled-bg: #0000000c;
+  --new-chat-overlay-btns-left-disabled-text: #0000003f;
   --current-color-scheme: "light";
 }
 
@@ -49,5 +68,25 @@
   --highlight-color: #d7dadc;
   --main-input-bg-color: #28272a;
 
+  --chat-background: #080808;
+  --chat-footer-bg: #131313;
+  --new-chat-overlay-background: #2a3236;
+  --chat-main-border: #1e1e1e;
+  --new-chat-overlay-text-color: #8ba2ad;
+  --new-chat-overlay-input-color: #eef1f3;
+  --new-chat-overlay-input-background: #181c1f;
+  --new-chat-overlay-found-bg: #0e1113;
+  --new-chat-overlay-found-hover: #181c1f;
+  --new-chat-overlay-found-active: #ffffff26;
+  --new-chat-overlay-btns-left: #2a3236;
+  --new-chat-overlay-btns-left-hover: #333d42;
+  --new-chat-overlay-btns-left-active: linear-gradient(#ffffff26, #ffffff26),
+    linear-gradient(
+      var(--new-chat-overlay-btns-left-hover),
+      var(--new-chat-overlay-btns-left-hover)
+    );
+  --new-chat-overlay-btns-left-disabled-bg: #ffffff0c;
+  --new-chat-overlay-btns-left-disabled-text: #ffffff3f;
+  --message-invite-text: #b7dad4;
   --community-highlight: #d7dadc !important;
 }

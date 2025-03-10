@@ -44,11 +44,11 @@ export const CreateChatOverlay = ({
               </label>
             </div>
           </div>
-          {!userFound && (
-            <div className="new-chat-instructions">
-              Search for people by username to chat with them.
-            </div>
-          )}
+
+          <div className="new-chat-instructions">
+            Search for people by username to chat with them.
+          </div>
+
           {error && (
             <div className="new-chat-error">You can't talk to yourself.</div>
           )}

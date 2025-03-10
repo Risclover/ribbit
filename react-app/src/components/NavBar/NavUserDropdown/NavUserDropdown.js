@@ -4,6 +4,7 @@ import NavUserDropdownFace from "./NavUserDropdownFace";
 import NavUserDropdownBox from "./NavUserDropdownBox";
 import "./NavUserDropdown.css";
 import { useOutsideClick } from "hooks";
+import { useSkipLocation } from "context/SkipLocationContext";
 
 export function NavUserDropdown() {
   const wrapperRef = useRef(null);
@@ -14,6 +15,8 @@ export function NavUserDropdown() {
 
   useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
+  const { showLinks, setShowLinks } = useSkipLocation();
+
   return (
     <div
       className="navbar-user-dropdown"
@@ -23,6 +26,10 @@ export function NavUserDropdown() {
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           setShowDropdown(!showDropdown);
+        }
+
+        if (e.key === "Tab") {
+          setShowLinks(true);
         }
       }}
     >

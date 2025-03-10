@@ -531,8 +531,10 @@ I spent so many hours debating which course to take or which book to read. Becau
             "community_id": 19
         },
         {
-            "title": "What's your favourite python trick to use?",
-            "content": """Unbeknown to be you can bind variables to functions. Very helpful to increment a value each time a function is called. One of the many an object is anything you want it to be features of python. So what are your little tricks or hacks that you don't use frequently but are super useful?""",
+            "title": "Is building a GUI always going to be THIS painful?",
+            "content": """I have been programming in Python for about 2 years know, I've gotten pretty comfortable with the language and I almost always find it a joy to work with. EXCEPT when trying to make a GUI.
+
+I've tried on several occasions now to develop a GUI using both tkinter and CustomTkinter. My experience has been pure pain. It has been super confusing and the docs will tell me one thing and then I'll try it exactly how they say and it doesn't work. I definitely am still in the learning process when it comes to developing a graphical interface, but my question is, does everyone else find building a GUI in python to be this painful? Are the other libraries out there any better or are there other tools that make GUI development easier? Because I am almost in disbelief at how unbelievably annoying and overwhelming it feels for me to try to implement a GUI that is anything beyond the simplest possible, to any program I write.""",
             "user_id": 38,
             "community_id": 19
         },
@@ -610,13 +612,13 @@ I tried telling him that there are dozens of people here saying they did somethi
             "title": "Does anyone else’s family have 'home clothes,' or is it just us?",
             "content": """Are we the only weird family that does this, or is it a universal thing?
 
-At home, we look... well, ""homeless chic"" is the vibe. We call it "home clothes." It’s basically my dad’s old shirts that are one step away from disintegrating—stained, torn, ridiculously oversized, but somehow the most comfortable things in existence.
+At home, we look... well, "homeless chic" is the vibe. We call it "home clothes." It’s basically my dad’s old shirts that are one step away from disintegrating—stained, torn, ridiculously oversized, but somehow the most comfortable things in existence.
 
 Had a rough day? Get home, slap on some home clothes, and boom—instant therapy. BUT, when people come over or stay the night, we have to scramble to look like we’re not living in a sitcom about struggling artists. As soon as they leave? Right back into the post-apocalyptic wardrobe.
 
 To be clear, they're clean (ish). The stains are from noble pursuits like painting, hair dyeing, or accidentally wielding spaghetti sauce like it’s a Jackson Pollock piece.
 
-Anyone else have ""home clothes,"" or is my family just running a secret cult of comfort?""",
+Anyone else have \"home clothes,\" or is my family just running a secret cult of comfort?""",
             "user_id": 47,
             "community_id": 22
         },

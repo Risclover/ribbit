@@ -69,6 +69,10 @@ textarea {
   outline: none;
 }
 
+input {
+  outline: none;
+}
+
 a.blue-btn-filled {
   font-family: var(--font-family-noto);
   font-size: 14px;

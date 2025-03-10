@@ -13,14 +13,14 @@ import "./assets/styles/variables.css";
 import "isomorphic-fetch";
 import { SelectedChatProvider } from "@/context";
 import { AuthFlowProvider } from "context/AuthFlowContext";
-import { DarkModeProvider } from "context/DarkModeContext";
+import { SkipLocationProvider } from "context/SkipLocationContext";
 
 const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <DarkModeProvider>
+      <SkipLocationProvider>
         <AuthModalProvider>
           <AuthFlowProvider>
             <SelectedChatProvider>
@@ -34,7 +34,7 @@ ReactDOM.render(
             </SelectedChatProvider>
           </AuthFlowProvider>
         </AuthModalProvider>
-      </DarkModeProvider>
+      </SkipLocationProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

@@ -57,7 +57,15 @@ export default function ClassicPostFormat({ isPage, id, post }) {
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
 
   return (
-    <div className="classic-post-container">
+    <div
+      className="classic-post-container"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          history.push(`/posts/${post?.id}`);
+        }
+      }}
+    >
       <SinglePostVotingBtns post={post} />
       <div className="classic-post-main">
         <div className="classic-post-content-box">

@@ -1,36 +1,43 @@
-.skip-location-container {
-  /* Start out offscreen so it's not visible by default. */
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999;
-
-  clip: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+.skip-location {
+  max-width: calc(640px + 310px + 24px);
+  width: 100%;
+  margin: 0 auto;
+  height: auto;
 }
 
-/* If we have step>0, we have a link in the DOM.
-   So let's reveal the container whenever it has focus inside. */
-.skip-location-container:focus-within {
-  clip: auto;
-  width: auto;
+.skip-location:focus-within {
+  display: block;
+}
+
+.sr-only {
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0px;
+  position: absolute;
+  width: 1px;
+  clip: rect(0px, 0px, 0px, 0px);
+  border-width: 0px;
+  white-space: nowrap;
+}
+
+.not-sr-only:focus {
   height: auto;
+  margin: 0px;
   overflow: visible;
+  display: inline-block;
+  padding: 0px;
+  position: static;
+  width: auto;
+  clip: auto;
+  white-space: normal;
 }
 
 .skip-link {
-  display: block;
-  background: #0079d3;
-  color: #fff;
-  padding: 8px 12px;
-  margin-bottom: 4px;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 4px;
+  opacity: 0;
+  position: absolute;
 }
 
 .skip-link:focus {
-  outline: 2px solid #ff0;
+  opacity: 1;
 }

@@ -17,9 +17,13 @@ export function useSignUpForm() {
     (user) => user.email.toLowerCase() === signupFormData.email.toLowerCase()
   );
 
+  // ========== FIELD SETTERS ==========
+
   const setEmail = (val) => {
     setSignupFormData((prev) => ({ ...prev, email: val }));
   };
+
+  // ========== VALIDATION ON BLUR ==========
 
   const handleEmailBlur = () => {
     setEmailBlurred(true);
@@ -30,6 +34,8 @@ export function useSignUpForm() {
     const finalDisabled = signupFormData.email === "" || errors.length > 0;
     setDisabled(finalDisabled);
   };
+
+  // ========== BUILD INPUT PROPS ==========
 
   const emailInputProps = {
     type: "email",
@@ -47,6 +53,8 @@ export function useSignUpForm() {
     focused,
     setFocused,
   };
+
+  // ========== SUBMISSION ==========
 
   const continueBtn = (
     <button className=" signup-form-submit" disabled={disabled} type="submit">

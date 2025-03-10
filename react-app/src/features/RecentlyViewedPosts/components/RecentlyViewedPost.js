@@ -8,12 +8,9 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 
 import { useMetadata } from "@/context";
 import { Skeleton } from "@mui/material";
-import { getDarkMode } from "context/DarkModeContext";
 import { useDarkMode } from "hooks";
 
 const PostTypeIcon = ({ post, linkImg }) => {
-  const { isDarkMode } = getDarkMode();
-
   if (post?.imgUrl) {
     return (
       <div className="recent-post-type">

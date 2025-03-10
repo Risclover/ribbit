@@ -17,7 +17,7 @@
   border: 0px;
   border-radius: 20px;
   flex-grow: 1;
-  background: #eaedef;
+  background: var(--new-chat-overlay-background);
   color: #0f1a1c;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji",
@@ -50,14 +50,16 @@
   transform: rotate(90deg);
 }
 
-.send-chat-msg-btn {
+.send-chat-msg-btn:disabled {
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 40px;
-  color: #00000040;
-  cursor: not-allowed;
+  color: var(--new-chat-overlay-btns-left-disabled-text);
+  filter: none;
+  background: transparent;
+  pointer-events: none;
 }
 
 .chat-msg-enabled {

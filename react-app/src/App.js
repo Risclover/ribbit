@@ -178,7 +178,7 @@ function App() {
           <PostFormatContext.Provider value={{ format, setFormat }}>
             <ScrollToTop />
             {previewPage && <PreviewCommunitySidebar />}
-            <NavBar {...navBarProps} /> <SkipLocation />
+            <NavBar {...navBarProps} />
             <div
               className={
                 showNavSidebar
@@ -203,7 +203,7 @@ function App() {
                   setMinimizeChat={setMinimizeChat}
                 />
               )}
-
+              <SkipLocation />
               <Switch>
                 <ScrollProvider>
                   {user ? (
