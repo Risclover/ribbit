@@ -38,16 +38,20 @@ export function useLoginForm() {
 
   const handleEmailBlur = () => {
     setEmailBlurred(true);
+
     const errors = handleErrors(loginFormData.email);
     setLoginEmailErrors(errors);
+
     const passwordErrors = handleErrors(loginFormData.password);
     setLoginPasswordErrors(passwordErrors);
   };
 
   const handlePasswordBlur = () => {
     setPasswordBlurred(true);
+
     const errors = handleErrors(loginFormData.password);
     setLoginPasswordErrors(errors);
+
     const emailErrors = handleErrors(loginFormData.email);
     setLoginEmailErrors(emailErrors);
   };

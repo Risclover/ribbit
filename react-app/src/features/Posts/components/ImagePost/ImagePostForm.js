@@ -63,8 +63,23 @@ export function ImagePostForm({ imgUrl, setImgUrl, setShowImgModal }) {
           <div className="user-img-error">
             {errorMsg} {imageLoading && <p className="loading">Loading...</p>}
           </div>
-          <label className="post-img-btn-box" htmlFor="post-img">
-            <div className="post-img-btn">Upload Image</div>
+          <label
+            className="post-img-btn-box"
+            htmlFor="post-img"
+            id="upload-img"
+          >
+            <div
+              className="post-img-btn"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  document.getElementById("upload-img").click();
+                }
+              }}
+            >
+              Upload Image
+            </div>
           </label>
         </div>
       </div>

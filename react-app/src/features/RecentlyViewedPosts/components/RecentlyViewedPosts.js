@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import moment from "moment";
-
-import { getViewedPosts, removeViewedPosts } from "@/store";
 import { RecentlyViewedType } from "./RecentlyViewedType";
+import { useRecentlyViewedPosts } from "../hooks";
 import "../styles/RecentlyViewedPosts.css";
 
 moment.updateLocale("en-cust", {
@@ -26,37 +24,7 @@ moment.updateLocale("en-cust", {
 });
 
 export function RecentlyViewedPosts() {
-  const dispatch = useDispatch();
-  const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const arr = [];
-      const postList = await dispatch(getViewedPosts());
-      postList.ViewedPosts.map((item) => arr.push(item.post));
-
-      setPosts(arr);
-    };
-
-    fetchPosts();
-  }, []);
-
-  useEffect(() => {
-    if (posts.length === 0) {
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
-    }
-  }, [posts]);
-
-  const handleClear = () => {
-    fetch("/api/viewed_posts/delete", { method: "DELETE" })
-      .then(() => {
-        dispatch(removeViewedPosts());
-      })
-      .catch((error) => console.error(error));
-  };
+  const { isLoading, handleClear, posts } = useRecentlyViewedPosts();
 
   return (
     <div className="recent-posts-box">
