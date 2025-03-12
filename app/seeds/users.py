@@ -2,7 +2,7 @@ import random
 from app.models import db, User
 from datetime import datetime, timedelta
 
-def generate_relative_timestamp(max_days_ago=14):
+def generate_relative_timestamp(max_days_ago=7):
     """
     Generate a random datetime within the past `max_days_ago` days.
     """

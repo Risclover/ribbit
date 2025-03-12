@@ -15,7 +15,7 @@ import Skeleton from "@mui/material/Skeleton";
 import { getUser } from "@/store";
 import { useDarkMode } from "hooks";
 
-export function UserProfile({ setShowLoginForm, setOpenChat }) {
+export function UserProfile({ setOpenChat }) {
   const { theme } = useDarkMode();
 
   const dispatch = useDispatch();
@@ -79,7 +79,6 @@ export function UserProfile({ setShowLoginForm, setOpenChat }) {
           userId={userId}
           sortMode={sortMode}
           setSortMode={setSortMode}
-          setShowLoginForm={setShowLoginForm}
         />
       </FeedLeftColContainer>
       <FeedRightColContainer>

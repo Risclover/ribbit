@@ -3,8 +3,16 @@ import { useHistory } from "react-router-dom";
 import { useAuthFlow } from "@/context";
 import { AuthModalCloseBtn, AuthModalBackBtn } from "@/assets";
 import { useModalScrollBorders } from "./useModalScrollBorders";
+import { useScrollLock } from "hooks";
+import { unlockScroll } from "utils/scrollLock";
 
-export function useAuthModalLayout({ containerRef, topbarBtn, onClose }) {
+export function useAuthModalLayout({
+  containerRef,
+  topbarBtn,
+  onClose,
+  active,
+  setActive,
+}) {
   const history = useHistory();
 
   const { openSignupPage1, closeModal } = useAuthFlow();

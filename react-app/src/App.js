@@ -55,13 +55,15 @@ import { MetadataProvider } from "@/context";
 import { PopupProvider } from "@/context";
 import { ProtectedRoute } from "@/components";
 import ChatMinimized from "@/features/Chat/components/ChatWindow/ChatMinimized";
-import ImagePage from "pages/ImagePage";
+import { ImagePage } from "pages/ImagePage";
 import {
   getSidebarState,
   setSidebarState,
 } from "@/features/Communities/utils/localStorage";
 import { ScrollProvider } from "@/context/ScrollContext";
 import SkipLocation from "components/SkipLocation/SkipLocation";
+import { AppRoutes } from "routes/AppRoutes";
+import { useLeaveLogin } from "hooks/useLeaveLogin";
 
 function App() {
   const dispatch = useDispatch();
@@ -148,6 +150,12 @@ function App() {
     setSidebarState(showNavSidebar);
   }, [showNavSidebar]);
 
+  useLeaveLogin(() => {
+    // This will run exactly once, the moment you leave /login:
+    document.body.style.overflow = "";
+    // or your own custom cleanup, e.g. unlockScroll();
+  });
+
   if (!loaded) {
     return null;
   }
@@ -204,7 +212,14 @@ function App() {
                 />
               )}
               <SkipLocation />
-              <Switch>
+              <AppRoutes
+                user={user}
+                postType={postType}
+                setPostType={setPostType}
+                searchbarRef={searchbarRef}
+                setOpenChat={setOpenChat}
+              />
+              {/* <Switch>
                 <ScrollProvider>
                   {user ? (
                     <Route path="/" exact={true}>
@@ -222,23 +237,6 @@ function App() {
 
                   <Route path="/login">
                     <ProtectedRoute />
-                  </Route>
-
-                  <Route path="/signup">
-                    {showSignupForm && (
-                      <Modal
-                        title="Sign Up"
-                        close={showSignupForm}
-                        onClose={() => setShowSignupForm(false)}
-                        open={() => setShowSignupForm(true)}
-                      >
-                        <SignUpForm
-                          showSignupForm={showSignupForm}
-                          setShowLoginForm={setShowLoginForm}
-                          setShowSignupForm={setShowSignupForm}
-                        />
-                      </Modal>
-                    )}
                   </Route>
 
                   <Route path="/all" exact={true}>
@@ -303,10 +301,6 @@ function App() {
                     <SinglePostPage />
                   </Route>
 
-                  <Route path="/images/:postId" exact={true}>
-                    <SingleImagePage />
-                  </Route>
-
                   <Route path="/directory" exact={true}>
                     <CommunitiesDirectory />
                   </Route>
@@ -347,13 +341,7 @@ function App() {
                   </Route>
 
                   <ProtectedRoute path="/c/:communityName/style" exact={true}>
-                    <PreviewCommunity
-                      postType={postType}
-                      setPostType={setPostType}
-                      previewPage={previewPage}
-                      userCommunities={userCommunities}
-                      setPreviewPage={setPreviewPage}
-                    />
+                    <PreviewCommunity />
                   </ProtectedRoute>
 
                   <ProtectedRoute path="/c/:communityName/edit" exact={true}>
@@ -400,7 +388,7 @@ function App() {
                     <ImagePage />
                   </Route>
                 </ScrollProvider>
-              </Switch>
+              </Switch> */}
 
               {!user && (
                 <LoggedOutSidebar

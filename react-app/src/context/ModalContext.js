@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { useDisableBodyScroll } from "../hooks/useDisableBodyScroll";
 import "./ModalContext.css";
 import { useFocusTrap, useScrollLock } from "hooks";
 

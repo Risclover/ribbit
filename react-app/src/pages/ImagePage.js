@@ -11,7 +11,7 @@ import Skeleton from "@mui/material/Skeleton";
 import { getCommunities } from "@/store";
 import { useDarkMode } from "hooks";
 
-const ImagePage = () => {
+export const ImagePage = () => {
   const { theme } = useDarkMode();
 
   const dispatch = useDispatch();
@@ -117,5 +117,3 @@ const ImagePage = () => {
     </div>
   );
 };
-
-export default ImagePage;

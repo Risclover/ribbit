@@ -13,6 +13,7 @@ import { useAuthModalLayout } from "../hooks";
  */
 export function AuthModalLayout({
   active,
+  setActive,
   onClose,
   title,
   topbarBtn = "close",
@@ -27,7 +28,14 @@ export function AuthModalLayout({
   useFocusTrap(active, wrapperRef);
 
   const { handleScroll, topbarClassName, footerClassName, renderTopbarButton } =
-    useAuthModalLayout({ containerRef, topbarBtn, onClose, formType });
+    useAuthModalLayout({
+      containerRef,
+      topbarBtn,
+      onClose,
+      formType,
+      active,
+      setActive,
+    });
 
   return (
     <form className="auth-layout" ref={wrapperRef} onSubmit={onSubmit}>
