@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { login } from "@/store";
 import { useAuthFlow } from "@/context";
 
@@ -10,6 +10,7 @@ import { useAuthFlow } from "@/context";
  */
 export function useDemoAccountWarning({ setShowDemoWarning }) {
   const dispatch = useDispatch();
+  const location = useLocation();
   const history = useHistory();
   const wrapperRef = useRef(null);
 
@@ -26,7 +27,10 @@ export function useDemoAccountWarning({ setShowDemoWarning }) {
     e.preventDefault();
     dispatch(login("demo@aa.io", "password"));
     closeModal();
-    history.push("/");
+
+    if (location.pathname === "/login") {
+      history.push("/");
+    }
   };
 
   // Logic for the 'Sign Up' button, which closes this warning and opens the sign up form.

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { useAuthFlow, AuthModal } from "@/context";
-import { LoginForm } from "./AuthForms/LoginForm";
-import { SignUpForm, SignUpFormSecondPage } from "./AuthForms";
+import { SignUpForm, SignUpFormSecondPage, LoginForm } from "./AuthForms";
 import "../styles/AuthFormInput.css";
 import "../styles/AuthForms.css";
 
@@ -10,7 +11,14 @@ import "../styles/AuthForms.css";
  * - formType: type of form displayed; relevant for topbar button ("close", "back", or "go home")
  */
 export function LoginSignupModal({ formType }) {
-  const { view, closeModal } = useAuthFlow();
+  const user = useSelector((state) => state.session.user);
+
+  const { view, closeModal, openLogin } = useAuthFlow();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/login" && !user) openLogin();
+  }, []);
 
   return (
     <AuthModal active={!!view} onClose={closeModal} formType={formType}>

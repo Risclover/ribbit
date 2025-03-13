@@ -20,6 +20,7 @@ import {
   UpdateImagePost,
   UpdatePost,
 } from "@/features";
+import { LoginSignupModal } from "features";
 
 export const AppRoutes = ({
   user,
@@ -36,7 +37,7 @@ export const AppRoutes = ({
         </Route>
 
         <Route path="/login">
-          <ProtectedRoute />
+          <LoginSignupModal formType="protected" />
         </Route>
 
         <Route path="/all" exact={true}>
