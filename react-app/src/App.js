@@ -122,9 +122,10 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
+    dispatch(getCommunities());
+    dispatch(getUsers());
     dispatch(getCommunitySettings());
     dispatch(getUserChatThreads());
-    dispatch(getUsers());
   }, []);
 
   useEffect(() => {

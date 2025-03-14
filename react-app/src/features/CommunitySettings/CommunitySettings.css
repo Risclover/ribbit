@@ -29,6 +29,10 @@
   color: var(--community-base-color);
 }
 
+:root[data-theme="dark"] .edit-community-top-bar-name a {
+  color: var(--main-text-color);
+}
+
 .edit-community-top-bar img {
   height: 20px;
   width: 20px;

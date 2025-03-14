@@ -6,6 +6,7 @@ import { CreateCommunityForm } from "./CreateCommunityForm";
 import { lockScroll, unlockScroll } from "@/utils/scrollLock";
 import "./CreateCommunityModal.css";
 import { useScrollLock } from "@/hooks";
+import { getCommunities } from "store";
 
 export function CreateCommunityModal({
   showCreateCommunityModal,
@@ -25,6 +26,7 @@ export function CreateCommunityModal({
       const data = await dispatch(addCommunity({ name, description }));
       dispatch(addToSubscriptions(data.id));
       dispatch(getSubscriptions());
+      dispatch(getCommunities());
       history.push(`/c/${data.name}`);
     },
     [name, description, dispatch, history]

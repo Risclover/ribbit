@@ -19,10 +19,6 @@ export function LoggedOutSidebar({ showLoggedOutSidebar }) {
 
   const communities = useSelector((state) => Object.values(state.communities));
 
-  useEffect(() => {
-    dispatch(getCommunities());
-  }, []);
-
   const sortedCommunities = communities.sort((a, b) =>
     a.members < b.members ? 1 : -1
   );
