@@ -13,12 +13,10 @@ import { useAuthModalLayout } from "../hooks";
  */
 export function AuthModalLayout({
   active,
-  setActive,
   onClose,
   title,
   topbarBtn = "close",
   footerBtn,
-  formType,
   onSubmit,
   children,
 }) {
@@ -32,9 +30,6 @@ export function AuthModalLayout({
       containerRef,
       topbarBtn,
       onClose,
-      formType,
-      active,
-      setActive,
     });
 
   return (

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { render, cleanup, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { CreateCommunity } from "./CreateCommunity";
+import { CreateCommunity } from "../components/CreateCommunity";
 
 describe("<CreateCommunity />", () => {
   it("should render", () => {

@@ -1,43 +1,32 @@
+/* Visually hide an element but keep it accessible to screen readers. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* When the link has keyboard focus, override the .sr-only styles so it's visible. */
+.sr-only:focus,
+.sr-only:focus-visible {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* If you want to style the container (optional) */
 .skip-location {
   max-width: calc(640px + 310px + 24px);
   width: 100%;
   margin: 0 auto;
   height: auto;
-}
-
-.skip-location:focus-within {
-  display: block;
-}
-
-.sr-only {
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0px;
-  position: absolute;
-  width: 1px;
-  clip: rect(0px, 0px, 0px, 0px);
-  border-width: 0px;
-  white-space: nowrap;
-}
-
-.not-sr-only:focus {
-  height: auto;
-  margin: 0px;
-  overflow: visible;
-  display: inline-block;
-  padding: 0px;
-  position: static;
-  width: auto;
-  clip: auto;
-  white-space: normal;
-}
-
-.skip-link {
-  opacity: 0;
-  position: absolute;
-}
-
-.skip-link:focus {
-  opacity: 1;
 }

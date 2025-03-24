@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import usePostReplies from "features/Messages/hooks/usePostReplies";
 
 export function PostRepliesPage() {
-  const { markedUnread, setMarkedUnread, postRepliesList } = usePostReplies();
+  const { postRepliesList } = usePostReplies();
 
   usePageSettings({
     documentTitle: "Messages: Post Replies",
@@ -30,12 +30,7 @@ export function PostRepliesPage() {
         <MessageContentMenu active="Post Replies" />
         <div className="inbox-messages">
           {postRepliesList.map((post) => (
-            <PostReply
-              key={uuidv4()}
-              setMarkedUnread={setMarkedUnread}
-              markedUnread={markedUnread}
-              notification={post}
-            />
+            <PostReply key={uuidv4()} notification={post} />
           ))}
         </div>
         {postRepliesList.length === 0 && (

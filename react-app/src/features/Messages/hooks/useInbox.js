@@ -46,7 +46,7 @@ export default function useInbox({ message }) {
     pageTitle: "Messages",
   });
 
-  messageList.sort((a, b) => {
+  messageList?.sort((a, b) => {
     let msgA = new Date(a.createdAt);
     let msgB = new Date(b.createdAt);
     return msgB - msgA;

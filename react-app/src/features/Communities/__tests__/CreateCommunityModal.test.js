@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import configureStore from "redux-mock-store";
 import "@testing-library/jest-dom";
 
-import { CreateCommunityModal } from "./CreateCommunityModal"; // Ensure this import path is correct
+import { CreateCommunityModal } from "../components/CreateCommunityModal"; // Ensure this import path is correct
 
 const mockStore = configureStore([]);
 const store = mockStore({});

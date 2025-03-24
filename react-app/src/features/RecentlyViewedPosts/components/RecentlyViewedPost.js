@@ -46,12 +46,14 @@ const RecentlyViewedPost = ({ post, idx }) => {
   const { metadata, fetchMetadata } = useMetadata();
 
   useEffect(() => {
-    if (post.linkUrl && !metadata[post.linkUrl]) {
-      fetchMetadata(post.linkUrl);
+    if (post?.linkUrl && !metadata[post?.linkUrl]) {
+      fetchMetadata(post?.linkUrl);
     }
   }, [post]);
 
-  const metadataResult = metadata[post.linkUrl];
+  const metadataResult = metadata[post?.linkUrl];
+
+  if (!post) return null;
   return (
     <li className={`recent-post-li ${idx === 4 ? "li-last" : ""}`}>
       <NavLink to={`/posts/${post?.id}`}>

@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
-import { validateCommunityName } from "../../utils/validateCommunityName";
-import { useCommunityNameTaken } from "../../hooks/useCommunityNameTaken";
-import "./CreateCommunityModal.css";
+import { validateCommunityName } from "../utils/validateCommunityName";
+import { useCommunityNameTaken } from "../hooks/useCommunityNameTaken";
 import { InfoIcon } from "@/assets/icons/InfoIcon";
+import "../styles/CreateCommunityModal.css";
 
 const TextInput = ({
   label,

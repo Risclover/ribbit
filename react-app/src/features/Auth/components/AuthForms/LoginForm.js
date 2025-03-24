@@ -8,7 +8,7 @@ import { useLoginForm } from "../../hooks";
  * - formType: type of form displayed; relevant for topbar button ("close", "back", or "go home")
  */
 export const LoginForm = ({ formType }) => {
-  const { closeModal, view, setView } = useAuthFlow();
+  const { closeModal, view } = useAuthFlow();
   const {
     emailInputProps,
     passwordInputProps,
@@ -20,13 +20,12 @@ export const LoginForm = ({ formType }) => {
 
   return (
     <AuthModalLayout
-      title="Log In"
+      active={view}
       onClose={closeModal}
+      title="Log In"
       topbarBtn={formType === "protected" ? "none" : "close"}
       footerBtn={submitBtn}
       onSubmit={handleLogin}
-      active={view}
-      setActive={setView}
     >
       <div className="login-form-container">
         <div className="login-form">

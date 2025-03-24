@@ -22,12 +22,12 @@ export function SignUpFormSecondPage({ formType }) {
 
   return (
     <AuthModalLayout
-      title="Create your username and password"
+      active={view}
       onClose={returnToFirstPage}
+      title="Create your username and password"
       topbarBtn={formType === "protected" ? "none" : "back"}
       footerBtn={submitBtn}
       onSubmit={(e) => handleSignUp(e)}
-      active={view}
     >
       <div>
         <p className="auth-modal-agreement">

@@ -15,13 +15,13 @@ import usePostReplies from "features/Messages/hooks/usePostReplies";
 export function PostReply({ notification }) {
   const { community, postReplySender, handleUnread, handleRead } =
     usePostReplies({ notification });
-    
+
   return (
     <div className="inbox-message" onClick={handleRead}>
       <div className="inbox-message-subject">
         post reply:{" "}
         <NavLink to={`/posts/${notification.postId}`}>
-          {notification?.title}
+          {notification       ?.title}
         </NavLink>
       </div>
       <div className="post-reply-main">

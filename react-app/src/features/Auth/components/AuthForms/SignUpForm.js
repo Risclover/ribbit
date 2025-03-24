@@ -16,25 +16,19 @@ export const SignUpForm = ({ formType }) => {
 
   return (
     <AuthModalLayout
-      topbarBtn={formType === "protected" ? "none" : "close"}
-      title="Sign Up"
+      active={view}
       onClose={closeModal}
-      openSecondPage={openSignupPage2}
+      title="Sign Up"
+      topbarBtn={formType === "protected" ? "none" : "close"}
       footerBtn={continueBtn}
       onSubmit={openSignupPage2}
-      active={view}
     >
       <div className="signup-form-container">
         <div className="signup-form">
           {/* user agreement & demo button */}
           <FormHeader />
           {/* email input */}
-          <AuthFormInput
-            props={emailInputProps}
-            testId="Email"
-            blurred={emailBlurred}
-            onBlur={() => handleEmailErrors(signupFormData.email, emailTaken)}
-          />
+          <AuthFormInput props={emailInputProps} blurred={emailBlurred} />
           {/* button to switch to login form */}
           <SignInSwitch prompt="Already a ribbitor? " linkText="Log In" />
         </div>

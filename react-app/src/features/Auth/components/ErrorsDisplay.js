@@ -8,14 +8,12 @@ import { UsernameAvailability } from "./UsernameAvailability";
  * - inputValue: value of the input box to validate against
  * - name: name of the input box
  * - blurred: whether or not the input box is focused
- * - usernameTaken: whether or not the username is already taken
  */
 export function ErrorsDisplay({
   errors,
   inputValue,
   name,
   blurred,
-  usernameTaken,
 }) {
   return (
     <div className="error-container">
@@ -32,7 +30,6 @@ export function ErrorsDisplay({
           value={inputValue}
           errors={errors}
           blurred={blurred}
-          usernameTaken={usernameTaken}
         />
       )}
     </div>

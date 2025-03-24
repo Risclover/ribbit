@@ -11,12 +11,12 @@ import "../styles/AuthForms.css";
  * - formType: type of form displayed; relevant for topbar button ("close", "back", or "go home")
  */
 export function LoginSignupModal({ formType }) {
-  const user = useSelector((state) => state.session.user);
-
-  const { view, closeModal, openLogin } = useAuthFlow();
   const location = useLocation();
+  const user = useSelector((state) => state.session.user);
+  const { view, closeModal, openLogin } = useAuthFlow();
 
   useEffect(() => {
+    // If at url "/login" and user is logged out, open the login form
     if (location.pathname === "/login" && !user) openLogin();
   }, []);
 

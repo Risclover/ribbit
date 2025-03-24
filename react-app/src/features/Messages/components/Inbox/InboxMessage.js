@@ -8,6 +8,7 @@ import { MessageReply } from "../MessageReply";
 export function InboxMessage({ item, message, currentUser, expanded }) {
   const { handleRead, markedUnread, setMarkedUnread } = useInbox({ message });
 
+  if (!message) return null;
   return (
     <div className="inbox-message" onClick={handleRead}>
       <div className="inbox-message-subject">{message.subject}:</div>

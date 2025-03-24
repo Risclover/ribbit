@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "@/context";
-import { CreateCommunityModal } from "../..";
+import { CreateCommunityModal } from "..";
 import { lockScroll, unlockScroll } from "@/utils/scrollLock";
 import { useScrollLock } from "@/hooks";
 

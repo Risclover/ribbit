@@ -779,7 +779,7 @@ pre.ql-syntax {
 }
 
 .single-post-content-box-right {
-  border: none;
+  border: 1px solid transparent;
   color: var(--highlight-color);
   display: flex;
   align-items: center;
