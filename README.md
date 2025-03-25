@@ -17,7 +17,7 @@ Welcome to Ribbit, one of the best full-stack pixel-perfect Reddit clones on the
 
 Designed to mirror the Reddit experience, Ribbit not only offers Reddit’s core features like communities, posts, and comments, but also some of its more advanced features like live chat, content moderation (for community owners), and community page style customization, to name a few. In addition, a meticulous attention to detail and functional page interactions makes Ribbit look and feel like a complete experience for users despite being, at its core, "just a clone".
 
-Interested in reading more about Ribbit and its development? Check out the [Ribbit Project Details](https://www.saradunlop.dev/project/ribbit) page located on my [portfolio site](https://www.saradunlop.dev)!
+Interested in reading more about Ribbit and its development? Check out the [Ribbit Project Details](https://www.saradunlop.dev/projects/ribbit) page located on my [portfolio site](https://www.saradunlop.dev)!
 
 # <img id="project-information" height="30" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-laugh.png" />&nbsp;Technology Stack
 
