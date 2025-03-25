@@ -80,8 +80,6 @@ Although not as involved or intense as Reddit’s mod system, Ribbit does allow 
 
 Community owners have access to their community’s style settings, giving them the freedom to customize aspects like the community’s theme colors, banner, background, and more.
 
-## Post Features
-
 ## Posts
 
 Users can create 3 types of posts:
@@ -119,8 +117,6 @@ In addition to infinite scrolling, post feeds also offer ways to sort the feed a
 
 Users can find a list of up to 5 of their most recently viewed posts on their homepage and 'All' feeds.
 
-## Comment Features
-
 ## Comments
 
 <p align="center"><img width="400" src="./react-app/src/assets/images/screenshots/comments.png" /></p>
@@ -134,8 +130,6 @@ Located on a post’s page beneath the post itself is its comments section. User
 <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/comment-search.png" /></p>
 
 All comment sections include a mini search feature for finding comments with a specific search query within that comment section.
-
-## Live Chat Features
 
 ## Live Chat
 
@@ -156,8 +150,6 @@ Users have access to an entire library of GIFs at their disposal. There is also 
 ## Notifications
 
 The live chat feature notifies the user when they have any unread chat threads. Live chat notifications helpfully update in real time.
-
-## Misc. Features
 
 ## Light/Dark Mode Toggle
 
