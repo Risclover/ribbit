@@ -103,7 +103,7 @@ Comes with a “WYSIWYG” editor for easy visual formatting
 Post feeds on Ribbit have infinite scrolling, allowing the user to continue browsing without interruption. There are a few types of post feeds:
 
 1.  **Homepage feed:** Customizable, as it includes posts from the user’s subscribed communities and followed users.
-2.  **‘All’ feed:** Contains all posts from all communities across Reddit.
+2.  **‘All’ feed:** Contains all posts from all communities across Ribbit.
 3.  **Community feed:** A community’s post feed, containing only that community’s posts, found on that community’s page.
 4.  **User feed:** A user’s post feed, containing only that user’s posts, found on that user’s profile page.
 
