@@ -38,47 +38,43 @@ Ribbit was built using the following tech stack:
 
 Ribbit contains a long list of features, so buckle in!
 
-## User Features
-
-### Multiple Ways to Log In
+## Multiple Ways to Log In
 
 <p align="center"><img width="400" src="./react-app/src/assets/images/screenshots/auth-screenshot.png" /></p>
 
 Users are able to create accounts of their own or log in using an existing Google account. There is also a Demo account available for public access for the purpose of touring Ribbit and testing its features.
 
-### User Accounts & Profiles
+## User Accounts & Profiles
 
 <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/profile-screenshot.png" /></p>
 
 Each user has their own profile page, and may customize details such as their profile picture, banner, display name, and description.
 
-## Community Features
-
-### Communities
+## Communities
 
 <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/community-screenshot.png" /></p>
 
 Reddit’s subreddits are Ribbit’s communities, and just as on Reddit, users on Ribbit are free to create communities of their own. Each community has its own page, where users can find information about that community as well as rules, posts, and more.
 
-### Subscriptions
+## Subscriptions
 
 <p align="center"><img src="./react-app/src/assets/images/screenshots/subscriptions-screenshot.png" /></p>
 
 Users are able to subscribe to communities of interest. In doing so, that community’s posts are automatically added to the user’s homepage feed for the duration of their subscription. The other benefit of subscribing to a community is ease of access, as it adds the community to the user’s Subscriptions list, which is available for navigation as well as creating new posts.
 
-### Community Rules
+## Community Rules
 
 <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/rules-screenshot.png" /></p>
 
 Community owners can set rules for their community to guide them on wwhat is, or isn't, allowed when posting and commenting.
 
-### Community Moderation
+## Community Moderation
 
    <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/moderation-gif.gif" /></p>
 
 Although not as involved or intense as Reddit’s mod system, Ribbit does allow community owners to manage the content posted and commented in their community, enabling them to delete content that doesn’t abide by the community’s rules.
 
-### Community Page Style
+## Community Page Style
 
 <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/community-style-gif.gif" /></p>
 
@@ -86,25 +82,25 @@ Community owners have access to their community’s style settings, giving them 
 
 ## Post Features
 
-### Posts
+## Posts
 
 Users can create 3 types of posts:
 
-#### Text Posts
+### Text Posts
 
 Comes with a “WYSIWYG” editor for easy visual formatting
 
 <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/post1-screenshot.png" /></p>
 
-#### Image Posts
+### Image Posts
 
 <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/post2-screenshot.png" /></p>
 
-#### URL/Link posts
+### URL/Link posts
 
 <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/post3-screenshot.png" /></p>
 
-### Post Feeds
+## Post Feeds
 
 Post feeds on Ribbit have infinite scrolling, allowing the user to continue browsing without interruption. There are a few types of post feeds:
 
@@ -117,7 +113,7 @@ Post feeds on Ribbit have infinite scrolling, allowing the user to continue brow
 
 In addition to infinite scrolling, post feeds also offer ways to sort the feed as well as 3 different feed formats, ranging from “Card” (which is the default/”normal” format) to “Compact”.
 
-### Recently Viewed Posts
+## Recently Viewed Posts
 
 <p align="center"><img src="./react-app/src/assets/images/screenshots/revently-viewed-screenshot.png" /></p>
 
@@ -125,15 +121,15 @@ Users can find a list of up to 5 of their most recently viewed posts on their ho
 
 ## Comment Features
 
-### Comments
+## Comments
 
 <p align="center"><img width="400" src="./react-app/src/assets/images/screenshots/comments.png" /></p>
 
 Located on a post’s page beneath the post itself is its comments section. Users are able to sort comments in a variety of ways. Comments are nested, meaning users can directly reply to other comments.
 
-### Comment Votes
+## Comment Votes
 
-### Comment Search
+## Comment Search
 
 <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/comment-search.png" /></p>
 
@@ -141,35 +137,35 @@ All comment sections include a mini search feature for finding comments with a s
 
 ## Live Chat Features
 
-### Live Chat
+## Live Chat
 
 <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/live-chat.png" /></p>
 
 For real-time communication, users can use the live chat feature, which allows them to chat directly with other users, one-on-one.
 
-### Reactions
+## Reactions
 
 Within the live chat feature, users can “react” to each others’ messages with cute, frog-themed animations.
 
-### GIFs & Emojis
+## GIFs & Emojis
 
 <p align="center"><img src="./react-app/src/assets/images/screenshots/emojis.png" /></p>
 
 Users have access to an entire library of GIFs at their disposal. There is also a healthy supply of frog-themed emojis.
 
-### Notifications
+## Notifications
 
 The live chat feature notifies the user when they have any unread chat threads. Live chat notifications helpfully update in real time.
 
 ## Misc. Features
 
-### Light/Dark Mode Toggle
+## Light/Dark Mode Toggle
 
 <p align="center"><img width="500" src="./react-app/src/assets/images/screenshots/dark-mode-toggle.gif" /></p>
 
 Perpetual dark mode user? The light/dark mode toggle allows users to change Ribbit’s theme according to preference.
 
-### Voting System (Posts & Comments)
+## Voting System (Posts & Comments)
 
 <p align="center"><img src="./react-app/src/assets/images/screenshots/voting-system.png" /></p>
 
@@ -177,7 +173,7 @@ Users can express their opinions by voting on posts and comments with either an 
 
 A user's total score (upvotes minus downvotes across all posts and comments they have authored) appears as the user's "karma". When a user has a higher karma score, they give off a perception that they have been around Ribbit for a while, and contribute content that is well-received by others.
 
-### Search
+## Search
 
 Located in the navbar at the top of every page is Ribbit’s search bar, which enables users to find specific or relevant posts, comments, communities, and users.
 
@@ -185,23 +181,25 @@ Located in the navbar at the top of every page is Ribbit’s search bar, which e
 
 Typing a search query into the search bar brings up the quick results menu, showing 5 relevant users and communities. Full search results (which include post and comment results) can be viewed either by pressing the `Enter` key after typing in the query, or by clicking the `Search for "(query)"` button at the bottom of the quick results menu (shown at the bottom of the above screenshot).
 
-### Messages
+## Messages
 
 All users have their very own message inbox, allowing them to send and receive messages. Their inbox also has sections for viewing post replies.
 
-### Followers
+## Followers
 
 <p align="center"><img width="300" src="./react-app/src/assets/images/screenshots/followers.png" /></p>
 
 Users may follow other users that they enjoy or find interesting. In doing so, they will find that user’s posts on their homepage feed. In addition, the followed user is added to the following user’s “Followers” list, which is located in the left nav menu for easy navigation. As a side note, users can view a list of the users following them by going to their own profile page and clicking on the ‘Followers’ statistic in the right column box.
 
-### Favorites
+## Favorites
 
 <p align="center"><img src="./react-app/src/assets/images/screenshots/favorites.png" /></p>
 
 Subscribed communities and followed users may be “favorited”. This adds the community or user to a special “Favorites” list at the top of the left navbar for easy navigation.
 
 # <img id="getting-started" height="30" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-sad.png" />&nbsp;Getting Started
+
+(^ [Back to Top](#ribbit))
 
 ## To set up this app:
 
@@ -228,6 +226,8 @@ Subscribed communities and followed users may be “favorited”. This adds the 
 3. By default, the app will be running on port `3000`.
 
 # <img id="developer-links" height="30" src="./react-app/src/assets/images/ribbit-logos/ribbit-logo-happy.png" />&nbsp;Developer Links
+
+(^ [Back to Top](#ribbit))
 
 - [Portfolio Website](https://www.saradunlop.dev)
 - [Ribbit Project Page](https://www.saradunlop.dev/projects/ribbit)
