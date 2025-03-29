@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+// useChatSocket.js
 import { io } from "socket.io-client";
+import { receiveNewMessage } from "@/store"; // <-- import your action
+import { useEffect } from "react";
 
 export function useChatSocket({
   socketRef,
@@ -10,47 +12,34 @@ export function useChatSocket({
   onDelete,
   onReactionAdd,
   onReactionRemove,
-  onNewMessage,
+  // onNewMessage, // We will no longer rely on an external callback
 }) {
   useEffect(() => {
     if (!socketRef.current) {
-      // Initialize socket only once
       socketRef.current = io();
 
       socketRef.current.on("connect", () => {
-        // Join all existing chat rooms (threads) after connecting
         if (user && chatThreads) {
           Object.values(chatThreads).forEach((thread) => {
-            socketRef.current.emit("join", {
-              user: user.id,
-              room: thread.id,
-            });
+            socketRef.current.emit("join", { user: user.id, room: thread.id });
           });
         }
       });
 
-      socketRef.current.on("chat", () => {
-        // When a new message arrives, re-fetch user chat threads
-        onNewMessage?.();
+      // IMMEDIATELY dispatch receiveNewMessage when "chat" event arrives
+      socketRef.current.on("chat", (messageData) => {
+        dispatch(receiveNewMessage(messageData));
       });
 
-      socketRef.current.on("reaction_added", (data) => {
-        onReactionAdd?.(data);
-      });
-
-      socketRef.current.on("reaction_removed", (data) => {
-        onReactionRemove?.(data);
-      });
-
+      socketRef.current.on("reaction_added", onReactionAdd);
+      socketRef.current.on("reaction_removed", onReactionRemove);
       socketRef.current.on("deleted", onDelete);
     }
 
+    // Re-join rooms if chatThreads changes
     if (socketRef.current && user && chatThreads) {
       Object.values(chatThreads).forEach((thread) => {
-        socketRef.current.emit("join", {
-          user: user.id,
-          room: thread.id,
-        });
+        socketRef.current.emit("join", { user: user.id, room: thread.id });
       });
     }
 
@@ -67,7 +56,6 @@ export function useChatSocket({
     onDelete,
     onReactionAdd,
     onReactionRemove,
-    onNewMessage,
     socketRef,
     selectedChat?.id,
   ]);

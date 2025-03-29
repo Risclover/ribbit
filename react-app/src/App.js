@@ -64,6 +64,7 @@ import { ScrollProvider } from "@/context/ScrollContext";
 import SkipLocation from "components/SkipLocation/SkipLocation";
 import { AppRoutes } from "routes/AppRoutes";
 import { useLeaveLogin } from "hooks/useLeaveLogin";
+import { useNotificationsSocket } from "hooks/useNotificationsSocket";
 
 function App() {
   const dispatch = useDispatch();
@@ -93,6 +94,8 @@ function App() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [showDropdown, setShowDropdown] = useState(false);
   const [minimizeChat, setMinimizeChat] = useState(false);
+
+  useNotificationsSocket(user);
 
   useEffect(() => {
     if (screenWidth <= 1250) {

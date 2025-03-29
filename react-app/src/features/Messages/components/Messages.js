@@ -4,7 +4,6 @@ import {
   getMessages,
   getThreads,
   getUsers,
-  readAllNotifications,
 } from "@/store";
 import { MessageThread, MessageHead, MessageContentMenu } from "..";
 import { usePageSettings } from "@/hooks/usePageSettings";
@@ -21,7 +20,6 @@ export function Messages() {
     dispatch(getMessages());
     dispatch(getThreads());
     dispatch(getUsers());
-    dispatch(readAllNotifications());
   }, [dispatch]);
 
   usePageSettings({

@@ -21,6 +21,7 @@ import "../../features/NewSearch/Search.css";
 import { useAuthFlow } from "@/context/AuthFlowContext";
 import { UserIcon } from "assets/icons/UserIcon";
 import { ChevronDownFilled } from "assets";
+import NotificationBell from "features/NewNotifications/components/NotificationBell";
 
 export function NavBar({
   adjustQuery,
@@ -157,10 +158,7 @@ export function NavBar({
             </button>
             {user && (
               <div className="notification-wrapper">
-                <NotificationsDropdownWrapper
-                  msgNum={msgNum}
-                  notificationNum={notificationNum}
-                />
+                <NotificationBell />
               </div>
             )}
             <button

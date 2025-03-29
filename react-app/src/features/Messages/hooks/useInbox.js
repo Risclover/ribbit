@@ -1,7 +1,6 @@
 import { usePageSettings } from "hooks";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { readNotification } from "store";
 import { readMessage } from "store";
 import { getMessages } from "store";
 import { getThreads } from "store";
@@ -21,7 +20,6 @@ export default function useInbox({ message }) {
 
   const handleRead = async () => {
     setMarkedUnread(false);
-    await dispatch(readNotification(message.id));
     await dispatch(readMessage(message.id));
   };
 

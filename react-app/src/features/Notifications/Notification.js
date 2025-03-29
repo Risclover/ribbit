@@ -5,7 +5,6 @@ import { IoIosMore } from "react-icons/io";
 import { IoChatbox } from "react-icons/io5";
 import moment from "moment";
 
-import { readNotification, getUserNotifications } from "@/store";
 import { NotificationMenu } from "./NotificationMenu";
 import { useOutsideClick } from "@/hooks";
 
@@ -24,7 +23,6 @@ export function Notification({ notification }) {
   const markNotificationRead = async (e) => {
     e.stopPropagation();
     e.preventDefault();
-    await dispatch(readNotification(notification.id));
     if (notification.notificationType === "follower") {
       history.push(`/users/${notification.senderId}/profile`);
     } else if (notification.notificationType === "post-reply") {
@@ -35,7 +33,6 @@ export function Notification({ notification }) {
         "_blank"
       );
     }
-    dispatch(getUserNotifications(currentUser?.id));
   };
 
   return (

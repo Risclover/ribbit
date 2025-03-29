@@ -644,14 +644,14 @@
   position: absolute;
   z-index: 9999;
   right: 20px;
-  bottom: 60px;
+  top: 40px;
 }
 
 .reactions-menu-compact {
   position: absolute;
   z-index: 9999;
   right: 0;
-  bottom: 30px;
+  bottom: -30px;
 }
 
 .reactions-menu > div,
@@ -663,6 +663,9 @@
 .reactions-menu-small {
   border-radius: 100px;
   animation: 0.2s linear 0s 1 normal none running revealAndScaleUp;
+  height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .reactions-menu-full {
@@ -683,6 +686,7 @@
 .reactions-menu-small {
   grid-template-columns: auto auto auto auto auto auto;
   gap: 3px;
+  padding: 6px 8px;
 }
 
 .reactions-menu-full-grid {
@@ -705,7 +709,8 @@
 
 .reactions-menu-small img:hover,
 .reactions-menu-full-grid img:hover {
-  transform: scale(1.25);
+  transform: translate(0px) rotate(0deg) skewX(0deg) skewY(0deg) scaleX(2rem)
+    scaleY(2rem);
 }
 
 .reactions-menu-square {

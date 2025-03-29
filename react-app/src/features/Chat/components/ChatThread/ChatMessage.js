@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
 import { DateSeparator } from "./DateSeparator";
@@ -18,6 +18,7 @@ export const ChatMessage = ({
   setMsgIdToDelete,
   OVERLAYS,
 }) => {
+  const wrapperRef = useRef(null);
   const currentUser = useSelector((state) => state.session.user);
   const {
     openReactions,
@@ -51,6 +52,7 @@ export const ChatMessage = ({
               <div className="chat-message-hover-component">
                 {openReactions && (
                   <ChatReactions
+                    wrapperRef={wrapperRef}
                     openReactions={openReactions}
                     setOpenReactions={setOpenReactions}
                     messageId={id}
@@ -60,7 +62,7 @@ export const ChatMessage = ({
                 )}
                 <button
                   className="chat-message-reaction-btn"
-                  onClick={() => setOpenReactions(!openReactions)}
+                  onClick={() => setOpenReactions((prev) => !prev)}
                 >
                   <span className="material-symbols-outlined">
                     sentiment_satisfied
@@ -112,14 +114,6 @@ export const ChatMessage = ({
       ) : (
         <div className="chat-thread-message">
           {/* Reaction overlay */}
-          {openReactions && (
-            <ChatReactions
-              openReactions={openReactions}
-              setOpenReactions={setOpenReactions}
-              messageId={id}
-              socket={socket}
-            />
-          )}
 
           {/* Hover actions */}
           {msgContent !== "Message deleted by user" && (
@@ -130,9 +124,18 @@ export const ChatMessage = ({
                   : "chat-message-hover-component"
               }
             >
+              {openReactions && (
+                <ChatReactions
+                  openReactions={openReactions}
+                  setOpenReactions={setOpenReactions}
+                  messageId={id}
+                  socket={socket}
+                  wrapperRef={wrapperRef}
+                />
+              )}
               <button
                 className="chat-message-reaction-btn"
-                onClick={() => setOpenReactions(true)}
+                onClick={() => setOpenReactions((prev) => !prev)}
               >
                 <span className="material-symbols-outlined">
                   sentiment_satisfied

@@ -5,31 +5,28 @@ class Notification(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    sender_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=True)
-    comment_id=db.Column(db.Integer, db.ForeignKey("comments.id"), nullable=True)
-    message = db.Column(db.Text, nullable=False)
-    content = db.Column(db.Text, nullable=False)
-    icon = db.Column(db.String(255), nullable=False)
-    title = db.Column(db.Text, nullable=True)
-    notification_type = db.Column(db.String, nullable=False)
-    read = db.Column(db.Boolean, default=False)
+    actor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    action = db.Column(db.String(255), nullable=False)
+    resource_id = db.Column(db.Integer, nullable=True)
+    resource_type = db.Column(db.String(50), nullable=True)
+    message = db.Column(db.String(255), nullable=True)
+    is_read = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+    user = db.relationship("User", foreign_keys=[user_id])
+    actor = db.relationship("User", foreign_keys=[actor_id])
 
     def to_dict(self):
         return {
             "id": self.id,
             "userId": self.user_id,
-            "senderId": self.sender_id,
-            "postId": self.post_id,
-            "commentId": self.comment_id,
-            "title": self.title,
-            "icon": self.icon,
+            "actorId": self.actor_id,
+            "action": self.action,
+            "resourceId": self.resource_id,
+            "resourceType": self.resource_type,
             "message": self.message,
-            "content": self.content,
-            "notificationType": self.notification_type,
-            "read": self.read,
-            "createdAt": self.created_at
+            "isRead": self.is_read,
+            "createdAt": str(self.created_at)
         }
 
     def __repr__(self):

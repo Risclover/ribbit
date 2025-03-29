@@ -1,9 +1,10 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import db, Comment, User, CommentVote, Post
+from app.models import db, Comment, User, CommentVote, Post, Notification
 from app.forms.comment_form import CommentForm
 from .auth_routes import validation_errors_to_error_messages
 from datetime import datetime
+from app.socket import emit_notification_to_user
 
 comment_routes = Blueprint("comments", __name__)
 
@@ -35,17 +36,43 @@ def create_comment(id):
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         data = form.data
+        post = Post.query.get(id)
         new_comment = Comment(
             content=data["content"],
             user_id=current_user.get_id(),
             post_id=id,
             parent_id=data.get("parentId")
         )
+        parent_id = data.get("parentId")
+        if parent_id:
+            parent_comment = Comment.query.get(parent_id)
+            new_notification = Notification(
+                user_id=parent_comment.user_id,
+                actor_id=current_user.get_id(),
+                action="comment_reply",
+                resource_id=parent_id,
+                resource_type="comment",
+                message=f"u/{current_user.username} replied to your comment in c/{post.post_community.name}"
+            )
+            db.session.add(new_notification)
+        else:
+            new_notification = Notification(
+                user_id=post.user_id,
+                actor_id=current_user.get_id(),
+                action="post_reply",
+                resource_id=id,
+                resource_type="post",
+                message=f"u/{current_user.username} replied to your post in c/{post.post_community.name}"
+            )
+            db.session.add(new_notification)
 
-        post = Post.query.get(id)
         db.session.add(new_comment)
-        post.post_comments.append(new_comment)
+        db.session.add(new_notification)
+        post.post_comments.append(new_comment)  # attach to the post
+
         db.session.commit()
+
+        emit_notification_to_user(new_notification)
 
         # Add the upvote on behalf of the comment's author
         comment_vote = CommentVote(

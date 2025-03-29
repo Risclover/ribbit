@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask_login import login_required, current_user
-from app.models import db, User
+from app.models import db, User, Notification
+from app.socket import emit_notification_to_user
 
 follower_routes = Blueprint("followers", __name__)
 
@@ -43,8 +44,18 @@ def follow_user(id):
 
     if not user.is_following(target):
         user.follow(target)
+    new_notification = Notification(
+        user_id=id,
+        actor_id=current_user.id,
+        action="follow",
+        message=f"{current_user.username} followed you!",
+    )
 
+    db.session.add(new_notification)
     db.session.commit()
+
+    emit_notification_to_user(new_notification)
+
     return {"id": id, "message": "User successfully followed"}
 
 # UNFOLLOW TARGET USER

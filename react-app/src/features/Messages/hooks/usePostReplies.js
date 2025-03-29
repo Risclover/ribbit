@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { unreadNotification } from "store";
-import { readNotification } from "store";
 import { getAllNotifications } from "store";
 import { getPosts } from "store";
-import { getUserNotifications } from "store";
 
 export default function usePostReplies({ notification }) {
   const dispatch = useDispatch();
@@ -32,20 +29,9 @@ export default function usePostReplies({ notification }) {
   });
 
   useEffect(() => {
-    dispatch(getUserNotifications(currentUser?.id));
     dispatch(getPosts());
-    dispatch(getAllNotifications());
   }, [dispatch]);
 
-  const handleUnread = async () => {
-    await dispatch(unreadNotification(notification?.id));
-    dispatch(getUserNotifications(currentUser?.id));
-  };
-
-  const handleRead = async () => {
-    await dispatch(readNotification(notification?.id));
-    dispatch(getUserNotifications(currentUser?.id));
-  };
 
   return {
     markedUnread,

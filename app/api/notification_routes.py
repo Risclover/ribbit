@@ -1,120 +1,80 @@
 from flask import Blueprint
-from flask_login import current_user
+from flask_login import login_required, current_user
 from app.models import db, Notification, Comment, Message, User
 
 notification_routes = Blueprint("notifications", __name__)
 
-# GET CURRENT USER'S NOTIFICATIONS
-@notification_routes.route("/user/<int:id>")
-def get_user_notifications(id):
-    notifications = Notification.query.filter_by(user_id=id).all()
-    return {"Notifications": [notification.to_dict() for notification in notifications]}
-
-
-
-# GET ALL NOTIFICATIONS
+# FETCH NOTIFICATIONS FOR CURRENT USER
 @notification_routes.route("")
+@login_required
 def get_notifications():
-    notifications = Notification.query.all()
-    return {"Notifications": [notification.to_dict() for notification in notifications]}
+    """
+    Fetch all notifications for the logged-in user.
+    """
+    user_id = current_user.get_id()
+    notifications = Notification.query.filter_by(user_id=user_id).all()
+    return { "notifications": [n.to_dict() for n in notifications]}
 
-
-# ADD A NOTIFICATION
-@notification_routes.route("/<string:notification_type>/<int:id>", methods=["POST"])
-def add_notification(notification_type, id):
-    # ADDING A POST REPLY NOTIFICATION
-    if notification_type == "post-reply":
-        comment = Comment.query.get(id)
-        post_author = comment.comment_post.post_author
-        if post_author != comment.comment_author:
-            notification = Notification(user_id=post_author.id, post_id=comment.comment_post.id, comment_id = comment.id, sender_id=comment.user_id, title=comment.comment_post.title, icon = comment.comment_author.profile_img, message=f"u/{comment.comment_author.username} replied to your post in c/{comment.comment_post.post_community.name}", content=f"{comment.content}", notification_type=notification_type)
-            db.session.add(notification)
-            db.session.commit()
-            return {"Notification": notification.to_dict()}
-
-
-    # ADDING A NEW MESSAGE NOTIFICATION
-    elif notification_type == "message":
-        message = Message.query.get(id)
-        user = User.query.get(current_user.get_id())
-        notification = Notification(
-            user_id = message.receiver_id,
-            sender_id=message.sender_id,
-            icon = user.profile_img,
-            message="",
-            content="",
-            notification_type=notification_type
-        )
-        db.session.add(notification)
-        db.session.commit()
-
-        return {"Notification": notification.to_dict()}
-
-
-    # ADDING A NEW FOLLOWER NOTIFICATION
-    elif notification_type == "follower":
-        follower = User.query.get(current_user.get_id())
-        notification = Notification(user_id=id, icon = follower.profile_img, sender_id=follower.id, message=f"u/{follower.username} followed you. Follow them back or start a chat!", content="", notification_type=notification_type)
-        db.session.add(notification)
-        db.session.commit()
-
-        return {"Notification": notification.to_dict()}
-
-
-# MARKING A NOTIFICATION AS 'READ'
-@notification_routes.route("/<int:id>/read", methods=["PUT"])
-def read_notification(id):
+# MARK ONE NOTIFICATION AS READ
+@notification_routes.route("/<int:id>", methods=["PUT"])
+@login_required
+def mark_notification_read(id):
+    """
+    Mark one notification for the current_user as read.
+    """
     notification = Notification.query.get(id)
-    if notification.read == False:
-        setattr(notification, "read", True)
+    if not notification or notification.user_id != current_user.get_id():
+        return {"error": "Not found or unauthorized"}, 404
+
+    notification.is_read = True
+    db.session.commit()
+    return notification.to_dict()
+
+# MARK ALL NOTIFICATIONS AS READ
+@notification_routes.route('/read_all', methods=['PUT'])
+@login_required
+def mark_all_notifications_read():
+    """
+    Marks ALL unread notifications for the current_user as read.
+    Returns a list of all notifications (now read).
+    """
+    user_id = current_user.get_id()
+    unread_notifications = Notification.query.filter_by(
+        user_id=user_id,
+        is_read=False,
+    ).all()
+
+    for n in unread_notifications:
+        n.is_read = True
 
     db.session.commit()
 
-    return {"message": "Successfully marked notification as read"}
+    all_notifications = Notification.query.filter_by(user_id=user_id).all()
+    return {
+        "notifications": [n.to_dict() for n in all_notifications]
+    }
 
 
-# MARKING ALL NOTIFICATIONS AS 'READ'
-@notification_routes.route("/read-all", methods=["PUT"])
-def read_all_notifications():
-    notifications = Notification.query.filter_by(user_id=current_user.get_id())
-    for notification in notifications:
-        if notification.notification_type != "message":
-            setattr(notification, "read", True)
-
-    db.session.commit()
-    return {"message": "Successfully read all notifications"}
-
-
-
-# MARKING ALL MESSAGE NOTIFICATIONS AS 'READ'
-@notification_routes.route("/read", methods=["PUT"])
-def read_all_message_notifications():
-    notifications = Notification.query.filter_by(user_id=current_user.get_id())
-    for notification in notifications:
-        if notification.notification_type == "message":
-            setattr(notification, "read", True)
-
-    db.session.commit()
-    return {"message": "All message notifications successfully read"}
-
-
-
-# MARKING A NOTIFICATION AS 'UNREAD'
-@notification_routes.route("/<int:id>/unread", methods=["PUT"])
-def unread_notification(id):
-    notification = Notification.query.get(id)
-    if notification.read == True:
-        setattr(notification, "read", False)
-
-    db.session.commit()
-
-    return {"message": "Successfully marked notification as unread"}
-
-
-# DELETE A NOTIFICATION
+# DELETE NOTIFICATION
 @notification_routes.route("/<int:id>", methods=["DELETE"])
+@login_required
 def delete_notification(id):
     notification = Notification.query.get(id)
+    if not notification or notification.user_id != current_user.get_id():
+        return {"error": "Not found or unauthorized"}, 404
+
     db.session.delete(notification)
     db.session.commit()
-    return {"message": "Successfully deleted", "status_code": 200}
+    return {"message": "Notification deleted"}
+
+
+# DELETE ALL NOTIFICATIONS
+@notification_routes.route("", methods=["DELETE"])
+@login_required
+def delete_all_notifications():
+      user_id = current_user.get_id()
+
+      Notification.query.filter_by(user_id=user_id).delete()
+      db.session.commit()
+
+      return {"message": "All notifications deleted"}

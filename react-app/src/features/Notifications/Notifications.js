@@ -6,7 +6,6 @@ import { TfiBell } from "react-icons/tfi";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 
-import { getUserNotifications, readAllNotifications } from "@/store";
 import { Notification } from "./Notification";
 import SparklyFrog from "@/assets/images/ribbit-frog-sparkly.png";
 import "./Notifications.css";
@@ -14,7 +13,7 @@ import { usePageSettings } from "@/hooks/usePageSettings";
 
 moment.updateLocale("en-notif", {
   relativeTime: {
-    future: (diff) => (diff === "just now" ? diff : `in ${diff}`),
+    future: (diff) => (diff === "just now" ? diff : `${diff}`),
     past: (diff) => (diff === "just now" ? diff : `${diff}`),
     s: "just now",
     ss: "just now",
@@ -44,14 +43,7 @@ export function Notifications() {
     (notification) => notification.notificationType !== "message"
   );
 
-  useEffect(() => {
-    dispatch(getUserNotifications(user.id));
-  }, []);
 
-  const readNotifications = async () => {
-    await dispatch(readAllNotifications());
-    dispatch(getUserNotifications(user.id));
-  };
 
   usePageSettings({
     documentTitle: "Notifications",
@@ -94,7 +86,6 @@ export function Notifications() {
             </li>
             <li
               className="notifications-button-bar-item"
-              onClick={readNotifications}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -25,6 +25,7 @@ import {
 
 import "../../styles/index.css";
 import { useChatSocket } from "@/features/Chat/hooks/useChatSocket";
+import { receiveNewMessage } from "store";
 
 export const OVERLAYS = {
   NONE: null,
@@ -61,7 +62,7 @@ export const Chat = ({ setOpenChat, setMinimizeChat }) => {
     },
     onReactionAdd: (data) => dispatch(addReaction(data)),
     onReactionRemove: (data) => dispatch(removeReaction(data)),
-    onNewMessage: () => dispatch(getUserChatThreads()),
+    onNewMessage: (messageData) => dispatch(receiveNewMessage(messageData)), // <-- This line
   });
 
   useEffect(() => {

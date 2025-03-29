@@ -1,24 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
 import { BsArrowReturnRight } from "react-icons/bs";
 import moment from "moment";
 
-import { getUserNotifications, readNotification } from "@/store";
 import { NotificationMenu } from "@/features/Notifications/NotificationMenu";
 
 export function Notification({ notification, setShowDropdown }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
+  const users = useSelector((state) => state.users);
+  const posts = useSelector((state) => state.posts);
+  const comments = useSelector((state) => state.comments);
+  const actor = users[notification?.actorId];
 
+  const [notificationMessage, setNotificationMessage] = useState("aww");
   const [notificationMenu, setNotificationMenu] = useState(false);
   const [hideNotification, setHideNotification] = useState(false);
 
+  useEffect(() => {
+    if (notification.action === "post_reply") {
+      setNotificationMessage(posts[notification.resourceId].content);
+    } else if (notification.action === "comment_reply") {
+      setNotificationMessage(comments[notification.resourceId].content);
+    }
+  }, [notification]);
+
   const readANotification = async (notification) => {
-    await dispatch(readNotification(notification?.id));
-    dispatch(getUserNotifications(user?.id));
     if (notification?.notificationType === "post-reply") {
       history.push(`/posts/${notification?.postId}`);
     } else if (notification?.notificationType === "follower") {
@@ -40,7 +50,7 @@ export function Notification({ notification, setShowDropdown }) {
           onClick={() => readANotification(notification)}
         >
           <div className="notification-item-icon">
-            <img src={notification.icon} />
+            <img src={actor.profileImg} />
           </div>
           <div className="notification-main">
             <div className="notification-message-head">
@@ -52,6 +62,9 @@ export function Notification({ notification, setShowDropdown }) {
                 <span className="notification-date">
                   {moment(notification.createdAt).locale("en-notif").fromNow()}{" "}
                 </span>
+              </div>
+              <div className="notification-message-content">
+                {notificationMessage}
               </div>
               <button
                 aria-label="Open/close notifications"
@@ -74,7 +87,7 @@ export function Notification({ notification, setShowDropdown }) {
               )}
             </div>
             <div className="notification-content">{notification.content}</div>
-            {notification.notificationType === "post-reply" && (
+            {notification.action === "post_reply" && (
               <button className="blue-btn-unfilled btn-long notification-reply-back">
                 <BsArrowReturnRight />
                 Reply Back

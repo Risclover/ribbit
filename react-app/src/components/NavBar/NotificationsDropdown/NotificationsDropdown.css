@@ -378,3 +378,8 @@
   max-width: 100px;
   padding-bottom: -20px;
 }
+
+.notification-message-content {
+  display: flex;
+  flex-direction: column;
+}

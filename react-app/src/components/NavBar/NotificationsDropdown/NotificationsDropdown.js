@@ -6,7 +6,6 @@ import { VscSettingsGear } from "react-icons/vsc";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 
-import { getUserNotifications, readAllNotifications } from "@/store";
 import { Notification } from "@/components";
 import SparklyFrog from "@/assets/images/ribbit-frog-sparkly.png";
 
@@ -50,21 +49,12 @@ export function NotificationsDropdown({
   );
 
   useEffect(() => {
-    dispatch(getUserNotifications(user?.id));
-  }, [dispatch, user?.id]);
-
-  useEffect(() => {
     setNotMessages(
       notifications.filter(
         (notification) => notification.notificationType !== "message"
       )
     );
   }, []);
-
-  const handleReadAll = async () => {
-    await dispatch(readAllNotifications());
-    dispatch(getUserNotifications(user?.id));
-  };
 
   notifications.sort((a, b) => {
     let postA = new Date(a.createdAt);
@@ -107,7 +97,6 @@ export function NotificationsDropdown({
               <button
                 aria-label="Mark all as 'read'"
                 className="notifications-dropdown-head-btn"
-                onClick={handleReadAll}
               >
                 <VscMailRead />
               </button>

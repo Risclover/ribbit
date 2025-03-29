@@ -4,12 +4,6 @@ import { NavLink } from "react-router-dom";
 import { HashLink as Link } from "react-router-hash-link";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import moment from "moment";
-import {
-  getAllNotifications,
-  getUserNotifications,
-  readNotification,
-  unreadNotification,
-} from "@/store";
 import usePostReplies from "features/Messages/hooks/usePostReplies";
 
 export function PostReply({ notification }) {
