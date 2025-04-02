@@ -1,9 +1,11 @@
 import { NotificationsDropdown } from "components";
-import { useState } from "react";
+import { useOutsideClick } from "hooks";
+import { useRef, useState } from "react";
 import { TfiBell } from "react-icons/tfi";
 import { useSelector } from "react-redux";
 
 function NotificationBell() {
+  const wrapperRef = useRef(null);
   const notifications = useSelector((state) =>
     Object.values(state.notifications)
   );
@@ -16,12 +18,14 @@ function NotificationBell() {
   const [showTooltip, setShowTooltip] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
 
+  useOutsideClick(wrapperRef, () => setShowDropdown(false));
+
   const handleOpenDropdown = (e) => {
     e.preventDefault();
-    setShowDropdown(!showDropdown);
+    setShowDropdown((prev) => !prev);
   };
   return (
-    <div className="notifications-dropdown-wrapper">
+    <div className="notifications-dropdown-wrapper" ref={wrapperRef}>
       <button
         className="navbar-button"
         onClick={handleOpenDropdown}

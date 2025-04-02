@@ -48,7 +48,7 @@ def follow_user(id):
         user_id=id,
         actor_id=current_user.id,
         action="follow",
-        message=f"{current_user.username} followed you!",
+        message=f"u/{current_user.username} followed you!",
     )
 
     db.session.add(new_notification)

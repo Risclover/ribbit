@@ -12,7 +12,9 @@ export function Notification({ notification }) {
   const wrapperRef = useRef();
   const dispatch = useDispatch();
   const history = useHistory();
+  const users = useSelector((state) => state.users);
 
+  const actor = users[notification?.actorId];
   const [notificationMenu, setNotificationMenu] = useState(false);
   const [hideNotification, setHideNotification] = useState(false);
 
@@ -48,7 +50,7 @@ export function Notification({ notification }) {
           onClick={(e) => markNotificationRead(e)}
         >
           <div className="notification-img">
-            <img src={notification.icon} className="notification-icon" />
+            <img src={actor.profileImg} className="notification-icon" />
             <span className="notification-icon-bubble">
               <IoChatbox />
             </span>

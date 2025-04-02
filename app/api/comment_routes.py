@@ -44,6 +44,7 @@ def create_comment(id):
             parent_id=data.get("parentId")
         )
         parent_id = data.get("parentId")
+        resource_content = data.get("content")
         if parent_id:
             parent_comment = Comment.query.get(parent_id)
             new_notification = Notification(
@@ -52,7 +53,8 @@ def create_comment(id):
                 action="comment_reply",
                 resource_id=parent_id,
                 resource_type="comment",
-                message=f"u/{current_user.username} replied to your comment in c/{post.post_community.name}"
+                resource_content=resource_content,
+                message=f"u/{current_user.username} replied to your comment in c/{post.post_community.name}."
             )
             db.session.add(new_notification)
         else:
@@ -62,7 +64,8 @@ def create_comment(id):
                 action="post_reply",
                 resource_id=id,
                 resource_type="post",
-                message=f"u/{current_user.username} replied to your post in c/{post.post_community.name}"
+                resource_content=resource_content,
+                message=f"u/{current_user.username} replied to your post in c/{post.post_community.name}."
             )
             db.session.add(new_notification)
 

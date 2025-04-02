@@ -9,6 +9,7 @@ class Notification(db.Model):
     action = db.Column(db.String(255), nullable=False)
     resource_id = db.Column(db.Integer, nullable=True)
     resource_type = db.Column(db.String(50), nullable=True)
+    resource_content = db.Column(db.String(10000), nullable=True)
     message = db.Column(db.String(255), nullable=True)
     is_read = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
@@ -24,6 +25,7 @@ class Notification(db.Model):
             "action": self.action,
             "resourceId": self.resource_id,
             "resourceType": self.resource_type,
+            "resourceContent": self.resource_content,
             "message": self.message,
             "isRead": self.is_read,
             "createdAt": str(self.created_at)

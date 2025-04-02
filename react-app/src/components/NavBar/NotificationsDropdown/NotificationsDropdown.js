@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { Notification } from "@/components";
 import SparklyFrog from "@/assets/images/ribbit-frog-sparkly.png";
+import { useOutsideClick } from "hooks";
 
 moment.updateLocale("en-notif", {
   relativeTime: {
@@ -36,7 +37,6 @@ export function NotificationsDropdown({
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const wrapperRef = useRef(null);
 
   const [unreadMsgs, setUnreadMsgs] = useState(
     unread.filter((msg) => msg.notificationType === "message")
@@ -66,7 +66,7 @@ export function NotificationsDropdown({
   return (
     <>
       {showDropdown && (
-        <div className="notifications-dropdown" ref={wrapperRef}>
+        <div className="notifications-dropdown">
           <div className="notifications-dropdown-head">
             <p>Notifications</p>
             <div className="notifications-dropdown-head-right">

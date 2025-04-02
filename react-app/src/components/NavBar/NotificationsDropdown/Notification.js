@@ -6,6 +6,7 @@ import { BsArrowReturnRight } from "react-icons/bs";
 import moment from "moment";
 
 import { NotificationMenu } from "@/features/Notifications/NotificationMenu";
+import { IoChatbox } from "react-icons/io5";
 
 export function Notification({ notification, setShowDropdown }) {
   const dispatch = useDispatch();
@@ -16,24 +17,16 @@ export function Notification({ notification, setShowDropdown }) {
   const comments = useSelector((state) => state.comments);
   const actor = users[notification?.actorId];
 
-  const [notificationMessage, setNotificationMessage] = useState("aww");
   const [notificationMenu, setNotificationMenu] = useState(false);
   const [hideNotification, setHideNotification] = useState(false);
 
-  useEffect(() => {
-    if (notification.action === "post_reply") {
-      setNotificationMessage(posts[notification.resourceId].content);
-    } else if (notification.action === "comment_reply") {
-      setNotificationMessage(comments[notification.resourceId].content);
-    }
-  }, [notification]);
-
   const readANotification = async (notification) => {
-    if (notification?.notificationType === "post-reply") {
-      history.push(`/posts/${notification?.postId}`);
-    } else if (notification?.notificationType === "follower") {
-      history.push(`/users/${notification?.senderId}/profile`);
-    } else if (notification?.notificationType === "welcome") {
+    if (notification?.action === "post_reply") {
+      history.push(`/posts/${notification?.resourceId}`);
+    } else if (notification?.action === "follower") {
+      history.push(`/users/${notification?.actorId}/profile`);
+    } else if (notification?.action === "comment_reply") {
+      history.push(`/posts/${notification?.resourceId}`);
       window.open(
         "https://github.com/Risclover/ribbit/wiki/How-to-Use-Ribbit-(User-Manual)",
         "_blank"
@@ -46,25 +39,34 @@ export function Notification({ notification, setShowDropdown }) {
     <>
       {!hideNotification && (
         <div
-          className={notification.read ? "notification" : "notification-unread"}
+          className={
+            notification.isRead ? "notification" : "notification-unread"
+          }
           onClick={() => readANotification(notification)}
         >
           <div className="notification-item-icon">
-            <img src={actor.profileImg} />
+            <img src={actor?.profileImg} />
+            <span className="notification-icon-bubble">
+              <IoChatbox />
+            </span>
           </div>
           <div className="notification-main">
             <div className="notification-message-head">
               <div className="notification-message-head-txt">
-                <span className="notification-message">
-                  {notification.message}
-                </span>
-                <span className="notification-message-head-dot">·</span>
-                <span className="notification-date">
-                  {moment(notification.createdAt).locale("en-notif").fromNow()}{" "}
-                </span>
-              </div>
-              <div className="notification-message-content">
-                {notificationMessage}
+                <div className="notification-text">
+                  <span className="notification-message">
+                    {notification.message}
+                  </span>
+                  <span className="notification-message-head-dot">·</span>
+                  <span className="notification-date">
+                    {moment(notification.createdAt)
+                      .locale("en-notif")
+                      .fromNow()}{" "}
+                  </span>
+                </div>
+                <div className="notification-message-content">
+                  {notification.resourceContent || ""}
+                </div>
               </div>
               <button
                 aria-label="Open/close notifications"
