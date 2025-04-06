@@ -134,6 +134,7 @@
 
 .recent-post-type.type-link {
   position: relative;
+  border-color: var(--highlight-color);
 }
 
 .type-link svg {

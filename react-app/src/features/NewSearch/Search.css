@@ -168,6 +168,7 @@
 }
 
 .search-results-post-link-img {
+  min-width: 138px;
   width: 138px;
   height: 98px;
   border-radius: 4px;

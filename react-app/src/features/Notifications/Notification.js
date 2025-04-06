@@ -7,6 +7,7 @@ import moment from "moment";
 
 import { NotificationMenu } from "./NotificationMenu";
 import { useOutsideClick } from "@/hooks";
+import { FollowerIcon } from "assets/icons/FollowerIcon";
 
 export function Notification({ notification }) {
   const wrapperRef = useRef();
@@ -52,7 +53,7 @@ export function Notification({ notification }) {
           <div className="notification-img">
             <img src={actor.profileImg} className="notification-icon" />
             <span className="notification-icon-bubble">
-              <IoChatbox />
+              <FollowerIcon />
             </span>
           </div>
           <div className="notification-content">
@@ -85,7 +86,9 @@ export function Notification({ notification }) {
                 )}
               </div>
             </div>
-            <div className="notification-bottom">{notification.content}</div>
+            <div className="notification-bottom">
+              {notification.resourceContent}
+            </div>
           </div>
         </div>
       )}

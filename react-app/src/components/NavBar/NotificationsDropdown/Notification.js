@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
 import { BsArrowReturnRight } from "react-icons/bs";
 import moment from "moment";
 
 import { NotificationMenu } from "@/features/Notifications/NotificationMenu";
 import { IoChatbox } from "react-icons/io5";
+import { getComments } from "store";
+import { getAllComments } from "store";
+import { markNotificationRead } from "store";
+import { FollowerIcon } from "assets/icons/FollowerIcon";
+import { CommentReplyIcon } from "assets/icons/CommentReplyIcon";
 
-export function Notification({ notification, setShowDropdown }) {
+export function Notification({ notification, onClick }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
@@ -21,33 +26,36 @@ export function Notification({ notification, setShowDropdown }) {
   const [hideNotification, setHideNotification] = useState(false);
 
   const readANotification = async (notification) => {
-    if (notification?.action === "post_reply") {
-      history.push(`/posts/${notification?.resourceId}`);
-    } else if (notification?.action === "follower") {
-      history.push(`/users/${notification?.actorId}/profile`);
-    } else if (notification?.action === "comment_reply") {
-      history.push(`/posts/${notification?.resourceId}`);
-      window.open(
-        "https://github.com/Risclover/ribbit/wiki/How-to-Use-Ribbit-(User-Manual)",
-        "_blank"
-      );
-    }
-    setShowDropdown(false);
+    await dispatch(markNotificationRead(notification.id));
   };
 
   return (
     <>
       {!hideNotification && (
-        <div
+        <NavLink
+          to={
+            notification?.action === "follow"
+              ? `/users/${notification?.actorId}/profile`
+              : `/posts/${notification?.resourceId}`
+          }
           className={
             notification.isRead ? "notification" : "notification-unread"
           }
-          onClick={() => readANotification(notification)}
+          onClick={() => {
+            readANotification(notification);
+            onClick();
+          }}
         >
           <div className="notification-item-icon">
             <img src={actor?.profileImg} />
             <span className="notification-icon-bubble">
-              <IoChatbox />
+              {notification?.action === "post_reply" ? (
+                <IoChatbox />
+              ) : notification?.action === "comment_reply" ? (
+                <CommentReplyIcon />
+              ) : (
+                <FollowerIcon />
+              )}
             </span>
           </div>
           <div className="notification-main">
@@ -64,9 +72,7 @@ export function Notification({ notification, setShowDropdown }) {
                       .fromNow()}{" "}
                   </span>
                 </div>
-                <div className="notification-message-content">
-                  {notification.resourceContent || ""}
-                </div>
+                <div className="notification-message-content"></div>
               </div>
               <button
                 aria-label="Open/close notifications"
@@ -74,7 +80,7 @@ export function Notification({ notification, setShowDropdown }) {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  setNotificationMenu(!notificationMenu);
+                  setNotificationMenu((prev) => !prev);
                 }}
               >
                 <IoIosMore />
@@ -88,7 +94,9 @@ export function Notification({ notification, setShowDropdown }) {
                 />
               )}
             </div>
-            <div className="notification-content">{notification.content}</div>
+            <div className="notification-content">
+              {notification.resourceContent}
+            </div>
             {notification.action === "post_reply" && (
               <button className="blue-btn-unfilled btn-long notification-reply-back">
                 <BsArrowReturnRight />
@@ -96,7 +104,7 @@ export function Notification({ notification, setShowDropdown }) {
               </button>
             )}
           </div>
-        </div>
+        </NavLink>
       )}
     </>
   );

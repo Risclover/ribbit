@@ -96,7 +96,8 @@
 }
 
 .logged-out-sidebar-bottom {
-  padding: 20px 24px 40px;
+  padding: var(--padding-standard);
+  padding-bottom: 40px;
 }
 
 .logged-out-sidebar-text {

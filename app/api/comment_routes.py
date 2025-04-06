@@ -51,10 +51,10 @@ def create_comment(id):
                 user_id=parent_comment.user_id,
                 actor_id=current_user.get_id(),
                 action="comment_reply",
-                resource_id=parent_id,
+                resource_id=id,
                 resource_type="comment",
                 resource_content=resource_content,
-                message=f"u/{current_user.username} replied to your comment in c/{post.post_community.name}."
+                message=f"u/{current_user.username} replied to your comment in c/{post.post_community.name}"
             )
             db.session.add(new_notification)
         else:
@@ -65,7 +65,7 @@ def create_comment(id):
                 resource_id=id,
                 resource_type="post",
                 resource_content=resource_content,
-                message=f"u/{current_user.username} replied to your post in c/{post.post_community.name}."
+                message=f"u/{current_user.username} replied to your post in c/{post.post_community.name}"
             )
             db.session.add(new_notification)
 

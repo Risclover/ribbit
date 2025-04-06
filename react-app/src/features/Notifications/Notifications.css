@@ -106,6 +106,7 @@
   margin: 0 auto;
   max-width: 648px;
   width: 100%;
+  background: var(--ribbit-main);
 }
 
 .notifications-content-header {
@@ -250,8 +251,8 @@
 }
 
 .notification-menu {
-  right: 10px;
-  bottom: -73px;
+  right: 20px;
+  top: 40px;
   position: absolute;
   margin-left: 18px;
   margin-top: 2px;
@@ -262,7 +263,6 @@
 
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(28, 28, 28, 0.2);
-  width: 300px;
 }
 
 .notification-menu-item {
@@ -275,6 +275,10 @@
   padding: 8px;
   text-align: left;
   width: 100%;
+  height: auto;
+  border: none;
+  background: transparent;
+  border-radius: 0;
 }
 
 .notification-menu-item:hover {

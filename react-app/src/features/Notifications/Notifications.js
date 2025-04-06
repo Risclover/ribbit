@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { VscSettingsGear } from "react-icons/vsc";
+import { VscMailRead, VscSettingsGear } from "react-icons/vsc";
 import { TfiBell } from "react-icons/tfi";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
-
-import { Notification } from "./Notification";
+import { Notification } from "@/components";
 import SparklyFrog from "@/assets/images/ribbit-frog-sparkly.png";
 import "./Notifications.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
+import { readAllNotifications } from "store";
 
 moment.updateLocale("en-notif", {
   relativeTime: {
@@ -43,8 +43,6 @@ export function Notifications() {
     (notification) => notification.notificationType !== "message"
   );
 
-
-
   usePageSettings({
     documentTitle: "Notifications",
     icon: (
@@ -69,6 +67,16 @@ export function Notifications() {
     return postB - postA;
   });
 
+  earlier.sort((a, b) => {
+    let postA = new Date(a.createdAt);
+    let postB = new Date(b.createdAt);
+    return postB - postA;
+  });
+
+  const markAllRead = (e) => {
+    e.preventDefault();
+    dispatch(readAllNotifications());
+  };
   return (
     <div className="notifications-page">
       <div className="notifications-header">
@@ -86,32 +94,19 @@ export function Notifications() {
             </li>
             <li
               className="notifications-button-bar-item"
+              onClick={(e) => markAllRead(e)}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21.75 9v.906a2.25 2.25 0 0 1-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 0 0 1.183 1.981l6.478 3.488m8.839 2.51-4.66-2.51m0 0-1.023-.55a2.25 2.25 0 0 0-2.134 0l-1.022.55m0 0-4.661 2.51m16.5 1.615a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V8.844a2.25 2.25 0 0 1 1.183-1.981l7.5-4.039a2.25 2.25 0 0 1 2.134 0l7.5 4.039a2.25 2.25 0 0 1 1.183 1.98V19.5Z"
-                />
-              </svg>
+              <VscMailRead />
               Mark as read
             </li>
-            <li className="notifications-button-bar-item">
+            {/* <li className="notifications-button-bar-item">
               <VscSettingsGear /> Settings
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
       <div className="notifications-main-wrapper">
         <div className="notifications-main">
-          <div className="notifications-spacer"></div>
           <div className="notifications-content">
             {notificationsList.length === 0 ? (
               <div className="no-notifications">
@@ -146,8 +141,16 @@ export function Notifications() {
                 {today
                   .filter((item) => item.notificationType !== "message")
                   .map((notification) => (
-                    <Notification key={uuidv4()} notification={notification} />
+                    <Notification
+                      key={uuidv4()}
+                      notification={notification}
+                      onClick={() => {
+                        return;
+                      }}
+                    />
                   ))}
+
+                <div className="notifications-spacer"></div>
               </div>
             )}
             {earlier.length > 0 && (
@@ -156,7 +159,13 @@ export function Notifications() {
                 {earlier
                   .filter((item) => item.notificationType !== "message")
                   .map((notification) => (
-                    <Notification key={uuidv4()} notification={notification} />
+                    <Notification
+                      key={uuidv4()}
+                      notification={notification}
+                      onClick={() => {
+                        return;
+                      }}
+                    />
                     // <div className="notification">
                     //   <div className="notification-img"></div>
                     //   <div className="notification-main">

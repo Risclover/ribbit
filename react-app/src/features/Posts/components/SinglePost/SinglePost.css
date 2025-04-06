@@ -6,7 +6,7 @@
   z-index: 50;
   min-height: calc(100vh - 49px);
   position: relative;
-  padding: 20px 24px;
+  padding: var(--padding-standard);
 }
 
 :root[data-theme="dark"] .single-post-page-main {
@@ -642,7 +642,6 @@ ol {
   height: 100%;
   width: 100%;
   object-fit: cover;
-  border: 1px solid var(--highlight-color);
   border-radius: 4px;
 }
 

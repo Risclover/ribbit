@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { VscMailRead } from "react-icons/vsc";
 import { VscSettingsGear } from "react-icons/vsc";
 import moment from "moment";
@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Notification } from "@/components";
 import SparklyFrog from "@/assets/images/ribbit-frog-sparkly.png";
 import { useOutsideClick } from "hooks";
+import { readAllNotifications } from "store";
 
 moment.updateLocale("en-notif", {
   relativeTime: {
@@ -63,6 +64,11 @@ export function NotificationsDropdown({
     return postB - postA;
   });
 
+  const markAllRead = (e) => {
+    e.preventDefault();
+    dispatch(readAllNotifications());
+  };
+
   return (
     <>
       {showDropdown && (
@@ -72,6 +78,7 @@ export function NotificationsDropdown({
             <div className="notifications-dropdown-head-right">
               <div className="notifications-dropdown-head-msg-box">
                 <span
+                  tabIndex={0}
                   className="notifications-dropdown-head-messages-btn"
                   onClick={() => {
                     setShowDropdown(false);
@@ -97,15 +104,16 @@ export function NotificationsDropdown({
               <button
                 aria-label="Mark all as 'read'"
                 className="notifications-dropdown-head-btn"
+                onClick={(e) => markAllRead(e)}
               >
                 <VscMailRead />
               </button>
-              <button
+              {/* <button
                 aria-label="Open notifications settings"
                 className="notifications-dropdown-head-btn"
               >
                 <VscSettingsGear />
-              </button>
+              </button> */}
             </div>
           </div>
           {notMessages?.length === 0 && (
@@ -143,21 +151,21 @@ export function NotificationsDropdown({
                     <Notification
                       key={uuidv4()}
                       notification={notification}
-                      setShowDropdown={setShowDropdown}
+                      onClick={() => setShowDropdown(false)}
                     />
                   )
               )}
           </div>
           {notMessages?.length > 0 && (
-            <div
+            <NavLink
+              to="/notifications"
               className="notifications-dropdown-footer"
               onClick={() => {
                 setShowDropdown(false);
-                history.push("/notifications");
               }}
             >
               SEE ALL
-            </div>
+            </NavLink>
           )}
         </div>
       )}

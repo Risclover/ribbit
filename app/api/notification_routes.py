@@ -23,10 +23,26 @@ def mark_notification_read(id):
     Mark one notification for the current_user as read.
     """
     notification = Notification.query.get(id)
-    if not notification or notification.user_id != current_user.get_id():
+    if not notification:
         return {"error": "Not found or unauthorized"}, 404
 
     notification.is_read = True
+    db.session.commit()
+    return notification.to_dict()
+
+
+# MARK NOTIFICATION AS UNREAD
+@notification_routes.route("/<int:id>/unread", methods=["PUT"])
+@login_required
+def mark_notification_unread(id):
+    """
+    Mark notification for the current_user as unread.
+    """
+    notification = Notification.query.get(id)
+    if not notification:
+        return {"error": "Not found or unauthorized"}, 404
+
+    notification.is_read = False
     db.session.commit()
     return notification.to_dict()
 

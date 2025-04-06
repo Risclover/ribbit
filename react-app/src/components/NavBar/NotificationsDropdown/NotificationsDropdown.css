@@ -63,13 +63,13 @@
 .notification-number {
   background: #ff4500;
   border-radius: 12px;
-  box-shadow: 0 0 0 2px #fff;
+  box-shadow: 0 0 0 2px var(--ribbit-main);
   box-sizing: border-box;
   color: #fff;
   font-size: 10px;
   font-weight: 700;
   height: 16px;
-  left: 20px;
+  left: 16px;
   line-height: 16px;
   padding: 0 4px;
   position: absolute;
@@ -84,13 +84,13 @@
 .notification-number-messages {
   background: #ff4500;
   border-radius: 12px;
-  box-shadow: 0 0 0 2px #fff;
+  box-shadow: 0 0 0 2px var(--ribbit-main);
   box-sizing: border-box;
   color: #fff;
   font-size: 10px;
   font-weight: 700;
   height: 16px;
-  left: 20px;
+  left: 16px;
   line-height: 16px;
   padding: 0 4px;
   text-align: center;
@@ -102,7 +102,7 @@
 }
 
 .notifications-dropdown::before {
-  border-bottom: 8px solid #dae0e6;
+  border-bottom: 8px solid var(--main-border-color);
   opacity: 0.5;
   top: -8px;
   content: "";
@@ -124,7 +124,7 @@
   right: 45px;
   width: 0;
   z-index: 100;
-  border-bottom: 8px solid white;
+  border-bottom: 8px solid var(--ribbit-main);
   top: -6px;
 }
 
@@ -146,7 +146,7 @@
 
 .notifications-dropdown-head-messages-btn {
   padding: 0;
-  padding-right: 8px;
+  margin-right: 8px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -203,12 +203,16 @@
   cursor: pointer;
 }
 
+.notification,
+.notification-unread {
+  position: relative;
+}
+
 .notification-message-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 4px;
-  position: relative;
 }
 
 .notification-message {
@@ -312,7 +316,6 @@
 }
 
 .notifications-dropdown-main {
-  background-color: white;
   overflow: hidden;
   overflow-y: auto;
   transition: max-height 0.3s ease-out;

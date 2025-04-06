@@ -2,6 +2,7 @@
 const LOAD_NOTIFICATIONS = "notifications/LOAD_NOTIFICATIONS";
 const ADD_NOTIFICATION = "notifications/ADD_NOTIFICATION";
 const MARK_READ = "notifications/MARK_READ";
+const MARK_UNREAD = "notifications/MARK_UNREAD";
 const MARK_ALL_READ = "notifications/MARK_ALL_READ";
 const DELETE_NOTIFICATION = "notifications/DELETE_NOTIFICATION";
 const DELETE_ALL_NOTIFICATIONS = "notifications/DELETE_ALL_NOTIFICATIONS";
@@ -19,6 +20,11 @@ export const addNotification = (notification) => ({
 
 export const markNotificationReadAction = (notificationId) => ({
   type: MARK_READ,
+  notificationId,
+});
+
+export const markNotificationUnreadAction = (notificationId) => ({
+  type: MARK_UNREAD,
   notificationId,
 });
 
@@ -68,6 +74,19 @@ export const readNotification = (notificationId) => async (dispatch) => {
     const data = await res.json();
     // data should contain the updated notification
     dispatch(markNotificationReadAction(data.id));
+    return data;
+  }
+};
+
+export const unreadNotification = (notificationId) => async (dispatch) => {
+  const res = await fetch(`/api/notifications/${notificationId}/unread`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(markNotificationUnreadAction(data.id));
     return data;
   }
 };
@@ -135,6 +154,18 @@ export default function notificationsReducer(state = initialState, action) {
         newState[action.notificationId] = {
           ...newState[action.notificationId],
           isRead: true,
+        };
+      }
+      return newState;
+    }
+
+    case MARK_UNREAD: {
+      // We changed the action to have `notificationId`
+      const newState = { ...state };
+      if (newState[action.notificationId]) {
+        newState[action.notificationId] = {
+          ...newState[action.notificationId],
+          isRead: false,
         };
       }
       return newState;

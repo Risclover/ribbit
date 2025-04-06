@@ -25,8 +25,8 @@
 
 /* If you want to style the container (optional) */
 .skip-location {
-  max-width: calc(640px + 310px + 24px);
   width: 100%;
   margin: 0 auto;
   height: auto;
+  padding-left: 20px;
 }

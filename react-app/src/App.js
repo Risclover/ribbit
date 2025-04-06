@@ -143,7 +143,6 @@ function App() {
     }
   }, [user]);
 
-
   useEffect(() => {
     setSidebarState(showNavSidebar);
   }, [showNavSidebar]);
@@ -194,6 +193,16 @@ function App() {
                   : "main"
               }
             >
+              <div className="page-content">
+                <SkipLocation showNavSidebar={showNavSidebar} />
+                <AppRoutes
+                  user={user}
+                  postType={postType}
+                  setPostType={setPostType}
+                  searchbarRef={searchbarRef}
+                  setOpenChat={setOpenChat}
+                />
+              </div>
               <LoginSignupModal />
               {openChat && !minimizeChat && (
                 <Chat
@@ -209,14 +218,6 @@ function App() {
                   setMinimizeChat={setMinimizeChat}
                 />
               )}
-              <SkipLocation />
-              <AppRoutes
-                user={user}
-                postType={postType}
-                setPostType={setPostType}
-                searchbarRef={searchbarRef}
-                setOpenChat={setOpenChat}
-              />
 
               <ProtectedRoute path="/notifications" exact={true}>
                 <Notifications />

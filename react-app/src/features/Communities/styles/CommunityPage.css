@@ -40,7 +40,7 @@
   width: auto;
   display: flex;
   justify-content: center;
-  padding: 20px 24px;
+  padding: var(--padding-standard);
   min-height: calc(100vh - 208px);
 }
 

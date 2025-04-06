@@ -7,7 +7,7 @@
 
 .create-post-page {
   margin: 0 auto;
-  padding: 20px 24px;
+  padding: var(--padding-standard);
   max-width: 1248px;
   display: flex;
   justify-content: center;
@@ -779,7 +779,7 @@ pre.ql-syntax {
 }
 
 .single-post-content-box-right {
-  border: 1px solid transparent;
+  border: 1px solid var(--highlight-color);
   color: var(--highlight-color);
   display: flex;
   align-items: center;

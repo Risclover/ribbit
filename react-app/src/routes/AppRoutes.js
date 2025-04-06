@@ -9,10 +9,10 @@ import {
   CommunityPage,
   EditProfile,
   HomepageFeed,
-  SingleImagePage,
   SinglePostPage,
   UserProfile,
   CreatePostPage,
+  ImagePage,
 } from "@/pages";
 import {
   EditCommunity,
@@ -52,8 +52,8 @@ export const AppRoutes = ({
           <SinglePostPage />
         </Route>
 
-        <Route path="/images/:postId" exact>
-          <SingleImagePage />
+        <Route path="/c/:communityName/media">
+          <ImagePage />
         </Route>
 
         <Route path="/c/:communityName" exact>
