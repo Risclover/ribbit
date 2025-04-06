@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { getFollowers } from "@/store";
 import { FollowBtn } from "@/components";
@@ -46,10 +46,10 @@ export function UserProfileFollowers({ setShowFollowersModal }) {
         )}
         {Object.values(followers).map((follower) => (
           <div key={uuidv4()} className="user-profile-follower">
-            <div
+            <NavLink
+              to={`/users/${follower.id}/profile`}
               className="user-profile-follower-left"
               onClick={() => {
-                history.push(`/users/${follower.id}/profile`);
                 setShowFollowersModal(false);
               }}
             >
@@ -59,7 +59,7 @@ export function UserProfileFollowers({ setShowFollowersModal }) {
                 alt="Follower"
               />
               {follower.username}
-            </div>
+            </NavLink>
             <FollowBtn isProfile user={follower} follows={follows} />
           </div>
         ))}

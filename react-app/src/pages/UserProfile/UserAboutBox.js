@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory, useParams } from "react-router-dom";
 import { SlArrowRight } from "react-icons/sl";
 import moment from "moment";
+import { IoSettingsSharp } from "react-icons/io5";
 
 import {
   followUser,
@@ -95,7 +96,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   };
 
   return (
-    <div className="user-profile-about-box" id="sidebar">
+    <div className="user-profile-about-box">
       <div
         className="user-profile-about-box-banner"
         style={{
@@ -142,7 +143,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
       <div className="user-profile-about-content">
         {currentUser?.id === +userId && (
           <NavLink to={`/settings/profile`}>
-            <i className="fa-solid fa-gear user-settings"></i>
+            <IoSettingsSharp />
           </NavLink>
         )}
         <h1 className="user-profile-display-name">{user?.displayName}</h1>
@@ -182,9 +183,10 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
             </div>
           </div>
           {currentUser?.id === user?.id && (
-            <div
+            <button
               className="user-profile-stats stats-followers"
               onClick={() => setShowFollowersModal(true)}
+              tabIndex={0}
             >
               <h5>Followers</h5>
               <div className="stats-stats">
@@ -194,7 +196,7 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
                 </span>
                 <SlArrowRight />
               </div>
-            </div>
+            </button>
           )}
         </div>
 

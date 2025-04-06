@@ -95,6 +95,7 @@
   position: relative;
   height: 100%;
   border-radius: 50%;
+  margin: 6px 0 0;
 }
 
 .comment-user-img {
@@ -106,7 +107,6 @@
   min-width: 28px;
   width: 28px;
   border: 0;
-  margin: 6px 0 0;
   font-size: 28px;
   line-height: 1;
   height: 100%;

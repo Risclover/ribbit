@@ -63,14 +63,19 @@
   border: 1px solid var(--secondary-border-color);
 }
 
-.user-settings {
+.user-profile-about-content a {
   position: absolute;
   top: 102px;
   right: 12px;
-  font-size: 20px;
+  font-size: 22px;
   padding: 4px;
   cursor: pointer;
   color: var(--highlight-color);
+}
+
+.user-profile-about-content a svg {
+  height: 22px;
+  width: 22px;
 }
 
 .user-profile-display-name {
@@ -140,6 +145,14 @@
   width: 50%;
   margin-bottom: 12px;
   cursor: default;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  height: auto;
+  text-align: start;
 }
 
 .user-profile-stats.stats-followers {

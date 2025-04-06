@@ -90,6 +90,7 @@ export function Comment({ comment, level = 1 }) {
         <button
           className="comment-expand-btn"
           onClick={() => setIsCollapsed(false)}
+          tabIndex={!isCollapsed ? -1 : 0}
         >
           <BsArrowsAngleExpand />
         </button>

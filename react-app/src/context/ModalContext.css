@@ -93,8 +93,8 @@
   border: none;
   font-size: 20px;
   color: var(--main-text-color);
-  padding: 0;
-  height: auto;
+  padding: 4px;
+  height: min-content;
 }
 
 #modal-topbar h1,
