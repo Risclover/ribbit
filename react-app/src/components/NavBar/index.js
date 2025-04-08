@@ -5,8 +5,3 @@ export {
   LoggedOutDropdownWrapper,
 } from "./LoggedOutDropdown";
 export * from "./NavLeftDropdown";
-export {
-  Notification,
-  NotificationsDropdown,
-  NotificationsDropdownWrapper,
-} from "./NotificationsDropdown";

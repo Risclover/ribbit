@@ -7,11 +7,10 @@ import { BsChatDots } from "react-icons/bs";
 import {
   NavUserDropdown,
   NavLeftDropdownFace,
-  NotificationsDropdownWrapper,
   LoggedOutDropdownWrapper,
 } from ".";
 import { SelectedChatContext } from "@/context";
-import { Searchbar } from "@/features";
+import { Searchbar, NotificationBell } from "@/features";
 import { AllPostsIcon } from "@/assets";
 
 import { ribbitBanners, ribbitLogos } from "@/assets";
@@ -19,9 +18,6 @@ import { RandomLogo } from "../../layouts/RandomLogo";
 import "./NavBar.css";
 import "../../features/NewSearch/Search.css";
 import { useAuthFlow } from "@/context/AuthFlowContext";
-import { UserIcon } from "assets/icons/UserIcon";
-import { ChevronDownFilled } from "assets";
-import NotificationBell from "features/NewNotifications/components/NotificationBell";
 
 export function NavBar({
   adjustQuery,

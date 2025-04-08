@@ -53,6 +53,7 @@ nav ul li {
 }
 
 .logo-container img {
+  height: 30px;
   width: 32px;
   margin-right: 8px;
 }

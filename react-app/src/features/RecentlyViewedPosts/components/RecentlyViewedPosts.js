@@ -4,25 +4,6 @@ import { RecentlyViewedType } from "./RecentlyViewedType";
 import { useRecentlyViewedPosts } from "../hooks";
 import "../styles/RecentlyViewedPosts.css";
 
-moment.updateLocale("en-cust", {
-  relativeTime: {
-    future: "in %s",
-    past: "%s",
-    s: "1m",
-    ss: "1m",
-    m: "%dm",
-    mm: "%dm",
-    h: "%dh",
-    hh: "%dh",
-    d: "%dd",
-    dd: "%dd",
-    M: "%dmo",
-    MM: "%dmo",
-    y: "%dyr",
-    yy: "%dyr",
-  },
-});
-
 export function RecentlyViewedPosts() {
   const { isLoading, handleClear, posts } = useRecentlyViewedPosts();
 

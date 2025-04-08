@@ -13,14 +13,15 @@ import {
   UserProfile,
   CreatePostPage,
   ImagePage,
+  NotificationsPage,
 } from "@/pages";
 import {
   EditCommunity,
   PreviewCommunity,
   UpdateImagePost,
   UpdatePost,
+  LoginSignupModal,
 } from "@/features";
-import { LoginSignupModal } from "features";
 
 export const AppRoutes = ({
   user,
@@ -100,6 +101,10 @@ export const AppRoutes = ({
 
         <ProtectedRoute path="/posts/:postId/edit" exact>
           <UpdatePost />
+        </ProtectedRoute>
+
+        <ProtectedRoute path="/notifications" exact>
+          <NotificationsPage />
         </ProtectedRoute>
 
         <Route path="/users/:userId/profile" exact>

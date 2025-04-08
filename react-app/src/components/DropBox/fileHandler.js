@@ -1,4 +1,4 @@
-export const useFileHandler = (setImage, setPreview) => {
+export const fileHandler = (setImage, setPreview) => {
   const handleUpload = (event) => {
     event.preventDefault();
 
@@ -13,15 +13,9 @@ export const useFileHandler = (setImage, setPreview) => {
     // 1. Store the file object in state (for uploading later).
     setImage(file);
 
-    // 2. Generate a blob URL for local preview, instead of base64 data URL.
+    // 2. Generate a blob URL for local preview
     const blobUrl = URL.createObjectURL(file);
     setPreview(blobUrl);
-
-    // Show any upload-progress bar (if desired)
-
-    // Optional: If you really do need to read the file's contents,
-    // you can still do so, but for most large images,
-    // it's better to avoid storing big base64 strings in memory.
   };
 
   return { handleUpload };

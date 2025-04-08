@@ -10,3 +10,4 @@ export { CreatePostPage } from "./CreatePostPage";
 // export { NotificationsPage } from "./NotificationsPage";
 // export { UserProfilePage } from "./UserProfilePage";
 export { ImagePage } from "./ImagePage";
+export { NotificationsPage } from "./NotificationsPage";

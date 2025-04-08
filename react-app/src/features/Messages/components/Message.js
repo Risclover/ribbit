@@ -5,25 +5,6 @@ import moment from "moment";
 import { readMessage, getMessages } from "@/store";
 import { MessageReply } from "./MessageReply";
 
-moment.updateLocale("en-message", {
-  relativeTime: {
-    future: (diff) => (diff === "just now" ? diff : `in ${diff}`),
-    past: (diff) => (diff === "just now" ? diff : `${diff} ago`),
-    s: "just now",
-    ss: "just now",
-    m: "1 minute",
-    mm: "%d minutes",
-    h: "1 hour",
-    hh: "%d hours",
-    d: "1 day",
-    dd: "%d days",
-    M: "1 month",
-    MM: "%d months",
-    y: "1 year",
-    yy: "%d years",
-  },
-});
-
 export function Message({ message, item, allExpanded }) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -79,7 +60,7 @@ export function Message({ message, item, allExpanded }) {
                 ? item.users[0].username
                 : item.users[1].username}
             </NavLink>{" "}
-            sent {moment(message.createdAt).locale("en-message").fromNow()}
+            sent {moment(message.createdAt).locale("en-post").fromNow()}
           </div>
         </div>
         {expanded && (

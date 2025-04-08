@@ -6,17 +6,7 @@ import { ScrollToTop } from "./utils";
 
 import { NavBar, NavSidebar, LoggedOutSidebar } from "./components";
 
-import {
-  SinglePostPage,
-  CommunityPage,
-  EditProfile,
-  UserProfile,
-  CommunitiesDirectory,
-  SingleImagePage,
-  HomepageFeed,
-  AllPostsFeed,
-  CreatePostPage,
-} from "./pages";
+import { NotificationsPage } from "./pages";
 
 import { Modal } from "./context";
 import {
@@ -32,7 +22,6 @@ import {
   UpdatePost,
   SignUpForm,
   EditCommunity,
-  Notifications,
   SearchResultsPosts,
   SearchResultsComments,
   SearchResultsCommunities,
@@ -66,6 +55,7 @@ import SkipLocation from "components/SkipLocation/SkipLocation";
 import { AppRoutes } from "routes/AppRoutes";
 import { useLeaveLogin } from "hooks/useLeaveLogin";
 import { useNotificationsSocket } from "hooks/useNotificationsSocket";
+import "./moment-setup";
 
 function App() {
   const dispatch = useDispatch();
@@ -219,9 +209,6 @@ function App() {
                 />
               )}
 
-              <ProtectedRoute path="/notifications" exact={true}>
-                <Notifications />
-              </ProtectedRoute>
               {!user && (
                 <LoggedOutSidebar
                   setShowSignupForm={setShowSignupForm}

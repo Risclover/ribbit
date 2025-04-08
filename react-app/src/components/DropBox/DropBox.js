@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UploadZone } from "./UploadZone";
 import { PreviewBar } from "./PreviewBar";
-import { useFileHandler } from "./useFileHandler";
+import { fileHandler } from "./fileHandler";
 import "./DropBox.css";
 import { updateSettingsNameIcon } from "store";
 import { useDispatch } from "react-redux";

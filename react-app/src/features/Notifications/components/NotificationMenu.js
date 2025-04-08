@@ -5,7 +5,6 @@ import { useOutsideClick } from "@/hooks";
 import { unreadNotification } from "store";
 
 export function NotificationMenu({ notification, setNotificationMenu }) {
-  const currentUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const wrapperRef = useRef(null);
 
@@ -15,11 +14,12 @@ export function NotificationMenu({ notification, setNotificationMenu }) {
     e.preventDefault();
     e.stopPropagation();
     dispatch(unreadNotification(notification.id));
+    setNotificationMenu(false);
   };
 
   return (
     <div className="notification-menu" ref={wrapperRef}>
-      <button className="notification-menu-item" onClick={(e) => markUnread(e)}>
+      <button className="notification-menu-item" onClick={markUnread}>
         Mark as unread
       </button>
     </div>

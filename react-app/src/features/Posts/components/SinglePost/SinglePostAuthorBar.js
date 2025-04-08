@@ -5,25 +5,6 @@ import { Username } from "@/components";
 import { CommunityImg } from "@/components/CommunityImg";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 
-moment.updateLocale("en-post", {
-  relativeTime: {
-    future: (diff) => (diff === "just now" ? diff : `in ${diff}`),
-    past: (diff) => (diff === "just now" ? diff : `${diff} ago`),
-    s: "just now",
-    ss: "just now",
-    m: "1 minute",
-    mm: "%d minutes",
-    h: "1 hour",
-    hh: "%d hours",
-    d: "1 day",
-    dd: "%d days",
-    M: "1 month",
-    MM: "%d months",
-    y: "1 year",
-    yy: "%d years",
-  },
-});
-
 export function SinglePostAuthorBar({ communityPage, post, isPage }) {
   const handleNavClick = (e) => {
     e.stopPropagation();
