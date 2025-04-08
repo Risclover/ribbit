@@ -1,12 +1,10 @@
-// src/features/notifications/components/NotificationsDropdown.jsx
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { VscMailRead } from "react-icons/vsc";
 import { v4 as uuidv4 } from "uuid";
-
 import { Notification } from "./Notification";
-import { ribbitLogos } from "@/assets";
 import { useNotificationsDropdown } from "../hooks/useNotificationsDropdown";
+import { ribbitLogos } from "@/assets";
 
 export function NotificationsDropdown({
   msgNum,

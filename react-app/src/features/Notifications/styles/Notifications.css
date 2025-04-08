@@ -15,18 +15,6 @@
   right: -42px;
 }
 
-/* .navbar-button {
-    cursor: pointer;
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    font-size: 40px;
-    padding: 5px;
-    width: auto;
-    height: auto;
-  } */
-
 .notification-icon-bubble svg {
   color: #24a0ed;
 }
@@ -250,6 +238,7 @@
   color: #7c7c7c;
   word-break: break-word;
   max-height: 54px;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
 }
 
