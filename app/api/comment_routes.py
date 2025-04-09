@@ -28,6 +28,25 @@ def get_single_comment(id):
     return comment.to_dict()
 
 
+def create_notification(user_id, actor_id, action, resource_id, resource_type, content, message):
+    last_notif = Notification.query.filter_by(user_id=user_id, resource_id=resource_id, resource_type=resource_type).order_by(Notification.created_at.desc()).first()
+
+    if last_notif and last_notif.actor_id == actor_id:
+        return None
+
+    notification = Notification(
+        user_id=user_id,
+        actor_id=actor_id,
+        action=action,
+        resource_id=resource_id,
+        resource_type=resource_type,
+        resource_content=content,
+        message=message
+    )
+    db.session.add(notification)
+    return notification
+
+
 # CREATE A COMMENT FOR A SINGLE POST:
 @comment_routes.route('/<int:id>', methods=["POST"])
 @login_required
@@ -45,37 +64,37 @@ def create_comment(id):
         )
         parent_id = data.get("parentId")
         resource_content = data.get("content")
+        replier_id = current_user.get_id()
+
+        # If parent_id exists, this is a comment reply
         if parent_id:
             parent_comment = Comment.query.get(parent_id)
-            new_notification = Notification(
-                user_id=parent_comment.user_id,
-                actor_id=current_user.get_id(),
-                action="comment_reply",
-                resource_id=id,
-                resource_type="comment",
-                resource_content=resource_content,
-                message=f"u/{current_user.username} replied to your comment in c/{post.post_community.name}"
-            )
-            db.session.add(new_notification)
+
+            if not parent_comment:
+                # The parent_id is invalid or the parent comment was deleted
+                return {"errors": "Parent comment not found"}, 404
+
+            comment_author_id = parent_comment.user_id
+
+            if replier_id == comment_author_id:
+                return { "Message": "No notification needed." }, 200
+            else:
+                new_notification = create_notification(comment_author_id, replier_id, "comment_reply", id, "comment", resource_content, f"u/{current_user.username} replied to your comment in c/{post.post_community.name}")
+
+        # If parent_id does not exist, this is a post reply
         else:
-            new_notification = Notification(
-                user_id=post.user_id,
-                actor_id=current_user.get_id(),
-                action="post_reply",
-                resource_id=id,
-                resource_type="post",
-                resource_content=resource_content,
-                message=f"u/{current_user.username} replied to your post in c/{post.post_community.name}"
-            )
-            db.session.add(new_notification)
+            post_author_id = post.user_id
+
+            if replier_id == post_author_id:
+                return { "Message": "No notification needed." }, 200
+            else:
+                new_notification = create_notification(post_author_id, replier_id, "post_reply", id, "post", resource_content, f"u/{current_user.username} replied to your post in c/{post.post_community.name}")
 
         db.session.add(new_comment)
-        db.session.add(new_notification)
         post.post_comments.append(new_comment)  # attach to the post
 
-        db.session.commit()
-
-        emit_notification_to_user(new_notification)
+        if new_notification:
+            emit_notification_to_user(new_notification)
 
         # Add the upvote on behalf of the comment's author
         comment_vote = CommentVote(

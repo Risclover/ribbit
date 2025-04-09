@@ -53,14 +53,14 @@ export function NotificationsDropdown({
           </h1>
           <p>
             That's okay, maybe you just need the right inspiration. Try posting
-            in r/CasualConversation, a popular community for discussion.
+            in c/CasualConversation, a popular community for discussion.
           </p>
           <NavLink
             to="/c/CasualConversation"
             className="blue-btn-filled no-notifications-btn"
             onClick={() => setShowDropdown(false)}
           >
-            Visit r/CasualConversation
+            Visit c/CasualConversation
           </NavLink>
         </div>
       ) : (

@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask_login import login_required, current_user
 from app.models import db, User, Notification
 from app.socket import emit_notification_to_user
+from datetime import datetime, timedelta
 
 follower_routes = Blueprint("followers", __name__)
 
@@ -42,8 +43,22 @@ def follow_user(id):
     user = User.query.get(current_user.get_id())
     target = User.query.get(id)
 
+    if not target:
+        return { "Message": "Target user not found" }, 404
+
+    if target.id == current_user.id:
+        return { "Message": "You cannot follow yourself" }, 400
+
     if not user.is_following(target):
         user.follow(target)
+
+    twenty_four_hours_ago = datetime.now(datetime.timezone.utc) - timedelta(hours=24)
+
+    existing_recent = Notification.query.filter(Notification.user_id == target.id, Notification.actor_id == user.id, Notification.action == "follow", Notification.created_at > twenty_four_hours_ago).first()
+
+    if existing_recent:
+        return { "Message": "Recent follow notification already exists." }, 200
+
     new_notification = Notification(
         user_id=id,
         actor_id=current_user.id,

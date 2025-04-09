@@ -61,14 +61,14 @@ export function NotificationsPage() {
                 </h1>
                 <p>
                   That's okay, maybe you just need the right inspiration. Try
-                  posting in r/CasualConversation, a popular community for
+                  posting in c/CasualConversation, a popular community for
                   discussion.
                 </p>
                 <NavLink
                   to="/c/CasualConversation"
                   className="blue-btn-filled no-notifications-btn"
                 >
-                  Visit r/CasualConversation
+                  Visit c/CasualConversation
                 </NavLink>
               </div>
             ) : (
