@@ -41,6 +41,7 @@ export function Username({ community, username, user, source }) {
 
   const handleNameClick = (e) => {
     e.stopPropagation();
+    history.push(`/users/${user.id}/profile`);
   };
 
   return (
@@ -49,13 +50,9 @@ export function Username({ community, username, user, source }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <NavLink
-        onClick={handleNameClick}
-        to={`/users/${user.id}/profile`}
-        className="username-component"
-      >
+      <span onClick={handleNameClick} className="username-component">
         {source === "singlepost" ? "u/" + username : username}
-      </NavLink>
+      </span>
 
       {showPopup && <UsernamePopup community={community} user={foundUser} />}
     </div>

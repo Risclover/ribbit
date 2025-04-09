@@ -200,6 +200,10 @@
   color: #878a8c;
 }
 
+.posts-container .single-post {
+  cursor: pointer;
+}
+
 @media (max-width: 960px) {
   .posts-right-col {
     display: none;

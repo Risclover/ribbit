@@ -2,7 +2,7 @@ import { CommunityImg, Username } from "components";
 import { Tooltip } from "components/Tooltip/Tooltip";
 import moment from "moment";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 export default function SinglePostAuthorBar({
   communityPage,
@@ -10,8 +10,10 @@ export default function SinglePostAuthorBar({
   isPage,
   format,
 }) {
+  const history = useHistory();
   const handleNavClick = (e) => {
     e.stopPropagation();
+    history.push(`/c/${post?.communityName}`);
   };
   return (
     <div
@@ -38,13 +40,12 @@ export default function SinglePostAuthorBar({
           </div>
 
           {(format === "Card" || format === "Compact") && (
-            <NavLink
+            <span
               onClick={handleNavClick}
-              to={`/c/${post?.communityName}`}
               className="single-post-community-name"
             >
               c/{post?.communityName}
-            </NavLink>
+            </span>
           )}
 
           <span className="single-post-dot-spacer">•</span>

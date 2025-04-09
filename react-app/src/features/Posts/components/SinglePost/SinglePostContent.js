@@ -8,10 +8,11 @@ import { useMetadata } from "@/context";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Text } from "@/features/Comments/components/Comment/Text";
 import Skeleton from "@mui/material/Skeleton";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useDarkMode } from "hooks";
 
 export function SinglePostContent({ link, post, isPage }) {
+  const history = useHistory();
   const { theme } = useDarkMode();
 
   const { metadata, fetchMetadata } = useMetadata();
@@ -38,12 +39,12 @@ export function SinglePostContent({ link, post, isPage }) {
   return (
     <>
       {link ? (
-        <NavLink to={link}>
+        <span onClick={() => history.push(link)}>
           <div className="single-post-content-box">
             <div className="single-post-content-box-left">
               <div className="single-post-title-bar">
                 {post !== undefined && link ? (
-                  <NavLink to={link}>{post?.title}</NavLink>
+                  <span onClick={() => history.push(link)}>{post?.title}</span>
                 ) : post !== undefined && !link ? (
                   post.title
                 ) : (
@@ -130,13 +131,13 @@ export function SinglePostContent({ link, post, isPage }) {
               </button>
             )}
           </div>
-        </NavLink>
+        </span>
       ) : (
         <div className="single-post-content-box">
           <div className="single-post-content-box-left">
             <div className="single-post-title-bar">
               {post !== undefined && link ? (
-                <NavLink to={link}>{post?.title}</NavLink>
+                <span onClick={() => history.push(link)}>{post?.title}</span>
               ) : post !== undefined && !link ? (
                 post.title
               ) : (
