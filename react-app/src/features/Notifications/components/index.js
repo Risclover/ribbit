@@ -1,3 +1,4 @@
+export { NoNotifications } from "./NoNotifications";
 export { Notification } from "./Notification";
 export { NotificationBell } from "./NotificationBell";
 export { NotificationsDropdown } from "./NotificationsDropdown";

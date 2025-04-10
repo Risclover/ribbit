@@ -28,7 +28,7 @@ class Notification(db.Model):
             "resourceContent": self.resource_content,
             "message": self.message,
             "isRead": self.is_read,
-            "createdAt": str(self.created_at)
+            "createdAt": self.created_at.isoformat()
         }
 
     def __repr__(self):

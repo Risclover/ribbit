@@ -2,9 +2,10 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { VscMailRead } from "react-icons/vsc";
 import { v4 as uuidv4 } from "uuid";
+
 import { Notification } from "./Notification";
+import { NoNotifications } from "./NoNotifications";
 import { useNotificationsDropdown } from "../hooks/useNotificationsDropdown";
-import { ribbitLogos } from "@/assets";
 
 export function NotificationsDropdown({
   msgNum,
@@ -42,27 +43,7 @@ export function NotificationsDropdown({
         </div>
       </div>
       {notifications.length === 0 ? (
-        <div className="no-notifications">
-          <img
-            src={ribbitLogos.sparkle}
-            alt="Sparkly Frog"
-            className="sparkly-frog"
-          />
-          <h1 className="no-notifications-title">
-            You don't have any activity yet
-          </h1>
-          <p>
-            That's okay, maybe you just need the right inspiration. Try posting
-            in c/CasualConversation, a popular community for discussion.
-          </p>
-          <NavLink
-            to="/c/CasualConversation"
-            className="blue-btn-filled no-notifications-btn"
-            onClick={() => setShowDropdown(false)}
-          >
-            Visit c/CasualConversation
-          </NavLink>
-        </div>
+        <NoNotifications onClick={() => setShowDropdown(false)} />
       ) : (
         <>
           <div className="notifications-dropdown-main">

@@ -4,11 +4,9 @@ import { VscMailRead } from "react-icons/vsc";
 import { TfiBell } from "react-icons/tfi";
 import { v4 as uuidv4 } from "uuid";
 
-import { Notification } from "@/features";
+import { Notification, NoNotifications } from "@/features";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import { useNotificationsDropdown } from "@/features/Notifications/hooks";
-import { groupAndSortNotifications } from "@/features/Notifications/utils";
-import { ribbitLogos } from "@/assets";
 
 export function NotificationsPage() {
   usePageSettings({
@@ -50,27 +48,11 @@ export function NotificationsPage() {
         <div className="notifications-main">
           <div className="notifications-content">
             {notifications.length === 0 ? (
-              <div className="no-notifications">
-                <img
-                  src={ribbitLogos.sparkle}
-                  alt="Sparkly Frog"
-                  className="sparkly-frog"
-                />
-                <h1 className="no-notifications-title">
-                  You don't have any activity yet
-                </h1>
-                <p>
-                  That's okay, maybe you just need the right inspiration. Try
-                  posting in c/CasualConversation, a popular community for
-                  discussion.
-                </p>
-                <NavLink
-                  to="/c/CasualConversation"
-                  className="blue-btn-filled no-notifications-btn"
-                >
-                  Visit c/CasualConversation
-                </NavLink>
-              </div>
+              <NoNotifications
+                onClick={() => {
+                  return;
+                }}
+              />
             ) : (
               ""
             )}

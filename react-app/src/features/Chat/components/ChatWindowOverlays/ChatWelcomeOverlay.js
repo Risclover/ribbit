@@ -7,7 +7,7 @@ export const ChatWelcomeOverlay = ({ setActiveOverlay, OVERLAYS }) => {
     <ChatWindowOverlayContainer>
       <div className="welcome-overlay">
         <img
-          src={ribbitLogos.happy.logo}
+          src={ribbitLogos.happy}
           className="welcome-overlay-img"
           alt="Frog"
         />

@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_login import login_required, current_user
 from app.models import db, User, Notification
 from app.socket import emit_notification_to_user
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 follower_routes = Blueprint("followers", __name__)
 
@@ -40,7 +40,7 @@ def follow_user(id):
     """
     Follow or unfollow target user
     """
-    user = User.query.get(current_user.get_id())
+    user = User.query.get(int(current_user.get_id()))
     target = User.query.get(id)
 
     if not target:
@@ -51,8 +51,9 @@ def follow_user(id):
 
     if not user.is_following(target):
         user.follow(target)
+        db.session.commit()
 
-    twenty_four_hours_ago = datetime.now(datetime.timezone.utc) - timedelta(hours=24)
+    twenty_four_hours_ago = datetime.now(timezone.utc) - timedelta(hours=24)
 
     existing_recent = Notification.query.filter(Notification.user_id == target.id, Notification.actor_id == user.id, Notification.action == "follow", Notification.created_at > twenty_four_hours_ago).first()
 

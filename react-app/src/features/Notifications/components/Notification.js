@@ -61,7 +61,11 @@ export function Notification({ notification, onClick }) {
               </span>
               <span className="notification-message-head-dot">·</span>
               <span className="notification-date">
-                {moment(notification.createdAt).locale("en-notif").fromNow()}{" "}
+                {moment
+                  .utc(notification.createdAt)
+                  .local()
+                  .locale("en-notif")
+                  .fromNow()}{" "}
               </span>
             </div>
             <div className="notification-message-content"></div>

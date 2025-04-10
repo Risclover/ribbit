@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from app.models import db, Comment, User, CommentVote, Post, Notification
 from app.forms.comment_form import CommentForm
 from .auth_routes import validation_errors_to_error_messages
-from datetime import datetime
+from datetime import datetime, timezone
 from app.socket import emit_notification_to_user
 
 comment_routes = Blueprint("comments", __name__)
@@ -29,11 +29,6 @@ def get_single_comment(id):
 
 
 def create_notification(user_id, actor_id, action, resource_id, resource_type, content, message):
-    last_notif = Notification.query.filter_by(user_id=user_id, resource_id=resource_id, resource_type=resource_type).order_by(Notification.created_at.desc()).first()
-
-    if last_notif and last_notif.actor_id == actor_id:
-        return None
-
     notification = Notification(
         user_id=user_id,
         actor_id=actor_id,
@@ -64,37 +59,37 @@ def create_comment(id):
         )
         parent_id = data.get("parentId")
         resource_content = data.get("content")
-        replier_id = current_user.get_id()
-
-        # If parent_id exists, this is a comment reply
         if parent_id:
             parent_comment = Comment.query.get(parent_id)
-
-            if not parent_comment:
-                # The parent_id is invalid or the parent comment was deleted
-                return {"errors": "Parent comment not found"}, 404
-
-            comment_author_id = parent_comment.user_id
-
-            if replier_id == comment_author_id:
-                return { "Message": "No notification needed." }, 200
-            else:
-                new_notification = create_notification(comment_author_id, replier_id, "comment_reply", id, "comment", resource_content, f"u/{current_user.username} replied to your comment in c/{post.post_community.name}")
-
-        # If parent_id does not exist, this is a post reply
+            new_notification = Notification(
+                user_id=parent_comment.user_id,
+                actor_id=current_user.get_id(),
+                action="comment_reply",
+                resource_id=id,
+                resource_type="comment",
+                resource_content=resource_content,
+                message=f"u/{current_user.username} replied to your comment in c/{post.post_community.name}"
+            )
+            db.session.add(new_notification)
         else:
-            post_author_id = post.user_id
-
-            if replier_id == post_author_id:
-                return { "Message": "No notification needed." }, 200
-            else:
-                new_notification = create_notification(post_author_id, replier_id, "post_reply", id, "post", resource_content, f"u/{current_user.username} replied to your post in c/{post.post_community.name}")
+            new_notification = Notification(
+                user_id=post.user_id,
+                actor_id=current_user.get_id(),
+                action="post_reply",
+                resource_id=id,
+                resource_type="post",
+                resource_content=resource_content,
+                message=f"u/{current_user.username} replied to your post in c/{post.post_community.name}"
+            )
+            db.session.add(new_notification)
 
         db.session.add(new_comment)
+        db.session.add(new_notification)
         post.post_comments.append(new_comment)  # attach to the post
 
-        if new_notification:
-            emit_notification_to_user(new_notification)
+        db.session.commit()
+
+        emit_notification_to_user(new_notification)
 
         # Add the upvote on behalf of the comment's author
         comment_vote = CommentVote(
@@ -127,7 +122,7 @@ def update_comment(id):
         data = form.data
 
         setattr(comment, "content", data["content"])
-        setattr(comment, "updated_at", datetime.utcnow())
+        setattr(comment, "updated_at", datetime.now(timezone.utc))
         db.session.commit()
         return comment.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 403
