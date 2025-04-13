@@ -12,6 +12,7 @@ export const ChatMessage = ({
   formattedDate,
   socket,
   content,
+  message,
   createdAt,
   previousMessage,
   setActiveOverlay,
@@ -57,6 +58,7 @@ export const ChatMessage = ({
                     setOpenReactions={setOpenReactions}
                     messageId={id}
                     socket={socket}
+                    message={message}
                     compact
                   />
                 )}
@@ -96,6 +98,7 @@ export const ChatMessage = ({
             {messageReactions.map((reactionData) => (
               <div key={reactionData.reactionType} className="reaction-item">
                 <img
+                  onClick={() => handleReactionClick(reactionData)}
                   src={`/images/frog-reactions/${extractImgUrl(
                     reactionData.reactionType
                   )}`}
@@ -130,6 +133,7 @@ export const ChatMessage = ({
                   setOpenReactions={setOpenReactions}
                   messageId={id}
                   socket={socket}
+                  message={message}
                   wrapperRef={wrapperRef}
                 />
               )}

@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { updateComment, getComments, getPosts } from "@/store";
-import { useAutosizeTextArea } from "@/hooks";
+import React from "react";
+import useEditComment from "features/Comments/hooks/useEditComment";
 import "@/assets/styles/Modals.css";
 
 export function EditComment({
@@ -10,39 +8,19 @@ export function EditComment({
   setShowEditCommentModal,
   setCommentContent,
 }) {
-  const dispatch = useDispatch();
-  const textareaRef = useRef();
-  const [content, setContent] = useState(comment?.content || "");
-  const [isDisabled, setIsDisabled] = useState(true);
-
-  useAutosizeTextArea(textareaRef.current, content);
-
-  useEffect(() => {
-    setIsDisabled(content.trim().length === 0);
-  }, [content]);
-
-  const handleEdit = async (e) => {
-    e.preventDefault();
-    if (isDisabled) return;
-
-    const data = await dispatch(
-      updateComment({ content: content.trim() }, comment.id)
-    );
-    setShowEditCommentModal(false);
-
-    // If you need to refresh both posts & comments
-    dispatch(getPosts());
-    dispatch(getComments(postId));
-
-    if (data?.content) {
-      setCommentContent(data.content);
-    }
-  };
-
-  const handleCancel = (e) => {
-    e.preventDefault();
-    setShowEditCommentModal(false);
-  };
+  const {
+    content,
+    setContent,
+    isDisabled,
+    handleEdit,
+    handleCancel,
+    textareaRef,
+  } = useEditComment({
+    comment,
+    postId,
+    setShowEditCommentModal,
+    setCommentContent,
+  });
 
   return (
     <div className="modal-container">

@@ -1,6 +1,6 @@
 import React from "react";
-import { useAuthFlow } from "../../../../context/AuthFlowContext";
-import { AuthFormInput, AuthModalLayout, FormHeader, SignInSwitch } from "..";
+import { useAuthFlow } from "@/context";
+import { AuthFormInput, AuthModalLayout, FormHeader, SignInSwitch } from "../";
 import { useLoginForm } from "../../hooks";
 
 /**

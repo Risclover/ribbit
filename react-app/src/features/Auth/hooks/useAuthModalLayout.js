@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuthFlow } from "@/context";
-import { AuthModalCloseBtn, AuthModalBackBtn } from "@/assets";
 import { useModalScrollBorders } from "./useModalScrollBorders";
+import { AuthModalCloseBtn, AuthModalBackBtn } from "@/assets";
 
 export function useAuthModalLayout({ containerRef, topbarBtn, onClose }) {
   const history = useHistory();

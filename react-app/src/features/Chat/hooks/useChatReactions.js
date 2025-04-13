@@ -14,6 +14,8 @@ export function useChatReactions({ setOpenReactions, message, socket }) {
       reactionType: reaction,
       room: selectedChat.id,
     };
+    const data = await dispatch(createReaction(payload));
+    dispatch(fetchReactionsForMessage(message?.id));
     socket.emit("add_reaction", payload);
     setOpenReactions(false);
   };

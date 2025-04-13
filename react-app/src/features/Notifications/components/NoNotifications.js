@@ -2,6 +2,10 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { ribbitLogos } from "@/assets";
 
+/**
+ * Message that shows in Notifications menu/page when user has no existing notifications
+ * - onClick: either an empty function that returns, or setShowDropdown(false) (to close the Notifications menu).
+ */
 export function NoNotifications({ onClick }) {
   return (
     <div className="no-notifications">

@@ -1,8 +1,7 @@
 import React from "react";
 import { useAuthFlow } from "@/context";
-import { AuthFormInput, FormHeader, SignInSwitch, AuthModalLayout } from "..";
+import { AuthFormInput, FormHeader, SignInSwitch, AuthModalLayout } from "../";
 import { useSignUpForm } from "../../hooks";
-import { handleEmailErrors } from "../../utils";
 
 /**
  * Allows users to enter an email to start sign-up.
@@ -10,9 +9,8 @@ import { handleEmailErrors } from "../../utils";
  */
 
 export const SignUpForm = ({ formType }) => {
-  const { signupFormData, view, openSignupPage2, closeModal } = useAuthFlow();
-  const { emailInputProps, emailTaken, continueBtn, emailBlurred } =
-    useSignUpForm();
+  const { view, openSignupPage2, closeModal } = useAuthFlow();
+  const { emailInputProps, continueBtn, emailBlurred } = useSignUpForm();
 
   return (
     <AuthModalLayout

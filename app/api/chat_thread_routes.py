@@ -2,9 +2,6 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, User, ChatMessageThread, ChatMessage, ThreadUser
 
-from app.socket import socketio
-from flask_socketio import emit
-
 chat_thread_routes = Blueprint("chat_threads", __name__)
 
 # GET CURRENT USER'S CHATS
@@ -46,6 +43,7 @@ def get_user_chat(id):
         return chat.to_dict()
     else:
         return { "error": "Chat not found" }
+
 
 # GET CHAT MESSAGE
 @chat_thread_routes.route("/messages/<int:id>")
@@ -101,6 +99,7 @@ def create_message(id):
 
     db.session.add(message)
     db.session.commit()
+
     return message.to_dict()
 
 # "DELETE" A MESSAGE

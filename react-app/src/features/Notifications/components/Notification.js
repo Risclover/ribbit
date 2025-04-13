@@ -10,6 +10,11 @@ import { NotificationMenu } from "@/features";
 import { markNotificationRead } from "@/store";
 import { FollowerIcon, CommentReplyIcon } from "@/assets";
 
+/**
+ * A single notification item in the Notifications menu/page.
+ * - notification: a single notification object from state
+ * - onClick: Either an empty function that returns, or setShowDropdown(false) (to close the Notifications dropdown menu)
+ */
 export function Notification({ notification, onClick }) {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);

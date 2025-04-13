@@ -8,9 +8,8 @@ import GoogleLogo from "@/assets/images/Google-Symbol.png";
  */
 export function FormHeader() {
   const [showDemoWarning, setShowDemoWarning] = useState(false);
-  const handleLogin = () => {
-    window.location.href = "/authorize/google";
-  };
+  const handleLogin = () => (window.location.href = "/authorize/google");
+
   return (
     <>
       <p className="auth-modal-agreement">

@@ -108,6 +108,7 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
       {/* If not viewing a single specific comment, show the top-level CommentForm */}
       {!specificCommentActive && <CommentForm postId={post.id} />}
 
+      {/* Sorting menu */}
       <div className="sort-search" ref={targetRef}>
         {!searchActive && !specificCommentActive && (
           <CommentSorting sortType={sortType} setSortType={setSortType} />

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from flask_login import current_user
-from app.models import db, Reaction
+from flask_login import login_required, current_user
+from app.models import db, Reaction, User, ChatMessage, ChatMessageThread
 
 chat_reaction_routes = Blueprint("chat_reactions", __name__)
 

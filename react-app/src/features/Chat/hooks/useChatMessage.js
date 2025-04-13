@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReactionsForMessage } from "@/store";
+import { SelectedChatContext } from "context";
+import { deleteReaction } from "store";
+import { createReaction } from "store";
 
 export function useChatMessage({ socket, messageId, content }) {
   const dispatch = useDispatch();
   const [openReactions, setOpenReactions] = useState(false);
   const [msgContent, setMsgContent] = useState(content);
+  const { selectedChat } = useContext(SelectedChatContext);
 
   const currentUser = useSelector((state) => state.session.user);
   const msgReactions = useSelector((state) => state.reactions);
@@ -30,6 +34,8 @@ export function useChatMessage({ socket, messageId, content }) {
 
   const messageReactions = msgReactions[messageId] || [];
 
+  console.log("messageReactions:", messageReactions);
+
   const extractImgUrl = (url) => {
     const parts = url.split("/");
     const filenameWithHash = parts[parts.length - 1];
@@ -37,19 +43,23 @@ export function useChatMessage({ socket, messageId, content }) {
     return firstChar + ".gif";
   };
 
-  const handleReactionClick = (reactionData) => {
+  const handleReactionClick = async (reactionData) => {
     const hasReacted = reactionData.users.includes(currentUser?.id);
     const payload = {
-      messageId,
+      messageId: messageId,
       reactionType: reactionData.reactionType,
-      room: reactionData.roomId, // or pass the actual thread ID if needed
+      room: selectedChat.id,
     };
 
     if (hasReacted) {
+      dispatch(deleteReaction(payload));
       socket.emit("remove_reaction", payload);
     } else {
+      dispatch(createReaction(payload));
       socket.emit("add_reaction", payload);
     }
+
+    dispatch(fetchReactionsForMessage(messageId));
   };
 
   return {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuthFlow } from "@/context";
-import { AuthFormInput, AuthModalLayout } from "..";
+import { AuthFormInput, AuthModalLayout } from "../";
 import { useSignUpFormSecondPage } from "../../hooks";
 
 /**
@@ -35,11 +35,13 @@ export function SignUpFormSecondPage({ formType }) {
           Choose wisely—because once you get a name, you can’t change it.
         </p>
         <form>
+          {/* username input */}
           <AuthFormInput
             props={usernameInputProps}
             icon="rotate"
             blurred={usernameBlurred}
           />
+          {/* password input */}
           <AuthFormInput props={passwordInputProps} blurred={passwordBlurred} />
         </form>
       </div>

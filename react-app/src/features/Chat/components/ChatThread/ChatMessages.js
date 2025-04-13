@@ -10,12 +10,13 @@ export const ChatMessages = ({
   OVERLAYS,
 }) => {
   const decorated = useChatMessages({ messages });
-
+  console.log("decorated:", decorated);
   return (
     <div className="chat-messages">
       {decorated.map((message) => (
         <ChatMessage
           key={message.id}
+          message={message}
           {...message}
           socket={socket}
           setActiveOverlay={setActiveOverlay}
