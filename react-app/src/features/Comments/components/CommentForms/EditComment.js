@@ -1,7 +1,14 @@
 import React from "react";
-import useEditComment from "features/Comments/hooks/useEditComment";
+import useEditComment from "../../hooks/useEditComment";
 import "@/assets/styles/Modals.css";
 
+/**
+ * The 'Edit Comment' form/modal, for editing an existing comment
+ * - comment: The comment in question that is being edited
+ * - postId: id of the post this comment is under
+ * - setShowEditCommentModal: Setter for whether this modal is showing or not
+ * - setCommentContent: Setter for the content of this comment (aka required to edit the comment)
+ */
 export function EditComment({
   comment,
   postId,

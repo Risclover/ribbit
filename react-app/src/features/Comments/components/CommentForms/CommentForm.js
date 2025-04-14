@@ -1,18 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import {
-  createComment,
-  getCommentsForPost,
-  getPosts,
-  addCommentVote,
-} from "@/store";
-import { LoginSignupModal } from "@/features";
-import { useAutosizeTextArea } from "@/hooks";
-import { useAuthFlow } from "@/context/AuthFlowContext";
+import { useCommentForm } from "../../hooks/useCommentForm";
 import "../../styles/Comments.css";
-import useCommentForm from "features/Comments/hooks/useCommentForm";
 
+/**
+ * Form to write and submit a comment to a post. Also serves as the comment reply form.
+ * - replyForm (boolean): Whether or not this usage of the form is the comment reply or not.
+ * - postId: id of the post user is replying to
+ * - parentId: id of the parent comment, if any (null on default)
+ * - onCancel: what to do when 'Cancel' is pressed
+ */
 export function CommentForm({
   replyForm = false,
   postId,
@@ -29,33 +26,36 @@ export function CommentForm({
     handleSubmit,
     textareaRef,
   } = useCommentForm({ onCancel, parentId, postId });
-  if (!postId) return null;
 
+  if (!postId) return null;
   return (
     <div className="comment-form-container">
       <form className="comment-form" onSubmit={handleSubmit}>
-        {!user && (
-          <label htmlFor="comment-box">
-            <button
-              className="log-in-to-comment"
-              onClick={(e) => {
-                e.preventDefault();
-                openLogin();
-              }}
-            >
-              Log in
-            </button>
-            to comment
-          </label>
-        )}
-        {!replyForm && user && (
-          <label htmlFor="comment-box">
-            Comment as{" "}
-            <NavLink to={`/users/${user?.id}/profile`}>
-              {user?.username}
-            </NavLink>
-          </label>
-        )}
+        <label htmlFor="comment-box">
+          {!user ? (
+            <>
+              <button
+                className="log-in-to-comment"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openLogin();
+                }}
+              >
+                Log in
+              </button>
+              to comment
+            </>
+          ) : (
+            !replyForm && (
+              <>
+                Comment as{" "}
+                <NavLink to={`/users/${user?.id}/profile`}>
+                  {user?.username}
+                </NavLink>
+              </>
+            )
+          )}
+        </label>
         <div className="post-comment-box">
           <textarea
             ref={textareaRef}

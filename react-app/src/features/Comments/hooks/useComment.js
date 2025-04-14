@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { usePopup } from "@/context";
 import { removeComment, getPosts } from "@/store";
 import { convertTime } from "../utils/convertTime";
-import { usePopup } from "@/context";
 
 /**
  * Custom logic for an individual Comment component.

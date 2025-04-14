@@ -1,11 +1,10 @@
-import { useAuthFlow } from "context";
-import { useAutosizeTextArea } from "hooks";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "store";
-import { createComment } from "store";
+import { useAuthFlow } from "@/context";
+import { useAutosizeTextArea } from "@/hooks";
+import { getPosts, createComment } from "@/store";
 
-export default function useCommentForm({ onCancel, parentId, postId }) {
+export function useCommentForm({ onCancel, parentId, postId }) {
   const dispatch = useDispatch();
   const textareaRef = useRef();
   const { openLogin } = useAuthFlow();
