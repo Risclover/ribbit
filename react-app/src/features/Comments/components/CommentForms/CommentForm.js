@@ -11,6 +11,7 @@ import { LoginSignupModal } from "@/features";
 import { useAutosizeTextArea } from "@/hooks";
 import { useAuthFlow } from "@/context/AuthFlowContext";
 import "../../styles/Comments.css";
+import useCommentForm from "features/Comments/hooks/useCommentForm";
 
 export function CommentForm({
   replyForm = false,
@@ -18,53 +19,22 @@ export function CommentForm({
   parentId = null,
   onCancel,
 }) {
-  const dispatch = useDispatch();
-  const textareaRef = useRef();
-
-  const [content, setContent] = useState("");
-  const [errors, setErrors] = useState([]);
-  const [disabled, setDisabled] = useState(true);
-
-  const { openLogin } = useAuthFlow();
-  const user = useSelector((state) => state.session.user);
-
-  useAutosizeTextArea(textareaRef.current, content);
-
-  useEffect(() => {
-    setDisabled(content.trim().length === 0);
-  }, [content]);
-
+  const {
+    content,
+    setContent,
+    openLogin,
+    user,
+    errors,
+    disabled,
+    handleSubmit,
+    textareaRef,
+  } = useCommentForm({ onCancel, parentId, postId });
   if (!postId) return null;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!content.trim()) return;
-
-    const payload = {
-      content,
-      parentId,
-    };
-
-    try {
-      // createComment might return newly-created comment data
-      dispatch(createComment(payload, postId));
-      // Optionally upvote the new comment automatically:
-
-      // Refresh or fetch updated comment data
-      dispatch(getPosts());
-
-      setContent("");
-
-      if (onCancel) onCancel(); // If it's a reply form, close after submission
-    } catch (err) {
-      setErrors(["There was an error creating your comment"]);
-    }
-  };
-
-  if (!user) {
-    return (
-      <div className="comment-form-container">
-        <form className="comment-form">
+  return (
+    <div className="comment-form-container">
+      <form className="comment-form" onSubmit={handleSubmit}>
+        {!user && (
           <label htmlFor="comment-box">
             <button
               className="log-in-to-comment"
@@ -77,36 +47,24 @@ export function CommentForm({
             </button>
             to comment
           </label>
-          <textarea
-            ref={textareaRef}
-            className="post-comment-textarea"
-            placeholder="What are your thoughts?"
-            onChange={(e) => setContent(e.target.value)}
-            value={content}
-            disabled
-          />
-        </form>
-      </div>
-    );
-  }
-
-  return (
-    <div className="comment-form-container">
-      <form className="comment-form" onSubmit={handleSubmit}>
-        {!replyForm && (
+        )}
+        {!replyForm && user && (
           <label htmlFor="comment-box">
             Comment as{" "}
-            <NavLink to={`/users/${user.id}/profile`}>{user.username}</NavLink>
+            <NavLink to={`/users/${user?.id}/profile`}>
+              {user?.username}
+            </NavLink>
           </label>
         )}
         <div className="post-comment-box">
           <textarea
             ref={textareaRef}
             className="post-comment-textarea"
+            placeholder="What are your thoughts?"
             onChange={(e) => setContent(e.target.value)}
             value={content}
+            disabled={!user}
             maxLength={10000}
-            placeholder="What are your thoughts?"
             id="comment-box"
           />
 

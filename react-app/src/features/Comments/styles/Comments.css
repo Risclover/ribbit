@@ -27,7 +27,7 @@
 }
 
 .log-in-to-comment {
-  color: var(--highlight-color);
+  color: var(--community-highlight);
   text-decoration: none;
   margin-right: 5px;
   cursor: pointer;
