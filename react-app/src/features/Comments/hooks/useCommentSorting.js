@@ -1,5 +1,8 @@
 import { useRef, useState } from "react";
 
+/**
+ * Logic for CommentSorting component
+ */
 export function useCommentSorting({ setSortType }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const wrapperRef = useRef(null);

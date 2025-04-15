@@ -31,9 +31,7 @@ export const useCommentVote = (comment) => {
       return;
     }
 
-    const currentVote = comment?.commentVoters?.[user?.id];
     if (vote === voteType) {
-      // Same vote => remove
       await dispatch(removeCommentVote(comment.id));
       setVote(null);
     } else {

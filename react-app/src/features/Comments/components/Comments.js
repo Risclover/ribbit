@@ -1,11 +1,16 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { CommentSorting, CommentForm, Comment, NoResults } from "@/features";
 import { CommentSearch } from "./CommentSearch";
 import { NoCommentsMsg } from "./NoCommentsMsg";
 import { useComments } from "../hooks/useComments";
 import "../styles/Comments.css";
-import { NavLink } from "react-router-dom";
 
+/**
+ * The primary component that makes up the entire Comments section
+ * - post: the post for which this comments section is under
+ * - triggerScroll, setTriggerScroll: function to trigger page scroll (when the 'Comments' button is clicked, scroll to comments section)
+ */
 export function Comments({ post, triggerScroll, setTriggerScroll }) {
   const {
     specificCommentActive,

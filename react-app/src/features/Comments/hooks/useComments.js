@@ -6,6 +6,9 @@ import { getCommentsForPost } from "@/store";
 import { buildNestedComments } from "../utils/buildNestedComments";
 import { sortComments } from "../utils/sortComments";
 
+/**
+ * Logic for Comments component
+ */
 export function useComments({ post, triggerScroll, setTriggerScroll }) {
   const dispatch = useDispatch();
   const inputRef = useRef();

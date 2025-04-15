@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Username, Tooltip } from "@/components";
-import "../../../../components/Tooltip/Tooltip.css";
 
 /**
  * Renders the author's info for the comment

@@ -9,6 +9,7 @@ import "../../styles/Comments.css";
  * - postId: id of the post user is replying to
  * - parentId: id of the parent comment, if any (null on default)
  * - onCancel: what to do when 'Cancel' is pressed
+ * - onNewComment: what to do when there's a new comment (display at top of comments)
  */
 export function CommentForm({
   replyForm = false,

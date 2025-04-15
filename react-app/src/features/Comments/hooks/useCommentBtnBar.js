@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPosts, removeComment } from "@/store";
 
+/**
+ * Logic for CommentBtnBar component
+ */
 export function useCommentBtnBar({ comment, setShowReplyForm }) {
   const dispatch = useDispatch();
 
-  // Local UI states
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 

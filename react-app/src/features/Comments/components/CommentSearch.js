@@ -1,9 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { SlClose } from "react-icons/sl";
-import { searchPostComments } from "@/store";
+import { useCommentSearch } from "../hooks/useCommentSearch";
 import { MagnifyingGlass } from "@/assets/icons/MagnifyingGlass";
 
+/**
+ * A mini search feature for the comments section
+ * - searchValue, setSearchValue: search query and its setter
+ * - post: post that this comments section is under
+ * - setSearchActive: set whether this search feature is currently active or not
+ * - setSearchQuery: set the search query (differs from searchValue in that searchValue is the text currently in the input box, while searchQuery is the already searched-for item)
+ * - inputRef: ref for the input box for .focus() purposes
+ */
 export const CommentSearch = ({
   searchValue,
   setSearchValue,
@@ -12,25 +19,14 @@ export const CommentSearch = ({
   setSearchQuery,
   inputRef,
 }) => {
-  const dispatch = useDispatch();
-
-  const handleDismiss = (e) => {
-    e.preventDefault();
-    setSearchValue("");
-    inputRef.current.focus();
-  };
-
-  const handleEnter = async (e) => {
-    e.preventDefault();
-
-    const trimmed = searchValue.trim();
-    if (trimmed.length > 0) {
-      await dispatch(searchPostComments(post.id, trimmed));
-      setSearchValue(trimmed);
-      setSearchActive(true);
-      setSearchQuery(trimmed);
-    }
-  };
+  const { handleDismiss, handleEnter } = useCommentSearch({
+    post,
+    setSearchActive,
+    setSearchQuery,
+    searchValue,
+    setSearchValue,
+    inputRef,
+  });
 
   return (
     <div>

@@ -2,6 +2,10 @@ import React from "react";
 import parse from "html-react-parser";
 import { v4 as uuidv4 } from "uuid";
 
+/**
+ * A comment's text, rendered to follow specific rules (i.e. render links, show formatting, etc.)
+ * - content: the comment's content
+ */
 export function Text({ content }) {
   const URL_REGEX =
     /^(https?:\/\/)?(www\.)?[a-z0-9]+([\-\.][a-z0-9]+)*\.[a-z]{2,63}(:\d{1,5})?(\/\S*)?$/i;

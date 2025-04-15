@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { BsArrowsAngleExpand } from "react-icons/bs";
-import { CommentBtnBar } from "./CommentBtnBar";
 import { CommentAuthorBar } from "./CommentAuthorBar";
+import { CommentBtnBar } from "./CommentBtnBar";
 import { CommentContent } from "./CommentContent";
+import { CommentThreadlines } from "./CommentThreadlines";
 import { CommentReplyForm } from "../CommentForms/CommentReplyForm";
 import { useComment } from "../../hooks/useComment";
-import { CommentThreadlines } from "./CommentThreadlines";
 import "./Comment.css";
 
 /**

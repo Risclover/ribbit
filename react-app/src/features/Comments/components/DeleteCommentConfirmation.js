@@ -1,25 +1,20 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { getPosts, removeComment } from "@/store";
+import { useDeleteCommentConfirmation } from "../hooks/useDeleteCommentConfirmation";
 
+/**
+ * A modal that has the user confirm that they want to delete this comment.
+ * - showDeleteModal, setShowDeleteModal: whether this modal is shown
+ * - commentId: id of the comment in question
+ */
 export function DeleteCommentConfirmation({
   showDeleteModal,
   setShowDeleteModal,
   commentId,
 }) {
-  const dispatch = useDispatch();
-
-  const handleDeleteClick = async (e) => {
-    e.preventDefault();
-    setShowDeleteModal(false);
-    await dispatch(removeComment(commentId));
-    dispatch(getPosts()); // If you need to refresh entire posts list
-  };
-
-  const handleKeepClick = (e) => {
-    e.preventDefault();
-    setShowDeleteModal(false);
-  };
+  const { handleDeleteClick, handleKeepClick } = useDeleteCommentConfirmation({
+    commentId,
+    setShowDeleteModal,
+  });
 
   if (!showDeleteModal) return null;
 

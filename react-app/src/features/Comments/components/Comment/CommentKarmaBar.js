@@ -4,6 +4,7 @@ import { useCommentVote } from "../../hooks/useCommentVote";
 
 /**
  * Renders upvote/downvote buttons plus the comment's net votes.
+ * - comment: the comment itself
  */
 export function CommentKarmaBar({ comment }) {
   const { vote, handleVoteClick } = useCommentVote(comment);

@@ -3,6 +3,9 @@ import { useDispatch } from "react-redux";
 import { useAutosizeTextArea } from "@/hooks";
 import { updateComment, getComments, getPosts } from "@/store";
 
+/**
+ * Logic for EditComment component
+ */
 export default function useEditComment({
   comment,
   postId,

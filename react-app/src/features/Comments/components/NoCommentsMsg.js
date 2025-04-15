@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * Message that appears when there are no comments in this comments section
+ */
 export const NoCommentsMsg = () => {
   return (
     <div className="no-comments-msg">

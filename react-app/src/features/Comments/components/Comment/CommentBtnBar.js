@@ -3,8 +3,8 @@ import { Modal } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
 import { CommentKarmaBar } from "./CommentKarmaBar";
 import { EditComment } from "../CommentForms/EditComment";
+import { useCommentBtnBar } from "../../hooks/useCommentBtnBar";
 import { PencilIcon, TrashIcon } from "@/assets";
-import { useCommentBtnBar } from "features/Comments/hooks/useCommentBtnBar";
 
 /**
  * Renders the action buttons (Reply, Edit, Delete, etc.) for a Comment.
@@ -13,6 +13,7 @@ import { useCommentBtnBar } from "features/Comments/hooks/useCommentBtnBar";
  * - currentUser: the current user
  * - postId: id of the post this comment is under
  * - setCommentContent: setter for setting the comment content (for when the user is editing the comment)
+ * - setShowReplyForm: setter (boolean) for whether the reply form is shown
  */
 export function CommentBtnBar({
   comment,

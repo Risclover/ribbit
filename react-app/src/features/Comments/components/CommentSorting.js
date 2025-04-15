@@ -6,6 +6,8 @@ import "../styles/Comments.css";
 
 /**
  * A dropdown that lets the user pick how to sort comments.
+ * - sortType: which sorting option is selected ("Top" by default)
+ * - setSortType: set the sorting option
  */
 export function CommentSorting({ sortType, setSortType }) {
   const {
