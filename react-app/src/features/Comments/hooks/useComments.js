@@ -22,6 +22,7 @@ export function useComments({ post, triggerScroll, setTriggerScroll }) {
   const [searchActive, setSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
+  const [newCommentIds, setNewCommentIds] = useState([]);
 
   // Get comment ID from URL: comment-#
   const commentIdPattern = /#comment-(\d+)/;
@@ -44,9 +45,20 @@ export function useComments({ post, triggerScroll, setTriggerScroll }) {
     return buildNestedComments(commentsArray);
   }, [commentsArray]);
 
+  // Sort them
   const sortedComments = useMemo(() => {
-    return sortComments(nestedComments, sortType);
-  }, [nestedComments, sortType]);
+    // 1) do normal sorting
+    const normalSorted = sortComments([...nestedComments], sortType);
+
+    // 2) if any comment is in `newCommentIds`, pin it at the top
+    const newlyPosted = normalSorted.filter((c) =>
+      newCommentIds.includes(c.id)
+    );
+    const theRest = normalSorted.filter((c) => !newCommentIds.includes(c.id));
+
+    // newly posted first, then the normal sorted
+    return [...newlyPosted, ...theRest];
+  }, [nestedComments, sortType, newCommentIds]);
 
   // Attempt to find the specific comment in the flattened commentMap
   const specificComment = commentsState[specificCommentId] || null;
@@ -63,6 +75,10 @@ export function useComments({ post, triggerScroll, setTriggerScroll }) {
       inputRef.current.focus();
       inputRef.current.select();
     }
+  };
+
+  const handleNewComment = (newId) => {
+    setNewCommentIds((prev) => [...prev, newId]);
   };
 
   if (!post?.postComments) {
@@ -87,5 +103,6 @@ export function useComments({ post, triggerScroll, setTriggerScroll }) {
     nestedComments,
     targetRef,
     inputRef,
+    handleNewComment,
   };
 }

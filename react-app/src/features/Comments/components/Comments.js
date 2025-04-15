@@ -25,12 +25,15 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
     nestedComments,
     targetRef,
     inputRef,
+    handleNewComment,
   } = useComments({ post, triggerScroll, setTriggerScroll });
 
   return (
     <div className="comments-container">
       {/* Not viewing a single specific comment: Show the top-level CommentForm */}
-      {!specificCommentActive && <CommentForm postId={post.id} />}
+      {!specificCommentActive && (
+        <CommentForm postId={post.id} onNewComment={handleNewComment} />
+      )}
 
       {/* Sorting menu */}
       <div className="sort-search" ref={targetRef}>

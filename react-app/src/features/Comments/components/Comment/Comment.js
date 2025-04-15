@@ -97,6 +97,7 @@ export function Comment({ comment, level = 1 }) {
                 currentUser={currentUser}
                 postId={postId}
                 setCommentContent={setCommentContent}
+                setShowReplyForm={setShowReplyForm}
               />
               {showReplyForm && (
                 <CommentReplyForm

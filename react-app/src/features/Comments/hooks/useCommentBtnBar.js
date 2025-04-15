@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPosts, removeComment } from "@/store";
 
-export function useCommentBtnBar({ comment }) {
+export function useCommentBtnBar({ comment, setShowReplyForm }) {
   const dispatch = useDispatch();
 
   // Local UI states

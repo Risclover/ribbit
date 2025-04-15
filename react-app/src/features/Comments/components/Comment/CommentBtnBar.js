@@ -20,6 +20,7 @@ export function CommentBtnBar({
   currentUser,
   postId,
   setCommentContent,
+  setShowReplyForm,
 }) {
   const isAuthor = comment?.commentAuthor?.id === currentUser?.id;
 
@@ -34,7 +35,7 @@ export function CommentBtnBar({
     handleDeleteClick,
     handleReplyClick,
     handleEditClick,
-  } = useCommentBtnBar({ comment });
+  } = useCommentBtnBar({ comment, setShowReplyForm });
 
   if (collapsed) {
     return null;

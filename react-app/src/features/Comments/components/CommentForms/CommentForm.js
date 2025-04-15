@@ -15,6 +15,7 @@ export function CommentForm({
   postId,
   parentId = null,
   onCancel,
+  onNewComment,
 }) {
   const {
     content,
@@ -25,7 +26,7 @@ export function CommentForm({
     disabled,
     handleSubmit,
     textareaRef,
-  } = useCommentForm({ onCancel, parentId, postId });
+  } = useCommentForm({ onCancel, parentId, postId, onNewComment });
 
   if (!postId) return null;
   return (

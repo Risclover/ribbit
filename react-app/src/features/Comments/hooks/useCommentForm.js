@@ -4,7 +4,7 @@ import { useAuthFlow } from "@/context";
 import { useAutosizeTextArea } from "@/hooks";
 import { getPosts, createComment } from "@/store";
 
-export function useCommentForm({ onCancel, parentId, postId }) {
+export function useCommentForm({ onCancel, parentId, postId, onNewComment }) {
   const dispatch = useDispatch();
   const textareaRef = useRef();
   const { openLogin } = useAuthFlow();
@@ -28,7 +28,13 @@ export function useCommentForm({ onCancel, parentId, postId }) {
     };
 
     try {
-      dispatch(createComment(payload, postId));
+      const newComment = await dispatch(createComment(payload, postId));
+      // or: const newComment = await dispatch(createComment({ content, parentId }, postId));
+
+      // If newComment is valid, do your post-create logic:
+      if (onNewComment && newComment) {
+        onNewComment(newComment.id);
+      }
       dispatch(getPosts());
       setContent("");
       if (onCancel) onCancel();
