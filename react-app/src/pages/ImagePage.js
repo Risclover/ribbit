@@ -9,7 +9,7 @@ import { usePageSettings } from "@/hooks";
 import { CommunityImg } from "@/components";
 import Skeleton from "@mui/material/Skeleton";
 import { getCommunities } from "@/store";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 export const ImagePage = () => {
   const { theme } = useDarkMode();

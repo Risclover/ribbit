@@ -1,4 +1,4 @@
-import { PostFormatContext } from "context";
+import { PostFormatContext } from "@/context";
 import React, { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";

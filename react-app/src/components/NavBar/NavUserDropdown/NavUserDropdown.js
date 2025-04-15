@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import NavUserDropdownFace from "./NavUserDropdownFace";
 import NavUserDropdownBox from "./NavUserDropdownBox";
 import "./NavUserDropdown.css";
-import { useOutsideClick } from "hooks";
-import { useSkipLocation } from "context/SkipLocationContext";
+import { useOutsideClick } from "@/hooks";
+import { useSkipLocation } from "@/context/SkipLocationContext";
 
 export function NavUserDropdown() {
   const wrapperRef = useRef(null);

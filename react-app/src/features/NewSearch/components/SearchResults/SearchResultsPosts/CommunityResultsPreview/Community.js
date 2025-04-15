@@ -3,7 +3,7 @@ import { CommunityJoinBtn } from "./CommunityJoinBtn";
 import { useHistory } from "react-router-dom";
 import { CommunityImg } from "@/components/CommunityImg";
 import { Skeleton } from "@mui/material";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 const Community = ({ community }) => {
   const history = useHistory();
@@ -41,7 +41,7 @@ const Community = ({ community }) => {
 };
 
 const CommunitySkeleton = () => {
-    const { theme } = useDarkMode();
+  const { theme } = useDarkMode();
 
   return (
     <div className="search-results-page-community">

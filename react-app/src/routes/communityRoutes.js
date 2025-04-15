@@ -1,4 +1,4 @@
-import { EditCommunity, PreviewCommunity } from "features";
+import { EditCommunity, PreviewCommunity } from "@/features";
 import { CommunityPage, ImagePage } from "pages";
 
 export const communityRoutes = [

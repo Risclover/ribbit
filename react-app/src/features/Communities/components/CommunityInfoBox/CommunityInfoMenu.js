@@ -57,12 +57,7 @@ export function CommunityInfoMenu({ community }) {
   useOutsideClick(wrapperRef, () => setOpenMenu(false));
 
   return (
-    <div
-      className="community-page-menu"
-      id="sidebar"
-      tabIndex={0}
-      ref={wrapperRef}
-    >
+    <div className="community-page-menu" id="sidebar" ref={wrapperRef}>
       <button
         aria-label="Menu"
         onClick={handleOpenMenu}

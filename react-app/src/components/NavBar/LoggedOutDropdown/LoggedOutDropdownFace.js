@@ -1,5 +1,5 @@
-import { UserIcon } from "assets/icons/UserIcon";
-import { useOutsideClick } from "hooks";
+import { UserIcon } from "@/assets/icons/UserIcon";
+import { useOutsideClick } from "@/hooks";
 import React, { useRef } from "react";
 import { TbChevronDown } from "react-icons/tb";
 

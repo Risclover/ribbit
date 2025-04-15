@@ -11,13 +11,6 @@ export function useComment(comment) {
   const [commentContent, setCommentContent] = useState(comment?.content || "");
   const [highlight, setHighlight] = useState(false);
 
-  const currentUser = useSelector((state) => state.session.user);
-  const post = useSelector((state) => state.posts[comment?.postId]);
-
-  const editedTime = convertTime(comment, "edit");
-  const commentTime = convertTime(comment);
-  const wasEdited = comment?.createdAt !== comment?.updatedAt;
-
   useEffect(() => {
     const currentUrl = window.location.href;
     const match = currentUrl.match(/#comment-(\d+)/);
@@ -37,11 +30,6 @@ export function useComment(comment) {
     setShowReplyForm,
     commentContent,
     setCommentContent,
-    post,
-    currentUser,
-    editedTime,
-    commentTime,
-    wasEdited,
     highlight,
   };
 }

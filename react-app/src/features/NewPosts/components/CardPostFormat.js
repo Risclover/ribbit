@@ -3,7 +3,7 @@ import SinglePostVotingBtns from "./SinglePostVotingBtns";
 import SinglePost from "./SinglePost";
 import SinglePostAuthorBar from "./SinglePostAuthorBar";
 import { SinglePostButtonBar } from "./SinglePostButtonBar";
-import { SinglePostContent } from "features/Posts";
+import { SinglePostContent } from "@/features/Posts";
 import { useSelector } from "react-redux";
 
 export default function CardPostFormat({

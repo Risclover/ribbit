@@ -1,11 +1,11 @@
-import { CommunityThemeToggle, useLoginForm } from "features";
-import { useDarkMode, useOutsideClick } from "hooks";
+import { CommunityThemeToggle, useLoginForm } from "@/features";
+import { useDarkMode, useOutsideClick } from "@/hooks";
 import React, { useRef } from "react";
 import { IoPersonOutline } from "react-icons/io5";
 import { SlLogin } from "react-icons/sl";
 import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import { logout } from "store";
+import { logout } from "@/store";
 
 export function LoggedOutDropdown({ setShowDropdown }) {
   const dispatch = useDispatch();

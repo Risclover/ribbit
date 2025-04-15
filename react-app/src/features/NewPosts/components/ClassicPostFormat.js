@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import SinglePostVotingBtns from "./SinglePostVotingBtns";
 import { CgNotes } from "react-icons/cg";
-import { ScrollContext, useMetadata } from "context";
+import { ScrollContext, useMetadata } from "@/context";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { usePostButtonHandlers } from "features/Posts/hooks/usePostButtonHandlers";
+import { usePostButtonHandlers } from "@/features/Posts/hooks/usePostButtonHandlers";
 import SinglePostAuthorBar from "./SinglePostAuthorBar";
 import { SinglePostButtonBar } from "./SinglePostButtonBar";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
-import { sliceUrl } from "utils";
+import { sliceUrl } from "@/utils";
 import parse from "html-react-parser";
 import { SinglePostExpanded } from "./SinglePostExpanded";
 

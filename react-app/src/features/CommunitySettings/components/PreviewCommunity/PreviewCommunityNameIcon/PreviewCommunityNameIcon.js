@@ -3,9 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 import { ToggleSwitch, DropBox } from "@/components";
 import { CommunityNameOption } from "./CommunityNameOption";
 import { useDispatch } from "react-redux";
-import { updateSettingsNameIcon } from "store";
-import { getCommunitySettings } from "store";
-import { getCommunities } from "store";
+import { updateSettingsNameIcon } from "@/store";
+import { getCommunitySettings } from "@/store";
+import { getCommunities } from "@/store";
 
 // Could be in a constants file or just inline
 const DEFAULT_ICON_URL = "https://i.imgur.com/9CI9hiO.png";

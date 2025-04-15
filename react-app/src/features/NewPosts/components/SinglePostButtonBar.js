@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { DeletePostModal } from "features/Posts";
+import { DeletePostModal } from "@/features/Posts";
 import { Modal, ScrollContext } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
-import { usePostButtonHandlers } from "features/Posts/hooks/usePostButtonHandlers";
+import { usePostButtonHandlers } from "@/features/Posts/hooks/usePostButtonHandlers";
 import { PencilIcon } from "@/assets/icons/PencilIcon";
 import { ShareIcon } from "@/assets/icons/ShareIcon";
 import { BsArrowsAngleContract, BsArrowsAngleExpand } from "react-icons/bs";

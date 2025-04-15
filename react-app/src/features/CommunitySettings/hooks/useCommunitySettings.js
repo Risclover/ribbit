@@ -3,7 +3,7 @@ import {
   getCommunityThemes,
   setCommunityThemes,
 } from "@/features/Communities/utils/localStorage";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 export const useCommunitySettings = (community) => {
   const [checked, setChecked] = useState(false);

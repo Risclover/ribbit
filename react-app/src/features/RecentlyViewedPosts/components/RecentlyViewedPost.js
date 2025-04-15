@@ -8,7 +8,7 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 
 import { useMetadata } from "@/context";
 import { Skeleton } from "@mui/material";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 const PostTypeIcon = ({ post, linkImg }) => {
   if (post?.imgUrl) {

@@ -25,7 +25,7 @@ import {
 
 import "../../styles/index.css";
 import { useChatSocket } from "@/features/Chat/hooks/useChatSocket";
-import { receiveNewMessage } from "store";
+import { receiveNewMessage } from "@/store";
 
 export const OVERLAYS = {
   NONE: null,

@@ -9,7 +9,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Text } from "@/features/Comments/components/Comment/Text";
 import Skeleton from "@mui/material/Skeleton";
 import { NavLink, useHistory } from "react-router-dom";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 export function SinglePostContent({ link, post, isPage }) {
   const history = useHistory();

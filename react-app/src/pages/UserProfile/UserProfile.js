@@ -13,7 +13,7 @@ import {
 import { PostFormatContext } from "@/context";
 import Skeleton from "@mui/material/Skeleton";
 import { getUser } from "@/store";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 export function UserProfile({ setOpenChat }) {
   const { theme } = useDarkMode();

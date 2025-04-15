@@ -20,7 +20,6 @@ export function Comment({ comment, level = 1 }) {
     return null;
   }
 
-  // State from custom hook:
   const {
     postId,
     isCollapsed,
@@ -29,11 +28,6 @@ export function Comment({ comment, level = 1 }) {
     setShowReplyForm,
     commentContent,
     setCommentContent,
-    post,
-    currentUser,
-    editedTime,
-    commentTime,
-    wasEdited,
     highlight,
   } = useComment(comment);
 
@@ -44,24 +38,27 @@ export function Comment({ comment, level = 1 }) {
     <div
       className={`comment-container ${level === 1 ? "comment-topmargin" : ""}`}
     >
-      {/* Threadlines */}
+      {/* Threadlines (vertical lines on the left of each comment) */}
       {!isCollapsed && (
         <CommentThreadlines setIsCollapsed={setIsCollapsed} level={level} />
       )}
 
-      {/* Actual comment card */}
+      {/* Actual comment */}
       <div
         className={`comment${!isCollapsed ? " expanded" : ""}${
           highlight ? " comment-bg-blue" : ""
         }`}
       >
+        {/* Expand comment button */}
         <button
           className="comment-expand-btn"
           onClick={() => setIsCollapsed(false)}
           tabIndex={!isCollapsed ? -1 : 0}
+          aria-label={`expand-${comment.id}`}
         >
           <BsArrowsAngleExpand />
         </button>
+        {/* User image */}
         <NavLink
           className="comment-user-img-container"
           to={`/users/${comment?.commentAuthor?.id}/profile`}
@@ -78,27 +75,24 @@ export function Comment({ comment, level = 1 }) {
         </NavLink>
 
         <div className="comment-right">
-          <CommentAuthorBar
-            comment={comment}
-            post={post}
-            commentTime={commentTime}
-            wasEdited={wasEdited}
-            editedTime={editedTime}
-          />
+          {/* Comment's author + timestamp */}
+          <CommentAuthorBar comment={comment} />
           {!isCollapsed && (
             <>
+              {/* Comment's content */}
               <CommentContent
                 comment={comment}
                 commentContent={commentContent}
               />
+              {/* Comment's buttons (Reply, Edit, Delete) */}
               <CommentBtnBar
                 comment={comment}
                 collapsed={isCollapsed}
-                currentUser={currentUser}
                 postId={postId}
                 setCommentContent={setCommentContent}
                 setShowReplyForm={setShowReplyForm}
               />
+              {/* Comment's reply form */}
               {showReplyForm && (
                 <CommentReplyForm
                   postId={postId}
@@ -111,7 +105,7 @@ export function Comment({ comment, level = 1 }) {
         </div>
       </div>
 
-      {/* Render children if not collapsed */}
+      {/* Render children (comment replies) if not collapsed */}
       {!isCollapsed &&
         children.map((child) => (
           <Comment key={child.id} comment={child} level={level + 1} />

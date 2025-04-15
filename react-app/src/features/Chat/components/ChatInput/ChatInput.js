@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { createChatThread, createChatMessage, getChatThread } from "@/store";
 import { liveChatIcons } from "@/assets";
 import { SelectedChatContext } from "@/context";
-import { GifIcon, SendMessageIcon } from "assets";
+import { GifIcon, SendMessageIcon } from "@/assets";
 
 export const ChatInput = ({
   socket,

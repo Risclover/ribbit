@@ -1,4 +1,4 @@
-import { usePostVote } from "features/Posts/hooks/usePostVote";
+import { usePostVote } from "@/features/Posts/hooks/usePostVote";
 import React from "react";
 import { PiArrowFatDownFill, PiArrowFatUpFill } from "react-icons/pi";
 

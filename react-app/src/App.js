@@ -51,7 +51,7 @@ import {
   setSidebarState,
 } from "@/features/Communities/utils/localStorage";
 import { ScrollProvider } from "@/context/ScrollContext";
-import SkipLocation from "components/SkipLocation/SkipLocation";
+import SkipLocation from "@/components/SkipLocation/SkipLocation";
 import { AppRoutes } from "routes/AppRoutes";
 import { useLeaveLogin } from "hooks/useLeaveLogin";
 import { useNotificationsSocket } from "hooks/useNotificationsSocket";

@@ -6,7 +6,7 @@ import "./PostReplies.css";
 import "../Inbox/Inbox.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import { v4 as uuidv4 } from "uuid";
-import usePostReplies from "features/Messages/hooks/usePostReplies";
+import usePostReplies from "@/features/Messages/hooks/usePostReplies";
 
 export function PostRepliesPage() {
   const { postRepliesList } = usePostReplies();

@@ -210,6 +210,22 @@
   transition: color 0.1s;
   white-space: nowrap;
   font-family: var(--font-family-ibm);
+  position: relative;
+}
+
+.comment-owner-btns button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0;
+}
+
+.comment-owner-btns button:hover::before {
+  opacity: 0.08;
 }
 
 .comment-vote-btns {

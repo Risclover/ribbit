@@ -22,7 +22,7 @@ import { usePageSettings } from "../hooks/usePageSettings";
 import { CommunityImg } from "@/components/CommunityImg";
 import { useHistory } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 export function SinglePostPage() {
   const { theme } = useDarkMode();

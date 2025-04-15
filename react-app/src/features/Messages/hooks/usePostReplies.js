@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllNotifications } from "store";
-import { getPosts } from "store";
+import { getAllNotifications } from "@/store";
+import { getPosts } from "@/store";
 
 export default function usePostReplies({ notification }) {
   const dispatch = useDispatch();
@@ -32,7 +32,6 @@ export default function usePostReplies({ notification }) {
     dispatch(getPosts());
   }, [dispatch]);
 
-
   return {
     markedUnread,
     setMarkedUnread,
@@ -40,6 +39,6 @@ export default function usePostReplies({ notification }) {
     community,
     postReplySender,
     handleUnread,
-    handleRead
+    handleRead,
   };
 }

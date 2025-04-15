@@ -5,12 +5,12 @@ import { CommentKarmaBar } from "./CommentKarmaBar";
 import { EditComment } from "../CommentForms/EditComment";
 import { useCommentBtnBar } from "../../hooks/useCommentBtnBar";
 import { PencilIcon, TrashIcon } from "@/assets";
+import { useSelector } from "react-redux";
 
 /**
  * Renders the action buttons (Reply, Edit, Delete, etc.) for a Comment.
  * - comment: the comment that this is for
  * - collapsed: boolean, whether or not the comment is collapsed
- * - currentUser: the current user
  * - postId: id of the post this comment is under
  * - setCommentContent: setter for setting the comment content (for when the user is editing the comment)
  * - setShowReplyForm: setter (boolean) for whether the reply form is shown
@@ -18,11 +18,11 @@ import { PencilIcon, TrashIcon } from "@/assets";
 export function CommentBtnBar({
   comment,
   collapsed,
-  currentUser,
   postId,
   setCommentContent,
   setShowReplyForm,
 }) {
+  const currentUser = useSelector((state) => state.session.user);
   const isAuthor = comment?.commentAuthor?.id === currentUser?.id;
 
   const isCommunityOwner = comment?.commentAuthor?.id === currentUser?.id;
@@ -45,15 +45,18 @@ export function CommentBtnBar({
   return (
     <div className="comment-btn-bar">
       <div className="comment-btns">
+        {/* Comment's voting arrows */}
         <CommentKarmaBar comment={comment} />
         <div className="comment-owner-btns">
+          {/* Reply button */}
           <button onClick={handleReplyClick}>
             <i className="fa-regular fa-message"></i>
             Reply
           </button>
-
+          {/* Only show buttons if user is a) the comment's author, or b) the community's owner */}
           {canEditOrDelete && (
             <>
+              {/* Edit button */}
               <button aria-label="Edit comment" onClick={handleEditClick}>
                 <PencilIcon />
                 Edit
@@ -76,6 +79,7 @@ export function CommentBtnBar({
                 </Modal>
               )}
 
+              {/* Delete button */}
               <button
                 aria-label="Delete"
                 onClick={() => setIsDeleteModalOpen(true)}

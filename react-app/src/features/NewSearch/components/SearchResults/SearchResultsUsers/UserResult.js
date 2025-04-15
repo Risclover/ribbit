@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { UserFollowBtn } from "../SearchResultsPosts";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@mui/material";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 const UserResult = ({ user }) => {
   const history = useHistory();

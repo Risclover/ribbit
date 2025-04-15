@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { addCommunity, addToSubscriptions, getSubscriptions } from "@/store";
 import { CreateCommunityForm } from "./CreateCommunityForm";
 import { useScrollLock } from "@/hooks";
-import { getCommunities } from "store";
+import { getCommunities } from "@/store";
 import "../styles/CreateCommunityModal.css";
 
 export function CreateCommunityModal({

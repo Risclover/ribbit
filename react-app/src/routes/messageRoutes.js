@@ -5,7 +5,7 @@ import {
   PostRepliesPage,
   Sent,
   Unread,
-} from "features";
+} from "@/features";
 
 export const messageRoutes = [
   { path: "/message/messages", exact: true, component: Messages },

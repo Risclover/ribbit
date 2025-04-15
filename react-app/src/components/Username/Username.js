@@ -6,8 +6,6 @@ import "./Username.css";
 import { usePopup } from "@/context";
 
 export function Username({ community, username, user, source }) {
-  const history = useHistory();
-
   const users = useSelector((state) => Object.values(state.users));
   const currentUser = useSelector((state) => state.session.user);
 
@@ -41,7 +39,6 @@ export function Username({ community, username, user, source }) {
 
   const handleNameClick = (e) => {
     e.stopPropagation();
-    history.push(`/users/${user.id}/profile`);
   };
 
   return (
@@ -50,9 +47,13 @@ export function Username({ community, username, user, source }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <span onClick={handleNameClick} className="username-component">
+      <NavLink
+        to={`/users/${user.id}/profile`}
+        onClick={handleNameClick}
+        className="username-component"
+      >
         {source === "singlepost" ? "u/" + username : username}
-      </span>
+      </NavLink>
 
       {showPopup && <UsernamePopup community={community} user={foundUser} />}
     </div>

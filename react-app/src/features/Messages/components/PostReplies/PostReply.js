@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { HashLink as Link } from "react-router-hash-link";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import moment from "moment";
-import usePostReplies from "features/Messages/hooks/usePostReplies";
+import usePostReplies from "@/features/Messages/hooks/usePostReplies";
 
 export function PostReply({ notification }) {
   const { community, postReplySender, handleUnread, handleRead } =
@@ -15,7 +15,7 @@ export function PostReply({ notification }) {
       <div className="inbox-message-subject">
         post reply:{" "}
         <NavLink to={`/posts/${notification.postId}`}>
-          {notification       ?.title}
+          {notification?.title}
         </NavLink>
       </div>
       <div className="post-reply-main">

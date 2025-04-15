@@ -6,7 +6,7 @@ import { createRule, getCommunityRules, getSingleCommunity } from "@/store";
 
 import "@/assets/styles/Modals.css";
 import "./AddCommunityRuleModal.css";
-import { getCommunities } from "store";
+import { getCommunities } from "@/store";
 
 export function AddCommunityRuleModal({
   setShowRuleModal,

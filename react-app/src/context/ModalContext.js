@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./ModalContext.css";
-import { useFocusTrap, useScrollLock } from "hooks";
+import { useFocusTrap, useScrollLock } from "@/hooks";
 
 const ModalContext = React.createContext();
 

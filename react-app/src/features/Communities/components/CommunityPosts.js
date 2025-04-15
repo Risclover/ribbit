@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PostFeed, CreatePostBar } from "@/components";
 import { sortPosts } from "@/utils";
 import { useHistory } from "react-router-dom";
-import { useAuthFlow } from "context";
+import { useAuthFlow } from "@/context";
 
 export function CommunityPosts({ commPosts, communityName, user }) {
   const history = useHistory();
@@ -18,7 +18,8 @@ export function CommunityPosts({ commPosts, communityName, user }) {
 
       <PostFeed
         setSortMode={setSortMode}
-        community={communityName}e
+        community={communityName}
+        e
         posts={posts}
         sortMode={sortMode}
         isPage="community"

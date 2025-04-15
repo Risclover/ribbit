@@ -7,7 +7,7 @@ import { getIdFromName } from "@/utils/getCommunityIdFromName";
 import { PageTitleContext } from "@/context";
 import { CommunityImg } from "@/components/CommunityImg";
 import Skeleton from "@mui/material/Skeleton";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 /**
  * Single hook that:

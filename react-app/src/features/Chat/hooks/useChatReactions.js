@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { SelectedChatContext } from "@/context";
 import { useDispatch } from "react-redux";
-import { createReaction } from "store";
-import { fetchReactionsForMessage } from "store";
+import { createReaction } from "@/store";
+import { fetchReactionsForMessage } from "@/store";
 
 export function useChatReactions({ setOpenReactions, message, socket }) {
   const { selectedChat } = useContext(SelectedChatContext);

@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useOutsideClick } from "@/hooks";
 import { reactions } from "@/assets";
 import { useChatReactions } from "../../hooks/useChatReactions";
-import { PlusIcon } from "assets";
+import { PlusIcon } from "@/assets";
 
 export function ChatReactions({
   setOpenReactions,

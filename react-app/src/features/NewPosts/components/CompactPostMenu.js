@@ -1,5 +1,5 @@
-import { usePostButtonHandlers } from "features/Posts/hooks/usePostButtonHandlers";
-import { useOutsideClick } from "hooks";
+import { usePostButtonHandlers } from "@/features/Posts/hooks/usePostButtonHandlers";
+import { useOutsideClick } from "@/hooks";
 import React, { useEffect, useRef, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { useDispatch } from "react-redux";

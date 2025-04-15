@@ -3,7 +3,7 @@ import {
   SearchResultsCommunities,
   SearchResultsPosts,
   SearchResultsUsers,
-} from "features";
+} from "@/features";
 
 export const searchRoutes = [
   { path: "/search/comments", component: SearchResultsComments },

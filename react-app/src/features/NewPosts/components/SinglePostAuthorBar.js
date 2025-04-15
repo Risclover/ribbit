@@ -1,5 +1,5 @@
-import { CommunityImg, Username } from "components";
-import { Tooltip } from "components/Tooltip/Tooltip";
+import { CommunityImg, Username } from "@/components";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
 import moment from "moment";
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";

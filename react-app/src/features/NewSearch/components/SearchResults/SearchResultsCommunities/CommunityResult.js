@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { CommunityJoinBtn } from "../SearchResultsPosts";
 import { CommunityImg } from "@/components/CommunityImg";
 import { Skeleton } from "@mui/material";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 const CommunityResult = ({ community }) => {
   const history = useHistory();

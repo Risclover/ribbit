@@ -1,5 +1,5 @@
 import Skeleton from "@mui/material/Skeleton";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 export const CommentResultSkeleton = () => {
   const { theme } = useDarkMode();

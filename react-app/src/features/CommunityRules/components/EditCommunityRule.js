@@ -9,8 +9,8 @@ import {
 import { Modal } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
 import "@/assets/styles/Modals.css";
-import { getCommunities } from "store";
-import { useFocusTrap } from "hooks";
+import { getCommunities } from "@/store";
+import { useFocusTrap } from "@/hooks";
 
 export function EditCommunityRule({
   showEditRuleModal,

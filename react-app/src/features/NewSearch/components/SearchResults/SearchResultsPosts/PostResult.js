@@ -7,7 +7,7 @@ import { useMetadata } from "@/context";
 import { CommunityImg } from "@/components/CommunityImg";
 import { PostTypeLinkIcon } from "@/assets/icons/PostTypeLinkIcon";
 import { Skeleton } from "@mui/material";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 const PostResult = ({ post }) => {
   const history = useHistory();

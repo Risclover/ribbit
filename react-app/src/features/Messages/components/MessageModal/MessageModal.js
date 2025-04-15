@@ -11,7 +11,7 @@ import {
 } from "@/store";
 import "./MessageModal.css";
 import "@/assets/styles/Modals.css";
-import useMessageModal from "features/Messages/hooks/useMessageModal";
+import useMessageModal from "@/features/Messages/hooks/useMessageModal";
 
 export function MessageModal({ setShowMessageModal, username }) {
   const {

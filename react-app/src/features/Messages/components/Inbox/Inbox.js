@@ -7,7 +7,7 @@ import {
 } from "../..";
 import "./Inbox.css";
 import { v4 as uuidv4 } from "uuid";
-import useInbox from "features/Messages/hooks/useInbox";
+import useInbox from "@/features/Messages/hooks/useInbox";
 
 export function Inbox() {
   const { threads, expanded, setExpanded, messageList, messages } = useInbox();

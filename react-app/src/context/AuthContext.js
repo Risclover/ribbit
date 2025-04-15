@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import "./AuthModalContext.css";
-import { useFocusTrap, useScrollLock } from "hooks";
+import { useFocusTrap, useScrollLock } from "@/hooks";
 
 const AuthModalContext = createContext();
 

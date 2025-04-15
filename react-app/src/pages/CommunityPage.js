@@ -19,7 +19,7 @@ import {
   FeedLeftColContainer,
   FeedRightColContainer,
 } from "@/components";
-import { useDarkMode } from "hooks";
+import { useDarkMode } from "@/hooks";
 
 export function CommunityPage() {
   const { theme } = useDarkMode();

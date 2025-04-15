@@ -3,7 +3,7 @@ import { UploadZone } from "./UploadZone";
 import { PreviewBar } from "./PreviewBar";
 import { fileHandler } from "./fileHandler";
 import "./DropBox.css";
-import { updateSettingsNameIcon } from "store";
+import { updateSettingsNameIcon } from "@/store";
 import { useDispatch } from "react-redux";
 const DEFAULT_ICON_URL = "https://i.imgur.com/9CI9hiO.png";
 

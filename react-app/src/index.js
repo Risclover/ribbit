@@ -12,8 +12,8 @@ import "./assets/styles/index.css";
 import "./assets/styles/variables.css";
 import "isomorphic-fetch";
 import { SelectedChatProvider } from "@/context";
-import { AuthFlowProvider } from "context/AuthFlowContext";
-import { SkipLocationProvider } from "context/SkipLocationContext";
+import { AuthFlowProvider } from "@/context/AuthFlowContext";
+import { SkipLocationProvider } from "@/context/SkipLocationContext";
 
 const store = configureStore();
 

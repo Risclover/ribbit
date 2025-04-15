@@ -1,12 +1,12 @@
-import { CompactPostTypeIcon, SinglePostKarmabar } from "features/Posts";
-import { usePostVote } from "features/Posts/hooks/usePostVote";
+import { CompactPostTypeIcon, SinglePostKarmabar } from "@/features/Posts";
+import { usePostVote } from "@/features/Posts/hooks/usePostVote";
 import React, { useEffect, useRef, useState } from "react";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import CompactPostMenu from "./CompactPostMenu";
 import { Tooltip } from "@mui/material";
-import { Username } from "components";
+import { Username } from "@/components";
 import parse from "html-react-parser";
 import moment from "moment";
 import { sliceUrl } from "@/utils";

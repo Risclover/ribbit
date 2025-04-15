@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { removeViewedPosts } from "store";
-import { getViewedPosts } from "store";
+import { removeViewedPosts } from "@/store";
+import { getViewedPosts } from "@/store";
 
 export function useRecentlyViewedPosts() {
   const dispatch = useDispatch();
