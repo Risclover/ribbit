@@ -1,6 +1,6 @@
 import React from "react";
 import { PiArrowFatUpFill, PiArrowFatDownFill } from "react-icons/pi";
-import { useCommentVote } from "../hooks/useCommentVote";
+import { useCommentVote } from "../../hooks/useCommentVote";
 
 /**
  * Renders upvote/downvote buttons plus the comment's net votes.

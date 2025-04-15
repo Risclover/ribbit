@@ -1,27 +1,23 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { useFocusTrap, useOutsideClick } from "@/hooks";
-import "../styles/Comments.css";
+import { useCommentSorting } from "../hooks/useCommentSorting";
 import { ChevronDownFilled } from "@/assets/icons/ChevronDownFilled";
+import "../styles/Comments.css";
 
 /**
  * A dropdown that lets the user pick how to sort comments.
  */
 export function CommentSorting({ sortType, setSortType }) {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const wrapperRef = useRef(null);
-
-  const SORT_OPTIONS = ["Best", "Top", "New", "Old"];
-
-  useOutsideClick(wrapperRef, () => setShowDropdown(false));
+  const {
+    SORT_OPTIONS,
+    onOptionClick,
+    showDropdown,
+    setShowDropdown,
+    toggleDropdown,
+    wrapperRef,
+  } = useCommentSorting({ setSortType });
   useFocusTrap(showDropdown, wrapperRef);
-
-  const toggleDropdown = () => setShowDropdown((prev) => !prev);
-
-  const onOptionClick = (e, option) => {
-    e.preventDefault();
-    setSortType(option);
-    setShowDropdown(false);
-  };
+  useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
   return (
     <div className="comment-sorting" ref={wrapperRef}>

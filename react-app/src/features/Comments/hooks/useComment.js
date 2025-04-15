@@ -1,24 +1,15 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { usePopup } from "@/context";
-import { removeComment, getPosts } from "@/store";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { convertTime } from "../utils/convertTime";
 
 /**
  * Custom logic for an individual Comment component.
  */
 export function useComment(comment) {
-  const dispatch = useDispatch();
-  const { isPopupOpen, setIsPopupOpen } = usePopup();
-
-  // Local UI states
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [commentContent, setCommentContent] = useState(comment?.content || "");
-  const [showPopup, setShowPopup] = useState(false);
-  const [hideTimeout, setHideTimeout] = useState(null);
+  const [highlight, setHighlight] = useState(false);
 
   const currentUser = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.posts[comment?.postId]);
@@ -27,47 +18,19 @@ export function useComment(comment) {
   const commentTime = convertTime(comment);
   const wasEdited = comment?.createdAt !== comment?.updatedAt;
 
-  const handleMouseEnter = () => {
-    // If it's your own user, skip
-    if (comment?.commentAuthor?.id === currentUser?.id) return;
-
-    if (hideTimeout) clearTimeout(hideTimeout);
-
-    if (!isPopupOpen) {
-      setShowPopup(true);
-      setIsPopupOpen(true);
+  useEffect(() => {
+    const currentUrl = window.location.href;
+    const match = currentUrl.match(/#comment-(\d+)/);
+    if (match) {
+      const commentIdFromUrl = parseInt(match[1], 10);
+      if (commentIdFromUrl === comment.id) {
+        setHighlight(true);
+      }
     }
-  };
-
-  const handleMouseLeave = () => {
-    const timeout = setTimeout(() => {
-      setShowPopup(false);
-      setIsPopupOpen(false);
-    }, 200);
-    setHideTimeout(timeout);
-  };
-
-  const handleDeleteClick = async (e) => {
-    e.preventDefault();
-    setIsDeleteModalOpen(false);
-    await dispatch(removeComment(comment.id));
-    dispatch(getPosts());
-  };
-
-  const handleReplyClick = () => {
-    setShowReplyForm((prev) => !prev);
-  };
-
-  const handleEditClick = () => {
-    setIsEditModalOpen(true);
-  };
+  }, [comment.id]);
 
   return {
     postId: comment?.postId,
-    isEditModalOpen,
-    setIsEditModalOpen,
-    isDeleteModalOpen,
-    setIsDeleteModalOpen,
     isCollapsed,
     setIsCollapsed,
     showReplyForm,
@@ -79,10 +42,6 @@ export function useComment(comment) {
     editedTime,
     commentTime,
     wasEdited,
-    handleMouseEnter,
-    handleMouseLeave,
-    handleDeleteClick,
-    handleReplyClick,
-    handleEditClick,
+    highlight,
   };
 }

@@ -1,17 +1,27 @@
 import React from "react";
 
-export function CommentThreadlines({ numberOfParents, onClick }) {
-  const lines = Array.from({ length: numberOfParents });
+/**
+ * Comment threadlines (the vertical lines that span the height of a comment on its left side)
+ * - setIsCollapsed: Setter for whether the comment is collapsed, as controlled by clicking its threadline
+ * - level: Comment reply level (topmost = level 1, etc.)
+ */
+export function CommentThreadlines({ setIsCollapsed, level }) {
+  const parentThreadlines = Array.from({ length: level - 1 });
 
   return (
-    <div className="comment-threadlines-container" onClick={onClick}>
-      {lines.map((_, idx) => (
-        <div key={idx} className="comment-threadline-container">
-          <div className="comment-threadline">
-            <div className="threadline">&nbsp;</div>
-          </div>
+    <div className="all-threadlines" onClick={() => setIsCollapsed(true)}>
+    {parentThreadlines.map((_, index) => (
+      <div className="this-levels-threadline" key={index}>
+        <div className="threadline-container">
+          <div className="threadline"></div>
         </div>
-      ))}
+      </div>
+    ))}
+    <div className="this-levels-threadline">
+      <div className="threadline-container">
+        <div className="threadline"></div>
+      </div>
     </div>
+  </div>
   );
 }

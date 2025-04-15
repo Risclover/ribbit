@@ -1,33 +1,40 @@
 import React from "react";
 import { Modal } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
-import { CommentKarmaBar } from "../CommentKarmaBar";
+import { CommentKarmaBar } from "./CommentKarmaBar";
 import { EditComment } from "../CommentForms/EditComment";
 import { PencilIcon, TrashIcon } from "@/assets";
+import { useCommentBtnBar } from "features/Comments/hooks/useCommentBtnBar";
 
 /**
  * Renders the action buttons (Reply, Edit, Delete, etc.) for a Comment.
+ * - comment: the comment that this is for
+ * - collapsed: boolean, whether or not the comment is collapsed
+ * - currentUser: the current user
+ * - postId: id of the post this comment is under
+ * - setCommentContent: setter for setting the comment content (for when the user is editing the comment)
  */
 export function CommentBtnBar({
   comment,
   collapsed,
-  handleReplyClick,
-  handleDeleteClick,
-  handleEditClick,
   currentUser,
-  isEditModalOpen,
-  setIsEditModalOpen,
-  isDeleteModalOpen,
-  setIsDeleteModalOpen,
   postId,
   setCommentContent,
-  post,
 }) {
   const isAuthor = comment?.commentAuthor?.id === currentUser?.id;
-  // If you need special logic for community owners, you can integrate that:
 
   const isCommunityOwner = comment?.commentAuthor?.id === currentUser?.id;
   const canEditOrDelete = isAuthor || isCommunityOwner;
+
+  const {
+    isEditModalOpen,
+    setIsEditModalOpen,
+    isDeleteModalOpen,
+    setIsDeleteModalOpen,
+    handleDeleteClick,
+    handleReplyClick,
+    handleEditClick,
+  } = useCommentBtnBar({ comment });
 
   if (collapsed) {
     return null;

@@ -13,6 +13,7 @@ export default function useEditComment({
   const textareaRef = useRef();
 
   const [content, setContent] = useState(comment?.content || "");
+
   const isDisabled = content.trim().length === 0;
 
   useAutosizeTextArea(textareaRef.current, content);

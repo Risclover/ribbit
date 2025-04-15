@@ -1,9 +1,16 @@
 import React from "react";
-import { Username } from "@/components";
-import { Tooltip } from "@/components/Tooltip/Tooltip";
-import "../../../../components/Tooltip/Tooltip.css";
 import { useSelector } from "react-redux";
+import { Username, Tooltip } from "@/components";
+import "../../../../components/Tooltip/Tooltip.css";
 
+/**
+ * Renders the author's info for the comment
+ * - comment: comment that this author bar is for
+ * - post: post that this comment is under
+ * - commentTime: comment's timestamp
+ * - wasEdited: whether or not this comment has been edited after posting
+ * - editedTime: the comment's "Edited at" timestamp
+ */
 export function CommentAuthorBar({
   comment,
   post,
@@ -11,7 +18,6 @@ export function CommentAuthorBar({
   wasEdited,
   editedTime,
 }) {
-  const posts = useSelector((state) => Object.values(state.posts));
   const communities = useSelector((state) => Object.values(state.communities));
 
   const isOP = post?.postAuthor?.username === comment?.commentAuthor?.username;

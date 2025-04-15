@@ -1,6 +1,6 @@
 import React from "react";
-import { SlClose } from "react-icons/sl";
 import { useDispatch } from "react-redux";
+import { SlClose } from "react-icons/sl";
 import { searchPostComments } from "@/store";
 import { MagnifyingGlass } from "@/assets/icons/MagnifyingGlass";
 

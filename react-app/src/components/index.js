@@ -15,3 +15,4 @@ export { ProtectedRoute } from "./ProtectedRoute";
 export { CommunityImg } from "./CommunityImg";
 export * from "./NavBar";
 export * from "./NavSidebar";
+export * from "./Tooltip";

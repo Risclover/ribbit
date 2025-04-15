@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
+import { BsArrowsAngleExpand } from "react-icons/bs";
 import { CommentBtnBar } from "./CommentBtnBar";
 import { CommentAuthorBar } from "./CommentAuthorBar";
 import { CommentContent } from "./CommentContent";
 import { CommentReplyForm } from "../CommentForms/CommentReplyForm";
-import { BsArrowsAngleExpand } from "react-icons/bs";
 import { useComment } from "../../hooks/useComment";
+import { CommentThreadlines } from "./CommentThreadlines";
 import "./Comment.css";
 
+/**
+ * A single comment
+ * - comment: this comment
+ * - level: this comment's comment tree level (1 = parentmost comment)
+ */
 export function Comment({ comment, level = 1 }) {
   if (!comment) {
     console.error("Comment component: comment is undefined");
     return null;
   }
 
-  const [highlight, setHighlight] = useState(false);
-
   // State from custom hook:
   const {
     postId,
-    isEditModalOpen,
-    setIsEditModalOpen,
-    isDeleteModalOpen,
-    setIsDeleteModalOpen,
     isCollapsed,
     setIsCollapsed,
     showReplyForm,
@@ -33,52 +33,20 @@ export function Comment({ comment, level = 1 }) {
     currentUser,
     editedTime,
     commentTime,
-    handleMouseEnter,
-    handleMouseLeave,
-    handleDeleteClick,
-    handleReplyClick,
-    handleEditClick,
     wasEdited,
+    highlight,
   } = useComment(comment);
-
-  // Check the URL for #comment-xxx to highlight
-  useEffect(() => {
-    const currentUrl = window.location.href;
-    const match = currentUrl.match(/#comment-(\d+)/);
-    if (match) {
-      const commentIdFromUrl = parseInt(match[1], 10);
-      if (commentIdFromUrl === comment.id) {
-        setHighlight(true);
-      }
-    }
-  }, [comment.id]);
 
   // Render child comments
   const { children = [] } = comment;
-
-  // Just a small helper array for threadlines
-  const parentThreadlines = Array.from({ length: level - 1 });
 
   return (
     <div
       className={`comment-container ${level === 1 ? "comment-topmargin" : ""}`}
     >
-      {/* Threadlines (collapsing logic) */}
+      {/* Threadlines */}
       {!isCollapsed && (
-        <div className="all-threadlines" onClick={() => setIsCollapsed(true)}>
-          {parentThreadlines.map((_, index) => (
-            <div className="this-levels-threadline" key={index}>
-              <div className="threadline-container">
-                <div className="threadline"></div>
-              </div>
-            </div>
-          ))}
-          <div className="this-levels-threadline">
-            <div className="threadline-container">
-              <div className="threadline"></div>
-            </div>
-          </div>
-        </div>
+        <CommentThreadlines setIsCollapsed={setIsCollapsed} level={level} />
       )}
 
       {/* Actual comment card */}
@@ -96,8 +64,6 @@ export function Comment({ comment, level = 1 }) {
         </button>
         <NavLink
           className="comment-user-img-container"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
           to={`/users/${comment?.commentAuthor?.id}/profile`}
         >
           <div
@@ -128,17 +94,9 @@ export function Comment({ comment, level = 1 }) {
               <CommentBtnBar
                 comment={comment}
                 collapsed={isCollapsed}
-                handleReplyClick={handleReplyClick}
-                handleDeleteClick={handleDeleteClick}
-                handleEditClick={handleEditClick}
                 currentUser={currentUser}
-                isEditModalOpen={isEditModalOpen}
-                setIsEditModalOpen={setIsEditModalOpen}
-                isDeleteModalOpen={isDeleteModalOpen}
-                setIsDeleteModalOpen={setIsDeleteModalOpen}
                 postId={postId}
                 setCommentContent={setCommentContent}
-                post={post}
               />
               {showReplyForm && (
                 <CommentReplyForm
