@@ -1,108 +1,75 @@
+# app/seeds/followers.py
 from app.models import db, User
 
 def seed_followers():
-    demo = User.query.get(2)
-    bobbie = User.query.get(3)
-    user_4 = User.query.get(4)
-    user_5 = User.query.get(5)
-    user_6 = User.query.get(6)
-    user_7 = User.query.get(7)
-    user_8 = User.query.get(8)
-    user_9 = User.query.get(9)
-    user_10 = User.query.get(10)
-    user_11 = User.query.get(11)
-    user_12 = User.query.get(12)
-    user_13 = User.query.get(13)
-    user_14 = User.query.get(14)
-    user_15 = User.query.get(15)
-    user_16 = User.query.get(16)
-    user_17 = User.query.get(17)
-    user_18 = User.query.get(18)
-    user_19 = User.query.get(19)
-    user_20 = User.query.get(20)
-    user_21 = User.query.get(21)
-    user_22 = User.query.get(22)
-    user_23 = User.query.get(23)
-    user_24 = User.query.get(24)
-    user_25 = User.query.get(25)
-    user_26 = User.query.get(26)
-    user_27 = User.query.get(27)
-    user_28 = User.query.get(28)
-    user_29 = User.query.get(29)
-    user_30 = User.query.get(30)
-    user_31 = User.query.get(31)
-    user_32 = User.query.get(32)
-    user_33 = User.query.get(33)
-    user_34 = User.query.get(34)
-    user_35 = User.query.get(35)
-    user_36 = User.query.get(36)
-    user_37 = User.query.get(37)
-    user_38 = User.query.get(38)
-    user_39 = User.query.get(39)
-    user_40 = User.query.get(40)
-    user_41 = User.query.get(41)
-    user_42 = User.query.get(42)
-    user_43 = User.query.get(43)
-    user_44 = User.query.get(44)
-    user_45 = User.query.get(45)
-    user_46 = User.query.get(46)
-    user_47 = User.query.get(47)
-    user_48 = User.query.get(48)
-    user_49 = User.query.get(49)
-    user_50 = User.query.get(50)
+    """
+    Populate the followers association table.
 
-    demo.followed.extend([bobbie, user_4, user_7, user_10, user_14, user_19, user_23, user_25, user_30, user_31, user_38, user_42, user_44, user_50])
-    bobbie.followed.extend([demo, user_8, user_11, user_16, user_21, user_27, user_33, user_40, user_46])
-    user_4.followed.extend([demo, bobbie, user_12, user_17, user_22, user_28, user_34, user_41, user_47])
-    user_5.followed.extend([user_13, user_18, user_29, user_35, user_48])
-    user_6.followed.extend([user_19, user_36, user_37, user_49])
-    user_7.followed.extend([demo, user_4, user_9, user_14, user_19, user_24, user_29, user_34, user_39, user_44, user_49])
-    user_8.followed.extend([bobbie, user_5, user_10, user_15, user_20, user_25, user_30, user_35, user_40, user_45, user_50])
-    user_9.followed.extend([user_6, user_11, user_16, user_21, user_26, user_31, user_36, user_41, user_46])
-    user_10.followed.extend([user_7, user_12, user_17, user_22, user_27, user_32, user_37, user_42, user_47])
-    user_11.followed.extend([user_8, user_13, user_18, user_23, user_28, user_33, user_38, user_43, user_48])
-    user_12.followed.extend([demo, user_10, user_20, user_30, user_40, user_50])
-    user_13.followed.extend([bobbie, user_11, user_21, user_31, user_41])
-    user_14.followed.extend([user_12, user_22, user_32, user_42])
-    user_15.followed.extend([user_13, user_23, user_33, user_43])
-    user_16.followed.extend([user_4, user_14, user_24, user_34, user_44])
-    user_17.followed.extend([user_5, user_15, user_25, user_35, user_45])
-    user_18.followed.extend([user_6, user_16, user_26, user_36, user_46])
-    user_19.followed.extend([user_7, user_17, user_27, user_37, user_47])
-    user_20.followed.extend([user_8, user_18, user_28, user_38, user_48])
-    user_21.followed.extend([user_9, user_19, user_29, user_39, user_49])
-    user_22.followed.extend([user_4, user_10, user_14])
-    user_23.followed.extend([demo, user_11, user_15])
-    user_24.followed.extend([user_7, user_16])
-    user_25.followed.extend([demo, user_8, user_17])
-    user_26.followed.extend([user_9, user_18])
-    user_27.followed.extend([bobbie, user_10, user_19])
-    user_28.followed.extend([user_4, user_11, user_20])
-    user_29.followed.extend([user_5, user_7, user_21])
-    user_30.followed.extend([demo, user_8, user_12])
-    user_31.followed.extend([demo, user_9, user_13])
-    user_32.followed.extend([user_10, user_14])
-    user_33.followed.extend([bobbie, user_11, user_15])
-    user_34.followed.extend([user_4, user_7, user_16])
-    user_35.followed.extend([user_5, user_8, user_17])
-    user_36.followed.extend([user_6, user_9, user_18])
-    user_37.followed.extend([user_6, user_10, user_19])
-    user_38.followed.extend([demo, user_11, user_20])
-    user_39.followed.extend([user_7, user_21])
-    user_40.followed.extend([bobbie, user_8, user_12])
-    user_41.followed.extend([user_4, user_9, user_13])
-    user_42.followed.extend([demo, user_10, user_14])
-    user_43.followed.extend([user_11, user_15])
-    user_44.followed.extend([demo, user_7, user_16])
-    user_45.followed.extend([user_8, user_17])
-    user_46.followed.extend([bobbie, user_9, user_18])
-    user_47.followed.extend([user_5, user_10, user_19])
-    user_48.followed.extend([user_5, user_11, user_20])
-    user_49.followed.extend([user_6, user_7, user_21])
-    user_50.followed.extend([demo, user_8, user_12])
+    We:
+      • Load the users we need in a single query.
+      • Drive everything off a simple mapping of follower_id ➜ followed_ids.
+    """
+    # Preload users 2‑50 once
+    users = {u.id: u for u in User.query.filter(User.id.in_(range(2, 51))).all()}
+
+    follow_map = {
+        2:  [3, 4, 7, 10, 14, 19, 23, 25, 30, 31, 38, 42, 44, 50],
+        3:  [2, 8, 11, 16, 21, 27, 33, 40, 46],
+        4:  [2, 3, 12, 17, 22, 28, 34, 41, 47],
+        5:  [13, 18, 29, 35, 48],
+        6:  [19, 36, 37, 49],
+        7:  [2, 4, 9, 14, 19, 24, 29, 34, 39, 44, 49],
+        8:  [3, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
+        9:  [6, 11, 16, 21, 26, 31, 36, 41, 46],
+        10: [7, 12, 17, 22, 27, 32, 37, 42, 47],
+        11: [8, 13, 18, 23, 28, 33, 38, 43, 48],
+        12: [2, 10, 20, 30, 40, 50],
+        13: [3, 11, 21, 31, 41],
+        14: [12, 22, 32, 42],
+        15: [13, 23, 33, 43],
+        16: [4, 14, 24, 34, 44],
+        17: [5, 15, 25, 35, 45],
+        18: [6, 16, 26, 36, 46],
+        19: [7, 17, 27, 37, 47],
+        20: [8, 18, 28, 38, 48],
+        21: [9, 19, 29, 39, 49],
+        22: [4, 10, 14],
+        23: [2, 11, 15],
+        24: [7, 16],
+        25: [2, 8, 17],
+        26: [9, 18],
+        27: [3, 10, 19],
+        28: [4, 11, 20],
+        29: [5, 7, 21],
+        30: [2, 8, 12],
+        31: [2, 9, 13],
+        32: [10, 14],
+        33: [3, 11, 15],
+        34: [4, 7, 16],
+        35: [5, 8, 17],
+        36: [6, 9, 18],
+        37: [6, 10, 19],
+        38: [2, 11, 20],
+        39: [7, 21],
+        40: [3, 8, 12],
+        41: [4, 9, 13],
+        42: [2, 10, 14],
+        43: [11, 15],
+        44: [2, 7, 16],
+        45: [8, 17],
+        46: [3, 9, 18],
+        47: [5, 10, 19],
+        48: [5, 11, 20],
+        49: [6, 7, 21],
+        50: [2, 8, 12],
+    }
+
+    for follower_id, followed_ids in follow_map.items():
+        users[follower_id].followed.extend(users[uid] for uid in followed_ids)
 
     db.session.commit()
 
 def undo_followers():
-    db.session.execute("DELETE FROM followers")
+    # Faster than plain DELETE on large tables
+    db.session.execute("TRUNCATE followers RESTART IDENTITY CASCADE;")
     db.session.commit()

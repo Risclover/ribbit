@@ -1,574 +1,153 @@
-from app.models import db, PostVote
+import random
+from app.models import db, Post, PostVote, User
 
-def seed_postvotes():
-    db.session.add_all([
-    # -------------------------------------------------------------------------
-    # POST 1 || VOTES: 22 (+29, -7)
-    # -------------------------------------------------------------------------
-    PostVote(user_id=1, post_id=1, is_upvote=True),
-    PostVote(user_id=2, post_id=1, is_upvote=True),
-    PostVote(user_id=3, post_id=1, is_upvote=True),
-    PostVote(user_id=4, post_id=1, is_upvote=True),
-    PostVote(user_id=5, post_id=1, is_upvote=True),
-    PostVote(user_id=6, post_id=1, is_upvote=True),
-    PostVote(user_id=7, post_id=1, is_upvote=True),
-    PostVote(user_id=8, post_id=1, is_upvote=True),
-    PostVote(user_id=9, post_id=1, is_upvote=True),
-    PostVote(user_id=10, post_id=1, is_upvote=True),
-    PostVote(user_id=11, post_id=1, is_upvote=True),
-    PostVote(user_id=12, post_id=1, is_upvote=True),
-    PostVote(user_id=13, post_id=1, is_upvote=True),
-    PostVote(user_id=14, post_id=1, is_upvote=True),
-    PostVote(user_id=15, post_id=1, is_upvote=True),
-    PostVote(user_id=16, post_id=1, is_upvote=True),
-    PostVote(user_id=17, post_id=1, is_upvote=True),
-    PostVote(user_id=18, post_id=1, is_upvote=True),
-    PostVote(user_id=19, post_id=1, is_upvote=True),
-    PostVote(user_id=20, post_id=1, is_upvote=True),
-    PostVote(user_id=21, post_id=1, is_upvote=True),
-    PostVote(user_id=22, post_id=1, is_upvote=True),
-    PostVote(user_id=23, post_id=1, is_upvote=True),
-    PostVote(user_id=24, post_id=1, is_upvote=True),
-    PostVote(user_id=25, post_id=1, is_upvote=True),
-    PostVote(user_id=26, post_id=1, is_upvote=True),
-    PostVote(user_id=27, post_id=1, is_upvote=True),
-    PostVote(user_id=28, post_id=1, is_upvote=True),
-    PostVote(user_id=29, post_id=1, is_upvote=True),
-    PostVote(user_id=30, post_id=1, is_upvote=False),
-    PostVote(user_id=31, post_id=1, is_upvote=False),
-    PostVote(user_id=32, post_id=1, is_upvote=False),
-    PostVote(user_id=33, post_id=1, is_upvote=False),
-    PostVote(user_id=34, post_id=1, is_upvote=False),
-    PostVote(user_id=35, post_id=1, is_upvote=False),
-    PostVote(user_id=36, post_id=1, is_upvote=False),
-    # -------------------------------------------------------------------------
-    # POST 2 || VOTES: 14 (+21, -7)
-    # -------------------------------------------------------------------------
-    PostVote(user_id=37, post_id=2, is_upvote=True),
-    PostVote(user_id=38, post_id=2, is_upvote=True),
-    PostVote(user_id=39, post_id=2, is_upvote=True),
-    PostVote(user_id=40, post_id=2, is_upvote=True),
-    PostVote(user_id=41, post_id=2, is_upvote=True),
-    PostVote(user_id=42, post_id=2, is_upvote=True),
-    PostVote(user_id=43, post_id=2, is_upvote=True),
-    PostVote(user_id=44, post_id=2, is_upvote=True),
-    PostVote(user_id=45, post_id=2, is_upvote=True),
-    PostVote(user_id=46, post_id=2, is_upvote=True),
-    PostVote(user_id=47, post_id=2, is_upvote=True),
-    PostVote(user_id=48, post_id=2, is_upvote=True),
-    PostVote(user_id=49, post_id=2, is_upvote=True),
-    PostVote(user_id=50, post_id=2, is_upvote=True),
-    PostVote(user_id=1, post_id=2, is_upvote=True),
-    PostVote(user_id=2, post_id=2, is_upvote=True),
-    PostVote(user_id=3, post_id=2, is_upvote=True),
-    PostVote(user_id=4, post_id=2, is_upvote=True),
-    PostVote(user_id=5, post_id=2, is_upvote=True),
-    PostVote(user_id=6, post_id=2, is_upvote=True),
-    PostVote(user_id=7, post_id=2, is_upvote=True),
-    PostVote(user_id=8, post_id=2, is_upvote=False),
-    PostVote(user_id=9, post_id=2, is_upvote=False),
-    PostVote(user_id=10, post_id=2, is_upvote=False),
-    PostVote(user_id=11, post_id=2, is_upvote=False),
-    PostVote(user_id=12, post_id=2, is_upvote=False),
-    PostVote(user_id=13, post_id=2, is_upvote=False),
-    PostVote(user_id=14, post_id=2, is_upvote=False),
-    # PostVote(user_id=15, post_id=2, is_upvote=False),
-    # PostVote(user_id=16, post_id=2, is_upvote=False),
-    # PostVote(user_id=17, post_id=2, is_upvote=False),
-    # PostVote(user_id=18, post_id=2, is_upvote=False),
-    # PostVote(user_id=19, post_id=2, is_upvote=False),
-    # PostVote(user_id=20, post_id=2, is_upvote=False),
-    # PostVote(user_id=21, post_id=2, is_upvote=False),
-    # PostVote(user_id=22, post_id=2, is_upvote=False),
-    # PostVote(user_id=23, post_id=2, is_upvote=False),
-    # PostVote(user_id=24, post_id=2, is_upvote=False),
-    # PostVote(user_id=25, post_id=2, is_upvote=False),
-    # PostVote(user_id=26, post_id=2, is_upvote=False),
-    # PostVote(user_id=27, post_id=2, is_upvote=False),
-    # PostVote(user_id=28, post_id=2, is_upvote=False),
-    # -------------------------------------------------------------------------
-    # POST 3 || VOTES: 5 (+13, -8)
-    # -------------------------------------------------------------------------
-    PostVote(user_id=29, post_id=3, is_upvote=True),
-    PostVote(user_id=31, post_id=3, is_upvote=True),
-    PostVote(user_id=32, post_id=3, is_upvote=True),
-    PostVote(user_id=33, post_id=3, is_upvote=True),
-    PostVote(user_id=34, post_id=3, is_upvote=True),
-    PostVote(user_id=35, post_id=3, is_upvote=True),
-    PostVote(user_id=36, post_id=3, is_upvote=True),
-    PostVote(user_id=37, post_id=3, is_upvote=True),
-    PostVote(user_id=38, post_id=3, is_upvote=True),
-    PostVote(user_id=39, post_id=3, is_upvote=True),
-    PostVote(user_id=40, post_id=3, is_upvote=True),
-    PostVote(user_id=41, post_id=3, is_upvote=True),
-    PostVote(user_id=42, post_id=3, is_upvote=True),
-    PostVote(user_id=43, post_id=3, is_upvote=False),
-    PostVote(user_id=44, post_id=3, is_upvote=False),
-    PostVote(user_id=45, post_id=3, is_upvote=False),
-    PostVote(user_id=46, post_id=3, is_upvote=False),
-    PostVote(user_id=47, post_id=3, is_upvote=False),
-    PostVote(user_id=48, post_id=3, is_upvote=False),
-    PostVote(user_id=49, post_id=3, is_upvote=False),
-    PostVote(user_id=50, post_id=3, is_upvote=False),
-    # -------------------------------------------------------------------------
-    # POST 4 || VOTES: 39 (+45, -6)
-    # -------------------------------------------------------------------------
-    PostVote(user_id=1, post_id=4, is_upvote=True),
-    PostVote(user_id=2, post_id=4, is_upvote=True),
-    PostVote(user_id=3, post_id=4, is_upvote=True),
-    PostVote(user_id=4, post_id=4, is_upvote=True),
-    PostVote(user_id=5, post_id=4, is_upvote=True),
-    PostVote(user_id=6, post_id=4, is_upvote=True),
-    PostVote(user_id=7, post_id=4, is_upvote=True),
-    PostVote(user_id=8, post_id=4, is_upvote=True),
-    PostVote(user_id=9, post_id=4, is_upvote=True),
-    PostVote(user_id=10, post_id=4, is_upvote=True),
-    PostVote(user_id=11, post_id=4, is_upvote=True),
-    PostVote(user_id=12, post_id=4, is_upvote=True),
-    PostVote(user_id=13, post_id=4, is_upvote=True),
-    PostVote(user_id=14, post_id=4, is_upvote=True),
-    PostVote(user_id=15, post_id=4, is_upvote=True),
-    PostVote(user_id=16, post_id=4, is_upvote=True),
-    PostVote(user_id=17, post_id=4, is_upvote=True),
-    PostVote(user_id=18, post_id=4, is_upvote=True),
-    PostVote(user_id=19, post_id=4, is_upvote=True),
-    PostVote(user_id=20, post_id=4, is_upvote=True),
-    PostVote(user_id=21, post_id=4, is_upvote=True),
-    PostVote(user_id=22, post_id=4, is_upvote=True),
-    PostVote(user_id=23, post_id=4, is_upvote=True),
-    PostVote(user_id=24, post_id=4, is_upvote=True),
-    PostVote(user_id=25, post_id=4, is_upvote=True),
-    PostVote(user_id=26, post_id=4, is_upvote=True),
-    PostVote(user_id=27, post_id=4, is_upvote=True),
-    PostVote(user_id=28, post_id=4, is_upvote=True),
-    PostVote(user_id=29, post_id=4, is_upvote=True),
-    PostVote(user_id=30, post_id=4, is_upvote=True),
-    PostVote(user_id=31, post_id=4, is_upvote=True),
-    PostVote(user_id=32, post_id=4, is_upvote=True),
-    PostVote(user_id=33, post_id=4, is_upvote=True),
-    PostVote(user_id=34, post_id=4, is_upvote=True),
-    PostVote(user_id=35, post_id=4, is_upvote=True),
-    PostVote(user_id=36, post_id=4, is_upvote=True),
-    PostVote(user_id=37, post_id=4, is_upvote=True),
-    PostVote(user_id=38, post_id=4, is_upvote=True),
-    PostVote(user_id=39, post_id=4, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 5 || VOTES: 25
-    # -------------------------------------------------------------------------
-    PostVote(user_id=40, post_id=5, is_upvote=True),
-    PostVote(user_id=41, post_id=5, is_upvote=True),
-    PostVote(user_id=42, post_id=5, is_upvote=True),
-    PostVote(user_id=43, post_id=5, is_upvote=True),
-    PostVote(user_id=44, post_id=5, is_upvote=True),
-    PostVote(user_id=45, post_id=5, is_upvote=True),
-    PostVote(user_id=46, post_id=5, is_upvote=True),
-    PostVote(user_id=47, post_id=5, is_upvote=True),
-    PostVote(user_id=48, post_id=5, is_upvote=True),
-    PostVote(user_id=49, post_id=5, is_upvote=True),
-    PostVote(user_id=50, post_id=5, is_upvote=True),
-    PostVote(user_id=1, post_id=5, is_upvote=True),
-    PostVote(user_id=2, post_id=5, is_upvote=True),
-    PostVote(user_id=3, post_id=5, is_upvote=True),
-    PostVote(user_id=4, post_id=5, is_upvote=True),
-    PostVote(user_id=5, post_id=5, is_upvote=True),
-    PostVote(user_id=6, post_id=5, is_upvote=True),
-    PostVote(user_id=7, post_id=5, is_upvote=True),
-    PostVote(user_id=8, post_id=5, is_upvote=True),
-    PostVote(user_id=9, post_id=5, is_upvote=True),
-    PostVote(user_id=10, post_id=5, is_upvote=True),
-    PostVote(user_id=11, post_id=5, is_upvote=True),
-    PostVote(user_id=12, post_id=5, is_upvote=True),
-    PostVote(user_id=13, post_id=5, is_upvote=True),
-    PostVote(user_id=14, post_id=5, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 6 || VOTES: 12
-    # -------------------------------------------------------------------------
-    PostVote(user_id=15, post_id=6, is_upvote=True),
-    PostVote(user_id=16, post_id=6, is_upvote=True),
-    PostVote(user_id=17, post_id=6, is_upvote=True),
-    PostVote(user_id=18, post_id=6, is_upvote=True),
-    PostVote(user_id=19, post_id=6, is_upvote=True),
-    PostVote(user_id=20, post_id=6, is_upvote=True),
-    PostVote(user_id=21, post_id=6, is_upvote=True),
-    PostVote(user_id=22, post_id=6, is_upvote=True),
-    PostVote(user_id=23, post_id=6, is_upvote=True),
-    PostVote(user_id=24, post_id=6, is_upvote=True),
-    PostVote(user_id=25, post_id=6, is_upvote=True),
-    PostVote(user_id=26, post_id=6, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 7 || VOTES: 26
-    # -------------------------------------------------------------------------
-    PostVote(user_id=27, post_id=7, is_upvote=True),
-    PostVote(user_id=28, post_id=7, is_upvote=True),
-    PostVote(user_id=29, post_id=7, is_upvote=True),
-    PostVote(user_id=30, post_id=7, is_upvote=True),
-    PostVote(user_id=31, post_id=7, is_upvote=True),
-    PostVote(user_id=32, post_id=7, is_upvote=True),
-    PostVote(user_id=33, post_id=7, is_upvote=True),
-    PostVote(user_id=34, post_id=7, is_upvote=True),
-    PostVote(user_id=35, post_id=7, is_upvote=True),
-    PostVote(user_id=36, post_id=7, is_upvote=True),
-    PostVote(user_id=37, post_id=7, is_upvote=True),
-    PostVote(user_id=38, post_id=7, is_upvote=True),
-    PostVote(user_id=39, post_id=7, is_upvote=True),
-    PostVote(user_id=40, post_id=7, is_upvote=True),
-    PostVote(user_id=41, post_id=7, is_upvote=True),
-    PostVote(user_id=42, post_id=7, is_upvote=True),
-    PostVote(user_id=43, post_id=7, is_upvote=True),
-    PostVote(user_id=44, post_id=7, is_upvote=True),
-    PostVote(user_id=45, post_id=7, is_upvote=True),
-    PostVote(user_id=46, post_id=7, is_upvote=True),
-    PostVote(user_id=47, post_id=7, is_upvote=True),
-    PostVote(user_id=48, post_id=7, is_upvote=True),
-    PostVote(user_id=49, post_id=7, is_upvote=True),
-    PostVote(user_id=50, post_id=7, is_upvote=True),
-    PostVote(user_id=1, post_id=7, is_upvote=True),
-    PostVote(user_id=2, post_id=7, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 8 || VOTES: 5
-    # -------------------------------------------------------------------------
-    PostVote(user_id=3, post_id=8, is_upvote=True),
-    PostVote(user_id=4, post_id=8, is_upvote=True),
-    PostVote(user_id=5, post_id=8, is_upvote=True),
-    PostVote(user_id=6, post_id=8, is_upvote=True),
-    PostVote(user_id=7, post_id=8, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 9 || VOTES: 30
-    # -------------------------------------------------------------------------
-    PostVote(user_id=8, post_id=9, is_upvote=True),
-    PostVote(user_id=9, post_id=9, is_upvote=True),
-    PostVote(user_id=10, post_id=9, is_upvote=True),
-    PostVote(user_id=11, post_id=9, is_upvote=True),
-    PostVote(user_id=12, post_id=9, is_upvote=True),
-    PostVote(user_id=13, post_id=9, is_upvote=True),
-    PostVote(user_id=14, post_id=9, is_upvote=True),
-    PostVote(user_id=15, post_id=9, is_upvote=True),
-    PostVote(user_id=16, post_id=9, is_upvote=True),
-    PostVote(user_id=17, post_id=9, is_upvote=True),
-    PostVote(user_id=18, post_id=9, is_upvote=True),
-    PostVote(user_id=19, post_id=9, is_upvote=True),
-    PostVote(user_id=20, post_id=9, is_upvote=True),
-    PostVote(user_id=21, post_id=9, is_upvote=True),
-    PostVote(user_id=22, post_id=9, is_upvote=True),
-    PostVote(user_id=23, post_id=9, is_upvote=True),
-    PostVote(user_id=24, post_id=9, is_upvote=True),
-    PostVote(user_id=25, post_id=9, is_upvote=True),
-    PostVote(user_id=26, post_id=9, is_upvote=True),
-    PostVote(user_id=27, post_id=9, is_upvote=True),
-    PostVote(user_id=28, post_id=9, is_upvote=True),
-    PostVote(user_id=29, post_id=9, is_upvote=True),
-    PostVote(user_id=30, post_id=9, is_upvote=True),
-    PostVote(user_id=31, post_id=9, is_upvote=True),
-    PostVote(user_id=32, post_id=9, is_upvote=True),
-    PostVote(user_id=33, post_id=9, is_upvote=True),
-    PostVote(user_id=34, post_id=9, is_upvote=True),
-    PostVote(user_id=35, post_id=9, is_upvote=True),
-    PostVote(user_id=36, post_id=9, is_upvote=True),
-    PostVote(user_id=37, post_id=9, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 10 || VOTES: 4
-    # -------------------------------------------------------------------------
-    PostVote(user_id=38, post_id=10, is_upvote=True),
-    PostVote(user_id=39, post_id=10, is_upvote=True),
-    PostVote(user_id=40, post_id=10, is_upvote=True),
-    PostVote(user_id=41, post_id=10, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 11 || VOTES: 13
-    # -------------------------------------------------------------------------
-    PostVote(user_id=42, post_id=11, is_upvote=True),
-    PostVote(user_id=43, post_id=11, is_upvote=True),
-    PostVote(user_id=44, post_id=11, is_upvote=True),
-    PostVote(user_id=45, post_id=11, is_upvote=True),
-    PostVote(user_id=46, post_id=11, is_upvote=True),
-    PostVote(user_id=47, post_id=11, is_upvote=True),
-    PostVote(user_id=48, post_id=11, is_upvote=True),
-    PostVote(user_id=49, post_id=11, is_upvote=True),
-    PostVote(user_id=50, post_id=11, is_upvote=True),
-    PostVote(user_id=1, post_id=11, is_upvote=True),
-    PostVote(user_id=2, post_id=11, is_upvote=True),
-    PostVote(user_id=3, post_id=11, is_upvote=True),
-    PostVote(user_id=4, post_id=11, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 12 || VOTES: 14
-    # -------------------------------------------------------------------------
-    PostVote(user_id=5, post_id=12, is_upvote=True),
-    PostVote(user_id=6, post_id=12, is_upvote=True),
-    PostVote(user_id=7, post_id=12, is_upvote=True),
-    PostVote(user_id=8, post_id=12, is_upvote=True),
-    PostVote(user_id=9, post_id=12, is_upvote=True),
-    PostVote(user_id=10, post_id=12, is_upvote=True),
-    PostVote(user_id=11, post_id=12, is_upvote=True),
-    PostVote(user_id=12, post_id=12, is_upvote=True),
-    PostVote(user_id=13, post_id=12, is_upvote=True),
-    PostVote(user_id=14, post_id=12, is_upvote=True),
-    PostVote(user_id=15, post_id=12, is_upvote=True),
-    PostVote(user_id=16, post_id=12, is_upvote=True),
-    PostVote(user_id=17, post_id=12, is_upvote=True),
-    PostVote(user_id=18, post_id=12, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 13 || VOTES: 21
-    # -------------------------------------------------------------------------
-    PostVote(user_id=19, post_id=13, is_upvote=True),
-    PostVote(user_id=20, post_id=13, is_upvote=True),
-    PostVote(user_id=21, post_id=13, is_upvote=True),
-    PostVote(user_id=22, post_id=13, is_upvote=True),
-    PostVote(user_id=23, post_id=13, is_upvote=True),
-    PostVote(user_id=24, post_id=13, is_upvote=True),
-    PostVote(user_id=25, post_id=13, is_upvote=True),
-    PostVote(user_id=26, post_id=13, is_upvote=True),
-    PostVote(user_id=27, post_id=13, is_upvote=True),
-    PostVote(user_id=28, post_id=13, is_upvote=True),
-    PostVote(user_id=29, post_id=13, is_upvote=True),
-    PostVote(user_id=30, post_id=13, is_upvote=True),
-    PostVote(user_id=31, post_id=13, is_upvote=True),
-    PostVote(user_id=32, post_id=13, is_upvote=True),
-    PostVote(user_id=33, post_id=13, is_upvote=True),
-    PostVote(user_id=34, post_id=13, is_upvote=True),
-    PostVote(user_id=35, post_id=13, is_upvote=True),
-    PostVote(user_id=36, post_id=13, is_upvote=True),
-    PostVote(user_id=37, post_id=13, is_upvote=True),
-    PostVote(user_id=38, post_id=13, is_upvote=True),
-    PostVote(user_id=39, post_id=13, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 14 || VOTES: 8
-    # -------------------------------------------------------------------------
-    PostVote(user_id=39, post_id=14, is_upvote=True),
-    PostVote(user_id=40, post_id=14, is_upvote=True),
-    PostVote(user_id=41, post_id=14, is_upvote=True),
-    PostVote(user_id=42, post_id=14, is_upvote=True),
-    PostVote(user_id=43, post_id=14, is_upvote=True),
-    PostVote(user_id=44, post_id=14, is_upvote=True),
-    PostVote(user_id=45, post_id=14, is_upvote=True),
-    PostVote(user_id=46, post_id=14, is_upvote=True),
-    PostVote(user_id=47, post_id=14, is_upvote=True),
-    PostVote(user_id=48, post_id=15, is_upvote=True),
-    PostVote(user_id=49, post_id=15, is_upvote=True),
-    PostVote(user_id=50, post_id=15, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 15 || VOTES: 26
-    # -------------------------------------------------------------------------
-    PostVote(user_id=1, post_id=15, is_upvote=True),
-    PostVote(user_id=2, post_id=15, is_upvote=True),
-    PostVote(user_id=3, post_id=15, is_upvote=True),
-    PostVote(user_id=4, post_id=15, is_upvote=True),
-    PostVote(user_id=5, post_id=15, is_upvote=True),
-    PostVote(user_id=6, post_id=15, is_upvote=True),
-    PostVote(user_id=7, post_id=15, is_upvote=True),
-    PostVote(user_id=8, post_id=15, is_upvote=True),
-    PostVote(user_id=9, post_id=15, is_upvote=True),
-    PostVote(user_id=10, post_id=15, is_upvote=True),
-    PostVote(user_id=11, post_id=15, is_upvote=True),
-    PostVote(user_id=12, post_id=15, is_upvote=True),
-    PostVote(user_id=13, post_id=15, is_upvote=True),
-    PostVote(user_id=14, post_id=15, is_upvote=True),
-    PostVote(user_id=15, post_id=15, is_upvote=True),
-    PostVote(user_id=16, post_id=15, is_upvote=True),
-    PostVote(user_id=17, post_id=15, is_upvote=True),
-    PostVote(user_id=18, post_id=15, is_upvote=True),
-    PostVote(user_id=19, post_id=15, is_upvote=True),
-    PostVote(user_id=20, post_id=15, is_upvote=True),
-    PostVote(user_id=21, post_id=15, is_upvote=True),
-    PostVote(user_id=22, post_id=15, is_upvote=True),
-    PostVote(user_id=23, post_id=15, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 16 || VOTES: -3
-    # -------------------------------------------------------------------------
-    PostVote(user_id=24, post_id=16, is_upvote=False),
-    PostVote(user_id=25, post_id=16, is_upvote=False),
-    PostVote(user_id=26, post_id=16, is_upvote=False),
-    # -------------------------------------------------------------------------
-    # POST 17 || VOTES: 44
-    # -------------------------------------------------------------------------
-    PostVote(user_id=27, post_id=17, is_upvote=True),
-    PostVote(user_id=28, post_id=17, is_upvote=True),
-    PostVote(user_id=29, post_id=17, is_upvote=True),
-    PostVote(user_id=30, post_id=17, is_upvote=True),
-    PostVote(user_id=31, post_id=17, is_upvote=True),
-    PostVote(user_id=32, post_id=17, is_upvote=True),
-    PostVote(user_id=33, post_id=17, is_upvote=True),
-    PostVote(user_id=34, post_id=17, is_upvote=True),
-    PostVote(user_id=35, post_id=17, is_upvote=True),
-    PostVote(user_id=36, post_id=17, is_upvote=True),
-    PostVote(user_id=37, post_id=17, is_upvote=True),
-    PostVote(user_id=38, post_id=17, is_upvote=True),
-    PostVote(user_id=39, post_id=17, is_upvote=True),
-    PostVote(user_id=40, post_id=17, is_upvote=True),
-    PostVote(user_id=41, post_id=17, is_upvote=True),
-    PostVote(user_id=42, post_id=17, is_upvote=True),
-    PostVote(user_id=43, post_id=17, is_upvote=True),
-    PostVote(user_id=44, post_id=17, is_upvote=True),
-    PostVote(user_id=45, post_id=17, is_upvote=True),
-    PostVote(user_id=46, post_id=17, is_upvote=True),
-    PostVote(user_id=47, post_id=17, is_upvote=True),
-    PostVote(user_id=48, post_id=17, is_upvote=True),
-    PostVote(user_id=49, post_id=17, is_upvote=True),
-    PostVote(user_id=50, post_id=17, is_upvote=True),
-    PostVote(user_id=1, post_id=17, is_upvote=True),
-    PostVote(user_id=2, post_id=17, is_upvote=True),
-    PostVote(user_id=3, post_id=17, is_upvote=True),
-    PostVote(user_id=4, post_id=17, is_upvote=True),
-    PostVote(user_id=5, post_id=17, is_upvote=True),
-    PostVote(user_id=6, post_id=17, is_upvote=True),
-    PostVote(user_id=7, post_id=17, is_upvote=True),
-    PostVote(user_id=8, post_id=17, is_upvote=True),
-    PostVote(user_id=9, post_id=17, is_upvote=True),
-    PostVote(user_id=10, post_id=17, is_upvote=True),
-    PostVote(user_id=11, post_id=17, is_upvote=True),
-    PostVote(user_id=12, post_id=17, is_upvote=True),
-    PostVote(user_id=13, post_id=17, is_upvote=True),
-    PostVote(user_id=14, post_id=17, is_upvote=True),
-    PostVote(user_id=15, post_id=17, is_upvote=True),
-    PostVote(user_id=16, post_id=17, is_upvote=True),
-    PostVote(user_id=17, post_id=17, is_upvote=True),
-    PostVote(user_id=18, post_id=17, is_upvote=True),
-    PostVote(user_id=19, post_id=17, is_upvote=True),
-    PostVote(user_id=20, post_id=17, is_upvote=True),
-    PostVote(user_id=21, post_id=17, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 18 || VOTES: 12
-    # -------------------------------------------------------------------------
-    PostVote(user_id=22, post_id=18, is_upvote=True),
-    PostVote(user_id=23, post_id=18, is_upvote=True),
-    PostVote(user_id=24, post_id=18, is_upvote=True),
-    PostVote(user_id=25, post_id=18, is_upvote=True),
-    PostVote(user_id=26, post_id=18, is_upvote=True),
-    PostVote(user_id=27, post_id=18, is_upvote=True),
-    PostVote(user_id=28, post_id=18, is_upvote=True),
-    PostVote(user_id=29, post_id=18, is_upvote=True),
-    PostVote(user_id=30, post_id=18, is_upvote=True),
-    PostVote(user_id=31, post_id=18, is_upvote=True),
-    PostVote(user_id=32, post_id=18, is_upvote=True),
-    PostVote(user_id=33, post_id=18, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 19 || VOTES: 7
-    # -------------------------------------------------------------------------
-    PostVote(user_id=34, post_id=19, is_upvote=True),
-    PostVote(user_id=35, post_id=19, is_upvote=True),
-    PostVote(user_id=36, post_id=19, is_upvote=True),
-    PostVote(user_id=37, post_id=19, is_upvote=True),
-    PostVote(user_id=38, post_id=19, is_upvote=True),
-    PostVote(user_id=39, post_id=19, is_upvote=True),
-    PostVote(user_id=40, post_id=19, is_upvote=True),
-    # -------------------------------------------------------------------------
-    # POST 20 || VOTES: -4
-    # -------------------------------------------------------------------------
-    PostVote(user_id=41, post_id=20, is_upvote=False),
-    PostVote(user_id=42, post_id=20, is_upvote=False),
-    PostVote(user_id=43, post_id=20, is_upvote=False),
-    PostVote(user_id=44, post_id=20, is_upvote=False),
-    # -------------------------------------------------------------------------
-    # POST 21 || VOTES: 4
-    # -------------------------------------------------------------------------
-    PostVote(user_id=45, post_id=21, is_upvote=True),
-    PostVote(user_id=46, post_id=21, is_upvote=True),
-    PostVote(user_id=47, post_id=21, is_upvote=True),
-    PostVote(user_id=48, post_id=21, is_upvote=True),
-    PostVote(user_id=49, post_id=21, is_upvote=True),
-    PostVote(user_id=50, post_id=21, is_upvote=True),
-    PostVote(user_id=1, post_id=21, is_upvote=True),
-    PostVote(user_id=2, post_id=21, is_upvote=True),
-    PostVote(user_id=3, post_id=22, is_upvote=True),
-    PostVote(user_id=4, post_id=22, is_upvote=True),
-    PostVote(user_id=5, post_id=22, is_upvote=True),
-    PostVote(user_id=6, post_id=22, is_upvote=True),
-    PostVote(user_id=7, post_id=22, is_upvote=True),
-    PostVote(user_id=8, post_id=22, is_upvote=True),
-    PostVote(user_id=9, post_id=22, is_upvote=True),
-    PostVote(user_id=10, post_id=22, is_upvote=True),
-    PostVote(user_id=11, post_id=22, is_upvote=True),
-    PostVote(user_id=12, post_id=22, is_upvote=True),
-    PostVote(user_id=13, post_id=22, is_upvote=True),
-    PostVote(user_id=14, post_id=22, is_upvote=True),
-    PostVote(user_id=15, post_id=22, is_upvote=True),
-    PostVote(user_id=16, post_id=22, is_upvote=True),
-    PostVote(user_id=17, post_id=22, is_upvote=True),
-    PostVote(user_id=18, post_id=22, is_upvote=True),
-    PostVote(user_id=19, post_id=22, is_upvote=True),
-    PostVote(user_id=20, post_id=22, is_upvote=True),
-    PostVote(user_id=21, post_id=22, is_upvote=True),
-    PostVote(user_id=22, post_id=22, is_upvote=True),
-    PostVote(user_id=23, post_id=23, is_upvote=False),
-    PostVote(user_id=24, post_id=23, is_upvote=False),
-    PostVote(user_id=25, post_id=23, is_upvote=False),
-    PostVote(user_id=26, post_id=23, is_upvote=False),
-    PostVote(user_id=27, post_id=23, is_upvote=False),
-    PostVote(user_id=28, post_id=24, is_upvote=True),
-    PostVote(user_id=29, post_id=24, is_upvote=True),
-    PostVote(user_id=30, post_id=24, is_upvote=True),
-    PostVote(user_id=31, post_id=24, is_upvote=True),
-    PostVote(user_id=32, post_id=24, is_upvote=True),
-    PostVote(user_id=33, post_id=24, is_upvote=True),
-    PostVote(user_id=34, post_id=24, is_upvote=True),
-    PostVote(user_id=35, post_id=24, is_upvote=True),
-    PostVote(user_id=36, post_id=24, is_upvote=True),
-    PostVote(user_id=37, post_id=24, is_upvote=True),
-    PostVote(user_id=38, post_id=24, is_upvote=True),
-    PostVote(user_id=39, post_id=24, is_upvote=True),
-    PostVote(user_id=40, post_id=24, is_upvote=True),
-    PostVote(user_id=41, post_id=24, is_upvote=True),
-    PostVote(user_id=42, post_id=24, is_upvote=True),
-    PostVote(user_id=43, post_id=24, is_upvote=True),
-    PostVote(user_id=44, post_id=24, is_upvote=True),
-    PostVote(user_id=45, post_id=25, is_upvote=True),
-    PostVote(user_id=46, post_id=25, is_upvote=True),
-    PostVote(user_id=47, post_id=25, is_upvote=True),
-    PostVote(user_id=48, post_id=25, is_upvote=True),
-    PostVote(user_id=49, post_id=25, is_upvote=True),
-    PostVote(user_id=50, post_id=25, is_upvote=True),
-    PostVote(user_id=1, post_id=25, is_upvote=True),
-    PostVote(user_id=2, post_id=25, is_upvote=True),
-    PostVote(user_id=3, post_id=25, is_upvote=True),
-    PostVote(user_id=4, post_id=25, is_upvote=True),
-    PostVote(user_id=5, post_id=25, is_upvote=True),
-    PostVote(user_id=6, post_id=25, is_upvote=True),
-    PostVote(user_id=7, post_id=25, is_upvote=True),
-    PostVote(user_id=8, post_id=25, is_upvote=True),
-    PostVote(user_id=9, post_id=25, is_upvote=True),
-    PostVote(user_id=10, post_id=25, is_upvote=True),
-    PostVote(user_id=11, post_id=26, is_upvote=True),
-    PostVote(user_id=12, post_id=26, is_upvote=True),
-    PostVote(user_id=13, post_id=26, is_upvote=True),
-    PostVote(user_id=14, post_id=26, is_upvote=True),
-    PostVote(user_id=15, post_id=26, is_upvote=True),
-    PostVote(user_id=16, post_id=26, is_upvote=True),
-    PostVote(user_id=17, post_id=26, is_upvote=True),
-    PostVote(user_id=18, post_id=26, is_upvote=True),
-    PostVote(user_id=19, post_id=26, is_upvote=True),
-    PostVote(user_id=20, post_id=26, is_upvote=True),
-    PostVote(user_id=21, post_id=26, is_upvote=True),
-    PostVote(user_id=22, post_id=26, is_upvote=True),
-    PostVote(user_id=23, post_id=26, is_upvote=True),
-    PostVote(user_id=24, post_id=26, is_upvote=True),
-    PostVote(user_id=25, post_id=26, is_upvote=True),
-    PostVote(user_id=26, post_id=26, is_upvote=True),
-    PostVote(user_id=27, post_id=26, is_upvote=True),
-    PostVote(user_id=28, post_id=26, is_upvote=True),
-    PostVote(user_id=29, post_id=26, is_upvote=True),
-    PostVote(user_id=30, post_id=26, is_upvote=True),
-    PostVote(user_id=31, post_id=26, is_upvote=True),
-    PostVote(user_id=32, post_id=26, is_upvote=True),
-    PostVote(user_id=33, post_id=26, is_upvote=True),
-    PostVote(user_id=34, post_id=26, is_upvote=True),
-    PostVote(user_id=35, post_id=26, is_upvote=True),
-    PostVote(user_id=36, post_id=27, is_upvote=False),
-    PostVote(user_id=37, post_id=27, is_upvote=False),
-    PostVote(user_id=38, post_id=28, is_upvote=True),
-    PostVote(user_id=39, post_id=28, is_upvote=True),
-    PostVote(user_id=40, post_id=28, is_upvote=True),
-    PostVote(user_id=41, post_id=28, is_upvote=True),
-    PostVote(user_id=42, post_id=28, is_upvote=True),
-    PostVote(user_id=43, post_id=28, is_upvote=True),
-    PostVote(user_id=44, post_id=28, is_upvote=True),
-    PostVote(user_id=45, post_id=28, is_upvote=True),
-    PostVote(user_id=46, post_id=28, is_upvote=True),
-    PostVote(user_id=47, post_id=30, is_upvote=False),
-    PostVote(user_id=48, post_id=30, is_upvote=False),
-    PostVote(user_id=49, post_id=30, is_upvote=False),
-    PostVote(user_id=50, post_id=30, is_upvote=False),
-    PostVote(user_id=1, post_id=30, is_upvote=False),
-    PostVote(user_id=2, post_id=30, is_upvote=False)])
+
+# --------------------------------------------------------------------------- #
+# Desired   post_id → net_score
+# --------------------------------------------------------------------------- #
+desired_post_scores: dict[int, int] = {
+    1:  22,   # (+29  / −7)
+    2:  14,   # (+21  / −7)
+    3:   5,   # (+13  / −8)
+    4:  39,   # (+45  / −6)
+    5:  25,
+    6:  12,
+    7:  26,
+    8:   5,
+    9:  30,
+    10:  4,
+    11: 13,
+    12: 14,
+    13: 21,
+    14:  8,
+    15: 26,
+    16: -3,
+    17: 44,
+    18: 12,
+    19:  7,
+    20: -4,
+    21:  4,
+    22: 20,
+    23: -5,
+    24: 17,
+    25: 20,
+    26: 25,
+    27: -2,
+    28:  9,
+    30: -6,
+    31:  10,   # small burst of interest
+    32:   6,
+    33:   8,
+    34:  12,
+    35:   9,
+    36:  15,   # front‑page for a bit
+    37:   5,
+    38:  18,
+    39:  11,
+    40:   7,
+    41:  -2,   # slightly unpopular
+    42:   4,
+    43:  20,   # trending
+    44:  -1,
+    45:  14,
+    46:   3,
+    47:   4,
+    48:   4,
+    49:   1,
+    50:   0,   # no traction
+    51:  19,
+    52:  16,
+    53:   1,
+    54:  14,
+    55:   5,
+    56:   2,
+    57:  11,
+    58:   4,
+    59:   1,
+    60:   1,
+    61:   4,
+    62:  -2,
+    63:  15,
+    64:  10,
+    65:   3,
+    66:  12,
+}
+
+
+# --------------------------------------------------------------------------- #
+def seed_postvotes() -> None:
+    """Populate the post_votes table with realistic‑looking data."""
+    posts   = Post.query.all()
+    users   = User.query.all()
+    user_ids = [u.id for u in users]
+
+    votes_to_add: list[PostVote] = []
+
+    for post in posts:
+        author_id = post.user_id
+
+        # 1. Author always up‑votes their own post
+        votes_to_add.append(
+            PostVote(user_id=author_id, post_id=post.id, is_upvote=True)
+        )
+
+        remaining_user_ids = [u for u in user_ids if u != author_id]
+
+        # ------------------------------------------------------------ #
+        # deterministic branch — we have a target net score
+        # ------------------------------------------------------------ #
+        if post.id in desired_post_scores:
+            target = desired_post_scores[post.id]
+
+            # subtract author’s guaranteed +1
+            net_after_author = target - 1
+
+            # Choose a total number T of additional voters
+            T = random.randint(abs(net_after_author), abs(net_after_author) + 10)
+
+            # Make T even‑compatible with desired net, and fit the user pool
+            while (T + net_after_author) & 1:          # keep it even
+                T += 1
+            T = min(T, len(remaining_user_ids))
+
+            up_cnt   = (T + net_after_author) // 2
+            down_cnt = T - up_cnt
+
+            # Safety guards
+            up_cnt   = max(0, min(up_cnt,   len(remaining_user_ids)))
+            down_cnt = max(0, min(down_cnt, len(remaining_user_ids) - up_cnt))
+
+            # Pick voters
+            up_voters   = random.sample(remaining_user_ids, up_cnt)
+            remaining   = [u for u in remaining_user_ids if u not in up_voters]
+            down_voters = random.sample(remaining, down_cnt)
+
+            votes_to_add.extend(
+                PostVote(user_id=u, post_id=post.id, is_upvote=True)  for u in up_voters
+            )
+            votes_to_add.extend(
+                PostVote(user_id=u, post_id=post.id, is_upvote=False) for u in down_voters
+            )
+
+        # ------------------------------------------------------------ #
+        # fallback — vanilla random seeding
+        # ------------------------------------------------------------ #
+        else:
+            for u in remaining_user_ids:
+                if random.random() < 0.30:  # 30 % chance this user votes
+                    votes_to_add.append(
+                        PostVote(
+                            user_id=u,
+                            post_id=post.id,
+                            is_upvote=random.random() < 0.70  # 70 % up‑votes
+                        )
+                    )
+
+    # One round‑trip → DB
+    db.session.bulk_save_objects(votes_to_add)
     db.session.commit()
 
-def undo_postvotes():
-    db.session.execute("DELETE FROM post_votes")
+
+def undo_postvotes() -> None:
+    db.session.execute("TRUNCATE post_votes RESTART IDENTITY CASCADE;")
     db.session.commit()

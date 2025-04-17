@@ -1,130 +1,87 @@
+# app/seeds/subscriptions.py
+from sqlalchemy import text
 from app.models import db, User, Community
 
-def seed_subscriptions():
-    demo = User.query.get(2)
-    bobbie = User.query.get(3)
-    user_4 = User.query.get(4)
-    user_5 = User.query.get(5)
-    user_6 = User.query.get(6)
-    user_7 = User.query.get(7)
-    user_8 = User.query.get(8)
-    user_9 = User.query.get(9)
-    user_10 = User.query.get(10)
-    user_11 = User.query.get(11)
-    user_12 = User.query.get(12)
-    user_13 = User.query.get(13)
-    user_14 = User.query.get(14)
-    user_15 = User.query.get(15)
-    user_16 = User.query.get(16)
-    user_17 = User.query.get(17)
-    user_18 = User.query.get(18)
-    user_19 = User.query.get(19)
-    user_20 = User.query.get(20)
-    user_21 = User.query.get(21)
-    user_22 = User.query.get(22)
-    user_23 = User.query.get(23)
-    user_24 = User.query.get(24)
-    user_25 = User.query.get(25)
-    user_26 = User.query.get(26)
-    user_27 = User.query.get(27)
-    user_28 = User.query.get(28)
-    user_29 = User.query.get(29)
-    user_30 = User.query.get(30)
-    user_31 = User.query.get(31)
-    user_32 = User.query.get(32)
-    user_33 = User.query.get(33)
-    user_34 = User.query.get(34)
-    user_35 = User.query.get(35)
-    user_36 = User.query.get(36)
-    user_37 = User.query.get(37)
-    user_38 = User.query.get(38)
-    user_39 = User.query.get(39)
-    user_40 = User.query.get(40)
-    user_41 = User.query.get(41)
-    user_42 = User.query.get(42)
-    user_43 = User.query.get(43)
-    user_44 = User.query.get(44)
-    user_45 = User.query.get(45)
-    user_46 = User.query.get(46)
-    user_47 = User.query.get(47)
-    user_48 = User.query.get(48)
-    user_49 = User.query.get(49)
-    user_50 = User.query.get(50)
 
-    cats = Community.query.get(1)
-    oddlyspecific = Community.query.get(2)
-    javascript = Community.query.get(3)
-    oddlysatisfying = Community.query.get(4)
-    aww = Community.query.get(5)
-    mildlyinteresting = Community.query.get(6)
-    programmerhumor = Community.query.get(7)
-    youshouldknow = Community.query.get(8)
-    askmen = Community.query.get(9)
-    funny = Community.query.get(10)
-    webdev = Community.query.get(11)
-    interestingasfuck = Community.query.get(12)
-    todayilearned = Community.query.get(13)
-    oldschoolcool = Community.query.get(14)
-    mildlyinfuriating = Community.query.get(15)
-    reactjs = Community.query.get(16)
-    flask = Community.query.get(17)
-    python = Community.query.get(18)
-    learnpython = Community.query.get(19)
-    facepalm = Community.query.get(20)
-    learnjavascript = Community.query.get(21)
+def seed_subscriptions() -> None:
+    """
+    Populate the subscriptions association table.
 
-    demo.user_subscriptions.extend([python, learnpython, javascript, learnjavascript, flask, reactjs, webdev, programmerhumor])
-    bobbie.user_subscriptions.extend([oddlyspecific, oddlysatisfying, mildlyinfuriating, mildlyinteresting])
-    user_4.user_subscriptions.extend([askmen, aww, cats])
-    user_5.user_subscriptions.extend([funny, interestingasfuck, todayilearned, oldschoolcool])
-    user_6.user_subscriptions.extend([python, learnpython])
-    user_7.user_subscriptions.extend([javascript, learnjavascript])
-    user_8.user_subscriptions.extend([webdev, programmerhumor])
-    user_9.user_subscriptions.extend([youshouldknow, facepalm, cats])
-    user_10.user_subscriptions.extend([cats, aww, todayilearned, interestingasfuck])
-    user_11.user_subscriptions.extend([python, javascript, reactjs, webdev])
-    user_12.user_subscriptions.extend([mildlyinfuriating, oddlysatisfying])
-    user_13.user_subscriptions.extend([mildlyinteresting, oddlyspecific])
-    user_14.user_subscriptions.extend([funny, aww, facepalm])
-    user_15.user_subscriptions.extend([todayilearned, oldschoolcool, youshouldknow])
-    user_16.user_subscriptions.extend([flask, python, javascript])
-    user_17.user_subscriptions.extend([cats, funny, askmen, youshouldknow])
-    user_18.user_subscriptions.extend([flask, reactjs, python, javascript, webdev])
-    user_19.user_subscriptions.extend([programmerhumor, funny])
-    user_20.user_subscriptions.extend([mildlyinfuriating, oddlysatisfying, askmen, oldschoolcool])
-    user_21.user_subscriptions.extend([todayilearned, cats, javascript])
-    user_22.user_subscriptions.extend([learnjavascript, javascript, programmerhumor])
-    user_23.user_subscriptions.extend([learnpython, python, programmerhumor])
-    user_24.user_subscriptions.extend([oldschoolcool, facepalm, funny, askmen, cats, aww])
-    user_25.user_subscriptions.extend([todayilearned, facepalm])
-    user_26.user_subscriptions.extend([python, learnpython, javascript, learnjavascript, flask, reactjs, webdev, programmerhumor])
-    user_27.user_subscriptions.extend([webdev, flask, reactjs, learnjavascript, javascript])
-    user_28.user_subscriptions.extend([oddlyspecific, oddlysatisfying, mildlyinfuriating, mildlyinteresting])
-    user_29.user_subscriptions.extend([askmen, aww, cats])
-    user_30.user_subscriptions.extend([funny, interestingasfuck, todayilearned, oldschoolcool])
-    user_31.user_subscriptions.extend([python, learnpython])
-    user_32.user_subscriptions.extend([javascript, learnjavascript])
-    user_33.user_subscriptions.extend([webdev, programmerhumor])
-    user_34.user_subscriptions.extend([youshouldknow, facepalm, cats])
-    user_35.user_subscriptions.extend([cats, aww, todayilearned, interestingasfuck])
-    user_36.user_subscriptions.extend([python, javascript, reactjs, webdev])
-    user_37.user_subscriptions.extend([mildlyinfuriating, oddlysatisfying])
-    user_38.user_subscriptions.extend([mildlyinteresting, oddlyspecific])
-    user_39.user_subscriptions.extend([funny, aww, facepalm])
-    user_40.user_subscriptions.extend([todayilearned, oldschoolcool, youshouldknow])
-    user_41.user_subscriptions.extend([flask, python, javascript])
-    user_42.user_subscriptions.extend([cats, funny, askmen, youshouldknow])
-    user_43.user_subscriptions.extend([flask, reactjs, python, javascript, webdev])
-    user_44.user_subscriptions.extend([programmerhumor, funny])
-    user_45.user_subscriptions.extend([mildlyinfuriating, oddlysatisfying, askmen, oldschoolcool])
-    user_46.user_subscriptions.extend([todayilearned, cats, javascript])
-    user_47.user_subscriptions.extend([learnjavascript, javascript, programmerhumor])
-    user_48.user_subscriptions.extend([learnpython, python, programmerhumor])
-    user_49.user_subscriptions.extend([oldschoolcool, facepalm, funny, askmen, cats, aww, interestingasfuck])
-    user_50.user_subscriptions.extend([todayilearned, facepalm, interestingasfuck])
+    Steps
+    -----
+    1.  Bulk‑load every user we care about (id 2‑50) in one query.
+    2.  Bulk‑load every community we care about (id 1‑21) in one query.
+    3.  Drive the inserts from a plain dict:  user_id ➜ [community_ids …].
+    """
+    users = {u.id: u for u in User.query.filter(User.id.in_(range(2, 51))).all()}
+    communities = {
+        c.id: c
+        for c in Community.query.filter(Community.id.in_(range(1, 22))).all()
+    }
+
+    sub_map = {
+        2:  [18, 19, 3, 21, 17, 16, 11, 7],
+        3:  [2, 4, 15, 6],
+        4:  [9, 5, 1],
+        5:  [10, 12, 13, 14],
+        6:  [18, 19],
+        7:  [3, 21],
+        8:  [11, 7],
+        9:  [8, 20, 1],
+        10: [1, 5, 13, 12],
+        11: [18, 3, 16, 11],
+        12: [15, 4],
+        13: [6, 2],
+        14: [10, 5, 20],
+        15: [13, 14, 8],
+        16: [17, 18, 3],
+        17: [1, 10, 9, 8],
+        18: [17, 16, 18, 3, 11],
+        19: [7, 10],
+        20: [15, 4, 9, 14],
+        21: [13, 1, 3],
+        22: [21, 3, 7],
+        23: [19, 18, 7],
+        24: [14, 20, 10, 9, 1, 5],
+        25: [13, 20],
+        26: [18, 19, 3, 21, 17, 16, 11, 7],
+        27: [11, 17, 16, 21, 3],
+        28: [2, 4, 15, 6],
+        29: [9, 5, 1],
+        30: [10, 12, 13, 14],
+        31: [18, 19],
+        32: [3, 21],
+        33: [11, 7],
+        34: [8, 20, 1],
+        35: [1, 5, 13, 12],
+        36: [18, 3, 16, 11],
+        37: [15, 4],
+        38: [6, 2],
+        39: [10, 5, 20],
+        40: [13, 14, 8],
+        41: [17, 18, 3],
+        42: [1, 10, 9, 8],
+        43: [17, 16, 18, 3, 11],
+        44: [7, 10],
+        45: [15, 4, 9, 14],
+        46: [13, 1, 3],
+        47: [21, 3, 7],
+        48: [19, 18, 7],
+        49: [14, 20, 10, 9, 1, 5, 12],
+        50: [13, 20, 12],
+    }
+
+    for user_id, community_ids in sub_map.items():
+        users[user_id].user_subscriptions.extend(
+            communities[cid] for cid in community_ids
+        )
 
     db.session.commit()
 
-def undo_subscriptions():
-    db.session.execute("DELETE FROM subscriptions")
+
+def undo_subscriptions() -> None:
+    # TRUNCATE is much faster than DELETE for seed/undo cycles.
+    db.session.execute(
+        text("TRUNCATE subscriptions RESTART IDENTITY CASCADE;")
+    )
     db.session.commit()
