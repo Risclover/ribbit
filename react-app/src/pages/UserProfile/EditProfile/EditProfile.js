@@ -81,7 +81,7 @@ export function EditProfile() {
         <div className="edit-profile-btns">
           <button
             className="cancel-profile-edit"
-            onClick={() => history.push(`/users/${user.id}/profile`)}
+            onClick={() => history.push(`/users/${user?.id}/profile`)}
           >
             Cancel
           </button>

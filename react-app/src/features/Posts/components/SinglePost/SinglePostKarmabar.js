@@ -32,7 +32,7 @@ export function SinglePostKarmabar({ post, format }) {
       >
         {post?.votes === 0 && vote !== null
           ? 0
-          : post?.votes === 0 && vote === null
+          : vote === null && Object.values(post?.postVoters).length === 0
           ? "Vote"
           : post.votes}
       </span>

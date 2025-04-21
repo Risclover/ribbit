@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Redirect, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCommunities, getCommunitySettings, getPosts } from "../store";
 
@@ -35,14 +35,19 @@ export function CommunityPage() {
   const communityPosts = posts.filter(
     (post) => post.communityId === community?.id
   );
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(getCommunitySettings(communityId));
-    dispatch(getCommunities());
-    if (posts.length === 0) {
-      dispatch(getPosts());
-    }
-  }, [dispatch]);
+    const getData = async () => {
+      await dispatch(getCommunities());
+      setLoading(false);
+      await dispatch(getCommunitySettings(communityId));
+      if (posts.length === 0) {
+        await dispatch(getPosts());
+      }
+    };
+    getData();
+  }, [communityId, dispatch]);
 
   useEffect(() => {
     if (!user) {
@@ -101,8 +106,12 @@ export function CommunityPage() {
         />
       ),
   });
-
-  if (!community || !communities) return null;
+  if (loading) {
+    return <div>Loading...</div>; // You can show a loading spinner here
+  }
+  if (!community) {
+    return <Redirect to="/404" />;
+  }
 
   return (
     <div className="community-page-container">

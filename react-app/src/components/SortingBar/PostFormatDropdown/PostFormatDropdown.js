@@ -36,7 +36,7 @@ export function PostFormatDropdown({ setShowDropdown, formats }) {
     <div
       className="post-format-dropdown"
       data-testid="post-format-dropdown"
-      aria-labelledby="postFormatDropdownToggle"
+      aria-labelledby="PostFormatDropdownToggle"
       onKeyDown={handleKeyDown}
     >
       <ul role="menu">

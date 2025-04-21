@@ -22,6 +22,7 @@ import {
   UpdatePost,
   LoginSignupModal,
 } from "@/features";
+import NotFound from "pages/UserProfile/NotFound";
 
 export const AppRoutes = ({
   user,
@@ -109,6 +110,9 @@ export const AppRoutes = ({
 
         <Route path="/users/:userId/profile" exact>
           <UserProfile setOpenChat={setOpenChat} />
+        </Route>
+        <Route>
+          <NotFound />
         </Route>
       </Switch>
     </ScrollProvider>

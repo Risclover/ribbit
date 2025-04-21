@@ -4,7 +4,7 @@ import secrets
 import urllib.parse
 from app.utils import get_random_username  # Import your helper
 from flask import (
-    Flask, request, redirect, current_app, abort, session, url_for, flash
+    Flask, request, redirect, current_app, abort, session, url_for, flash, send_from_directory
 )
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -13,8 +13,9 @@ from flask_login import LoginManager, login_user, current_user
 # If you want to display flash messages in server-side templates, you also need 'render_template'
 # from flask import render_template
 from werkzeug.security import generate_password_hash  # Add this import at the top with your others
+from app.api.auth_routes import validation_errors_to_error_messages
 from app.models import Community
-
+from app.forms import SignUpForm
 from .socket import socketio
 from .models import db, User
 from .api.user_routes import user_routes
@@ -103,6 +104,12 @@ def inject_csrf_token(response):
 
 # Example route for your React build:
 @app.route('/', defaults={'path': ''})
+
+@app.errorhandler(404)
+def spa_fallback(e):
+    """Anything that isn’t an /api route falls through to React."""
+    return send_from_directory("static", "index.html")
+
 @app.route('/<path:path>')
 def react_root(path):
     if path == 'favicon.ico':

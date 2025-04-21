@@ -137,6 +137,7 @@
   height: 100%;
   /* padding-top: 2px; */
   align-items: center;
+  color: var(--main-text-color);
 }
 
 .nav-left-dropdown-face-title svg {

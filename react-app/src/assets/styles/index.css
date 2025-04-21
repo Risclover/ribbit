@@ -198,3 +198,45 @@ a.blue-btn-filled {
   color: var(--highlight-color);
   font-size: 20px;
 }
+
+.not-found-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  gap: 50px;
+  min-height: calc(100vh - 48px);
+  padding: 2rem;
+  height: 100%;
+  font-weight: 400;
+  color: var(--main-text-color);
+  font-family: var(--font-family-noto);
+}
+
+.not-found-page img {
+  width: 350px;
+  margin-top: calc(48px + 2rem);
+}
+.not-found-page h1 {
+  font-size: 5rem;
+  color: var(--logo-color);
+}
+
+.not-found-page h2 {
+  font-size: 2rem;
+}
+
+.not-found-page-p {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.not-found-page-p p,
+.not-found-page a {
+  line-height: 3rem;
+}
+
+.not-found-page a {
+  color: #1399f3;
+}

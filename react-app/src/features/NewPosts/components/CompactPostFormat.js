@@ -38,8 +38,6 @@ export default function CompactPostFormat({ id, isPage, post }) {
     }
   }, [dispatch, id, showLinkCopied, commentNum, post?.commentNum]);
 
-  console.log("isPage:", isPage);
-
   return (
     <div className="compact-post-format">
       <div

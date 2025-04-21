@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 from flask_login import login_required, current_user
 from app.models import db, Post, User, PostVote, ViewedPost
 from .auth_routes import validation_errors_to_error_messages
@@ -7,6 +7,7 @@ from app.s3_helpers import (upload_file_to_s3, allowed_file, get_unique_filename
 
 post_routes = Blueprint("posts", __name__)
 
+
 # GET ALL POSTS:
 @post_routes.route("")
 def get_posts():
@@ -14,6 +15,7 @@ def get_posts():
     Query for all posts and returns them in a list of post dictionaries.
     """
     posts = Post.query.all()
+    
     return {"Posts": [post.to_dict() for post in posts]}
 
 # GET A SINGLE POST:
@@ -23,6 +25,9 @@ def get_single_post(id):
     Query for a single post by id and return it as a dictionary.
     """
     post = Post.query.get(id)
+    if not post:
+        # If post doesn't exist, manually trigger the 404 error handler
+        abort(404)
     return post.to_dict()
 
 # CREATE A SINGLE POST:

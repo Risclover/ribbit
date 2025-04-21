@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { batch, useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, Redirect } from "react-router-dom";
 
 import {
   getPosts,
@@ -118,6 +118,10 @@ export function SinglePostPage() {
   const handleBannerClick = () => {
     history.push(`/c/${community?.name}`);
   };
+
+  if (!post) {
+    return <Redirect to="/404" />;
+  }
 
   if (!post || !community) return null;
 

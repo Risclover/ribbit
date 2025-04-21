@@ -1,1 +1,1 @@
-export { PostFormatDropdownFace } from "./PostFormatDropdownFace"
+export { PostFormatDropdownFace } from "./PostFormatDropdownFace";

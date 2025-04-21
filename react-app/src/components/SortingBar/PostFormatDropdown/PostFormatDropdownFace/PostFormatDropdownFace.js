@@ -52,7 +52,7 @@ export function PostFormatDropdownFace() {
         data-testid="post-format-face-button"
         aria-label="Select post format"
         aria-haspopup="true"
-        id="postFormatDropdownToggle"
+        id="PostFormatDropdownToggle"
       >
         {getFormatIcon(format)}
         <TbChevronDown />

@@ -78,7 +78,10 @@ export const getPostsByCommunityId = (communityId) => (state) =>
 
 export const getPosts = () => async (dispatch) => {
   const response = await fetch("/api/posts");
-
+  if (response.status === 404) {
+    navigate("/404");
+    return;
+  }
   if (response.ok) {
     const posts = await response.json();
     dispatch(loadPosts(posts));
