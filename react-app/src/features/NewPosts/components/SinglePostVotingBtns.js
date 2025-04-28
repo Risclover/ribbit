@@ -31,7 +31,7 @@ export default function SinglePostVotingBtns({ post, format }) {
             : ""
         }`}
       >
-        {post?.votes === 0 && vote !== null
+        {post?.voteScore === 0 && vote !== null
           ? 0
           : vote === null && Object.values(post?.postVoters).length === 0
           ? "Vote"

@@ -1,7 +1,9 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, Community, User, CommunitySettings
-from .auth_routes import validation_errors_to_error_messages
+from app.models import Community, User, CommunitySettings
+from app.extensions import db
+
+from app.helpers import validation_errors_to_error_messages
 from app.forms import CommunityForm, UpdateCommunityForm
 from sqlalchemy import func
 from app.s3_helpers import (

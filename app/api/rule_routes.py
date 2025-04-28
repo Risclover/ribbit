@@ -1,6 +1,8 @@
 from flask import Blueprint, request
-from app.models import db, Rule, Community
-from .auth_routes import validation_errors_to_error_messages
+from app.models import Rule, Community
+from app.extensions import db
+
+from app.helpers import validation_errors_to_error_messages
 from app.forms import RuleForm
 
 rule_routes = Blueprint("rules", __name__)

@@ -1,6 +1,8 @@
 import random
 from datetime import datetime, timedelta
-from app.models import db, Community, User
+from app.models import Community, User
+from app.extensions import db
+
 
 def generate_community_timestamp(owner_timestamp, max_delay_hours=336):
     """

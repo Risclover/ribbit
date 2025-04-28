@@ -1,4 +1,4 @@
-from .db import db
+from app.extensions import db
 
 class Notification(db.Model):
     __tablename__ = "notifications"

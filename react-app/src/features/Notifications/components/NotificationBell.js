@@ -15,7 +15,11 @@ export function NotificationBell() {
   } = useNotificationBell();
 
   return (
-    <div className="notifications-dropdown-wrapper" ref={wrapperRef}>
+    <div
+      className="notifications-dropdown-wrapper"
+      ref={wrapperRef}
+      ariaLive="polite"
+    >
       <button
         className="navbar-button"
         onClick={handleOpenDropdown}

@@ -1,4 +1,6 @@
-from app.models import db, Comment
+from app.models import Comment
+from app.extensions import db
+
 
 def seed_comments():
     comment_1 = Comment(
@@ -65,5 +67,5 @@ def seed_comments():
     )
 
     comment_12 = Comment(
-        
+
     )

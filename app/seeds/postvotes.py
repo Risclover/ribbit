@@ -1,5 +1,7 @@
 import random
-from app.models import db, Post, PostVote, User
+from app.models import Post, PostVote, User
+from app.extensions import db
+
 
 
 # --------------------------------------------------------------------------- #

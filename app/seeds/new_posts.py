@@ -1,4 +1,6 @@
-from app.models import db, Post
+from app.models import Post
+from app.extensions import db
+
 
 def seed_posts():
     post_1=Post(

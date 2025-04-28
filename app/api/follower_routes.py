@@ -1,6 +1,8 @@
 from flask import Blueprint
 from flask_login import login_required, current_user
-from app.models import db, User, Notification
+from app.models import User, Notification
+from app.extensions import db
+
 from app.socket import emit_notification_to_user
 from datetime import datetime, timedelta, timezone
 

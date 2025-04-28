@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts, getViewedPosts } from "@/store";
 import { sortPosts } from "@/utils";
@@ -7,21 +7,25 @@ import { getUsers } from "@/store";
 export function usePosts(isAllPosts) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const userPosts = useSelector((state) => state.posts);
+  const userPosts = useSelector((state) => Object.values(state.posts));
   const subscriptions = useSelector((state) =>
     Object.values(state.subscriptions)
   );
   const follows = useSelector((state) => state.followers.posts);
   const viewedPosts = useSelector((state) => state.viewedPosts);
   const [sortMode, setSortMode] = useState("new");
+  const [page, setPage] = useState(1);
+  const nextPage = useRef(null);
 
   useEffect(() => {
     dispatch(getViewedPosts());
-    if (Object.values(userPosts).length === 0) dispatch(getPosts());
-  }, [userPosts]);
+    dispatch(getPosts(page)).then((next) => {
+      nextPage.current = next;
+    });
+  }, [page, dispatch]);
 
   const sortedPosts = useMemo(() => {
-    let posts = [...Object.values(userPosts)];
+    let posts = userPosts;
 
     if (!isAllPosts) {
       const subbedPostsIds = new Set();

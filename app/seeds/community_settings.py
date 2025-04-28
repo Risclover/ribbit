@@ -1,4 +1,6 @@
-from app.models import db, CommunitySettings
+from app.models import CommunitySettings
+from app.extensions import db
+
 
 def seed_community_settings():
     community_1 = CommunitySettings(

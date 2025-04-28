@@ -3,8 +3,9 @@ import random
 from datetime import datetime, timedelta
 
 from sqlalchemy import text
+from app.extensions import db
 
-from app.models import db, User
+from app.models import User
 
 
 # --------------------------------------------------------------------------- #

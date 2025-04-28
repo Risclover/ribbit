@@ -1,8 +1,10 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import db, Comment, User, CommentVote, Post, Notification
+from app.models import Comment, User, CommentVote, Post, Notification
+from app.extensions import db
+
 from app.forms.comment_form import CommentForm
-from .auth_routes import validation_errors_to_error_messages
+from app.helpers import validation_errors_to_error_messages
 from datetime import datetime, timezone
 from app.socket import emit_notification_to_user
 

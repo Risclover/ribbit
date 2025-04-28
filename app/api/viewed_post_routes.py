@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user
-from app.models import db, Post, User, ViewedPost
+from app.models import Post, User, ViewedPost
+from app.extensions import db
+
 from datetime import datetime, timezone
 
 viewed_post_routes = Blueprint("viewed_posts", __name__)

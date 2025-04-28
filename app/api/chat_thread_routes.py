@@ -1,6 +1,8 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, User, ChatMessageThread, ChatMessage, ThreadUser
+from app.models import User, ChatMessageThread, ChatMessage, ThreadUser
+from app.extensions import db
+
 
 chat_thread_routes = Blueprint("chat_threads", __name__)
 

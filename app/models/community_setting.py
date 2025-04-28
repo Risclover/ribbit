@@ -1,4 +1,4 @@
-from .db import db
+from app.extensions import db
 
 class CommunitySettings(db.Model):
     __tablename__ = "community_settings"

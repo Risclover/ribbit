@@ -1,4 +1,4 @@
-from .db import db
+from app.extensions import db
 from .joins import subscriptions, favorite_communities
 
 class Community(db.Model):

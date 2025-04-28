@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, User, Community
+from app.models import User, Community
+from app.extensions import db
+
 
 subscription_routes = Blueprint("subscriptions", __name__)
 

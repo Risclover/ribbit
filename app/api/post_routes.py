@@ -1,13 +1,34 @@
-from flask import Blueprint, request, jsonify, abort
+from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import db, Post, User, PostVote, ViewedPost
+from app.models import Post, User, PostVote, ViewedPost
+from app.extensions import db
 from .auth_routes import validation_errors_to_error_messages
 from app.forms import PostForm, PostUpdateForm, ImagePostForm, UpdateImagePostForm
 from app.s3_helpers import (upload_file_to_s3, allowed_file, get_unique_filename)
+from sqlalchemy.orm import selectinload, load_only
 
 post_routes = Blueprint("posts", __name__)
 
+# @post_routes.route("")
+# def get_posts():
+#     page  = request.args.get("page", 1,  type=int)
+#     limit = request.args.get("limit", 25, type=int)
 
+#     q = (Post.query
+#          .options(
+#              selectinload(Post.post_author).load_only("id", "username"),
+#              selectinload(Post.post_community).load_only("id", "name"),
+#              selectinload(Post.users_who_liked)   # just for myVote
+#          )
+#          .order_by(Post.created_at.desc()))
+
+#     paged = q.paginate(page=page, per_page=limit, error_out=False)
+
+#     uid = current_user.get_id() if current_user.is_authenticated else None
+#     return {
+#         "posts": [p.to_dict() for p in paged.items],
+#         "next":  paged.next_num if paged.has_next else None,
+#     }
 # GET ALL POSTS:
 @post_routes.route("")
 def get_posts():
@@ -15,7 +36,6 @@ def get_posts():
     Query for all posts and returns them in a list of post dictionaries.
     """
     posts = Post.query.all()
-    
     return {"Posts": [post.to_dict() for post in posts]}
 
 # GET A SINGLE POST:
@@ -25,9 +45,6 @@ def get_single_post(id):
     Query for a single post by id and return it as a dictionary.
     """
     post = Post.query.get(id)
-    if not post:
-        # If post doesn't exist, manually trigger the 404 error handler
-        abort(404)
     return post.to_dict()
 
 # CREATE A SINGLE POST:

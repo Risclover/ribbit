@@ -1,8 +1,10 @@
 from flask import Blueprint, request
 from flask_login import current_user
-from app.models import db, User, MessageThread, Message
+from app.models import User, MessageThread, Message
+from app.extensions import db
+
 from app.forms.message_form import MessageForm
-from .auth_routes import validation_errors_to_error_messages
+from app.helpers import validation_errors_to_error_messages
 
 thread_routes = Blueprint("threads", __name__)
 

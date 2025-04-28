@@ -1,5 +1,7 @@
 # app/seeds/followers.py
-from app.models import db, User
+from app.models import User
+from app.extensions import db
+
 
 def seed_followers():
     """

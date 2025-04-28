@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, User
+from app.models import User
+from app.extensions import db
+
 
 favorite_user_routes = Blueprint("favorite_users", __name__)
 
@@ -12,14 +14,10 @@ def favorite_user():
     A logged-in user can send a post request to add a user to their favorite communities list.
     """
     queried_user = User.query.get(current_user.get_id())
-
     user_id = request.json["userId"]
     user = User.query.filter(User.id == user_id).one()
 
     queried_user.favorited.append(user)
-
-
-
     db.session.commit()
 
     return jsonify({

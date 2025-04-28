@@ -1,4 +1,6 @@
-from app.models import db, Rule
+from app.models import Rule
+from app.extensions import db
+
 
 def seed_rules():
     rules_by_community = {

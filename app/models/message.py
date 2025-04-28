@@ -1,4 +1,4 @@
-from .db import db
+from app.extensions import db
 
 user_threads = db.Table('user_threads',
     db.Model.metadata,

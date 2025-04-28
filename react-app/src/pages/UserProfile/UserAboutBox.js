@@ -21,12 +21,13 @@ import { SendMessage } from "@/pages";
 import { UserUploadModal } from "./UserUploadModal";
 import { KarmaIcon } from "@/assets";
 import { OVERLAYS } from "@/features/Chat/components/ChatWindow/Chat";
+import { useSelectedChat } from "context";
 
 export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { userId } = useParams();
-
+  const { setPendingReceiver } = useSelectedChat();
   const { openLogin } = useAuthFlow();
 
   const [showFollowersModal, setShowFollowersModal] = useState(false);

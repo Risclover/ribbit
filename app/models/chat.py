@@ -1,4 +1,4 @@
-from .db import db
+from app.extensions import db
 from flask_login import current_user
 
 user_chat_threads = db.Table('user_chat_threads',

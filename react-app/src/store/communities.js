@@ -1,4 +1,3 @@
-// store/communities.js
 /* ------------------------- ACTIONS ------------------------- */
 
 const LOAD_COMMUNITIES = "communities/LOAD";

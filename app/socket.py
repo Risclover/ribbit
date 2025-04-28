@@ -1,5 +1,6 @@
 from flask_socketio import SocketIO, emit, join_room, leave_room
-from app.models import db, User, ChatMessage, Reaction
+from app.extensions import db
+from app.models import User, ChatMessage, Reaction
 from flask_login import current_user
 from flask import request
 import os

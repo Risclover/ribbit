@@ -1,6 +1,8 @@
 # app/seeds/subscriptions.py
 from sqlalchemy import text
-from app.models import db, User, Community
+from app.models import User, Community
+from app.extensions import db
+
 
 
 def seed_subscriptions() -> None:

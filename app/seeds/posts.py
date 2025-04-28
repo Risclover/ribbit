@@ -1,6 +1,8 @@
 import random
 from datetime import datetime, timedelta
-from app.models import db, Post, User, Community
+from app.models import Post, User, Community
+from app.extensions import db
+
 
 def generate_relative_timestamp(author_timestamp, community_timestamp, max_days_ago=7):
     """

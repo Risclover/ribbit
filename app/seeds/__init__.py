@@ -9,7 +9,7 @@ from .subscriptions import seed_subscriptions, undo_subscriptions
 from .postvotes import seed_postvotes, undo_postvotes
 from .community_settings import seed_community_settings, undo_community_settings
 from .commentvotes import seed_commentvotes, undo_commentvotes
-from app.models.db import db
+from app.extensions import db
 
 seed_commands = AppGroup('seed')
 

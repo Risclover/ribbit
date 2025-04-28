@@ -1,6 +1,8 @@
 from flask import Blueprint
 from flask_login import login_required, current_user
-from app.models import db, Notification, Comment, Message, User
+from app.models import Notification, Comment, Message, User
+from app.extensions import db
+
 
 notification_routes = Blueprint("notifications", __name__)
 

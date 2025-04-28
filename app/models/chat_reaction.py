@@ -1,4 +1,4 @@
-from .db import db
+from app.extensions import db
 
 class Reaction(db.Model):
     __tablename__ = "chat_reactions"

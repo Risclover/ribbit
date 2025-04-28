@@ -1,5 +1,7 @@
 import random
-from app.models import db, CommentVote, Comment, User
+from app.models import CommentVote, Comment, User
+from app.extensions import db
+
 
 def seed_commentvotes():
     # Gather existing Comments and Users

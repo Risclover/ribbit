@@ -9,6 +9,9 @@ const LOAD_COMMUNITY_POSTS = "posts/LOAD_COMMUNITY_POSTS";
 const ADD_POST_VOTE = "posts/CREATE_VOTE";
 const REMOVE_POST_VOTE = "posts/REMOVE_VOTE";
 const UPDATE_VIEWED_POSTS = "posts/UPDATE_VIEWED_POSTS";
+const APPEND_POSTS = "posts/APPEND";
+
+export const appendPosts = (posts) => ({ type: APPEND_POSTS, posts });
 
 export const loadPosts = (posts) => {
   return {
@@ -78,10 +81,6 @@ export const getPostsByCommunityId = (communityId) => (state) =>
 
 export const getPosts = () => async (dispatch) => {
   const response = await fetch("/api/posts");
-  if (response.status === 404) {
-    navigate("/404");
-    return;
-  }
   if (response.ok) {
     const posts = await response.json();
     dispatch(loadPosts(posts));
@@ -313,8 +312,15 @@ const initialState = {};
 
 export default function postsReducer(state = initialState, action) {
   switch (action.type) {
+    case APPEND_POSTS: {
+      const newState = { ...state };
+      action.posts.forEach((p) => {
+        newState[p.id] = p;
+      });
+      return newState;
+    }
     case CREATE_POST:
-      return { ...state, [action.posts.id]: action.posts };
+      return { ...state, [action.post.id]: action.post };
     case LOAD_POSTS:
       if (action.posts && action.posts.Posts) {
         return action.posts.Posts.reduce((posts, post) => {
@@ -347,7 +353,7 @@ export default function postsReducer(state = initialState, action) {
     case REMOVE_POST_VOTE:
       return { ...state, [action.post.id]: action.post };
     case UPDATE_VIEWED_POSTS:
-      return action.post.viewedPosts;
+      return action.viewedPosts;
     default:
       return state;
   }

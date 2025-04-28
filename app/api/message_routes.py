@@ -1,6 +1,8 @@
 from flask import Blueprint
 from flask_login import current_user
-from app.models import db, User, Message
+from app.models import User, Message
+from app.extensions import db
+
 
 message_routes = Blueprint("messages", __name__)
 

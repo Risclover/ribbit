@@ -1,5 +1,7 @@
 from flask import Blueprint, request
-from app.models import db, CommunitySettings, Community
+from app.models import CommunitySettings, Community
+from app.extensions import db
+
 
 community_settings_routes = Blueprint("community_settings", __name__)
 

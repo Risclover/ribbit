@@ -1,5 +1,6 @@
 import random
-from app.models import db, Comment, Post, User
+from app.models import Comment, Post, User
+from app.extensions import db
 from datetime import datetime, timedelta
 
 def generate_comment_timestamp(author_created_at, parent_timestamp, max_delay_hours=72):

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
 import { CommentKarmaBar } from "./CommentKarmaBar";
@@ -23,9 +23,10 @@ export function CommentBtnBar({
   setShowReplyForm,
 }) {
   const currentUser = useSelector((state) => state.session.user);
+  const post = useSelector((state) => state.posts[postId]);
   const isAuthor = comment?.commentAuthor?.id === currentUser?.id;
 
-  const isCommunityOwner = comment?.commentAuthor?.id === currentUser?.id;
+  const isCommunityOwner = post.communityOwnerId === currentUser?.id;
   const canEditOrDelete = isAuthor || isCommunityOwner;
 
   const {

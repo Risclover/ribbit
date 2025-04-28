@@ -129,9 +129,7 @@ export function SinglePostButtonBar({
           <i className="fa-regular fa-message"></i>{" "}
           <span className="single-post-comments-num">
             {post?.commentNum || 0}{" "}
-            {post && Object.values(post?.postComments).length === 1
-              ? "Comment"
-              : "Comments"}
+            {post && post?.commentNum === 1 ? "Comment" : "Comments"}
           </span>
         </button>
       </div>
