@@ -27,7 +27,7 @@ export function CompactPostFormat({ id, isPage, post }) {
   const user = useSelector((state) => state.session.user);
 
   const community = useSelector(
-    (state) => state.communities[post?.communityId]
+    (state) => state.communities[post?.community.id]
   );
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
@@ -85,11 +85,11 @@ export function CompactPostFormat({ id, isPage, post }) {
                       ? commentNum + " comment"
                       : commentNum + " comments"}
                     <span className="single-post-dot-spacer">•</span>
-                    c/{post?.communityName} Posted by{" "}
+                    c/{post?.community.name} Posted by{" "}
                     <Username
                       community={community}
-                      username={post?.postAuthor?.username}
-                      user={post?.postAuthor}
+                      username={post?.author?.username}
+                      user={post?.author}
                       source="singlepost"
                     />
                   </div>
@@ -101,10 +101,10 @@ export function CompactPostFormat({ id, isPage, post }) {
                           onClick={(e) => {
                             e.stopPropagation();
                             e.preventDefault();
-                            history.push(`/c/${post?.communityName}`);
+                            history.push(`/c/${post?.community.name}`);
                           }}
                         >
-                          c/{post?.communityName}{" "}
+                          c/{post?.community.name}{" "}
                         </span>
                         <span className="single-post-dot-spacer">•</span>
                       </>
@@ -112,8 +112,8 @@ export function CompactPostFormat({ id, isPage, post }) {
                     Posted by
                     <Username
                       community={community}
-                      username={post?.postAuthor?.username}
-                      user={post?.postAuthor}
+                      username={post?.author?.username}
+                      user={post?.author}
                       source="singlepost"
                     />
                     <span className="post-time">

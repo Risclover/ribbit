@@ -25,28 +25,29 @@ export function CommunityDetails({ post, community }) {
 
   const { checked, setChecked } = useCommunitySettings(community);
   const [subscribed, setSubscribed] = useState(
-    subscriptions[post?.communityId] || subscriptions[community?.id]
+    subscriptions[post?.community.id] || subscriptions[community?.id]
   );
   const [subscribeBtnText, setSubscribeBtnText] = useState("Leave");
-
-  const members = post?.communityMembers || community?.members || 0;
+  const communities = useSelector((state) => Object.values(state.communities));
+  const communityId = post.community.id;
+  const members = communities[communityId].members || community?.members || 0;
 
   useEffect(() => {
     setSubscribed(
-      subscriptions[post?.communityId] || subscriptions[community?.id]
+      subscriptions[post?.community.id] || subscriptions[community?.id]
     );
   }, [post, community]);
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    await dispatch(addToSubscriptions(post?.communityId));
+    await dispatch(addToSubscriptions(post?.community.id));
     setSubscribed(true);
     dispatch(getSubscriptions());
   };
 
   const handleUnsubscribe = async (e) => {
     e.preventDefault();
-    await dispatch(deleteSubscription(post?.communityId));
+    await dispatch(deleteSubscription(post?.community.id));
     setSubscribed(false);
   };
 
@@ -58,26 +59,27 @@ export function CommunityDetails({ post, community }) {
           <CommunityImg
             imgSrc={
               post !== null
-                ? post?.communitySettings[post?.communityId]?.communityIcon
+                ? communities[communityId].communitySettings[communityId]
+                    ?.communityIcon
                 : community?.communitySettings?.[community?.id]?.communityIcon
             }
             imgAlt="Community"
             imgClass="single-post-community-info-img"
           />
           <NavLink
-            to={`/c/${post !== null ? post?.communityName : community?.name}`}
+            to={`/c/${post !== null ? post?.community.name : community?.name}`}
           >
-            c/{post?.communityName || community?.name}
+            c/{post?.community.name || community?.name}
           </NavLink>
         </div>
         <div className="single-post-community-description">
-          {post?.communityDesc || community?.description}
+          {communities[communityId].description || community?.description}
         </div>
         <div className="single-post-community-date">
           <span className="community-cake-icon">
             <CakeIcon />
           </span>
-          Created {moment(post?.communityDate).format("MMM DD, YYYY")}
+          Created {communities[communityId].createdAt.format("MMM DD, YYYY")}
         </div>
         <div className="community-page-box-members">
           <h2>{members}</h2>

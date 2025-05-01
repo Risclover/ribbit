@@ -44,7 +44,7 @@ export const CommentSearch = ({
           className="comment-search-input"
           onKeyPress={(e) => e.key === "Enter" && handleEnter(e)}
         />
-        {searchValue.length > 0 && (
+        {searchValue?.length > 0 && (
           <button
             aria-label="Close"
             className="comment-search-dismiss"

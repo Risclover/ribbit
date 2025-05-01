@@ -65,10 +65,8 @@ const RecentlyViewedPost = ({ post, idx }) => {
               {post?.votes}{" "}
               {post?.votes === 1 || post?.votes === -1 ? "point" : "points"}
               <span className="recent-post-dot-spacer"></span>
-              {Object.values(post?.postComments)?.length || 0}{" "}
-              {Object.values(post?.postComments)?.length === 1
-                ? "comment"
-                : "comments"}
+              {Object.values(post?.commentNum) || 0}{" "}
+              {Object.values(post?.commentNum) === 1 ? "comment" : "comments"}
               <span className="recent-post-dot-spacer"></span>
               {moment(post?.createdAt).locale("en-cust").fromNow()}
             </div>

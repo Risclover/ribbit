@@ -47,7 +47,7 @@ class CommunitySettings(db.Model):
     link_placeholder_img = db.Column(db.String(255), nullable=True)
     link_placeholder_img_format = db.Column(db.String(10), default="fill", nullable=False)
 
-    settings_of_community = db.relationship("Community", back_populates="community_settings")
+    settings_of_community = db.relationship("Community", back_populates="community_settings", uselist=False)
 
     def to_dict(self):
         return {

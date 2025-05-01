@@ -31,7 +31,7 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
     targetRef,
     inputRef,
     handleNewComment,
-  } = useComments({ post, triggerScroll, setTriggerScroll });
+  } = useComments({ post, triggerScroll, setTriggerScroll }) || {};
 
   return (
     <div className="comments-container">
@@ -78,7 +78,7 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
 
       <div className="all-comments">
         {/* Normal list of sorted comments */}
-        {sortedComments.length > 0 &&
+        {sortedComments?.length > 0 &&
           !specificCommentActive &&
           sortedComments.map((c) => (
             <Comment key={c.id} comment={c} level={1} />
@@ -101,14 +101,14 @@ export function Comments({ post, triggerScroll, setTriggerScroll }) {
         )}
 
         {/* Searching but no nested comments found */}
-        {searchActive && nestedComments.length === 0 && (
+        {searchActive && nestedComments?.length === 0 && (
           <div className="comments-search-no-results">
             <NoResults query={searchQuery} focusSearchBox={focusSearchBox} />
           </div>
         )}
 
         {/* No comments exist at all (and not searching) */}
-        {!searchActive && nestedComments.length === 0 && <NoCommentsMsg />}
+        {!searchActive && nestedComments?.length === 0 && <NoCommentsMsg />}
       </div>
     </div>
   );

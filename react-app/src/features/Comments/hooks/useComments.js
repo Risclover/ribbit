@@ -84,10 +84,6 @@ export function useComments({ post, triggerScroll, setTriggerScroll }) {
     setNewCommentIds((prev) => [...prev, newId]);
   };
 
-  if (!post?.postComments) {
-    return null;
-  }
-
   return {
     specificCommentActive,
     setSpecificCommentActive,

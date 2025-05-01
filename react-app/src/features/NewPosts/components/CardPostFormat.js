@@ -15,7 +15,7 @@ export default function CardPostFormat({
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users?.[cuser?.id]);
   const community = useSelector(
-    (state) => state.communities?.[post?.communityId]
+    (state) => state.communities[post?.community?.id]
   );
   return (
     <div className="card-post-format">

@@ -16,7 +16,8 @@ class Community(db.Model):
     users_who_favorited = db.relationship('User', back_populates='user_favorite_communities', secondary=favorite_communities, lazy="joined")
     community_owner = db.relationship('User', back_populates="user_communities")
     community_rules = db.relationship("Rule", back_populates="rule_of_community", cascade="all, delete")
-    community_settings = db.relationship("CommunitySettings", back_populates="settings_of_community", cascade="all, delete")
+    community_settings = db.relationship("CommunitySettings", back_populates="settings_of_community", cascade="all, delete", uselist=False)
+
 
     def to_dict(self):
         return {

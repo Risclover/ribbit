@@ -4,7 +4,9 @@ import { useCommunitySettings } from "@/features";
 import { SinglePostPage } from "@/pages";
 
 export const PostPopup = ({ post, ref }) => {
-  const community = useSelector((state) => state.communities[post.communityId]);
+  const community = useSelector(
+    (state) => state.communities[post.community.id]
+  );
   useCommunitySettings(community);
 
   return (

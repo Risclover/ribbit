@@ -79,14 +79,31 @@ const updateViewedPosts = (viewedPosts) => ({
 export const getPostsByCommunityId = (communityId) => (state) =>
   state.posts[communityId];
 
-export const getPosts = () => async (dispatch) => {
-  const response = await fetch("/api/posts");
-  if (response.ok) {
-    const posts = await response.json();
-    dispatch(loadPosts(posts));
-    return posts;
-  }
-};
+// export const getPosts = () => async (dispatch) => {
+//   const response = await fetch("/api/posts");
+//   if (response.ok) {
+//     const posts = await response.json();
+//     dispatch(loadPosts(posts));
+//     return posts;
+//   }
+// };
+
+export const getPosts =
+  ({ limit = 25, offset = 0, order = "new" } = {}) =>
+  async (dispatch) => {
+    const params = new URLSearchParams({ limit, offset, order });
+    const response = await fetch(`/api/posts?${params.toString()}`);
+
+    if (response.ok) {
+      const { posts, nextOffset, hasMore } = await response.json();
+      if (offset === 0) dispatch(loadPosts({ Posts: posts }));
+      else dispatch(appendPosts(posts));
+      return { nextOffset, hasMore };
+    }
+
+    // always return something so .then() never gets undefined
+    return { nextOffset: null, hasMore: false };
+  };
 
 export const getFollowedPosts = () => async (dispatch) => {
   const response = await fetch("/api/posts/followed");

@@ -30,7 +30,7 @@ export function UserProfile({ setOpenChat }) {
   const posts = useSelector((state) => Object.values(state.posts));
   const currentUser = useSelector((state) => state.session.user);
 
-  const profilePosts = posts.filter((post) => post.postAuthor.id === +userId);
+  const profilePosts = posts.filter((post) => post?.author?.id === +userId);
 
   useEffect(() => {
     if (posts.length === 0) dispatch(getPosts());

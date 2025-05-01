@@ -11,7 +11,7 @@ import {
 export function CommunityPageMain({ community }) {
   const posts = useSelector((state) => Object.values(state.posts));
   const communityPosts = posts.filter(
-    (post) => post.communityId === community.id
+    (post) => post.community.id === community.id
   );
   const user = useSelector((state) => state.session.user);
 

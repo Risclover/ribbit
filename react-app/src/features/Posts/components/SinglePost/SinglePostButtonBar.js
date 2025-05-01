@@ -64,7 +64,7 @@ export function SinglePostButtonBar({
           <i className="fa-regular fa-message"></i>{" "}
           <span className="single-post-comments-num">
             {post?.commentNum || 0}{" "}
-            {post && Object.values(post?.postComments).length === 1
+            {post && Object.values(post?.commentNum) === 1
               ? "Comment"
               : "Comments"}
           </span>
@@ -93,9 +93,7 @@ export function SinglePostButtonBar({
       </div>
 
       {user &&
-        (isCommunityOwner ||
-          user.id === post.postAuthor?.id ||
-          user?.id === 1) && (
+        (isCommunityOwner || user.id === post.author?.id || user?.id === 1) && (
           <div className="logged-in-btns">
             <div className="single-post-button">
               {post?.imgUrl === null && post?.linkUrl === null && (
@@ -106,7 +104,7 @@ export function SinglePostButtonBar({
               )}
             </div>
 
-            {(isCommunityOwner || user.id === post.postAuthor?.id) && (
+            {(isCommunityOwner || user.id === post.author?.id) && (
               <div className="single-post-button">
                 <DeletePostModal
                   post={post}

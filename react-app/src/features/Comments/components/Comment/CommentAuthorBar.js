@@ -15,8 +15,8 @@ export function CommentAuthorBar({ comment }) {
   const commentTime = convertTime(comment);
   const wasEdited = comment?.createdAt !== comment?.updatedAt;
 
-  const isOP = post?.postAuthor?.username === comment?.commentAuthor?.username;
-  const isMOD = comment?.userId === communities[post?.communityId]?.userId;
+  const isOP = post?.author?.username === comment?.commentAuthor?.username;
+  const isMOD = comment?.userId === communities[post?.community.id]?.userId;
 
   return (
     <div className="comment-author-bar-container">

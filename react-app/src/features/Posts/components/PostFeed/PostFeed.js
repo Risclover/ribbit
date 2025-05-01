@@ -29,9 +29,9 @@ export const PostFeed = ({
   const [isLoading, setIsLoading] = useState(true);
 
   // ─────────── keep your pagination / load-more state untouched ────────
-  const [page, setPage]             = useState(1);
+  const [page, setPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(0);
-  const [loading, setLoading]       = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { format } = useContext(PostFormatContext);
 
@@ -42,16 +42,19 @@ export const PostFeed = ({
     let cancelled = false;
 
     const fetchPosts = async () => {
-      setIsLoading(true);                 // skeletons visible immediately
+      setIsLoading(true); // skeletons visible immediately
       try {
-        await dispatch(getPosts());       // wait for thunk to resolve
+        await dispatch(getPosts({ limit: 25, offset: (page - 1) * 25 }));
+        // wait for thunk to resolve
       } finally {
         if (!cancelled) setIsLoading(false);
       }
     };
 
     fetchPosts();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [dispatch]);
 
   // 🔴———————  THIS useEffect was causing the bug  ————————🔴

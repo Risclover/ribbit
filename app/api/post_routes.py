@@ -9,34 +9,55 @@ from sqlalchemy.orm import selectinload, load_only
 
 post_routes = Blueprint("posts", __name__)
 
-# @post_routes.route("")
-# def get_posts():
-#     page  = request.args.get("page", 1,  type=int)
-#     limit = request.args.get("limit", 25, type=int)
-
-#     q = (Post.query
-#          .options(
-#              selectinload(Post.post_author).load_only("id", "username"),
-#              selectinload(Post.post_community).load_only("id", "name"),
-#              selectinload(Post.users_who_liked)   # just for myVote
-#          )
-#          .order_by(Post.created_at.desc()))
-
-#     paged = q.paginate(page=page, per_page=limit, error_out=False)
-
-#     uid = current_user.get_id() if current_user.is_authenticated else None
-#     return {
-#         "posts": [p.to_dict() for p in paged.items],
-#         "next":  paged.next_num if paged.has_next else None,
-#     }
-# GET ALL POSTS:
+# GET ALL POSTS
 @post_routes.route("")
 def get_posts():
     """
-    Query for all posts and returns them in a list of post dictionaries.
+    Fast, paginated feed:
+
+    • limit   – how many to return   (default 25, max 100)
+    • offset  – how many to skip     (default 0)
+    • order   – 'new' | 'top'
     """
-    posts = Post.query.all()
-    return {"Posts": [post.to_dict() for post in posts]}
+    limit  = min(int(request.args.get("limit", 25)), 100)
+    offset = int(request.args.get("offset", 0))
+    order  = request.args.get("order", "new")
+
+    qry = Post.query.options(
+        load_only(
+            Post.id,
+            Post.title,
+            Post.img_url,
+            Post.link_url,
+            Post.votes,
+            Post.user_id,
+            Post.community_id,
+            Post.created_at,
+        ),
+        selectinload(Post.post_author).load_only("id", "username", "profile_img"),
+        selectinload(Post.post_community).load_only("id", "name"),
+    )
+
+    if order == "top":
+        qry = qry.order_by(Post.votes.desc(), Post.created_at.desc())
+    else:  # "new"
+        qry = qry.order_by(Post.created_at.desc())
+
+    posts = qry.offset(offset).limit(limit).all()
+    return {
+        "posts": [post.to_feed_dict() for post in posts],
+        "nextOffset": offset + limit,
+        "hasMore": len(posts) == limit,
+    }
+
+# # GET ALL POSTS:
+# @post_routes.route("")
+# def get_posts():
+#     """
+#     Query for all posts and returns them in a list of post dictionaries.
+#     """
+#     posts = Post.query.all()
+#     return {"Posts": [post.to_feed_dict() for post in posts]}
 
 # GET A SINGLE POST:
 @post_routes.route("/<int:id>")
@@ -45,7 +66,7 @@ def get_single_post(id):
     Query for a single post by id and return it as a dictionary.
     """
     post = Post.query.get(id)
-    return post.to_dict()
+    return post.to_feed_dict()
 
 # CREATE A SINGLE POST:
 @post_routes.route("/submit", methods=["POST"])
@@ -68,7 +89,7 @@ def create_post():
 
         db.session.add(new_post)
         db.session.commit()
-        return new_post.to_dict()
+        return new_post.to_feed_dict()
 
     print(form.errors)
 
@@ -99,7 +120,7 @@ def create_image_post():
         db.session.add(new_post)
         db.session.commit()
 
-        return new_post.to_dict()
+        return new_post.to_feed_dict()
     print(form.errors)
 
     user = User.query.get(current_user.get_id())
@@ -132,7 +153,7 @@ def create_link_post():
     db.session.add(new_post)
     db.session.commit()
 
-    return jsonify(new_post.to_dict()), 201
+    return jsonify(new_post.to_feed_dict()), 201
 
 # UPDATE A SINGLE POST
 @post_routes.route("/<int:id>/edit", methods=["PUT"])
@@ -153,8 +174,8 @@ def update_post(id):
         print(data)
 
         db.session.commit()
-        # print(post.to_dict())
-        return post.to_dict()
+        # print(post.to_feed_dict())
+        return post.to_feed_dict()
     print(validation_errors_to_error_messages(form.errors))
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
@@ -176,7 +197,7 @@ def update_image_post(id):
         setattr(post, 'img_url', data['imgUrl'])
 
         db.session.commit()
-        return post.to_dict()
+        return post.to_feed_dict()
 
     print(validation_errors_to_error_messages(form.errors))
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
@@ -204,7 +225,7 @@ def get_community_posts(community_id):
     """
 
     posts = Post.query.filter(Post.community_id == community_id).all()
-    return {"CommunityPosts": [post.to_dict() for post in posts]}
+    return {"CommunityPosts": [post.to_feed_dict() for post in posts]}
 
 # GET POSTS FROM FOLLOWED USERS
 @post_routes.route("/followed")
@@ -217,7 +238,7 @@ def get_followed_posts():
     user = User.query.get(current_user.get_id())
     posts = user.followed_posts()
 
-    return {"Posts": [post.to_dict() for post in posts]}
+    return {"Posts": [post.to_feed_dict() for post in posts]}
 
 # ADD A VOTE
 @post_routes.route('/<int:id>/vote/<votetype>', methods=["POST"])
@@ -246,7 +267,7 @@ def add_vote(id, votetype):
                 post.votes -= 2  # From +1 to -1
             existing_vote.is_upvote = new_is_upvote
             db.session.commit()
-            return jsonify(post.to_dict()), 200
+            return jsonify(post.to_feed_dict()), 200
 
     # Handle vote creation
     if votetype == "upvote":
@@ -263,7 +284,7 @@ def add_vote(id, votetype):
     db.session.add(post_vote)
     db.session.commit()
 
-    return jsonify(post.to_dict()), 201  # Assuming post.to_dict() serializes your post object correctly
+    return jsonify(post.to_feed_dict()), 201  # Assuming post.to_feed_dict() serializes your post object correctly
 
 # DELETE VOTE
 @post_routes.route("/<int:id>/vote", methods=["DELETE"])
@@ -277,7 +298,7 @@ def delete_vote(id):
     post_vote = PostVote.query.filter_by(user_id=user.id, post_id=post.id).first()
     db.session.delete(post_vote)
     db.session.commit()
-    return post.to_dict()
+    return post.to_feed_dict()
 
 # UPLOAD A POST IMG
 @post_routes.route("/images", methods=["POST"])
@@ -314,4 +335,4 @@ def get_post_comments(id):
     post = Post.query.get(id)
     post_comments = post.post_comments
 
-    return {"Comments": comment.to_dict() for comment in post_comments}
+    return {"Comments": comment.to_feed_dict() for comment in post_comments}

@@ -30,7 +30,7 @@ const PostResult = ({ post }) => {
   const handleCommunityClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    history.push(`/c/${post?.communityName}`);
+    history.push(`/c/${post?.community.name}`);
   };
 
   return (
@@ -40,28 +40,28 @@ const PostResult = ({ post }) => {
           imgClass="search-results-post-topbar-img"
           imgStyle={{
             backgroundColor: `${
-              post?.communitySettings[post?.communityId]?.baseColor
+              post?.communitySettings[post?.community.id]?.baseColor
             }`,
           }}
-          imgSrc={post?.communitySettings[post?.communityId]?.communityIcon}
+          imgSrc={post?.communitySettings[post?.community.id]?.communityIcon}
           imgAlt="Community"
           imgClick={handleCommunityClick}
         />
         <div className="results-post-community" onClick={handleCommunityClick}>
-          c/{post?.communityName}
+          c/{post?.community.name}
         </div>{" "}
         <span className="topbar-dot">•</span>{" "}
         <span className="results-topbar-info">
           Posted by{" "}
           <Username
-            username={post?.postAuthor.username}
-            user={post.postAuthor}
-            community={post.communityId}
+            username={post?.author.username}
+            user={post.author}
+            community={post.community.id}
             source="singlepost"
           />
-          {/* <NavLink to={`/users/${post?.postAuthor.id}/profile`}>
+          {/* <NavLink to={`/users/${post?.author.id}/profile`}>
             <span className="results-post-author">
-              u/{post?.postAuthor.username}
+              u/{post?.author.username}
             </span>
           </NavLink>{" "} */}
           {moment(new Date(post?.createdAt)).fromNow()}
@@ -100,10 +100,8 @@ const PostResult = ({ post }) => {
           {post?.votes} {post?.votes === 1 ? "upvote" : "upvotes"}
         </span>
         <span className="search-results-post-stat">
-          {Object.values(post?.postComments).length}{" "}
-          {Object.values(post?.postComments).length === 1
-            ? "comment"
-            : "comments"}
+          {Object.values(post?.commentNum)}{" "}
+          {Object.values(post?.commentNum) === 1 ? "comment" : "comments"}
         </span>
       </div>
     </div>

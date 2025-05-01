@@ -25,6 +25,31 @@ class Post(db.Model):
     users_who_liked = db.relationship("PostVote", back_populates="user_post_vote", cascade="all,delete-orphan")
     post_viewers = db.relationship("ViewedPost", back_populates="post")
 
+    def to_feed_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "content": self.content,
+            "imgUrl": self.img_url,
+            "linkUrl": self.link_url,
+            "votes": len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]]) - len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]]),             # already denormalised
+            "postVoters": {item.to_dict()["userID"]: item.to_dict() for item in self.users_who_liked},
+            "commentNum": len(self.post_comments),
+            "author": {
+                "id":   self.post_author.id,
+                "username": self.post_author.username,
+                "img":  self.post_author.profile_img,
+            },
+            "community": {
+                "id":   self.post_community.id,
+                "name": self.post_community.name,
+                "img": self.post_community.community_settings.community_icon
+
+            },
+            "createdAt": self.created_at.isoformat(),
+        }
+
+
     def to_dict(self):
         return {
             "id": self.id,

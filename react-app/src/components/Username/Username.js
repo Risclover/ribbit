@@ -48,7 +48,7 @@ export function Username({ community, username, user, source }) {
       onMouseLeave={handleMouseLeave}
     >
       <NavLink
-        to={`/users/${user.id}/profile`}
+        to={`/users/${user?.id}/profile`}
         onClick={handleNameClick}
         className="username-component"
       >

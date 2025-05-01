@@ -21,7 +21,7 @@ export default function CompactPostFormat({ id, isPage, post }) {
   const user = useSelector((state) => state.session.user);
 
   const community = useSelector(
-    (state) => state.communities[post?.communityId]
+    (state) => state.communities[post?.community.id]
   );
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
@@ -87,13 +87,13 @@ export default function CompactPostFormat({ id, isPage, post }) {
                     : commentNum + " comments"}
                   <span className="single-post-dot-spacer">•</span>
                   {isPage !== "community" && (
-                    <>{`c/${post?.communityName}`}</>
+                    <>{`c/${post?.community.name}`}</>
                   )}{" "}
                   Posted by{" "}
                   <Username
                     community={community}
-                    username={post?.postAuthor?.username}
-                    user={post?.postAuthor}
+                    username={post?.author?.username}
+                    user={post?.author}
                     source="singlepost"
                   />
                 </div>

@@ -56,7 +56,7 @@ export const usePostButtonHandlers = ({
     await dispatch(getViewedPosts());
 
     if (isPage === "community") {
-      history.push(`/c/${post?.communityName}`);
+      history.push(`/c/${post?.community.name}`);
     } else {
       history.push("/all");
     }

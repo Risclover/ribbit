@@ -35,7 +35,7 @@ export function SinglePostPage() {
   const user = useSelector((state) => state.session.user);
 
   const community = useSelector(
-    (state) => state.communities[post?.communityId]
+    (state) => state.communities[post?.community?.id]
   );
 
   const [scrollToCommentsRequested, setScrollToCommentsRequested] =
@@ -68,19 +68,21 @@ export function SinglePostPage() {
     handleScroll();
   }, [location]);
 
+  useEffect(() => {
+    console.log("community:", post);
+  }, [post]);
+
   usePageSettings({
     documentTitle: post
-      ? post?.title + " : " + post?.communityName
+      ? post?.title + " : " + post?.community?.name
       : "Ribbit - Splash into anything",
     icon:
       post !== undefined ? (
         <CommunityImg
           imgStyle={{
-            backgroundColor: `${
-              post?.communitySettings[post?.communityId].baseColor
-            }`,
+            backgroundColor: `${community?.communitySettings.baseColor}`,
           }}
-          imgSrc={post?.communitySettings[post?.communityId].communityIcon}
+          imgSrc={community?.communitySettings.communityIcon}
           imgClass="nav-left-dropdown-item-icon item-icon-circle"
           imgAlt="Community"
         />
@@ -95,7 +97,7 @@ export function SinglePostPage() {
       ),
     pageTitle:
       post !== undefined ? (
-        `c/${post?.communityName}`
+        `c/${post?.community?.name}`
       ) : (
         <Skeleton
           animation="wave"
@@ -135,7 +137,7 @@ export function SinglePostPage() {
                 className="single-post-page-community-icon"
                 style={{
                   backgroundImage: `url${
-                    community.communitySettings[community?.id].communityIcon
+                    community?.communitySettings[community?.id].communityIcon
                   } no-repeat center`,
                 }}
               >
@@ -146,9 +148,9 @@ export function SinglePostPage() {
                       : "single-post-page-community-icon-larger"
                   }
                   imgSrc={
-                    community.communitySettings[community?.id].communityIcon
+                    community?.communitySettings[community?.id].communityIcon
                   }
-                  imgAlt={"c/" + community.name + " icon"}
+                  imgAlt={"c/" + community?.name + " icon"}
                 />
               </div>
               <span
@@ -157,7 +159,7 @@ export function SinglePostPage() {
                   paddingTop: bannerHeight === "80px" ? "4px" : "14px",
                 }}
               >
-                c/{post?.communityName}
+                c/{post?.community?.name}
               </span>
             </div>
           </div>
@@ -183,7 +185,7 @@ export function SinglePostPage() {
             community={community}
             isPage="singlepage"
           />
-          {Object.values(post?.communityRules).length > 0 && (
+          {Object.values(community?.communityRules).length > 0 && (
             <CommunityRulesBox post={post} />
           )}
           <BackToTop />

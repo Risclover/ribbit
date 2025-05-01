@@ -27,7 +27,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[cuser?.id]);
   const community = useSelector(
-    (state) => state.communities[post?.communityId]
+    (state) => state.communities[post?.community.id]
   );
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
@@ -133,10 +133,10 @@ export function ClassicPostFormat({ isPage, id, post }) {
                         onClick={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
-                          history.push(`/c/${post?.communityName}`);
+                          history.push(`/c/${post?.community.name}`);
                         }}
                       >
-                        c/{post?.communityName}{" "}
+                        c/{post?.community.name}{" "}
                       </span>
                       <span className="single-post-dot-spacer">•</span>
                     </div>
@@ -145,8 +145,8 @@ export function ClassicPostFormat({ isPage, id, post }) {
                     Posted by{" "}
                     <Username
                       community={community}
-                      username={post?.postAuthor?.username}
-                      user={post?.postAuthor}
+                      username={post?.author?.username}
+                      user={post?.author}
                       source="singlepost"
                     />
                     <span className="post-time">
@@ -222,7 +222,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                       <i className="fa-regular fa-message"></i>{" "}
                       <span className="single-post-comments-num">
                         {commentNum}{" "}
-                        {post && Object.values(post?.postComments).length === 1
+                        {post && Object.values(post?.commentNum) === 1
                           ? "Comment"
                           : "Comments"}
                       </span>
@@ -251,8 +251,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
                       </div>
                     )}
                   </div>
-                  {user &&
-                  (user.id === post?.postAuthor.id || isCommunityOwner) ? (
+                  {user && (user.id === post?.author.id || isCommunityOwner) ? (
                     <div className="logged-in-btns">
                       <div className="single-post-button">
                         {post?.imgUrl === null && post?.linkUrl === null && (

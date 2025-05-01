@@ -9,30 +9,29 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
   const handleNavClick = (e) => {
     e.stopPropagation();
   };
+  const community = useSelector(
+    (state) => state.communities[post?.community?.id]
+  );
   return (
     <div className="single-post-author-bar">
       {isPage !== "singlepage" && isPage !== "community" && (
         <div className="single-post-community-info">
           <div className="single-post-community-img">
             <CommunityImg
-              imgSrc={
-                post?.communitySettings?.[post?.communityId]?.communityIcon
-              }
+              imgSrc={community?.communitySettings?.communityIcon}
               imgAlt="Community"
               imgStyle={{
-                backgroundColor: `${
-                  post?.communitySettings?.[post?.communityId]?.baseColor
-                }`,
+                backgroundColor: `${community?.communitySettings?.baseColor}`,
               }}
             />
           </div>
 
           <NavLink
             onClick={handleNavClick}
-            to={`/c/${post?.communityName}`}
+            to={`/c/${post?.community?.name}`}
             className="single-post-community-name"
           >
-            c/{post?.communityName}
+            c/{post?.community?.name}
           </NavLink>
 
           <span className="single-post-dot-spacer">•</span>
@@ -43,8 +42,8 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
         Posted by
         <Username
           community={communityPage}
-          username={post?.postAuthor?.username}
-          user={post?.postAuthor}
+          username={post?.author?.username}
+          user={post?.author}
           source="singlepost"
         />
         <span className="post-time">

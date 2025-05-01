@@ -157,7 +157,7 @@ export function SinglePostButtonBar({
 
       {user &&
         (isCommunityOwner ||
-          user.id === post.postAuthor?.id ||
+          user.id === post.author?.id ||
           user?.id === 1) && (
           <div className="logged-in-btns">
             <div className="single-post-button">
@@ -169,7 +169,7 @@ export function SinglePostButtonBar({
               )}
             </div>
 
-            {(isCommunityOwner || user.id === post.postAuthor?.id) && (
+            {(isCommunityOwner || user.id === post.author?.id) && (
               <div className="single-post-button">
                 <DeletePostModal
                   post={post}

@@ -22,7 +22,7 @@ export default function ClassicPostFormat({ isPage, id, post }) {
   const cuser = useSelector((state) => state.session.user);
   const user = useSelector((state) => state.users[cuser?.id]);
   const community = useSelector(
-    (state) => state.communities[post?.communityId]
+    (state) => state.communities[post?.community.id]
   );
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);

@@ -19,10 +19,12 @@ export function usePosts(isAllPosts) {
 
   useEffect(() => {
     dispatch(getViewedPosts());
-    dispatch(getPosts(page)).then((next) => {
-      nextPage.current = next;
+    dispatch(
+      getPosts({ limit: 25, offset: (page - 1) * 25, order: sortMode })
+    ).then(({ nextOffset, hasMore }) => {
+      nextPage.current = hasMore ? nextOffset / 25 + 1 : null;
     });
-  }, [page, dispatch]);
+  }, [page, sortMode, dispatch]);
 
   const sortedPosts = useMemo(() => {
     let posts = userPosts;

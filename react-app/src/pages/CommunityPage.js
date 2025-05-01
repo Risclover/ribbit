@@ -33,7 +33,7 @@ export function CommunityPage() {
   const community = useSelector((state) => state.communities[communityId]);
   const posts = useSelector((state) => Object.values(state.posts));
   const communityPosts = posts.filter(
-    (post) => post.communityId === community?.id
+    (post) => post.community?.id === community?.id
   );
   const [loading, setLoading] = useState(true);
 
@@ -43,7 +43,9 @@ export function CommunityPage() {
       setLoading(false);
       await dispatch(getCommunitySettings(communityId));
       if (posts.length === 0) {
-        await dispatch(getPosts());
+        await dispatch(
+          getPosts({ limit: 25, offset: nextOffset, order: sortMode })
+        );
       }
     };
     getData();
@@ -61,7 +63,7 @@ export function CommunityPage() {
         id: community?.id,
         name: community?.name,
         icon: community?.communitySettings[community?.id].communityIcon,
-        iconBgColor: community?.communitySettings[community.id].baseColor,
+        iconBgColor: community?.communitySettings[community?.id].baseColor,
       });
 
       if (stored.length > 5) {
@@ -121,14 +123,14 @@ export function CommunityPage() {
         <FeedLeftColContainer>
           <CommunityPosts
             commPosts={communityPosts}
-            communityName={community.name}
+            communityName={community?.name}
             user={user}
           />
         </FeedLeftColContainer>
         <FeedRightColContainer>
           <CommunityInfoBox user={user} community={community} />
 
-          {Object.values(community.communityRules).length > 0 && (
+          {Object.values(community?.communityRules).length > 0 && (
             <CommunityRulesBox community={community} />
           )}
 

@@ -33,7 +33,7 @@ export function PreviewCommunity() {
   const communityId = community?.id;
 
   // Filter posts for this community
-  const commPosts = posts.filter((post) => post.communityId === communityId);
+  const commPosts = posts.filter((post) => post.community.id === communityId);
 
   // Fetch data on mount (and/or when communityName changes)
   useEffect(() => {

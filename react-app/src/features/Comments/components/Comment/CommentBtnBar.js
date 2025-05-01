@@ -25,8 +25,11 @@ export function CommentBtnBar({
   const currentUser = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.posts[postId]);
   const isAuthor = comment?.commentAuthor?.id === currentUser?.id;
+  const communities = useSelector((state) => Object.values(state.communities));
+  const communityId = post.community.id;
 
-  const isCommunityOwner = post.communityOwnerId === currentUser?.id;
+  const isCommunityOwner =
+    communities[communityId].communityOwner.id === currentUser?.id;
   const canEditOrDelete = isAuthor || isCommunityOwner;
 
   const {

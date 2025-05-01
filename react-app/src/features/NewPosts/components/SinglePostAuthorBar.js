@@ -2,6 +2,7 @@ import { CommunityImg, Username } from "@/components";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
 import moment from "moment";
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 
 export default function SinglePostAuthorBar({
@@ -11,9 +12,14 @@ export default function SinglePostAuthorBar({
   format,
 }) {
   const history = useHistory();
+  const community = useSelector(
+    (state) => state.communities[post?.community?.id]
+  );
+
+  console.log("COMMUNITY:", community);
   const handleNavClick = (e) => {
     e.stopPropagation();
-    history.push(`/c/${post?.communityName}`);
+    history.push(`/c/${post?.community?.name}`);
   };
   return (
     <div
@@ -27,12 +33,12 @@ export default function SinglePostAuthorBar({
             {format === "Card" && (
               <CommunityImg
                 imgSrc={
-                  post?.communitySettings?.[post?.communityId]?.communityIcon
+                  community?.communitySettings[community?.id]?.communityIcon
                 }
                 imgAlt="Community"
                 imgStyle={{
                   backgroundColor: `${
-                    post?.communitySettings?.[post?.communityId]?.baseColor
+                    community?.communitySettings[community?.id]?.baseColor
                   }`,
                 }}
               />
@@ -44,7 +50,7 @@ export default function SinglePostAuthorBar({
               onClick={handleNavClick}
               className="single-post-community-name"
             >
-              c/{post?.communityName}
+              c/{post?.community?.name}
             </span>
           )}
 
@@ -56,8 +62,8 @@ export default function SinglePostAuthorBar({
         Posted by
         <Username
           community={communityPage}
-          username={post?.postAuthor?.username}
-          user={post?.postAuthor}
+          username={post?.author?.username}
+          user={post?.author}
           source="singlepost"
         />
         <span className="post-time">
