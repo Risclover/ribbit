@@ -1,0 +1,34 @@
+.post-skeleton-container {
+  display: flex;
+  border: 1px solid red;
+  background: white;
+}
+
+.post-skeleton-main-bottom {
+  display: flex;
+  align-items: center;
+}
+
+.post-skeleton-container .single-post-button-bar {
+  height: 32px;
+  padding-left: 0;
+}
+
+.post-skeleton-container .upvote-btn-grey {
+  width: 24px;
+  height: 24px;
+}
+
+.post-skeleton-container .classic-post-content-body {
+  margin-top: -8px;
+}
+
+.post-skeleton-container .post-btn-separator {
+  margin: 8px;
+}
+
+.post-skeleton-container .single-post-karmabar {
+  height: 100%;
+  justify-content: space-between;
+  background: var(--ribbit-main);
+}

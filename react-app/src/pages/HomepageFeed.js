@@ -34,7 +34,6 @@ export function HomepageFeed() {
     <FeedContainer>
       <FeedLeftColContainer>
         <CreatePostBar />
-        <NoPostsMessage sortedPosts={sortedPosts} />
         {sortedPosts && sortedPosts.length > 0 && (
           <PostFeed
             isPage="feedpage"

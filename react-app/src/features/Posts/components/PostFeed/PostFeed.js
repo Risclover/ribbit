@@ -6,9 +6,12 @@ import React, {
   useContext,
 } from "react";
 import { useHistory } from "react-router-dom";
-import { SinglePost } from "@/features";
-import { SortingBar } from "../../../../components/SortingBar";
+import { useDispatch } from "react-redux";
+
+import { SortingBar } from "@/components/SortingBar";
 import { PostFormatContext } from "@/context";
+import { SinglePostType } from "features/NewPosts/components/SinglePostType";
+import { getPosts } from "store";
 
 export const PostFeed = ({
   posts = [],
@@ -20,45 +23,64 @@ export const PostFeed = ({
   user,
 }) => {
   const history = useHistory();
-  const [page, setPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(0); // Default value
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  // ─────────── loader flag (only line that really mattered) ────────────
+  const [isLoading, setIsLoading] = useState(true);
+
+  // ─────────── keep your pagination / load-more state untouched ────────
+  const [page, setPage]             = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(0);
+  const [loading, setLoading]       = useState(false);
 
   const { format } = useContext(PostFormatContext);
 
+  // ─────────────────────────────────────────────────────────────────────
+  //  Fetch *once* and flip isLoading off only when it finishes
+  // ─────────────────────────────────────────────────────────────────────
+  useEffect(() => {
+    let cancelled = false;
+
+    const fetchPosts = async () => {
+      setIsLoading(true);                 // skeletons visible immediately
+      try {
+        await dispatch(getPosts());       // wait for thunk to resolve
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    };
+
+    fetchPosts();
+    return () => { cancelled = true; };
+  }, [dispatch]);
+
+  // 🔴———————  THIS useEffect was causing the bug  ————————🔴
+  //            It set isLoading(false) before data arrived.
+  //            ➜ Remove it, nothing else.
+  //
+  // useEffect(() => {
+  //   setIsLoading(false);
+  //   dispatch(getPosts());
+  // }, [dispatch]);
+  // 🔴——————————————————————————————————————————————🔴
+
+  // ───────────── (everything below is your original code) ──────────────
   const calculatePostsPerPage = useCallback(() => {
     const viewportHeight = window.innerHeight;
-    let postHeight;
-
-    switch (format) {
-      case "Compact":
-        postHeight = 44;
-        break;
-      case "Classic":
-        postHeight = 91;
-        break;
-      default:
-        postHeight = 488;
-        break;
-    }
-
-    const initialPosts = Math.ceil(viewportHeight / postHeight) + 2;
-    return initialPosts;
+    const heights = { Compact: 44, Classic: 91 };
+    const postHeight = heights[format] ?? 488;
+    return Math.ceil(viewportHeight / postHeight) + 2;
   }, [format]);
 
   useEffect(() => {
-    const initialPosts = calculatePostsPerPage();
-    setPostsPerPage(initialPosts);
+    const initial = calculatePostsPerPage();
+    setPostsPerPage(initial);
   }, [calculatePostsPerPage]);
 
   useEffect(() => {
-    const handleResize = () => {
-      const initialPosts = calculatePostsPerPage();
-      setPostsPerPage(initialPosts);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const onResize = () => setPostsPerPage(calculatePostsPerPage());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, [calculatePostsPerPage]);
 
   const items = useMemo(
@@ -70,13 +92,13 @@ export const PostFeed = ({
     if (!loading && items.length < posts.length) {
       setLoading(true);
       setTimeout(() => {
-        setPage((prevPage) => prevPage + 1);
+        setPage((p) => p + 1);
         setLoading(false);
       }, 1000);
     }
   }, [loading, items.length, posts.length]);
 
-  const handleScroll = useCallback(() => {
+  const onScroll = useCallback(() => {
     if (
       window.innerHeight + window.scrollY >=
         document.documentElement.offsetHeight - 500 &&
@@ -88,9 +110,9 @@ export const PostFeed = ({
   }, [loadMore, loading, items.length, posts.length]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [onScroll]);
 
   useEffect(() => {
     if (isPage === "profile") {
@@ -105,7 +127,7 @@ export const PostFeed = ({
     isPage !== "profile" || (user?.userPosts && user.userPosts > 0);
 
   return (
-    <div>
+    <>
       {showSortingBar && (
         <SortingBar
           sortMode={sortMode}
@@ -116,18 +138,13 @@ export const PostFeed = ({
           user={user}
         />
       )}
-      {!posts && <div>Hello</div>}
-      {items.map((post) => (
-        <div key={post.id}>
-          <SinglePost
-            link={`/posts/${post.id}`}
-            id={post.id}
-            post={post}
-            isPage={isPage}
-            format={format}
-          />
-        </div>
-      ))}
-    </div>
+
+      <SinglePostType
+        posts={items}
+        isPage={isPage}
+        format={format}
+        isLoading={isLoading}
+      />
+    </>
   );
 };

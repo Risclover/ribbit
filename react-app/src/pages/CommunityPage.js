@@ -106,9 +106,9 @@ export function CommunityPage() {
         />
       ),
   });
-  if (loading) {
-    return <div>Loading...</div>; // You can show a loading spinner here
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>; // You can show a loading spinner here
+  // }
   if (!community) {
     return <Redirect to="/404" />;
   }
