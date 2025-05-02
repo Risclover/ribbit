@@ -80,9 +80,11 @@ export function SinglePostPage() {
       post !== undefined ? (
         <CommunityImg
           imgStyle={{
-            backgroundColor: `${community?.communitySettings.baseColor}`,
+            backgroundColor: `${
+              community?.communitySettings[community?.id]?.baseColor
+            }`,
           }}
-          imgSrc={community?.communitySettings.communityIcon}
+          imgSrc={post?.community?.img}
           imgClass="nav-left-dropdown-item-icon item-icon-circle"
           imgAlt="Community"
         />

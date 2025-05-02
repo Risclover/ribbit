@@ -57,7 +57,7 @@ button {
   border: 1px solid var(--highlight-color);
 }
 
-button:disabled {
+button:disabled:not(.comment-vote-btns button) {
   cursor: not-allowed;
   filter: grayscale(1);
   background: #3293db;

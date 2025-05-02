@@ -1,5 +1,11 @@
+from sqlalchemy.orm.collections import InstrumentedList   # ← add this
+
 from app.extensions import db
 
+def _first_or_none(value):
+    if isinstance(value, (list, InstrumentedList)):
+        return value[0] if value else None
+    return value
 
 ################
 # POST MODEL:
@@ -26,6 +32,10 @@ class Post(db.Model):
     post_viewers = db.relationship("ViewedPost", back_populates="post")
 
     def to_feed_dict(self):
+        settings_obj = (
+            _first_or_none(self.post_community.community_settings)
+            if self.post_community else None
+        )
         return {
             "id": self.id,
             "title": self.title,
@@ -43,7 +53,7 @@ class Post(db.Model):
             "community": {
                 "id":   self.post_community.id,
                 "name": self.post_community.name,
-                "img": self.post_community.community_settings.community_icon
+                "img":  settings_obj.community_icon if settings_obj else None
 
             },
             "createdAt": self.created_at.isoformat(),
@@ -51,6 +61,10 @@ class Post(db.Model):
 
 
     def to_dict(self):
+        settings_obj = (
+            _first_or_none(self.post_community.community_settings)
+            if self.post_community else None
+        )
         return {
             "id": self.id,
             "userId": self.user_id,
@@ -72,7 +86,7 @@ class Post(db.Model):
 
             "communityDate": self.post_community.created_at if self.post_community else None,
 
-            "communitySettings": {item.to_dict()["id"]: item.to_dict() for item in (self.post_community.community_settings if self.post_community else [])},
+            "communitySettings": settings_obj.to_dict() if settings_obj else {},
 
             "createdAt": self.created_at,
             "updatedAt": self.updated_at,

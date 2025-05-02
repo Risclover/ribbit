@@ -16,7 +16,6 @@ export default function SinglePostAuthorBar({
     (state) => state.communities[post?.community?.id]
   );
 
-  console.log("COMMUNITY:", community);
   const handleNavClick = (e) => {
     e.stopPropagation();
     history.push(`/c/${post?.community?.name}`);
@@ -32,9 +31,7 @@ export default function SinglePostAuthorBar({
           <div className="single-post-community-img">
             {format === "Card" && (
               <CommunityImg
-                imgSrc={
-                  community?.communitySettings[community?.id]?.communityIcon
-                }
+                imgSrc={post?.community.img}
                 imgAlt="Community"
                 imgStyle={{
                   backgroundColor: `${

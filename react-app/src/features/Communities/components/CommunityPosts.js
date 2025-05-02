@@ -16,16 +16,7 @@ export function CommunityPosts({ commPosts, communityName, user }) {
     <div>
       {user && <CreatePostBar isCommunityPage communityName={communityName} />}
 
-      <PostFeed
-        setSortMode={setSortMode}
-        community={communityName}
-        e
-        posts={posts}
-        sortMode={sortMode}
-        isPage="community"
-      />
-
-      {commPosts.length === 0 && (
+      {commPosts.length === 0 ? (
         <div className="community-no-posts-container">
           <div className="community-no-posts-div"></div>
           <div className="community-no-posts-notice">
@@ -49,6 +40,14 @@ export function CommunityPosts({ commPosts, communityName, user }) {
             </div>
           </div>
         </div>
+      ) : (
+        <PostFeed
+          setSortMode={setSortMode}
+          community={communityName}
+          posts={posts}
+          sortMode={sortMode}
+          isPage="community"
+        />
       )}
     </div>
   );

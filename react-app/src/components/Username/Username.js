@@ -5,7 +5,7 @@ import { UsernamePopup } from "./UsernamePopup";
 import "./Username.css";
 import { usePopup } from "@/context";
 
-export function Username({ community, username, user, source }) {
+export function Username({ community, username, user, source, disabled }) {
   const users = useSelector((state) => Object.values(state.users));
   const currentUser = useSelector((state) => state.session.user);
 
@@ -43,19 +43,24 @@ export function Username({ community, username, user, source }) {
 
   return (
     <div
-      className="username-component-wrapper"
+      className={`username-component-wrapper${disabled && " disabled"}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <NavLink
-        to={`/users/${user?.id}/profile`}
-        onClick={handleNameClick}
-        className="username-component"
-      >
-        {source === "singlepost" ? "u/" + username : username}
-      </NavLink>
+      {!disabled && (
+        <NavLink
+          to={`/users/${user?.id}/profile`}
+          onClick={handleNameClick}
+          className="username-component"
+        >
+          {source === "singlepost" ? "u/" + username : username}
+        </NavLink>
+      )}
+      {disabled && username}
 
-      {showPopup && <UsernamePopup community={community} user={foundUser} />}
+      {showPopup && !disabled && (
+        <UsernamePopup community={community} user={foundUser} />
+      )}
     </div>
   );
 }

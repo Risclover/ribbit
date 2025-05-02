@@ -130,19 +130,33 @@ def update_comment(id):
     return {"errors": validation_errors_to_error_messages(form.errors)}, 403
 
 
-# DELETE A COMMENT BY ID:
+# # DELETE A COMMENT BY ID:
+# @comment_routes.route('/<int:id>', methods=['DELETE'])
+# @login_required
+# def delete_comment(id):
+#     """
+#     Query for a logged-in user to delete a comment on a post.
+#     """
+
+#     comment = Comment.query.get(id)
+#     db.session.delete(comment)
+#     db.session.commit()
+#     return {"message": "Successfully deleted", "status_code": 200}
+
 @comment_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_comment(id):
     """
-    Query for a logged-in user to delete a comment on a post.
+    Soft-delete: replace author & content with '[deleted]'.
     """
-
     comment = Comment.query.get(id)
-    db.session.delete(comment)
-    db.session.commit()
-    return {"message": "Successfully deleted", "status_code": 200}
 
+    comment.content     = ""          # keep the bytes short in the DB
+    comment.is_deleted  = True
+    comment.updated_at  = datetime.now(timezone.utc)
+    db.session.commit()
+
+    return comment.to_dict()
 
 
 

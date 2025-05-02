@@ -25,7 +25,7 @@ export function CommentBtnBar({
   const currentUser = useSelector((state) => state.session.user);
   const post = useSelector((state) => state.posts[postId]);
   const isAuthor = comment?.commentAuthor?.id === currentUser?.id;
-  const communities = useSelector((state) => Object.values(state.communities));
+  const communities = useSelector((state) => state.communities);
   const communityId = post.community.id;
 
   const isCommunityOwner =
@@ -40,7 +40,7 @@ export function CommentBtnBar({
     handleDeleteClick,
     handleReplyClick,
     handleEditClick,
-  } = useCommentBtnBar({ comment, setShowReplyForm });
+  } = useCommentBtnBar({ comment, setShowReplyForm, post, setCommentContent });
 
   if (collapsed) {
     return null;
@@ -51,66 +51,69 @@ export function CommentBtnBar({
       <div className="comment-btns">
         {/* Comment's voting arrows */}
         <CommentKarmaBar comment={comment} />
-        <div className="comment-owner-btns">
-          {/* Reply button */}
-          <button onClick={handleReplyClick}>
-            <i className="fa-regular fa-message"></i>
-            Reply
-          </button>
-          {/* Only show buttons if user is a) the comment's author, or b) the community's owner */}
-          {canEditOrDelete && (
-            <>
-              {/* Edit button */}
-              <button aria-label="Edit comment" onClick={handleEditClick}>
-                <PencilIcon />
-                Edit
-              </button>
+        {!comment?.isDeleted && (
+          <div className="comment-owner-btns">
+            {/* Reply button */}
+            <button onClick={handleReplyClick} disabled={comment?.isDeleted}>
+              <i className="fa-regular fa-message"></i>
+              Reply
+            </button>
+            {/* Only show buttons if user is a) the comment's author, or b) the community's owner */}
+            {canEditOrDelete && (
+              <>
+                {/* Edit button */}
+                <button aria-label="Edit comment" onClick={handleEditClick}>
+                  <PencilIcon />
+                  Edit
+                </button>
 
-              {/* Edit Modal */}
-              {isEditModalOpen && (
-                <Modal
-                  close={isEditModalOpen}
-                  onClose={() => setIsEditModalOpen(false)}
-                  title="Edit Comment"
+                {/* Edit Modal */}
+                {isEditModalOpen && (
+                  <Modal
+                    close={isEditModalOpen}
+                    onClose={() => setIsEditModalOpen(false)}
+                    title="Edit Comment"
+                  >
+                    <EditComment
+                      comment={comment}
+                      postId={postId}
+                      setShowEditCommentModal={setIsEditModalOpen}
+                      showEditCommentModal={isEditModalOpen}
+                      setCommentContent={setCommentContent}
+                    />
+                  </Modal>
+                )}
+
+                {/* Delete button */}
+                <button
+                  aria-label="Delete"
+                  onClick={() => setIsDeleteModalOpen(true)}
+                  disabled={comment?.isDeleted}
                 >
-                  <EditComment
-                    comment={comment}
-                    postId={postId}
-                    setShowEditCommentModal={setIsEditModalOpen}
-                    showEditCommentModal={isEditModalOpen}
-                    setCommentContent={setCommentContent}
-                  />
-                </Modal>
-              )}
+                  <TrashIcon />
+                  Delete
+                </button>
 
-              {/* Delete button */}
-              <button
-                aria-label="Delete"
-                onClick={() => setIsDeleteModalOpen(true)}
-              >
-                <TrashIcon />
-                Delete
-              </button>
-
-              {/* Delete Modal */}
-              {isDeleteModalOpen && (
-                <Modal
-                  close={isDeleteModalOpen}
-                  onClose={() => setIsDeleteModalOpen(false)}
-                  title="Delete Comment"
-                >
-                  <DeleteConfirmationModal
-                    setShowDeleteModal={setIsDeleteModalOpen}
-                    showDeleteModal={isDeleteModalOpen}
-                    commentId={comment?.id}
-                    handleDelete={handleDeleteClick}
-                    item="comment"
-                  />
-                </Modal>
-              )}
-            </>
-          )}
-        </div>
+                {/* Delete Modal */}
+                {isDeleteModalOpen && (
+                  <Modal
+                    close={isDeleteModalOpen}
+                    onClose={() => setIsDeleteModalOpen(false)}
+                    title="Delete Comment"
+                  >
+                    <DeleteConfirmationModal
+                      setShowDeleteModal={setIsDeleteModalOpen}
+                      showDeleteModal={isDeleteModalOpen}
+                      commentId={comment?.id}
+                      handleDelete={handleDeleteClick}
+                      item="comment"
+                    />
+                  </Modal>
+                )}
+              </>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

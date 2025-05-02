@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import { CommentAuthorBar } from "./CommentAuthorBar";
@@ -8,6 +8,7 @@ import { CommentThreadlines } from "./CommentThreadlines";
 import { CommentReplyForm } from "../CommentForms/CommentReplyForm";
 import { useComment } from "../../hooks/useComment";
 import "./Comment.css";
+import { useDarkMode } from "hooks";
 
 /**
  * A single comment
@@ -15,6 +16,7 @@ import "./Comment.css";
  * - level: this comment's comment tree level (1 = parentmost comment)
  */
 export function Comment({ comment, level = 1 }) {
+  const { theme } = useDarkMode();
   if (!comment) {
     console.error("Comment component: comment is undefined");
     return null;
@@ -29,7 +31,7 @@ export function Comment({ comment, level = 1 }) {
     commentContent,
     setCommentContent,
     highlight,
-  } = useComment(comment);
+  } = useComment({ comment });
 
   // Render child comments
   const { children = [] } = comment;
@@ -59,20 +61,39 @@ export function Comment({ comment, level = 1 }) {
           <BsArrowsAngleExpand />
         </button>
         {/* User image */}
-        <NavLink
-          className="comment-user-img-container"
-          to={`/users/${comment?.commentAuthor?.id}/profile`}
-        >
-          <div
-            className="comment-user-img"
-            style={{
-              backgroundImage: `url(${comment?.commentAuthor?.profileImg})`,
-              backgroundRepeat: "no-repeat",
-            }}
-          >
-            &nbsp;
+        {comment?.isDeleted && (
+          <div className="comment-user-img-container">
+            <div
+              className="comment-user-img"
+              style={{
+                backgroundImage: `url(${
+                  theme === "dark"
+                    ? "https://i.imgur.com/7QC99OK.png"
+                    : "https://i.imgur.com/7K4WFFr.png"
+                })`,
+                backgroundRepeat: "no-repeat",
+              }}
+            >
+              &nbsp;
+            </div>
           </div>
-        </NavLink>
+        )}
+        {!comment?.isDeleted && (
+          <NavLink
+            className="comment-user-img-container"
+            to={`/users/${comment?.commentAuthor?.id}/profile`}
+          >
+            <div
+              className="comment-user-img"
+              style={{
+                backgroundImage: `url(${comment?.commentAuthor?.profileImg})`,
+                backgroundRepeat: "no-repeat",
+              }}
+            >
+              &nbsp;
+            </div>
+          </NavLink>
+        )}
 
         <div className="comment-right">
           {/* Comment's author + timestamp */}

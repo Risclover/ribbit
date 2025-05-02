@@ -114,3 +114,9 @@
 .username-popup-user-info-name a:hover {
   text-decoration: none !important;
 }
+
+.username-component-wrapper.disabled:hover,
+.disabled .username-component:hover {
+  text-decoration: none !important;
+  cursor: default !important;
+}

@@ -5,7 +5,7 @@ import { convertTime } from "../utils/convertTime";
 /**
  * Custom logic for an individual Comment component.
  */
-export function useComment(comment) {
+export function useComment({ comment }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [commentContent, setCommentContent] = useState(comment?.content || "");
@@ -21,6 +21,12 @@ export function useComment(comment) {
       }
     }
   }, [comment.id]);
+
+  useEffect(() => {
+    if (comment.isDeleted || comment.votes <= -5) {
+      setIsCollapsed(true);
+    }
+  }, [comment]);
 
   return {
     postId: comment?.postId,

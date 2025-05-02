@@ -248,8 +248,8 @@
   justify-content: center;
 }
 
-.comment-vote-btns button:hover,
-.comment-owner-btns button:hover {
+.comment-vote-btns button:hover:not(:disabled),
+.comment-owner-btns button:hover:not(:disabled) {
   background: rgba(26, 26, 27, 0.1);
 }
 
@@ -265,9 +265,20 @@
   margin-right: 0;
 }
 
+.comment-vote-btns button:disabled {
+  background: transparent;
+  filter: none;
+  opacity: 0.4;
+  cursor: default;
+}
+
 .comment-vote-btns .karmabar-votes {
   margin: 4px;
   width: auto;
+}
+
+.comment-vote-btns button:disabled + .karmabar-votes {
+  opacity: 0.4;
 }
 
 .upvote-btn-grey,
@@ -279,11 +290,11 @@
   font-size: 20px;
 }
 
-.upvote-btn-grey:hover {
+.upvote-btn-grey:hover:not(:disabled) {
   color: #cc3700;
 }
 
-.downvote-btn-grey:hover {
+.downvote-btn-grey:hover:not(:disabled) {
   color: #5a75cc;
 }
 .vote-btn-red {

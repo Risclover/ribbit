@@ -13,7 +13,7 @@ export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
 
   return (
     <div className="user-profile-posts-page">
-      {user?.userPosts === 0 ? (
+      {posts.length === 0 ? (
         <>
           <SortingBar
             sortMode={sortMode}

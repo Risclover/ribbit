@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { CommunityPosts, CommunityInfoBox, CommunityRulesBox } from "../..";
 import { BackToTop } from "@/components";
@@ -9,11 +9,15 @@ import {
 } from "@/layouts";
 
 export function CommunityPageMain({ community }) {
-  const posts = useSelector((state) => Object.values(state.posts));
-  const communityPosts = posts.filter(
-    (post) => post.community.id === community.id
+  const communities = useSelector((state) => Object.values(state.communities));
+  const communityPosts = Object.values(
+    communities[community.id].communityPosts
   );
   const user = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    console.log(communityPosts);
+  }, []);
 
   return (
     <FeedContainer>

@@ -26,10 +26,11 @@ export function CommentAuthorBar({ comment }) {
           community
           username={comment?.commentAuthor?.username}
           user={comment?.commentAuthor}
+          disabled={comment?.isDeleted}
         />
         {/* Author labels */}
-        {isOP && <span className="op-sign">OP</span>}
-        {isMOD && <span className="mod-sign">MOD</span>}
+        {isOP && !comment.isDeleted && <span className="op-sign">OP</span>}
+        {isMOD && !comment.isDeleted && <span className="mod-sign">MOD</span>}
 
         <span className="single-post-topbar-dot"> · </span>
 
@@ -42,7 +43,7 @@ export function CommentAuthorBar({ comment }) {
         </span>
 
         {/* "Edited" label + edit timestamp */}
-        {wasEdited && (
+        {wasEdited && !comment.isDeleted && (
           <span className="comment-was-edited">
             <span className="single-post-topbar-dot"> · </span>
             edited {editedTime}

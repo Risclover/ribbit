@@ -17,7 +17,7 @@ export function SinglePostSkeleton() {
             viewBox="0 0 256 256"
             id="Flat"
             stroke="currentColor"
-            stroke-width="3.5840000000000005"
+            strokeWidth="3.5840000000000005"
           >
             <path d="M226.82812,117.17187l-96-96a3.99854,3.99854,0,0,0-5.65625,0l-96,96A3.99989,3.99989,0,0,0,32,124H76v84a12.01312,12.01312,0,0,0,12,12h80a12.01312,12.01312,0,0,0,12-12V124h44a3.99988,3.99988,0,0,0,2.82812-6.82813ZM176,116a4.0002,4.0002,0,0,0-4,4v88a4.004,4.004,0,0,1-4,4H88a4.004,4.004,0,0,1-4-4V120a4.0002,4.0002,0,0,0-4-4H41.65723L128,29.65723,214.34277,116Z" />
           </svg>
@@ -31,13 +31,13 @@ export function SinglePostSkeleton() {
             id="Flat"
             xmlns="http://www.w3.org/2000/svg"
             stroke="currentColor"
-            stroke-width="3.5840000000000005"
+            strokeWidth="3.5840000000000005"
           >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g
               id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></g>
             <g id="SVGRepo_iconCarrier">
               {" "}

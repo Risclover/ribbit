@@ -54,7 +54,7 @@ export function LoggedOutSidebar({ showLoggedOutSidebar }) {
               <ul className="logged-out-communities">
                 {sortedCommunities
                   .map((community) => (
-                    <li>
+                    <li key={community.id}>
                       <NavLink
                         to={`/c/${community.name}`}
                         className="nav-left-dropdown-navitem"

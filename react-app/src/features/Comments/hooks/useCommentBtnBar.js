@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPosts, removeComment } from "@/store";
+import { getComments } from "store";
+import { getCommentsForPost } from "store";
 
 /**
  * Logic for CommentBtnBar component
  */
-export function useCommentBtnBar({ comment, setShowReplyForm }) {
+export function useCommentBtnBar({
+  comment,
+  setShowReplyForm,
+  post,
+  setCommentContent,
+}) {
   const dispatch = useDispatch();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -15,7 +22,9 @@ export function useCommentBtnBar({ comment, setShowReplyForm }) {
     e.preventDefault();
     setIsDeleteModalOpen(false);
     await dispatch(removeComment(comment.id));
+    dispatch(getCommentsForPost(post.id));
     dispatch(getPosts());
+    setCommentContent("[deleted]");
   };
 
   const handleReplyClick = () => {

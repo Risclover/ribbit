@@ -15,6 +15,7 @@ export function CommentKarmaBar({ comment }) {
         aria-label="Upvote"
         className={vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"}
         onClick={(e) => handleVoteClick(e, "upvote")}
+        disabled={comment?.isDeleted}
       >
         <PiArrowFatUpFill />
       </button>
@@ -36,6 +37,7 @@ export function CommentKarmaBar({ comment }) {
         aria-label="Downvote"
         className={vote === "downvote" ? "vote-btn-blue" : "downvote-btn-grey"}
         onClick={(e) => handleVoteClick(e, "downvote")}
+        disabled={comment?.isDeleted}
       >
         <PiArrowFatDownFill />
       </button>

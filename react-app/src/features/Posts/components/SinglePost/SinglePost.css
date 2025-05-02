@@ -545,11 +545,11 @@
   justify-content: center;
 }
 
-.upvote-btn-grey:hover {
+.upvote-btn-grey:hover:not(:disabled) {
   color: #cc3700;
 }
 
-.downvote-btn-grey:hover {
+.downvote-btn-grey:hover:not(:disabled) {
   color: #5a75cc;
 }
 .vote-btn-red {

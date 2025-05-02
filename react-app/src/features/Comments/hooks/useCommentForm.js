@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuthFlow } from "@/context";
 import { useAutosizeTextArea } from "@/hooks";
 import { getPosts, createComment } from "@/store";
+import { getPostComments } from "store";
 
 /**
  * Logic for CommentForm component
@@ -18,7 +19,7 @@ export function useCommentForm({ onCancel, parentId, postId, onNewComment }) {
   useAutosizeTextArea(textareaRef.current, content);
 
   const user = useSelector((state) => state.session.user);
-  
+
   const disabled = content.trim().length === 0;
 
   const handleSubmit = async (e) => {
@@ -32,12 +33,12 @@ export function useCommentForm({ onCancel, parentId, postId, onNewComment }) {
 
     try {
       const newComment = await dispatch(createComment(payload, postId));
-
+      console.log("newComment:", newComment);
       if (onNewComment && newComment) {
         onNewComment(newComment.id);
       }
 
-      dispatch(getPosts());
+      dispatch(getCommentsForPost(postId));
       setContent("");
       if (onCancel) onCancel();
     } catch (err) {

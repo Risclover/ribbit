@@ -29,8 +29,8 @@ export function CommunityDetails({ post, community }) {
   );
   const [subscribeBtnText, setSubscribeBtnText] = useState("Leave");
   const communities = useSelector((state) => Object.values(state.communities));
-  const communityId = post.community.id;
-  const members = communities[communityId].members || community?.members || 0;
+  const communityId = post?.community.id;
+  const members = communities[communityId]?.members || community?.members || 0;
 
   useEffect(() => {
     setSubscribed(
@@ -73,13 +73,13 @@ export function CommunityDetails({ post, community }) {
           </NavLink>
         </div>
         <div className="single-post-community-description">
-          {communities[communityId].description || community?.description}
+          {communities[communityId]?.description || community?.description}
         </div>
         <div className="single-post-community-date">
           <span className="community-cake-icon">
             <CakeIcon />
           </span>
-          Created {communities[communityId].createdAt.format("MMM DD, YYYY")}
+          Created {communities[communityId]?.createdAt.format("MMM DD, YYYY")}
         </div>
         <div className="community-page-box-members">
           <h2>{members}</h2>

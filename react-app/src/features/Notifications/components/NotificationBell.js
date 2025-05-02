@@ -18,7 +18,7 @@ export function NotificationBell() {
     <div
       className="notifications-dropdown-wrapper"
       ref={wrapperRef}
-      ariaLive="polite"
+      aria-live="polite"
     >
       <button
         className="navbar-button"

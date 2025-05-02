@@ -2,7 +2,7 @@
 
 const ADD_COMMENT = "comments/ADD";
 const LOAD_COMMENTS = "comments/LOAD";
-const DELETE_COMMENT = "comments/DELETE";
+const UPDATE_COMMENT = "comments/UPDATE";
 const LOAD_ALL_COMMENTS = "comments/LOAD_ALL";
 const ADD_COMMENT_VOTE = "comments/ADD_VOTE";
 const REMOVE_COMMENT_VOTE = "comments/REMOVE_VOTE";
@@ -29,12 +29,10 @@ const loadComments = (comments) => {
   };
 };
 
-const deleteComment = (commentId) => {
-  return {
-    type: DELETE_COMMENT,
-    commentId,
-  };
-};
+const deleteComment = (comment) => ({
+  type: UPDATE_COMMENT,
+  comment,
+});
 
 const addVote = (comment) => {
   return {
@@ -141,14 +139,12 @@ export const updateComment = (payload, id) => async (dispatch) => {
 export const removeComment = (id) => async (dispatch) => {
   const response = await fetch(`/api/comments/${id}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
   });
 
   if (response.ok) {
-    const data = await response.json();
-    dispatch(deleteComment(id));
+    const data = await response.json(); // data is the “[deleted]” stub
+    dispatch(deleteComment(data)); // merge it into the store
     return data;
   }
 };
@@ -221,18 +217,8 @@ const commentsReducer = (state = initialState, action) => {
         }
       });
       return newState; // Return the new state with only the current post's comments
-    case DELETE_COMMENT:
-      let removeState = { ...state };
-      const deleteCommentAndChildren = (id) => {
-        delete removeState[id];
-        Object.values(removeState).forEach((comment) => {
-          if (comment.parentId === id) {
-            deleteCommentAndChildren(comment.id);
-          }
-        });
-      };
-      deleteCommentAndChildren(action.commentId);
-      return removeState;
+    case UPDATE_COMMENT:
+      return { ...state, [action.comment.id]: action.comment };
     case ADD_COMMENT_VOTE:
     case REMOVE_COMMENT_VOTE:
       return { ...state, [action.comment.id]: action.comment };
