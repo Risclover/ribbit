@@ -42,7 +42,7 @@ class Post(db.Model):
             "content": self.content,
             "imgUrl": self.img_url,
             "linkUrl": self.link_url,
-            "votes": len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]]) - len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]]),             # already denormalised
+            "votes": len([item for item in self.users_who_liked if item.to_dict()["isUpvote"]]) - len([item for item in self.users_who_liked if not item.to_dict()["isUpvote"]]),
             "postVoters": {item.to_dict()["userID"]: item.to_dict() for item in self.users_who_liked},
             "commentNum": len(self.post_comments),
             "author": {

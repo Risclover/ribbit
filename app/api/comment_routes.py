@@ -45,70 +45,73 @@ def create_notification(user_id, actor_id, action, resource_id, resource_type, c
 
 
 # CREATE A COMMENT FOR A SINGLE POST:
-@comment_routes.route('/<int:id>', methods=["POST"])
+@comment_routes.route("/<int:id>", methods=["POST"])
 @login_required
 def create_comment(id):
     form = CommentForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
-    if form.validate_on_submit():
-        data = form.data
-        post = Post.query.get(id)
-        new_comment = Comment(
-            content=data["content"],
-            user_id=current_user.get_id(),
-            post_id=id,
-            parent_id=data.get("parentId")
+
+    if not form.validate_on_submit():
+        return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+
+    data        = form.data
+    post        = Post.query.get(id)
+    parent_id   = data.get("parentId")
+    actor_id = int(current_user.get_id())
+    content     = data["content"]
+
+    # -------- create the Comment itself --------
+    new_comment = Comment(
+        content   = content,
+        user_id   = actor_id,
+        post_id   = id,
+        parent_id = parent_id,
+    )
+    db.session.add(new_comment)
+
+    # -------- prepare a Notification (only if not self-authored) --------
+    if parent_id:
+        parent_comment = Comment.query.get(parent_id)
+        recipient_id   = parent_comment.user_id
+        action         = "comment_reply"
+        message        = f"u/{current_user.username} replied to your comment in c/{post.post_community.name}"
+    else:
+        recipient_id   = post.user_id
+        action         = "post_reply"
+        message        = f"u/{current_user.username} replied to your post in c/{post.post_community.name}"
+
+    if recipient_id != actor_id:           # ← key guard
+        new_notification = Notification(
+            user_id          = recipient_id,
+            actor_id         = actor_id,
+            action           = action,
+            resource_id      = id,
+            resource_type    = "comment" if parent_id else "post",
+            resource_content = content,
+            message          = message,
         )
-        parent_id = data.get("parentId")
-        resource_content = data.get("content")
-        if parent_id:
-            parent_comment = Comment.query.get(parent_id)
-            new_notification = Notification(
-                user_id=parent_comment.user_id,
-                actor_id=current_user.get_id(),
-                action="comment_reply",
-                resource_id=id,
-                resource_type="comment",
-                resource_content=resource_content,
-                message=f"u/{current_user.username} replied to your comment in c/{post.post_community.name}"
-            )
-            db.session.add(new_notification)
-        else:
-            new_notification = Notification(
-                user_id=post.user_id,
-                actor_id=current_user.get_id(),
-                action="post_reply",
-                resource_id=id,
-                resource_type="post",
-                resource_content=resource_content,
-                message=f"u/{current_user.username} replied to your post in c/{post.post_community.name}"
-            )
-            db.session.add(new_notification)
-
-        db.session.add(new_comment)
         db.session.add(new_notification)
-        post.post_comments.append(new_comment)  # attach to the post
+    else:
+        new_notification = None            # no self-notifying
 
-        db.session.commit()
+    # -------- commit Comment (and maybe Notification) --------
+    db.session.commit()
 
+    # -------- real-time emit if we actually created one --------
+    if new_notification:
         emit_notification_to_user(new_notification)
 
-        # Add the upvote on behalf of the comment's author
-        comment_vote = CommentVote(
-            user_id=current_user.get_id(),
-            comment_id=new_comment.id,
-            is_upvote=True
-        )
-        db.session.add(comment_vote)
-        db.session.commit()
-        # Expire the new_comment instance so that its relationships are reloaded
-        db.session.refresh(new_comment)
+    # -------- author’s automatic up-vote --------
+    comment_vote = CommentVote(
+        user_id    = actor_id,
+        comment_id = new_comment.id,
+        is_upvote  = True,
+    )
+    db.session.add(comment_vote)
+    db.session.commit()
 
-        # Refetch the comment so that the users_who_liked relationship is fresh and the votes are recalculated
-        updated_comment = Comment.query.get(new_comment.id)
-        return updated_comment.to_dict()
-
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
+    db.session.refresh(new_comment)        # reload fresh relationships
+    return Comment.query.get(new_comment.id).to_dict()
 
 # UPDATE A COMMENT BY ID
 @comment_routes.route('/<int:id>', methods=["PUT"])

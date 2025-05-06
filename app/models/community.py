@@ -29,7 +29,7 @@ class Community(db.Model):
             'subscribers': {item.to_dict()["id"]: item.to_dict() for item in self.subscribers},
             'usersWhoFavorited': {item.to_dict()["id"]: item.to_dict() for item in self.users_who_favorited},
             'members': len(self.subscribers),
-            'communityPosts': {item.to_dict()["id"]: item.to_dict() for item in self.community_posts},
+            'communityPosts': {item.to_feed_dict()["id"]: item.to_feed_dict() for item in self.community_posts},
             'communityOwner': self.community_owner.to_dict(),
             "communityRules": {item.to_dict()["id"]: item.to_dict() for item in self.community_rules},
             "communitySettings": {item.to_dict()["id"]: item.to_dict() for item in self.community_settings},

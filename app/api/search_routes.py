@@ -32,7 +32,7 @@ def search_posts():
         Post.title.ilike(f'%{query}%')) | (Post.content.ilike(f'%{query}%'))
     ).all()
 
-    return jsonify({"PostResults": [post.to_dict() for post in search_result]})
+    return jsonify({"PostResults": [post.to_feed_dict() for post in search_result]})
 
 
 @search_routes.route("/comments")

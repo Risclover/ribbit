@@ -1,13 +1,21 @@
 from pathlib import Path
 from flask import Flask, send_from_directory
-from .config import Config
-from .extensions import db, migrate, socketio, cors, login_manager
-from .blueprints import register_blueprints
+
+from .config      import Config
+from .extensions  import (
+    db,
+    migrate,
+    socketio,
+    cors,
+    login_manager,
+    configure_logging,
+)
+from .blueprints  import register_blueprints
 from .middlewares import register_middlewares
-from .errors import register_error_handlers
-from .seeds import seed_commands
-from .models import User
-from .extensions import login_manager, configure_logging
+from .errors      import register_error_handlers
+from .seeds       import seed_commands
+from .models      import User
+
 
 # --------------------------------------------------------------------------- #
 #  Application factory
@@ -15,18 +23,10 @@ from .extensions import login_manager, configure_logging
 def create_app(config_class=None) -> Flask:
     """
     Create and configure a new Flask application instance.
-
-    Parameters
-    ----------
-    config_class : subclass of `Config`, optional
-        If provided, overrides the default Config object.
-
-    Returns
-    -------
-    Flask
-        The configured Flask app.
     """
-    static_folder = Path(__file__).resolve().parents[1] / "react-app" / "build"
+    static_folder = (
+        Path(__file__).resolve().parents[1] / "frontend" / "build"
+    )
     app = Flask(
         __name__,
         static_folder=str(static_folder),
@@ -45,7 +45,7 @@ def create_app(config_class=None) -> Flask:
     # --------------------------------------------------------------------- #
     db.init_app(app)
     migrate.init_app(app, db)
-    socketio.init_app(app, cors_allowed_origins="*")
+    socketio.init_app(app, cors_allowed_origins="*")   # already OK
     cors.init_app(app, supports_credentials=True)
     login_manager.init_app(app)
     login_manager.login_view = "auth.unauthorized"
@@ -54,6 +54,7 @@ def create_app(config_class=None) -> Flask:
     def load_user(user_id: str):
         """Return the User instance given a unicode ID."""
         return User.query.get(int(user_id))
+
     # --------------------------------------------------------------------- #
     # Blueprints, CLI commands, middlewares, error handlers
     # --------------------------------------------------------------------- #
@@ -63,23 +64,26 @@ def create_app(config_class=None) -> Flask:
     app.cli.add_command(seed_commands)
 
     # --------------------------------------------------------------------- #
-    # Single‑Page App fallback
+    # Single-Page App fallback
     # --------------------------------------------------------------------- #
     @app.route("/", defaults={"path": ""})
     @app.route("/<path:path>")
     def spa_fallback(path: str):
         """
-        Serve React app for any non‑API route.
-
-        All requests **not** starting with `/api/` (and not pointing at an
-        existing static asset) are redirected to `index.html`.
+        Serve React app for any non-API route.
         """
         static_dir = Path(app.static_folder)
-        requested = static_dir / path
-        if path.startswith("api/"):               # let Blueprints handle it
+        requested  = static_dir / path
+        if path.startswith("api/"):
             return ("", 404)
         if requested.exists():
             return send_from_directory(static_dir, path)
         return send_from_directory(static_dir, "index.html")
+
+    # --------------------------------------------------------------------- #
+    # Socket.IO event handlers  (*** NEW LINE ***)
+    # --------------------------------------------------------------------- #
+    # Import AFTER socketio.init_app so decorators bind to the live instance.
+    from app import socket   # noqa: F401
 
     return app
