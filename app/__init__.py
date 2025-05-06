@@ -87,3 +87,6 @@ def create_app(config_class=None) -> Flask:
     from app import socket   # noqa: F401
 
     return app
+
+
+app = create_app()
