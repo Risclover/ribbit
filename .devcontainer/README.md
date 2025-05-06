@@ -8,7 +8,8 @@ The following instructions detail an _optional_ development setup for M1 Mac use
 2. Make sure you have [Docker](https://www.docker.com/products/docker-desktop/) installed on your computer.
 3. Clone the repository (only this branch)
    ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
+   git clone http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
+s://github.com/appacademy-starters/python-project-starter.git
    ```
 4. Open the repo in VS Code.
 5. Click "Open in Container" when VS Code prompts to open container in the bottom right hand corner.

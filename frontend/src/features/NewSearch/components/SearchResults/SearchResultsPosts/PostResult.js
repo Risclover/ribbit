@@ -21,12 +21,6 @@ const PostResult = ({ post }) => {
     if (post.linkUrl && !hasMeta) {
       fetchMetadata(post.linkUrl);
     }
-    /*
-     * We depend only on the URL + "do we already have meta?" flag.
-     * fetchMetadata should be memo‑stable in the context; if it isn’t, wrap it
-     * with useCallback in the provider or ignore the eslint warning here.
-     */
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post.linkUrl, hasMeta]);
 
   const metadataResult = metadata[post.linkUrl];
