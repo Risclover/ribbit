@@ -29,7 +29,7 @@ export const DropBox = ({
   const [highlight, setHighlight] = useState(false);
   const showBar = preview && preview !== "" && preview !== defaultIcon;
 
-  const { handleUpload } = useFileHandler(setImage, setPreview);
+  const { handleUpload } = fileHandler(setImage, setPreview);
 
   const handleDragEvents = (highlight) => (e) => {
     e.preventDefault();

@@ -71,16 +71,17 @@ def create_app(config_class=None) -> Flask:
     def spa_fallback(path: str):
         static_dir = Path(app.static_folder)
 
-        # Block API paths early
+        # 1️⃣ Never hijack API endpoints
         if path.startswith("api/"):
             return ("", 404)
 
-        # If a non-empty file path was requested **and it exists**, serve it
+        # 2️⃣ If *path* is non-empty *and* the file exists, serve it
         if path and (static_dir / path).exists():
             return send_from_directory(static_dir, path)
 
-        # Otherwise fall back to the React entry point
-        return send_from_directory(static_dir, "index.html")
+        # 3️⃣ Everything else → let React handle it
+        #    (optionally return 404 so crawlers know the page is “not found”)
+        return send_from_directory(static_dir, "index.html"), 404
 
 
     # --------------------------------------------------------------------- #
