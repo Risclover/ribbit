@@ -24,7 +24,7 @@ jobs:
       # If a student sees this, they could speed up their builds
       # by moving install from docker to cached GH action runner
       # Have fun (after you have a passing project!) :)
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.9"
           cache: "pip"
