@@ -69,16 +69,19 @@ def create_app(config_class=None) -> Flask:
     @app.route("/", defaults={"path": ""})
     @app.route("/<path:path>")
     def spa_fallback(path: str):
-        """
-        Serve React app for any non-API route.
-        """
         static_dir = Path(app.static_folder)
-        requested  = static_dir / path
+
+        # Block API paths early
         if path.startswith("api/"):
             return ("", 404)
-        if requested.exists():
+
+        # If a non-empty file path was requested **and it exists**, serve it
+        if path and (static_dir / path).exists():
             return send_from_directory(static_dir, path)
+
+        # Otherwise fall back to the React entry point
         return send_from_directory(static_dir, "index.html")
+
 
     # --------------------------------------------------------------------- #
     # Socket.IO event handlers  (*** NEW LINE ***)
