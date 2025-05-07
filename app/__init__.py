@@ -29,8 +29,8 @@ def create_app(config_class=None) -> Flask:
     )
     app = Flask(
         __name__,
-        static_folder=str(static_folder),
-        static_url_path="/",
+        static_folder=str(Path(__file__).resolve().parents[1] / "frontend" / "build"),
+        static_url_path="/"
     )
 
     # --------------------------------------------------------------------- #
@@ -68,18 +68,20 @@ def create_app(config_class=None) -> Flask:
     # --------------------------------------------------------------------- #
     @app.route("/", defaults={"path": ""})
     @app.route("/<path:path>")
-    def spa_fallback(path: str):
-        # Let Flask handle API or static file requests normally
+    def spa_fallback(path):
+        # Block only API and auth endpoints from falling through to React
         if path.startswith("api/") or path.startswith("auth/"):
-            return {"error": "Not found"}, 404
+            return jsonify({"error": "Not found"}), 404
 
-        # If the path corresponds to a real static file, serve it
-        full_path = Path(app.static_folder) / path
-        if path and full_path.exists():
-            return send_from_directory(app.static_folder, path)
+        static_dir = Path(app.static_folder)
+        requested = static_dir / path
 
-        # Otherwise, serve React's index.html and let React Router handle the route
-        return send_from_directory(app.static_folder, "index.html")
+        # Serve real static files if requested (like main.js, logo.png, etc.)
+        if path and requested.exists():
+            return send_from_directory(static_dir, path)
+
+        # Otherwise, serve React’s entry point
+        return send_from_directory(static_dir, "index.html"), 200
 
 
     # --------------------------------------------------------------------- #
