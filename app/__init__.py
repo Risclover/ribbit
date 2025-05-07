@@ -30,7 +30,6 @@ def create_app(config_class=None) -> Flask:
     app = Flask(
         __name__,
         static_folder=str(Path(__file__).resolve().parents[1] / "frontend" / "build"),
-        static_url_path="/"
     )
 
     # --------------------------------------------------------------------- #
