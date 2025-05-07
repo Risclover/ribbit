@@ -23,6 +23,7 @@ import { CommunityImg } from "@/components/CommunityImg";
 import { useHistory } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import { useDarkMode } from "@/hooks";
+import NotFound from "../components/NotFound";
 
 export function SinglePostPage() {
   const { theme } = useDarkMode();
@@ -33,7 +34,12 @@ export function SinglePostPage() {
   const { setFormat } = useContext(PostFormatContext);
   const post = useSelector((state) => state.posts[postId]);
   const user = useSelector((state) => state.session.user);
-
+  const postsLoaded = useSelector(
+    (state) => Object.keys(state.posts).length > 0
+  );
+  const communitiesLoaded = useSelector(
+    (state) => Object.keys(state.communities).length > 0
+  );
   const community = useSelector(
     (state) => state.communities[post?.community?.id]
   );
@@ -119,15 +125,12 @@ export function SinglePostPage() {
     });
   }, []);
 
-  const handleBannerClick = () => {
-    history.push(`/c/${community?.name}`);
-  };
+  const hasCommunityRules =
+    community?.communityRules &&
+    Object.values(community.communityRules).length > 0;
+  if (!postsLoaded || !communitiesLoaded) return <div>Loading...</div>;
 
-  if (!post) {
-    return <Redirect to="/404" />;
-  }
-
-  if (!post || !community) return null;
+  if (!post || !community) return <Redirect to="/404" />;
 
   return (
     <div className="single-post-page">
@@ -187,9 +190,7 @@ export function SinglePostPage() {
             community={community}
             isPage="singlepage"
           />
-          {Object.values(community?.communityRules).length > 0 && (
-            <CommunityRulesBox post={post} />
-          )}
+          {hasCommunityRules && <CommunityRulesBox post={post} />}
           <BackToTop />
         </div>
       </div>

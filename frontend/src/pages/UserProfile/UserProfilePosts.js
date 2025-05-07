@@ -23,7 +23,7 @@ export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
           <div className="no-posts-div-container">
             <div className="no-posts-div"></div>
             <span className="no-posts-div-txt">
-              hmm...u/{user.username} hasn't posted anything
+              hmm...u/{user?.username} hasn't posted anything
             </span>
           </div>
         </>

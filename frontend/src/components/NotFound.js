@@ -1,9 +1,10 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { ribbitLogos } from "@/assets";
 import { usePageSettings } from "@/hooks";
-import { NavLink } from "react-router-dom";
 export default function NotFound() {
-  // Page Settings Hook
+  const history = useHistory();
+
   usePageSettings({
     documentTitle: "PAGE NOT FOUND",
     pageTitle: "PAGE NOT FOUND",
@@ -14,7 +15,7 @@ export default function NotFound() {
       <div className="not-found-page-p">
         <p>page not found</p>
         <p>the page you requested does not exist</p>
-        <NavLink to="/">Go Back!</NavLink>
+        <button onClick={() => history.goBack()}>Go Back!</button>
       </div>
     </div>
   );

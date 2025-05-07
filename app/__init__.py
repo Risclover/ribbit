@@ -1,5 +1,5 @@
 from pathlib import Path
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, jsonify
 
 from .config      import Config
 from .extensions  import (
@@ -69,19 +69,17 @@ def create_app(config_class=None) -> Flask:
     @app.route("/", defaults={"path": ""})
     @app.route("/<path:path>")
     def spa_fallback(path: str):
-        static_dir = Path(app.static_folder)
+        # Let Flask handle API or static file requests normally
+        if path.startswith("api/") or path.startswith("auth/"):
+            return {"error": "Not found"}, 404
 
-        # 1️⃣ Never hijack API endpoints
-        if path.startswith("api/"):
-            return ("", 404)
+        # If the path corresponds to a real static file, serve it
+        full_path = Path(app.static_folder) / path
+        if path and full_path.exists():
+            return send_from_directory(app.static_folder, path)
 
-        # 2️⃣ If *path* is non-empty *and* the file exists, serve it
-        if path and (static_dir / path).exists():
-            return send_from_directory(static_dir, path)
-
-        # 3️⃣ Everything else → let React handle it
-        #    (optionally return 404 so crawlers know the page is “not found”)
-        return send_from_directory(static_dir, "index.html"), 404
+        # Otherwise, serve React's index.html and let React Router handle the route
+        return send_from_directory(app.static_folder, "index.html")
 
 
     # --------------------------------------------------------------------- #

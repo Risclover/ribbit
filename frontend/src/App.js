@@ -143,10 +143,6 @@ function App() {
     // or your own custom cleanup, e.g. unlockScroll();
   });
 
-  if (!loaded) {
-    return null;
-  }
-
   const navBarProps = {
     adjustQuery: adjustQuery,
     searchQuery: searchQuery,

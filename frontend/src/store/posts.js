@@ -105,6 +105,21 @@ export const getPosts =
     return { nextOffset: null, hasMore: false };
   };
 
+export const fetchPost = (postId) => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/posts/${postId}`);
+    if (res.ok) {
+      const post = await res.json();
+      dispatch({ type: "posts/LOAD_ONE", post });
+    } else if (res.status === 404) {
+      dispatch({ type: "posts/SET_ERROR", postId, error: "not_found" });
+    }
+  } catch (err) {
+    console.error("Fetch failed:", err);
+    dispatch({ type: "posts/SET_ERROR", postId, error: "server_error" });
+  }
+};
+
 export const getFollowedPosts = () => async (dispatch) => {
   const response = await fetch("/api/posts/followed");
 
@@ -371,6 +386,27 @@ export default function postsReducer(state = initialState, action) {
       return { ...state, [action.post.id]: action.post };
     case UPDATE_VIEWED_POSTS:
       return action.viewedPosts;
+    case "posts/LOAD_ONE":
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.post.id]: action.post,
+        },
+        errors: {
+          ...state.errors,
+          [action.post.id]: null,
+        },
+      };
+
+    case "posts/SET_ERROR":
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          [action.postId]: action.error,
+        },
+      };
     default:
       return state;
   }

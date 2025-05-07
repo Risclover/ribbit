@@ -35,6 +35,12 @@ export function CommunityPage() {
   const communityPosts = posts.filter(
     (post) => post.community?.id === community?.id
   );
+  const postsLoaded = useSelector(
+    (state) => Object.keys(state.posts).length > 0
+  );
+  const communitiesLoaded = useSelector(
+    (state) => Object.keys(state.communities).length > 0
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,9 +49,7 @@ export function CommunityPage() {
       setLoading(false);
       await dispatch(getCommunitySettings(communityId));
       if (posts.length === 0) {
-        await dispatch(
-          getPosts({ limit: 25, offset: nextOffset, order: sortMode })
-        );
+        await dispatch(getPosts());
       }
     };
     getData();
@@ -111,6 +115,8 @@ export function CommunityPage() {
   // if (loading) {
   //   return <div>Loading...</div>; // You can show a loading spinner here
   // }
+
+  if (!communitiesLoaded) return <div>Loading...</div>;
   if (!community) {
     return <Redirect to="/404" />;
   }
