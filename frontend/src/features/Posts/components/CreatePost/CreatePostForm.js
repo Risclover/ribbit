@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { addImagePost, addLinkPost, addPost, addPostVote } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
-import { CreatePostFormTitle } from "./CreatePostFormTitle";
-import { CreatePostFormContent } from "./CreatePostFormContent";
-import { PostTypeBar } from "./PostTypeBar";
-import { CreatePostFormErrors } from "./CreatePostFormErrors";
+import { addImagePost, addLinkPost, addPost, addPostVote } from "@/store";
+import {
+  CreatePostFormTitle,
+  CreatePostFormContent,
+  CreatePostFormErrors,
+  PostTypeBar,
+  CommunitySelection,
+  DiscardPost,
+} from "@/features";
 import { Modal } from "@/context";
-import { DiscardPost } from "../DiscardPost";
 import validator from "validator";
 import { getIdFromName } from "@/utils/getCommunityIdFromName";
-import { CommunitySelection } from "./CommunitySelection";
+import { usePostDraft } from "@/features/Posts/hooks/usePostDraft";
 
 export function CreatePostForm({
   postType,
@@ -18,113 +21,93 @@ export function CreatePostForm({
   community,
   setCommunity,
 }) {
+  const { communityName } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { communityName } = useParams();
 
-  const [title, setTitle] = useState("");
-  const [imgUrl, setImgUrl] = useState("");
-  const [linkUrl, setLinkUrl] = useState("");
-  const [content, setContent] = useState("");
+  // ---------- persistent draft ----------
+  const { draft, updateDraft, clearDraft } = usePostDraft();
+
+  // ---------- local state (mirrors draft) ----------
+  const [title, setTitle] = useState(draft.title || "");
+  const [imgUrl, setImgUrl] = useState(draft.imgUrl || "");
+  const [linkUrl, setLinkUrl] = useState(draft.linkUrl || "");
+  const [content, setContent] = useState(draft.content || "");
   const [errors, setErrors] = useState([]);
   const [showDiscardModal, setShowDiscardModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
-
-  const communities = useSelector((state) => Object.values(state.communities));
   const [communityId, setCommunityId] = useState(null);
 
+  // ---------- sync local ⇆ draft ----------
+  useEffect(() => updateDraft("title", title), [title, updateDraft]);
+  useEffect(() => updateDraft("content", content), [content, updateDraft]);
+  useEffect(() => updateDraft("imgUrl", imgUrl), [imgUrl, updateDraft]);
+  useEffect(() => updateDraft("linkUrl", linkUrl), [linkUrl, updateDraft]);
+
+  // ---------- get community id ----------
+  const communities = useSelector((state) => Object.values(state.communities));
   useEffect(() => {
     if (communityName) {
-      const id = getIdFromName(communityName, communities);
-      setCommunityId(id);
+      setCommunityId(getIdFromName(communityName, communities));
+    } else {
+      setCommunityId(null);
     }
   }, [communityName, communities]);
 
+  // ---------- submit helpers ----------
   const handleGeneralSubmit = (data) => {
+    clearDraft();
     history.push(`/c/${communityName}`);
     dispatch(addPostVote(data?.id, "upvote"));
   };
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
-    if (!communityId) {
-      setErrors([...errors, "Please select a community."]);
-      return;
-    }
-
-    const payload = {
-      title,
-      content,
-      communityId,
-    };
-    const data = await dispatch(addPost(payload));
+    if (!communityId) return setErrors(["Please select a community."]);
+    const data = await dispatch(addPost({ title, content, communityId }));
     handleGeneralSubmit(data);
   };
 
   const handleLinkSubmit = async (e) => {
     e.preventDefault();
-    if (!communityId) {
-      setErrors([...errors, "Please select a community."]);
-      return;
-    }
-
-    const payload = {
-      title,
-      linkUrl,
-      communityId,
-    };
-    const data = await dispatch(addLinkPost(payload));
+    if (!communityId) return setErrors(["Please select a community."]);
+    const data = await dispatch(addLinkPost({ title, linkUrl, communityId }));
     handleGeneralSubmit(data);
   };
 
   const handleImageSubmit = async (e) => {
     e.preventDefault();
-    if (!communityId) {
-      setErrors([...errors, "Please select a community."]);
-      return;
-    }
-
-    const payload = {
-      title,
-      imgUrl,
-      communityId,
-    };
-    const data = await dispatch(addImagePost(payload));
+    if (!communityId) return setErrors(["Please select a community."]);
+    const data = await dispatch(addImagePost({ title, imgUrl, communityId }));
     handleGeneralSubmit(data);
   };
 
   const cancelPost = (e) => {
     e.preventDefault();
-    if (content.length > 0 && postType === "post") {
+    if (content.replace(/<(.|\n)*?>/g, "").trim().length > 0) {
       setShowDiscardModal(true);
     } else {
-      if (communityId) {
-        history.push(`/c/${communityName}`);
-      } else {
-        history.push("/home");
-      }
+      clearDraft();
+      history.push(communityId ? `/c/${communityName}` : "/home");
     }
   };
 
+  // ---------- enable / disable POST btn ----------
   useEffect(() => {
-    if (content.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
-      setContent("");
-      setDisabled(true);
-    }
+    const emptyText = content.replace(/<(.|\n)*?>/g, "").trim().length === 0;
+    const linkInvalid =
+      postType === "link" && (!linkUrl || !validator.isURL(linkUrl));
 
-    if (
-      (postType === "image" && !imgUrl) ||
-      (postType === "link" &&
-        (linkUrl.length === 0 || !validator.isURL(linkUrl))) ||
+    setDisabled(
       title.length === 0 ||
-      !communityName
-    ) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
-  }, [title, content, imgUrl, postType, linkUrl, communityName]);
+        !communityId ||
+        (postType === "post" && emptyText) ||
+        (postType === "image" && !imgUrl) ||
+        linkInvalid
+    );
+  }, [title, content, imgUrl, postType, linkUrl, communityId]);
 
+  // ---------- render ----------
   return (
     <form
       className="create-post-form"
@@ -133,31 +116,34 @@ export function CreatePostForm({
           ? handlePostSubmit
           : postType === "image"
           ? handleImageSubmit
-          : postType === "link"
-          ? handleLinkSubmit
-          : null
+          : handleLinkSubmit
       }
     >
       <div className="create-post-header">Create a post</div>
+
       <CommunitySelection
         communityId={communityId}
+        setCommunityId={setCommunityId}
         community={community}
         setCommunity={setCommunity}
-        setCommunityId={setCommunityId}
       />
 
       <div className="create-post-content">
         <PostTypeBar postType={postType} setPostType={setPostType} />
         <div className="create-post-form-inputs">
+          {/* TITLE, BODY, ERRORS */}
           <CreatePostFormTitle title={title} setTitle={setTitle} />
+
           <CreatePostFormContent
             imgUrl={imgUrl}
             setImgUrl={setImgUrl}
             linkUrl={linkUrl}
             setLinkUrl={setLinkUrl}
+            content={content}
             setContent={setContent}
             postType={postType}
           />
+
           <CreatePostFormErrors
             postType={postType}
             title={title}
@@ -165,6 +151,8 @@ export function CreatePostForm({
             imgUrl={imgUrl}
             linkUrl={linkUrl}
           />
+
+          {/* BUTTONS */}
           <div className="create-post-form-buttons">
             <button className="create-post-form-cancel" onClick={cancelPost}>
               Cancel
@@ -177,21 +165,22 @@ export function CreatePostForm({
               Post
             </button>
           </div>
-          {showDiscardModal && (
-            <Modal
-              close={showDiscardModal}
-              title="Discard post?"
-              onClose={() => setShowDiscardModal(false)}
-              open={() => setShowDiscardModal(true)}
-            >
-              <DiscardPost
-                communityName={communityName}
-                setShowDiscardModal={setShowDiscardModal}
-                showDiscardModal={showDiscardModal}
-              />
-            </Modal>
-          )}
         </div>
+        {/* DISCARD MODAL */}
+        {showDiscardModal && (
+          <Modal
+            close={showDiscardModal}
+            title="Discard post?"
+            onClose={() => setShowDiscardModal(false)}
+            open={() => setShowDiscardModal(true)}
+          >
+            <DiscardPost
+              communityName={communityName}
+              setShowDiscardModal={setShowDiscardModal}
+              showDiscardModal={showDiscardModal}
+            />
+          </Modal>
+        )}
       </div>
     </form>
   );

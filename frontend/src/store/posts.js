@@ -89,7 +89,7 @@ export const getPostsByCommunityId = (communityId) => (state) =>
 // };
 
 export const getPosts =
-  ({ limit = 25, offset = 0, order = "new" } = {}) =>
+  ({ limit = 100, offset = 0, order = "new" } = {}) =>
   async (dispatch) => {
     const params = new URLSearchParams({ limit, offset, order });
     const response = await fetch(`/api/posts?${params.toString()}`);

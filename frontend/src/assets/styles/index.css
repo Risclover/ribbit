@@ -91,7 +91,7 @@ a.blue-btn-filled {
 .blue-btn-filled {
   color: var(--ribbit-main);
   position: relative;
-  background: var(--highlight-color);
+  background: var(--community-highlight);
   fill: var(--highlight-color);
 }
 

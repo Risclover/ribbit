@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { CommunitySelectionDropdown, CommunitySelectionInput } from ".";
-import "./CommunitySelection.css";
 import { useOutsideClick } from "@/hooks";
-import { useParams } from "react-router-dom";
+import "./CommunitySelection.css";
 
 export function CommunitySelection({
   setCommunityId,
@@ -12,47 +11,37 @@ export function CommunitySelection({
   setCommunity,
 }) {
   const wrapperRef = useRef(null);
-
-  const { communityName } = useParams();
-
-  const communities = useSelector((state) => state.communities);
-  const subscriptions = useSelector((state) => state.subscriptions);
-  const allCommunities = useSelector((state) => state.communities);
-
   const [search, setSearch] = useState(community?.name || "");
   const [showDropdown, setShowDropdown] = useState(false);
-  const [communityModalOpen, setCommunityModalOpen] = useState(false);
   const [inputState, setInputState] = useState("choose");
+
+  const communities = useSelector((s) => s.communities);
+  const subscriptions = useSelector((s) => s.subscriptions);
+  const allCommunities = useSelector((s) => s.communities);
 
   useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
+  // keep search text in sync with outside changes to communityId
   useEffect(() => {
-    for (let community of Object.values(allCommunities)) {
-      if (community.id === communityId) {
-        setSearch(community.name);
-      }
-    }
+    const comm = Object.values(allCommunities).find(
+      (c) => c.id === communityId
+    );
+    if (comm) setSearch(comm.name);
   }, [communityId, allCommunities]);
 
-  let communityList = [];
-  for (let i = 0; i < Object.values(allCommunities).length; i++) {
-    communityList.push({
-      img: Object.values(allCommunities)[i].communitySettings[
-        Object.values(allCommunities)[i].id
-      ].communityIcon,
-      name: Object.values(allCommunities)[i].name,
-      members: Object.values(allCommunities)[i].members,
-      communityIcon:
-        Object.values(allCommunities)[i].communitySettings[
-          Object.values(allCommunities)[i].id
-        ].communityIcon,
-      id: Object.values(allCommunities)[i].id,
-      bgColor:
-        Object.values(allCommunities)[i].communitySettings[
-          Object.values(allCommunities)[i].id
-        ].baseColor,
-    });
-  }
+  // Build list once (memo)
+  const communityList = useMemo(
+    () =>
+      Object.values(allCommunities).map((comm) => ({
+        id: comm.id,
+        name: comm.name,
+        members: comm.members,
+        img: comm.communitySettings[comm.id]?.communityIcon,
+        communityIcon: comm.communitySettings[comm.id]?.communityIcon,
+        bgColor: comm.communitySettings[comm.id]?.baseColor,
+      })),
+    [allCommunities]
+  );
 
   return (
     <div className="community-selection" ref={wrapperRef}>
@@ -68,10 +57,10 @@ export function CommunitySelection({
         setInputState={setInputState}
         inputState={inputState}
       />
+
       {showDropdown && (
         <CommunitySelectionDropdown
-          communityModalOpen={communityModalOpen}
-          setCommunityModalOpen={setCommunityModalOpen}
+          setCommunityModalOpen={() => {}}
           communityList={communityList}
           search={search}
           setSearch={setSearch}

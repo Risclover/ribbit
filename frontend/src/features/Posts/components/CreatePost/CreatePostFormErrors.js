@@ -19,18 +19,22 @@ export function CreatePostFormErrors({
     switch (postType) {
       case "link":
         setLinkErrors(validateLinkPost(community, title, linkUrl));
+        break;
       case "image":
         setImageErrors(validateImgPost(community, title, imgUrl));
+        break;
       case "post":
         setErrors(validatePost(community, title));
+        break;
       default:
-        return null;
+        return;
     }
   };
 
   useEffect(() => {
     handleErrors();
   }, [postType, title, community, linkUrl, imgUrl]);
+
   return (
     <div className="create-post-form-errors">
       {postType === "link" &&

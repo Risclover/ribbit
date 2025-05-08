@@ -44,7 +44,7 @@ export const PostFeed = ({
     const fetchPosts = async () => {
       setIsLoading(true); // skeletons visible immediately
       try {
-        await dispatch(getPosts({ limit: 25, offset: (page - 1) * 25 }));
+        await dispatch(getPosts({ limit: 200, offset: (page - 1) * 25 }));
         // wait for thunk to resolve
       } finally {
         if (!cancelled) setIsLoading(false);

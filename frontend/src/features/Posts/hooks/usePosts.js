@@ -20,7 +20,7 @@ export function usePosts(isAllPosts) {
   useEffect(() => {
     dispatch(getViewedPosts());
     dispatch(
-      getPosts({ limit: 25, offset: (page - 1) * 25, order: sortMode })
+      getPosts({ limit: 200, offset: (page - 1) * 25, order: sortMode })
     ).then(({ nextOffset, hasMore }) => {
       nextPage.current = hasMore ? nextOffset / 25 + 1 : null;
     });

@@ -29,7 +29,7 @@ export function CreatePostPage({ postType, setPostType, val }) {
   usePageSettings({
     documentTitle: "Submit to Ribbit",
     icon: <CreatePostIcon />,
-    pageTitle: `Create Post`,
+    pageTitle: "Create Post",
   });
 
   useEffect(() => {

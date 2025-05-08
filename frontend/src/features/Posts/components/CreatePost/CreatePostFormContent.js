@@ -5,6 +5,7 @@ import { Modal } from "@/context";
 import { ImagePostForm } from "../ImagePost";
 
 export function CreatePostFormContent({
+  content, // NEW
   setContent,
   postType,
   imgUrl,
@@ -18,6 +19,7 @@ export function CreatePostFormContent({
     e.preventDefault();
     setImgUrl(undefined);
   };
+
   return (
     <>
       {postType === "post" && (
@@ -26,10 +28,12 @@ export function CreatePostFormContent({
             theme="snow"
             modules={richTextEditorModules}
             onChange={setContent}
+            value={content}
             placeholder="Text (required)"
           />
         </div>
       )}
+
       {postType === "image" && (
         <div className="image-post-box">
           {!imgUrl && (
@@ -40,9 +44,7 @@ export function CreatePostFormContent({
                 setShowImgModal(true);
               }}
               onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  setShowImgModal(true);
-                }
+                if (e.key === "Enter") setShowImgModal(true);
               }}
             >
               Choose Image
@@ -56,7 +58,7 @@ export function CreatePostFormContent({
               <div
                 className="image-preview-box"
                 style={{
-                  backgroundImage: `url(${imgUrl}`,
+                  backgroundImage: `url(${imgUrl})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",
@@ -67,13 +69,14 @@ export function CreatePostFormContent({
                   className="close-preview-btn"
                   onClick={handleDeletePreview}
                 >
-                  <i className="fa-solid fa-circle-xmark close-preview-img"></i>
+                  <i className="fa-solid fa-circle-xmark close-preview-img" />
                 </button>
               </div>
             </div>
           )}
         </div>
       )}
+
       {showImgModal && (
         <Modal
           close={showImgModal}
@@ -87,6 +90,7 @@ export function CreatePostFormContent({
           />
         </Modal>
       )}
+
       {postType === "link" && (
         <div className="create-post-form-input">
           <textarea
@@ -94,7 +98,7 @@ export function CreatePostFormContent({
             className="create-post-input link-input"
             onChange={(e) => setLinkUrl(e.target.value)}
             value={linkUrl}
-          ></textarea>
+          />
         </div>
       )}
     </>
