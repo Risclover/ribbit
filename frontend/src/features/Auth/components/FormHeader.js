@@ -8,8 +8,13 @@ import GoogleLogo from "@/assets/images/Google-Symbol.png";
  */
 export function FormHeader() {
   const [showDemoWarning, setShowDemoWarning] = useState(false);
-  const handleLogin = () => (window.location.href = "/authorize/google");
-
+  const BACKEND =
+    // use an env var when you need a separate host (dev, staging, etc.)
+    process.env.REACT_APP_BACKEND_URL ||
+    // empty string → same origin in prod
+    "";
+  const handleLogin = () =>
+    (window.location.href = `${BACKEND}/api/auth/authorize/google`);
   return (
     <>
       <p className="auth-modal-agreement">
@@ -17,6 +22,7 @@ export function FormHeader() {
         understand that your use of Ribbit is subject to our terms and policies.
       </p>
       <button
+        // href="/api/auth/authorize/google"
         className="google-btn"
         tabIndex={0}
         type="button"

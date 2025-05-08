@@ -17,6 +17,7 @@ export function AuthFormInput({ props, icon, blurred }) {
     pickRandomUsername,
     iconType,
     classValue,
+    enterKey,
   } = useAuthFormInput(props, blurred);
 
   const {
@@ -52,6 +53,7 @@ export function AuthFormInput({ props, icon, blurred }) {
           maxLength={maxLength}
           autoComplete={autoCompleteStatus}
           onFocus={() => setBlurred(false)}
+          onKeyDown={enterKey}
         />
 
         <label htmlFor={name} onClick={handleLabelClick}>

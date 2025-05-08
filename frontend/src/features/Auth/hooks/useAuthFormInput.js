@@ -47,11 +47,18 @@ export function useAuthFormInput(inputProps, blurred) {
     }
   }, [blurred]);
 
+  const enterKey = (e) => {
+    if (e.key === "Enter") {
+      return;
+    }
+  };
+
   return {
     handleLabelClick,
     handleBlur,
     pickRandomUsername,
     iconType,
     classValue,
+    enterKey,
   };
 }
