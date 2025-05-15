@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { editProfile, getUsers } from "@/store";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import "./EditProfile.css";
+import { useIsMobile } from "hooks/useIsMobile";
 
 export function EditProfile() {
   const dispatch = useDispatch();
@@ -13,6 +14,8 @@ export function EditProfile() {
 
   const [display_name, setdisplay_name] = useState(user?.displayName);
   const [about, setAbout] = useState(user?.about);
+
+  const isMobile = useIsMobile();
 
   usePageSettings({
     documentTitle: "User Settings",
@@ -36,7 +39,7 @@ export function EditProfile() {
   };
 
   return (
-    <div className="edit-profile-page">
+    <div className={`edit-profile-page${isMobile ? " mobile" : ""}`}>
       <form onSubmit={handleSubmit}>
         <h1>User Profile Settings</h1>
         <div className="edit-profile-page-section">

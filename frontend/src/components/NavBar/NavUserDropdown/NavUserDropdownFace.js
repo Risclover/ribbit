@@ -2,11 +2,7 @@ import React from "react";
 import { TbChevronDown } from "react-icons/tb";
 import { KarmaIcon } from "@/assets";
 
-export default function NavUserDropdownFace({
-  cuser,
-  setShowDropdown,
-  showDropdown,
-}) {
+export function NavUserDropdownFace({ cuser, setShowDropdown, showDropdown }) {
   return (
     <div className="navbar-user-dropdown-face">
       <div className="navbar-user-info-box">

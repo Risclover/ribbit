@@ -12,16 +12,19 @@ import { stripHtml } from "@/utils/stripHtml";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
 import { PostResultType } from "./PostResultType";
 import { getPosts } from "@/store";
+import { sortPosts } from "utils";
+import { sortPostResults } from "features/NewSearch/utils/sortPostResults";
 
 export const SearchResultsPosts = ({ searchbarRef }) => {
   const dispatch = useDispatch();
 
-  const posts = useSelector((state) => Object.values(state.search.posts));
+  const rawPosts = useSelector((s) => Object.values(s.search.posts));
   const communities = useSelector((state) =>
     Object.values(state.search.communities)
   );
   const users = useSelector((state) => Object.values(state.search.users));
 
+  const [sortMode, setSortMode] = useState("Top");
   const [isLoading, setIsLoading] = useState(true);
 
   let query = getSearchQuery();
@@ -40,9 +43,15 @@ export const SearchResultsPosts = ({ searchbarRef }) => {
     focusSearchbar(searchbarRef);
   };
 
+  const posts = sortPostResults(rawPosts, sortMode);
+
   return (
     <SearchResults query={query} searchPage="Posts">
-      <SearchResultsSortBtn searchPage="Posts" />
+      <SearchResultsSortBtn
+        searchPage="Posts"
+        sort={sortMode}
+        setSort={setSortMode}
+      />
       <div className="search-results">
         <div className="search-results-left">
           <PostResultType

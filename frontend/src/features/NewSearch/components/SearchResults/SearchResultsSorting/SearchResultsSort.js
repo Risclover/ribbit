@@ -4,36 +4,34 @@ import { useOutsideClick } from "@/hooks";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import "./SearchResultsSort.css";
 
-export const SearchResultsSortBtn = ({ searchPage }) => {
+export const SearchResultsSortBtn = ({ searchPage, sort, setSort }) => {
   const wrapperRef = useRef();
-  const [sortOpen, setSortOpen] = useState(false);
-  const [sort, setSort] = useState("Top");
-  const [sortSet, setSortSet] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  useOutsideClick(wrapperRef, () => setSortOpen(false));
+  useOutsideClick(wrapperRef, () => setOpen(false));
+
+  const choose = (mode) => {
+    setSort(mode); // lift up
+    setOpen(false);
+  };
 
   return (
     <div ref={wrapperRef} className="search-results-sort-bar">
       <button
-        aria-label="Sort menu"
-        className={`${
-          !sortOpen ? "search-results-sort" : "search-results-sort sort-open"
-        } ${sortSet ? "sort-set" : ""}`}
+        className={`search-results-sort${open ? " sort-open" : ""}`}
         onClick={(e) => {
           e.preventDefault();
-          setSortOpen(!sortOpen);
+          setOpen(!open);
         }}
       >
-        {sortSet ? sort : "Sort"} {!sortOpen && <VscChevronDown />}{" "}
-        {sortOpen && <VscChevronUp />}
+        {sort} {open ? <VscChevronUp /> : <VscChevronDown />}
       </button>
-      {sortOpen && (
+
+      {open && (
         <SearchResultsSortDropdown
-          setSortSet={setSortSet}
-          sort={sort}
-          setSort={setSort}
+          current={sort}
+          choose={choose} // ↓ new prop
           searchPage={searchPage}
-          setSortOpen={setSortOpen}
         />
       )}
     </div>

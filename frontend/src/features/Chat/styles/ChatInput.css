@@ -8,7 +8,7 @@
 .chat-thread-window-input-box {
   box-shadow: none;
   box-sizing: border-box;
-  font-size: 1rem;
+  font-size: 0.925rem;
   display: flex;
   align-items: flex-end;
   padding: 0px;

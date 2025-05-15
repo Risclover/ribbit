@@ -9,11 +9,13 @@ import { PostTypeLinkIcon } from "@/assets/icons/PostTypeLinkIcon";
 import { Skeleton } from "@mui/material";
 import { useDarkMode } from "@/hooks";
 import { useSelector } from "react-redux";
+import { useIsMobile } from "hooks/useIsMobile";
 
 const PostResult = ({ post }) => {
   const history = useHistory();
-  const communities = useSelector((state) => Object.values(state.communities));
-  const community = communities[post?.community?.id];
+  const community = useSelector(
+    (state) => state.communities[post?.community?.id]
+  );
   const { metadata, fetchMetadata } = useMetadata();
   const hasMeta = Boolean(metadata[post.linkUrl]);
 
@@ -25,10 +27,6 @@ const PostResult = ({ post }) => {
 
   const metadataResult = metadata[post.linkUrl];
 
-  const handlePostClick = (e) => {
-    e.preventDefault();
-  };
-
   const handleCommunityClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -36,18 +34,13 @@ const PostResult = ({ post }) => {
   };
 
   return (
-    <NavLink
-      to={`/posts/${post?.id}`}
-      onClick={handlePostClick}
-      className="search-results-post"
-    >
+    <NavLink to={`/posts/${post?.id}`} className="search-results-post">
       <div className="search-results-post-topbar">
         <CommunityImg
           imgClass="search-results-post-topbar-img"
           imgStyle={{
-            backgroundColor: `${
-              community?.communitySettings[community?.id]?.baseColor
-            }`,
+            backgroundColor:
+              community?.communitySettings?.[community?.id]?.baseColor,
           }}
           imgSrc={post?.community?.img}
           imgAlt="Community"
@@ -106,8 +99,7 @@ const PostResult = ({ post }) => {
           {post?.votes} {post?.votes === 1 ? "upvote" : "upvotes"}
         </span>
         <span className="search-results-post-stat">
-          {Object.values(post?.commentNum)}{" "}
-          {Object.values(post?.commentNum) === 1 ? "comment" : "comments"}
+          {post?.commentNum} {post?.commentNum === 1 ? "comment" : "comments"}
         </span>
       </div>
     </NavLink>
@@ -116,7 +108,7 @@ const PostResult = ({ post }) => {
 
 const PostSkeleton = () => {
   const { theme } = useDarkMode();
-
+  const isMobile = useIsMobile();
   return (
     <div className="search-results-post">
       <div className="post-result-skeleton">
@@ -143,29 +135,29 @@ const PostSkeleton = () => {
             <Skeleton
               variant="text"
               sx={{ fontSize: "2rem", bgcolor: theme === "dark" && "grey.500" }}
-              width={400}
+              width="100%"
               animation="wave"
             />
             <Skeleton
               variant="text"
               sx={{ fontSize: "2rem", bgcolor: theme === "dark" && "grey.500" }}
-              width={400}
               animation="wave"
             />
             <Skeleton
               variant="text"
               sx={{ fontSize: "2rem", bgcolor: theme === "dark" && "grey.500" }}
-              width={320}
               animation="wave"
             />
           </div>
-          <Skeleton
-            variant="rounded"
-            width={138}
-            height={98}
-            animation="wave"
-            sx={{ bgcolor: theme === "dark" && "grey.500" }}
-          />
+          <div className="post-result-img">
+            <Skeleton
+              variant="rounded"
+              width={isMobile ? 80 : 138}
+              height={isMobile ? 60 : 98}
+              animation="wave"
+              sx={{ bgcolor: theme === "dark" && "grey.500" }}
+            />
+          </div>
         </div>
         <div className="post-result-bottom">
           <Skeleton

@@ -9,9 +9,10 @@ import { CommunityImg } from "@/components/CommunityImg";
 export function CommentResult({ comment }) {
   const history = useHistory();
   const posts = useSelector((state) => Object.values(state.posts));
-  const communities = useSelector((state) => Object.values(state.communities));
   const post = posts.find((post) => post.id === comment.postId);
-  const community = communities[post?.community?.id];
+  const community = useSelector(
+    (state) => state.communities[post?.community?.id]
+  );
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -105,8 +106,7 @@ export function CommentResult({ comment }) {
           <span className="search-results-comment-post-votes">
             {post.votes} {post.votes === 1 ? "upvote" : "upvotes"}
           </span>{" "}
-          {Object.values(post.commentNum)}{" "}
-          {Object.values(post.commentNum) === 1 ? "comment" : "comments"}
+          {post.commentNum} {post.commentNum === 1 ? "comment" : "comments"}
         </div>
       </div>
     </NavLink>

@@ -13,7 +13,7 @@
   border-radius: 100px;
   font-family: var(--font-family-noto);
   font-weight: 700;
-  font-size: 14px;
+  font-size: 0.925rem;
   color: white;
   background: var(--highlight-color);
   border: 1px solid var(--highlight-color);

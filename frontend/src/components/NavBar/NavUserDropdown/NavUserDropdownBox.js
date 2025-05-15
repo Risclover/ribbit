@@ -10,7 +10,7 @@ import { useOutsideClick, useDarkMode } from "@/hooks";
 import { logout } from "@/store";
 import { useSkipLocation } from "@/context/SkipLocationContext";
 
-export default function NavUserDropdownBox({ cuser, setShowDropdown }) {
+export function NavUserDropdownBox({ cuser, setShowDropdown }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -18,6 +18,7 @@ export default function NavUserDropdownBox({ cuser, setShowDropdown }) {
 
   const onLogout = async () => {
     await dispatch(logout());
+    setShowDropdown(false);
     history.push("/");
   };
 
@@ -35,20 +36,23 @@ export default function NavUserDropdownBox({ cuser, setShowDropdown }) {
           <HiOutlineUserCircle /> My Stuff
         </div>
         <NavLink
-          to={`/users/${cuser.id}/profile`}
-          onKeyDown={(e) => handleKeyDown(e, `/users/${cuser.id}/profile`)}
+          to={`/users/${cuser?.id}/profile`}
+          onKeyDown={(e) => handleKeyDown(e, `/users/${cuser?.id}/profile`)}
+          onClick={() => setShowDropdown(false)}
         >
           <div className="nav-user-dropdown-btn">Profile</div>
         </NavLink>
         <NavLink
           to={`/directory`}
           onKeyDown={(e) => handleKeyDown(e, `/directory`)}
+          onClick={() => setShowDropdown(false)}
         >
           <div className="nav-user-dropdown-btn">Communities Directory</div>
         </NavLink>
         <NavLink
           to={`/settings/profile`}
           onKeyDown={(e) => handleKeyDown(e, `/settings/profile`)}
+          onClick={() => setShowDropdown(false)}
         >
           <div className="nav-user-dropdown-btn">User Settings</div>
         </NavLink>

@@ -17,7 +17,10 @@ export const CommentResultSkeleton = () => {
           />
           <Skeleton
             variant="text"
-            sx={{ fontSize: "0.75rem" }}
+            sx={{
+              fontSize: "0.75rem",
+              bgcolor: theme === "dark" && "grey.500",
+            }}
             width={200}
             animation="wave"
           />

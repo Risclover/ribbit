@@ -129,7 +129,7 @@
 .user-profile-about {
   margin: 8px 0;
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   color: var(--main-text-color);
 }
@@ -159,7 +159,7 @@
   cursor: pointer;
 }
 .user-profile-stats h5 {
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   color: var(--main-text-color);
@@ -194,7 +194,7 @@
   background: var(--highlight-color);
   color: white;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-family: var(--font-family-noto);
   height: 34px;
   border: 1px solid var(--highlight-color);
@@ -222,7 +222,7 @@
 }
 
 .user-profile-owned-communities h2 {
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 700;
 }
 
@@ -282,7 +282,7 @@
 
 .owned-community-join-btn {
   border-radius: 100px;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 700;
   padding: 4px 16px;
   height: 32px;
@@ -358,7 +358,7 @@
   height: 32px;
   padding: 8px;
   width: 248px;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   line-height: 21px;
 }
@@ -422,7 +422,7 @@
   border: 1px solid transparent;
   color: var(--highlight-color);
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 700;
   line-height: 17px;
   min-height: 38px;
@@ -443,7 +443,7 @@
   border: 1px solid transparent;
   color: #878a8c;
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 700;
   line-height: 17px;
   min-height: 38px;

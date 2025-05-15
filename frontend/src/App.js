@@ -56,6 +56,11 @@ import { AppRoutes } from "routes/AppRoutes";
 import { useLeaveLogin } from "hooks/useLeaveLogin";
 import { useNotificationsSocket } from "hooks/useNotificationsSocket";
 import "./moment-setup";
+import { LoggedOutNavBar } from "components/NavBar/MobileNavbar";
+import { useIsMobile } from "hooks/useIsMobile";
+import { MobileNavbarDropdown } from "components/NavBar/MobileNavbar/MobileNavbarDropdown";
+import { MobileSearchbar } from "features/NewSearch/components/MobileSearchbar/MobileSearchbar";
+import { MobileNavBar } from "components/NavBar/MobileNavbar/MobileNavbar";
 
 function App() {
   const dispatch = useDispatch();
@@ -82,6 +87,8 @@ function App() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [showDropdown, setShowDropdown] = useState(false);
   const [minimizeChat, setMinimizeChat] = useState(false);
+  const [openUserDropdown, setOpenUserDropdown] = useState(false);
+  const [showSearchScreen, setShowSearchScreen] = useState(false);
 
   useNotificationsSocket(user);
 
@@ -160,6 +167,13 @@ function App() {
     setMinimizeChat: setMinimizeChat,
   };
 
+  const mobileNavBarProps = {
+    openUserDropdown: openUserDropdown,
+    setOpenUserDropdown: setOpenUserDropdown,
+  };
+
+  const isMobile = useIsMobile();
+
   return (
     <MetadataProvider>
       <PopupProvider>
@@ -169,7 +183,28 @@ function App() {
           <PostFormatContext.Provider value={{ format, setFormat }}>
             <ScrollToTop />
             {previewPage && <PreviewCommunitySidebar />}
-            <NavBar {...navBarProps} />
+            {isMobile ? (
+              <MobileNavBar
+                setOpenUserDropdown={setOpenUserDropdown}
+                openUserDropdown={openUserDropdown}
+                showSearchScreen={showSearchScreen}
+                setShowSearchScreen={setShowSearchScreen}
+              />
+            ) : (
+              <NavBar {...navBarProps} />
+            )}
+
+            <MobileNavbarDropdown
+              userImg={user?.profileImg}
+              setOpenUserDropdown={setOpenUserDropdown}
+              openUserDropdown={openUserDropdown}
+            />
+            {showSearchScreen && (
+              <MobileSearchbar
+                showSearchScreen={showSearchScreen}
+                setShowSearchScreen={setShowSearchScreen}
+              />
+            )}
             <div
               className={
                 showNavSidebar

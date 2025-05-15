@@ -2,6 +2,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { readAllNotifications } from "@/store";
 import { groupAndSortNotifications } from "../utils";
+import { useEffect } from "react";
+import { getUsers } from "store";
 
 export function useNotificationsDropdown() {
   const dispatch = useDispatch();
@@ -10,6 +12,10 @@ export function useNotificationsDropdown() {
   const notifications = useSelector((state) =>
     Object.values(state.notifications)
   );
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
 
   // Sort + group them
   const { sorted, today, earlier } = groupAndSortNotifications(notifications);

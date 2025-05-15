@@ -1,6 +1,6 @@
 .rule-modal-section-title {
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   color: var(--main-text-color);
   line-height: 18px;
@@ -9,7 +9,7 @@
 
 .rule-modal-rule-input {
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   line-height: 21px;
   padding: 8px;

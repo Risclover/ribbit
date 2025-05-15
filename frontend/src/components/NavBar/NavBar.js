@@ -18,6 +18,8 @@ import { RandomLogo } from "../../layouts/RandomLogo";
 import "./NavBar.css";
 import "../../features/NewSearch/Search.css";
 import { useAuthFlow } from "@/context/AuthFlowContext";
+import { LoggedOutNavBar } from "./MobileNavbar";
+import { NavBarBtns } from "./NavBarBtns";
 
 export function NavBar({
   adjustQuery,
@@ -124,51 +126,14 @@ export function NavBar({
         </li>
       </ul>
       <div></div>
-      <Searchbar
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        adjustQuery={adjustQuery}
-        loggedIn={user ? true : false}
-        searchbarRef={searchbarRef}
-      />
+      <Searchbar loggedIn={user ? true : false} searchbarRef={searchbarRef} />
       <div className="navbar-right">
         {user && (
-          <div className="navbar-buttons">
-            <button
-              className="navbar-button"
-              onClick={() => history.push("/all")}
-            >
-              <AllPostsIcon />
-              {showTooltip && (
-                <span className="navbtn-tooltiptext">/c/All</span>
-              )}
-            </button>
-            <button
-              className="navbar-button"
-              onMouseEnter={() => setTimeout(() => setShowTooltip(true), 500)}
-              onMouseLeave={() => setShowTooltip(false)}
-              onClick={handleOpenChat}
-            >
-              <BsChatDots />
-              {showTooltip && <span className="navbtn-tooltiptext">Chat</span>}
-            </button>
-            {user && (
-              <div className="notification-wrapper">
-                <NotificationBell />
-              </div>
-            )}
-            <button
-              className="navbar-button"
-              onClick={() => history.push("/submit")}
-              onMouseEnter={() => setTimeout(() => setShowTooltip(true), 500)}
-              onMouseLeave={() => setShowTooltip(false)}
-            >
-              <TfiPlus />
-              {showTooltip && (
-                <span className="navbtn-tooltiptext text2">Create Post</span>
-              )}
-            </button>
-          </div>
+          <NavBarBtns
+            showTooltip={showTooltip}
+            setShowTooltip={setShowTooltip}
+            handleOpenChat={handleOpenChat}
+          />
         )}
         {!user && (
           <button className="navbar-login-btn" onClick={openLogin}>

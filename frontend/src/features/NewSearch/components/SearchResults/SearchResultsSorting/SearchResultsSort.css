@@ -93,7 +93,7 @@
 }
 
 .search-results-sort-dropdown li:hover {
-  background: #e9f5fd;
+  background: rgba(36, 160, 237, 0.1);
   color: var(--main-text-color);
 }
 
@@ -102,7 +102,7 @@
 }
 
 .sort-dropdown-btn-active:hover {
-  background: #e9f5fd !important;
+  background: rgba(36, 160, 237, 0.1);
   color: var(--highlight-color) !important;
 }
 
@@ -112,4 +112,10 @@
 
 .search-results-sort-bar {
   margin-bottom: 4px;
+}
+
+@media (max-width: 768px) {
+  .search-results-sort-bar {
+    padding: 0 16px;
+  }
 }

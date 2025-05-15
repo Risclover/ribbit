@@ -43,7 +43,7 @@
   background-color: #67b54d;
   border: none;
   font-family: Noto Sans, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 700;
   letter-spacing: unset;
   line-height: 17px;
@@ -103,7 +103,7 @@
 .logged-out-sidebar-text {
   border-top: 1px solid var(--main-border-color);
   font-family: "Noto Sans", Arial, sans-serif;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   line-height: 18px;
   padding: 19px 24px 22px 0;

@@ -6,11 +6,12 @@ import LoggedOutDropdownFace from "./LoggedOutDropdownFace";
 import { LoggedOutDropdown } from "./LoggedOutDropdown";
 import "./LoggedOutDropdown.css";
 import { useOutsideClick } from "@/hooks";
+import { useFocusTrap } from "hooks";
 
 export function LoggedOutDropdownWrapper() {
   const [showDropdown, setShowDropdown] = useState(false);
   const wrapperRef = useRef(null);
-
+  useFocusTrap(showDropdown, wrapperRef);
   useOutsideClick(wrapperRef, () => setShowDropdown(false));
   return (
     <div className="logged-out-dropdown-wrapper" ref={wrapperRef}>

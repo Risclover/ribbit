@@ -1,7 +1,11 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { ProtectedRoute } from "@/components";
-import { searchRoutes, messageRoutes, createPostPageRoutes } from "@/routes";
+import {
+  searchRoutes,
+  messageRoutes,
+  createPostPageRoutes,
+  ProtectedRoute,
+} from "@/routes";
 import { ScrollProvider } from "@/context";
 import {
   AllPostsFeed,
@@ -38,7 +42,7 @@ export const AppRoutes = ({
           {user ? <HomepageFeed /> : <AllPostsFeed />}
         </Route>
 
-        <Route path="/login">
+        <Route path="/login" exact>
           <LoginSignupModal formType="protected" />
         </Route>
 

@@ -1,0 +1,81 @@
+.logged-out-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logged-out-navbar .logo-container,
+.logged-out-navbar img {
+  margin: 0;
+}
+
+.logged-out-navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logged-out-navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav:has(> .logged-out-navbar) {
+  padding: 0 1rem;
+}
+
+.logged-out-navbar .logo-container svg {
+  margin-left: 5px;
+}
+
+.open-logged-out-user-dropdown {
+  border: none;
+  background: transparent;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin-left: 10px;
+}
+
+.open-logged-out-user-dropdown img {
+  height: 100%;
+  width: 100%;
+}
+
+.logged-out-user-dropdown .nav-user-dropdown-box,
+.logged-out-user-dropdown .logged-out-dropdown {
+  width: 100%;
+  background-color: var(--ribbit-main);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  top: auto;
+  transform: translateY(100%);
+  transition-duration: 0.3s;
+  transition-property: height, transform;
+  transition-timing-function: ease;
+  touch-action: none;
+  width: 100%;
+}
+
+.logged-out-user-dropdown.open .nav-user-dropdown-box,
+.logged-out-user-dropdown.open .logged-out-dropdown {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.logged-out-user-dropdown-container {
+  height: 100vh;
+  position: relative;
+  z-index: 100;
+}
+
+.logged-out-user-dropdown .nav-user-dropdown-box,
+.logged-out-user-dropdown.open .nav-user-dropdown-box,
+.logged-out-user-dropdown.open .logged-out-dropdown,
+.logged-out-user-dropdown .logged-out-dropdown {
+  will-change: transform;
+}

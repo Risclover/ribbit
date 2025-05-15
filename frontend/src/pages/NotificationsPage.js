@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { VscMailRead } from "react-icons/vsc";
 import { TfiBell } from "react-icons/tfi";
@@ -7,8 +7,11 @@ import { v4 as uuidv4 } from "uuid";
 import { Notification, NoNotifications } from "@/features";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import { useNotificationsDropdown } from "@/features/Notifications/hooks";
+import { useDispatch } from "react-redux";
+import { readAllNotifications } from "store";
 
 export function NotificationsPage() {
+  const dispatch = useDispatch();
   usePageSettings({
     documentTitle: "Notifications",
     icon: (
@@ -18,6 +21,10 @@ export function NotificationsPage() {
     ),
     pageTitle: "Notifications",
   });
+
+  useEffect(() => {
+    dispatch(readAllNotifications());
+  }, [dispatch]);
 
   const { markAllRead, notifications, today, earlier } =
     useNotificationsDropdown();

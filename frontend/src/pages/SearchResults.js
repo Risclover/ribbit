@@ -3,8 +3,12 @@ import { SearchResultsNav } from "../features";
 import { usePageSettings } from "../hooks";
 import { MagnifyingGlass } from "@/assets/icons/MagnifyingGlass";
 import "../features/NewSearch/Search.css";
+import { SearchTabs } from "features/NewSearch/components/MobileSearchbar/SearchTabs";
+import { useSelector } from "react-redux";
+import { useIsMobile } from "hooks/useIsMobile";
 
 export const SearchResults = ({ children, query, searchPage }) => {
+  const isMobile = useIsMobile();
   usePageSettings({
     documentTitle: `ribbit: search results - ${query}`,
     icon: (
@@ -29,7 +33,11 @@ export const SearchResults = ({ children, query, searchPage }) => {
   return (
     <div className="search-results-page">
       <div className="search-results-wrapper">
-        <SearchResultsNav query={query} searchPage={searchPage} />
+        {isMobile ? (
+          <SearchTabs query={query} searchPage={searchPage} />
+        ) : (
+          <SearchResultsNav query={query} searchPage={searchPage} />
+        )}
         {children}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { SearchResults } from "@/pages";
 import { getSearchQuery } from "../../../utils/getSearchQuery";
 import { SearchResultsSortBtn } from "../SearchResultsSorting/SearchResultsSort";
@@ -8,12 +8,15 @@ import { CommentResult } from "./CommentResult";
 import { NoResults } from "../NoResults";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
 import CommentResultType from "./CommentResultType";
+import { sortCommentResults } from "features/NewSearch/utils/sortCommentResults";
 
 export function SearchResultsComments({ searchbarRef }) {
   const dispatch = useDispatch();
   const query = getSearchQuery();
 
-  const comments = useSelector((state) => Object.values(state.search.comments));
+  const rawComments = useSelector((s) => Object.values(s.search.comments));
+
+  const [sortMode, setSortMode] = useState("Top");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -26,9 +29,18 @@ export function SearchResultsComments({ searchbarRef }) {
     focusSearchbar(searchbarRef);
   };
 
+  const comments = useMemo(
+    () => sortCommentResults(rawComments, sortMode),
+    [rawComments, sortMode]
+  );
+
   return (
     <SearchResults query={query} searchPage="Comments">
-      <SearchResultsSortBtn searchPage="Comments" />
+      <SearchResultsSortBtn
+        searchPage="Comments"
+        sort={sortMode}
+        setSort={setSortMode}
+      />
       <div className="search-results">
         <div className="search-results-page-comments">
           <CommentResultType

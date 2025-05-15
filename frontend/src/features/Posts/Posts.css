@@ -83,7 +83,7 @@
 .posts-home-box p,
 .posts-author-box ul {
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   line-height: 20px;
   color: var(--main-text-color);
 }

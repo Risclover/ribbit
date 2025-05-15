@@ -163,7 +163,7 @@
 
 .notifications-dropdown-head p {
   color: var(--main-text-color);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   overflow: hidden;
@@ -206,7 +206,7 @@
 }
 
 .notification-message {
-  font-size: 14px;
+  font-size: 0.925rem;
   line-height: 21px;
   font-family: var(--font-family-noto);
   font-weight: 400;
@@ -224,7 +224,7 @@
 
 .notification-date {
   color: #7c7c7c;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   font-family: var(--font-family-noto);
   line-height: 19px;
@@ -235,7 +235,7 @@
   font-weight: 400;
   text-overflow: ellipsis;
   white-space: normal;
-  font-size: 14px;
+  font-size: 0.925rem;
   color: #7c7c7c;
   word-break: break-word;
   max-height: 54px;
@@ -294,7 +294,7 @@
   -ms-flex-pack: center;
   justify-content: center;
   padding: 0 12px;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   line-height: 32px;
@@ -359,7 +359,7 @@
 
 .no-notifications p {
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   line-height: 18px;
   color: #7c7c7c;
@@ -370,7 +370,7 @@
 .no-notifications-btn {
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 0.925rem;
   line-height: 18px;
   height: 40px;
   font-family: "IBMPlexSans", sans-serif;
@@ -404,7 +404,8 @@
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 48px);
-  width: 648px;
+  max-width: 648px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -436,10 +437,10 @@
 .notifications-button-bar-item {
   cursor: pointer;
   padding: 15px 12px 12px;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 700;
   color: #7c7c7c;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 700;
   line-height: 18px;
   border-bottom: none;
@@ -496,6 +497,7 @@
   flex: 1 1 100%;
   min-width: 0;
   width: 100%;
+  margin: 24px auto;
 }
 
 .notifications-spacer {
@@ -669,7 +671,7 @@
 
 .notification-menu-item {
   color: var(--main-text-color);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-family: var(--font-family-ibm);
   font-weight: 500;
   line-height: 18px;
@@ -687,8 +689,13 @@
   opacity: 0.5;
 }
 
-@media (min-width: 640px) {
-  .notifications-main {
-    margin: 24px auto;
+@media (max-width: 768px) {
+  .notifications-header h1 {
+    margin-left: 20px;
+  }
+
+  .notifications-page {
+    background: var(--background);
+    width: 100%;
   }
 }

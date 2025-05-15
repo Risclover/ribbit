@@ -119,7 +119,7 @@
   display: flex;
   color: #7c7c7c;
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   align-items: center;
   margin-top: 12px;
@@ -142,7 +142,7 @@
 
 .community-page-box-description-plain {
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   line-height: 21px;
   word-wrap: break-word;
@@ -151,7 +151,7 @@
 
 .community-page-box-description {
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   line-height: 21px;
   word-wrap: break-word;
@@ -194,7 +194,7 @@
 .community-page-edit-description textarea {
   cursor: auto;
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   line-height: 21px;
   font-weight: 400;
   color: var(--main-text-color);
@@ -367,7 +367,7 @@
 }
 
 .community-header-info-display-name h2 {
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   color: #7c7c7c;
   line-height: 18px;
@@ -454,7 +454,7 @@
   border-radius: 0;
   cursor: pointer;
   background: var(--ribbit-main);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   display: block;
@@ -500,7 +500,7 @@
 .community-page-box-header h3 {
   color: var(--community-base-color-text);
   font-weight: 700;
-  font-size: 14px;
+  font-size: 0.925rem;
   letter-spacing: 0.5px;
 }
 
@@ -598,7 +598,7 @@
 }
 
 .community-no-posts-content {
-  font-size: 14px;
+  font-size: 0.925rem;
   line-height: 18px;
 }
 
@@ -684,7 +684,7 @@
   background: var(--community-base-color);
   color: var(--community-base-color-text);
   padding: 12px;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 700;
   line-height: 18px;
 }
@@ -700,7 +700,7 @@
 
 .community-page-rule {
   padding: 8px 0;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   border-bottom: 1px solid #ccc;
@@ -713,7 +713,7 @@
   padding: 8px 0;
   display: flex;
   flex-direction: column;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   font-family: var(--font-family-ibm);
@@ -765,7 +765,7 @@
 .rule-description {
   font-family: var(--font-family-noto);
   font-weight: 400;
-  font-size: 14px;
+  font-size: 0.925rem;
   padding: 8px 8px 0 16px;
   word-break: break-word;
 }
@@ -777,7 +777,7 @@
 
 .community-rule {
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   line-height: 21px;
   border-bottom: 1px solid var(--secondary-border-color);
@@ -830,7 +830,7 @@
 }
 
 .rule-pencil {
-  font-size: 14px;
+  font-size: 0.925rem;
   margin-right: 15px;
 }
 

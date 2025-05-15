@@ -114,7 +114,7 @@
 
 .single-post-community-description,
 .single-post-community-date {
-  font-size: 14px;
+  font-size: 0.925rem;
   line-height: 21px;
   font-family: var(--font-family-noto);
   word-wrap: break-word;
@@ -240,7 +240,7 @@
 
 .single-post-content {
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   line-height: 21px;
   color: var(--main-text-color);
   overflow: hidden;
@@ -294,7 +294,7 @@
 
 .single-page-content {
   font-family: var(--font-family-noto);
-  font-size: 14px;
+  font-size: 0.925rem;
   line-height: 21px;
   color: var(--main-text-color);
   overflow: hidden;
@@ -612,14 +612,14 @@ ol {
   background: var(--community-base-color);
   color: white;
   padding: 12px;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 700;
   line-height: 18px;
 }
 
 .single-post-rule {
   padding: 8px 0;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   cursor: pointer;
@@ -639,7 +639,7 @@ ol {
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   font-family: var(--font-family-ibm);
@@ -696,7 +696,7 @@ ol {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 512px;
+  width: 100%;
 }
 
 .single-post-page-banner-content-container {

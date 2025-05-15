@@ -99,7 +99,7 @@
 }
 .nav-user-dropdown-btn-title {
   color: #787c7e;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   text-overflow: ellipsis;
@@ -124,7 +124,7 @@
   width: 100%;
   border: 0;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   color: var(--main-text-color);
@@ -160,7 +160,7 @@
   width: 100%;
   border: 0;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   color: var(--main-text-color);

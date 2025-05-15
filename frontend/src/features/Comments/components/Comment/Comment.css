@@ -83,7 +83,7 @@
 }
 
 .comment-bg-blue {
-  background-color: #e9f5fd;
+  background-color: rgba(36, 160, 237, 0.1);
 }
 
 .comment-user-img-container {
@@ -180,7 +180,7 @@
 
 .comment-content {
   font-family: "Noto Sans", Arial, sans-serif;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   line-height: 21px;
   word-break: break-word;

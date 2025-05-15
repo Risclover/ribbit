@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { VscMailRead } from "react-icons/vsc";
 import { v4 as uuidv4 } from "uuid";
@@ -6,13 +6,20 @@ import { v4 as uuidv4 } from "uuid";
 import { Notification } from "./Notification";
 import { NoNotifications } from "./NoNotifications";
 import { useNotificationsDropdown } from "../hooks/useNotificationsDropdown";
+import { useDispatch } from "react-redux";
+import { readAllNotifications } from "store";
 
 export function NotificationsDropdown({
   msgNum,
   setShowDropdown,
   showDropdown,
 }) {
+  const dispatch = useDispatch();
   const { notifications, markAllRead } = useNotificationsDropdown();
+
+  useEffect(() => {
+    if (showDropdown) dispatch(readAllNotifications());
+  }, [showDropdown, dispatch]);
 
   if (!showDropdown) return null;
 

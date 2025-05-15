@@ -33,7 +33,15 @@ chatUsers = []
 # --------------------------------------------------------------------------- #
 @socketio.on("connect")
 def on_connect():
-    username = User.query.get(current_user.get_id()).username
+    user_id = current_user.get_id()
+    if not user_id:
+        return False                # reject anonymous sockets if you want
+
+    # make sure the user is in their own room
+    join_room(f"user_{user_id}")
+
+    # optional: keep your chatUsers bookkeeping
+    username = User.query.get(user_id).username
     if not any(u["username"] == username for u in chatUsers):
         chatUsers.append({"username": username, "sid": request.sid})
 

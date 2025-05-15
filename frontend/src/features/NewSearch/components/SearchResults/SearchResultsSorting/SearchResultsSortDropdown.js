@@ -1,14 +1,8 @@
 import React from "react";
 import { SearchResultsSortDropdownBtn } from "./SearchResultsSortDropdownBtn";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
-export const SearchResultsSortDropdown = ({
-  setSortSet,
-  sort,
-  setSort,
-  searchPage,
-  setSortOpen,
-}) => {
+export const SearchResultsSortDropdown = ({ sort, choose, searchPage }) => {
   const btns = ["Top", "Worst", "New", "Controversial"];
 
   if (searchPage === "Posts") {
@@ -22,10 +16,8 @@ export const SearchResultsSortDropdown = ({
           <SearchResultsSortDropdownBtn
             key={uuidv4()}
             btn={btn}
-            setSortSet={setSortSet}
             sort={sort}
-            setSort={setSort}
-            setSortOpen={setSortOpen}
+            choose={choose}
           />
         ))}
       </ul>

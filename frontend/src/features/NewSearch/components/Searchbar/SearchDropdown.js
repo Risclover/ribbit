@@ -10,6 +10,9 @@ export function SearchDropdown({
   searchQuery,
   setSearchQuery,
   setShowSearchDropdown,
+  setShowSearchScreen = () => {
+    return null;
+  },
 }) {
   const wrapperRef = useRef(null);
   const dispatch = useDispatch();
@@ -44,6 +47,7 @@ export function SearchDropdown({
 
   const handleResultClick = (url) => {
     setShowSearchDropdown(false);
+    setShowSearchScreen(false);
     setSearchQuery("");
     history.push(url);
   };
@@ -56,6 +60,7 @@ export function SearchDropdown({
       onClick={(e) => {
         e.preventDefault();
         setShowSearchDropdown(false);
+        setShowSearchScreen(false);
       }}
     >
       {filteredCommunities.length > 0 && (

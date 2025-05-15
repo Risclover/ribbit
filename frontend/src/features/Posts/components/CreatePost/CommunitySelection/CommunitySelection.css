@@ -45,7 +45,7 @@
 .community-selection-input,
 .community-selection-input-txt {
   border: none;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 22px;
   color: var(--main-text-color);
@@ -57,14 +57,14 @@
 }
 
 .community-selection-input::placeholder {
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 22px;
   color: var(--main-text-color);
 }
 
 .community-selection-span {
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   color: var(--main-text-color);
   margin-left: 8px;
@@ -166,7 +166,7 @@
 }
 
 .community-selection-community-name {
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   color: var(--main-text-color);
   line-height: 18px;

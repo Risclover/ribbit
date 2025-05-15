@@ -79,7 +79,7 @@
 }
 
 .preview-community-theme-colors-box h2 {
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   color: var(--main-text-color);
@@ -240,7 +240,7 @@
   background: var(--ribbit-main);
   color: #878a8c;
   height: 30px;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 400;
   line-height: 21px;
   font-family: inherit;
@@ -273,7 +273,7 @@
   font-family: var(--font-family-noto);
   font-weight: 400;
   color: var(--main-text-color);
-  font-size: 14px;
+  font-size: 0.925rem;
   max-width: 540px;
   line-height: 21px;
 }
@@ -460,7 +460,7 @@ svg:not(:root) {
   flex: 1 1;
   cursor: pointer;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 0.925rem;
   font-weight: 500;
   line-height: 18px;
   display: flex;

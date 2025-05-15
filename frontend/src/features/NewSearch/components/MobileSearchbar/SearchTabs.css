@@ -1,0 +1,128 @@
+.tabs-wrapper {
+  position: relative;
+  display: flex;
+  padding: 0;
+}
+
+.tabs-window {
+  overflow-x: auto; /* native scroll */
+  scroll-behavior: smooth; /* for arrow clicks */
+  scrollbar-width: none;
+  flex: 1 1 auto;
+}
+
+.tabs-window::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs-rail {
+  display: flex;
+  gap: 4px;
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+
+.tab {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  border: none;
+  background: var(--gray-200);
+  white-space: nowrap;
+}
+.tab.active {
+  background: var(--ribbit-main);
+  color: #fff;
+}
+
+.arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  border: none;
+  font-size: 1.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+.arrow.left {
+  left: 0;
+}
+.arrow.right {
+  right: 0;
+}
+
+.mobile-searchbar-container {
+  z-index: 999;
+  background: var(--ribbit-main);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.mobile-searchbar-top {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+
+.mobile-searchbar {
+  display: flex;
+}
+
+.searchtab-arrow {
+  border-radius: 0;
+  /* border: var(--button-border-width, 0) solid (transparent, transparent); */
+  border: 0;
+  background: transparent;
+}
+
+.searchtab-arrow-container {
+  position: absolute;
+  z-index: 9999;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchtab-arrow-container.right {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0,
+    var(--background) 30%
+  );
+  padding-left: 0.5rem;
+  right: 0;
+}
+
+.searchtab-arrow-container.left {
+  background-image: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0) 0,
+    var(--background) 30%
+  );
+  padding-right: 0.5rem;
+  left: 0;
+}
+
+.searchtab-arrow-container {
+  pointer-events: none;
+}
+.searchtab-arrow {
+  pointer-events: auto;
+}
+
+.mobile-searchbar-back-btn {
+  background: transparent;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .tabs-wrapper {
+    padding: 0 16px;
+  }
+}

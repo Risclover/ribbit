@@ -3,17 +3,13 @@ import React from "react";
 export const SearchResultsSortDropdownBtn = ({
   sort,
   btn,
-  setSort,
-  setSortOpen,
-  setSortSet,
+  choose,
 }) => {
   return (
     <li
       className={sort === btn && "sort-dropdown-btn-active"}
       onClick={() => {
-        setSort(btn);
-        setSortOpen(false);
-        setSortSet(true);
+        choose(btn);
       }}
     >
       {btn}

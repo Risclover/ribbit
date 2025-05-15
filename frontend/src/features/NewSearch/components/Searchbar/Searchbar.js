@@ -5,7 +5,7 @@ import { getSearchQuery } from "../../utils/getSearchQuery";
 import "../../Search.css";
 import { SearchIcon, SearchbarCloseIcon } from "@/assets";
 
-export function Searchbar({ loggedIn, searchbarRef }) {
+export function Searchbar({ loggedIn, searchbarRef, setShowSearchScreen }) {
   const formRef = useRef(null);
   const history = useHistory();
   const location = useLocation();
@@ -29,7 +29,8 @@ export function Searchbar({ loggedIn, searchbarRef }) {
   const handleEnter = (e) => {
     if (e.key === "Enter" && searchQuery.trim().length > 0) {
       setShowSearchDropdown(false);
-      searchbarRef.current.blur();
+      setShowSearchScreen(false);
+      searchbarRef?.current.blur();
       history.push(`/search/posts?q=${searchQuery.trim()}`);
     }
   };
@@ -37,6 +38,7 @@ export function Searchbar({ loggedIn, searchbarRef }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSearchDropdown(false);
+    setShowSearchScreen(false);
     formRef.current.submit();
   };
   return (
@@ -101,6 +103,7 @@ export function Searchbar({ loggedIn, searchbarRef }) {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           setShowSearchDropdown={setShowSearchDropdown}
+          setShowSearchScreen={setShowSearchScreen}
         />
       )}
     </div>
