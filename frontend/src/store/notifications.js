@@ -6,6 +6,7 @@ const MARK_UNREAD = "notifications/MARK_UNREAD";
 const MARK_ALL_READ = "notifications/MARK_ALL_READ";
 const DELETE_NOTIFICATION = "notifications/DELETE_NOTIFICATION";
 const DELETE_ALL_NOTIFICATIONS = "notifications/DELETE_ALL_NOTIFICATIONS";
+const SET_SEEN_ALL = "notifications/SET_SEEN_ALL";
 
 // Action Creators
 export const loadNotifications = (notifications) => ({
@@ -41,6 +42,8 @@ export const deleteNotificationAction = (notificationId) => ({
 export const deleteAllNotificationsAction = () => ({
   type: DELETE_ALL_NOTIFICATIONS,
 });
+
+export const setSeenAll = () => ({ type: SET_SEEN_ALL });
 
 // Thunks
 export const fetchNotifications = () => async (dispatch) => {
@@ -127,6 +130,18 @@ export const deleteAllNotifications = () => async (dispatch) => {
   }
 };
 
+export const markAllSeen = () => async (dispatch) => {
+  const res = await fetch("/api/notifications/seen", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (res.ok) {
+    await res.json();
+    dispatch(setSeenAll());
+  }
+};
+
 // Reducer
 const initialState = {};
 
@@ -148,7 +163,6 @@ export default function notificationsReducer(state = initialState, action) {
     }
 
     case MARK_READ: {
-      // We changed the action to have `notificationId`
       const newState = { ...state };
       if (newState[action.notificationId]) {
         newState[action.notificationId] = {
@@ -190,6 +204,14 @@ export default function notificationsReducer(state = initialState, action) {
     case DELETE_ALL_NOTIFICATIONS: {
       // Returns an empty object
       return {};
+    }
+
+    case SET_SEEN_ALL: {
+      const next = {};
+      for (const id in state) {
+        next[id] = { ...state[id], isSeen: true };
+      }
+      return next;
     }
 
     default:

@@ -9,6 +9,7 @@ import { usePageSettings } from "@/hooks/usePageSettings";
 import { useNotificationsDropdown } from "@/features/Notifications/hooks";
 import { useDispatch } from "react-redux";
 import { readAllNotifications } from "store";
+import { markAllSeen } from "store";
 
 export function NotificationsPage() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export function NotificationsPage() {
   });
 
   useEffect(() => {
-    dispatch(readAllNotifications());
+    dispatch(markAllSeen());
   }, [dispatch]);
 
   const { markAllRead, notifications, today, earlier } =

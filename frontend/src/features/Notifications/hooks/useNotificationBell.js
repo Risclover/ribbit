@@ -14,7 +14,7 @@ export function useNotificationBell() {
 
   useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
-  const unreadCount = notifications.filter((n) => !n.isRead).length;
+  const unreadCount = notifications.filter((n) => !n.isSeen).length;
 
   const handleOpenDropdown = (e) => {
     e.preventDefault();

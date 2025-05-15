@@ -96,3 +96,14 @@ def delete_all_notifications():
       db.session.commit()
 
       return {"message": "All notifications deleted"}
+
+
+# MARK ALL NOTIFICATIONS AS 'SEEN'
+@notification_routes.route("/seen", methods=["PUT"])
+@login_required
+def mark_all_seen():
+    Notification.query.filter_by(
+        user_id=current_user.id, is_seen=False
+    ).update({ "is_seen": True })
+    db.session.commit()
+    return { "status": "ok" }

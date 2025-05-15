@@ -8,6 +8,7 @@ import { NoNotifications } from "./NoNotifications";
 import { useNotificationsDropdown } from "../hooks/useNotificationsDropdown";
 import { useDispatch } from "react-redux";
 import { readAllNotifications } from "store";
+import { markAllSeen } from "store";
 
 export function NotificationsDropdown({
   msgNum,
@@ -18,7 +19,7 @@ export function NotificationsDropdown({
   const { notifications, markAllRead } = useNotificationsDropdown();
 
   useEffect(() => {
-    if (showDropdown) dispatch(readAllNotifications());
+    if (showDropdown) dispatch(markAllSeen());
   }, [showDropdown, dispatch]);
 
   if (!showDropdown) return null;

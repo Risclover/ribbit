@@ -12,6 +12,7 @@ class Notification(db.Model):
     resource_content = db.Column(db.String(10000), nullable=True)
     message = db.Column(db.String(255), nullable=True)
     is_read = db.Column(db.Boolean, default=False)
+    is_seen = db.Column(db.Boolean, default=False, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     user = db.relationship("User", foreign_keys=[user_id])
@@ -28,6 +29,7 @@ class Notification(db.Model):
             "resourceContent": self.resource_content,
             "message": self.message,
             "isRead": self.is_read,
+            "isSeen": self.is_seen,
             "createdAt": self.created_at.isoformat()
         }
 
