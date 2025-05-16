@@ -225,4 +225,8 @@
     padding: 0;
     width: 100%;
   }
+
+  .post-type-post svg {
+    display: none;
+  }
 }

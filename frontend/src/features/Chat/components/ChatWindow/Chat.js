@@ -35,7 +35,7 @@ export const OVERLAYS = {
   DELETE: "DELETE",
 };
 
-export const Chat = ({ setOpenChat, setMinimizeChat }) => {
+export const Chat = ({ setMinimizeChat }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const chatThreads = useSelector((state) => state.chatThreads);
@@ -119,7 +119,6 @@ export const Chat = ({ setOpenChat, setMinimizeChat }) => {
           showCreateChatOverlay={activeOverlay === OVERLAYS.CREATE}
           showChatWelcomeOverlay={activeOverlay === OVERLAYS.WELCOME}
           setActiveOverlay={setActiveOverlay}
-          setOpenChat={setOpenChat}
           setMinimizeChat={setMinimizeChat}
           OVERLAYS={OVERLAYS}
         />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -61,6 +61,7 @@ import { useIsMobile } from "hooks/useIsMobile";
 import { MobileNavbarDropdown } from "components/NavBar/MobileNavbar/MobileNavbarDropdown";
 import { MobileSearchbar } from "features/NewSearch/components/MobileSearchbar/MobileSearchbar";
 import { MobileNavBar } from "components/NavBar/MobileNavbar/MobileNavbar";
+import { OpenChatContext } from "context/OpenChatContext";
 
 function App() {
   const dispatch = useDispatch();
@@ -69,6 +70,8 @@ function App() {
   const searchbarRef = useRef();
   const users = useSelector((state) => state.users);
   const background = location.state && location.state.background;
+
+  const { openChat } = useContext(OpenChatContext);
 
   const [loaded, setLoaded] = useState(false);
   const [, setShowLoginForm] = useState(false);
@@ -81,7 +84,6 @@ function App() {
   const [pageIcon, setPageIcon] = useState();
   const [showNavSidebar, setShowNavSidebar] = useState(() => getSidebarState());
   const [showLoggedOutSidebar, setShowLoggedOutSidebar] = useState();
-  const [openChat, setOpenChat] = useState(false);
   const [userCommunities, setUserCommunities] = useState([]);
   const [previewPage, setPreviewPage] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -158,8 +160,6 @@ function App() {
     showNavSidebar: showNavSidebar,
     showDropdown: showDropdown,
     setShowDropdown: setShowDropdown,
-    setOpenChat: setOpenChat,
-    openChat: openChat,
     searchbarRef: searchbarRef,
     screenWidth: screenWidth,
     setScreenWidth: setScreenWidth,
@@ -221,23 +221,15 @@ function App() {
                   postType={postType}
                   setPostType={setPostType}
                   searchbarRef={searchbarRef}
-                  setOpenChat={setOpenChat}
                 />
               </div>
               <LoginSignupModal />
               {openChat && !minimizeChat && (
-                <Chat
-                  setOpenChat={setOpenChat}
-                  openChat={openChat}
-                  setMinimizeChat={setMinimizeChat}
-                />
+                <Chat setMinimizeChat={setMinimizeChat} />
               )}
 
               {openChat && minimizeChat && (
-                <ChatMinimized
-                  setOpenChat={setOpenChat}
-                  setMinimizeChat={setMinimizeChat}
-                />
+                <ChatMinimized setMinimizeChat={setMinimizeChat} />
               )}
 
               {!user && (

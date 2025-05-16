@@ -2,16 +2,18 @@ import React, { useContext } from "react";
 import { TfiClose } from "react-icons/tfi";
 import { SelectedChatContext } from "@/context";
 import { useChatTitleBar } from "../../hooks/useChatTitleBar";
+import { OpenChatContext } from "context/OpenChatContext";
 
 export const ChatTitleBar = ({
   showCreateChatOverlay,
   showChatWelcomeOverlay,
   setActiveOverlay,
-  setOpenChat,
   setMinimizeChat,
   OVERLAYS,
 }) => {
   const { setSelectedChat } = useContext(SelectedChatContext);
+  const { setOpenChat } = useContext(OpenChatContext);
+
   const { receiver } = useChatTitleBar();
 
   const handleGoBack = () => {

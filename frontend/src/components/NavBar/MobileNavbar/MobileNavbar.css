@@ -44,7 +44,8 @@
 }
 
 .logged-out-user-dropdown .nav-user-dropdown-box,
-.logged-out-user-dropdown .logged-out-dropdown {
+.logged-out-user-dropdown .logged-out-dropdown,
+.logged-out-user-dropdown .user-profile-mobile-menu {
   width: 100%;
   background-color: var(--ribbit-main);
   position: fixed;
@@ -62,7 +63,8 @@
 }
 
 .logged-out-user-dropdown.open .nav-user-dropdown-box,
-.logged-out-user-dropdown.open .logged-out-dropdown {
+.logged-out-user-dropdown.open .logged-out-dropdown,
+.logged-out-user-dropdown.open .user-profile-mobile-menu {
   transform: translateY(0);
   pointer-events: auto;
 }
@@ -73,9 +75,14 @@
   z-index: 100;
 }
 
+.logged-out-user-dropdown-container {
+  position: fixed;
+}
+
 .logged-out-user-dropdown .nav-user-dropdown-box,
 .logged-out-user-dropdown.open .nav-user-dropdown-box,
 .logged-out-user-dropdown.open .logged-out-dropdown,
-.logged-out-user-dropdown .logged-out-dropdown {
+.logged-out-user-dropdown .logged-out-dropdown,
+.logged-out-user-dropdown.open .user-profile-mobile-menu {
   will-change: transform;
 }

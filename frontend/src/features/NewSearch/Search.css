@@ -725,6 +725,10 @@
   margin-right: 8px;
 }
 
+.search-results-page-community-details-top {
+  flex-wrap: wrap;
+}
+
 .search-results-page-community-left,
 .search-results-page-community-details-top {
   display: flex;

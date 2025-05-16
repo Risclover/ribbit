@@ -358,3 +358,10 @@
 .comment-original-time:hover .comment-time-hover {
   display: block;
 }
+
+@media (max-width: 640px) {
+  .comment-content {
+    font-size: 0.9rem;
+    line-height: 18px;
+  }
+}

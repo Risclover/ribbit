@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 
 import { useOutsideClick } from "@/hooks";
@@ -12,10 +12,14 @@ import {
   getSubscriptions,
 } from "@/store";
 import { getIdFromName } from "@/utils";
+import { BiShieldAlt } from "react-icons/bi";
+import { useIsMobile } from "hooks/useIsMobile";
 
 export function CommunityInfoMenu({ community }) {
   const wrapperRef = useRef(null);
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const { communityName } = useParams();
   const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
 
@@ -70,6 +74,15 @@ export function CommunityInfoMenu({ community }) {
       </button>
       {openMenu && (
         <div className="community-info-menu">
+          {currentUser?.id === community?.userId && (
+            <button
+              className="community-page-mod-tools"
+              onClick={() => history.push(`/c/${community?.name}/edit`)}
+            >
+              <BiShieldAlt /> Mod Tools
+            </button>
+          )}
+
           <button
             role="menuitem"
             onClick={handleFavorites}

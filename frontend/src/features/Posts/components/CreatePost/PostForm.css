@@ -861,3 +861,18 @@ pre.ql-syntax {
     display: none;
   }
 }
+
+@media (max-width: 640px) {
+  .single-post-content-box-right {
+    max-width: 80px;
+    max-height: 60px;
+  }
+
+  .single-post-button-text {
+    display: none;
+  }
+
+  .create-post-page {
+    padding: 0;
+  }
+}

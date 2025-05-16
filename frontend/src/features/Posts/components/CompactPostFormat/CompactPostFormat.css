@@ -148,7 +148,6 @@
 }
 
 .single-post-comments-btn svg {
-  width: 18px;
   margin-right: 6px;
 }
 
@@ -445,6 +444,7 @@
     line-height: 16px;
     color: #7c7c7c;
     display: flex;
+    flex-wrap: wrap;
   }
 
   .compact-post-btns-alt {

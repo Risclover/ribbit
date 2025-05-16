@@ -194,6 +194,7 @@
   display: flex;
   font-size: 12px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .author-padding {
@@ -222,6 +223,7 @@
 .single-post-author-info {
   color: rgb(120, 124, 126);
   display: flex;
+  flex-wrap: wrap;
 }
 
 .single-post-author-info a:hover,
@@ -405,7 +407,6 @@
 .single-post-button svg {
   color: rgb(135, 138, 140);
   font-size: 20px;
-  margin-right: 6px;
   line-height: 20px;
 }
 
@@ -760,5 +761,24 @@ ol {
 
   .single-post-page-main {
     padding: 0;
+  }
+
+  .single-post-container {
+    margin-bottom: 0;
+    margin-top: -1px;
+    border-radius: 0;
+  }
+
+  .single-post-title-bar {
+    font-size: 1.125rem !important;
+  }
+
+  .single-post-container:hover {
+    z-index: 1;
+  }
+
+  .single-page-content {
+    font-size: 0.9rem;
+    line-height: 18px;
   }
 }

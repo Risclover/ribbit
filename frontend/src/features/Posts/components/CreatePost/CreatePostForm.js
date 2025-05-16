@@ -88,7 +88,7 @@ export function CreatePostForm({
       setShowDiscardModal(true);
     } else {
       clearDraft();
-      history.push(communityId ? `/c/${communityName}` : "/home");
+      history.push(communityId ? `/c/${communityName}` : "/");
     }
   };
 

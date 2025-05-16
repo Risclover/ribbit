@@ -56,6 +56,7 @@ export function CommunityInfoBox({ community, user, isPage }) {
         <div className="community-page-box-header-left">
           <h3>About Community</h3>
         </div>
+
         <div className="community-page-box-header-right">
           {user?.id === community?.userId && (
             <button
@@ -81,6 +82,7 @@ export function CommunityInfoBox({ community, user, isPage }) {
             <NavLink to={`/c/${community?.name}`}>c/{community?.name}</NavLink>
           </div>
         )}
+        <h4>{community.displayName}</h4>
         <CommunityDescription
           isPage={isPage}
           community={community}

@@ -254,11 +254,14 @@
 }
 
 .comment-owner-btns button svg {
-  margin-right: 6px;
   font-size: 20px;
   height: 20px;
   width: 20px;
   color: #878a8c;
+}
+
+.comment-owner-btns button:first-of-type svg {
+  margin-right: 5px;
 }
 
 .comment-vote-btns button svg {
@@ -775,11 +778,12 @@
 
 .sort-search {
   border-bottom: 1px solid var(--secondary-border-color);
-
+  flex-wrap: wrap;
   padding: 0 16px 4px 0;
   margin: 4px 48px;
   display: flex;
   align-items: center;
+  gap: 4px;
 }
 
 .comment-sort-search-separator {
@@ -980,5 +984,11 @@
   }
   100% {
     transform: translate(24px, 0);
+  }
+}
+
+@media (max-width: 640px) {
+  .comment-owner-btn-text {
+    display: none;
   }
 }

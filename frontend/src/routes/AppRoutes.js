@@ -28,13 +28,7 @@ import {
 } from "@/features";
 import NotFound from "components/NotFound";
 
-export const AppRoutes = ({
-  user,
-  postType,
-  setPostType,
-  searchbarRef,
-  setOpenChat,
-}) => {
+export const AppRoutes = ({ user, postType, setPostType, searchbarRef }) => {
   return (
     <ScrollProvider>
       <Switch>
@@ -113,7 +107,7 @@ export const AppRoutes = ({
         </ProtectedRoute>
 
         <Route path="/users/:userId/profile" exact>
-          <UserProfile setOpenChat={setOpenChat} />
+          <UserProfile />
         </Route>
         <Route>
           <NotFound />

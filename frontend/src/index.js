@@ -14,6 +14,7 @@ import "isomorphic-fetch";
 import { SelectedChatProvider } from "@/context";
 import { AuthFlowProvider } from "@/context/AuthFlowContext";
 import { SkipLocationProvider } from "@/context/SkipLocationContext";
+import { OpenChatProvider } from "context/OpenChatContext";
 
 const store = configureStore();
 
@@ -24,13 +25,15 @@ ReactDOM.render(
         <AuthModalProvider>
           <AuthFlowProvider>
             <SelectedChatProvider>
-              <PostModalProvider>
-                <ModalProvider>
-                  <BrowserRouter>
-                    <App />
-                  </BrowserRouter>
-                </ModalProvider>
-              </PostModalProvider>
+              <OpenChatProvider>
+                <PostModalProvider>
+                  <ModalProvider>
+                    <BrowserRouter>
+                      <App />
+                    </BrowserRouter>
+                  </ModalProvider>
+                </PostModalProvider>
+              </OpenChatProvider>
             </SelectedChatProvider>
           </AuthFlowProvider>
         </AuthModalProvider>

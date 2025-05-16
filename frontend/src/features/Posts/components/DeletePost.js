@@ -44,7 +44,7 @@ export function DeletePostModal({
         }}
       >
         <TrashIcon />
-        Delete
+        <span className="single-post-button-text">Delete</span>
       </button>
     </div>
   );

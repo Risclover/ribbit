@@ -689,13 +689,13 @@
   opacity: 0.5;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 650px) {
   .notifications-header h1 {
     margin-left: 20px;
   }
 
   .notifications-page {
-    background: var(--background);
+    background: var(--ribbit-main);
     width: 100%;
   }
 }

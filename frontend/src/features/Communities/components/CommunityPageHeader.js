@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
-import { CommunityName, CommunityImage } from "../..";
+import { CommunityName, CommunityImage, CommunityFeedAbout } from "../..";
 import { PostFormatContext } from "@/context";
 
-export function CommunityPageHeader({ community }) {
+export function CommunityPageHeader({ community, showAbout, setShowAbout }) {
   const user = useSelector((state) => state.session.user);
 
   const { format } = useContext(PostFormatContext);
@@ -22,8 +22,16 @@ export function CommunityPageHeader({ community }) {
           }
         >
           <div className="community-header-info-details">
-            <CommunityImage user={user} community={community} />
-            <CommunityName community={community} />
+            <div className="community-header-info-details-top">
+              <CommunityImage user={user} community={community} />
+              <CommunityName community={community} />
+              <p>{community.description}</p>
+            </div>
+            <CommunityFeedAbout
+              showAbout={showAbout}
+              setShowAbout={setShowAbout}
+              community={community}
+            />
           </div>
         </div>
       </div>

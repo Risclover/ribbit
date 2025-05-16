@@ -8,6 +8,7 @@ import {
   CommunityPosts,
   CommunityInfoBox,
   CommunityRulesBox,
+  CommunityInfoMenu,
 } from "../features";
 import { usePageSettings } from "../hooks/usePageSettings";
 import { getIdFromName } from "@/utils/getCommunityIdFromName";
@@ -42,6 +43,7 @@ export function CommunityPage() {
     (state) => Object.keys(state.communities).length > 0
   );
   const [loading, setLoading] = useState(true);
+  const [showAbout, setShowAbout] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -123,15 +125,29 @@ export function CommunityPage() {
 
   return (
     <div className="community-page-container">
-      <CommunityPageHeader community={community} />
+      <CommunityPageHeader
+        community={community}
+        showAbout={showAbout}
+        setShowAbout={setShowAbout}
+      />
       <FeedContainer>
         <div className="community-body-bg-div"></div>
         <FeedLeftColContainer>
-          <CommunityPosts
-            commPosts={communityPosts}
-            communityName={community?.name}
-            user={user}
-          />
+          {!showAbout && (
+            <CommunityPosts
+              commPosts={communityPosts}
+              communityName={community?.name}
+              user={user}
+            />
+          )}
+          {showAbout && (
+            <>
+              <CommunityInfoBox community={community} user={user} />{" "}
+              {Object.values(community?.communityRules).length > 0 && (
+                <CommunityRulesBox community={community} />
+              )}
+            </>
+          )}
         </FeedLeftColContainer>
         <FeedRightColContainer>
           <CommunityInfoBox user={user} community={community} />

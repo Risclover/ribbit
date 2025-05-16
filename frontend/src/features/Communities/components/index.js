@@ -12,3 +12,4 @@ export { CommunityWelcome } from "./CommunityWelcome";
 export { CreateCommunity } from "./CreateCommunity";
 export { CreateCommunityForm } from "./CreateCommunityForm";
 export { CreateCommunityModal } from "./CreateCommunityModal";
+export { CommunityFeedAbout } from "./CommunityFeedAbout";

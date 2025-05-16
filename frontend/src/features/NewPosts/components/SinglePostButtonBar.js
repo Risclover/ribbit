@@ -129,7 +129,9 @@ export function SinglePostButtonBar({
           <i className="fa-regular fa-message"></i>{" "}
           <span className="single-post-comments-num">
             {post?.commentNum || 0}{" "}
-            {post && post?.commentNum === 1 ? "Comment" : "Comments"}
+            <span className="single-post-button-text">
+              {post && post?.commentNum === 1 ? "Comment" : "Comments"}
+            </span>
           </span>
         </button>
       </div>
@@ -138,7 +140,7 @@ export function SinglePostButtonBar({
         <div className="single-post-button">
           <button className="single-post-share-btn" onClick={copyLink}>
             <ShareIcon />
-            Share
+            <span className="single-post-button-text">Share</span>
           </button>
         </div>
 
@@ -156,15 +158,13 @@ export function SinglePostButtonBar({
       </div>
 
       {user &&
-        (isCommunityOwner ||
-          user.id === post.author?.id ||
-          user?.id === 1) && (
+        (isCommunityOwner || user.id === post.author?.id || user?.id === 1) && (
           <div className="logged-in-btns">
             <div className="single-post-button">
               {post?.imgUrl === null && post?.linkUrl === null && (
                 <button className="single-post-edit-btn" onClick={editPost}>
                   <PencilIcon />
-                  Edit
+                  <span className="single-post-button-text">Edit</span>
                 </button>
               )}
             </div>

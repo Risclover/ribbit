@@ -20,6 +20,7 @@ import "../../features/NewSearch/Search.css";
 import { useAuthFlow } from "@/context/AuthFlowContext";
 import { LoggedOutNavBar } from "./MobileNavbar";
 import { NavBarBtns } from "./NavBarBtns";
+import { OpenChatContext } from "context/OpenChatContext";
 
 export function NavBar({
   adjustQuery,
@@ -28,8 +29,6 @@ export function NavBar({
   setShowNavSidebar,
   showDropdown,
   setShowDropdown,
-  setOpenChat,
-  openChat,
   searchbarRef,
   showNavSidebar,
   screenWidth,
@@ -41,6 +40,7 @@ export function NavBar({
   const history = useHistory();
 
   const { setSelectedChat } = useContext(SelectedChatContext);
+  const { openChat, setOpenChat } = useContext(OpenChatContext);
 
   const chatThreads = useSelector((state) => state.chatThreads);
   const user = useSelector((state) => state.session.user);

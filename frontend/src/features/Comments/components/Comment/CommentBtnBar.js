@@ -64,7 +64,7 @@ export function CommentBtnBar({
                 {/* Edit button */}
                 <button aria-label="Edit comment" onClick={handleEditClick}>
                   <PencilIcon />
-                  Edit
+                  <span className="comment-owner-btn-text">Edit</span>
                 </button>
 
                 {/* Edit Modal */}
@@ -91,7 +91,7 @@ export function CommentBtnBar({
                   disabled={comment?.isDeleted}
                 >
                   <TrashIcon />
-                  Delete
+                  <span className="comment-owner-btn-text">Delete</span>
                 </button>
 
                 {/* Delete Modal */}

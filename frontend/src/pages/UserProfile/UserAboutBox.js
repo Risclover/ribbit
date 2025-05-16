@@ -22,8 +22,17 @@ import { UserUploadModal } from "./UserUploadModal";
 import { KarmaIcon } from "@/assets";
 import { OVERLAYS } from "@/features/Chat/components/ChatWindow/Chat";
 import { useSelectedChat } from "context";
+import { OpenChatContext } from "context/OpenChatContext";
+import { CommunityFeedAbout } from "features";
+import { UserProfileMobileMoreMenu } from "./UserProfileMobileMoreMenu";
 
-export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
+export function UserAboutBox({
+  currentUser,
+  user,
+  username,
+  showAbout,
+  setShowAbout,
+}) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { userId } = useParams();
@@ -40,10 +49,12 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
   const [showBannerModal, setShowBannerModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showMobileMoreMenu, setShowMobileMoreMenu] = useState(false);
 
   const isFollowing = () => follows && user && follows[user.id];
 
   const { setSelectedChat } = useContext(SelectedChatContext);
+  const { setOpenChat } = useContext(OpenChatContext);
 
   useEffect(() => {
     dispatch(getUserChatThreads());
@@ -85,7 +96,6 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
     } else {
       setSelectedChat(null);
       setPendingReceiver(user.username);
-      setActiveOverlay(OVERLAYS.INVITE);
     }
 
     if (!existingThread) {
@@ -142,17 +152,63 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
         )}
       </div>
       <div className="user-profile-about-content">
-        {currentUser?.id === +userId && (
-          <NavLink to={`/settings/profile`}>
-            <IoSettingsSharp />
-          </NavLink>
-        )}
-        <h1 className="user-profile-display-name">{user?.displayName}</h1>
-        <div className="user-profile-username-year">
-          <span>u/{user?.username}</span>
+        <div className="user-profile-about-content-top">
+          {currentUser?.id === +userId && (
+            <NavLink to={`/settings/profile`}>
+              <IoSettingsSharp />
+            </NavLink>
+          )}
+          <div className="user-profile-mobile-display-name">
+            <div className="user-profile-mobile-left">
+              <h1 className="user-profile-display-name">{user?.displayName}</h1>
+              <div className="user-profile-username-year">
+                <span>u/{user?.username}</span>
+              </div>
+            </div>
+            <div className="user-profile-mobile-right">
+              <div className="user-profile-user-btns">
+                {currentUser?.id === +userId && (
+                  <NavLink to={`/settings/profile`}>
+                    <IoSettingsSharp />
+                  </NavLink>
+                )}
+                {currentUser?.id !== +userId && (
+                  <button
+                    className="user-profile-more-btn"
+                    onClick={() => setShowMobileMoreMenu((prev) => !prev)}
+                  >
+                    <svg
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      height="1em"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                      ></path>
+                    </svg>
+                  </button>
+                )}
+
+                <UserProfileMobileMoreMenu
+                  showMobileMoreMenu={showMobileMoreMenu}
+                  setShowMobileMoreMenu={setShowMobileMoreMenu}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="user-profile-about">{user?.about}</div>
         </div>
-        <div className="user-profile-about">{user?.about}</div>
-        <div className="user-profile-stats-box">
+        <CommunityFeedAbout showAbout={showAbout} setShowAbout={setShowAbout} />
+        <div
+          className={`user-profile-stats-box ${showAbout ? "show-about" : ""}`}
+        >
           <div className="user-profile-stats stats-karma">
             <h5>Karma</h5>
             <div className="stats-stats">
@@ -200,39 +256,40 @@ export function UserAboutBox({ currentUser, user, username, setOpenChat }) {
             </button>
           )}
         </div>
-
-        <div className="half-btns">
+        <div className="user-profile-buttons">
+          <div className="half-btns">
+            {currentUser && currentUser?.id !== +userId && (
+              <FollowBtn user={user} />
+            )}
+            {!currentUser && (
+              <button className="blue-btn-filled btn-long" onClick={openLogin}>
+                Follow
+              </button>
+            )}
+            {currentUser && currentUser?.id !== +userId && (
+              <button className="blue-btn-filled btn-long" onClick={handleChat}>
+                Chat
+              </button>
+            )}{" "}
+            {!currentUser && (
+              <button className="blue-btn-filled btn-long" onClick={openLogin}>
+                Chat
+              </button>
+            )}
+          </div>
           {currentUser && currentUser?.id !== +userId && (
-            <FollowBtn user={user} />
+            <SendMessage
+              userId={userId}
+              currentUser={currentUser}
+              username={username}
+            />
           )}
           {!currentUser && (
             <button className="blue-btn-filled btn-long" onClick={openLogin}>
-              Follow
-            </button>
-          )}
-          {currentUser && currentUser?.id !== +userId && (
-            <button className="blue-btn-filled btn-long" onClick={handleChat}>
-              Chat
-            </button>
-          )}{" "}
-          {!currentUser && (
-            <button className="blue-btn-filled btn-long" onClick={openLogin}>
-              Chat
+              Send Message
             </button>
           )}
         </div>
-        {currentUser && currentUser?.id !== +userId && (
-          <SendMessage
-            userId={userId}
-            currentUser={currentUser}
-            username={username}
-          />
-        )}
-        {!currentUser && (
-          <button className="blue-btn-filled btn-long" onClick={openLogin}>
-            Send Message
-          </button>
-        )}
       </div>
 
       {showFollowersModal && (

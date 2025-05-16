@@ -14,8 +14,9 @@ import { PostFormatContext } from "@/context";
 import Skeleton from "@mui/material/Skeleton";
 import { getUser } from "@/store";
 import { useDarkMode } from "@/hooks";
+import { UserProfileMobile } from "./UserProfileMobile";
 
-export function UserProfile({ setOpenChat }) {
+export function UserProfile() {
   const { theme } = useDarkMode();
 
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export function UserProfile({ setOpenChat }) {
   const { setFormat } = useContext(PostFormatContext);
 
   const [sortMode, setSortMode] = useState("new");
+  const [showAbout, setShowAbout] = useState(false);
 
   const user = useSelector((state) => state.users[userId]);
 
@@ -73,21 +75,34 @@ export function UserProfile({ setOpenChat }) {
   return (
     <FeedContainer>
       <FeedLeftColContainer>
-        <UserProfilePosts
-          posts={profilePosts}
-          user={user}
-          userId={userId}
-          sortMode={sortMode}
-          setSortMode={setSortMode}
-        />
+        <div className="user-profile-main">
+          <UserProfilePosts
+            posts={profilePosts}
+            user={user}
+            userId={userId}
+            sortMode={sortMode}
+            setSortMode={setSortMode}
+          />
+        </div>
+        <div className="user-profile-mobile">
+          <UserProfileMobile
+            showAbout={showAbout}
+            setShowAbout={setShowAbout}
+            communitiesList={Object.values(communities).filter(
+              (community) => community.communityOwner.id === +userId
+            )}
+            userId={+userId}
+            posts={profilePosts}
+            sortMode={sortMode}
+            setSortMode={setSortMode}
+          />
+        </div>
       </FeedLeftColContainer>
       <FeedRightColContainer>
         <UserAboutBox
-          setOpenChat={setOpenChat}
           currentUser={currentUser}
           username={user?.username}
           user={user}
-          userId={userId}
         />
         {currentUser?.id === +userId && (
           <UserOwnedCommunities
