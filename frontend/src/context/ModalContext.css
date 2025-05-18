@@ -148,7 +148,7 @@
 }
 
 .footer-border {
-  border-top: 1px solid #00000033; /* Replace #yourColor with your desired color */
+  border-top: 1px solid #00000033 !important; /* Replace #yourColor with your desired color */
 }
 
 .auth-modal-titlebar {
@@ -188,6 +188,7 @@
 
 .auth-modal-footer {
   padding: 24px 80px;
+  border-top: 1px solid transparent;
 }
 
 /* .modal-close-btn svg {

@@ -18,7 +18,7 @@ export function DiscardPost({
     ) {
       history.push(`/c/${communityName}`);
     } else {
-      history.push("/home");
+      history.goBack();
     }
   };
   return (

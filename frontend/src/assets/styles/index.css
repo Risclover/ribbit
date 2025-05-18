@@ -131,7 +131,7 @@ a.blue-btn-filled {
   width: 100%;
   height: 100%;
   border-radius: 9999px;
-  background: var(--community-highlight);
+  background: var(--highlight-color);
   opacity: 0;
 }
 
@@ -146,7 +146,7 @@ a.blue-btn-filled {
 
 .blue-btn-unfilled-modal {
   background: inherit;
-  color: var(--community-highlight);
+  color: var(--highlight-color);
   margin-right: 10px;
   position: relative;
 }

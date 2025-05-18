@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_login import current_user
-from app.models import User, MessageThread, Message
+from app.models import User, MessageThread, Message, Notification
+from app.socket import emit_notification_to_user
 from app.extensions import db
 
 from app.forms.message_form import MessageForm
@@ -72,7 +73,18 @@ def send_message(id):
 
         db.session.add(message)
         db.session.commit()
+        # … after you commit the new message …
+        notification = Notification(
+            user_id=data2["receiverId"],          # <-- who should see the badge
+            actor_id=current_user.id,     # sender
+            notification_type="message",  # you already use this string in Redux
+            resource_id=message.id,
+            is_read=False,
+        )
+        db.session.add(notification)
+        db.session.commit()
 
+        emit_notification_to_user(notification)       # <-- pushes it via Socket.IO
         return message.to_dict()
 
     return {"errors": validation_errors_to_error_messages(form.errors)}, 403

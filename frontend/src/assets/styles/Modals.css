@@ -1,10 +1,11 @@
 .modal-content {
   padding: 26px 16px;
-  margin-top: -16px;
+  padding-top: 10px;
   font-family: var(--font-family-noto);
   font-size: 0.925rem;
   font-weight: 400;
-  max-height: 90vh;
+  overflow-y: auto;
+  max-height: calc(95vh - 125px);
 }
 
 .modal-buttons {
@@ -33,18 +34,18 @@
   font-weight: 700;
   font-size: 0.925rem;
   cursor: pointer;
-  border: 1px solid var(--community-highlight);
+  border: 1px solid var(--highlight-color);
 }
 
 .delete-modal-btn-left {
   background: inherit;
-  color: var(--community-highlight);
+  color: var(--highlight-color);
   margin-right: 10px;
   border: 1px solid #0079d3;
 }
 
 .delete-modal-btn-right {
-  background: var(--community-highlight);
+  background: var(--highlight-color);
   color: var(--ribbit-main);
 }
 

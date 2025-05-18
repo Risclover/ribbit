@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { SelectedChatContext } from "@/context";
 import { useChatMinimized } from "../../hooks/useChatMinimized";
+import { OpenChatContext } from "context/OpenChatContext";
 
 export default function ChatMinimized({ setMinimizeChat }) {
   const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);

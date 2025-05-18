@@ -2,9 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, getUsers, getCommunities } from "@/store";
-import { UserOwnedCommunities, UserAboutBox, UserProfilePosts } from "@/pages";
+import { UserOwnedCommunities, UserProfilePosts } from "@/pages";
 import { usePageSettings } from "@/hooks/usePageSettings";
-import "./UserProfile.css";
 import {
   FeedContainer,
   FeedLeftColContainer,
@@ -14,9 +13,10 @@ import { PostFormatContext } from "@/context";
 import Skeleton from "@mui/material/Skeleton";
 import { getUser } from "@/store";
 import { useDarkMode } from "@/hooks";
-import { UserProfileMobile } from "./UserProfileMobile";
+import { UserProfileMobile } from "./UserProfile/UserProfileMobile";
+import { UserProfileAboutBox } from "features/Users/components/UserProfileAboutBox/UserProfileAboutBox";
 
-export function UserProfile() {
+export function UserProfilePage() {
   const { theme } = useDarkMode();
 
   const dispatch = useDispatch();
@@ -99,10 +99,12 @@ export function UserProfile() {
         </div>
       </FeedLeftColContainer>
       <FeedRightColContainer>
-        <UserAboutBox
+        <UserProfileAboutBox
           currentUser={currentUser}
           username={user?.username}
           user={user}
+          showAbout={showAbout}
+          setShowAbout={setShowAbout}
         />
         {currentUser?.id === +userId && (
           <UserOwnedCommunities
@@ -116,4 +118,4 @@ export function UserProfile() {
     </FeedContainer>
   );
 }
-export default UserProfile;
+export default UserProfilePage;

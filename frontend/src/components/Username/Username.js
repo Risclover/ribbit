@@ -59,7 +59,11 @@ export function Username({ community, username, user, source, disabled }) {
       {disabled && username}
 
       {showPopup && !disabled && (
-        <UsernamePopup community={community} user={foundUser} />
+        <UsernamePopup
+          community={community}
+          user={foundUser}
+          setIsPopupOpen={setIsPopupOpen}
+        />
       )}
     </div>
   );

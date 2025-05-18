@@ -199,6 +199,10 @@ export function UserAboutBox({
                 <UserProfileMobileMoreMenu
                   showMobileMoreMenu={showMobileMoreMenu}
                   setShowMobileMoreMenu={setShowMobileMoreMenu}
+                  user={user}
+                  userId={userId}
+                  currentUser={currentUser}
+                  username={username}
                 />
               </div>
             </div>

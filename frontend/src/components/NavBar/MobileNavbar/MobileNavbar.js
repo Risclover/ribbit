@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import { RandomLogo } from "layouts";
-import { NavLink } from "react-router-dom";
+import React from "react";
 import { useSelector } from "react-redux";
-import { NavBarBtns } from "../NavBarBtns";
-import { useScrollLock } from "hooks";
+import { NavLink } from "react-router-dom";
+import { RandomLogo } from "@/layouts";
+import { useScrollLock } from "@/hooks";
+import { useAuthFlow } from "@/context";
+import { LoggedOutDropdownFace } from "../LoggedOutDropdown/LoggedOutDropdownFace";
+import { MobileNavbarBtns } from "./MobileNavbarBtns";
 import "./MobileNavbar.css";
-import LoggedOutDropdownFace from "../LoggedOutDropdown/LoggedOutDropdownFace";
-import MobileNavbarBtns from "./MobileNavbarBtns";
 
 export function MobileNavBar({
   setOpenUserDropdown,
   openUserDropdown,
-  showSearchScreen,
   setShowSearchScreen,
 }) {
+  const { openLogin } = useAuthFlow();
+
   const user = useSelector((state) => state.session.user);
   useScrollLock(openUserDropdown);
   const handleClick = () => {
@@ -42,6 +43,7 @@ export function MobileNavBar({
         </div>
         <div className="logged-out-navbar-right">
           <MobileNavbarBtns setShowSearchScreen={setShowSearchScreen} />
+
           {user && (
             <button
               className="open-logged-out-user-dropdown"

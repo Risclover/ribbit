@@ -17,7 +17,7 @@ export function DeleteConfirmationModal({
     <>
       {showDeleteModal && (
         <div className="modal-container">
-          <div className="modal-content">
+          <div className="modal-content ">
             Are you sure you want to delete this {item}? This action can't be
             undone.
           </div>

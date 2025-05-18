@@ -1,34 +1,38 @@
 // src/socket.js
 import { io } from "socket.io-client";
-import { receiveNewMessage } from "./store/chatThreads";
+import { receiveNewMessage } from "@/store";
+import { addNotification } from "@/store/notifications"; // if you want live notifs
 
-let socket;
+let socket = null; // shared instance
 
 export const initiateSocket = (userId) => {
-  if (!socket) {
-    // If your Flask server is on the same domain & port, you can do simply:
-    socket = io();
-    // If different domain, pass it in: io("http://localhost:5000");
+  if (socket) return socket; // already connected
 
-    // On connect, have the client join its user-specific room
-    socket.on("connect", () => {
-      console.log("Socket connected, id:", socket.id);
+  socket = io(
+    process.env.REACT_APP_BACKEND_URL || "/", // CRA env var or same-origin
+    { withCredentials: true } // keep session cookies
+  );
 
-      // Join "user_XXX" so that the server can emit to only your user
-      socket.emit("join_room", { room: `user_${userId}` });
-    });
+  socket.on("connect", () => {
+    console.log("Socket connected, id:", socket.id);
+    // No need to join a room — the server’s `on_connect` already did that.
+  });
 
-    // Listen for new chat messages from the server
-    socket.on("new_chat_message", (message) => {
-      // Dispatch to the Redux store so it updates the correct chat thread
-      store.dispatch(receiveNewMessage(message));
-    });
-  }
+  // Chat messages pushed by the server
+  socket.on("new_chat_message", (msg) => {
+    store.dispatch(receiveNewMessage(msg));
+  });
+
+  return socket;
 };
 
 export const disconnectSocket = () => {
   if (socket) {
+    socket.off("new_chat_message");
+    socket.off("new_notification");
     socket.disconnect();
     socket = null;
   }
 };
+
+export const getSocket = () => socket; // handy accessor

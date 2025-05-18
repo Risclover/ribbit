@@ -149,11 +149,13 @@ nav ul li {
 }
 
 .navbar-login-btn {
-  width: 120px;
+  max-width: 120px;
+  width: 100%;
   background-color: #67b54d;
   position: relative;
   border: none;
   color: white;
+  margin-left: 10px;
 }
 
 .navbar-login-btn:before {

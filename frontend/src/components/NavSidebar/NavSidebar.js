@@ -11,10 +11,6 @@ import {
 
 import { NavLeftDropdown } from "@/components";
 import "./NavSidebar.css";
-import {
-  getSidebarState,
-  setSidebarState,
-} from "@/features/Communities/utils/localStorage";
 
 export function NavSidebar({
   setShowNavSidebar,
@@ -30,10 +26,6 @@ export function NavSidebar({
     dispatch(getFollowers());
     dispatch(getSubscriptions());
   }, [dispatch]);
-
-  const sidebarState = getSidebarState();
-
-  const setSidebar = setSidebarState(sidebarState);
 
   return (
     <>

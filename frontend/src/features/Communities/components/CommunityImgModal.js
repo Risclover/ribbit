@@ -46,7 +46,7 @@ export function CommunityImgModal({ setShowCommunityImgModal, communityId }) {
 
   return (
     <div className="modal-container">
-      <div className="modal-content">
+      <div className="modal-content community-img-modal">
         <div className="img-post-modal">
           <input
             id="post-img"

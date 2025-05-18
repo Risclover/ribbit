@@ -1,9 +1,8 @@
-import { UserIcon } from "@/assets/icons/UserIcon";
-import { useOutsideClick } from "@/hooks";
-import React, { useRef } from "react";
+import React from "react";
 import { TbChevronDown } from "react-icons/tb";
+import { UserIcon } from "@/assets/icons/UserIcon";
 
-export default function LoggedOutDropdownFace({ onClick }) {
+export function LoggedOutDropdownFace({ onClick }) {
   return (
     <div
       className="logged-out-user-menu"

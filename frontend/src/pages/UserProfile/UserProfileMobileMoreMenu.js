@@ -1,9 +1,15 @@
+import { FollowBtn } from "components";
 import { useOutsideClick } from "hooks";
 import React, { useRef } from "react";
+import { SendMessage } from "./SendMessage";
 
 export function UserProfileMobileMoreMenu({
+  user,
   showMobileMoreMenu,
   setShowMobileMoreMenu,
+  userId,
+  currentUser,
+  username,
 }) {
   const wrapperRef = useRef(null);
   useOutsideClick(wrapperRef, () => setShowMobileMoreMenu(false));
@@ -18,9 +24,13 @@ export function UserProfileMobileMoreMenu({
       >
         <div className="user-profile-mobile-menu">
           <div className="community-info-menu">
-            <button className="menuitem">Follow</button>
+            <FollowBtn user={user} isProfile={true} />
             <button className="menuitem">Chat</button>
-            <button className="menuitem">Send Message</button>
+            <SendMessage
+              userId={userId}
+              currentUser={currentUser}
+              username={username}
+            />
           </div>
         </div>
       </div>

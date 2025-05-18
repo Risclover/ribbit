@@ -128,17 +128,11 @@ export default function useMessageModal({ username }) {
           threadId: threadData.thread.id,
           receiverId: thread.users[0].id,
         };
-        const msg = await dispatch(createMessage(payload));
+        await dispatch(createMessage(payload));
+        dispatch(getMessages());
+
         setMessage("");
         setSubject("");
-        console.log("message:", message);
-        dispatch(getMessages());
-        const notificationPayload = {
-          notificationType: "message",
-          id: msg.id,
-        };
-        dispatch(addNotification(notificationPayload));
-
         setTimeout(() => {
           setSuccessMsg("your message has been delivered");
         }, 500);
@@ -151,6 +145,7 @@ export default function useMessageModal({ username }) {
     setRecipient,
     subject,
     setSubject,
+    message,
     setMessage,
     receiver,
     currentUser,

@@ -1,5 +1,6 @@
 .message-modal-container {
-  width: 550px;
+  max-width: 550px;
+  width: 100%;
 }
 
 .message-modal-form {
@@ -24,7 +25,8 @@
   margin: 0;
   margin-top: 5px;
   font-size: 100%;
-  width: 492px;
+  max-width: 492px;
+  width: 100%;
   padding: 3px;
   border: 1px solid gray;
   height: 30px;
@@ -34,7 +36,8 @@
   display: block;
   margin: 0;
   margin-top: 5px;
-  width: 492px;
+  max-width: 492px;
+  width: 100%;
   padding: 3px;
   border: 1px solid gray;
   min-height: 100px;

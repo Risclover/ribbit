@@ -36,6 +36,7 @@ const TextInput = ({
           onMouseLeave={() => {
             setShowTooltip(false);
           }}
+          onClick={handleTooltip}
         >
           <InfoIcon />
           {showTooltip && (

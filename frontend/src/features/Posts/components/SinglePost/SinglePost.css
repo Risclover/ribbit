@@ -408,6 +408,7 @@
   color: rgb(135, 138, 140);
   font-size: 20px;
   line-height: 20px;
+  margin-right: 5px;
 }
 
 .single-post-button button:not(.single-post-comments-btn):hover {
@@ -780,5 +781,9 @@ ol {
   .single-page-content {
     font-size: 0.9rem;
     line-height: 18px;
+  }
+
+  .single-post-button svg {
+    margin-right: 0;
   }
 }

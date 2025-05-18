@@ -30,6 +30,10 @@
   color: #878a8c;
 }
 
+.post-format-face svg {
+  color: var(--main-text-color);
+}
+
 .post-format-dropdown {
   border: 1px solid var(--secondary-border-color);
   border-radius: 4px;
@@ -141,6 +145,13 @@
 .testing img {
   height: 100%;
   width: 100%;
+}
+
+@media (max-width: 385px) {
+  .warning-buttons {
+    flex-direction: column;
+    align-items: normal;
+  }
 }
 
 @media (max-width: 960px) and (min-width: 1px) {

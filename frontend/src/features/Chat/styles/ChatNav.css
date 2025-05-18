@@ -49,6 +49,10 @@
   background: #f8f8f8;
 }
 
+.chat-window-chatnav-details {
+  width: 100%;
+}
+
 .chat-window-chatnav-details-bottom {
   text-overflow: ellipsis;
   white-space: nowrap;

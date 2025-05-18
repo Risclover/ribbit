@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import moment from "moment";
 import { Modal } from "@/context";
@@ -6,9 +6,10 @@ import { MessageModal } from "@/features";
 import { FollowBtn } from "../FollowBtn";
 import "./Username.css";
 import { useSelector } from "react-redux";
+import { useOutsideClick } from "hooks";
 
-export function UsernamePopup({ community, user }) {
-  const history = useHistory();
+export function UsernamePopup({ community, user, setIsPopupOpen }) {
+  const wrapperRef = useRef(null);
   const [showMsgModal, setShowMsgModal] = useState(false);
   const currentUser = useSelector((state) => state.session.user);
 
@@ -22,8 +23,10 @@ export function UsernamePopup({ community, user }) {
     commentKarma,
   } = user[0] || {};
 
+  useOutsideClick(wrapperRef, () => setIsPopupOpen(false));
+
   return (
-    <>
+    <div ref={wrapperRef}>
       <div className="username-popup" onClick={(e) => e.stopPropagation()}>
         <div className="username-popup-user-info">
           <img
@@ -86,6 +89,6 @@ export function UsernamePopup({ community, user }) {
           />
         </Modal>
       )}
-    </>
+    </div>
   );
 }

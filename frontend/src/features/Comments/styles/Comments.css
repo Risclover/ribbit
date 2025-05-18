@@ -962,6 +962,10 @@
   align-items: center;
 }
 
+.comment-owner-btns button svg {
+  margin-right: 5px;
+}
+
 @keyframes lds-ellipsis1 {
   0% {
     transform: scale(0);
@@ -990,5 +994,9 @@
 @media (max-width: 640px) {
   .comment-owner-btn-text {
     display: none;
+  }
+
+  .comment-owner-btns button svg {
+    margin-right: 0;
   }
 }

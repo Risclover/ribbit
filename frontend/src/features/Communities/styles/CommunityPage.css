@@ -936,6 +936,10 @@
   display: none;
 }
 
+.community-img-modal {
+  max-height: calc(95vh - 150px);
+}
+
 @media (max-width: 960px) {
   .community-page-right-col {
     display: none;
@@ -1133,5 +1137,13 @@
 
   .posts-left-col:has(.post-sorting-bar) {
     padding: 0;
+  }
+
+  .community-header-info-alt {
+    padding-left: 0;
+  }
+
+  .posts-container-alt {
+    min-height: auto;
   }
 }

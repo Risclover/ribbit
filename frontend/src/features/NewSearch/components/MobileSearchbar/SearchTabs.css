@@ -78,6 +78,7 @@
   /* border: var(--button-border-width, 0) solid (transparent, transparent); */
   border: 0;
   background: transparent;
+  color: var(--main-text-color);
 }
 
 .searchtab-arrow-container {

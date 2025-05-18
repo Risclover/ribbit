@@ -39,12 +39,14 @@ export function DemoAccountWarning({ setShowDemoWarning, showDemoWarning }) {
         <button className="warning-button-left" onClick={handleCancel}>
           Cancel
         </button>
-        <button className="warning-button-middle" onClick={handleSignup}>
-          Sign Up
-        </button>
-        <button className="warning-button-right" onClick={handleLogin}>
-          Continue to Demo
-        </button>
+        <div className="warning-buttons-right">
+          <button className="warning-button-middle" onClick={handleSignup}>
+            Sign Up
+          </button>
+          <button className="warning-button-right" onClick={handleLogin}>
+            Continue to Demo
+          </button>
+        </div>
       </div>
     </div>
   );

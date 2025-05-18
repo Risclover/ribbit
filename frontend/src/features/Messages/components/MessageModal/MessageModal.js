@@ -79,7 +79,6 @@ export function MessageModal({ setShowMessageModal, username }) {
               className="message-modal-textarea"
               value={message}
               onChange={(e) => {
-                e.stopPropagation();
                 setMessage(e.target.value);
               }}
             ></textarea>

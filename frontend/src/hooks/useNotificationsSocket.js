@@ -1,7 +1,8 @@
+// hooks/useNotificationsSocket.js
 import { useEffect } from "react";
-import { io } from "socket.io-client";
 import { useDispatch } from "react-redux";
 import { addNotification } from "@/store";
+import { initiateSocket } from "socket"; // <- only this
 
 export function useNotificationsSocket(user) {
   const dispatch = useDispatch();
@@ -9,17 +10,11 @@ export function useNotificationsSocket(user) {
   useEffect(() => {
     if (!user) return;
 
-    // open the socket
-    const socket = io();
+    const socket = initiateSocket(user.id); // creates (or re-uses) the conn.
 
-    // Listen for new_notification
-    socket.on("new_notification", (notifData) => {
-      // dispatch an action to add to Redux or handle however you want
-      dispatch(addNotification(notifData));
-    });
+    const handler = (notif) => dispatch(addNotification(notif));
+    socket.on("new_notification", handler);
 
-    return () => {
-      socket.disconnect();
-    };
+    return () => socket.off("new_notification", handler);
   }, [dispatch, user]);
 }

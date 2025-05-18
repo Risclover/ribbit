@@ -11,35 +11,41 @@ import { useSelector } from "react-redux";
 export default function useCreatePostTarget() {
   const { pathname } = useLocation();
 
-  /* If URL already has /c/:communityName, grab it right away */
-  const commMatch = matchPath(pathname, {
+  /* ─── 1. Try to read community straight from the URL ─── */
+  const communityMatch = matchPath(pathname, {
     path: "/c/:communityName",
     exact: false,
     strict: false,
   });
-  let communityName = commMatch?.params?.communityName;
+  const communityNameInPath = communityMatch?.params?.communityName;
 
-  /* Otherwise, check for /posts/:postId and resolve via Redux */
-  if (!communityName) {
-    const postMatch = matchPath(pathname, {
-      path: "/posts/:postId",
-      exact: false,
-      strict: false,
-    });
-    const postId = postMatch?.params?.postId;
+  /* ─── 2. Otherwise look for /posts/:postId and resolve via Redux ─── */
+  const postMatch = matchPath(pathname, {
+    path: "/posts/:postId",
+    exact: false,
+    strict: false,
+  });
+  const postId = postMatch?.params?.postId || null;
 
-    if (postId) {
-      // posts live directly under state.posts (not in byID)
-      const post = useSelector((s) => s.posts?.[postId]);
-      const commId = post?.community?.id; // adjust field names as needed
-      const comm = useSelector((s) =>
-        commId ? s.communities?.[commId] : null
-      );
+  /** Safe selector: returns undefined when postId is null */
+  const post = useSelector((state) =>
+    postId ? state.posts?.[postId] : undefined
+  );
 
-      communityName = comm?.name || post?.communityName;
-    }
-  }
+  const communityIdFromPost = post?.community?.id;
+  const communityFromStore = useSelector((state) =>
+    communityIdFromPost ? state.communities?.[communityIdFromPost] : undefined
+  );
 
-  /* 3️⃣  Build the final link */
-  return communityName ? `/c/${communityName}/submit` : "/submit";
+  /* ─── 3. Decide final community name ─── */
+  const resolvedCommunityName =
+    communityNameInPath ||
+    communityFromStore?.name ||
+    post?.communityName || // fallback field if you store it
+    null;
+
+  /* ─── 4. Build the target URL ─── */
+  return resolvedCommunityName
+    ? `/c/${resolvedCommunityName}/submit`
+    : "/submit";
 }

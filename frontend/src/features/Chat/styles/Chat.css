@@ -136,6 +136,8 @@
   width: 100%;
   overflow: hidden auto;
   flex: 1 0 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 .date-separator:before,

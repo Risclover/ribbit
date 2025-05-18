@@ -87,8 +87,12 @@
   text-align: left;
   top: 45.5px;
   background: var(--ribbit-main);
-  overflow-x: hidden;
+  overflow: hidden;
   overflow-y: auto;
+  max-height: 100%;
+}
+
+.logged-out-user-dropdown-box.open {
 }
 
 .dark-mode-toggle {
