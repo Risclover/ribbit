@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-import { login } from "@/store";
 import { useAuthFlow } from "@/context";
+import { login } from "@/store";
+import { demoAccountInfo } from "../data/demoAccountInfo";
 
 /**
  * Handles logic for the demo account warning component.
@@ -25,7 +26,7 @@ export function useDemoAccountWarning({ setShowDemoWarning }) {
   // Logic for the 'Continue as Demo' button, which logs the user in as Demo and closes the auth modal completely before redirecting them to the homepage
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(login("demo@aa.io", "password"));
+    dispatch(login(demoAccountInfo.email, demoAccountInfo.password));
     closeModal();
 
     if (location.pathname === "/login") {

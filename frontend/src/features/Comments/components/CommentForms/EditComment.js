@@ -1,6 +1,5 @@
 import React from "react";
 import useEditComment from "../../hooks/useEditComment";
-import "@/assets/styles/Modals.css";
 
 /**
  * The 'Edit Comment' form/modal, for editing an existing comment

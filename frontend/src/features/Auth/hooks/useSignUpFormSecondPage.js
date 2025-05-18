@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAuthFlow } from "@/context";
 import { signUp, getUsers } from "@/store";
-import { useUsernameTaken } from ".";
+import { useUsernameTaken } from "./";
 import { validatePassword, validateUsername, generateUsername } from "../utils";
 
 /**

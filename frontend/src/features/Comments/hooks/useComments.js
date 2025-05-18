@@ -67,12 +67,14 @@ export function useComments({ post, triggerScroll, setTriggerScroll }) {
   const specificComment = commentsState[specificCommentId] || null;
   const [specificCommentActive, setSpecificCommentActive] = useState(!!match);
 
+  /* Close comments search mini-feature */
   const dismissSearch = () => {
     dispatch(getCommentsForPost(post.id));
     setSearchValue("");
     setSearchActive(false);
   };
 
+  /* Focus the comments search box */
   const focusSearchBox = () => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -80,6 +82,7 @@ export function useComments({ post, triggerScroll, setTriggerScroll }) {
     }
   };
 
+  /* Function to assist new comment's arrival at the top of the list (instead of sorted amongst) */
   const handleNewComment = (newId) => {
     setNewCommentIds((prev) => [...prev, newId]);
   };

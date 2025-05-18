@@ -9,3 +9,4 @@ export * from "./MetadataContext";
 export * from "./AuthContext";
 export * from "./AuthFlowContext";
 export * from "./ScrollContext";
+export * from "./OpenChatContext"

@@ -11,6 +11,7 @@ export function CommentKarmaBar({ comment }) {
 
   return (
     <div className="comment-vote-btns">
+      {/* Upvote btn */}
       <button
         aria-label="Upvote"
         className={vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"}
@@ -20,6 +21,7 @@ export function CommentKarmaBar({ comment }) {
         <PiArrowFatUpFill />
       </button>
 
+      {/* Votes count */}
       <span
         className={`karmabar-votes${
           vote === "upvote"
@@ -29,10 +31,10 @@ export function CommentKarmaBar({ comment }) {
             : ""
         }`}
       >
-        {/* If you need special logic for zero votes, do it here */}
         {comment?.votes === 0 && vote === null ? "Vote" : comment?.votes ?? 0}
       </span>
 
+      {/* Downvote btn */}
       <button
         aria-label="Downvote"
         className={vote === "downvote" ? "vote-btn-blue" : "downvote-btn-grey"}

@@ -7,21 +7,22 @@ import { NavLeftDropdown } from "./NavLeftDropdown";
 import "./NavLeftDropdown.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useWindowWidth } from "hooks";
 
 export const NavLeftDropdownFace = ({
   screenWidth,
-  setScreenWidth,
   setShowNavSidebar,
   showNavSidebar,
   showDropdown,
   setShowDropdown,
 }) => {
+  const { width, setWidth } = useWindowWidth();
   const dropdownRef = useRef(null);
   const { pageTitle, pageIcon } = useContext(PageTitleContext);
   const [showIcon, setShowIcon] = useState(false);
 
   const handleResize = () => {
-    setScreenWidth(window.innerWidth);
+    setWidth(window.innerWidth);
   };
 
   useEffect(() => {

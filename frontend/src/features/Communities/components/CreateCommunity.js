@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "@/context";
 import { CreateCommunityModal } from "..";
-import { lockScroll, unlockScroll } from "@/utils/scrollLock";
-import { useScrollLock } from "@/hooks";
 
 export function CreateCommunity() {
   const [showCreateCommunityModal, setShowCreateCommunityModal] =

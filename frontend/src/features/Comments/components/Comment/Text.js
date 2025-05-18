@@ -24,14 +24,14 @@ export function Text({ content }) {
 
   const options = {
     replace: (node) => {
-      // If the node is within a <code> or <pre> tag, skip linkification
+      // If the node is within a <code> or <pre> tag, skip "linkification"
       if (
         node.parent &&
         (node.parent.name === "code" || node.parent.name === "pre")
       ) {
         return undefined; // Do not replace, leave as is
       }
-
+      
       if (node.type === "text") {
         const words = node.data.split(" ");
         return (

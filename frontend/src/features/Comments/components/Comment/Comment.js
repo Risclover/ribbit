@@ -32,6 +32,11 @@ export function Comment({ comment, level = 1 }) {
   // Render child comments
   const { children = [] } = comment;
 
+  const deletedUserImages = {
+    darkMode: "https://i.imgur.com/7QC99OK.png",
+    lightMode: "https://i.imgur.com/7K4WFFr.png",
+  };
+
   return (
     <div
       className={`comment-container ${level === 1 ? "comment-topmargin" : ""}`}
@@ -64,8 +69,8 @@ export function Comment({ comment, level = 1 }) {
               style={{
                 backgroundImage: `url(${
                   theme === "dark"
-                    ? "https://i.imgur.com/7QC99OK.png"
-                    : "https://i.imgur.com/7K4WFFr.png"
+                    ? deletedUserImages.darkMode
+                    : deletedUserImages.lightMode
                 })`,
                 backgroundRepeat: "no-repeat",
               }}

@@ -7,6 +7,7 @@ import {
   ProtectedRoute,
 } from "@/routes";
 import { ScrollProvider } from "@/context";
+import { NotFound } from "@/components";
 import {
   AllPostsFeed,
   CommunitiesDirectory,
@@ -26,7 +27,6 @@ import {
   UpdatePost,
   LoginSignupModal,
 } from "@/features";
-import NotFound from "components/NotFound";
 
 export const AppRoutes = ({ user, postType, setPostType, searchbarRef }) => {
   return (

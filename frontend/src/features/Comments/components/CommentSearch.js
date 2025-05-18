@@ -42,7 +42,7 @@ export const CommentSearch = ({
           onChange={(e) => setSearchValue(e.target.value)}
           id="comment-search"
           className="comment-search-input"
-          onKeyPress={(e) => e.key === "Enter" && handleEnter(e)}
+          onKeyDown={(e) => e.key === "Enter" && handleEnter(e)}
         />
         {searchValue?.length > 0 && (
           <button

@@ -10,18 +10,21 @@ export function CommentThreadlines({ setIsCollapsed, level }) {
 
   return (
     <div className="all-threadlines" onClick={() => setIsCollapsed(true)}>
-    {parentThreadlines.map((_, index) => (
-      <div className="this-levels-threadline" key={index}>
+      {/* Parent comment threadlines */}
+      {parentThreadlines.map((_, index) => (
+        <div className="this-levels-threadline" key={index}>
+          <div className="threadline-container">
+            <div className="threadline"></div>
+          </div>
+        </div>
+      ))}
+
+      {/* Current comment's threadlines */}
+      <div className="this-levels-threadline">
         <div className="threadline-container">
           <div className="threadline"></div>
         </div>
       </div>
-    ))}
-    <div className="this-levels-threadline">
-      <div className="threadline-container">
-        <div className="threadline"></div>
-      </div>
     </div>
-  </div>
   );
 }

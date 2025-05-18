@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuthFlow } from "@/context";
-import { AuthFormInput, AuthModalLayout } from "..";
+import { AuthFormInput, AuthModalLayout } from "../";
 import { useSignUpFormSecondPage } from "../../hooks";
 
 /**

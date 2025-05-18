@@ -2,7 +2,8 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { ribbitLogos } from "@/assets";
 import { usePageSettings } from "@/hooks";
-export default function NotFound() {
+
+export function NotFound() {
   const history = useHistory();
 
   usePageSettings({

@@ -22,16 +22,6 @@ export function CommentBtnBar({
   setCommentContent,
   setShowReplyForm,
 }) {
-  const currentUser = useSelector((state) => state.session.user);
-  const post = useSelector((state) => state.posts[postId]);
-  const communities = useSelector((state) => state.communities);
-  const communityId = post.community.id;
-
-  const isAuthor = comment?.commentAuthor?.id === currentUser?.id;
-  const isCommunityOwner =
-    communities[communityId].communityOwner.id === currentUser?.id;
-  const canEditOrDelete = isAuthor || isCommunityOwner;
-
   const {
     isEditModalOpen,
     setIsEditModalOpen,
@@ -40,7 +30,13 @@ export function CommentBtnBar({
     handleDeleteClick,
     handleReplyClick,
     handleEditClick,
-  } = useCommentBtnBar({ comment, setShowReplyForm, post, setCommentContent });
+    canEditOrDelete,
+  } = useCommentBtnBar({
+    comment,
+    setShowReplyForm,
+    setCommentContent,
+    postId,
+  });
 
   if (collapsed) {
     return null;

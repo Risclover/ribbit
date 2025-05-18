@@ -1,7 +1,7 @@
 import React from "react";
 import "./SkipLocation.css";
 
-export default function SkipLocation({ showNavSidebar }) {
+export function SkipLocation({ showNavSidebar }) {
   return (
     <div className="skip-location">
       {showNavSidebar && (

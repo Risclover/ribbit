@@ -15,3 +15,5 @@ export { CommunityImg } from "./CommunityImg";
 export * from "./NavBar";
 export * from "./NavSidebar";
 export * from "./Tooltip";
+export * from "./SkipLocation";
+export { NotFound } from "./NotFound";

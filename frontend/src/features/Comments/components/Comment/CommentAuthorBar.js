@@ -1,22 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Username, Tooltip } from "@/components";
-import { convertTime } from "features/Comments/utils/convertTime";
+import { useCommentAuthorBar } from "../../hooks/useCommentAuthorBar";
 
 /**
  * Renders the author's info for the comment
  * - comment: comment that this author bar is for
  */
 export function CommentAuthorBar({ comment }) {
-  const communities = useSelector((state) => Object.values(state.communities));
-  const post = useSelector((state) => state.posts[comment?.postId]);
-
-  const editedTime = convertTime(comment, "edit");
-  const commentTime = convertTime(comment);
-  const wasEdited = comment?.createdAt !== comment?.updatedAt;
-
-  const isOP = post?.author?.username === comment?.commentAuthor?.username;
-  const isMOD = comment?.userId === communities[post?.community.id]?.userId;
+  const { editedTime, commentTime, wasEdited, isOP, isMOD } =
+    useCommentAuthorBar({ comment });
 
   return (
     <div className="comment-author-bar-container">
@@ -28,6 +20,7 @@ export function CommentAuthorBar({ comment }) {
           user={comment?.commentAuthor}
           disabled={comment?.isDeleted}
         />
+
         {/* Author labels */}
         {isOP && !comment.isDeleted && <span className="op-sign">OP</span>}
         {isMOD && !comment.isDeleted && <span className="mod-sign">MOD</span>}

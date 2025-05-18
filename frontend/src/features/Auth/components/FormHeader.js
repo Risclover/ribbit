@@ -22,7 +22,6 @@ export function FormHeader() {
         understand that your use of Ribbit is subject to our terms and policies.
       </p>
       <button
-        // href="/api/auth/authorize/google"
         className="google-btn"
         tabIndex={0}
         type="button"

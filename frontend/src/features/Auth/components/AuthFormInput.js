@@ -1,6 +1,6 @@
 import React from "react";
-import { IconComponent, ErrorsDisplay } from ".";
-import { useAuthFormInput } from "../hooks/useAuthFormInput";
+import { IconComponent, ErrorsDisplay } from "./";
+import { useAuthFormInput } from "../hooks";
 
 /**
  * A reusable input field with built-in error display and icons.
