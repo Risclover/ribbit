@@ -69,20 +69,28 @@
   pointer-events: auto;
 }
 
-.logged-out-user-dropdown-container {
-  height: 100vh;
-  position: relative;
-  z-index: 100;
+.logged-out-user-dropdown-container:not(:has(.open)) {
+  display: none;
 }
-
-.logged-out-user-dropdown-container {
-  position: fixed;
-}
-
 .logged-out-user-dropdown .nav-user-dropdown-box,
 .logged-out-user-dropdown.open .nav-user-dropdown-box,
 .logged-out-user-dropdown.open .logged-out-dropdown,
 .logged-out-user-dropdown .logged-out-dropdown,
 .logged-out-user-dropdown.open .user-profile-mobile-menu {
   will-change: transform;
+}
+
+.logged-out-user-dropdown.open .nav-user-dropdown-box {
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: transform 0.3s ease; /* ⬅ keep the animation alive */
+}
+
+@media (max-width: 768px) {
+  .logged-out-user-dropdown-container {
+    height: 100vh;
+    position: fixed;
+    z-index: 100;
+    display: block;
+  }
 }

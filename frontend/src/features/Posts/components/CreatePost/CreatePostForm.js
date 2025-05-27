@@ -11,7 +11,7 @@ import {
   DiscardPost,
 } from "@/features";
 import { Modal } from "@/context";
-import validator from "validator";
+import isURL from "validator/lib/isURL.js";
 import { getIdFromName } from "@/utils/getCommunityIdFromName";
 import { usePostDraft } from "@/features/Posts/hooks/usePostDraft";
 
@@ -95,8 +95,7 @@ export function CreatePostForm({
   // ---------- enable / disable POST btn ----------
   useEffect(() => {
     const emptyText = content.replace(/<(.|\n)*?>/g, "").trim().length === 0;
-    const linkInvalid =
-      postType === "link" && (!linkUrl || !validator.isURL(linkUrl));
+    const linkInvalid = postType === "link" && (!linkUrl || !isURL(linkUrl));
 
     setDisabled(
       title.length === 0 ||

@@ -1,13 +1,23 @@
 import React from "react";
 import { NavGroup } from "./NavGroup";
 import { useNavLeftDropdown } from "@/hooks/useNavLeftDropdown";
+import { useIsMobile, useIsSmallScreen } from "hooks";
 
-export function NavLeftDropdown({ setShowIcon, setShowDropdown }) {
+export function NavLeftDropdown({
+  setShowIcon,
+  setShowDropdown,
+  setShowNavSidebar,
+}) {
   /* close handler shared by rows + filter clear */
   const close = () => {
     setShowIcon(false);
     setShowDropdown(false);
+    if (isSmall || isMobile) setShowNavSidebar(false);
   };
+
+  const isSmall = useIsSmallScreen(768);
+  const isMobile = useIsMobile();
+
   const { filter, setFilter, sections } = useNavLeftDropdown(close);
 
   return (

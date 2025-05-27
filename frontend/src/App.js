@@ -1,123 +1,119 @@
-import React, {
-  Suspense,
-  useState,
-  useEffect,
-  useContext,
-  useCallback,
-  useMemo,
-} from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { Route, Switch, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import "./moment-setup";
+import { AppRoutes } from "@/routes";
 
-/* -------------------------------------------------- */
-/*  Features                                          */
-/* -------------------------------------------------- */
-const Chat = lazyNamed(() => import("@/features"), "Chat");
-const ChatMinimized = lazyNamed(() => import("@/features"), "ChatMinimized");
-const PreviewSidebar = lazyNamed(
-  () => import("@/features"),
-  "PreviewCommunitySidebar"
-);
-const MobileSearchbar = lazyNamed(
-  () => import("@/features"),
-  "MobileSearchbar"
-);
-import { LoginSignupModal } from "@/features";
+import { ScrollToTop } from "./utils";
 
-/* -------------------------------------------------- */
-/*  Components                                        */
-/* -------------------------------------------------- */
-const NavSidebar = lazyNamed(() => import("@/components"), "NavSidebar");
-const LoggedOutSidebar = lazyNamed(
-  () => import("@/components"),
-  "LoggedOutSidebar"
-);
+import { NavBar, NavSidebar, LoggedOutSidebar } from "./components";
+
+import { NotificationsPage } from "./pages";
+
+import { Modal } from "./context";
 import {
-  NavBar,
-  MobileNavBar,
-  MobileNavbarDropdown,
-  SkipLocation,
-} from "@/components";
+  Messages,
+  Unread,
+  Sent,
+  Inbox,
+  PostRepliesPage,
+  Permalink,
+  PreviewCommunitySidebar,
+  PreviewCommunity,
+  UpdateImagePost,
+  UpdatePost,
+  SignUpForm,
+  EditCommunity,
+  SearchResultsPosts,
+  SearchResultsComments,
+  SearchResultsCommunities,
+  SearchResultsUsers,
+  Chat,
+  LoginSignupModal,
+} from "./features";
 
-/* -------------------------------------------------- */
-/*  Local hooks, utils, routes                        */
-/* -------------------------------------------------- */
 import {
-  useNotificationsSocket,
-  useLeaveLogin,
-  useWindowWidth,
-  useIsMobile,
-  useScrollToTop,
-} from "@/hooks";
+  getUserChatThreads,
+  getCommunities,
+  authenticate,
+  getCurrentUser,
+  getUsers,
+  getCommunitySettings,
+  fetchNotifications,
+} from "./store";
+
+import { PostFormatContext, PageTitleContext } from "./context";
+import { MetadataProvider } from "@/context";
+import { PopupProvider } from "@/context";
+import { ProtectedRoute } from "@/components";
+import ChatMinimized from "@/features/Chat/components/ChatWindow/ChatMinimized";
+import { ImagePage } from "pages/ImagePage";
 import {
   getSidebarState,
   setSidebarState,
 } from "@/features/Communities/utils/localStorage";
-import { lazyNamed } from "@/utils";
-import { AppRoutes } from "@/routes";
+import { ScrollProvider } from "@/context/ScrollContext";
+import { SkipLocation } from "@/components/SkipLocation/SkipLocation";
+import { useLeaveLogin } from "hooks/useLeaveLogin";
+import { useNotificationsSocket } from "hooks/useNotificationsSocket";
+import "./moment-setup";
+import { LoggedOutNavBar } from "components/NavBar/MobileNavbar";
+import { useIsMobile } from "hooks/useIsMobile";
+import { MobileNavbarDropdown } from "components/NavBar/MobileNavbar/MobileNavbarDropdown";
+import { MobileSearchbar } from "features/NewSearch/components/MobileSearchbar/MobileSearchbar";
+import { MobileNavBar } from "components/NavBar/MobileNavbar/MobileNavbar";
+import { OpenChatContext } from "context/OpenChatContext";
 
-/* -------------------------------------------------- */
-/*  Store thunks                                      */
-/* -------------------------------------------------- */
-import {
-  getCommunities,
-  getUsers,
-  getCommunitySettings,
-  authenticate,
-  fetchNotifications,
-  getUserChatThreads,
-} from "@/store";
-
-/* -------------------------------------------------- */
-/*  Context & providers                               */
-/* -------------------------------------------------- */
-import {
-  MetadataProvider,
-  PopupProvider,
-  PageTitleContext,
-  PostFormatContext,
-  OpenChatContext,
-} from "@/context";
-
-/* -------------------------------------------------- */
-
-function AppProviders({ children }) {
-  return (
-    <MetadataProvider>
-      <PopupProvider>{children}</PopupProvider>
-    </MetadataProvider>
-  );
-}
-
-export default function App() {
-  /* ---------- store & router ---------- */
+function App() {
   const dispatch = useDispatch();
-  const user = useSelector((s) => s.session.user);
+  const user = useSelector((state) => state.session.user);
   const location = useLocation();
+  const searchbarRef = useRef();
+  const users = useSelector((state) => state.users);
+  const background = location.state && location.state.background;
+
   const { openChat } = useContext(OpenChatContext);
-  useScrollToTop();
 
-  /* ---------- derived flags ---------- */
-  const isMobile = useIsMobile();
-  const previewPage = location.pathname.endsWith("/style");
-  const showLoggedOutSidebar = !user;
-
-  /* ---------- local state ---------- */
   const [loaded, setLoaded] = useState(false);
+  const [, setShowLoginForm] = useState(false);
+  const [showSignupForm, setShowSignupForm] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [adjustQuery, setAdjustQuery] = useState(false);
+  const [postType, setPostType] = useState("post");
   const [format, setFormat] = useState("Card");
-  const [pageTitle, setPageTitle] = useState("");
+  const [pageTitle, setPageTitle] = useState("testing");
   const [pageIcon, setPageIcon] = useState();
-  const [showNavSidebar, setShowNavSidebar] = useState(getSidebarState());
+  const [showNavSidebar, setShowNavSidebar] = useState(() => getSidebarState());
+  const [showLoggedOutSidebar, setShowLoggedOutSidebar] = useState();
+  const [userCommunities, setUserCommunities] = useState([]);
+  const [previewPage, setPreviewPage] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [showDropdown, setShowDropdown] = useState(false);
   const [minimizeChat, setMinimizeChat] = useState(false);
   const [openUserDropdown, setOpenUserDropdown] = useState(false);
   const [showSearchScreen, setShowSearchScreen] = useState(false);
 
-  /* ---------- sockets ---------- */
   useNotificationsSocket(user);
 
-  /* ---------- data bootstrapping ---------- */
+  useEffect(() => {
+    if (screenWidth <= 1250) {
+      setShowNavSidebar(false);
+    }
+  }, [screenWidth]);
+
+  useEffect(() => {
+    if (location.pathname.endsWith("/style")) {
+      document.body.classList.add("scoot-over");
+      setPreviewPage(true);
+    } else {
+      document.body.classList.remove("scoot-over");
+      setPreviewPage(false);
+    }
+  }, [location]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty("--current-color-theme", "dark");
+  }, []);
+
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
@@ -129,129 +125,134 @@ export default function App() {
     dispatch(getCommunities());
     dispatch(getUsers());
     dispatch(getCommunitySettings());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (user) {
       dispatch(fetchNotifications());
       dispatch(getUserChatThreads());
     }
-  }, [user, dispatch]);
+  }, [user]);
 
-  /* ---------- body class for preview page ---------- */
   useEffect(() => {
-    document.body.classList.toggle("scoot-over", previewPage);
-  }, [previewPage]);
+    if (!user) {
+      setShowLoggedOutSidebar(true);
+    } else {
+      setShowLoggedOutSidebar(false);
+    }
+  }, [user]);
 
-  /* ---------- sidebar toggle handler ---------- */
-  const handleToggleSidebar = useCallback(() => {
-    setShowNavSidebar((prev) => {
-      const next = !prev;
-      setSidebarState(next); // persist
-      return next;
-    });
-  }, []);
+  useEffect(() => {
+    setSidebarState(showNavSidebar);
+  }, [showNavSidebar]);
 
-  /* ---------- navbar memo props ---------- */
-  const windowWidth = useWindowWidth(); // custom hook returns innerWidth
-  const navBarProps = useMemo(
-    () => ({
-      showNavSidebar,
-      setShowNavSidebar: handleToggleSidebar,
-      showDropdown,
-      setShowDropdown,
-      minimizeChat,
-      setMinimizeChat,
-      windowWidth,
-    }),
-    [
-      showNavSidebar,
-      handleToggleSidebar,
-      showDropdown,
-      minimizeChat,
-      windowWidth,
-    ]
-  );
-
-  /* ---------- main padding class ---------- */
-  const mainClass = useMemo(
-    () =>
-      showNavSidebar || showLoggedOutSidebar ? "main main-padded" : "main",
-    [showNavSidebar, showLoggedOutSidebar]
-  );
-
-  /* ---------- Scroll unlock after leaving /login ---------- */
   useLeaveLogin(() => {
+    // This will run exactly once, the moment you leave /login:
     document.body.style.overflow = "";
+    // or your own custom cleanup, e.g. unlockScroll();
   });
 
-  /* ---------- render ---------- */
+  const navBarProps = {
+    adjustQuery: adjustQuery,
+    searchQuery: searchQuery,
+    setSearchQuery: setSearchQuery,
+    setShowNavSidebar: setShowNavSidebar,
+    showNavSidebar: showNavSidebar,
+    showDropdown: showDropdown,
+    setShowDropdown: setShowDropdown,
+    searchbarRef: searchbarRef,
+    screenWidth: screenWidth,
+    setScreenWidth: setScreenWidth,
+    minimizeChat: minimizeChat,
+    setMinimizeChat: setMinimizeChat,
+  };
+
+  const mobileNavBarProps = {
+    openUserDropdown: openUserDropdown,
+    setOpenUserDropdown: setOpenUserDropdown,
+  };
+
+  const isMobile = useIsMobile();
+
   return (
-    <AppProviders>
-      <PageTitleContext.Provider
-        value={{ pageTitle, setPageTitle, pageIcon, setPageIcon }}
-      >
-        <PostFormatContext.Provider value={{ format, setFormat }}>
-          <Suspense fallback={null}>
-            {previewPage && <PreviewSidebar />}
-          </Suspense>
+    <MetadataProvider>
+      <PopupProvider>
+        <PageTitleContext.Provider
+          value={{ pageTitle, setPageTitle, pageIcon, setPageIcon }}
+        >
+          <PostFormatContext.Provider value={{ format, setFormat }}>
+            {previewPage && <PreviewCommunitySidebar />}
+            {isMobile ? (
+              <MobileNavBar
+                setOpenUserDropdown={setOpenUserDropdown}
+                openUserDropdown={openUserDropdown}
+                showSearchScreen={showSearchScreen}
+                setShowSearchScreen={setShowSearchScreen}
+                showNavSidebar={showNavSidebar}
+                setShowNavSidebar={setShowNavSidebar}
+              />
+            ) : (
+              <NavBar {...navBarProps} />
+            )}
 
-          {isMobile ? (
-            <MobileNavBar
-              openUserDropdown={openUserDropdown}
+            <MobileNavbarDropdown
+              userImg={user?.profileImg}
               setOpenUserDropdown={setOpenUserDropdown}
-              showSearchScreen={showSearchScreen}
-              setShowSearchScreen={setShowSearchScreen}
+              openUserDropdown={openUserDropdown}
             />
-          ) : (
-            <NavBar {...navBarProps} />
-          )}
-
-          <MobileNavbarDropdown
-            userImg={user?.profileImg}
-            openUserDropdown={openUserDropdown}
-            setOpenUserDropdown={setOpenUserDropdown}
-          />
-
-          {showSearchScreen && (
-            <Suspense fallback={null}>
+            {showSearchScreen && (
               <MobileSearchbar
                 showSearchScreen={showSearchScreen}
                 setShowSearchScreen={setShowSearchScreen}
               />
-            </Suspense>
-          )}
-
-          <div className={mainClass}>
-            <div className="page-content">
-              <SkipLocation showNavSidebar={showNavSidebar} />
-              <AppRoutes user={user} postType="post" setPostType={() => {}} />
-            </div>
-
-            <LoginSignupModal />
-
-            <Suspense fallback={null}>
+            )}
+            <div
+              className={
+                showNavSidebar
+                  ? "main main-padded"
+                  : showLoggedOutSidebar
+                  ? "main main-padded"
+                  : "main"
+              }
+            >
+              <div className="page-content">
+                <SkipLocation showNavSidebar={showNavSidebar} />
+                <AppRoutes
+                  user={user}
+                  postType={postType}
+                  setPostType={setPostType}
+                  searchbarRef={searchbarRef}
+                />
+              </div>
+              <LoginSignupModal />
               {openChat && !minimizeChat && (
                 <Chat setMinimizeChat={setMinimizeChat} />
               )}
+
               {openChat && minimizeChat && (
                 <ChatMinimized setMinimizeChat={setMinimizeChat} />
               )}
-            </Suspense>
 
-            <Suspense fallback={null}>
-              {showLoggedOutSidebar && <LoggedOutSidebar />}
+              {!user && (
+                <LoggedOutSidebar
+                  setShowSignupForm={setShowSignupForm}
+                  showLoggedOutSidebar={showLoggedOutSidebar}
+                />
+              )}
+
               {user && (
                 <NavSidebar
+                  setShowNavSidebar={setShowNavSidebar}
                   showNavSidebar={showNavSidebar}
-                  setShowNavSidebar={handleToggleSidebar}
                   setShowDropdown={setShowDropdown}
                 />
               )}
-            </Suspense>
-          </div>
-        </PostFormatContext.Provider>
-      </PageTitleContext.Provider>
-    </AppProviders>
+            </div>
+          </PostFormatContext.Provider>
+        </PageTitleContext.Provider>
+      </PopupProvider>
+    </MetadataProvider>
   );
 }
+
+export default App;

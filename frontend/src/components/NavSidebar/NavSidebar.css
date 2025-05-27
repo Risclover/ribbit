@@ -1,5 +1,5 @@
 .nav-sidebar-container {
-  height: calc(100% - 86px);
+  height: calc(100% - 48px);
   margin-top: 48px;
   background: var(--ribbit-main);
   position: fixed;
@@ -141,5 +141,8 @@
   }
 }
 
-@media (max-width: 996px) {
+@media (max-width: 768px) {
+  .nav-sidebar-container {
+    display: block;
+  }
 }

@@ -5,6 +5,7 @@ export { liveChatIcons } from "./live-chat-icons";
 export { userProfileIcons } from "./user-profile-icons";
 export * from "./navbar";
 export { AllIcon } from "./navbar";
+export * from "./emojis";
 
 import WarningIcon from "./warning-icon.png";
 import NoResultsIcon from "./search-icon.png";

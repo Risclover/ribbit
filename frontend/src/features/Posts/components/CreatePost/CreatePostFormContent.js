@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import ReactQuill from "react-quill";
+import React, { useState, Suspense } from "react";
+const ReactQuill = React.lazy(() => import("react-quill"));
 import { richTextEditorModules } from "../../data/richTextEditorModules";
 import { Modal } from "@/context";
 import { ImagePostForm } from "../ImagePost";
@@ -24,13 +24,15 @@ export function CreatePostFormContent({
     <>
       {postType === "post" && (
         <div className="create-post-form-input">
-          <ReactQuill
-            theme="snow"
-            modules={richTextEditorModules}
-            onChange={setContent}
-            value={content}
-            placeholder="Text (required)"
-          />
+          <Suspense fallback={<div>Loading...</div>}>
+            <ReactQuill
+              theme="snow"
+              modules={richTextEditorModules}
+              onChange={setContent}
+              value={content}
+              placeholder="Text (required)"
+            />
+          </Suspense>
         </div>
       )}
 

@@ -64,8 +64,23 @@ export function CommunityImgModal({ setShowCommunityImgModal, communityId }) {
           )}
           <span className="user-img-error">{errorMsg}</span>
           {imageLoading && <p>Loading...</p>}
-          <label className="post-img-btn-box" htmlFor="post-img">
-            <div className="post-img-btn">Upload Image</div>
+          <label
+            className="post-img-btn-box"
+            htmlFor="post-img"
+            id="upload-img"
+          >
+            <div
+              className="post-img-btn"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  document.getElementById("upload-img").click();
+                }
+              }}
+            >
+              Upload Image
+            </div>
           </label>
         </div>
       </div>

@@ -27,6 +27,7 @@ import {
   UpdatePost,
   LoginSignupModal,
 } from "@/features";
+import ChatPage from "pages/ChatPage";
 
 export const AppRoutes = ({ user, postType, setPostType, searchbarRef }) => {
   return (
@@ -42,6 +43,10 @@ export const AppRoutes = ({ user, postType, setPostType, searchbarRef }) => {
 
         <Route path="/all" exact={true}>
           <AllPostsFeed />
+        </Route>
+
+        <Route path="/chat" exact={true}>
+          <ChatPage />
         </Route>
 
         <Route path="/directory" exact>

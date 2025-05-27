@@ -10,19 +10,18 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useWindowWidth } from "hooks";
 
 export const NavLeftDropdownFace = ({
-  screenWidth,
   setShowNavSidebar,
   showNavSidebar,
   showDropdown,
   setShowDropdown,
 }) => {
-  const { width, setWidth } = useWindowWidth();
+  const { windowWidth, setWindowWidth } = useWindowWidth();
   const dropdownRef = useRef(null);
   const { pageTitle, pageIcon } = useContext(PageTitleContext);
   const [showIcon, setShowIcon] = useState(false);
 
   const handleResize = () => {
-    setWidth(window.innerWidth);
+    setWindowWidth(window.innerWidth);
   };
 
   useEffect(() => {
@@ -41,7 +40,7 @@ export const NavLeftDropdownFace = ({
     if (showNavSidebar) {
       setShowIcon(false);
     }
-  });
+  }, [showNavSidebar]);
 
   useOutsideClick(dropdownRef, () => setShowDropdown(false));
 
@@ -78,7 +77,7 @@ export const NavLeftDropdownFace = ({
 
             <div className="nav-left-dropdown-face-title">
               {pageIcon}
-              {screenWidth > 996 && pageTitle}
+              {windowWidth > 996 && pageTitle}
             </div>
 
             {/* down chevron arrow */}
@@ -108,6 +107,7 @@ export const NavLeftDropdownFace = ({
               setShowDropdown={setShowDropdown}
               setShowIcon={setShowIcon}
               showDropdown={showDropdown}
+              setShowNavSidebar={setShowNavSidebar}
             />
           </div>
         )}

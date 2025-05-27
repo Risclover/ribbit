@@ -12,21 +12,21 @@ import { OpenChatProvider } from "@/context/OpenChatContext";
 export function AppProviders({ store, children }) {
   return (
     <Provider store={store}>
-      <SkipLocationProvider>
-        <AuthModalProvider>
-          <AuthFlowProvider>
-            <SelectedChatProvider>
-              <OpenChatProvider>
-                <PostModalProvider>
-                  <ModalProvider>
-                    <BrowserRouter>{children}</BrowserRouter>
-                  </ModalProvider>
-                </PostModalProvider>
-              </OpenChatProvider>
-            </SelectedChatProvider>
-          </AuthFlowProvider>
-        </AuthModalProvider>
-      </SkipLocationProvider>
+      <BrowserRouter>
+        <SkipLocationProvider>
+          <AuthModalProvider>
+            <AuthFlowProvider>
+              <SelectedChatProvider>
+                <OpenChatProvider>
+                  <PostModalProvider>
+                    <ModalProvider>{children}</ModalProvider>
+                  </PostModalProvider>
+                </OpenChatProvider>
+              </SelectedChatProvider>
+            </AuthFlowProvider>
+          </AuthModalProvider>
+        </SkipLocationProvider>
+      </BrowserRouter>
     </Provider>
   );
 }

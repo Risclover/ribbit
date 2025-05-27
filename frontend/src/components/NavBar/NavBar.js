@@ -31,8 +31,6 @@ export function NavBar({
   setShowDropdown,
   searchbarRef,
   showNavSidebar,
-  screenWidth,
-  setScreenWidth,
   minimizeChat,
   setMinimizeChat,
 }) {
@@ -119,8 +117,6 @@ export function NavBar({
               setShowDropdown={setShowDropdown}
               showDropdown={showDropdown}
               showNavSidebar={showNavSidebar}
-              screenWidth={screenWidth}
-              setScreenWidth={setScreenWidth}
             />
           )}
         </li>

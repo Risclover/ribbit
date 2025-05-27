@@ -45,8 +45,9 @@ export function NotificationsPage() {
             <li
               className="notifications-button-bar-item"
               onClick={(e) => markAllRead(e)}
+              tabIndex={0}
             >
-              <VscMailRead />
+              <VscMailRea           d />
               Mark as read
             </li>
           </ul>

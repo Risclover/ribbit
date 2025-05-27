@@ -116,6 +116,7 @@ export function SinglePostPage() {
   });
 
   useEffect(() => {
+    if (!community?.id) return;
     setFormat("Card");
     batch(() => {
       if (!community) dispatch(getCommunities());
@@ -123,12 +124,12 @@ export function SinglePostPage() {
       dispatch(getCommunitySettings(community?.id));
       dispatch(addViewedPost(post?.id));
     });
-  }, []);
+  }, [community, dispatch]);
 
   const hasCommunityRules =
     community?.communityRules &&
     Object.values(community.communityRules).length > 0;
-  if (!postsLoaded || !communitiesLoaded) return <div>Loading...</div>;
+  // if (!postsLoaded || !communitiesLoaded) return <div>Loading...</div>;
 
   if (!post || !community) return <Redirect to="/404" />;
 

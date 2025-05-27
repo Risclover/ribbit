@@ -3,6 +3,7 @@ import { TfiClose } from "react-icons/tfi";
 import { SelectedChatContext } from "@/context";
 import { useChatTitleBar } from "../../hooks/useChatTitleBar";
 import { OpenChatContext } from "context/OpenChatContext";
+import { useHistory } from "react-router-dom";
 
 export const ChatTitleBar = ({
   showCreateChatOverlay,
@@ -10,7 +11,9 @@ export const ChatTitleBar = ({
   setActiveOverlay,
   setMinimizeChat,
   OVERLAYS,
+  isPage,
 }) => {
+  const history = useHistory();
   const { setSelectedChat } = useContext(SelectedChatContext);
   const { setOpenChat } = useContext(OpenChatContext);
 
@@ -19,6 +22,14 @@ export const ChatTitleBar = ({
   const handleGoBack = () => {
     setSelectedChat(null);
     setActiveOverlay(OVERLAYS.WELCOME);
+  };
+
+  const closeChat = () => {
+    if (isPage) {
+      history.goBack();
+    } else {
+      setOpenChat(false);
+    }
   };
 
   return (
@@ -70,7 +81,7 @@ export const ChatTitleBar = ({
         <button
           title="Close chat"
           className="chat-window-close-btn"
-          onClick={() => setOpenChat(false)}
+          onClick={closeChat}
         >
           <TfiClose />
         </button>

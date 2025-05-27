@@ -261,14 +261,12 @@
   font-size: 12px;
   font-weight: 500;
   text-overflow: ellipsis;
-  overflow: hidden;
   line-height: 16px;
 }
 
 .owned-community-title {
   max-width: 130px;
   text-overflow: ellipsis;
-  overflow: hidden;
   white-space: nowrap;
 }
 

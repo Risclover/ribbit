@@ -1,6 +1,6 @@
 import { CommunityThemeToggle, useLoginForm } from "@/features";
 import { useDarkMode, useOutsideClick } from "@/hooks";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { IoPersonOutline } from "react-icons/io5";
 import { SlLogin } from "react-icons/sl";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,14 @@ export function LoggedOutDropdown({ setShowDropdown }) {
     setShowDropdown(false);
     history.push("/login");
   };
+
+  useEffect(() => {
+    function handleEsc(e) {
+      if (e.key === "Escape") setShowDropdown(false);
+    }
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [setShowDropdown]);
   return (
     <div className="logged-out-dropdown">
       <div className="nav-user-top-section">

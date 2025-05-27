@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { RandomLogo } from "@/layouts";
@@ -12,6 +12,7 @@ export function MobileNavBar({
   setOpenUserDropdown,
   openUserDropdown,
   setShowSearchScreen,
+  setShowNavSidebar,
 }) {
   const { openLogin } = useAuthFlow();
 
@@ -20,11 +21,23 @@ export function MobileNavBar({
   const handleClick = () => {
     setOpenUserDropdown(true);
   };
+
+  useEffect(() => {
+    function handleEsc(e) {
+      if (e.key === "Escape") setShowNavSidebar(false);
+    }
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [setShowNavSidebar]);
+
   return (
     <div className="navbar-nav">
       <div className="logged-out-navbar">
         <div className="logged-out-navbar-left">
-          <button className="navbar-button">
+          <button
+            className="navbar-button"
+            onClick={() => setShowNavSidebar((prev) => !prev)}
+          >
             <svg
               rpl=""
               fill="currentColor"
@@ -41,6 +54,7 @@ export function MobileNavBar({
             <RandomLogo />
           </NavLink>
         </div>
+
         <div className="logged-out-navbar-right">
           <MobileNavbarBtns setShowSearchScreen={setShowSearchScreen} />
 

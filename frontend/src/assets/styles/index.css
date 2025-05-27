@@ -240,3 +240,50 @@ a.blue-btn-filled {
 .not-found-page a {
   color: #1399f3;
 }
+
+.chat-page .chat-window-container {
+  width: 100%;
+  height: 100%;
+  right: 0;
+  z-index: 999999;
+}
+
+.main:has(.chat-page) {
+  z-index: 100;
+}
+
+.chat-page .chat-window-left {
+  width: 100%;
+}
+
+.chat-page .overlay-container {
+  height: 100%;
+  width: 100%;
+  max-height: calc(100% - 44px);
+  overflow-y: auto;
+}
+
+.chat-page .message-invite-overlay {
+  height: 100%;
+  width: 100%;
+  top: 44px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: calc(100vh - 115px);
+  overflow-y: auto;
+}
+
+.chat-page .chat-thread-window-input {
+  width: 100%;
+}
+
+.chat-page .chat-thread-messages-user-info {
+  flex: 1 1 0%;
+  min-height: auto;
+  padding: 1.5rem 0.75rem;
+}
+
+.chat-page .new-chat-overlay {
+  width: 100%;
+}

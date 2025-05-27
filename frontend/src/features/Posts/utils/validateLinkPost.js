@@ -1,9 +1,9 @@
-import validator from "validator";
+import isURL from "validator/lib/isURL.js";
 
 export const validateLinkPost = (community, title, linkUrl) => {
   let errors = [];
 
-  if (!validator.isURL(linkUrl) && linkUrl.length > 0) {
+  if (!isURL(linkUrl) && linkUrl.length > 0) {
     errors.push("Link doesn't look right.");
   }
 

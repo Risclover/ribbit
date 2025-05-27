@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 const AuthFlowContext = createContext();
 
 export function AuthFlowProvider({ children }) {
   // Which auth form is active: null | 'login' | 'signup-first' | 'signup-second'
   const [view, setView] = useState(null);
+  const history = useHistory();
 
   const [loginFormData, setLoginFormData] = useState({
     email: "",
@@ -20,7 +22,14 @@ export function AuthFlowProvider({ children }) {
   const openLogin = () => setView("login");
   const openSignupPage1 = () => setView("signup-first");
   const openSignupPage2 = () => setView("signup-second");
-  const closeModal = () => setView(null);
+  const closeModal = () => {
+    if (window.location.pathname === "/login") {
+      history.goBack();
+      setView(null);
+    } else {
+      setView(null);
+    }
+  };
 
   return (
     <AuthFlowContext.Provider

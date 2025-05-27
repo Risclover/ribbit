@@ -29,6 +29,12 @@ export function CommunityImage({ user, community }) {
             <span
               className="community-update-icon"
               onClick={() => setShowCommunityImgModal(true)}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  setShowCommunityImgModal(true);
+                }
+              }}
             >
               Update icon
             </span>

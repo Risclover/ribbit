@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 
@@ -28,6 +28,14 @@ export function NavUserDropdownBox({ cuser, setShowDropdown }) {
       history.push(link);
     }
   };
+
+  useEffect(() => {
+    function handleEsc(e) {
+      if (e.key === "Escape") setShowDropdown(false);
+    }
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [setShowDropdown]);
 
   return (
     <div className="nav-user-dropdown-box">

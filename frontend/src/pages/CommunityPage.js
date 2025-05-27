@@ -52,6 +52,7 @@ export function CommunityPage() {
   /* ---------------- data fetch ---------------- */
   useEffect(() => {
     (async () => {
+      if (!communityId) return;
       await dispatch(getCommunities());
       await dispatch(getCommunitySettings(communityId));
 
@@ -117,7 +118,7 @@ export function CommunityPage() {
   });
 
   /* ---------------- early returns ---------------- */
-  if (loading || !communitiesLoaded) return <div>Loading…</div>;
+  // if (loading || !communitiesLoaded) return <div>Loading…</div>;
   if (!community) return <Redirect to="/404" />;
 
   /* ---------------- render ---------------- */

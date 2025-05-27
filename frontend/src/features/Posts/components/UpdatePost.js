@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import ReactQuill from "react-quill";
+const ReactQuill = React.lazy(() => import("react-quill"));
+
 import { v4 as uuidv4 } from "uuid";
 
 import { putSinglePost } from "@/store";

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { NavUserDropdownFace } from "./NavUserDropdownFace";
 import { NavUserDropdownBox } from "./NavUserDropdownBox";
@@ -18,6 +18,14 @@ export function NavUserDropdown() {
 
   const { showLinks, setShowLinks } = useSkipLocation();
   useFocusTrap(showDropdown, wrapperRef);
+
+  useEffect(() => {
+    function handleEsc(e) {
+      if (e.key === "Escape") setShowDropdown(false);
+    }
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [setShowDropdown]);
   return (
     <div
       className="navbar-user-dropdown"

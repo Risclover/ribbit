@@ -34,24 +34,24 @@ export function HomepageFeed() {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    let cancelled = false;
+  // useEffect(() => {
+  //   let cancelled = false;
 
-    const fetchPosts = async () => {
-      setIsLoading(true); // skeletons visible immediately
-      try {
-        await dispatch(getSubscriptions());
-        await dispatch(getUserFollowers(user.id));
-      } finally {
-        if (!cancelled) setIsLoading(false);
-      }
-    };
+  //   const fetchPosts = async () => {
+  //     setIsLoading(true); // skeletons visible immediately
+  //     try {
+  //       await dispatch(getSubscriptions());
+  //       await dispatch(getUserFollowers(user.id));
+  //     } finally {
+  //       if (!cancelled) setIsLoading(false);
+  //     }
+  //   };
 
-    fetchPosts();
-    return () => {
-      cancelled = true;
-    };
-  }, [dispatch]);
+  //   fetchPosts();
+  //   return () => {
+  //     cancelled = true;
+  //   };
+  // }, [dispatch]);
 
   document.documentElement.style.setProperty(
     "--community-highlight",

@@ -1,17 +1,27 @@
-import { useEffect } from "react";
+// hooks/useOutsideClick.js
+import { useEffect, useRef } from "react";
 
-export function useOutsideClick(ref, handler) {
+export function useOutsideClick(ref, handler, active = true) {
+  const savedHandler = useRef(handler);
+
   useEffect(() => {
-    const listener = (event) => {
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
+    savedHandler.current = handler;
+  }, [handler]);
+
+  useEffect(() => {
+    if (!active) return; // don’t attach on large screens
+
+    function listener(e) {
+      if (ref.current && !ref.current.contains(e.target)) {
+        savedHandler.current(e);
       }
-      handler(event);
-    };
+    }
 
     document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listener);
     return () => {
       document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listener);
     };
-  }, [ref, handler]);
+  }, [ref, active]);
 }
