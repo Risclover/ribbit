@@ -1,0 +1,11 @@
+{
+  "root": true,
+  "extends": ["react-app", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "project": "./tsconfig.json" // lets the TS rules use your tsconfig
+  },
+  "rules": {
+    // custom overrides
+  }
+}
