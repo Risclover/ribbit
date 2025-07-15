@@ -62,6 +62,7 @@ import { MobileNavbarDropdown } from "components/NavBar/MobileNavbar/MobileNavba
 import { MobileSearchbar } from "features/NewSearch/components/MobileSearchbar/MobileSearchbar";
 import { MobileNavBar } from "components/NavBar/MobileNavbar/MobileNavbar";
 import { useOpenChat } from "context/OpenChatContext";
+import { useScrollToTop } from "./hooks";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -173,6 +174,8 @@ function App() {
   };
 
   const isMobile = useIsMobile();
+
+  useScrollToTop();
 
   return (
     <MetadataProvider>

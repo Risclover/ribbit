@@ -18,6 +18,9 @@ export default function SinglePostVotingBtns({ post, format }) {
         className={vote === "upvote" ? "vote-btn-red" : "upvote-btn-grey"}
         onClick={(e) => handleVoteClick(e, "upvote")}
         tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleVoteClick(e, "upvote");
+        }}
       >
         <PiArrowFatUpFill />
       </button>
@@ -42,6 +45,9 @@ export default function SinglePostVotingBtns({ post, format }) {
         aria-label="Downvote"
         className={vote === "downvote" ? "vote-btn-blue" : "downvote-btn-grey"}
         onClick={(e) => handleVoteClick(e, "downvote")}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleVoteClick(e, "downvote");
+        }}
       >
         <PiArrowFatDownFill />
       </button>

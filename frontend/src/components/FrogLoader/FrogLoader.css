@@ -1,0 +1,78 @@
+/* Root container lets you size & tweak variables in one spot */
+.frog-loader {
+  --jump-height: 2.5rem; /* how high the hop goes              */
+  --hop-duration: 1.2s; /* total cycle length                 */
+  position: relative;
+  width: 7rem; /* overall footprint of loader        */
+  height: 5.5rem;
+}
+
+/* Frog itself */
+.frog {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: 50% 85%; /* pivot close to the legs     */
+  animation: hop var(--hop-duration) infinite ease-in-out;
+}
+
+/* Shadow under the frog */
+.frog-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 0.25rem;
+  width: 60%;
+  height: 12%;
+  background: black;
+  opacity: 0.35;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: shadow var(--hop-duration) infinite ease-in-out;
+}
+
+/* ---------- keyframes ---------- */
+
+/* Frog movement: crouch → leap → land → pause */
+@keyframes hop {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  15% {
+    /* crouch */
+    transform: translateY(4%) scaleY(0.9) scaleX(1.05);
+  }
+  40% {
+    /* peak of jump */
+    transform: translateY(calc(-1 * var(--jump-height))) rotate(-3deg);
+  }
+  55% {
+    /* on the way down */
+    transform: translateY(calc(-0.6 * var(--jump-height))) rotate(3deg);
+  }
+  70% {
+    /* impact stretch */
+    transform: translateY(0) scaleY(1.05) scaleX(0.95);
+  }
+}
+
+/* Shadow squashes and fades with height */
+@keyframes shadow {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.35;
+  }
+  40% {
+    transform: translateX(-50%) scale(0.7);
+    opacity: 0.15;
+  }
+}
+
+/* ---------- accessibility: respect reduced‑motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .frog,
+  .frog-shadow {
+    animation: none;
+  }
+}

@@ -96,7 +96,7 @@ export const ImagePage = (): JSX.Element => {
   /* ---------- render ---------- */
   return (
     <div className={`media-container ${isZoomed ? "zoomed" : ""}`}>
-      {loading && <div className="loader">Loading...</div>}
+      {/* {loading && <div className="loader">Loading...</div>} */}
 
       {!error ? (
         <img

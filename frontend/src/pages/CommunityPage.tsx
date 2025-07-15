@@ -33,6 +33,7 @@ import { getIdFromName } from "@/utils/getCommunityIdFromName";
 import { AllPostsIcon } from "@/assets";
 
 import "../features/Posts/Posts.css";
+import { FrogLoader } from "@/components/FrogLoader/FrogLoader";
 
 /* ------------ Types pulled from store models ------------ */
 type Community = RootState["communities"][number];
@@ -134,7 +135,7 @@ export function CommunityPage(): JSX.Element {
   });
 
   /* -------- early exits -------- */
-  if (loading || !communitiesLoaded) return <div>Loading…</div>;
+  if (loading || !communitiesLoaded) return <FrogLoader />;
   if (!community) return <Redirect to="/404" />;
 
   /* -------- render -------- */

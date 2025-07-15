@@ -1,5 +1,5 @@
 import { useState, useRef, MouseEvent } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useAppSelector } from "@/store";
 import { UsernamePopup } from "./UsernamePopup";
 import { usePopup } from "@/context";
@@ -32,6 +32,7 @@ export function Username({
   source,
   disabled = false,
 }: UsernameProps): JSX.Element {
+  const history = useHistory();
   /* ------- Selectors ------- */
   const users = useAppSelector(
     (s) => Object.values(s.users) as UserSummary[] // ⭐ cast once
@@ -83,6 +84,13 @@ export function Username({
           to={`/users/${user?.id}/profile`}
           onClick={handleNameClick}
           className="username-component"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.stopPropagation();
+              e.preventDefault();
+              history.push(`/users/${user?.id}/profile`);
+            }
+          }}
         >
           {source === "singlepost" ? `u/${username}` : username}
         </NavLink>

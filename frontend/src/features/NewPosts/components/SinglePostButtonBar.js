@@ -69,6 +69,13 @@ export function SinglePostButtonBar({
                 e.preventDefault();
                 setPostExpand(true);
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  setPostExpand(true);
+                }
+              }}
             >
               <BsArrowsAngleExpand />
             </button>
@@ -82,6 +89,13 @@ export function SinglePostButtonBar({
                 e.preventDefault();
                 setPostExpand(false);
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  setPostExpand(false);
+                }
+              }}
             >
               <BsArrowsAngleContract />
             </button>
@@ -94,6 +108,13 @@ export function SinglePostButtonBar({
                 e.stopPropagation();
                 e.preventDefault();
                 window.open(post?.linkUrl);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  window.open(post?.linkUrl);
+                }
               }}
             >
               <HiOutlineExternalLink />
@@ -109,6 +130,13 @@ export function SinglePostButtonBar({
                   e.stopPropagation();
                   e.preventDefault();
                   window.open(`/posts/${post.id}`);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    window.open(`/posts/${post.id}`);
+                  }
                 }}
               >
                 <CgNotes />
@@ -138,7 +166,15 @@ export function SinglePostButtonBar({
 
       <div className="share-btn-stuff">
         <div className="single-post-button">
-          <button className="single-post-share-btn" onClick={copyLink}>
+          <button
+            className="single-post-share-btn"
+            onClick={copyLink}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                copyLink(e);
+              }
+            }}
+          >
             <ShareIcon />
             <span className="single-post-button-text">Share</span>
           </button>

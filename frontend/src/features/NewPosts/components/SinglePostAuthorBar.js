@@ -47,6 +47,13 @@ export default function SinglePostAuthorBar({
             <NavLink
               className="single-post-community-name"
               to={`/c/${post?.community?.name}`}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  history.push(`/c/${post?.community?.name}`);
+                }
+              }}
             >
               c/{post?.community?.name}
             </NavLink>

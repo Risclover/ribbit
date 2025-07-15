@@ -13,6 +13,7 @@ import { SortKey } from "@/components/SortingBar/SortingBar";
 import { PostFormatContext } from "@/context";
 import { SinglePostType } from "features/NewPosts/components/SinglePostType";
 import { getPosts } from "@/store";
+import { FrogLoader } from "@/components/FrogLoader/FrogLoader";
 
 interface PostFeedProps {
   posts?: any[];
@@ -132,6 +133,7 @@ export const PostFeed = ({
 
   return (
     <>
+      <FrogLoader />
       {showSortingBar && (
         <SortingBar
           sortMode={sortMode}
