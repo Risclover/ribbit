@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
 }
 
 .chat-window-chatnav-title {
@@ -51,6 +53,8 @@
 
 .chat-window-chatnav-details {
   width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .chat-window-chatnav-details-bottom {

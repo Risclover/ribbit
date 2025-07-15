@@ -1,30 +1,42 @@
-// src/context/AppProviders.jsx
-import React from "react";
+import { ReactNode } from "react";
 import { Provider } from "react-redux";
+import type { Store } from "redux";
 import { BrowserRouter } from "react-router-dom";
-import { ModalProvider, AuthModalProvider, PostModalProvider } from "@/context";
-import { SelectedChatProvider } from "@/context";
+
+import {
+  ModalProvider,
+  AuthModalProvider,
+  PostModalProvider,
+  SelectedChatProvider,
+  OpenChatProvider,
+  PageTitleProvider,
+} from "@/context";
 import { AuthFlowProvider } from "@/context/AuthFlowContext";
 import { SkipLocationProvider } from "@/context/SkipLocationContext";
-import { OpenChatProvider } from "@/context/OpenChatContext";
 
-/* pass the Redux store in as a prop so the file stays generic */
-export function AppProviders({ store, children }) {
+interface AppProvidersProps {
+  store: Store;
+  children: ReactNode;
+}
+
+export function AppProviders({ store, children }: AppProvidersProps) {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <SkipLocationProvider>
-          <AuthModalProvider>
-            <AuthFlowProvider>
-              <SelectedChatProvider>
-                <OpenChatProvider>
-                  <PostModalProvider>
-                    <ModalProvider>{children}</ModalProvider>
-                  </PostModalProvider>
-                </OpenChatProvider>
-              </SelectedChatProvider>
-            </AuthFlowProvider>
-          </AuthModalProvider>
+          <PageTitleProvider>
+            <AuthModalProvider>
+              <AuthFlowProvider>
+                <SelectedChatProvider>
+                  <OpenChatProvider>
+                    <PostModalProvider>
+                      <ModalProvider>{children}</ModalProvider>
+                    </PostModalProvider>
+                  </OpenChatProvider>
+                </SelectedChatProvider>
+              </AuthFlowProvider>
+            </AuthModalProvider>
+          </PageTitleProvider>
         </SkipLocationProvider>
       </BrowserRouter>
     </Provider>

@@ -16,8 +16,10 @@ export function useChatSocket({
 }) {
   useEffect(() => {
     if (!socketRef.current) {
-      socketRef.current = io();
-
+      socketRef.current = io("http://localhost:5000");
+      socketRef.current.on("connect_error", (err) => {
+        console.error("Socket connect error:", err);
+      });
       socketRef.current.on("connect", () => {
         if (user && chatThreads) {
           Object.values(chatThreads).forEach((thread) => {

@@ -4,17 +4,17 @@ import SinglePost from "./SinglePost";
 import SinglePostAuthorBar from "./SinglePostAuthorBar";
 import { SinglePostButtonBar } from "./SinglePostButtonBar";
 import { SinglePostContent } from "@/features/Posts";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 
 export default function CardPostFormat({
   link,
   post,
   isPage,
-  handleCommentsButtonClick,
+  handleCommentsBtnClick,
 }) {
-  const cuser = useSelector((state) => state.session.user);
-  const user = useSelector((state) => state.users?.[cuser?.id]);
-  const community = useSelector(
+  const cuser = useAppSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.users?.[cuser?.id]);
+  const community = useAppSelector(
     (state) => state.communities[post?.community?.id]
   );
   return (
@@ -38,7 +38,7 @@ export default function CardPostFormat({
             isPage={isPage}
             user={user}
             community={community}
-            handleCommentsButtonClick={handleCommentsButtonClick}
+            handleCommentsBtnClick={handleCommentsBtnClick}
           />
         </div>
       </div>

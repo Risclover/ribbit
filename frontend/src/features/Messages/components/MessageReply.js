@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useHistory } from "react-router-dom";
 import {
   createMessage,
@@ -19,7 +19,7 @@ export function MessageReply({
   markedUnread,
   setMarkedUnread,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   const [reply, setReply] = useState("");
@@ -27,7 +27,7 @@ export function MessageReply({
   const [areYouSure, setAreYouSure] = useState(false);
   const [error, setError] = useState("");
 
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
 
   const handleReply = async (e) => {
     e.preventDefault();

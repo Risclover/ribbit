@@ -1,6 +1,6 @@
 // src/features/CommunitySettings/components/PreviewCommunitySidebar.jsx
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useHistory, NavLink } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
@@ -12,14 +12,16 @@ import { useCommunitySettingsState } from "../../hooks";
 import "./PreviewCommunity.css";
 
 export function PreviewCommunitySidebar() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   // We can parse out the community name from React Router or window.location
   const fullURL = window.location.href;
   const communityName = fullURL.split("/")[4];
 
-  const communities = useSelector((state) => Object.values(state.communities));
+  const communities = useAppSelector((state) =>
+    Object.values(state.communities)
+  );
   const community = communities?.find((c) => c.name === communityName);
 
   // Initiate custom hook for local states & actions

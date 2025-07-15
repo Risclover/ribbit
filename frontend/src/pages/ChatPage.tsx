@@ -1,7 +1,6 @@
 import { Chat } from "features";
-import React from "react";
 
-export default function ChatPage() {
+export function ChatPage() {
   return (
     <div className="chat-page">
       <Chat isPage />

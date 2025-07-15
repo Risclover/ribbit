@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { getThreads } from "@/store";
 import { Message } from "./Message";
 import { v4 as uuidv4 } from "uuid";
 
 export function MessageThread({ item }) {
   const [allExpanded, setAllExpanded] = useState(true);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(getThreads());

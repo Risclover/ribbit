@@ -1,8 +1,26 @@
-import React, { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  Dispatch,
+  SetStateAction,
+  ReactNode,
+} from "react";
 
-export const SkipLocationContext = createContext();
+interface SkipLocationContextValue {
+  showLinks: boolean;
+  setShowLinks: Dispatch<SetStateAction<boolean>>;
+}
 
-export const SkipLocationProvider = ({ children }) => {
+export const SkipLocationContext = createContext<
+  SkipLocationContextValue | undefined
+>(undefined);
+
+interface ProviderProps {
+  children: ReactNode;
+}
+
+export const SkipLocationProvider = ({ children }: ProviderProps) => {
   const [showLinks, setShowLinks] = useState(false);
 
   return (
@@ -12,4 +30,10 @@ export const SkipLocationProvider = ({ children }) => {
   );
 };
 
-export const useSkipLocation = () => useContext(SkipLocationContext);
+export const useSkipLocation = () => {
+  const ctx = useContext(SkipLocationContext);
+  if (!ctx) {
+    throw new Error("useSkipLocation must be used within SkipLocationProvider");
+  }
+  return ctx;
+};

@@ -1,8 +1,26 @@
-import React, { useContext } from "react";
+import {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
-const SearchQueryContext = React.createContext();
+interface SearchQueryContextValue {
+  query: string;
+  setQuery: Dispatch<SetStateAction<string>>;
+}
 
-export function SearchQueryProvider({ children }) {
+const SearchQueryContext = createContext<SearchQueryContextValue | undefined>(
+  undefined
+);
+
+interface ProviderProps {
+  children: ReactNode;
+}
+
+export function SearchQueryProvider({ children }: ProviderProps) {
   const [query, setQuery] = useState("");
 
   return (
@@ -12,6 +30,12 @@ export function SearchQueryProvider({ children }) {
   );
 }
 
-export function Search({ children, value }) {
+interface SearchProps {
+  children?: ReactNode;
+  value?: unknown;
+}
+
+export function Search({ children, value }: SearchProps) {
   const searchQuery = useContext(SearchQueryContext);
+  return null;
 }

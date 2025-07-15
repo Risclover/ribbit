@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
 import { deletePost, getPosts, getUsers, getViewedPosts } from "@/store";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { useHistory } from "react-router-dom";
 import { TrashIcon } from "@/assets/icons/TrashIcon";
 
@@ -12,7 +12,7 @@ export function DeletePostModal({
   postType,
   setShowDeleteModal,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   const handleDelete = async (e) => {

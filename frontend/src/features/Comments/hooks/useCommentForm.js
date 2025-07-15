@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useAuthFlow } from "@/context";
 import { useAutosizeTextArea } from "@/hooks";
 import { createComment, getCommentsForPost } from "@/store";
 
 export function useCommentForm({ onCancel, parentId, postId, onNewComment }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const textareaRef = useRef();
   const { openLogin } = useAuthFlow();
 
@@ -14,7 +14,7 @@ export function useCommentForm({ onCancel, parentId, postId, onNewComment }) {
 
   useAutosizeTextArea(textareaRef.current, content);
 
-  const user = useSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.session.user);
   const disabled = content.trim().length === 0;
 
   const handleSubmit = async (e) => {

@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { SearchDropdown } from "./SearchDropdown";
-import { getSearchQuery } from "../../utils/getSearchQuery";
 import "../../Search.css";
 import { SearchIcon, SearchbarCloseIcon } from "@/assets";
+import { useSearchQuery } from "../../hooks/useSearchQuery";
 
 export function Searchbar({ loggedIn, searchbarRef, setShowSearchScreen }) {
   const formRef = useRef(null);
@@ -13,7 +13,7 @@ export function Searchbar({ loggedIn, searchbarRef, setShowSearchScreen }) {
 
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
-  const query = getSearchQuery();
+  const query = useSearchQuery();
 
   useEffect(() => {
     let trimmed = query?.trim();
@@ -85,7 +85,7 @@ export function Searchbar({ loggedIn, searchbarRef, setShowSearchScreen }) {
           />
         </form>
         {searchQuery && searchQuery.length > 0 && (
-          <div
+          <button
             className="search-close-icon"
             onClick={(e) => {
               setSearchQuery("");
@@ -95,7 +95,7 @@ export function Searchbar({ loggedIn, searchbarRef, setShowSearchScreen }) {
             }}
           >
             <SearchbarCloseIcon />
-          </div>
+          </button>
         )}
       </div>
       {showSearchDropdown && searchQuery && searchQuery.length > 0 && (

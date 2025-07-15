@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { AppRoutes } from "@/routes";
 
 import { ScrollToTop } from "./utils";
@@ -55,23 +55,23 @@ import { ScrollProvider } from "@/context/ScrollContext";
 import { SkipLocation } from "@/components/SkipLocation/SkipLocation";
 import { useLeaveLogin } from "hooks/useLeaveLogin";
 import { useNotificationsSocket } from "hooks/useNotificationsSocket";
-import "./moment-setup";
+import "./moment-setup.js";
 import { LoggedOutNavBar } from "components/NavBar/MobileNavbar";
 import { useIsMobile } from "hooks/useIsMobile";
 import { MobileNavbarDropdown } from "components/NavBar/MobileNavbar/MobileNavbarDropdown";
 import { MobileSearchbar } from "features/NewSearch/components/MobileSearchbar/MobileSearchbar";
 import { MobileNavBar } from "components/NavBar/MobileNavbar/MobileNavbar";
-import { OpenChatContext } from "context/OpenChatContext";
+import { useOpenChat } from "context/OpenChatContext";
 
 function App() {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.session.user);
   const location = useLocation();
   const searchbarRef = useRef();
-  const users = useSelector((state) => state.users);
+  const users = useAppSelector((state) => state.users);
   const background = location.state && location.state.background;
 
-  const { openChat } = useContext(OpenChatContext);
+  const { openChat } = useOpenChat();
 
   const [loaded, setLoaded] = useState(false);
   const [, setShowLoginForm] = useState(false);
@@ -177,79 +177,75 @@ function App() {
   return (
     <MetadataProvider>
       <PopupProvider>
-        <PageTitleContext.Provider
-          value={{ pageTitle, setPageTitle, pageIcon, setPageIcon }}
-        >
-          <PostFormatContext.Provider value={{ format, setFormat }}>
-            {previewPage && <PreviewCommunitySidebar />}
-            {isMobile ? (
-              <MobileNavBar
-                setOpenUserDropdown={setOpenUserDropdown}
-                openUserDropdown={openUserDropdown}
-                showSearchScreen={showSearchScreen}
-                setShowSearchScreen={setShowSearchScreen}
-                showNavSidebar={showNavSidebar}
-                setShowNavSidebar={setShowNavSidebar}
-              />
-            ) : (
-              <NavBar {...navBarProps} />
-            )}
-
-            <MobileNavbarDropdown
-              userImg={user?.profileImg}
+        <PostFormatContext.Provider value={{ format, setFormat }}>
+          {previewPage && <PreviewCommunitySidebar />}
+          {isMobile ? (
+            <MobileNavBar
               setOpenUserDropdown={setOpenUserDropdown}
               openUserDropdown={openUserDropdown}
+              showSearchScreen={showSearchScreen}
+              setShowSearchScreen={setShowSearchScreen}
+              showNavSidebar={showNavSidebar}
+              setShowNavSidebar={setShowNavSidebar}
             />
-            {showSearchScreen && (
-              <MobileSearchbar
-                showSearchScreen={showSearchScreen}
-                setShowSearchScreen={setShowSearchScreen}
+          ) : (
+            <NavBar {...navBarProps} />
+          )}
+
+          <MobileNavbarDropdown
+            userImg={user?.profileImg}
+            setOpenUserDropdown={setOpenUserDropdown}
+            openUserDropdown={openUserDropdown}
+          />
+          {showSearchScreen && (
+            <MobileSearchbar
+              showSearchScreen={showSearchScreen}
+              setShowSearchScreen={setShowSearchScreen}
+            />
+          )}
+          <div
+            className={
+              showNavSidebar
+                ? "main main-padded"
+                : showLoggedOutSidebar
+                ? "main main-padded"
+                : "main"
+            }
+          >
+            <div className="page-content">
+              <SkipLocation showNavSidebar={showNavSidebar} />
+              <AppRoutes
+                user={user}
+                postType={postType}
+                setPostType={setPostType}
+                searchbarRef={searchbarRef}
+              />
+            </div>
+            <LoginSignupModal />
+            {openChat && !minimizeChat && (
+              <Chat setMinimizeChat={setMinimizeChat} />
+            )}
+
+            {openChat && minimizeChat && (
+              <ChatMinimized setMinimizeChat={setMinimizeChat} />
+            )}
+
+            {!user && (
+              <LoggedOutSidebar
+                setShowSignupForm={setShowSignupForm}
+                showLoggedOutSidebar={showLoggedOutSidebar}
               />
             )}
-            <div
-              className={
-                showNavSidebar
-                  ? "main main-padded"
-                  : showLoggedOutSidebar
-                  ? "main main-padded"
-                  : "main"
-              }
-            >
-              <div className="page-content">
-                <SkipLocation showNavSidebar={showNavSidebar} />
-                <AppRoutes
-                  user={user}
-                  postType={postType}
-                  setPostType={setPostType}
-                  searchbarRef={searchbarRef}
-                />
-              </div>
-              <LoginSignupModal />
-              {openChat && !minimizeChat && (
-                <Chat setMinimizeChat={setMinimizeChat} />
-              )}
 
-              {openChat && minimizeChat && (
-                <ChatMinimized setMinimizeChat={setMinimizeChat} />
-              )}
-
-              {!user && (
-                <LoggedOutSidebar
-                  setShowSignupForm={setShowSignupForm}
-                  showLoggedOutSidebar={showLoggedOutSidebar}
-                />
-              )}
-
-              {user && (
-                <NavSidebar
-                  setShowNavSidebar={setShowNavSidebar}
-                  showNavSidebar={showNavSidebar}
-                  setShowDropdown={setShowDropdown}
-                />
-              )}
-            </div>
-          </PostFormatContext.Provider>
-        </PageTitleContext.Provider>
+            {user && (
+              <NavSidebar
+                setShowNavSidebar={setShowNavSidebar}
+                showNavSidebar={showNavSidebar}
+                setShowDropdown={setShowDropdown}
+              />
+            )}
+          </div>
+        </PostFormatContext.Provider>
       </PopupProvider>
     </MetadataProvider>
   );

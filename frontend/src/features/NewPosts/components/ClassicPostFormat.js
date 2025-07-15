@@ -3,7 +3,7 @@ import SinglePostVotingBtns from "./SinglePostVotingBtns";
 import { CgNotes } from "react-icons/cg";
 import { ScrollContext, useMetadata } from "@/context";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { usePostButtonHandlers } from "@/features/Posts/hooks/usePostButtonHandlers";
 import SinglePostAuthorBar from "./SinglePostAuthorBar";
 import { SinglePostButtonBar } from "./SinglePostButtonBar";
@@ -17,11 +17,11 @@ export default function ClassicPostFormat({ isPage, id, post }) {
   const { scrollToTarget } = useContext(ScrollContext);
   const { metadata, fetchMetadata } = useMetadata();
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const cuser = useSelector((state) => state.session.user);
-  const user = useSelector((state) => state.users[cuser?.id]);
-  const community = useSelector(
+  const cuser = useAppSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.users[cuser?.id]);
+  const community = useAppSelector(
     (state) => state.communities[post?.community.id]
   );
 

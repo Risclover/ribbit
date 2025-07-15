@@ -2,7 +2,7 @@ import { CompactPostTypeIcon, SinglePostKarmabar } from "@/features/Posts";
 import { usePostVote } from "@/features/Posts/hooks/usePostVote";
 import React, { useEffect, useRef, useState } from "react";
 import { HiOutlineExternalLink } from "react-icons/hi";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { Link, useHistory } from "react-router-dom";
 import CompactPostMenu from "./CompactPostMenu";
 import { Tooltip } from "@mui/material";
@@ -15,12 +15,12 @@ import SinglePostVotingBtns from "./SinglePostVotingBtns";
 
 export default function CompactPostFormat({ id, isPage, post }) {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const wrapperRef = useRef(null);
 
-  const user = useSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.session.user);
 
-  const community = useSelector(
+  const community = useAppSelector(
     (state) => state.communities[post?.community.id]
   );
 

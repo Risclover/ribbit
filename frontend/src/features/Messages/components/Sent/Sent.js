@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { getThreads } from "@/store";
 import { MessageHead, SentMessage } from "../..";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import "./Sent.css";
 
 export function Sent() {
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.session.user);
-  const threads = useSelector((state) => Object.values(state.threads));
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.session.user);
+  const threads = useAppSelector((state) => Object.values(state.threads));
 
   useEffect(() => {
     dispatch(getThreads());

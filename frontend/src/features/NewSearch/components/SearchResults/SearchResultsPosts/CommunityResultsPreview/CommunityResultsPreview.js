@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { Community } from "./Community";
 import { useHistory } from "react-router-dom";
 import CommunityResultType from "./CommunityResultType";
@@ -8,7 +8,7 @@ import { searchCommunities } from "@/store";
 
 export const CommunityResultsPreview = ({ query, isLoading }) => {
   const history = useHistory();
-  const communities = useSelector((state) =>
+  const communities = useAppSelector((state) =>
     Object.values(state.search.communities)
   );
 

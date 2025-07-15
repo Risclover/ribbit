@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { useSelector } from "react-redux";
-import { SelectedChatContext } from "@/context";
+import { useAppSelector } from "@/store";
+import { useSelectedChat } from "@/context";
 
 export function useCreateChatOverlay({
   username,
@@ -8,13 +8,13 @@ export function useCreateChatOverlay({
   setActiveOverlay,
   OVERLAYS,
 }) {
-  const { setSelectedChat, setPendingReceiver } =
-    useContext(SelectedChatContext);
+  const { setSelectedChat, setPendingReceiver } = useSelectedChat();
+
   const [isChosen, setIsChosen] = useState(false);
   const [error, setError] = useState(false);
 
-  const userChats = useSelector((state) => Object.values(state.chatThreads));
-  const currentUser = useSelector((state) => state.session.user);
+  const userChats = useAppSelector((state) => Object.values(state.chatThreads));
+  const currentUser = useAppSelector((state) => state.session.user);
 
   const handleStartChat = (e) => {
     e.preventDefault();

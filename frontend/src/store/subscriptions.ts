@@ -109,6 +109,7 @@ const allSubscriptionsReducer = (state = initialState, action) => {
           {}
         );
       }
+
       return state;
 
     case DELETE_SUBSCRIPTION:

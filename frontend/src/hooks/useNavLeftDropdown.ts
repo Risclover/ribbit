@@ -5,20 +5,20 @@ import {
   useFavoriteToggles,
   useDropdownSections,
 } from "@/hooks";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 
-export function useNavLeftDropdown(closeDropdown, setShowNavSidebar) {
+export function useNavLeftDropdown(closeDropdown) {
   /* local filter state */
   const [filter, setFilter] = useState("");
 
   /* derived flags + data */
   const isSmallScreen = useIsSmallScreen(768);
   const lists = useDropdownSelectors();
-  const favoriteCommunitiesById = useSelector(
+  const favoriteCommunitiesById = useAppSelector(
     (s) => s.favoriteCommunities || {}
   );
-  const favoriteUsersById = useSelector((s) => s.favoriteUsers || {});
-  const currentUser = useSelector((s) => s.session.user);
+  const favoriteUsersById = useAppSelector((s) => s.favoriteUsers || {});
+  const currentUser = useAppSelector((s) => s.session.user);
 
   /* favorite toggle callbacks */
   const { toggleCommunity, toggleUser } = useFavoriteToggles(
@@ -37,7 +37,10 @@ export function useNavLeftDropdown(closeDropdown, setShowNavSidebar) {
     toggleFavoriteCommunity: toggleCommunity,
     toggleFavoriteUser: toggleUser,
     closeDropdown,
-    setShowNavSidebar,
+
+    /* ✅ add minimal defaults */
+    createCommunityButtonRow: null, // or a <button …> node when you implement it
+    resourcesRows: [], // empty until you have “Resources” rows
   });
 
   /* API for the dropdown view */

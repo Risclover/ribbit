@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { putSinglePost } from "@/store";
 import { Modal } from "@/context";
 import { ImagePostForm } from "./ImagePostForm";
@@ -10,10 +10,10 @@ import "../../Posts.css";
 
 export function UpdateImagePost() {
   const { postId } = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
-  const post = useSelector((state) => Object.values(state.singlePost));
+  const post = useAppSelector((state) => Object.values(state.singlePost));
 
   const [title, setTitle] = useState(post[0]?.title);
   const [content, setContent] = useState(post[0]?.content);

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { PiEyeLight, PiEyeSlashLight } from "react-icons/pi";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import { CommunityThemeToggle } from "./CommunityThemeToggle";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { getCommunitySettings } from "@/store";
 import "./CommunityOptions.css";
 
 export function CommunityOptions({ checked, setChecked, community }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [showCommunityOptions, setShowCommunityOptions] = useState(false);
 
   const handleThemeToggle = (e) => {

@@ -10,9 +10,7 @@ export function buildLinkRow({
   return (item) => (
     <NavLeftDropdownLink
       key={`${mode}-${item.id}`}
-      mode={mode}
       item={item}
-      favorite={isFavoriteRow}
       favoriteType={favoritesMap}
       setShowDropdown={closeDropdown}
       setShowIcon={closeDropdown}

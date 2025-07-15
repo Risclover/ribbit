@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { deletePost, getViewedPosts } from "@/store";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { useParams } from "react-router-dom";
 import { getIdFromName } from "@/utils/getCommunityIdFromName";
 
@@ -15,9 +15,9 @@ export const usePostButtonHandlers = ({
   setShowSubmenu = null,
 }) => {
   const { communityName } = useParams();
-  const communities = useSelector((state) => state.communities);
+  const communities = useAppSelector((state) => state.communities);
   const communityId = getIdFromName(communityName, communities);
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
   const [isCommunityOwner, setIsCommunityOwner] = useState(
     community !== null
       ? community?.userId === currentUser?.id

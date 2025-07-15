@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { convertTime } from "../utils/convertTime";
 
 export function useCommentAuthorBar({ comment }) {
-  const communities = useSelector((state) => Object.values(state.communities));
-  const post = useSelector((state) => state.posts[comment?.postId]);
+  const communities = useAppSelector((state) =>
+    Object.values(state.communities)
+  );
+  const post = useAppSelector((state) => state.posts[comment?.postId]);
 
   const editedTime = convertTime(comment, "edit");
   const commentTime = convertTime(comment);

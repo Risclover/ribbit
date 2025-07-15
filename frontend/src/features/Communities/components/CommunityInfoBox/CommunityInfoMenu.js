@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useHistory, useParams } from "react-router-dom";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 
@@ -17,18 +17,20 @@ import { useIsMobile } from "hooks/useIsMobile";
 
 export function CommunityInfoMenu({ community }) {
   const wrapperRef = useRef(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   const { communityName } = useParams();
-  const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
+  const favoriteCommunities = useAppSelector(
+    (state) => state.favoriteCommunities
+  );
 
-  const communities = useSelector((state) => state.communities);
+  const communities = useAppSelector((state) => state.communities);
 
   const [btnState, setBtnState] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
 
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
 
   const communityId = getIdFromName(communityName, communities);
 
@@ -61,7 +63,7 @@ export function CommunityInfoMenu({ community }) {
   useOutsideClick(wrapperRef, () => setOpenMenu(false));
 
   return (
-    <div className="community-page-menu" id="sidebar" ref={wrapperRef}>
+    <div className="community-page-menu" ref={wrapperRef}>
       <button
         aria-label="Menu"
         onClick={handleOpenMenu}

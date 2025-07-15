@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { Modal } from "@/context";
 import { DeleteConfirmationModal } from "@/components";
 import { CommentKarmaBar } from "./CommentKarmaBar";

@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { getPosts, removeComment } from "@/store";
 
 /**
@@ -8,7 +8,7 @@ export function useDeleteCommentConfirmation({
   commentId,
   setShowDeleteModal,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleDeleteClick = async (e) => {
     e.preventDefault();

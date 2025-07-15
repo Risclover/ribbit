@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { useDispatch } from "react-redux";
-import { SelectedChatContext } from "@/context";
+import { useAppDispatch } from "@/store";
+import { useSelectedChat } from "@/context";
 import { createChatMessage, getChatThread } from "@/store";
 
 export function useChatEmojis({ receiver, socket, setEmojisOverlay }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { selectedChat } = useContext(SelectedChatContext);
+  const { selectedChat } = useSelectedChat();
 
   const handleAddEmoji = async (e, image) => {
     e.preventDefault();

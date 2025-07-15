@@ -1,11 +1,10 @@
-// hooks/useNotificationsSocket.js
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { addNotification } from "@/store";
 import { initiateSocket } from "socket"; // <- only this
 
 export function useNotificationsSocket(user) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!user) return;

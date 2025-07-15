@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { NavLink } from "react-router-dom";
 import { HashLink as Link } from "react-router-hash-link";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
@@ -20,7 +20,7 @@ export function PostReply({ notification }) {
       </div>
       <div className="post-reply-main">
         <div className="post-reply-vote-btns">
-          <div className="post-reply-upvote" onClick={handleUpvote}>
+          <div className="post-reply-upvote">
             <GoArrowUp />
           </div>
           <GoArrowDown />

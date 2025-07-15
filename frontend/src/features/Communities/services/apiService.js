@@ -1,8 +1,8 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { checkCommunityName } from "@/store";
 
 export const useCheckCommunityName = (name) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const checkNameTaken = async () => {
     const res = await dispatch(checkCommunityName(name));

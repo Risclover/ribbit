@@ -9,7 +9,7 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
   const handleNavClick = (e) => {
     e.stopPropagation();
   };
-  const community = useSelector(
+  const community = useAppSelector(
     (state) => state.communities[post?.community?.id]
   );
   return (

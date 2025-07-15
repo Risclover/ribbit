@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Notification } from "./Notification";
 import { NoNotifications } from "./NoNotifications";
 import { useNotificationsDropdown } from "../hooks/useNotificationsDropdown";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { readAllNotifications } from "store";
 import { markAllSeen } from "store";
 
@@ -15,13 +15,13 @@ export function NotificationsDropdown({
   setShowDropdown,
   showDropdown,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { notifications, markAllRead } = useNotificationsDropdown();
   const selectUnreadMessageCount = (state) =>
     Object.values(state.notifications).filter(
       (n) => !n.isRead && n.notificationType === "message"
     ).length;
-  const unread = useSelector(selectUnreadMessageCount);
+  const unread = useAppSelector(selectUnreadMessageCount);
 
   useEffect(() => {
     if (showDropdown) dispatch(markAllSeen());

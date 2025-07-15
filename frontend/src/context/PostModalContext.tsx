@@ -1,106 +1,138 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import ReactDOM from "react-dom";
+import {
+  createContext,
+  useContext,
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  ReactNode,
+  KeyboardEvent,
+  MouseEvent as ReactMouseEvent,
+} from "react";
+import { createPortal } from "react-dom";
 import { CgNotes } from "react-icons/cg";
 import { SinglePostKarmabar } from "@/features";
-
-import {
-  getSinglePost,
-  getCommunities,
-  getPosts,
-  addViewedPost,
-  getViewedPosts,
-} from "@/store";
-
+import { bootstrapPostModal, useAppDispatch } from "@/store";
 import { PostPopup } from "@/components";
+import { useFocusTrap, useScrollLock } from "@/hooks";
 import "./PostModalContext.css";
 
-const PostModalContext = React.createContext();
+/* ──────────────────────────────── Types ──────────────────────────────── */
+export interface Post {
+  readonly id: number | string;
+  readonly title?: string;
+  readonly votes: number;
+  readonly postVoters: Record<string, unknown>;
 
-export function PostModalProvider({ children }) {
-  const modalRef = useRef();
-  const [value, setValue] = useState();
+  /** Added so PostPopup receives the field it expects */
+  readonly community: {
+    id: number | string;
+    name?: string;
+  };
+}
+
+interface ProviderProps {
+  children: ReactNode;
+}
+
+interface ModalProps {
+  post: Readonly<Post>;
+  onClose(): void;
+  format?: "full" | "compact";
+}
+
+/* ───────────── Portal target via context ───────────── */
+const PostModalContext = createContext<HTMLElement | null>(null);
+
+export function PostModalProvider({ children }: ProviderProps) {
+  const [node, setNode] = useState<HTMLElement | null>(
+    () => document.getElementById("modal-root") as HTMLElement | null
+  );
 
   useEffect(() => {
-    setValue(modalRef.current);
-  }, []);
+    if (node) return;
+
+    const el = document.createElement("div");
+    el.id = "modal-root";
+    document.body.appendChild(el);
+    setNode(el);
+
+    return () => void document.body.removeChild(el);
+  }, [node]);
 
   return (
-    <>
-      <PostModalContext.Provider value={value}>
-        {children}
-      </PostModalContext.Provider>
-      <div ref={modalRef} />
-    </>
+    <PostModalContext.Provider value={node}>
+      {children}
+    </PostModalContext.Provider>
   );
 }
 
-export function PostModal({ onClose, post }) {
-  const postRef = useRef(null);
-  const dispatch = useDispatch();
-  const modalNode = useContext(PostModalContext);
-  if (!modalNode) return null;
+/* ───────────────────────────── Modal ───────────────────────────── */
+export function PostModal({
+  post,
+  onClose,
+  format = "full",
+}: ModalProps): JSX.Element | null {
+  const dispatch = useAppDispatch();
+  const portalNode = useContext(PostModalContext);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const stopPropagation = (e) => {
-    e.stopPropagation();
+  useScrollLock(true);
+  useFocusTrap(true, wrapperRef);
+
+  /* Fetch / hydrate once */
+  useEffect(() => {
+    dispatch(bootstrapPostModal(post.id));
+  }, [dispatch, post.id]);
+
+  const stopPropagation = useCallback(
+    (e: ReactMouseEvent | KeyboardEvent) => e.stopPropagation(),
+    []
+  );
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") onClose();
   };
 
-  useEffect(() => {
-    dispatch(getSinglePost(post.id));
-    dispatch(getCommunities());
-    dispatch(getPosts());
-    dispatch(addViewedPost(post.id));
-  }, []);
+  if (!portalNode) return null;
 
-  return ReactDOM.createPortal(
-    <div className="post-modal-background" onClick={onClose}>
-      <div className="post-modal-container">
-        <div className="post-modal">
-          <div
-            className="post-modal-top-bar-container"
-            onClick={stopPropagation}
+  return createPortal(
+    <div
+      className="post-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose}
+      onKeyDown={handleKeyDown}
+    >
+      <section
+        ref={wrapperRef}
+        className="post-modal"
+        onClick={stopPropagation}
+      >
+        {/* Header */}
+        <header className="post-modal__header">
+          <div className="post-modal__vote">
+            <SinglePostKarmabar post={post} format={format} />
+          </div>
+          <CgNotes className="post-modal__icon" aria-hidden="true" />
+          <h2 className="post-modal__title">{post.title}</h2>
+          <button
+            type="button"
+            className="post-modal__close"
+            aria-label="Close"
+            onClick={onClose}
           >
-            <div className="post-modal-top-bar">
-              <div className="post-modal-top-bar-post-info">
-                <div className="post-modal-voting">
-                  <SinglePostKarmabar post={post} />
-                </div>
-                <span className="post-modal-icon">
-                  <CgNotes />
-                </span>
-                <div className="post-modal-post-title">{post?.title}</div>
-              </div>
-              <div className="post-modal-top-bar-close">
-                <button
-                  aria-label="Close"
-                  className="post-modal-top-bar-close-btn"
-                  onClick={onClose}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.3"
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18 18 6M6 6l12 12"
-                    />
-                  </svg>
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="post-modal-content" onClick={stopPropagation}>
-            <PostPopup ref={postRef} post={post} />
-          </div>
-        </div>
-      </div>
+            ✕
+          </button>
+        </header>
+
+        {/* Body */}
+        <section className="post-modal__content">
+          {/* post now satisfies the required `community` field */}
+          <PostPopup post={post} />
+        </section>
+      </section>
     </div>,
-    modalNode
+    portalNode
   );
 }

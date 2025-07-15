@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { TfiClose } from "react-icons/tfi";
-import { SelectedChatContext } from "@/context";
+import { useSelectedChat } from "@/context";
 import { useChatTitleBar } from "../../hooks/useChatTitleBar";
-import { OpenChatContext } from "context/OpenChatContext";
+import { useOpenChat } from "context/OpenChatContext";
 import { useHistory } from "react-router-dom";
 
 export const ChatTitleBar = ({
@@ -14,8 +14,8 @@ export const ChatTitleBar = ({
   isPage,
 }) => {
   const history = useHistory();
-  const { setSelectedChat } = useContext(SelectedChatContext);
-  const { setOpenChat } = useContext(OpenChatContext);
+  const { setSelectedChat } = useSelectedChat();
+  const { setOpenChat } = useOpenChat();
 
   const { receiver } = useChatTitleBar();
 

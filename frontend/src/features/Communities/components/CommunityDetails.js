@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
 import {
@@ -17,9 +17,9 @@ import { CakeIcon } from "@/assets";
 
 export function CommunityDetails({ post, community }) {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const subscriptions = useSelector((state) => state.subscriptions);
-  const user = useSelector((state) => state.session.user);
+  const dispatch = useAppDispatch();
+  const subscriptions = useAppSelector((state) => state.subscriptions);
+  const user = useAppSelector((state) => state.session.user);
 
   const { openSignupPage1 } = useAuthFlow();
 
@@ -28,7 +28,9 @@ export function CommunityDetails({ post, community }) {
     subscriptions[post?.community.id] || subscriptions[community?.id]
   );
   const [subscribeBtnText, setSubscribeBtnText] = useState("Leave");
-  const communities = useSelector((state) => Object.values(state.communities));
+  const communities = useAppSelector((state) =>
+    Object.values(state.communities)
+  );
   const communityId = post?.community.id;
   const members = communities[communityId]?.members || community?.members || 0;
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-const ReactQuill = React.lazy(() => import("react-quill"));
+import { useAppDispatch, useAppSelector } from "@/store";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -9,6 +8,7 @@ import { putSinglePost } from "@/store";
 import "react-quill/dist/quill.snow.css";
 import "./CreatePost/PostForm.css";
 
+const ReactQuill = React.lazy(() => import("react-quill"));
 const modules = {
   keyboard: {
     bindings: {
@@ -37,10 +37,10 @@ const modules = {
 
 export function UpdatePost() {
   const { postId } = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
-  const post = useSelector((state) => state.posts[+postId]);
+  const post = useAppSelector((state) => state.posts[+postId]);
 
   const [title, setTitle] = useState(post ? post.title : "");
   const [content, setContent] = useState(post ? post.content : "");

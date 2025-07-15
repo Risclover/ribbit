@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { useAutosizeTextArea } from "@/hooks";
 import { updateComment, getComments, getPosts } from "@/store";
 
@@ -12,7 +12,7 @@ export default function useEditComment({
   setShowEditCommentModal,
   setCommentContent,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const textareaRef = useRef();
 
   const [content, setContent] = useState(comment?.content || "");

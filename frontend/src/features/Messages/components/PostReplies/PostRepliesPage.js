@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { getPosts, getUsers } from "@/store";
 import { MessageContentMenu, MessageHead, PostReply } from "../../..";
 import "./PostReplies.css";
@@ -10,6 +10,7 @@ import usePostReplies from "@/features/Messages/hooks/usePostReplies";
 
 export function PostRepliesPage() {
   const { postRepliesList } = usePostReplies();
+  const currentUser = useAppSelector((state) => state.current.user);
 
   usePageSettings({
     documentTitle: "Messages: Post Replies",

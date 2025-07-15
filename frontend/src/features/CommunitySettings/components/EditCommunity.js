@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/store";
 import { useHistory, NavLink, useParams, Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -16,16 +16,16 @@ import { CommunityEditRule, AddCommunityRuleModal } from "@/features";
 import "../CommunitySettings.css";
 
 export function EditCommunity() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
   const { communityName } = useParams();
-  const communities = useSelector((state) => state.communities);
-  const currentUser = useSelector((state) => state.session.user);
+  const communities = useAppSelector((state) => state.communities);
+  const currentUser = useAppSelector((state) => state.session.user);
   const communityId = getIdFromName(communityName, communities);
 
-  const user = useSelector((state) => state.session.user);
-  const community = useSelector((state) => state.communities[+communityId]);
-  const rules = useSelector((state) => Object.values(state.rules));
+  const user = useAppSelector((state) => state.session.user);
+  const community = useAppSelector((state) => state.communities[+communityId]);
+  const rules = useAppSelector((state) => Object.values(state.rules));
 
   const [showRuleModal, setShowRuleModal] = useState(false);
   const [addAllowed, setAddAllowed] = useState(true);

@@ -1,20 +1,16 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getMessages,
-  getThreads,
-  getUsers,
-} from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { getMessages, getThreads, getUsers } from "@/store";
 import { MessageThread, MessageHead, MessageContentMenu } from "..";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import { v4 as uuidv4 } from "uuid";
 import "../styles/Messages.css";
 
 export function Messages() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const threads = useSelector((state) => Object.values(state.threads));
-  const currentUser = useSelector((state) => state.session.user);
+  const threads = useAppSelector((state) => Object.values(state.threads));
+  const currentUser = useAppSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(getMessages());

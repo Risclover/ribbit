@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { useOutsideClick } from "@/hooks";
 
 export function useNotificationBell() {
   const wrapperRef = useRef(null);
 
-  const notifications = useSelector((state) =>
+  const notifications = useAppSelector((state) =>
     Object.values(state.notifications)
   );
 

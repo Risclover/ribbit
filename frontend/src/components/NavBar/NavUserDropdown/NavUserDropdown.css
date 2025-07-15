@@ -24,6 +24,8 @@
   padding: 2px 0;
   min-height: 32px;
   margin-left: 8px;
+  border: none;
+  background: transparent;
 }
 
 .navbar-user-info-box {
@@ -60,6 +62,9 @@
   overflow: hidden;
   white-space: nowrap;
   margin-top: -3px;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
 }
 
 .user-karma-info {
@@ -136,6 +141,8 @@
   align-items: center;
   padding-right: 16px;
   padding-left: 52px;
+  background: transparent;
+  border-radius: 0;
 }
 
 .nav-user-dropdown-btn:hover {
@@ -168,6 +175,8 @@
   font-weight: 500;
   line-height: 18px;
   color: var(--main-text-color);
+  background: transparent;
+  border-radius: 0;
 }
 
 .nav-user-dropdown-logout-btn:hover {

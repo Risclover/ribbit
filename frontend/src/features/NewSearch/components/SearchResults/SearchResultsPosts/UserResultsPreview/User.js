@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { UserFollowBtn } from "./UserFollowBtn";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { Skeleton } from "@mui/material";
 import { useDarkMode } from "@/hooks";
 
 const User = ({ user }) => {
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
   return (
     <NavLink to={`/users/${user.id}/profile`}>
       <div className="search-results-page-community">

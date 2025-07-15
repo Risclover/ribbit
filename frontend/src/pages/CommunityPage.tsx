@@ -1,8 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, JSX } from "react";
 import { Redirect, useParams } from "react-router-dom";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { shallowEqual } from "react-redux";
+import Skeleton from "@mui/material/Skeleton";
 
-import { getCommunities, getCommunitySettings, getPosts } from "@/store";
+import {
+  useAppDispatch,
+  useAppSelector,
+  RootState,
+  getCommunities,
+  getCommunitySettings,
+  getPosts,
+} from "@/store";
 
 import {
   CommunityPageHeader,
@@ -11,89 +19,97 @@ import {
   CommunityRulesBox,
 } from "@/features";
 
-import { usePageSettings } from "@/hooks/usePageSettings";
-import { getIdFromName } from "@/utils/getCommunityIdFromName";
-import { CommunityImg } from "@/components/CommunityImg";
-import Skeleton from "@mui/material/Skeleton";
 import {
   BackToTop,
   FeedContainer,
   FeedLeftColContainer,
   FeedRightColContainer,
+  CommunityImg,
 } from "@/components";
+
+import { usePageSettings } from "@/hooks/usePageSettings";
 import { useDarkMode } from "@/hooks";
+import { getIdFromName } from "@/utils/getCommunityIdFromName";
+import { AllPostsIcon } from "@/assets";
 
-export function CommunityPage() {
+import "../features/Posts/Posts.css";
+
+/* ------------ Types pulled from store models ------------ */
+type Community = RootState["communities"][number];
+type Post = RootState["posts"][number];
+
+/* ======================================================== */
+
+export function CommunityPage(): JSX.Element {
+  /* -------- hooks & params -------- */
   const { theme } = useDarkMode();
-  const { communityName } = useParams();
-  const dispatch = useDispatch();
+  const { communityName } = useParams<{ communityName: string }>();
+  const dispatch = useAppDispatch();
 
-  /* ---------------- data from store ---------------- */
-  const user = useSelector((s) => s.session.user);
-  const communities = useSelector((s) => s.communities);
+  /* -------- store selectors -------- */
+  const user = useAppSelector((s) => s.session.user);
+  const communities = useAppSelector((s) => s.communities);
   const communityId = getIdFromName(communityName, communities);
-  const community = communities[communityId];
+  const community: Community | undefined = communities[communityId];
 
-  /** Only this community’s posts, memoised & shallow-compared */
-  const communityPosts = useSelector(
+  const communityPosts = useAppSelector(
     (s) =>
-      Object.values(s.posts).filter((p) => p.community?.id === communityId),
+      Object.values<Post>(s.posts).filter(
+        (p) => p.community?.id === communityId
+      ),
     shallowEqual
   );
 
-  const communitiesLoaded = useSelector(
+  const communitiesLoaded = useAppSelector(
     (s) => Object.keys(s.communities).length > 0
   );
 
-  /* ---------------- local ui state ---------------- */
-  const [loading, setLoading] = useState(true);
-  const [showAbout, setShowAbout] = useState(false);
+  /* -------- local UI state -------- */
+  const [loading, setLoading] = useState<boolean>(true);
+  const [showAbout, setShowAbout] = useState<boolean>(false);
 
-  /* ---------------- data fetch ---------------- */
+  /* -------- fetch data -------- */
   useEffect(() => {
+    if (!communityId) return;
+
     (async () => {
-      if (!communityId) return;
       await dispatch(getCommunities());
       await dispatch(getCommunitySettings(communityId));
 
-      // Only fetch posts once per fresh visit
       if (communityPosts.length === 0) {
         await dispatch(getPosts());
       }
-
       setLoading(false);
     })();
-  }, [communityId, dispatch]); // posts selector memo ensures no infinite loop
+  }, [communityId, dispatch, communityPosts.length]);
 
-  /* store recent communities for guests */
+  /* -------- store recent communities for guests -------- */
   useEffect(() => {
     if (!user && community) {
       const LOCAL_KEY = "recentCommunities";
-      let stored = JSON.parse(localStorage.getItem(LOCAL_KEY)) || [];
+      const stored: any[] = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]");
 
-      stored = stored.filter((c) => c.id !== community.id);
-      stored.unshift({
+      const filtered = stored.filter((c) => c.id !== community.id);
+      filtered.unshift({
         id: community.id,
         name: community.name,
         icon: community.communitySettings[community.id].communityIcon,
         iconBgColor: community.communitySettings[community.id].baseColor,
       });
 
-      if (stored.length > 5) stored.pop();
-      localStorage.setItem(LOCAL_KEY, JSON.stringify(stored));
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(filtered.slice(0, 5)));
     }
   }, [community, user]);
 
-  /* ---------------- document / favicon ---------------- */
+  /* -------- document / favicon -------- */
   usePageSettings({
     documentTitle: community?.displayName,
     icon: community ? (
       <CommunityImg
         imgStyle={{
-          backgroundColor:
-            community?.communitySettings[community.id]?.baseColor,
+          backgroundColor: community.communitySettings[community.id].baseColor,
         }}
-        imgSrc={community?.communitySettings[community.id]?.communityIcon}
+        imgSrc={community.communitySettings[community.id].communityIcon}
         imgClass="nav-left-dropdown-item-icon item-icon-circle"
         imgAlt="Community"
       />
@@ -117,11 +133,11 @@ export function CommunityPage() {
     ),
   });
 
-  /* ---------------- early returns ---------------- */
-  // if (loading || !communitiesLoaded) return <div>Loading…</div>;
+  /* -------- early exits -------- */
+  if (loading || !communitiesLoaded) return <div>Loading…</div>;
   if (!community) return <Redirect to="/404" />;
 
-  /* ---------------- render ---------------- */
+  /* -------- render -------- */
   return (
     <div className="community-page-container">
       <CommunityPageHeader
@@ -134,19 +150,19 @@ export function CommunityPage() {
         <div className="community-body-bg-div" />
 
         <FeedLeftColContainer>
-          {!showAbout ? (
-            <CommunityPosts
-              commPosts={communityPosts}
-              communityName={community.name}
-              user={user}
-            />
-          ) : (
+          {showAbout ? (
             <>
               <CommunityInfoBox community={community} user={user} />
               {Object.values(community.communityRules).length > 0 && (
                 <CommunityRulesBox community={community} />
               )}
             </>
+          ) : (
+            <CommunityPosts
+              commPosts={communityPosts}
+              communityName={community.name}
+              user={user}
+            />
           )}
         </FeedLeftColContainer>
 

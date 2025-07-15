@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import {
   getCommunitySettings,
   getSingleCommunity,
@@ -18,77 +18,77 @@ const DEFAULT_BANNER_HEIGHT = "80px";
 const DEFAULT_BANNER_COLOR = "#33a8ff";
 
 export function useCommunitySettingsState(community) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // Safely extract the communitySettings object
-  const communitySetting = community?.communitySettings?.[community?.id] || {};
+  const communitySettings = community?.communitySettings?.[community?.id] || {};
 
   // -------------------------------------------------------------------------
   // LOCAL STATE
   // -------------------------------------------------------------------------
   const [base, setBase] = useState(
-    communitySetting.baseColor || DEFAULT_BASE_COLOR
+    communitySettings.baseColor || DEFAULT_BASE_COLOR
   );
   const [highlight, setHighlight] = useState(
-    communitySetting.highlight || DEFAULT_HIGHLIGHT
+    communitySettings.highlight || DEFAULT_HIGHLIGHT
   );
   const [bgColor, setBgColor] = useState(
-    communitySetting.bgColor || DEFAULT_BG_COLOR
+    communitySettings.bgColor || DEFAULT_BG_COLOR
   );
   const [backgroundImg, setBackgroundImg] = useState(
-    communitySetting.backgroundImg || ""
+    communitySettings.backgroundImg || ""
   );
   const [backgroundImgFormat, setBackgroundImgFormat] = useState(
-    communitySetting.backgroundImgFormat || "fill"
+    communitySettings.backgroundImgFormat || "fill"
   );
 
   const [bannerHeight, setBannerHeight] = useState(
-    communitySetting.bannerHeight || DEFAULT_BANNER_HEIGHT
+    communitySettings.bannerHeight || DEFAULT_BANNER_HEIGHT
   );
   const [bannerColor, setBannerColor] = useState(
-    communitySetting.bannerColor || DEFAULT_BANNER_COLOR
+    communitySettings.bannerColor || DEFAULT_BANNER_COLOR
   );
   const [customBannerColor, setCustomBannerColor] = useState(
-    !!communitySetting.customBannerColor
+    !!communitySettings.customBannerColor
   );
-  const [bannerImg, setBannerImg] = useState(communitySetting.bannerImg || "");
+  const [bannerImg, setBannerImg] = useState(communitySettings.bannerImg || "");
   const [bannerImgFormat, setBannerImgFormat] = useState(
-    communitySetting.bannerImgFormat || "fill"
+    communitySettings.bannerImgFormat || "fill"
   );
 
   const [nameFormat, setNameFormat] = useState(
-    communitySetting.nameFormat || ""
+    communitySettings.nameFormat || ""
   );
   const [communityIcon, setCommunityIcon] = useState(
-    communitySetting.communityIcon || ""
+    communitySettings.communityIcon || ""
   );
   const [hideCommunityIcon, setHideCommunityIcon] = useState(
-    !!communitySetting.hideCommunityIcon
+    !!communitySettings.hideCommunityIcon
   );
 
   // -------------------------------------------------------------------------
-  // RE-SYNC FROM STORE ANY TIME communitySetting UPDATES
+  // RE-SYNC FROM STORE ANY TIME communitySettings UPDATES
   // (Important for "deleted" images or other external changes)
   // -------------------------------------------------------------------------
   useEffect(() => {
     if (!community?.communitySettings?.[community.id]) return;
 
-    setBase(communitySetting.baseColor || DEFAULT_BASE_COLOR);
-    setHighlight(communitySetting.highlight || DEFAULT_HIGHLIGHT);
-    setBgColor(communitySetting.bgColor || DEFAULT_BG_COLOR);
-    setBackgroundImg(communitySetting.backgroundImg || "");
-    setBackgroundImgFormat(communitySetting.backgroundImgFormat || "fill");
+    setBase(communitySettings.baseColor || DEFAULT_BASE_COLOR);
+    setHighlight(communitySettings.highlight || DEFAULT_HIGHLIGHT);
+    setBgColor(communitySettings.bgColor || DEFAULT_BG_COLOR);
+    setBackgroundImg(communitySettings.backgroundImg || "");
+    setBackgroundImgFormat(communitySettings.backgroundImgFormat || "fill");
 
-    setBannerHeight(communitySetting.bannerHeight || DEFAULT_BANNER_HEIGHT);
-    setBannerColor(communitySetting.bannerColor || DEFAULT_BANNER_COLOR);
-    setCustomBannerColor(!!communitySetting.customBannerColor);
-    setBannerImg(communitySetting.bannerImg || "");
-    setBannerImgFormat(communitySetting.bannerImgFormat || "fill");
+    setBannerHeight(communitySettings.bannerHeight || DEFAULT_BANNER_HEIGHT);
+    setBannerColor(communitySettings.bannerColor || DEFAULT_BANNER_COLOR);
+    setCustomBannerColor(!!communitySettings.customBannerColor);
+    setBannerImg(communitySettings.bannerImg || "");
+    setBannerImgFormat(communitySettings.bannerImgFormat || "fill");
 
-    setNameFormat(communitySetting.nameFormat || "");
-    setCommunityIcon(communitySetting.communityIcon || "");
-    setHideCommunityIcon(!!communitySetting.hideCommunityIcon);
-  }, [community, communitySetting]);
+    setNameFormat(communitySettings.nameFormat || "");
+    setCommunityIcon(communitySettings.communityIcon || "");
+    setHideCommunityIcon(!!communitySettings.hideCommunityIcon);
+  }, [community, communitySettings]);
 
   // -------------------------------------------------------------------------
   // LIVE PREVIEW EFFECT: Update CSS variables whenever local states change
@@ -197,7 +197,7 @@ export function useCommunitySettingsState(community) {
 
     // 2. Update DB
     const payload = {
-      settingsId: communitySetting.id,
+      settingsId: communitySettings.id,
       baseColor: base,
       highlight,
       bgColor,
@@ -242,16 +242,16 @@ export function useCommunitySettingsState(community) {
     }
 
     const payload = {
-      settingsId: communitySetting.id,
+      settingsId: communitySettings.id,
       bannerHeight,
       bannerColor,
       customBannerColor,
       bannerImg,
       bannerImgFormat,
-      secondaryBannerImg: communitySetting.secondaryBannerImg,
-      hoverBannerImg: communitySetting.hoverBannerImg,
-      secondaryBannerFormat: communitySetting.secondaryBannerFormat,
-      mobileBannerImg: communitySetting.mobileBannerImg,
+      secondaryBannerImg: communitySettings.secondaryBannerImg,
+      hoverBannerImg: communitySettings.hoverBannerImg,
+      secondaryBannerFormat: communitySettings.secondaryBannerFormat,
+      mobileBannerImg: communitySettings.mobileBannerImg,
     };
     await dispatch(updateSettingsBanner(payload));
   };
@@ -281,7 +281,7 @@ export function useCommunitySettingsState(community) {
     }
 
     const payload = {
-      settingsId: communitySetting.id,
+      settingsId: communitySettings.id,
       nameFormat,
       communityIcon,
       hideCommunityIcon,
@@ -342,7 +342,7 @@ export function useCommunitySettingsState(community) {
 
     // Original community & settings
     community,
-    communitySetting,
+    communitySettings,
 
     // Actions
     handleResetToDefault,

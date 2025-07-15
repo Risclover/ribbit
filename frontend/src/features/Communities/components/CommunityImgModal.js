@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { getCommunities } from "@/store";
 import "@/assets/styles/Modals.css";
 
 export function CommunityImgModal({ setShowCommunityImgModal, communityId }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [imgPreview, setImgPreview] = useState();
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);

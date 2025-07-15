@@ -1,14 +1,30 @@
-import React, { useEffect } from "react";
+import { useEffect, ReactNode, FC } from "react";
 import { SearchResultsNav } from "../features";
 import { usePageSettings } from "../hooks";
 import { MagnifyingGlass } from "@/assets/icons/MagnifyingGlass";
 import "../features/NewSearch/Search.css";
 import { SearchTabs } from "features/NewSearch/components/MobileSearchbar/SearchTabs";
-import { useSelector } from "react-redux";
 import { useIsMobile } from "hooks/useIsMobile";
 
-export const SearchResults = ({ children, query, searchPage }) => {
+/* ───────────────────────── Types ───────────────────────── */
+
+interface SearchResultsProps {
+  children: ReactNode;
+  query: string;
+  /** the active tab / route – extend as needed */
+  searchPage: string;
+}
+
+/* ───────────────────────── Component ───────────────────── */
+
+export const SearchResults: FC<SearchResultsProps> = ({
+  children,
+  query,
+  searchPage,
+}) => {
   const isMobile = useIsMobile();
+
+  /* <head> metadata */
   usePageSettings({
     documentTitle: `ribbit: search results - ${query}`,
     icon: (
@@ -23,6 +39,7 @@ export const SearchResults = ({ children, query, searchPage }) => {
     pageTitle: "Search Results",
   });
 
+  /* highlight colour reset */
   useEffect(() => {
     document.documentElement.style.setProperty(
       "--community-highlight",
@@ -30,6 +47,7 @@ export const SearchResults = ({ children, query, searchPage }) => {
     );
   }, []);
 
+  /* render */
   return (
     <div className="search-results-page">
       <div className="search-results-wrapper">
@@ -38,6 +56,7 @@ export const SearchResults = ({ children, query, searchPage }) => {
         ) : (
           <SearchResultsNav query={query} searchPage={searchPage} />
         )}
+
         {children}
       </div>
     </div>

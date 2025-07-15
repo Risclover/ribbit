@@ -1,8 +1,26 @@
-import React, { useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
-export const OpenChatContext = React.createContext();
+export interface OpenChatContextType {
+  openChat: boolean;
+  setOpenChat: Dispatch<SetStateAction<boolean>>;
+}
 
-export const OpenChatProvider = ({ children }) => {
+const OpenChatContext = createContext<OpenChatContextType | undefined>(
+  undefined
+);
+
+interface OpenChatProviderProps {
+  children: ReactNode;
+}
+
+export const OpenChatProvider = ({ children }: OpenChatProviderProps) => {
   const [openChat, setOpenChat] = useState(false);
 
   return (
@@ -12,4 +30,10 @@ export const OpenChatProvider = ({ children }) => {
   );
 };
 
-export const useOpenChat = () => useContext(OpenChatContext);
+export const useOpenChat = () => {
+  const ctx = useContext(OpenChatContext);
+  if (!ctx) {
+    throw new Error("useOpenChat must be used within an OpenChatProvider");
+  }
+  return ctx;
+};

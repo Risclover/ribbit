@@ -1,10 +1,10 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
 import { ChatEmojis, ChatGifs } from "@/features";
 import { useAutosizeTextArea } from "@/hooks";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/store";
 import { createChatThread, createChatMessage, getChatThread } from "@/store";
 import { liveChatIcons } from "@/assets";
-import { SelectedChatContext } from "@/context";
+import { useSelectedChat } from "@/context";
 import { GifIcon, SendMessageIcon } from "@/assets";
 
 export const ChatInput = ({
@@ -18,9 +18,9 @@ export const ChatInput = ({
   inputText,
   setPendingInputText,
 }) => {
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.session.user);
-  const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.session.user);
+  const { selectedChat, setSelectedChat } = useSelectedChat();
 
   // If a chat is selected, store text in local state here for that particular chat
   const [textValue, setTextValue] = useState("");

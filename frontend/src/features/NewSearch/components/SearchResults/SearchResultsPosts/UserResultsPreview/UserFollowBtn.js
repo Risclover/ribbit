@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import {
   followUser,
   unfollowUser,
@@ -8,9 +8,11 @@ import {
 } from "@/store";
 
 export const UserFollowBtn = ({ user }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const isFollowing = useSelector((state) => state.followers.follows[user?.id]);
+  const isFollowing = useAppSelector(
+    (state) => state.followers.follows[user?.id]
+  );
 
   const [btnWord, setBtnWord] = useState("Following");
 

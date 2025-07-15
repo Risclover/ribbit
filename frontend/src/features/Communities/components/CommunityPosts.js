@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { PostFeed, CreatePostBar } from "@/components";
+import { CreatePostBar } from "@/components";
 import { sortPosts } from "@/utils";
+import { PostFeed } from "@/features/Posts/components";
 import { useHistory } from "react-router-dom";
 import { useAuthFlow } from "@/context";
 

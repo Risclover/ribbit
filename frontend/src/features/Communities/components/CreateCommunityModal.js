@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { useHistory } from "react-router-dom";
 import { addCommunity, addToSubscriptions, getSubscriptions } from "@/store";
 import { CreateCommunityForm } from "./CreateCommunityForm";
@@ -11,7 +11,7 @@ export function CreateCommunityModal({
   showCreateCommunityModal,
   setShowCreateCommunityModal,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   const [name, setName] = useState("");

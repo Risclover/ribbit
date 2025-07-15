@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import {
   addToSubscriptions,
   deleteSubscription,
@@ -16,8 +16,8 @@ export function CommunitySubscribeBtn({
   communityId,
   setShowLoginForm,
 }) {
-  const dispatch = useDispatch();
-  const subscriptions = useSelector((state) => state.subscriptions);
+  const dispatch = useAppDispatch();
+  const subscriptions = useAppSelector((state) => state.subscriptions);
   const [subscribed, setSubscribed] = useState(false);
 
   const { openLogin } = useAuthFlow();

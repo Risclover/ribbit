@@ -1,13 +1,6 @@
-import moment from "moment";
+import { fromNowLocal } from "@/utils/fromNowLocal";
 
-export function convertTime(comment, type) {
-  const editedTime = moment(new Date(comment?.updatedAt))
-    .locale("en-comment")
-    .fromNow();
-
-  const commentTime = moment(new Date(comment?.createdAt))
-    .locale("en-comment")
-    .fromNow();
-
-  return type === "edit" ? editedTime : commentTime;
+export function convertTime(comment, type = "create") {
+  const ts = type === "edit" ? comment?.updatedAt : comment?.createdAt;
+  return fromNowLocal(ts, "en-comment");
 }

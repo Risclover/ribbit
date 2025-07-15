@@ -3,14 +3,14 @@ import { useHistory } from "react-router-dom";
 import Bounce from "@/assets/images/misc/curved-arrow.png";
 import { useOutsideClick } from "@/hooks";
 import { BsThreeDots } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { DeletePostModal } from "../DeletePost";
 import { usePostButtonHandlers } from "../../hooks/usePostButtonHandlers";
 import { DeleteConfirmationModal } from "@/components";
 import { Modal } from "@/context";
 
 export const CompactPostMenu = ({ user, post, isPage, community }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const wrapperRef = useRef();
   const history = useHistory();
   const [showSubmenu, setShowSubmenu] = useState(false);

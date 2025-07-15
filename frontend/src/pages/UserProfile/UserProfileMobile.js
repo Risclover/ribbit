@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { UserAboutBox } from "./UserAboutBox";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { useParams } from "react-router-dom";
 import { CommunityFeedAbout } from "features";
 import { UserOwnedCommunities } from "./UserOwnedCommunities";
@@ -15,8 +15,8 @@ export function UserProfileMobile({
   setSortMode,
 }) {
   const { userId } = useParams();
-  const currentUser = useSelector((state) => state.session.user);
-  const user = useSelector((state) => state.users[userId]);
+  const currentUser = useAppSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.users[userId]);
   return (
     <div className="user-profile-mobile-container">
       <UserAboutBox

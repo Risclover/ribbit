@@ -2,11 +2,11 @@ import React from "react";
 import { FollowBtn } from "@/components";
 import { SendMessage } from "@/pages";
 import { useAuthFlow } from "@/context";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 
 export function ActionButtons({ about, user, currentUser, userId, username }) {
   const { openLogin } = useAuthFlow();
-  const follows = useSelector((state) => state.followers.follows);
+  const follows = useAppSelector((state) => state.followers.follows);
 
   if (!currentUser) {
     return (

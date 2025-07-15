@@ -1,18 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { fetchReactionsForMessage } from "@/store";
-import { SelectedChatContext } from "@/context";
+import { useSelectedChat } from "@/context";
 import { deleteReaction } from "@/store";
 import { createReaction } from "@/store";
 
 export function useChatMessage({ socket, messageId, content }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [openReactions, setOpenReactions] = useState(false);
   const [msgContent, setMsgContent] = useState(content);
-  const { selectedChat } = useContext(SelectedChatContext);
+  const { selectedChat } = useSelectedChat();
 
-  const currentUser = useSelector((state) => state.session.user);
-  const msgReactions = useSelector((state) => state.reactions);
+  const currentUser = useAppSelector((state) => state.session.user);
+  const msgReactions = useAppSelector((state) => state.reactions);
 
   useEffect(() => {
     dispatch(fetchReactionsForMessage(messageId));

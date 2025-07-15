@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { NavLink, useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { getFollowers } from "@/store";
 import { FollowBtn } from "@/components";
 
 export function UserProfileFollowers({ setShowFollowersModal }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
-  const followers = useSelector((state) => state.followers.followers);
-  const follows = useSelector((state) => state.followers.follows);
+  const followers = useAppSelector((state) => state.followers.followers);
+  const follows = useAppSelector((state) => state.followers.follows);
 
   useEffect(() => {
     dispatch(getFollowers());

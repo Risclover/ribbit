@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { NavLink, useHistory } from "react-router-dom";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
@@ -22,11 +22,11 @@ export function ClassicPostFormat({ isPage, id, post }) {
   const { scrollToTarget } = useContext(ScrollContext);
   const { metadata, fetchMetadata } = useMetadata();
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const cuser = useSelector((state) => state.session.user);
-  const user = useSelector((state) => state.users[cuser?.id]);
-  const community = useSelector(
+  const cuser = useAppSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.users[cuser?.id]);
+  const community = useAppSelector(
     (state) => state.communities[post?.community.id]
   );
 

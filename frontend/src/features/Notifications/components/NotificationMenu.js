@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { useOutsideClick } from "@/hooks";
 import { unreadNotification } from "@/store";
 
 export function NotificationMenu({ notification, setNotificationMenu }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const wrapperRef = useRef(null);
 
   useOutsideClick(wrapperRef, () => setNotificationMenu(false));

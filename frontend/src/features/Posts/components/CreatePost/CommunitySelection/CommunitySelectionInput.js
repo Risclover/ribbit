@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { BsSearch } from "react-icons/bs";
 import { TbChevronDown } from "react-icons/tb";
 import { CommunityImg } from "@/components/CommunityImg";
@@ -20,7 +20,9 @@ export function CommunitySelectionInput({
   const inputRef = useRef(null);
   const { communityName } = useParams();
   const history = useHistory();
-  const communities = useSelector((state) => Object.values(state.communities));
+  const communities = useAppSelector((state) =>
+    Object.values(state.communities)
+  );
 
   // Focus input whenever dropdown opens
   useEffect(() => {

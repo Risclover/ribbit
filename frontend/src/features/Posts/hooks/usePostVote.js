@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useHistory } from "react-router-dom";
 import { addPostVote, getUsers, removePostVote } from "@/store";
 
 export const usePostVote = (post) => {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const user = useSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.session.user);
   const [vote, setVote] = useState(null);
 
   useEffect(() => {

@@ -1,36 +1,41 @@
-import React, { useMemo, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useMemo, useCallback } from "react";
 import classNames from "classnames";
 import {
   followUser,
   getFavoriteUsers,
   getFollowers,
   unfollowUser,
+  useAppDispatch,
+  useAppSelector,
 } from "@/store";
 import { useHistory } from "react-router-dom";
 
-/**
- * A button that users can click to follow or unfollow other users.
- *
- * @param {community} - The community
- * @param {boolean} isProfile - Whether or not the page this button is on is the user profile page.
- *
- * @example
- * <FollowBtn user={} community={} isProfile />
- */
+/* ───────────────────────── Types ───────────────────────── */
+export interface FollowBtnProps {
+  user: { id: number | string; username: string };
+  community?: unknown;
+  isProfile?: boolean;
+}
 
-export const FollowBtn = ({ user, community, isProfile = false }) => {
+/* ───────────────────────── Component ───────────────────── */
+
+export function FollowBtn({
+  user,
+  community,
+  isProfile = false,
+}: FollowBtnProps): JSX.Element {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const follows = useSelector((state) => state.followers?.follows);
+  const dispatch = useAppDispatch();
+  const follows = useAppSelector((s) => s.followers?.follows);
+  const currentUser = useAppSelector((s) => s.session.user);
 
-  const currentUser = useSelector((state) => state.session.user);
+  const numericId = Number(user?.id); // 🆕 guarantee number
 
   const isFollowing = useMemo(
     () =>
       follows
         ? Object.values(follows).some(
-            (followedUser) => followedUser.username === user?.username
+            (f: any) => f?.username === user?.username
           )
         : false,
     [follows, user?.username]
@@ -43,12 +48,12 @@ export const FollowBtn = ({ user, community, isProfile = false }) => {
     "user-profile-follower-btn": !isFollowing && isProfile,
     "blue-btn-unfilled btn-long": isFollowing && !isProfile,
     "blue-btn-filled btn-long": !isFollowing && !isProfile,
-    "community-btn": isFollowing && community,
+    "community-btn": isFollowing && community, // 🆕 allow truthy
     "community-btn-filled": !isFollowing && community,
   });
 
   const handleFollowClick = useCallback(
-    async (e) => {
+    async (e: React.MouseEvent) => {
       if (!currentUser) {
         history.push("/login");
         return;
@@ -57,14 +62,14 @@ export const FollowBtn = ({ user, community, isProfile = false }) => {
       e.preventDefault();
 
       if (isFollowing) {
-        await dispatch(unfollowUser(user?.id));
+        await dispatch(unfollowUser(numericId));
         await dispatch(getFavoriteUsers());
       } else {
-        await dispatch(followUser(user?.id));
+        await dispatch(followUser(numericId));
       }
       await dispatch(getFollowers());
     },
-    [dispatch, isFollowing, user?.id]
+    [currentUser, dispatch, history, isFollowing, numericId]
   );
 
   return (
@@ -76,4 +81,4 @@ export const FollowBtn = ({ user, community, isProfile = false }) => {
       {btnText}
     </button>
   );
-};
+}

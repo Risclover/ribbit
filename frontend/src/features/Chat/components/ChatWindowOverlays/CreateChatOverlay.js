@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { ChatWindowOverlayContainer } from "./ChatWindowOverlayContainer";
 import { useCreateChatOverlay } from "../../hooks/useCreateChatOverlay";
 
@@ -10,7 +10,7 @@ export const CreateChatOverlay = ({
   setUsername,
   userFound,
 }) => {
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
 
   const { isChosen, setIsChosen, error, setError, handleStartChat } =
     useCreateChatOverlay({

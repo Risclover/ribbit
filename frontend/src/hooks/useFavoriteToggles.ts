@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import {
   addFavoriteCommunity,
   removeFavoriteCommunity,
@@ -10,7 +10,7 @@ import {
 } from "@/store";
 
 export function useFavoriteToggles(favoriteCommunitiesById, favoriteUsersById) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const toggleCommunity = useCallback(
     async (id) => {

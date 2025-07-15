@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { CommunityName, CommunityImage, CommunityFeedAbout } from "../..";
 import { PostFormatContext } from "@/context";
 
 export function CommunityPageHeader({ community, showAbout, setShowAbout }) {
-  const user = useSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.session.user);
 
   const { format } = useContext(PostFormatContext);
 

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import parse from "html-react-parser";
 import { DateSeparator } from "./DateSeparator";
 import { ChatReactions } from "./ChatReactions";
@@ -20,7 +20,7 @@ export const ChatMessage = ({
   OVERLAYS,
 }) => {
   const wrapperRef = useRef(null);
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
   const {
     openReactions,
     setOpenReactions,

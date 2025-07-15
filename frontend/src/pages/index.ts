@@ -11,3 +11,4 @@ export { CreatePostPage } from "./CreatePostPage";
 // export { UserProfilePage } from "./UserProfilePage";
 export { ImagePage } from "./ImagePage";
 export { NotificationsPage } from "./NotificationsPage";
+export { ChatPage } from "./ChatPage";

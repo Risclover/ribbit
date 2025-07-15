@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { getAllNotifications } from "@/store";
 import { getPosts } from "@/store";
 
 export default function usePostReplies({ notification }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const users = useSelector((state) => state.users);
-  const posts = useSelector((state) => state.posts);
-  const currentUser = useSelector((state) => state.session.user);
-  const notifications = useSelector((state) =>
+  const users = useAppSelector((state) => state.users);
+  const posts = useAppSelector((state) => state.posts);
+  const currentUser = useAppSelector((state) => state.session.user);
+  const notifications = useAppSelector((state) =>
     Object.values(state.notifications)
   );
 
@@ -38,7 +38,5 @@ export default function usePostReplies({ notification }) {
     postRepliesList,
     community,
     postReplySender,
-    handleUnread,
-    handleRead,
   };
 }

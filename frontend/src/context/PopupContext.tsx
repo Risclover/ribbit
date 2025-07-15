@@ -1,9 +1,24 @@
-import React, { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
-// Create a context
-const PopupContext = createContext();
+export interface PopupContextType {
+  isPopupOpen: boolean;
+  setIsPopupOpen: Dispatch<SetStateAction<boolean>>;
+}
 
-export const PopupProvider = ({ children }) => {
+interface PopupProviderProps {
+  children: ReactNode;
+}
+
+const PopupContext = createContext<PopupContextType | undefined>(undefined);
+
+export const PopupProvider = ({ children }: PopupProviderProps) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
@@ -13,5 +28,10 @@ export const PopupProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the Popup context
-export const usePopup = () => useContext(PopupContext);
+export const usePopup = (): PopupContextType => {
+  const ctx = useContext(PopupContext);
+  if (!ctx) {
+    throw new Error("usePopup must be used within a PopupProvider");
+  }
+  return ctx;
+};

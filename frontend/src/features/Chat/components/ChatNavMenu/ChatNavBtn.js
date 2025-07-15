@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { formatDate } from "../../utils/formatDate";
 import { useChatNavBtn } from "../../hooks/useChatNavBtn";
 
@@ -10,7 +10,7 @@ export const ChatNavBtn = ({
   setActiveOverlay,
   OVERLAYS,
 }) => {
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
   const { isActive, recipient, time } = useChatNavBtn({ chatThread });
 
   return (

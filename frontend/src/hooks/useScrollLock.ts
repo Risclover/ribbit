@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
-export const useScrollLock = (show) => {
+export const useScrollLock = (show, enabled = true) => {
   useEffect(() => {
+    if (!enabled) return;
     if (show) {
       // Save current overflow setting
       const originalOverflow = document.body.style.overflow;

@@ -1,46 +1,60 @@
-import React, {
+import {
   createContext,
   useState,
   useContext,
   useCallback,
   useMemo,
+  ReactNode,
 } from "react";
 
-const MetadataContext = createContext();
+/** Map from URL → thumbnail image URL (or `undefined` while loading) */
+export type MetadataMap = Record<string, string | undefined>;
 
-export const MetadataProvider = ({ children }) => {
-  const [metadata, setMetadata] = useState({});
+export interface MetadataContextType {
+  metadata: MetadataMap;
+  fetchMetadata: (url: string) => void;
+}
+
+interface MetadataProviderProps {
+  children: ReactNode;
+}
+
+const MetadataContext = createContext<MetadataContextType | undefined>(
+  undefined
+);
+
+export const MetadataProvider = ({ children }: MetadataProviderProps) => {
+  const [metadata, setMetadata] = useState<MetadataMap>({});
 
   /**
-   * Stable reference.  The function never changes because we don’t
-   * capture any outside variables; we rely on the functional form of
-   * setMetadata to read the latest state.
+   * Fetch link-preview metadata for a given URL (idempotent).
+   * Uses a functional `setMetadata` update so the callback itself
+   * never changes → safe to memo-ise.
    */
-  const fetchMetadata = useCallback((url) => {
+  const fetchMetadata = useCallback((url: string) => {
     setMetadata((prev) => {
-      if (prev[url]) return prev; // already fetched → no network call
+      if (prev[url]) return prev; // already cached
 
-      // Start the fetch; when it finishes, update state again.
       fetch("https://api.linkpreview.net", {
         method: "POST",
         headers: {
-          "X-Linkpreview-Api-Key": process.env.REACT_APP_LINK_PREVIEW_KEY,
+          "X-Linkpreview-Api-Key": process.env.REACT_APP_LINK_PREVIEW_KEY ?? "",
         },
         mode: "cors",
         body: JSON.stringify({ q: url }),
       })
         .then((res) => res.json())
-        .then((data) => {
-          // Use functional update again to ensure we’re merging into
-          // the latest state, even if other URLs completed meanwhile.
+        .then((data: { image?: string }) => {
           setMetadata((p) => ({ ...p, [url]: data.image }));
+        })
+        .catch(() => {
+          /* ignore network errors for now */
         });
 
-      return prev; // nothing to change *yet*
+      return prev; // no immediate change
     });
   }, []);
 
-  // Memo‑ise context value so consumers don’t re‑render on every setState.
   const value = useMemo(
     () => ({ metadata, fetchMetadata }),
     [metadata, fetchMetadata]
@@ -53,4 +67,10 @@ export const MetadataProvider = ({ children }) => {
   );
 };
 
-export const useMetadata = () => useContext(MetadataContext);
+export const useMetadata = (): MetadataContextType => {
+  const ctx = useContext(MetadataContext);
+  if (!ctx) {
+    throw new Error("useMetadata must be used within a MetadataProvider");
+  }
+  return ctx;
+};

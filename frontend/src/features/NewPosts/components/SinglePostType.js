@@ -5,7 +5,7 @@ import { NoPostsMessage } from "@/components";
 
 export function SinglePostType({ isLoading, posts, isPage, format }) {
   // ① skeletons while loading
-  if (isLoading) {
+  if (isLoading && posts.length === 0) {
     return (
       <>
         {Array.from({ length: 15 }, (_, i) => (

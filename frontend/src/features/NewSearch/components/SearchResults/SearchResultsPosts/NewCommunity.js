@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { CreateCommunityModal } from "@/features";
 import { Modal } from "@/context";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { ribbitBanners } from "@/assets";
 import { BackToTop } from "@/components";
 import { useAuthFlow } from "@/context/AuthFlowContext";
 
 export const NewCommunity = () => {
   const [showCommunityModal, setShowCommunityModal] = useState(false);
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
   const { openLogin } = useAuthFlow();
 
   return (

@@ -1,14 +1,14 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 
 const alpha = (k) => (a, b) => a[k].toLowerCase() > b[k].toLowerCase() ? 1 : -1;
 
 /** Grabs Redux slices and returns memo-sorted arrays */
 export function useDropdownSelectors() {
-  const subs = useSelector((s) => s.subscriptions);
-  const follows = useSelector((s) => s.followers?.follows || {});
-  const favComs = useSelector((s) => s.favoriteCommunities || {});
-  const favUsers = useSelector((s) => s.favoriteUsers || {});
+  const subs = useAppSelector((s) => s.subscriptions);
+  const follows = useAppSelector((s) => s.followers?.follows || {});
+  const favComs = useAppSelector((s) => s.favoriteCommunities || {});
+  const favUsers = useAppSelector((s) => s.favoriteUsers || {});
 
   return useMemo(() => {
     const list = Object.values;

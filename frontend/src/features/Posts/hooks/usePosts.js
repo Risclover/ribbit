@@ -1,18 +1,18 @@
 import { useEffect, useState, useMemo, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/store";
 import { getPosts, getViewedPosts } from "@/store";
 import { sortPosts } from "@/utils";
 import { getUsers } from "@/store";
 
 export function usePosts(isAllPosts) {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
-  const userPosts = useSelector((state) => Object.values(state.posts));
-  const subscriptions = useSelector((state) =>
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.session.user);
+  const userPosts = useAppSelector((state) => Object.values(state.posts));
+  const subscriptions = useAppSelector((state) =>
     Object.values(state.subscriptions)
   );
-  const follows = useSelector((state) => state.followers.posts);
-  const viewedPosts = useSelector((state) => state.viewedPosts);
+  const follows = useAppSelector((state) => state.followers.posts);
+  const viewedPosts = useAppSelector((state) => state.viewedPosts);
   const [sortMode, setSortMode] = useState("new");
   const [page, setPage] = useState(1);
   const nextPage = useRef(null);

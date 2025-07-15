@@ -30,7 +30,6 @@ export const useCommunitySettings = (community) => {
       setCommunityThemes(themes);
     }
   }, [checked, community]);
-
   useEffect(() => {
     if (checked) {
       document.documentElement.style.setProperty(

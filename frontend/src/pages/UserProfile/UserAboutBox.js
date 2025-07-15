@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { NavLink, useHistory, useParams } from "react-router-dom";
 import { SlArrowRight } from "react-icons/sl";
 import moment from "moment";
@@ -15,14 +15,14 @@ import {
 } from "@/store";
 
 import { FollowBtn } from "@/components";
-import { Modal, SelectedChatContext, useAuthFlow } from "@/context";
+import { Modal, useAuthFlow } from "@/context";
 import { UserProfileFollowers } from "@/features";
 import { SendMessage } from "@/pages";
 import { UserUploadModal } from "./UserUploadModal";
 import { KarmaIcon } from "@/assets";
 import { OVERLAYS } from "@/features/Chat/components/ChatWindow/Chat";
 import { useSelectedChat } from "context";
-import { OpenChatContext } from "context/OpenChatContext";
+import { useOpenChat } from "context/OpenChatContext";
 import { CommunityFeedAbout } from "features";
 import { UserProfileMobileMoreMenu } from "./UserProfileMobileMoreMenu";
 
@@ -33,7 +33,7 @@ export function UserAboutBox({
   showAbout,
   setShowAbout,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
   const { userId } = useParams();
   const { setPendingReceiver } = useSelectedChat();
@@ -42,10 +42,12 @@ export function UserAboutBox({
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [banner, setBanner] = useState();
   const [karma, setKarma] = useState();
-  const followers = useSelector((state) => state.followers.followers);
-  const follows = useSelector((state) => state.followers?.follows);
-  const userFollowers = useSelector((state) => state.followers.userFollowers);
-  const userChats = useSelector((state) => Object.values(state.chatThreads));
+  const followers = useAppSelector((state) => state.followers.followers);
+  const follows = useAppSelector((state) => state.followers?.follows);
+  const userFollowers = useAppSelector(
+    (state) => state.followers.userFollowers
+  );
+  const userChats = useAppSelector((state) => Object.values(state.chatThreads));
   const [showBannerModal, setShowBannerModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -53,8 +55,9 @@ export function UserAboutBox({
 
   const isFollowing = () => follows && user && follows[user.id];
 
-  const { setSelectedChat } = useContext(SelectedChatContext);
-  const { setOpenChat } = useContext(OpenChatContext);
+  const { setSelectedChat } = useSelectedChat();
+
+  const { setOpenChat } = useOpenChat();
 
   useEffect(() => {
     dispatch(getUserChatThreads());

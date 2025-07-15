@@ -1,4 +1,12 @@
 {
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [["@", "./src"]],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   "env": {
     "browser": true,
     "es2021": true,
@@ -18,8 +26,14 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "jest", "react-hooks"],
+  "plugins": [
+    "react",
+    "jest",
+    "react-hooks",
+    "react-you-might-not-need-an-effect"
+  ],
   "rules": {
+    "react-you-might-not-need-an-effect/you-might-not-need-an-effect": "warn",
     "no-underscore-dangle": 0,
     "import/extensions": [
       "error",

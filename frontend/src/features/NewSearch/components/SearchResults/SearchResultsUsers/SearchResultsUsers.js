@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { SearchResults } from "@/pages";
-import { getSearchQuery } from "../../../utils/getSearchQuery";
+import { useSearchQuery } from "../../../hooks/useSearchQuery";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { searchUsers } from "@/store";
 import { NoResults } from "../NoResults";
 import { UserResult } from "./UserResult";
 import { UserResultType } from "./UserResultType";
 
 export const SearchResultsUsers = ({ searchbarRef }) => {
-  const dispatch = useDispatch();
-  const users = useSelector((state) => Object.values(state.search.users));
-  const query = getSearchQuery();
+  const dispatch = useAppDispatch();
+  const users = useAppSelector((state) => Object.values(state.search.users));
+  const query = useSearchQuery();
 
   const [isLoading, setIsLoading] = useState(false);
 

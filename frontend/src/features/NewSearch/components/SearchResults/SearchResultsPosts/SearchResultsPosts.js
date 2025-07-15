@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SearchResults } from "@/pages";
-import { getSearchQuery } from "../../../utils/getSearchQuery";
-import { useDispatch, useSelector } from "react-redux";
+import { useSearchQuery } from "../../../hooks/useSearchQuery";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { searchCommunities, searchPosts, searchUsers } from "@/store";
 import { SearchResultsSortBtn } from "../SearchResultsSorting/SearchResultsSort";
 import { PostResult } from "./PostResult";
@@ -16,18 +16,18 @@ import { sortPosts } from "utils";
 import { sortPostResults } from "features/NewSearch/utils/sortPostResults";
 
 export const SearchResultsPosts = ({ searchbarRef }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const rawPosts = useSelector((s) => Object.values(s.search.posts));
-  const communities = useSelector((state) =>
+  const rawPosts = useAppSelector((s) => Object.values(s.search.posts));
+  const communities = useAppSelector((state) =>
     Object.values(state.search.communities)
   );
-  const users = useSelector((state) => Object.values(state.search.users));
+  const users = useAppSelector((state) => Object.values(state.search.users));
 
   const [sortMode, setSortMode] = useState("Top");
   const [isLoading, setIsLoading] = useState(true);
 
-  let query = getSearchQuery();
+  let query = useSearchQuery();
 
   useEffect(() => {
     let cleanQuery = stripHtml(query);

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useHistory } from "react-router-dom";
 import { getCommunities } from "@/store";
 import { useOutsideClick } from "@/hooks";
@@ -15,10 +15,10 @@ export function SearchDropdown({
   },
 }) {
   const wrapperRef = useRef(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
-  const allCommunities = useSelector((state) => state.communities);
-  const allUsers = useSelector((state) => state.users);
+  const allCommunities = useAppSelector((state) => state.communities);
+  const allUsers = useAppSelector((state) => state.users);
 
   useEffect(() => {
     dispatch(getCommunities());

@@ -1,22 +1,23 @@
 import { useCallback, useEffect, useState, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import {
   getFollowers,
   getUserFollowers,
   createChatThread,
   getUserChatThreads,
 } from "@/store";
-import { SelectedChatContext } from "@/context";
-import { OpenChatContext } from "context/OpenChatContext";
+import { useSelectedChat } from "@/context";
+import { useOpenChat } from "context/OpenChatContext";
 
 /**
  * Business / side-effect layer for UserProfile “about” box.
  * No JSX, no class names — only data + handlers.
  */
 export function useUserProfileAboutBox({ user, currentUser }) {
-  const dispatch = useDispatch();
-  const { setSelectedChat } = useContext(SelectedChatContext);
-  const { setOpenChat } = useContext(OpenChatContext);
+  const dispatch = useAppDispatch();
+  const { setSelectedChat } = useSelectedChat();
+
+  const { setOpenChat } = useOpenChat();
 
   /* ───────── local UI state ───────── */
   const [showFollowersModal, setShowFollowersModal] = useState(false);
@@ -25,9 +26,9 @@ export function useUserProfileAboutBox({ user, currentUser }) {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   /* ───────── redux state ───────── */
-  const followers = useSelector((s) => s.followers.followers);
-  const follows = useSelector((s) => s.followers.follows);
-  const threads = useSelector((s) => Object.values(s.chatThreads));
+  const followers = useAppSelector((s) => s.followers.followers);
+  const follows = useAppSelector((s) => s.followers.follows);
+  const threads = useAppSelector((s) => Object.values(s.chatThreads));
 
   /* ───────── derived flags / numbers ───────── */
   const isMe = currentUser?.id === user?.id;

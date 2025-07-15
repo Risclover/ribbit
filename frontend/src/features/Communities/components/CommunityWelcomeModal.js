@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 
 export function CommunityWelcomeModal({
   showWelcomeModal,
@@ -8,7 +8,7 @@ export function CommunityWelcomeModal({
 }) {
   const history = useHistory();
 
-  const singleCommunity = useSelector((state) =>
+  const singleCommunity = useAppSelector((state) =>
     Object.values(state.singleCommunity)
   );
 

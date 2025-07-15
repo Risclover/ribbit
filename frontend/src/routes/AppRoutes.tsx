@@ -27,7 +27,7 @@ import {
   UpdatePost,
   LoginSignupModal,
 } from "@/features";
-import ChatPage from "pages/ChatPage";
+import { ChatPage } from "pages/ChatPage";
 
 export const AppRoutes = ({ user, postType, setPostType, searchbarRef }) => {
   return (

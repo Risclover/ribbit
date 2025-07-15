@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { NavLink } from "react-router-dom";
 import { IoIosMore } from "react-icons/io";
 import { IoChatbox } from "react-icons/io5";
@@ -16,8 +16,8 @@ import { FollowerIcon, CommentReplyIcon } from "@/assets";
  * - onClick: Either an empty function that returns, or setShowDropdown(false) (to close the Notifications dropdown menu)
  */
 export function Notification({ notification, onClick }) {
-  const dispatch = useDispatch();
-  const users = useSelector((state) => state.users);
+  const dispatch = useAppDispatch();
+  const users = useAppSelector((state) => state.users);
   const actor = users[notification?.actorId];
 
   const [notificationMenu, setNotificationMenu] = useState(false);

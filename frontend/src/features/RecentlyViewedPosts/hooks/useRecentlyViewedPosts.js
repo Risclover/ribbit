@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { removeViewedPosts } from "@/store";
 import { getViewedPosts } from "@/store";
 
 export function useRecentlyViewedPosts() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 

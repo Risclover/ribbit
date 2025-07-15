@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import { ribbitLogos } from "@/assets";
@@ -9,7 +9,7 @@ const preloadImage = (src) => {
   img.src = src;
 };
 
-export const RandomLogo = ({ logos }) => {
+export const RandomLogo = () => {
   const [currentImage, setCurrentImage] = useState("");
   const [currentEmotion, setCurrentEmotion] = useState("");
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1070);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { CommunitySelectionDropdown, CommunitySelectionInput } from ".";
 import { useOutsideClick } from "@/hooks";
 import "./CommunitySelection.css";
@@ -15,9 +15,9 @@ export function CommunitySelection({
   const [showDropdown, setShowDropdown] = useState(false);
   const [inputState, setInputState] = useState("choose");
 
-  const communities = useSelector((s) => s.communities);
-  const subscriptions = useSelector((s) => s.subscriptions);
-  const allCommunities = useSelector((s) => s.communities);
+  const communities = useAppSelector((s) => s.communities);
+  const subscriptions = useAppSelector((s) => s.subscriptions);
+  const allCommunities = useAppSelector((s) => s.communities);
 
   useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
@@ -60,7 +60,6 @@ export function CommunitySelection({
 
       {showDropdown && (
         <CommunitySelectionDropdown
-          setCommunityModalOpen={() => {}}
           communityList={communityList}
           search={search}
           setSearch={setSearch}

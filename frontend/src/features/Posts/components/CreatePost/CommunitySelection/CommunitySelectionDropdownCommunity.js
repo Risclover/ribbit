@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { NavLink, useHistory } from "react-router-dom";
 import { CommunityImg } from "@/components/CommunityImg";
 import "./CommunitySelection.css";
@@ -13,7 +13,7 @@ export function CommunitySelectionDropdownCommunity({
   setInputState,
 }) {
   const history = useHistory();
-  const allCommunities = useSelector((state) =>
+  const allCommunities = useAppSelector((state) =>
     Object.values(state.communities)
   );
 

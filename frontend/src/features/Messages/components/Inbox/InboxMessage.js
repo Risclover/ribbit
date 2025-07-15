@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
 import { MessageReply } from "../MessageReply";
+import { useInbox } from "../../hooks/useInbox";
 
 export function InboxMessage({ item, message, currentUser, expanded }) {
   const { handleRead, markedUnread, setMarkedUnread } = useInbox({ message });

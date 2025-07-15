@@ -1,21 +1,31 @@
 import { useEffect, useState } from "react";
 
+/** Narrow navigator when UA-CH is present */
+type NavigatorWithUAData = Navigator & {
+  userAgentData?: { mobile?: boolean };
+};
+
 /**
  * Detects a “mobile context”:
- *   • real mobile device  …… (hover:none && pointer:coarse)  OR UA hint
- *   • small viewport size …… max-width ≤ breakpoint
+ *   • real mobile device  …… (hover:none && pointer:coarse) **or** UA-CH hint
+ *   • small viewport size …… `max-width ≤ breakpoint`
  *
- * @param breakpoint – width in px that counts as “mobile sized”
+ * @param breakpoint – width in px that counts as “mobile sized” (default 768)
  */
-export function useIsMobile(breakpoint = 768) {
-  // ---------- initial guess ----------
+export function useIsMobile(breakpoint = 768): boolean {
+  /* ---------- initial guess ---------- */
+
+  const nav = navigator as NavigatorWithUAData;
+
   const mobileUA =
-    !!navigator.userAgentData?.mobile ||
-    /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    !!nav.userAgentData?.mobile ||
+    /Mobi|Android|iPhone|iPad|iPod/i.test(nav.userAgent);
 
   const smallViewport = window.innerWidth <= breakpoint;
 
   const [isMobile, setIsMobile] = useState(mobileUA || smallViewport);
+
+  /* ---------- responsive updates ---------- */
 
   useEffect(() => {
     const mqTouch = window.matchMedia("(hover: none) and (pointer: coarse)");
@@ -23,8 +33,7 @@ export function useIsMobile(breakpoint = 768) {
 
     const update = () => setIsMobile(mqTouch.matches || mqWidth.matches);
 
-    // run once & subscribe
-    update();
+    update(); // run immediately
     mqTouch.addEventListener("change", update);
     mqWidth.addEventListener("change", update);
 

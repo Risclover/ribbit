@@ -8,12 +8,12 @@ import { CommunityImg } from "@/components/CommunityImg";
 import { PostTypeLinkIcon } from "@/assets/icons/PostTypeLinkIcon";
 import { Skeleton } from "@mui/material";
 import { useDarkMode } from "@/hooks";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { useIsMobile } from "hooks/useIsMobile";
 
 const PostResult = ({ post }) => {
   const history = useHistory();
-  const community = useSelector(
+  const community = useAppSelector(
     (state) => state.communities[post?.community?.id]
   );
   const { metadata, fetchMetadata } = useMetadata();

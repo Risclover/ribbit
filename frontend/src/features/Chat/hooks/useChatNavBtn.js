@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { SelectedChatContext } from "@/context";
+import { useAppSelector } from "@/store";
+import { useSelectedChat } from "@/context";
 
 export function useChatNavBtn({ chatThread }) {
-  const { selectedChat } = useContext(SelectedChatContext);
-  const currentUser = useSelector((state) => state.session.user);
+  const { selectedChat } = useSelectedChat();
+
+  const currentUser = useAppSelector((state) => state.session.user);
   const [time, setTime] = useState("");
 
   const isActive = selectedChat?.id === chatThread.id;

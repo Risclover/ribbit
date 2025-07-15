@@ -937,6 +937,10 @@
   margin-right: 16px;
   visibility: hidden;
   cursor: pointer;
+  border: 0;
+  width: auto;
+  height: auto;
+  padding: 0;
 }
 
 .search-close-icon svg {

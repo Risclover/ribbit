@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import {
   updateRule,
   getCommunityRules,
@@ -18,7 +18,7 @@ export function EditCommunityRule({
   communityId,
   rule,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const wrapperRef = useRef(null);
 
   // useFocusTrap(showEditRuleModal, wrapperRef);
@@ -29,8 +29,10 @@ export function EditCommunityRule({
   const [titleError, setTitleError] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const community = useSelector((state) => state.singleCommunity[communityId]);
-  const rules = useSelector((state) => Object.values(state.rules));
+  const community = useAppSelector(
+    (state) => state.singleCommunity[communityId]
+  );
+  const rules = useAppSelector((state) => Object.values(state.rules));
 
   useEffect(() => {
     // 1) If the title is empty, disable the form

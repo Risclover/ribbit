@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { SearchResults } from "@/pages";
-import { getSearchQuery } from "../../../utils/getSearchQuery";
+import { useSearchQuery } from "../../../hooks/useSearchQuery";
 import { SearchResultsSortBtn } from "../SearchResultsSorting/SearchResultsSort";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { getPosts, searchComments } from "@/store";
 import { CommentResult } from "./CommentResult";
 import { NoResults } from "../NoResults";
@@ -11,10 +11,10 @@ import CommentResultType from "./CommentResultType";
 import { sortCommentResults } from "features/NewSearch/utils/sortCommentResults";
 
 export function SearchResultsComments({ searchbarRef }) {
-  const dispatch = useDispatch();
-  const query = getSearchQuery();
+  const dispatch = useAppDispatch();
+  const query = useSearchQuery();
 
-  const rawComments = useSelector((s) => Object.values(s.search.comments));
+  const rawComments = useAppSelector((s) => Object.values(s.search.comments));
 
   const [sortMode, setSortMode] = useState("Top");
   const [isLoading, setIsLoading] = useState(false);

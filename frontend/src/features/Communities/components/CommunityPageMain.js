@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { CommunityPosts, CommunityInfoBox, CommunityRulesBox } from "../..";
 import { BackToTop } from "@/components";
 import {
@@ -9,11 +9,13 @@ import {
 } from "@/layouts";
 
 export function CommunityPageMain({ community }) {
-  const communities = useSelector((state) => Object.values(state.communities));
+  const communities = useAppSelector((state) =>
+    Object.values(state.communities)
+  );
   const communityPosts = Object.values(
     communities[community.id].communityPosts
   );
-  const user = useSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.session.user);
 
   useEffect(() => {
     console.log(communityPosts);

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { NavLink } from "react-router-dom";
 import { PostFormatContext } from "@/context";
 import {
@@ -19,9 +19,9 @@ export const OldSinglePost = ({
   post,
   handleCommentsButtonClick,
 }) => {
-  const cuser = useSelector((state) => state.session.user);
-  const user = useSelector((state) => state.users?.[cuser?.id]);
-  const community = useSelector(
+  const cuser = useAppSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.users?.[cuser?.id]);
+  const community = useAppSelector(
     (state) => state.communities?.[post?.community.id]
   );
   const { format, setFormat } = useContext(PostFormatContext);

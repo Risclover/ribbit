@@ -1,14 +1,23 @@
-import React, { createContext, useRef } from "react";
+import { createContext, useRef, ReactNode, RefObject } from "react";
 
-export const ScrollContext = createContext();
+interface ScrollContextValue {
+  targetRef: RefObject<HTMLDivElement>;
+  scrollToTarget: () => void;
+}
 
-export const ScrollProvider = ({ children }) => {
-  const targetRef = useRef(null);
+export const ScrollContext = createContext<ScrollContextValue | undefined>(
+  undefined
+);
+
+interface ScrollProviderProps {
+  children: ReactNode;
+}
+
+export const ScrollProvider = ({ children }: ScrollProviderProps) => {
+  const targetRef = useRef<HTMLDivElement>(null);
 
   const scrollToTarget = () => {
-    if (targetRef.current) {
-      targetRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    targetRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -17,4 +26,3 @@ export const ScrollProvider = ({ children }) => {
     </ScrollContext.Provider>
   );
 };
-

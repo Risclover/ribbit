@@ -1,13 +1,33 @@
-import React, { useState } from "react";
+import {
+  createContext,
+  useState,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
-export const PostFormatContext = React.createContext({ format: "Card" });
-
-export default function PostFormatProvider() {
-  return <div>PostFormat</div>;
+export interface PostFormatContextType {
+  format: string;
+  setFormat: Dispatch<SetStateAction<string>>;
 }
 
-export const PostFormat = () => {
-  const [format, setFormat] = useState(
+export const PostFormatContext = createContext<PostFormatContextType>({
+  format: "Card",
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setFormat: () => {}, // stub will be replaced by Provider
+});
+
+interface PostFormatProviderProps {
+  children: ReactNode;
+}
+
+/**
+ * PostFormatProvider keeps the selected post-list format (“Card”, “Compact” …)
+ * in React state and exposes it via context. The initial value comes from
+ * localStorage so the user’s last choice survives a page refresh.
+ */
+export const PostFormatProvider = ({ children }: PostFormatProviderProps) => {
+  const [format, setFormat] = useState<string>(
     localStorage.getItem("selectedPostFormat") || "Card"
   );
 
@@ -17,3 +37,5 @@ export const PostFormat = () => {
     </PostFormatContext.Provider>
   );
 };
+
+export default PostFormatProvider;

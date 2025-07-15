@@ -1,10 +1,10 @@
-import { OpenChatContext } from "context/OpenChatContext";
+import { useOpenChat } from "context/OpenChatContext";
 import { useContext } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 
 export function useChatMinimized({ setMinimizeChat }) {
-  const chatThreads = useSelector((state) => state.chatThreads);
-  const { setOpenChat } = useContext(OpenChatContext);
+  const chatThreads = useAppSelector((state) => state.chatThreads);
+  const { setOpenChat } = useOpenChat();
   const sortedThreads = Object.values(chatThreads).sort((a, b) => {
     const aMessages = a.messages;
     const bMessages = b.messages;

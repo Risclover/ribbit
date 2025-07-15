@@ -1,15 +1,15 @@
 // src/features/notifications/hooks/useNotificationsDropdown.js
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/store";
 import { readAllNotifications } from "@/store";
 import { groupAndSortNotifications } from "../utils";
 import { useEffect } from "react";
 import { getUsers } from "store";
 
 export function useNotificationsDropdown() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // Pull notifications from Redux state
-  const notifications = useSelector((state) =>
+  const notifications = useAppSelector((state) =>
     Object.values(state.notifications)
   );
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { useHistory } from "react-router-dom";
 import { DeletePostModal } from "../DeletePost";
 import { Modal, ScrollContext } from "@/context";
@@ -15,7 +15,7 @@ export function SinglePostButtonBar({
   user,
   handleCommentsButtonClick,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   const { scrollToTarget } = useContext(ScrollContext);

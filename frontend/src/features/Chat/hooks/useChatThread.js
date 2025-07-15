@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SelectedChatContext } from "@/context";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { useSelectedChat } from "@/context";
 import { getUserChatThreads } from "@/store";
 
 export function useChatThread({
@@ -9,14 +9,14 @@ export function useChatThread({
   setMessages,
   prevScrollHeightRef,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const currentUser = useSelector((state) => state.session.user);
-  const reactions = useSelector((state) => state.reactions);
-  const chatThreads = useSelector((state) => state.chatThreads);
-  const user = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
+  const reactions = useAppSelector((state) => state.reactions);
+  const chatThreads = useAppSelector((state) => state.chatThreads);
+  const user = useAppSelector((state) => state.session.user);
 
-  const { selectedChat, setSelectedChat } = useContext(SelectedChatContext);
+  const { selectedChat, setSelectedChat } = useSelectedChat();
 
   const [receiver, setReceiver] = useState(null);
 

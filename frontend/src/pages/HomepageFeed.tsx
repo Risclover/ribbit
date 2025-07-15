@@ -1,100 +1,88 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
+import { usePageSettings } from "@/hooks";
 import {
   BackToTop,
   CreatePostBar,
-  PostFeed,
   FeedRightColContainer,
   NoPostsMessage,
-} from "../components";
-import { FeedContainer, FeedLeftColContainer } from "../layouts";
-import { AboutBox, DeveloperLinksBox, RecentlyViewedPosts } from "../features";
-import { usePageSettings } from "../hooks";
-import { usePosts } from "../features/Posts/hooks/usePosts";
-
-import "../features/Posts/Posts.css";
+  PostFeed,
+} from "@/components";
+import { FeedContainer, FeedLeftColContainer } from "@/layouts";
+import { AboutBox, DeveloperLinksBox, RecentlyViewedPosts } from "@/features";
 import { HomeIcon } from "@/assets";
-import { useDispatch, useSelector } from "react-redux";
-import { getSubscriptions } from "store";
-import { getFollowedPosts } from "store";
-import { getPosts } from "store";
-import { getUserFollowers } from "store";
+import { useAppDispatch, useAppSelector, RootState } from "@/store";
+import { usePosts } from "@/features/Posts/hooks/usePosts";
+import { SortKey } from "@/components/SortingBar/SortingBar";
 
-export function HomepageFeed() {
-  const dispatch = useDispatch();
-  const subscriptions = useSelector((state) =>
-    Object.values(state.subscriptions)
-  );
-  const followerPosts = useSelector((state) =>
-    Object.values(state.followers.posts)
-  );
+import "@/features/Posts/Posts.css";
+
+/* ---------- selector + types ---------- */
+const selectSubscriptions = (s: RootState) => Object.values(s.subscriptions);
+type Subscriptions = ReturnType<typeof selectSubscriptions>;
+type ViewedPosts = Record<string, unknown[]>;
+
+/* ---------- component ---------- */
+export function HomepageFeed(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const subscriptions: Subscriptions = useAppSelector(selectSubscriptions);
+  const followerPosts = useAppSelector((s) => Object.values(s.followers.posts));
 
   const { sortedPosts, sortMode, setSortMode, user, viewedPosts } =
     usePosts(false);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   let cancelled = false;
-
-  //   const fetchPosts = async () => {
-  //     setIsLoading(true); // skeletons visible immediately
-  //     try {
-  //       await dispatch(getSubscriptions());
-  //       await dispatch(getUserFollowers(user.id));
-  //     } finally {
-  //       if (!cancelled) setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchPosts();
-  //   return () => {
-  //     cancelled = true;
-  //   };
-  // }, [dispatch]);
-
+  /* highlight colour */
   document.documentElement.style.setProperty(
     "--community-highlight",
     "var(--highlight-color)"
   );
 
+  /* page-meta */
   usePageSettings({
     documentTitle: "Ribbit - Splash into anything",
     icon: <HomeIcon />,
     pageTitle: "Home",
   });
 
+  /* ---------- render ---------- */
   return (
     <FeedContainer>
       <FeedLeftColContainer>
-        <CreatePostBar />
+        <CreatePostBar isCommunityPage={false} />
+
         {!isLoading &&
         subscriptions.length === 0 &&
         followerPosts.length === 0 ? (
-          <NoPostsMessage />
+          <NoPostsMessage type="homepage" />
         ) : (
-          <>
-            {sortedPosts && sortedPosts.length > 0 && (
-              <PostFeed
-                isPage="feedpage"
-                posts={sortedPosts}
-                sortMode={sortMode}
-                setSortMode={setSortMode}
-              />
-            )}
-          </>
+          sortedPosts.length > 0 && (
+            <PostFeed
+              posts={sortedPosts}
+              /* ✨ cast to the stricter union type expected by PostFeed */
+              sortMode={sortMode as SortKey}
+              setSortMode={setSortMode as (m: SortKey) => void}
+              isPage="feedpage"
+              community={undefined}
+              pageType="home"
+              user={user}
+            />
+          )
         )}
       </FeedLeftColContainer>
+
       <FeedRightColContainer>
         <AboutBox
           title="Home"
-          description="Your personal Ribbit frontpage. Come here to check in with your favorite communities."
+          description="Your personal Ribbit front-page. Come here to check in with your favourite communities."
           user={user}
         />
+
         {viewedPosts &&
-          Object.values(viewedPosts).flatMap((post) => post).length > 0 && (
-            <RecentlyViewedPosts />
-          )}
+          Object.values(viewedPosts as ViewedPosts).flatMap((p) => p).length >
+            0 && <RecentlyViewedPosts />}
+
         <div className="last-box-wrapper">
           <DeveloperLinksBox />
           <BackToTop />

@@ -1,5 +1,13 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware,
+  compose,
+  PreloadedState,
+} from "redux";
+import thunk, { ThunkDispatch } from "redux-thunk";
+
+/* ─── Slice reducers ───────────────────────────────────────────────────── */
 import session from "./session";
 import singlePostReducer from "./one_post";
 import postsReducer from "./posts";
@@ -13,7 +21,7 @@ import searchReducer from "./search";
 import rulesReducer from "./rules";
 import followersReducer from "./followers";
 import favoriteCommunitiesReducer from "./favorite_communities";
-import favoriteUsersReducer from "./favorite_users.js";
+import favoriteUsersReducer from "./favorite_users";
 import viewedPostsReducer from "./viewed_posts";
 import threadsReducer from "./threads";
 import messagesReducer from "./messages";
@@ -21,8 +29,10 @@ import notificationsReducer from "./notifications";
 import chatThreadReducer from "./chats";
 import communitySettingsReducer from "./community_settings";
 import reactionsReducer from "./reactions";
+import chat2Reducer from "./chats2";
 
-const rootReducer = combineReducers({
+/* ─── Root reducer ─────────────────────────────────────────────────────── */
+export const rootReducer = combineReducers({
   session,
   users: usersReducer,
   singlePost: singlePostReducer,
@@ -44,30 +54,40 @@ const rootReducer = combineReducers({
   chatThreads: chatThreadReducer,
   communitySettings: communitySettingsReducer,
   reactions: reactionsReducer,
+  chat2: chat2Reducer,
 });
 
+/* ─── Middleware / enhancers ───────────────────────────────────────────── */
+const baseMiddleware = [thunk];
 let enhancer;
 
 if (process.env.NODE_ENV === "production") {
-  enhancer = applyMiddleware(thunk);
+  enhancer = applyMiddleware(...baseMiddleware);
 } else {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const logger = require("redux-logger").default;
   const composeEnhancers =
     (typeof window !== "undefined" &&
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore  Redux-devtools global
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?.({
         trace: true,
         traceLimit: 25,
       })) ||
     compose;
 
-  enhancer = composeEnhancers(applyMiddleware(thunk, logger));
+  enhancer = composeEnhancers(applyMiddleware(...baseMiddleware, logger));
 }
 
-export const configureStore = (preloadedState) => {
-  return createStore(rootReducer, preloadedState, enhancer);
-};
+/* ─── Store creator ─────────────────────────────────────────────────────── */
+export const configureStore = (preloadedState?: PreloadedState<RootState>) =>
+  createStore(rootReducer, preloadedState, enhancer);
 
+/* ─── Helpful types ─────────────────────────────────────────────────────── */
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = ThunkDispatch<RootState, unknown, any>;
+
+/* ─── Barrel re-exports ─────────────────────────────────────────────────── */
 export * from "./chats";
 export * from "./comments";
 export * from "./communities";
@@ -89,3 +109,6 @@ export * from "./subscriptions";
 export * from "./threads";
 export * from "./users";
 export * from "./viewed_posts";
+export * from "./compositeThunks";
+export * from "./chats2";
+export { useAppSelector, useAppDispatch } from "./hooks";

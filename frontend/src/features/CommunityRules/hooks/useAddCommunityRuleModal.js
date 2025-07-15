@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useHistory } from "react-router-dom";
 import { getCommunityRules } from "@/store";
 
 export default function useAddCommunityRuleModal({ communityId }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   const [title, setTitle] = useState("");
@@ -15,7 +15,7 @@ export default function useAddCommunityRuleModal({ communityId }) {
     title?.length === 0 || errors.length > 0
   );
 
-  const rules = useSelector((state) => Object.values(state.rules));
+  const rules = useAppSelector((state) => Object.values(state.rules));
 
   useEffect(() => {
     dispatch(getCommunityRules(communityId));

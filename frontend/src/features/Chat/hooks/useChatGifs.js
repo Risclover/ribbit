@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 import { createChatMessage, getChatThread } from "@/store";
 
@@ -18,7 +18,7 @@ export function useChatGifs({
   setOffset,
   setResults,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const loadTrending = useCallback(async () => {
     setResults([]);

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SelectedChatContext } from "@/context";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { useSelectedChat } from "@/context";
 import { createChatMessage, getChatThread, createChatThread } from "@/store";
 import { liveChatIcons } from "@/assets";
 
@@ -14,11 +14,11 @@ export function useChatInput({
   inputText,
   socket,
 }) {
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.session.user);
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.session.user);
 
   const { selectedChat, setSelectedChat, setPendingReceiver } =
-    useContext(SelectedChatContext);
+    useSelectedChat();
 
   const [openGiphy, setOpenGiphy] = useState(false);
   const [gifIcon, setGifIcon] = useState(liveChatIcons.GifIcon);

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { NavLink } from "react-router-dom";
 
 import { getCommunities } from "@/store";
@@ -8,9 +8,11 @@ import { v4 as uuidv4 } from "uuid";
 import "./CommunitiesDirectory.css";
 
 export function CommunitiesDirectory() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const communities = useSelector((state) => Object.values(state.communities));
+  const communities = useAppSelector((state) =>
+    Object.values(state.communities)
+  );
 
   useEffect(() => {
     dispatch(getCommunities());

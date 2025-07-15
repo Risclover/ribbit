@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ToggleSwitch, DropBox } from "@/components";
 import { CommunityNameOption } from "./CommunityNameOption";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { updateSettingsNameIcon } from "@/store";
 import { getCommunitySettings } from "@/store";
 import { getCommunities } from "@/store";
@@ -25,7 +25,7 @@ export function PreviewCommunityNameIcon({ setOpenAppearance, settingsState }) {
   } = settingsState;
 
   const options = ["c/", "", "Hide"];
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // We'll track a local file for the icon
   const [iconFile, setIconFile] = useState(null);

@@ -19,6 +19,7 @@ export { CreatePostIcon } from "./CreatePostIcon";
 export { DownvoteIcon } from "./DownvoteIcon";
 export { FollowerIcon } from "./FollowerIcon";
 export { GifIcon } from "./GifIcon";
+export { HamburgerMenuIcon } from "./HamburgerMenuIcon";
 export { HomeIcon } from "./HomeIcon";
 export { InfoIcon } from "./InfoIcon";
 export { KarmaIcon } from "./KarmaIcon";

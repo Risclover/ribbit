@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { FaPen } from "react-icons/fa";
 import { getCommunities, updateCommunity } from "@/store";
 import { useOutsideClick, useAutosizeTextArea } from "@/hooks";
@@ -9,11 +9,11 @@ export function CommunityDescription({ community, user, isPage }) {
   const textareaRef = useRef(null);
   const wrapperRef = useRef(null);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [showEditDescription, setShowEditDescription] = useState(false);
   const [description, setDescription] = useState(community.description);
 
-  const singleCommunity = useSelector(
+  const singleCommunity = useAppSelector(
     (state) => state.communities[community.id]
   );
 

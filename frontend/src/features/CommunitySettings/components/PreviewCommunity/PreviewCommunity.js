@@ -1,7 +1,6 @@
-// src/features/CommunitySettings/components/PreviewCommunity.jsx
 import React, { useEffect, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { getPosts, getSubscriptions, getCommunities } from "@/store";
 import {
   CommunityWelcome,
@@ -12,21 +11,25 @@ import {
 } from "@/features";
 import { BackToTop } from "@/components";
 import { PostFormatContext } from "@/context";
-import "../../../Communities/styles/CommunityPage.css";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import "./PreviewCommunity.css";
+import "../../../Communities/styles/CommunityPage.css";
 
 export function PreviewCommunity() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
   const { communityName } = useParams();
   const { format } = useContext(PostFormatContext);
 
   // Global state
-  const user = useSelector((state) => state.session.user);
-  const posts = useSelector((state) => Object.values(state.posts));
-  const communities = useSelector((state) => Object.values(state.communities));
-  const favoriteCommunities = useSelector((state) => state.favoriteCommunities);
+  const user = useAppSelector((state) => state.session.user);
+  const posts = useAppSelector((state) => Object.values(state.posts));
+  const communities = useAppSelector((state) =>
+    Object.values(state.communities)
+  );
+  const favoriteCommunities = useAppSelector(
+    (state) => state.favoriteCommunities
+  );
 
   // Identify the relevant community & ID
   const community = communities?.find((c) => c.name === communityName);

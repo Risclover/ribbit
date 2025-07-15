@@ -7,10 +7,12 @@ import {
 } from "../..";
 import "./Inbox.css";
 import { v4 as uuidv4 } from "uuid";
-import useInbox from "@/features/Messages/hooks/useInbox";
+import { useAppSelector } from "@/store";
+import { useInbox } from "../../hooks/useInbox";
 
 export function Inbox() {
   const { threads, expanded, setExpanded, messageList, messages } = useInbox();
+  const currentUser = useAppSelector((state) => state.current.user);
   return (
     <div className="inbox-messages-page">
       <MessageHead />

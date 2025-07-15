@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { addImagePost, addLinkPost, addPost, addPostVote } from "@/store";
 import {
   CreatePostFormTitle,
@@ -23,7 +23,7 @@ export function CreatePostForm({
 }) {
   const { communityName } = useParams();
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // ---------- persistent draft ----------
   const { draft, updateDraft, clearDraft } = usePostDraft();
@@ -45,7 +45,9 @@ export function CreatePostForm({
   useEffect(() => updateDraft("linkUrl", linkUrl), [linkUrl, updateDraft]);
 
   // ---------- get community id ----------
-  const communities = useSelector((state) => Object.values(state.communities));
+  const communities = useAppSelector((state) =>
+    Object.values(state.communities)
+  );
   useEffect(() => {
     if (communityName) {
       setCommunityId(getIdFromName(communityName, communities));

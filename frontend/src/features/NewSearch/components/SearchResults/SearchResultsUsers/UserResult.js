@@ -1,13 +1,13 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { UserFollowBtn } from "../SearchResultsPosts";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { Skeleton } from "@mui/material";
 import { useDarkMode } from "@/hooks";
 
 const UserResult = ({ user }) => {
   const history = useHistory();
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
 
   return (
     <div onClick={() => history.push(`/users/${user.id}/profile`)}>

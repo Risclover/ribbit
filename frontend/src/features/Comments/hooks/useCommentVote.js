@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useHistory } from "react-router-dom";
 import { removeCommentVote, addCommentVote, getComments } from "@/store";
 
@@ -7,8 +7,8 @@ import { removeCommentVote, addCommentVote, getComments } from "@/store";
  */
 export const useCommentVote = (comment) => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.session.user);
 
   const voter = comment?.commentVoters?.[user?.id]; // vote's user
   const vote = voter ? (voter.isUpvote ? "upvote" : "downvote") : null; // vote type
@@ -26,11 +26,9 @@ export const useCommentVote = (comment) => {
     if (vote === voteType) {
       /* If user clicks vote button that is already active, remove the vote */
       await dispatch(removeCommentVote(comment.id));
-      setVote(null);
     } else {
       /* If not already active, add the vote */
       await dispatch(addCommentVote(comment.id, voteType));
-      setVote(voteType);
     }
     /* Refresh comment data */
     dispatch(getComments(comment.postId));

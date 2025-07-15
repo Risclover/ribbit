@@ -1,16 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { useHistory } from "react-router-dom";
 import { Username } from "@/components";
 import { CommunityImg } from "@/components/CommunityImg";
 
 export function CommentResult({ comment }) {
   const history = useHistory();
-  const posts = useSelector((state) => Object.values(state.posts));
+  const posts = useAppSelector((state) => Object.values(state.posts));
   const post = posts.find((post) => post.id === comment.postId);
-  const community = useSelector(
+  const community = useAppSelector(
     (state) => state.communities[post?.community?.id]
   );
 

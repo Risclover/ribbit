@@ -1,10 +1,10 @@
 import { useEffect, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useParams } from "react-router-dom";
 
 import { getCommunities, getCommunitySettings, getPosts } from "@/store";
 import { getIdFromName } from "@/utils/getCommunityIdFromName";
-import { PageTitleContext } from "@/context";
+import { usePageTitle } from "@/context";
 import { CommunityImg } from "@/components/CommunityImg";
 import Skeleton from "@mui/material/Skeleton";
 import { useDarkMode } from "@/hooks";
@@ -19,13 +19,13 @@ import { useDarkMode } from "@/hooks";
 export function useCommunityPage() {
   const { theme } = useDarkMode();
   const { communityName } = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { setPageTitle, setPageIcon } = useContext(PageTitleContext);
+  const { setPageTitle, setPageIcon } = usePageTitle();
 
-  const communities = useSelector((state) => state.communities);
-  const user = useSelector((state) => state.session.user);
-  const posts = useSelector((state) => Object.values(state.posts));
+  const communities = useAppSelector((state) => state.communities);
+  const user = useAppSelector((state) => state.session.user);
+  const posts = useAppSelector((state) => Object.values(state.posts));
 
   // 1) Derive communityId from the name
   const communityId = getIdFromName(communityName, communities);

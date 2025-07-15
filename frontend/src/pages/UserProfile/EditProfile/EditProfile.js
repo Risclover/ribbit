@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useHistory } from "react-router-dom";
 import { editProfile, getUsers } from "@/store";
 import { usePageSettings } from "@/hooks/usePageSettings";
@@ -7,10 +7,10 @@ import "./EditProfile.css";
 import { useIsMobile } from "hooks/useIsMobile";
 
 export function EditProfile() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
-  const user1 = useSelector((state) => state.session.user);
-  const user = useSelector((state) => state.users[user1.id]);
+  const user1 = useAppSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.users[user1.id]);
 
   const [display_name, setdisplay_name] = useState(user?.displayName);
   const [about, setAbout] = useState(user?.about);

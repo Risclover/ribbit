@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import moment from "moment";
 import { readMessage, getMessages } from "@/store";
 import { MessageReply } from "./MessageReply";
 
 export function Message({ message, item, allExpanded }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
   const [expanded, setExpanded] = useState(true);
   const [markedUnread, setMarkedUnread] = useState(false);
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
 
   useEffect(() => {
     if (!currentUser) history.redirect("/login");

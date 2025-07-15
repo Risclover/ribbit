@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 
 export const useSortedChatThreads = () => {
-  const chatThreads = useSelector((state) => state.chatThreads);
+  const chatThreads = useAppSelector((state) => state.chatThreads);
 
   const sortedChatThreads = useMemo(() => {
     return Object.values(chatThreads).sort((a, b) => {

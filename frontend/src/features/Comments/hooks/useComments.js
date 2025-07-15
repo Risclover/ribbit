@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useParams } from "react-router-dom";
 import { ScrollContext } from "@/context";
 import { getCommentsForPost } from "@/store";
@@ -10,14 +10,14 @@ import { sortComments } from "../utils/sortComments";
  * Logic for Comments component
  */
 export function useComments({ post, triggerScroll, setTriggerScroll }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const inputRef = useRef();
   const { postId } = useParams();
   const { targetRef } = useContext(ScrollContext);
 
   const url = window.location.href;
 
-  const commentsState = useSelector((state) => state.comments);
+  const commentsState = useAppSelector((state) => state.comments);
   const commentsArray = Object.values(commentsState);
 
   const [sortType, setSortType] = useState("Top");

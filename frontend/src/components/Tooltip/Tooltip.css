@@ -1,4 +1,4 @@
-.tooltip-up {
+.tooltip-top {
   width: 210px;
   white-space: normal;
   text-align: center;
@@ -15,7 +15,7 @@
   font-weight: 500;
 }
 
-/* .tooltip-up:after {
+/* .tooltip-top:after {
 
   border-bottom: 3px solid #000;
   border-top: none;
@@ -23,7 +23,7 @@
   top: auto;
 } */
 
-.tooltip-up::after {
+.tooltip-top::after {
   content: "";
   position: absolute;
   bottom: 100%;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { getPosts, removeComment, getCommentsForPost } from "@/store";
 
 /**
@@ -11,14 +11,14 @@ export function useCommentBtnBar({
   setCommentContent,
   postId,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const currentUser = useSelector((state) => state.session.user);
-  const post = useSelector((state) => state.posts[postId]);
-  const communities = useSelector((state) => state.communities);
+  const currentUser = useAppSelector((state) => state.session.user);
+  const post = useAppSelector((state) => state.posts[postId]);
+  const communities = useAppSelector((state) => state.communities);
   const communityId = post.community.id;
 
   const isAuthor = comment?.commentAuthor?.id === currentUser?.id;

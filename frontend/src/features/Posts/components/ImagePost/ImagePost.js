@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { useHistory, useParams } from "react-router-dom";
 import { addImagePost } from "@/store";
 import { Modal } from "@/context";
@@ -7,7 +7,7 @@ import { ImagePostForm } from "./ImagePostForm";
 
 export const ImagePost = ({ img_url, setimg_url }) => {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { communityId } = useParams();
 
   const [community_id, setcommunity_id] = useState(+communityId);

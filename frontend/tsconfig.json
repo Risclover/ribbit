@@ -10,7 +10,8 @@
     "isolatedModules": true,
     "noEmit": true, // CRA still emits JS via Babel
     "baseUrl": "src",
-    "paths": { "@/*": ["*"] }
+    "paths": { "@/*": ["*"] },
+    "esModuleInterop": true
   },
   "include": ["src"]
 }

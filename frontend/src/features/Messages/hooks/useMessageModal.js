@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { getMessages } from "@/store";
 import { createThread } from "@/store";
 import { addNotification } from "@/store";
@@ -9,7 +9,7 @@ import { getCommunities } from "@/store";
 import { getThreads } from "@/store";
 
 export default function useMessageModal({ username }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [recipient, setRecipient] = useState(username);
   const [recipientError, setRecipientError] = useState("");
@@ -20,9 +20,11 @@ export default function useMessageModal({ username }) {
   const [messageError, setMessageError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  const allUsers = useSelector((state) => Object.values(state.users));
-  const currentUser = useSelector((state) => state.session.user);
-  const communities = useSelector((state) => Object.values(state.communities));
+  const allUsers = useAppSelector((state) => Object.values(state.users));
+  const currentUser = useAppSelector((state) => state.session.user);
+  const communities = useAppSelector((state) =>
+    Object.values(state.communities)
+  );
 
   useEffect(() => {
     for (let user of allUsers) {

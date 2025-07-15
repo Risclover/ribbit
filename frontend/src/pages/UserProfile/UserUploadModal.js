@@ -21,7 +21,7 @@ export function UserUploadModal({
             ? "user-profile-upload-btn banner-upload-btn"
             : "user-profile-upload-btn"
         }
-        id={uploadType === "banner" ? "sidebar" : ""}
+        // id={uploadType === "banner" ? "sidebar" : ""}
         onClick={() => setShowModal(true)}
         tabIndex={0}
       >

@@ -1,12 +1,13 @@
-import React, { createContext, useState, useContext } from "react";
-import ReactDOM from "react-dom";
+import { createContext, useState, useContext, ReactNode } from "react";
+import { createPortal } from "react-dom";
+import { useScrollLock } from "@/hooks";
 import "./AuthModalContext.css";
-import { useFocusTrap, useScrollLock } from "@/hooks";
 
-const AuthModalContext = createContext();
+const AuthModalContext = createContext<HTMLElement | null>(null);
+export const useAuthModalNode = () => useContext(AuthModalContext);
 
-export function AuthModalProvider({ children }) {
-  const [modalNode, setModalNode] = useState(null);
+export function AuthModalProvider({ children }: { children: ReactNode }) {
+  const [modalNode, setModalNode] = useState<HTMLElement | null>(null);
 
   return (
     <>
@@ -18,8 +19,11 @@ export function AuthModalProvider({ children }) {
   );
 }
 
-export function useAuthModalNode() {
-  return useContext(AuthModalContext);
+interface AuthModalProps {
+  active: boolean;
+  onClose: () => void;
+  formType?: string; // null | 'login' | 'signup' | 'protected' …
+  children: ReactNode;
 }
 
 /**
@@ -27,12 +31,17 @@ export function useAuthModalNode() {
  * - `active` determines if the modal is displayed.
  * - `onClose` is a function to close the modal (click background or close button).
  */
-export function AuthModal({ active, onClose, formType, children }) {
+export function AuthModal({
+  active,
+  onClose,
+  formType,
+  children,
+}: AuthModalProps) {
   const modalNode = useAuthModalNode();
   useScrollLock(active);
   if (!modalNode) return null;
 
-  return ReactDOM.createPortal(
+  return createPortal(
     active ? (
       <div className="auth-modal">
         <div

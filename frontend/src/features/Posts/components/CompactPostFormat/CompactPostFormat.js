@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { HiOutlineExternalLink } from "react-icons/hi";
@@ -21,12 +21,12 @@ import { SinglePostKarmabar } from "../SinglePost";
 
 export function CompactPostFormat({ id, isPage, post }) {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const wrapperRef = useRef(null);
 
-  const user = useSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.session.user);
 
-  const community = useSelector(
+  const community = useAppSelector(
     (state) => state.communities[post?.community.id]
   );
 

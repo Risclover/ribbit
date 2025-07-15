@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { User } from "./User";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useHistory } from "react-router-dom";
 import { getUsers } from "@/store";
 import { UserResultType } from "./UserResultType";
 
 export const UserResultsPreview = ({ query, isLoading }) => {
   const history = useHistory();
-  const users = useSelector((state) => Object.values(state.search.users));
+  const users = useAppSelector((state) => Object.values(state.search.users));
 
   return (
     <div className="search-results-right-box">

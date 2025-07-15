@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { readAllMessages } from "@/store";
 import { MessageHead, MessageContentMenu, InboxMessage } from "../../..";
 import { usePageSettings } from "@/hooks/usePageSettings";
@@ -7,10 +7,10 @@ import "../Inbox/Inbox.css";
 import { v4 as uuidv4 } from "uuid";
 
 export function Unread() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const currentUser = useSelector((state) => state.session.user);
-  const messages = useSelector((state) => Object.values(state.messages));
+  const currentUser = useAppSelector((state) => state.session.user);
+  const messages = useAppSelector((state) => Object.values(state.messages));
   const unreadMsgs = messages.filter((message) => message.read === false);
 
   useEffect(() => {

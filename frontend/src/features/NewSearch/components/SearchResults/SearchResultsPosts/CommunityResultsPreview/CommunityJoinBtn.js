@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import {
   addToSubscriptions,
   deleteSubscription,
@@ -9,11 +9,11 @@ import {
 import { getCommunities } from "@/store";
 
 export function CommunityJoinBtn({ community, isPage }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [subscribed, setSubscribed] = useState(false);
   const [btnWord, setBtnWord] = useState("Joined");
-  const user = useSelector((state) => state.session.user);
-  const subscriptions = useSelector((state) => state.subscriptions);
+  const user = useAppSelector((state) => state.session.user);
+  const subscriptions = useAppSelector((state) => state.subscriptions);
 
   useEffect(() => {
     if (subscriptions[community?.id]) setSubscribed(true);

@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useParams } from "react-router-dom";
 import { getThreads, getUsers, getMessages } from "@/store";
 import { MessageContentMenu, MessageHead, MessageThread } from "../..";
 
 export function Permalink() {
   const { threadId } = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const threads = useSelector((state) => state.threads[+threadId]);
+  const threads = useAppSelector((state) => state.threads[+threadId]);
 
   useEffect(() => {
     dispatch(getMessages());

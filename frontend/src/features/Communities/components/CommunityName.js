@@ -1,12 +1,12 @@
 import React from "react";
 import { CommunitySubscribeBtn } from "./CommunitySubscribeBtn";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store";
 import { useIsMobile } from "hooks/useIsMobile";
 import { CommunityInfoMenu } from "./CommunityInfoBox";
 import { NavLink } from "react-router-dom";
 
 export function CommunityName({ community }) {
-  const user = useSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.session.user);
   const isMobile = useIsMobile();
   return (
     <div className="community-header-info-details-left">

@@ -2,12 +2,12 @@ import { usePostButtonHandlers } from "@/features/Posts/hooks/usePostButtonHandl
 import { useOutsideClick } from "@/hooks";
 import React, { useEffect, useRef, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { useHistory } from "react-router-dom";
 import Bounce from "@/assets/images/misc/curved-arrow.png";
 
 export default function CompactPostMenu({ user, post, isPage, community }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const wrapperRef = useRef(null);
   const history = useHistory();
   const [showSubmenu, setShowSubmenu] = useState(false);

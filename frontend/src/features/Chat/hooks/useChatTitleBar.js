@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { SelectedChatContext } from "@/context";
+import { useAppSelector } from "@/store";
+import { useSelectedChat } from "@/context";
 
 export function useChatTitleBar() {
-  const currentUser = useSelector((state) => state.session.user);
+  const currentUser = useAppSelector((state) => state.session.user);
   const [receiver, setReceiver] = useState(null);
 
-  const { selectedChat, pendingReceiver } = useContext(SelectedChatContext);
+  const { selectedChat, pendingReceiver } = useSelectedChat();
 
   useEffect(() => {
     if (pendingReceiver !== null) {

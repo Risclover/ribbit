@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { SearchResults } from "@/pages";
-import { getSearchQuery } from "../../../utils/getSearchQuery";
+import { useSearchQuery } from "../../../hooks/useSearchQuery";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { searchCommunities } from "@/store";
 import CommunityResultType from "./CommunityResultType";
 
 export const SearchResultsCommunities = ({ searchbarRef }) => {
-  const dispatch = useDispatch();
-  const communities = useSelector((state) =>
+  const dispatch = useAppDispatch();
+  const communities = useAppSelector((state) =>
     Object.values(state.search.communities)
   );
-  const query = getSearchQuery();
+  const query = useSearchQuery();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

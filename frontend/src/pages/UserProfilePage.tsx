@@ -1,76 +1,106 @@
-import React, { useState, useEffect, useContext } from "react";
+import {
+  FC,
+  useState,
+  useEffect,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getPosts, getUsers, getCommunities } from "@/store";
+import Skeleton from "@mui/material/Skeleton";
+
+import {
+  useAppDispatch,
+  useAppSelector,
+  RootState,
+  getPosts,
+  getCommunities,
+} from "@/store";
+
 import { UserOwnedCommunities, UserProfilePosts } from "@/pages";
-import { usePageSettings } from "@/hooks/usePageSettings";
+
 import {
   FeedContainer,
   FeedLeftColContainer,
   FeedRightColContainer,
 } from "@/layouts";
+
 import { PostFormatContext } from "@/context";
-import Skeleton from "@mui/material/Skeleton";
-import { getUser } from "@/store";
+import { usePageSettings } from "@/hooks/usePageSettings";
 import { useDarkMode } from "@/hooks";
+
 import { UserProfileMobile } from "./UserProfile/UserProfileMobile";
 import { UserProfileAboutBox } from "features/Users/components/UserProfileAboutBox/UserProfileAboutBox";
 
-export function UserProfilePage() {
-  const { theme } = useDarkMode();
+/* ───────────────────────── Types ───────────────────────── */
 
-  const dispatch = useDispatch();
-  const { userId } = useParams();
+type SortKey = "new" | "top" | string; // extend if you add more modes
+
+type User = RootState["users"][number];
+type Community = RootState["communities"][number];
+type Post = RootState["posts"][number];
+
+/* ───────────────────────── Component ───────────────────── */
+
+export const UserProfilePage: FC = () => {
+  const { theme } = useDarkMode();
+  const dispatch = useAppDispatch();
+  const { userId } = useParams<{ userId: string }>();
+
+  /* --- global context --- */
   const { setFormat } = useContext(PostFormatContext);
 
-  const [sortMode, setSortMode] = useState("new");
-  const [showAbout, setShowAbout] = useState(false);
+  /* --- local UI state --- */
+  const [sortMode, setSortMode] = useState<SortKey>("new");
+  const [showAbout, setShowAbout] = useState<boolean>(false);
 
-  const user = useSelector((state) => state.users[userId]);
+  /* --- store selectors --- */
+  const user: User | undefined = useAppSelector((s) => s.users[Number(userId)]);
+  const communities = useAppSelector((s) => s.communities);
+  const posts = useAppSelector((s) => Object.values<Post>(s.posts));
+  const currentUser = useAppSelector((s) => s.session.user);
 
-  const communities = useSelector((state) => state.communities);
-  const posts = useSelector((state) => Object.values(state.posts));
-  const currentUser = useSelector((state) => state.session.user);
+  const profilePosts = posts.filter((p) => p?.author?.id === Number(userId));
 
-  const profilePosts = posts.filter((post) => post?.author?.id === +userId);
-
+  /* --- initial fetches / format init --- */
   useEffect(() => {
     if (posts.length === 0) dispatch(getPosts());
     if (Object.keys(communities).length === 0) dispatch(getCommunities());
-    setFormat("Card");
-  }, [dispatch]);
+    setFormat("Card"); // always Card on profile
+  }, [dispatch, posts.length, communities, setFormat]);
 
+  /* --- <head> meta + navbar state --- */
   usePageSettings({
     documentTitle: user
-      ? user?.displayName + " (u/" + user?.username + ") - Ribbit"
-      : "Ribbit - Splash into anything",
-    icon:
-      user !== undefined ? (
-        <img
-          src={user?.profileImg}
-          className="nav-left-dropdown-item-icon item-icon-circle"
-          alt="User"
-        />
-      ) : (
-        <Skeleton
-          variant="circular"
-          animation="wave"
-          width={20}
-          height={20}
-          sx={{ bgcolor: theme === "dark" && "grey.500" }}
-        />
-      ),
-    pageTitle:
-      user !== undefined ? (
-        `u/${user?.username}`
-      ) : (
-        <Skeleton
-          animation="wave"
-          variant="text"
-          sx={{ bgcolor: theme === "dark" && "grey.500" }}
-        />
-      ),
+      ? `${user.displayName} (u/${user.username}) – Ribbit`
+      : "Ribbit – Splash into anything",
+    icon: user ? (
+      <img
+        src={user.profileImg}
+        className="nav-left-dropdown-item-icon item-icon-circle"
+        alt="User avatar"
+      />
+    ) : (
+      <Skeleton
+        animation="wave"
+        variant="circular"
+        width={20}
+        height={20}
+        sx={{ bgcolor: theme === "dark" && "grey.500" }}
+      />
+    ),
+    pageTitle: user ? (
+      `u/${user.username}`
+    ) : (
+      <Skeleton
+        animation="wave"
+        variant="text"
+        sx={{ bgcolor: theme === "dark" && "grey.500" }}
+      />
+    ),
   });
+
+  /* ───────────────────── render ───────────────────── */
 
   return (
     <FeedContainer>
@@ -79,25 +109,26 @@ export function UserProfilePage() {
           <UserProfilePosts
             posts={profilePosts}
             user={user}
-            userId={userId}
             sortMode={sortMode}
-            setSortMode={setSortMode}
+            setSortMode={setSortMode as Dispatch<SetStateAction<SortKey>>}
           />
         </div>
+
+        {/* Mobile variant */}
         <div className="user-profile-mobile">
           <UserProfileMobile
             showAbout={showAbout}
             setShowAbout={setShowAbout}
             communitiesList={Object.values(communities).filter(
-              (community) => community.communityOwner.id === +userId
+              (c: Community) => c.communityOwner.id === Number(userId)
             )}
-            userId={+userId}
             posts={profilePosts}
             sortMode={sortMode}
-            setSortMode={setSortMode}
+            setSortMode={setSortMode as Dispatch<SetStateAction<SortKey>>}
           />
         </div>
       </FeedLeftColContainer>
+
       <FeedRightColContainer>
         <UserProfileAboutBox
           currentUser={currentUser}
@@ -106,16 +137,18 @@ export function UserProfilePage() {
           showAbout={showAbout}
           setShowAbout={setShowAbout}
         />
-        {currentUser?.id === +userId && (
+
+        {currentUser?.id === Number(userId) && (
           <UserOwnedCommunities
             communitiesList={Object.values(communities).filter(
-              (community) => community.communityOwner.id === +userId
+              (c: Community) => c.communityOwner.id === Number(userId)
             )}
-            userId={+userId}
+            userId={Number(userId)}
           />
         )}
       </FeedRightColContainer>
     </FeedContainer>
   );
-}
+};
+
 export default UserProfilePage;

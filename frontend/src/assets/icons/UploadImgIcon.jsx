@@ -4,7 +4,7 @@ export function UploadImgIcon() {
   return (
     <svg
       rpl=""
-      ariaHidden="true"
+      aria-hidden="true"
       fill="currentColor"
       height="16"
       viewBox="0 0 20 20"

@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store";
 import { searchPostComments } from "@/store";
 
 /**
@@ -12,7 +12,7 @@ export function useCommentSearch({
   setSearchQuery,
   post,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleDismiss = (e) => {
     e.preventDefault();

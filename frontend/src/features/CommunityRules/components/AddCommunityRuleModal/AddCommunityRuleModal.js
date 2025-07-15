@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useHistory } from "react-router-dom";
 
 import { createRule, getCommunityRules, getSingleCommunity } from "@/store";
@@ -13,7 +13,7 @@ export function AddCommunityRuleModal({
   communityId,
   communityName,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   // Local states
@@ -24,7 +24,7 @@ export function AddCommunityRuleModal({
   const [disabled, setDisabled] = useState(true);
 
   // Select current rules from Redux
-  const rules = useSelector((state) => Object.values(state.rules));
+  const rules = useAppSelector((state) => Object.values(state.rules));
 
   // Fetch community rules upon component mount or communityId change
   useEffect(() => {
