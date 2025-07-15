@@ -44,12 +44,12 @@ export default function SinglePostAuthorBar({
           </div>
 
           {(format === "Card" || format === "Compact") && (
-            <span
-              onClick={handleNavClick}
+            <NavLink
               className="single-post-community-name"
+              to={`/c/${post?.community?.name}`}
             >
               c/{post?.community?.name}
-            </span>
+            </NavLink>
           )}
 
           <span className="single-post-dot-spacer">•</span>

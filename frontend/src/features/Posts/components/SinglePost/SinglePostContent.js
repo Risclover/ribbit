@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FiLink } from "react-icons/fi";
 import LazyLoad from "react-lazyload";
@@ -60,13 +60,13 @@ export function SinglePostContent({ link, post, isPage }) {
 
   const LinkContent = () =>
     post.linkUrl && (
-      <div
-        onClick={() => window.open(post.linkUrl, "_blank")}
+      <a
+        href={post.linkUrl}
+        target="_blank"
         className={`single-page-content-link${containerMod}`}
       >
-        {sliceUrl(post.linkUrl)}
-        <HiOutlineExternalLink />
-      </div>
+        {sliceUrl(post.linkUrl)} <HiOutlineExternalLink />
+      </a>
     );
 
   const TextContent = () =>

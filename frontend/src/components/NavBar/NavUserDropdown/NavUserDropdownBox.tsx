@@ -83,20 +83,26 @@ export function NavUserDropdownBox({
           User Settings
         </NavLink>
 
-        <button
-          type="button"
+        <div
           className="nav-user-dropdown-btn dark-mode-toggle"
-          onClick={(e: MouseEvent<HTMLButtonElement>) => {
+          onClick={(e: MouseEvent<HTMLDivElement>) => {
             e.stopPropagation();
             toggleTheme(e);
           }}
+          onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
+            if (e.key === "Enter") {
+              e.stopPropagation();
+              toggleTheme(e);
+            }
+          }}
+          tabIndex={0}
         >
           Dark Mode
           <CommunityThemeToggle
             checked={checked}
             handleThemeToggle={toggleTheme}
           />
-        </button>
+        </div>
       </div>
 
       {/* ───── logout ───── */}

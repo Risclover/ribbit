@@ -171,8 +171,13 @@
   display: block;
 }
 
-.compact-post-icon-btn:hover .compact-post-icon-btn-post {
+.compact-post-icon-btn:hover .compact-post-icon-btn-post,
+.compact-post-icon-btn:focus-visible .compact-post-icon-btn-post {
   display: none;
+}
+
+.compact-post-icon-btn:focus-visible .compact-post-icon-btn-expand {
+  display: inline-flex;
 }
 
 .compact-post-icon-btn.expandless:hover .compact-post-icon-btn-post {

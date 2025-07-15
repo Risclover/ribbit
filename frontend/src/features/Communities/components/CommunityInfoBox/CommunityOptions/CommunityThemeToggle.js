@@ -5,7 +5,6 @@ export function CommunityThemeToggle({ checked, handleThemeToggle }) {
   return (
     <div
       className="community-options-switch"
-      tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           handleThemeToggle(e);

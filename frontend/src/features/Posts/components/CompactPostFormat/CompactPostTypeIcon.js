@@ -4,17 +4,29 @@ import { CgNotes } from "react-icons/cg";
 import { RxImage } from "react-icons/rx";
 
 export function CompactPostTypeIcon({ post, setPostExpand, postExpand }) {
+  /* ---------- keyboard helper ---------- */
+  const handleKeyDown = (e) => {
+    // Activate on <Enter> or <Space> – the two keys users expect
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault(); // keep the page from scrolling on <Space>
+      e.stopPropagation();
+      setPostExpand(!postExpand);
+    }
+  };
+
   const handlePostExpandClick = (e) => {
     e.stopPropagation();
     e.preventDefault();
     setPostExpand(!postExpand);
   };
 
+  /* ---------- icons ---------- */
   const renderExpandCollapseButton = () => (
     <button
-      aria-label="Expand/close post"
+      aria-label={postExpand ? "Collapse post" : "Expand post"}
       className="compact-post-icon-btn"
       onClick={handlePostExpandClick}
+      onKeyDown={handleKeyDown}
     >
       {postExpand ? (
         <span className="compact-post-icon-btn-collapse">

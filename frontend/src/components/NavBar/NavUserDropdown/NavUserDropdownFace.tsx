@@ -1,4 +1,4 @@
-import { memo, MouseEventHandler } from "react";
+import { KeyboardEventHandler, memo, MouseEventHandler } from "react";
 import { TbChevronDown } from "react-icons/tb";
 import { KarmaIcon } from "@/assets";
 import clsx from "clsx";
@@ -15,6 +15,7 @@ interface User {
 interface NavUserDropdownFaceProps {
   cuser: User;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
   className?: string;
   /** Pass the current open/closed state so aria-expanded is accurate */
   expanded?: boolean;
@@ -26,19 +27,14 @@ export const NavUserDropdownFace = memo(
   ({
     cuser,
     onClick,
+    onKeyDown,
     className = "",
     expanded = false,
   }: NavUserDropdownFaceProps): JSX.Element => {
     const { username, profileImg, karma = 0 } = cuser;
 
     return (
-      <button
-        type="button"
-        onClick={onClick}
-        className={clsx("navbar-user-dropdown-face", className)}
-        aria-haspopup="menu"
-        aria-expanded={expanded}
-      >
+      <div className={clsx("navbar-user-dropdown-face", className)}>
         <div className="navbar-user-info-box">
           <div className="navbar-user-info-details">
             <img
@@ -66,7 +62,7 @@ export const NavUserDropdownFace = memo(
           {/* decorative chevron */}
           <TbChevronDown aria-hidden="true" />
         </div>
-      </button>
+      </div>
     );
   }
 );
