@@ -68,7 +68,7 @@ export function useUserProfileAboutBox({ user, currentUser }) {
     isMe,
     isFollowing,
     followersCount: followersCount,
-    bannerImg: user?.bannerImg ?? "#0079d3",
+    bannerImg: user?.bannerImg,
     profileImg: user?.profileImg,
     karma: user?.karma ?? 0,
 

@@ -3,14 +3,13 @@ import {
   useRef,
   useState,
   KeyboardEvent,
-  MouseEvent,
   CSSProperties,
   JSX,
 } from "react";
 import { VscChevronDown } from "react-icons/vsc";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { usePageTitle } from "@/context";
-import { useIsSmallScreen, useOutsideClick, useWindowWidth } from "@/hooks";
+import { useOutsideClick, useWindowWidth } from "@/hooks";
 import { NavLeftDropdown } from "./NavLeftDropdown";
 import "react-loading-skeleton/dist/skeleton.css";
 import "./NavLeftDropdown.css";

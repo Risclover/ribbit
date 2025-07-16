@@ -40,6 +40,7 @@ export function UserAboutBox({
   const { openLogin } = useAuthFlow();
 
   const [showFollowersModal, setShowFollowersModal] = useState(false);
+
   const [banner, setBanner] = useState();
   const [karma, setKarma] = useState();
   const followers = useAppSelector((state) => state.followers.followers);
@@ -54,6 +55,7 @@ export function UserAboutBox({
   const [showMobileMoreMenu, setShowMobileMoreMenu] = useState(false);
 
   const isFollowing = () => follows && user && follows[user.id];
+  const [following, setFollowing] = useState(isFollowing);
 
   const { setSelectedChat } = useSelectedChat();
 
@@ -109,15 +111,19 @@ export function UserAboutBox({
     }
   };
 
+  useEffect(() => {
+    console.log("banner:", banner);
+  }, [user]);
+
   return (
     <div className="user-profile-about-box">
       <div
         className="user-profile-about-box-banner"
         style={{
           background:
-            banner === null
-              ? "#0079d3"
-              : `center / cover no-repeat url(${banner})`,
+            user?.bannerImg !== null
+              ? `center / cover no-repeat url(${banner})`
+              : "",
         }}
       >
         {currentUser?.id === +userId && (

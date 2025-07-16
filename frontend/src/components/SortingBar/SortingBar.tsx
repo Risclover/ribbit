@@ -1,4 +1,4 @@
-import { FC, useContext, MouseEvent, useMemo } from "react";
+import { FC, useContext, MouseEvent, useMemo, useEffect } from "react";
 import { PostFormatDropdownFace } from "./PostFormatDropdown";
 import { PostFormatContext } from "@/context";
 import "./SortingBar.css";
@@ -80,6 +80,10 @@ export const SortingBar: FC<SortingBarProps> = ({
     ],
     []
   );
+
+  useEffect(() => {
+    console.log("sortMode:", sortMode);
+  }, [sortMode]);
 
   return (
     <div className="post-sorting-bar">

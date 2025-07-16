@@ -1,11 +1,4 @@
-import {
-  useRef,
-  useEffect,
-  useState,
-  Dispatch,
-  SetStateAction,
-  ReactNode,
-} from "react";
+import { useRef, useEffect, useState, Dispatch, SetStateAction } from "react";
 import { TfiClose } from "react-icons/tfi";
 import { useAppDispatch } from "@/store";
 import {
@@ -15,7 +8,12 @@ import {
   getSubscriptions,
 } from "@/store";
 import { NavLeftDropdown } from "@/components";
-import { useFocusTrap, useOutsideClick, useScrollLock } from "@/hooks";
+import {
+  useEscapeKey,
+  useFocusTrap,
+  useOutsideClick,
+  useScrollLock,
+} from "@/hooks";
 import { useIsSmallScreen, useIsMobile } from "hooks"; // ← simple width listeners
 import "./NavSidebar.css";
 
@@ -48,8 +46,6 @@ export function NavSidebar({
   // local state for the “hamburger ↔ close” icon shown in <NavLeftDropdown>
   const [showIcon, setShowIcon] = useState(false);
 
-  const isMobile = useIsMobile(); // viewport ≤ 480 px
-
   /* ----------  Fetch user-specific data once  ---------- */
   useEffect(() => {
     dispatch(getFavoriteCommunities());
@@ -58,14 +54,7 @@ export function NavSidebar({
     dispatch(getSubscriptions());
   }, [dispatch]);
 
-  /* ----------  Escape key closes the sidebar  ---------- */
-  useEffect(() => {
-    const onEsc = (e: KeyboardEvent) =>
-      e.key === "Escape" && setShowNavSidebar(false);
-    if (showNavSidebar) window.addEventListener("keydown", onEsc);
-    return () => window.removeEventListener("keydown", onEsc);
-  }, [showNavSidebar, setShowNavSidebar]);
-
+  useEscapeKey(() => setShowNavSidebar(false), showNavSidebar);
   useScrollLock(showNavSidebar, isSmall);
   useFocusTrap(showNavSidebar, wrapperRef, isSmall);
 

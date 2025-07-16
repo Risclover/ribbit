@@ -57,7 +57,7 @@ export default function CompactPostMenu({ user, post, isPage, community }) {
             onClick={copyLink}
           >
             <div className="compact-post-menu-btn-icon">
-              <img src={Bounce} alt="Share" />
+              <img src={Bounce} alt="Share" /> Share
             </div>
           </button>
         </div>

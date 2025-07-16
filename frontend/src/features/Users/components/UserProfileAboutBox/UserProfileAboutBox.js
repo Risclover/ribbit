@@ -27,7 +27,9 @@ export function UserProfileAboutBox({
       <div
         className="user-profile-about-box-banner"
         style={{
-          background: `center / cover no-repeat url(${about.bannerImg})`,
+          background: user.bannerImg
+            ? `center / cover no-repeat url(${about.bannerImg})`
+            : "#0079d3",
         }}
       >
         {about.isMe && (

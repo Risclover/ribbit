@@ -17,10 +17,6 @@ export function CommunityPageMain({ community }) {
   );
   const user = useAppSelector((state) => state.session.user);
 
-  useEffect(() => {
-    console.log(communityPosts);
-  }, []);
-
   return (
     <FeedContainer>
       <div className="community-body-bg-div"></div>
