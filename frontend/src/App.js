@@ -62,7 +62,7 @@ import { MobileNavbarDropdown } from "components/NavBar/MobileNavbar/MobileNavba
 import { MobileSearchbar } from "features/NewSearch/components/MobileSearchbar/MobileSearchbar";
 import { MobileNavBar } from "components/NavBar/MobileNavbar/MobileNavbar";
 import { useOpenChat } from "context/OpenChatContext";
-import { useScrollToTop } from "./hooks";
+import { useIsSmallScreen, useScrollToTop } from "./hooks";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -174,6 +174,7 @@ function App() {
   };
 
   const isMobile = useIsMobile();
+  const isSmall = useIsSmallScreen();
 
   useScrollToTop();
 
@@ -182,7 +183,7 @@ function App() {
       <PopupProvider>
         <PostFormatContext.Provider value={{ format, setFormat }}>
           {previewPage && <PreviewCommunitySidebar />}
-          {isMobile ? (
+          {isSmall ? (
             <MobileNavBar
               setOpenUserDropdown={setOpenUserDropdown}
               openUserDropdown={openUserDropdown}

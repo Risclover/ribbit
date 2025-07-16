@@ -5,6 +5,12 @@
   position: relative;
   width: 7rem; /* overall footprint of loader        */
   height: 5.5rem;
+  position: fixed; /* ← pinned to the viewport */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* exact centering */
+  z-index: 9999; /* above everything else */
+  pointer-events: none; /* loader doesn’t block clicks (optional) */
 }
 
 /* Frog itself */

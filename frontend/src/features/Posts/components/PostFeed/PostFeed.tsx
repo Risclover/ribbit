@@ -133,7 +133,6 @@ export const PostFeed = ({
 
   return (
     <>
-      <FrogLoader />
       {showSortingBar && (
         <SortingBar
           sortMode={sortMode}

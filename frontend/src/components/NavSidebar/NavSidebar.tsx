@@ -43,11 +43,7 @@ export function NavSidebar({
   const isSmall = useIsSmallScreen(768);
 
   /* ----------  Click outside closes the sidebar  ---------- */
-  useOutsideClick(
-    wrapperRef,
-    () => setShowNavSidebar(false),
-    showNavSidebar && isSmall
-  );
+  useOutsideClick(wrapperRef, () => setShowNavSidebar(false), isSmall);
 
   // local state for the “hamburger ↔ close” icon shown in <NavLeftDropdown>
   const [showIcon, setShowIcon] = useState(false);
@@ -76,9 +72,7 @@ export function NavSidebar({
   /* ----------  Render ---------- */
   return (
     <>
-      {showNavSidebar && (isSmall || isMobile) && (
-        <div className="auth-modal-background" />
-      )}
+      {showNavSidebar && isSmall && <div className="auth-modal-background" />}
 
       {showNavSidebar && (
         <div className="nav-sidebar-container" ref={wrapperRef}>
