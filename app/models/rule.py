@@ -8,7 +8,7 @@ class Rule(db.Model):
     title = db.Column(db.String(100))
     description = db.Column(db.String(500))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-
+    
     rule_of_community = db.relationship("Community", back_populates="community_rules")
 
     def to_dict(self):

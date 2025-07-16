@@ -73,5 +73,5 @@ def seed_followers():
 
 def undo_followers():
     # Faster than plain DELETE on large tables
-    db.session.execute("TRUNCATE followers RESTART IDENTITY CASCADE;")
+    db.session.execute("DELETE FROM followers")
     db.session.commit()

@@ -83,7 +83,5 @@ def seed_subscriptions() -> None:
 
 def undo_subscriptions() -> None:
     # TRUNCATE is much faster than DELETE for seed/undo cycles.
-    db.session.execute(
-        text("TRUNCATE subscriptions RESTART IDENTITY CASCADE;")
-    )
+    db.session.execute("DELETE FROM subscriptions")
     db.session.commit()

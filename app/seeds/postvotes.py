@@ -150,6 +150,6 @@ def seed_postvotes() -> None:
     db.session.commit()
 
 
-def undo_postvotes() -> None:
-    db.session.execute("TRUNCATE post_votes RESTART IDENTITY CASCADE;")
+def undo_postvotes():
+    db.session.execute("DELETE FROM post_votes")
     db.session.commit()

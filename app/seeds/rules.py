@@ -1,8 +1,38 @@
-from app.models import Rule
+from datetime import timedelta
+import random                         # only for non‑deterministic spacing
+from app.models import Community, Rule
 from app.extensions import db
 
+# seconds after the community is created that the *first* rule appears
+_RRULE_FIRST_OFFSET = 5               # 5 s
+# how large the window is for *all* rules of that community
+_RRULE_CLUSTER_SPAN = 5 * 60          # 5 min
+
+def _timestamp_for_rule(base_dt, cluster_span, serial, total):
+    """
+    Return a datetime that is ≥ base_dt and ≤ base_dt + cluster_span.
+
+    serial …… number of the rule in that community (0‑based)
+    total  …… total rules in that community
+    """
+    if total == 1:
+        # single rule ⇒ right after the community
+        return base_dt + timedelta(seconds=_RRULE_FIRST_OFFSET)
+
+    # even spacing + small random jitter so they are *close* but not identical
+    slot = cluster_span / (total - 1)
+    jitter = random.randint(-2, 2)    # –2 … +2 s
+    return base_dt + timedelta(seconds=_RRULE_FIRST_OFFSET + serial * slot + jitter)
 
 def seed_rules():
+    communities = {
+        c.id: c for c in db.session.query(Community.id, Community.created_at).all()
+    }
+
+    if not communities:
+        raise RuntimeError("No communities found – seed communities first!")
+
+
     rules_by_community = {
         1: [
             {
@@ -790,13 +820,22 @@ Please write a bit about your project instead of just dumping links since it wil
         ]
     }
 
-    # Build Rule objects by iterating over the dictionary.
     rule_objects = []
-    for community_id, rules in rules_by_community.items():
-        for rule_data in rules:
-            # Automatically assign the community_id.
-            rule_data["community_id"] = community_id
-            rule_objects.append(Rule(**rule_data))
+    for community_id, rule_list in rules_by_community.items():
+        base_time = communities[community_id].created_at
+
+        total_rules = len(rule_list)
+        for i, rule_data in enumerate(rule_list):
+            ts = _timestamp_for_rule(
+                base_time, _RRULE_CLUSTER_SPAN, i, total_rules
+            )
+            rule_objects.append(
+                Rule(
+                    community_id=community_id,
+                    created_at=ts,
+                    **rule_data,
+                )
+            )
 
     db.session.add_all(rule_objects)
     db.session.commit()
