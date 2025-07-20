@@ -7,7 +7,7 @@ export default function usePostReplies({ notification }) {
   const dispatch = useAppDispatch();
 
   const users = useAppSelector((state) => state.users);
-  const posts = useAppSelector((state) => state.posts);
+  const posts = useAppSelector((state) => state.posts.posts);
   const currentUser = useAppSelector((state) => state.session.user);
   const notifications = useAppSelector((state) =>
     Object.values(state.notifications)
@@ -20,6 +20,7 @@ export default function usePostReplies({ notification }) {
   );
 
   const [markedUnread, setMarkedUnread] = useState(false);
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
 
   postRepliesList.sort((a, b) => {
     let postA = new Date(a.createdAt);
@@ -29,7 +30,7 @@ export default function usePostReplies({ notification }) {
   });
 
   useEffect(() => {
-    dispatch(getPosts());
+    if (!postsLoaded) dispatch(getPosts());
   }, [dispatch]);
 
   return {

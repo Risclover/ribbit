@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useAppSelector } from "@/store";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { PostFormatContext } from "@/context";
 import {
   SinglePostKarmabar,
@@ -19,6 +19,7 @@ export const OldSinglePost = ({
   post,
   handleCommentsButtonClick,
 }) => {
+  const history = useHistory();
   const cuser = useAppSelector((state) => state.session.user);
   const user = useAppSelector((state) => state.users?.[cuser?.id]);
   const community = useAppSelector(
@@ -39,7 +40,11 @@ export const OldSinglePost = ({
 
   return (
     <article className="single-post">
-      <NavLink to={`/posts/${post.id}`}>
+      <div
+        onClick={() => history.push(`/posts/${post.id}`)}
+        role="link"
+        tabIndex={0}
+      >
         {(isPage === "profile" || format === "Card") && (
           <div className="post-card-format">
             {post && (
@@ -72,7 +77,7 @@ export const OldSinglePost = ({
             )}
           </div>
         )}
-      </NavLink>
+      </div>
       {isPage !== "profile" && format === "Classic" && (
         <ClassicPostFormat id={id} isPage={isPage} post={post} />
       )}

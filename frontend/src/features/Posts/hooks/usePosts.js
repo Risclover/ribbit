@@ -7,7 +7,7 @@ import { getUsers } from "@/store";
 export function usePosts(isAllPosts) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.session.user);
-  const userPosts = useAppSelector((state) => Object.values(state.posts));
+  const userPosts = useAppSelector((state) => Object.values(state.posts.posts));
   const subscriptions = useAppSelector((state) =>
     Object.values(state.subscriptions)
   );
@@ -16,14 +16,16 @@ export function usePosts(isAllPosts) {
   const [sortMode, setSortMode] = useState("new");
   const [page, setPage] = useState(1);
   const nextPage = useRef(null);
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
 
   useEffect(() => {
-    dispatch(getViewedPosts());
-    dispatch(
-      getPosts({ limit: 200, offset: (page - 1) * 25, order: sortMode })
-    ).then(({ nextOffset, hasMore }) => {
-      nextPage.current = hasMore ? nextOffset / 25 + 1 : null;
-    });
+    if (Object.values(viewedPosts).length === 0) dispatch(getViewedPosts());
+    if (!postsLoaded)
+      dispatch(
+        getPosts({ limit: 200, offset: (page - 1) * 25, order: sortMode })
+      ).then(({ nextOffset, hasMore }) => {
+        nextPage.current = hasMore ? nextOffset / 25 + 1 : null;
+      });
   }, [page, sortMode, dispatch]);
 
   const sortedPosts = useMemo(() => {

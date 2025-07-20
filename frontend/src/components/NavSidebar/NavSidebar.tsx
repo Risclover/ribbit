@@ -48,10 +48,10 @@ export function NavSidebar({
 
   /* ----------  Fetch user-specific data once  ---------- */
   useEffect(() => {
-    dispatch(getFavoriteCommunities());
-    dispatch(getFavoriteUsers());
     dispatch(getFollowers());
+    dispatch(getFavoriteUsers());
     dispatch(getSubscriptions());
+    dispatch(getFavoriteCommunities());
   }, [dispatch]);
 
   useEscapeKey(() => setShowNavSidebar(false), showNavSidebar);

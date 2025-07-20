@@ -4,10 +4,13 @@ import moment from "moment";
 import { Username } from "@/components";
 import { CommunityImg } from "@/components/CommunityImg";
 import { Tooltip } from "@/components/Tooltip/Tooltip";
+import { useAppSelector } from "@/store";
 
 export function SinglePostAuthorBar({ communityPage, post, isPage }) {
+  const history = useHistory();
   const handleNavClick = (e) => {
     e.stopPropagation();
+    console.log()
   };
   const community = useAppSelector(
     (state) => state.communities[post?.community?.id]
@@ -28,7 +31,7 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
 
           <NavLink
             onClick={handleNavClick}
-            to={`/c/${post?.community?.name}`}
+            to={`c/${post?.community?.name}`}
             className="single-post-community-name"
           >
             c/{post?.community?.name}

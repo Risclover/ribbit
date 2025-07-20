@@ -23,6 +23,9 @@ export const usePostButtonHandlers = ({
       ? community?.userId === currentUser?.id
       : communities[communityId]?.userId === currentUser?.id
   );
+  const viewedPosts = useAppSelector((state) =>
+    Object.values(state.viewedPosts)
+  );
 
   const toggleSubmenu = useCallback((e) => {
     e.stopPropagation();
@@ -53,7 +56,7 @@ export const usePostButtonHandlers = ({
     e.preventDefault();
     dispatch(deletePost(post?.id));
     setShowDeleteModal(false);
-    await dispatch(getViewedPosts());
+    if (viewedPosts.length === 0) await dispatch(getViewedPosts());
 
     if (isPage === "community") {
       history.push(`/c/${post?.community.name}`);

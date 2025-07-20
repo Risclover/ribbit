@@ -41,6 +41,7 @@ export function CreatePostPage({
   const { communityName } = useParams<{ communityName?: string }>();
   const dispatch = useAppDispatch();
   const communities = useAppSelector((s) => s.communities);
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
 
   /* ---------- helpers -------------- */
   /** Type-guard so TS knows each item really is a Community */
@@ -56,7 +57,7 @@ export function CreatePostPage({
 
   /* ---------- effects (unchanged, but with type-guard) ---------- */
   useEffect(() => {
-    dispatch(getPosts());
+    if (!postsLoaded) dispatch(getPosts());
     dispatch(getCommunities());
     dispatch(getSubscriptions());
   }, [dispatch]);

@@ -1,19 +1,10 @@
-import {
-  useState,
-  useEffect,
-  useMemo,
-  useCallback,
-  useContext,
-  MouseEvent,
-} from "react";
-import { useHistory } from "react-router-dom";
-import { useAppDispatch } from "@/store";
+import { useState, useEffect, useMemo, useCallback, useContext } from "react";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { SortingBar } from "@/components/SortingBar";
 import { SortKey } from "@/components/SortingBar/SortingBar";
 import { PostFormatContext } from "@/context";
-import { SinglePostType } from "features/NewPosts/components/SinglePostType";
+import { SinglePostType } from "@/features/NewPosts/components/SinglePostType";
 import { getPosts } from "@/store";
-import { FrogLoader } from "@/components/FrogLoader/FrogLoader";
 
 interface PostFeedProps {
   posts?: any[];
@@ -31,12 +22,11 @@ export const PostFeed = ({
   setSortMode,
   isPage,
   community,
-  pageType,
   user,
 }: PostFeedProps): JSX.Element => {
-  const history = useHistory();
   const dispatch = useAppDispatch();
   const { format } = useContext(PostFormatContext);
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
 
   /* ---------- loader flag ---------- */
   const [isLoading, setIsLoading] = useState(true);
@@ -59,7 +49,7 @@ export const PostFeed = ({
       }
     };
 
-    fetchPosts();
+    if (!postsLoaded) fetchPosts();
     return () => {
       cancelled = true;
     };

@@ -55,7 +55,7 @@ export function CommunityPage(): JSX.Element {
 
   const communityPosts = useAppSelector(
     (s) =>
-      Object.values<Post>(s.posts).filter(
+      Object.values<Post>(s.posts.posts).filter(
         (p) => p.community?.id === communityId
       ),
     shallowEqual
@@ -69,6 +69,8 @@ export function CommunityPage(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true);
   const [showAbout, setShowAbout] = useState<boolean>(false);
 
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
+
   /* -------- fetch data -------- */
   useEffect(() => {
     if (!communityId) return;
@@ -77,7 +79,7 @@ export function CommunityPage(): JSX.Element {
       await dispatch(getCommunities());
       await dispatch(getCommunitySettings(communityId));
 
-      if (communityPosts.length === 0) {
+      if (!postsLoaded) {
         await dispatch(getPosts());
       }
       setLoading(false);
@@ -135,7 +137,7 @@ export function CommunityPage(): JSX.Element {
   });
 
   /* -------- early exits -------- */
-  if (loading || !communitiesLoaded) return <FrogLoader />;
+  // if (loading) return <FrogLoader />;
   if (!community) return <Redirect to="/404" />;
 
   /* -------- render -------- */

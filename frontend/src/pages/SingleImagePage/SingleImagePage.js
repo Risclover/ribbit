@@ -7,12 +7,13 @@ import { getPosts } from "@/store";
 export function SingleImagePage() {
   const { postId } = useParams();
   const dispatch = useAppDispatch();
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
 
   useEffect(() => {
-    dispatch(getPosts());
+    if (!postsLoaded) dispatch(getPosts());
   }, [dispatch]);
 
-  const posts = useAppSelector((state) => state.posts);
+  const posts = useAppSelector((state) => state.posts.posts);
 
   if (!posts) return null;
 

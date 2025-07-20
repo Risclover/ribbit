@@ -23,7 +23,7 @@ export function PreviewCommunity() {
 
   // Global state
   const user = useAppSelector((state) => state.session.user);
-  const posts = useAppSelector((state) => Object.values(state.posts));
+  const posts = useAppSelector((state) => Object.values(state.posts.posts));
   const communities = useAppSelector((state) =>
     Object.values(state.communities)
   );
@@ -34,7 +34,7 @@ export function PreviewCommunity() {
   // Identify the relevant community & ID
   const community = communities?.find((c) => c.name === communityName);
   const communityId = community?.id;
-
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
   // Filter posts for this community
   const commPosts = posts.filter((post) => post.community.id === communityId);
 
@@ -42,7 +42,7 @@ export function PreviewCommunity() {
   useEffect(() => {
     // Single effect to load what we need
     dispatch(getSubscriptions());
-    dispatch(getPosts());
+    if (!postsLoaded) dispatch(getPosts());
   }, [dispatch]);
 
   // If current user is not the community owner, redirect to actual community page

@@ -51,6 +51,7 @@ export const SinglePost: FC<SinglePostProps> = ({
   return (
     <article className="single-post">
       <span
+        role="link"
         onClick={() => history.push(`/posts/${post.id}`)}
         /* Keep Card posts keyboard-focusable, others not */
         tabIndex={format !== "Card" ? -1 : undefined}

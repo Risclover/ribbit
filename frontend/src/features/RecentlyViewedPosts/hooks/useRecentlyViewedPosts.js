@@ -14,10 +14,10 @@ export function useRecentlyViewedPosts() {
       const postList = await dispatch(getViewedPosts());
       postList.ViewedPosts.map((item) => arr.push(item.post));
 
+      console.log("posts.length:", postList);
       setPosts(arr);
     };
-
-    fetchPosts();
+    if (posts.length === 0) fetchPosts();
   }, []);
 
   useEffect(() => {

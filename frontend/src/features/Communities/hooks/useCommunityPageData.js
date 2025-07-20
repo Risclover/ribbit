@@ -25,16 +25,17 @@ export function useCommunityPage() {
 
   const communities = useAppSelector((state) => state.communities);
   const user = useAppSelector((state) => state.session.user);
-  const posts = useAppSelector((state) => Object.values(state.posts));
+  const posts = useAppSelector((state) => Object.values(state.posts.posts));
 
   // 1) Derive communityId from the name
   const communityId = getIdFromName(communityName, communities);
   const community = communities[communityId];
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
 
   // 2) Fetch data
   useEffect(() => {
     dispatch(getCommunities());
-    dispatch(getPosts());
+    if (!postsLoaded) dispatch(getPosts());
     if (communityId) {
       dispatch(getCommunitySettings(communityId));
     }

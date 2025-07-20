@@ -11,9 +11,8 @@ import { NewCommunity } from "./NewCommunity";
 import { stripHtml } from "@/utils/stripHtml";
 import { focusSearchbar } from "../../../utils/focusSearchbar";
 import { PostResultType } from "./PostResultType";
-import { getPosts } from "@/store";
-import { sortPosts } from "utils";
-import { sortPostResults } from "features/NewSearch/utils/sortPostResults";
+import { sortPosts } from "@/utils";
+import { sortPostResults } from "@/features/NewSearch/utils/sortPostResults";
 
 export const SearchResultsPosts = ({ searchbarRef }) => {
   const dispatch = useAppDispatch();

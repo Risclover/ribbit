@@ -20,7 +20,7 @@ export const FrogLoader: React.FC = () => (
         <path
           d="M45 63 Q60 72 75 63"
           stroke="#222"
-          stroke-width="3"
+          strokeWidth="3"
           fill="none"
         />
       </svg>

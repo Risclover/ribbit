@@ -2,7 +2,7 @@ export const GifIcon = () => {
   return (
     <svg
       rpl=""
-      class="text-tone-2"
+      className="text-tone-2"
       fill="currentColor"
       height="20"
       icon-name="gif-post-outline"

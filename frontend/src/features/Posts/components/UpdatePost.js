@@ -40,7 +40,7 @@ export function UpdatePost() {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
-  const post = useAppSelector((state) => state.posts[+postId]);
+  const post = useAppSelector((state) => state.posts.posts[+postId]);
 
   const [title, setTitle] = useState(post ? post.title : "");
   const [content, setContent] = useState(post ? post.content : "");

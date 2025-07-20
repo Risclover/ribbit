@@ -57,14 +57,15 @@ export const UserProfilePage: FC = () => {
   /* --- store selectors --- */
   const user: User | undefined = useAppSelector((s) => s.users[Number(userId)]);
   const communities = useAppSelector((s) => s.communities);
-  const posts = useAppSelector((s) => Object.values<Post>(s.posts));
+  const posts = useAppSelector((s) => Object.values<Post>(s.posts.posts));
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
   const currentUser = useAppSelector((s) => s.session.user);
 
   const profilePosts = posts.filter((p) => p?.author?.id === Number(userId));
 
   /* --- initial fetches / format init --- */
   useEffect(() => {
-    if (posts.length === 0) dispatch(getPosts());
+    if (!postsLoaded) dispatch(getPosts());
     if (Object.keys(communities).length === 0) dispatch(getCommunities());
     setFormat("Card"); // always Card on profile
   }, [dispatch, posts.length, communities, setFormat]);

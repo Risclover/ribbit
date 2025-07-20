@@ -17,7 +17,7 @@ export default function SinglePostAuthorBar({
     (state) => state.communities[post?.community?.id]
   );
 
-  const handleNavClick = (e) => {
+  const handleCommunityClick = (e) => {
     e.stopPropagation();
     history.push(`/c/${post?.community?.name}`);
   };
@@ -44,19 +44,17 @@ export default function SinglePostAuthorBar({
           </div>
 
           {(format === "Card" || format === "Compact") && (
-            <NavLink
+            <div
+              onClick={handleCommunityClick}
               className="single-post-community-name"
-              to={`/c/${post?.community?.name}`}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  history.push(`/c/${post?.community?.name}`);
+                  handleCommunityClick(e);
                 }
               }}
             >
               c/{post?.community?.name}
-            </NavLink>
+            </div>
           )}
 
           <span className="single-post-dot-spacer">•</span>

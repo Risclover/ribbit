@@ -58,12 +58,13 @@ export const SinglePostPage: FC = () => {
 
   /* -- store selectors -- */
   const post: Post | undefined = useAppSelector(
-    (s) => s.posts[postId as string]
+    (s) => s.posts.posts[postId as string]
   );
   const user = useAppSelector((s) => s.session.user);
   const community: Community | undefined = useAppSelector((s) =>
     post ? s.communities[post.community?.id] : undefined
   );
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
 
   useCommunitySettings(community);
   /* -- local UI state -- */
@@ -88,7 +89,7 @@ export const SinglePostPage: FC = () => {
 
     batch(() => {
       if (!community) dispatch(getCommunities());
-      if (!post) dispatch(getPosts());
+      if (!postsLoaded) dispatch(getPosts());
       if (post) dispatch(addViewedPost(post.id));
     });
   }, [community, post, dispatch, setFormat]);

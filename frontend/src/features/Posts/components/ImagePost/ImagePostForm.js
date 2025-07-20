@@ -61,7 +61,8 @@ export function ImagePostForm({ imgUrl, setImgUrl, setShowImgModal }) {
             />
           )}
           <div className="user-img-error">
-            {errorMsg} {imageLoading && <p className="loading">Loading...</p>}
+            {errorMsg}{" "}
+            {imageLoading ? <p className="loading">Loading...</p> : ""}
           </div>
           <label
             className="post-img-btn-box"

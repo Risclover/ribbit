@@ -215,13 +215,13 @@ export function useDropdownSections({
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 511.999 511.999"
                   stroke="currentColor"
-                  stroke-width="6.6559870000000005"
+                  strokeWidth="6.6559870000000005"
                 >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                   <g
                     id="SVGRepo_tracerCarrier"
                     stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinejoin="round"
                   ></g>
                   <g id="SVGRepo_iconCarrier">
                     {" "}
@@ -248,11 +248,11 @@ export function useDropdownSections({
                   width="1em"
                 >
                   {" "}
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>{" "}
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>{" "}
                   <g
                     id="SVGRepo_tracerCarrier"
                     stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinejoin="round"
                   ></g>{" "}
                   <g id="SVGRepo_iconCarrier">
                     {" "}
@@ -276,11 +276,11 @@ export function useDropdownSections({
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
                 >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                   <g
                     id="SVGRepo_tracerCarrier"
                     stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinejoin="round"
                   ></g>
                   <g id="SVGRepo_iconCarrier">
                     {" "}
@@ -289,7 +289,7 @@ export function useDropdownSections({
                     <g
                       id="Page-1"
                       stroke="none"
-                      stroke-width="1"
+                      strokeWidth="1"
                       fill="none"
                       fill-rule="evenodd"
                     >
@@ -331,11 +331,11 @@ export function useDropdownSections({
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 474 474"
                 >
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                   <g
                     id="SVGRepo_tracerCarrier"
                     stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinejoin="round"
                   ></g>
                   <g id="SVGRepo_iconCarrier">
                     {" "}

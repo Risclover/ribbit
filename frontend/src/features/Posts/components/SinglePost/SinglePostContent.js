@@ -110,7 +110,6 @@ export function SinglePostContent({ link, post, isPage }) {
   return (
     <div
       className="single-post-content-box"
-      onClick={goToPostPage}
       role={link ? "button" : undefined}
       tabIndex={link ? 0 : undefined}
     >
@@ -120,7 +119,7 @@ export function SinglePostContent({ link, post, isPage }) {
         </div>
 
         {/* ordered by likelihood for quick short‑circuiting */}
-        {ImageContent() || LinkContent() || TextContent()}
+        {ImageContent() || TextContent() || LinkContent()}
       </div>
 
       <ExternalLinkButton />

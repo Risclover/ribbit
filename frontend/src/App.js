@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/store";
+import { getComments, useAppDispatch, useAppSelector } from "@/store";
 import { AppRoutes } from "@/routes";
 
 import { ScrollToTop } from "./utils";
@@ -71,7 +71,10 @@ function App() {
   const searchbarRef = useRef();
   const users = useAppSelector((state) => state.users);
   const background = location.state && location.state.background;
-
+  const comments = useAppSelector((state) => Object.values(state.comments));
+  const communities = useAppSelector((state) =>
+    Object.values(state.communities)
+  );
   const { openChat } = useOpenChat();
 
   const [loaded, setLoaded] = useState(false);
@@ -123,8 +126,9 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getCommunities());
+    if (communities.length === 0) dispatch(getCommunities());
     dispatch(getUsers());
+    if (comments.length === 0) dispatch(getComments());
     dispatch(getCommunitySettings());
   }, []);
 

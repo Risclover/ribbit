@@ -29,7 +29,7 @@ export const getSinglePost = (postId) => async (dispatch) => {
   }
 };
 
-export const getPostById = (id) => (state) => state.posts[id];
+export const getPostById = (id) => (state) => state.posts.posts[id];
 
 /* ------------------------- REDUCER ------------------------- */
 

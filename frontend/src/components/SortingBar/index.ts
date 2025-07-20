@@ -1,2 +1,2 @@
-export { SortingBar } from "./SortingBar";
+export * from "./SortingBar";
 export * from "./PostFormatDropdown";

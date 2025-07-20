@@ -12,7 +12,7 @@ interface NavLeftDropdownProps {
 interface Section<T = unknown> {
   title?: string | null;
   items: T[];
-  /* render one row                                                */
+  /* render one row */
   render: (item: T) => React.ReactNode;
 }
 

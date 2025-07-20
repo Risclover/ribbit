@@ -18,10 +18,10 @@ export function SearchResultsComments({ searchbarRef }) {
 
   const [sortMode, setSortMode] = useState("Top");
   const [isLoading, setIsLoading] = useState(false);
-
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
   useEffect(() => {
     setIsLoading(true);
-    dispatch(getPosts());
+    if (!postsLoaded) dispatch(getPosts());
     dispatch(searchComments(query)).finally(() => setIsLoading(false));
   }, [query, dispatch]);
 

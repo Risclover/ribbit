@@ -8,7 +8,7 @@ export const selectFeed = (feedKey: string) => (s: RootState) =>
 export const selectFeedPosts = (feedKey: string) => (s: RootState) => {
   const feed = s.posts.feeds[feedKey];
   if (!feed) return [];
-  return feed.ids.map((id) => s.posts.byId[id]);
+  return feed.ids.map((id) => s.posts.posts.byId[id]);
 };
 
 export const selectPostById = (id: number) => (s: RootState) =>

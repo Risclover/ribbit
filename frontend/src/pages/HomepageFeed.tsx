@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { usePageSettings } from "@/hooks";
 import {
   BackToTop,
@@ -6,13 +6,17 @@ import {
   FeedRightColContainer,
   NoPostsMessage,
   PostFeed,
+  SortKey,
 } from "@/components";
 import { FeedContainer, FeedLeftColContainer } from "@/layouts";
-import { AboutBox, DeveloperLinksBox, RecentlyViewedPosts } from "@/features";
+import {
+  AboutBox,
+  DeveloperLinksBox,
+  RecentlyViewedPosts,
+  usePosts,
+} from "@/features";
 import { HomeIcon } from "@/assets";
-import { useAppDispatch, useAppSelector, RootState } from "@/store";
-import { usePosts } from "@/features/Posts/hooks/usePosts";
-import { SortKey } from "@/components/SortingBar/SortingBar";
+import { useAppSelector, RootState } from "@/store";
 
 import "@/features/Posts/Posts.css";
 
@@ -23,8 +27,6 @@ type ViewedPosts = Record<string, unknown[]>;
 
 /* ---------- component ---------- */
 export function HomepageFeed(): JSX.Element {
-  const dispatch = useAppDispatch();
-
   const subscriptions: Subscriptions = useAppSelector(selectSubscriptions);
   const followerPosts = useAppSelector((s) => Object.values(s.followers.posts));
 

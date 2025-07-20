@@ -8,7 +8,7 @@ import { CommunityImg } from "@/components/CommunityImg";
 
 export function CommentResult({ comment }) {
   const history = useHistory();
-  const posts = useAppSelector((state) => Object.values(state.posts));
+  const posts = useAppSelector((state) => Object.values(state.posts.posts));
   const post = posts.find((post) => post.id === comment.postId);
   const community = useAppSelector(
     (state) => state.communities[post?.community?.id]

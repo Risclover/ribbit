@@ -5,7 +5,7 @@ export function useCommentAuthorBar({ comment }) {
   const communities = useAppSelector((state) =>
     Object.values(state.communities)
   );
-  const post = useAppSelector((state) => state.posts[comment?.postId]);
+  const post = useAppSelector((state) => state.posts.posts[comment?.postId]);
 
   const editedTime = convertTime(comment, "edit");
   const commentTime = convertTime(comment);

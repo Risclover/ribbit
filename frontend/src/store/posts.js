@@ -1,4 +1,4 @@
-/* ------------------------- ACTIONS ------------------------- */
+/* ------------------------- ACTION TYPES ------------------------- */
 
 const CREATE_POST = "posts/CREATE";
 const LOAD_POSTS = "posts/LOAD";
@@ -11,64 +11,19 @@ const REMOVE_POST_VOTE = "posts/REMOVE_VOTE";
 const UPDATE_VIEWED_POSTS = "posts/UPDATE_VIEWED_POSTS";
 const APPEND_POSTS = "posts/APPEND";
 
+/* ------------------------- ACTION CREATORS ---------------------- */
+
+export const loadPosts = (posts) => ({ type: LOAD_POSTS, posts });
 export const appendPosts = (posts) => ({ type: APPEND_POSTS, posts });
-
-export const loadPosts = (posts) => {
-  return {
-    type: LOAD_POSTS,
-    posts,
-  };
-};
-
-export const loadCommunityPosts = (posts) => {
-  return {
-    type: LOAD_COMMUNITY_POSTS,
-    posts,
-  };
-};
-
-export const loadPost = (post) => {
-  return {
-    type: LOAD_POST,
-    post,
-  };
-};
-
-export const createPost = (post) => {
-  return {
-    type: CREATE_POST,
-    post,
-  };
-};
-
-export const update_posts = (posts) => {
-  return {
-    type: UPDATE_POSTS,
-    posts,
-  };
-};
-
-export const removePost = (postId) => {
-  return {
-    type: DELETE_POST,
-    postId,
-  };
-};
-
-export const addVote = (post) => {
-  return {
-    type: ADD_POST_VOTE,
-    post,
-  };
-};
-
-export const removeVote = (post) => {
-  return {
-    type: REMOVE_POST_VOTE,
-    post,
-  };
-};
-
+export const loadCommunityPosts = (posts) => ({
+  type: LOAD_COMMUNITY_POSTS,
+  posts,
+});
+export const loadPost = (post) => ({ type: LOAD_POST, post });
+export const createPost = (post) => ({ type: CREATE_POST, post });
+export const removePost = (postId) => ({ type: DELETE_POST, postId });
+export const addVote = (post) => ({ type: ADD_POST_VOTE, post });
+export const removeVote = (post) => ({ type: REMOVE_POST_VOTE, post });
 const updateViewedPosts = (viewedPosts) => ({
   type: UPDATE_VIEWED_POSTS,
   viewedPosts,
@@ -77,7 +32,7 @@ const updateViewedPosts = (viewedPosts) => ({
 /* ------------------------- THUNKS ------------------------- */
 
 export const getPostsByCommunityId = (communityId) => (state) =>
-  state.posts[communityId];
+  state.posts.posts[communityId];
 
 // export const getPosts = () => async (dispatch) => {
 //   const response = await fetch("/api/posts");
@@ -90,21 +45,23 @@ export const getPostsByCommunityId = (communityId) => (state) =>
 
 export const getPosts =
   ({ limit = 100, offset = 0, order = "new" } = {}) =>
-  async (dispatch) => {
-    const params = new URLSearchParams({ limit, offset, order });
-    const response = await fetch(`/api/posts?${params.toString()}`);
+  async (dispatch, getState) => {
+    if (getState().posts.loaded && offset === 0) {
+      /* already have page 0 – skip */
+      return { nextOffset: null, hasMore: false };
+    }
 
-    if (response.ok) {
-      const { posts, nextOffset, hasMore } = await response.json();
-      if (offset === 0) dispatch(loadPosts({ Posts: posts }));
+    const qs = new URLSearchParams({ limit, offset, order });
+    const res = await fetch(`/api/posts?${qs}`);
+
+    if (res.ok) {
+      const { posts, nextOffset, hasMore } = await res.json();
+      if (offset === 0) dispatch(loadPosts(posts));
       else dispatch(appendPosts(posts));
       return { nextOffset, hasMore };
     }
-
-    // always return something so .then() never gets undefined
     return { nextOffset: null, hasMore: false };
   };
-
 export const fetchPost = (postId) => async (dispatch) => {
   try {
     const res = await fetch(`/api/posts/${postId}`);
@@ -338,75 +295,73 @@ export const getPostComments = (postId) => async (dispatch) => {
   }
 };
 
-/* ------------------------- REDUCER ------------------------- */
+/* ------------------------- REDUCER ------------------------------ */
 
-const initialState = {};
+const initialState = {
+  loaded: false,
+  posts: {}, // object keyed by post.id
+};
 
 export default function postsReducer(state = initialState, action) {
   switch (action.type) {
-    case APPEND_POSTS: {
-      const newState = { ...state };
+    /* ---------- bulk loads ---------- */
+    case LOAD_POSTS: {
+      /* action.posts is an _array_; turn it into an object */
+      const byId = {};
       action.posts.forEach((p) => {
-        newState[p.id] = p;
+        byId[p.id] = p;
       });
-      return newState;
+      return { ...state, posts: byId, loaded: true };
     }
+
+    case APPEND_POSTS: {
+      const byId = { ...state.posts };
+      action.posts.forEach((p) => {
+        byId[p.id] = p;
+      });
+      return { ...state, posts: byId };
+    }
+
+    case LOAD_COMMUNITY_POSTS: {
+      const byId = {};
+      action.posts.forEach((p) => {
+        byId[p.id] = p;
+      });
+      return { ...state, posts: byId, loaded: true };
+    }
+
+    /* ---------- single‑post CRUD ---------- */
     case CREATE_POST:
-      return { ...state, [action.post.id]: action.post };
-    case LOAD_POSTS:
-      if (action.posts && action.posts.Posts) {
-        return action.posts.Posts.reduce((posts, post) => {
-          posts[post.id] = post;
-          return posts;
-        }, {});
-      } else {
-        return state;
-      }
-    case LOAD_COMMUNITY_POSTS:
-      if (action.posts && action.posts.CommunityPosts) {
-        return action.posts.CommunityPosts.reduce((posts, post) => {
-          posts[post.id] = post;
-          return posts;
-        }, {});
-      } else {
-        return state;
-      }
     case LOAD_POST:
+    case ADD_POST_VOTE:
+    case REMOVE_POST_VOTE:
       return {
         ...state,
-        [action.post.id]: { ...action.post },
+        posts: { ...state.posts, [action.post.id]: action.post },
       };
-    case DELETE_POST:
-      let removeState = { ...state };
-      delete removeState[action.postId];
-      return removeState;
-    case ADD_POST_VOTE:
-      return { ...state, [action.post.id]: action.post };
-    case REMOVE_POST_VOTE:
-      return { ...state, [action.post.id]: action.post };
+
+    case DELETE_POST: {
+      const { [action.postId]: _, ...rest } = state.posts;
+      return { ...state, posts: rest };
+    }
+
+    /* ---------- misc bookkeeping ---------- */
     case UPDATE_VIEWED_POSTS:
-      return action.viewedPosts;
+      return { ...state, viewedPosts: action.viewedPosts };
+
     case "posts/LOAD_ONE":
       return {
         ...state,
-        byId: {
-          ...state.byId,
-          [action.post.id]: action.post,
-        },
-        errors: {
-          ...state.errors,
-          [action.post.id]: null,
-        },
+        posts: { ...state.posts, [action.post.id]: action.post },
+        errors: { ...(state.errors || {}), [action.post.id]: null },
       };
 
     case "posts/SET_ERROR":
       return {
         ...state,
-        errors: {
-          ...state.errors,
-          [action.postId]: action.error,
-        },
+        errors: { ...(state.errors || {}), [action.postId]: action.error },
       };
+
     default:
       return state;
   }

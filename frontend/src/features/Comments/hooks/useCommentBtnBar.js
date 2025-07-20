@@ -17,7 +17,7 @@ export function useCommentBtnBar({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const currentUser = useAppSelector((state) => state.session.user);
-  const post = useAppSelector((state) => state.posts[postId]);
+  const post = useAppSelector((state) => state.posts.posts[postId]);
   const communities = useAppSelector((state) => state.communities);
   const communityId = post.community.id;
 
