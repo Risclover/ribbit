@@ -73,9 +73,10 @@ function App() {
   const background = location.state && location.state.background;
   const comments = useAppSelector((state) => Object.values(state.comments));
   const communities = useAppSelector((state) =>
-    Object.values(state.communities)
+    Object.values(state.communities.communities)
   );
   const { openChat } = useOpenChat();
+  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
 
   const [loaded, setLoaded] = useState(false);
   const [, setShowLoginForm] = useState(false);
@@ -126,7 +127,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (communities.length === 0) dispatch(getCommunities());
+    if (!communitiesLoaded) dispatch(getCommunities());
     dispatch(getUsers());
     if (comments.length === 0) dispatch(getComments());
     dispatch(getCommunitySettings());

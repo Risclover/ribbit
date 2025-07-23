@@ -11,7 +11,7 @@ export function CommentResult({ comment }) {
   const posts = useAppSelector((state) => Object.values(state.posts.posts));
   const post = posts.find((post) => post.id === comment.postId);
   const community = useAppSelector(
-    (state) => state.communities[post?.community?.id]
+    (state) => state.communities.communities[post?.community?.id]
   );
 
   const handleClick = (e) => {

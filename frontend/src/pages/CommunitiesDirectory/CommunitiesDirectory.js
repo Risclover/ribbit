@@ -11,11 +11,12 @@ export function CommunitiesDirectory() {
   const dispatch = useAppDispatch();
 
   const communities = useAppSelector((state) =>
-    Object.values(state.communities)
+    Object.values(state.communities.communities)
   );
+  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
 
   useEffect(() => {
-    dispatch(getCommunities());
+    if (!communitiesLoaded) dispatch(getCommunities());
   }, [dispatch]);
 
   usePageSettings({

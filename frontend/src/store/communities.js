@@ -203,26 +203,29 @@ export const checkCommunityName = (name) => async (dispatch) => {
 
 /* ------------------------- REDUCER ------------------------- */
 
-const initialState = {};
+const initialState = {
+  loaded: false,
+  communities: {},
+};
 
 export default function communitiesReducer(state = initialState, action) {
   switch (action.type) {
-    case CREATE_COMMUNITY:
-      return { ...state, [action.community.id]: action.community };
     case LOAD_COMMUNITIES:
-      if (action.communities && action.communities.Communities) {
-        return action.communities.Communities.reduce(
-          (communities, community) => {
-            communities[community.id] = community;
-            return communities;
-          },
-          { ...state }
-        ); // Ensure existing state is preserved
-      } else {
-        return state;
-      }
+      const byId = {};
+      action.communities.communities.forEach((c) => {
+        byId[c.id] = c;
+      });
+
+      return { ...state, communities: byId, loaded: true };
+    case CREATE_COMMUNITY:
     case LOAD_COMMUNITY:
-      return { ...state, [action.community.id]: action.community };
+      return {
+        ...state,
+        communities: {
+          ...state.communities,
+          [action.community.id]: action.community,
+        },
+      };
     case LOAD_SUBSCRIBERS:
       return {
         ...state,
@@ -231,10 +234,10 @@ export default function communitiesReducer(state = initialState, action) {
           subscribers: action.subscribers,
         },
       };
-    case DELETE_COMMUNITY:
-      let removeState = { ...state };
-      delete removeState[action.communityId];
-      return removeState;
+    case DELETE_COMMUNITY: {
+      const { [action.communityId]: _, ...rest } = state.communities;
+      return { ...state, communities: rest };
+    }
     default:
       return state;
   }

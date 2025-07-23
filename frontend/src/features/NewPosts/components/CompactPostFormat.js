@@ -21,7 +21,7 @@ export default function CompactPostFormat({ id, isPage, post }) {
   const user = useAppSelector((state) => state.session.user);
 
   const community = useAppSelector(
-    (state) => state.communities[post?.community.id]
+    (state) => state.communities.communities[post?.community.id]
   );
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);

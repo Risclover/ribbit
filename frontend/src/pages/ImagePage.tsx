@@ -29,7 +29,9 @@ export const ImagePage = (): JSX.Element => {
   const url = new URLSearchParams(location.search).get("url");
 
   /* ---------- store ---------- */
-  const communities = useAppSelector((s: RootState) => s.communities);
+  const communities = useAppSelector(
+    (s: RootState) => s.communities.communities
+  );
   const communityId = getIdFromName(communityName, communities);
   const community = communities[communityId];
 
@@ -37,6 +39,7 @@ export const ImagePage = (): JSX.Element => {
   const [isZoomed, setIsZoomed] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
 
   /* ---------- handlers ---------- */
   const handleImageLoad = () => setLoading(false);
@@ -48,7 +51,7 @@ export const ImagePage = (): JSX.Element => {
 
   /* ---------- fetch communities once ---------- */
   useEffect(() => {
-    dispatch(getCommunities());
+    if (!communitiesLoaded) dispatch(getCommunities());
   }, [dispatch]);
 
   /* ---------- <head> settings ---------- */

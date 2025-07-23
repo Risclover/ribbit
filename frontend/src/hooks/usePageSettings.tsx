@@ -34,5 +34,12 @@ export function usePageSettings({
       setPageTitle(null);
     };
     // deps: only things that are actually allowed to change
-  }, [documentTitle, memoIcon, memoTitle, setPageIcon, setPageTitle]);
+  }, [
+    documentTitle,
+    memoIcon,
+    memoTitle,
+    pageTitle,
+    setPageIcon,
+    setPageTitle,
+  ]);
 }

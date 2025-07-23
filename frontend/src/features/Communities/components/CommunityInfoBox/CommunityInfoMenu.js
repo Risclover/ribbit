@@ -25,7 +25,7 @@ export function CommunityInfoMenu({ community }) {
     (state) => state.favoriteCommunities
   );
 
-  const communities = useAppSelector((state) => state.communities);
+  const communities = useAppSelector((state) => state.communities.communities);
 
   const [btnState, setBtnState] = useState("");
   const [openMenu, setOpenMenu] = useState(false);

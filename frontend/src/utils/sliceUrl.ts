@@ -21,7 +21,7 @@ export function sliceUrl(text) {
     sliced = text;
   }
 
-  let firstSlash = sliced.indexOf("/");
+  const firstSlash = sliced.indexOf("/");
 
   if (sliced[firstSlash + 8] === undefined) {
     return sliced;

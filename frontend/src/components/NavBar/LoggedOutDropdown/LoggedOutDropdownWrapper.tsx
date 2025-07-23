@@ -6,7 +6,7 @@ import "./LoggedOutDropdown.css";
 
 export function LoggedOutDropdownWrapper() {
   const [showDropdown, setShowDropdown] = useState(false);
-  const wrapperRef = useRef<HTMLDivElement | null>(null); // ← correct generic
+  const wrapperRef = useRef<HTMLDivElement | null>(null); 
 
   const toggleDropdown = useCallback(
     () => setShowDropdown((prev) => !prev),

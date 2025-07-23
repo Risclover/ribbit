@@ -24,7 +24,9 @@ interface PostPopupProps {
 export function PostPopup({ post }: PostPopupProps): ReactElement | null {
   /** memo-select the community to avoid extra renders */
   const community = useSelector((s: RootState) =>
-    s.communities ? s.communities[post.community.id] : undefined
+    s.communities.communities
+      ? s.communities.communities[post.community.id]
+      : undefined
   );
 
   /* Sync the global “community settings” when present */

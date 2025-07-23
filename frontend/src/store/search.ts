@@ -53,7 +53,7 @@ export const getSearchResults = () => async (dispatch) => {
 };
 
 export const search = (query) => async (dispatch) => {
-  let formattedQuery = query.split("+").join(" ");
+  const formattedQuery = query.split("+").join(" ");
   const response = await fetch(`/api/search/query?q=${formattedQuery}`);
 
   if (response.ok) {

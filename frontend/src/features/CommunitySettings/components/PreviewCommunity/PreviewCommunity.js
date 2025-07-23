@@ -25,7 +25,7 @@ export function PreviewCommunity() {
   const user = useAppSelector((state) => state.session.user);
   const posts = useAppSelector((state) => Object.values(state.posts.posts));
   const communities = useAppSelector((state) =>
-    Object.values(state.communities)
+    Object.values(state.communities.communities)
   );
   const favoriteCommunities = useAppSelector(
     (state) => state.favoriteCommunities

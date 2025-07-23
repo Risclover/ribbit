@@ -40,7 +40,7 @@ import { useDarkMode } from "@/hooks";
 /* ───────────────────────── Types ───────────────────────── */
 
 type Post = RootState["posts"][string];
-type Community = RootState["communities"][string];
+type Community = RootState["communities"]["communities"][number];
 
 interface RouteParams {
   postId: string;
@@ -62,9 +62,10 @@ export const SinglePostPage: FC = () => {
   );
   const user = useAppSelector((s) => s.session.user);
   const community: Community | undefined = useAppSelector((s) =>
-    post ? s.communities[post.community?.id] : undefined
+    post ? s.communities.communities[post.community?.id] : undefined
   );
   const postsLoaded = useAppSelector((state) => state.posts.loaded);
+  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
 
   useCommunitySettings(community);
   /* -- local UI state -- */
@@ -88,7 +89,7 @@ export const SinglePostPage: FC = () => {
     setFormat("Card");
 
     batch(() => {
-      if (!community) dispatch(getCommunities());
+      if (!communitiesLoaded) dispatch(getCommunities());
       if (!postsLoaded) dispatch(getPosts());
       if (post) dispatch(addViewedPost(post.id));
     });

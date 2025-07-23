@@ -10,7 +10,7 @@ import {
 
 export function CommunityPageMain({ community }) {
   const communities = useAppSelector((state) =>
-    Object.values(state.communities)
+    Object.values(state.communities.communities)
   );
   const communityPosts = Object.values(
     communities[community.id].communityPosts

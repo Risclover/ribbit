@@ -3,7 +3,7 @@ import { convertTime } from "../utils/convertTime";
 
 export function useCommentAuthorBar({ comment }) {
   const communities = useAppSelector((state) =>
-    Object.values(state.communities)
+    Object.values(state.communities.communities)
   );
   const post = useAppSelector((state) => state.posts.posts[comment?.postId]);
 

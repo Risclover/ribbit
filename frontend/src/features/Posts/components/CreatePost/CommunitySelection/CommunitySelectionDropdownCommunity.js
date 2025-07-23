@@ -14,7 +14,7 @@ export function CommunitySelectionDropdownCommunity({
 }) {
   const history = useHistory();
   const allCommunities = useAppSelector((state) =>
-    Object.values(state.communities)
+    Object.values(state.communities.communities)
   );
 
   const [baseColor, setBaseColor] = useState();

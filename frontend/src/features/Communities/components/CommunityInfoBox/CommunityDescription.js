@@ -14,7 +14,7 @@ export function CommunityDescription({ community, user, isPage }) {
   const [description, setDescription] = useState(community.description);
 
   const singleCommunity = useAppSelector(
-    (state) => state.communities[community.id]
+    (state) => state.communities.communities[community.id]
   );
 
   useOutsideClick(wrapperRef, () => setShowEditDescription(false));

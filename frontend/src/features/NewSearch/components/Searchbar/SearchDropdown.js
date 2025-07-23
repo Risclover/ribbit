@@ -17,11 +17,14 @@ export function SearchDropdown({
   const wrapperRef = useRef(null);
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const allCommunities = useAppSelector((state) => state.communities);
+  const allCommunities = useAppSelector(
+    (state) => state.communities.communities
+  );
   const allUsers = useAppSelector((state) => state.users);
+  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
 
   useEffect(() => {
-    dispatch(getCommunities());
+    if (!communitiesLoaded) dispatch(getCommunities());
   }, [dispatch]);
 
   const handleQuery = (e) => {

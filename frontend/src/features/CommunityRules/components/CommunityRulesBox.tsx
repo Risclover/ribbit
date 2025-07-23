@@ -19,7 +19,7 @@ export function CommunityRulesBox({
   community,
   post,
 }: CommunityRulesBoxProps): JSX.Element | null {
-  const communities = useAppSelector((s) => s.communities);
+  const communities = useAppSelector((s) => s.communities.communities);
 
   /* derive community name & rules safely, memoised */
   const { communityName, rules } = useMemo(() => {

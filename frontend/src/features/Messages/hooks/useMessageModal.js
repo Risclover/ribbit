@@ -23,8 +23,9 @@ export default function useMessageModal({ username }) {
   const allUsers = useAppSelector((state) => Object.values(state.users));
   const currentUser = useAppSelector((state) => state.session.user);
   const communities = useAppSelector((state) =>
-    Object.values(state.communities)
+    Object.values(state.communities.communities)
   );
+  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
 
   useEffect(() => {
     for (let user of allUsers) {
@@ -50,7 +51,7 @@ export default function useMessageModal({ username }) {
 
   useEffect(() => {
     dispatch(getThreads());
-    dispatch(getCommunities());
+    if (!communitiesLoaded) dispatch(getCommunities());
   }, [dispatch]);
 
   useEffect(() => {

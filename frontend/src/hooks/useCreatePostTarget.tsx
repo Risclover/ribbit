@@ -26,7 +26,7 @@ export function useCreatePostTarget(): string {
   const { post, community } = useAppSelector((s: RootState) => {
     const post = postId ? s.posts?.[postId] : undefined;
     const community = post?.community?.id
-      ? s.communities?.[post.community.id]
+      ? s.communities.communities?.[post.community.id]
       : undefined;
     return { post, community };
   });

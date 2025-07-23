@@ -104,7 +104,7 @@ export default function rulesReducer(state = initialState, action) {
       };
     }
     case DELETE_RULE:
-      let removeState = { ...state };
+      const removeState = { ...state };
       delete removeState[action.ruleId];
       return removeState;
     default:

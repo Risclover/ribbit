@@ -19,12 +19,14 @@ export function EditCommunity() {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { communityName } = useParams();
-  const communities = useAppSelector((state) => state.communities);
+  const communities = useAppSelector((state) => state.communities.communities);
   const currentUser = useAppSelector((state) => state.session.user);
   const communityId = getIdFromName(communityName, communities);
 
   const user = useAppSelector((state) => state.session.user);
-  const community = useAppSelector((state) => state.communities[+communityId]);
+  const community = useAppSelector(
+    (state) => state.communities.communities[+communityId]
+  );
   const rules = useAppSelector((state) => Object.values(state.rules));
 
   const [showRuleModal, setShowRuleModal] = useState(false);

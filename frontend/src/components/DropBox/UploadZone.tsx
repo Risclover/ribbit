@@ -12,7 +12,6 @@ export const UploadZone = ({
   accept = "image/*",
   label = "Drag and Drop or Upload Image",
 }: UploadZoneProps) => {
-  // ✅ proper generic and union type
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const openFileDialog = () => inputRef.current?.click();

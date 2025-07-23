@@ -15,7 +15,7 @@ export const usePostButtonHandlers = ({
   setShowSubmenu = null,
 }) => {
   const { communityName } = useParams();
-  const communities = useAppSelector((state) => state.communities);
+  const communities = useAppSelector((state) => state.communities.communities);
   const communityId = getIdFromName(communityName, communities);
   const currentUser = useAppSelector((state) => state.session.user);
   const [isCommunityOwner, setIsCommunityOwner] = useState(

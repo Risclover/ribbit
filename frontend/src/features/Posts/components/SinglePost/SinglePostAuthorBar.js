@@ -10,10 +10,10 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
   const history = useHistory();
   const handleNavClick = (e) => {
     e.stopPropagation();
-    console.log()
+    console.log();
   };
   const community = useAppSelector(
-    (state) => state.communities[post?.community?.id]
+    (state) => state.communities.communities[post?.community?.id]
   );
   return (
     <div className="single-post-author-bar">

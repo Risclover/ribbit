@@ -22,7 +22,6 @@ const selectUser = (s: RootState) => s.session.user;
 
 export function MobileNavBar({
   setOpenUserDropdown,
-  openUserDropdown,
   setShowSearchScreen,
   setShowNavSidebar,
   showNavSidebar,
@@ -31,7 +30,7 @@ export function MobileNavBar({
   const user = useAppSelector(selectUser);
 
   /* lock background scroll when dropdown is open */
-  useScrollLock(openUserDropdown);
+  // useScrollLock(openUserDropdown);
   /* stable callbacks ----------------------------------------------------- */
   const toggleSidebar = useCallback(
     () => setShowNavSidebar((p) => !p),

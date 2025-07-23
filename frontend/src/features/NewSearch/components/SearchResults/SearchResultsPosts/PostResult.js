@@ -14,7 +14,7 @@ import { useIsMobile } from "hooks/useIsMobile";
 const PostResult = ({ post }) => {
   const history = useHistory();
   const community = useAppSelector(
-    (state) => state.communities[post?.community?.id]
+    (state) => state.communities.communities[post?.community?.id]
   );
   const { metadata, fetchMetadata } = useMetadata();
   const hasMeta = Boolean(metadata[post.linkUrl]);

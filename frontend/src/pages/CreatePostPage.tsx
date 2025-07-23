@@ -40,8 +40,9 @@ export function CreatePostPage({
   /* ---------- local hooks ---------- */
   const { communityName } = useParams<{ communityName?: string }>();
   const dispatch = useAppDispatch();
-  const communities = useAppSelector((s) => s.communities);
+  const communities = useAppSelector((s) => s.communities.communities);
   const postsLoaded = useAppSelector((state) => state.posts.loaded);
+  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
 
   /* ---------- helpers -------------- */
   /** Type-guard so TS knows each item really is a Community */
@@ -58,7 +59,7 @@ export function CreatePostPage({
   /* ---------- effects (unchanged, but with type-guard) ---------- */
   useEffect(() => {
     if (!postsLoaded) dispatch(getPosts());
-    dispatch(getCommunities());
+    if (!communitiesLoaded) dispatch(getCommunities());
     dispatch(getSubscriptions());
   }, [dispatch]);
 

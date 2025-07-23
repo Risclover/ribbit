@@ -23,7 +23,7 @@ export function useCommunityPage() {
 
   const { setPageTitle, setPageIcon } = usePageTitle();
 
-  const communities = useAppSelector((state) => state.communities);
+  const communities = useAppSelector((state) => state.communities.communities);
   const user = useAppSelector((state) => state.session.user);
   const posts = useAppSelector((state) => Object.values(state.posts.posts));
 
@@ -31,10 +31,11 @@ export function useCommunityPage() {
   const communityId = getIdFromName(communityName, communities);
   const community = communities[communityId];
   const postsLoaded = useAppSelector((state) => state.posts.loaded);
+  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
 
   // 2) Fetch data
   useEffect(() => {
-    dispatch(getCommunities());
+    if (!communitiesLoaded) dispatch(getCommunities());
     if (!postsLoaded) dispatch(getPosts());
     if (communityId) {
       dispatch(getCommunitySettings(communityId));

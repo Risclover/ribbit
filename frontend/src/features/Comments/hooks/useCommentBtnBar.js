@@ -18,7 +18,7 @@ export function useCommentBtnBar({
 
   const currentUser = useAppSelector((state) => state.session.user);
   const post = useAppSelector((state) => state.posts.posts[postId]);
-  const communities = useAppSelector((state) => state.communities);
+  const communities = useAppSelector((state) => state.communities.communities);
   const communityId = post.community.id;
 
   const isAuthor = comment?.commentAuthor?.id === currentUser?.id;

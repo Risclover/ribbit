@@ -20,7 +20,7 @@ export function PreviewCommunitySidebar() {
   const communityName = fullURL.split("/")[4];
 
   const communities = useAppSelector((state) =>
-    Object.values(state.communities)
+    Object.values(state.communities.communities)
   );
   const community = communities?.find((c) => c.name === communityName);
 

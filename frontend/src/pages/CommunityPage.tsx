@@ -49,7 +49,7 @@ export function CommunityPage(): JSX.Element {
 
   /* -------- store selectors -------- */
   const user = useAppSelector((s) => s.session.user);
-  const communities = useAppSelector((s) => s.communities);
+  const communities = useAppSelector((s) => s.communities.communities);
   const communityId = getIdFromName(communityName, communities);
   const community: Community | undefined = communities[communityId];
 
@@ -62,7 +62,7 @@ export function CommunityPage(): JSX.Element {
   );
 
   const communitiesLoaded = useAppSelector(
-    (s) => Object.keys(s.communities).length > 0
+    (s) => Object.keys(s.communities.communities).length > 0
   );
 
   /* -------- local UI state -------- */
@@ -76,7 +76,7 @@ export function CommunityPage(): JSX.Element {
     if (!communityId) return;
 
     (async () => {
-      await dispatch(getCommunities());
+      if (!communitiesLoaded) await dispatch(getCommunities());
       await dispatch(getCommunitySettings(communityId));
 
       if (!postsLoaded) {
@@ -103,6 +103,10 @@ export function CommunityPage(): JSX.Element {
       localStorage.setItem(LOCAL_KEY, JSON.stringify(filtered.slice(0, 5)));
     }
   }, [community, user]);
+
+  useEffect(() => {
+    console.log("community:", community);
+  }, [community]);
 
   /* -------- document / favicon -------- */
   usePageSettings({

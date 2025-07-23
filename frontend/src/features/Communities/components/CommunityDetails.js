@@ -29,7 +29,7 @@ export function CommunityDetails({ post, community }) {
   );
   const [subscribeBtnText, setSubscribeBtnText] = useState("Leave");
   const communities = useAppSelector((state) =>
-    Object.values(state.communities)
+    Object.values(state.communities.communities)
   );
   const communityId = post?.community.id;
   const members = communities[communityId]?.members || community?.members || 0;

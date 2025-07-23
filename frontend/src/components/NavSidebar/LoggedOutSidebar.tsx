@@ -38,8 +38,9 @@ export function LoggedOutSidebar({
 
   const user = useAppSelector((s) => s.session.user);
   const communities = useAppSelector(
-    (s) => Object.values(s.communities) as Community[]
+    (s) => Object.values(s.communities.communities) as Community[]
   );
+  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
 
   /* ---- derived ------------------------------------------------------- */
 
@@ -56,7 +57,7 @@ export function LoggedOutSidebar({
 
   // fetch popular communities once
   useEffect(() => {
-    if (!communities.length) dispatch(getCommunities());
+    if (!communitiesLoaded) dispatch(getCommunities());
   }, [dispatch, communities.length]);
 
   // read “recent communities” from localStorage

@@ -21,7 +21,7 @@ export function CommunitySelectionInput({
   const { communityName } = useParams();
   const history = useHistory();
   const communities = useAppSelector((state) =>
-    Object.values(state.communities)
+    Object.values(state.communities.communities)
   );
 
   // Focus input whenever dropdown opens

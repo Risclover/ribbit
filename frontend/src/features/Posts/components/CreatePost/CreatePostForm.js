@@ -46,7 +46,7 @@ export function CreatePostForm({
 
   // ---------- get community id ----------
   const communities = useAppSelector((state) =>
-    Object.values(state.communities)
+    Object.values(state.communities.communities)
   );
   useEffect(() => {
     if (communityName) {

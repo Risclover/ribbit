@@ -8,7 +8,6 @@ import { ComponentType, MouseEventHandler, ButtonHTMLAttributes } from "react";
  * @param testId      ID for testing purposes
  * @param ariaLabel   Accessibility label
  * @param className   Optional extra class names
- * @param rest        Any other <button> props (disabled, title, etc.)
  *
  * @example
  * <PostBarBtn

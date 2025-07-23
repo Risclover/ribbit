@@ -55,7 +55,7 @@ export function NavSidebar({
   }, [dispatch]);
 
   useEscapeKey(() => setShowNavSidebar(false), showNavSidebar);
-  useScrollLock(showNavSidebar, isSmall);
+  // useScrollLock(showNavSidebar, isSmall);
   useFocusTrap(showNavSidebar, wrapperRef, isSmall);
 
   /* ----------  Render ---------- */

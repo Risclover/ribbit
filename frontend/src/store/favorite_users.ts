@@ -68,7 +68,7 @@ export default function favoriteUsersReducer(state = initialState, action) {
         return state;
       }
     case DELETE:
-      let removeState = { ...state };
+      const removeState = { ...state };
       delete removeState[action.userId];
       return removeState;
     default:

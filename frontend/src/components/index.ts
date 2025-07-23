@@ -4,7 +4,7 @@ export * from "./ToggleSwitch";
 export * from "./Username";
 export * from "./DropBox";
 export { DeleteConfirmationModal } from "./DeleteConfirmationModal";
-export { BackToTop } from "./BackToTop/BackToTop";
+export { BackToTop } from "./BackToTop";
 export * from "./FollowBtn";
 export * from "../features/Posts/components/PostFeed";
 export * from "../layouts/FeedContainer";

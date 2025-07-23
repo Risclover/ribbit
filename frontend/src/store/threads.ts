@@ -167,7 +167,7 @@ export default function threadsReducer(state = initialState, action) {
     case LOAD_ONE:
       return { ...state, [action.thread.id]: { ...action.thread } };
     case DELETE:
-      let removeState = { ...state };
+      const removeState = { ...state };
       delete removeState[action.threadId];
       return removeState;
     default:

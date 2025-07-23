@@ -1,7 +1,7 @@
-// src/socket.js
 import { io } from "socket.io-client";
-import { receiveNewMessage } from "@/store";
+import { receiveNewMessage, useAppDispatch } from "@/store";
 import { addNotification } from "@/store/notifications"; // if you want live notifs
+import { useDispatch } from "react-redux";
 
 let socket = null; // shared instance
 
@@ -20,7 +20,7 @@ export const initiateSocket = (userId) => {
 
   // Chat messages pushed by the server
   socket.on("new_chat_message", (msg) => {
-    store.dispatch(receiveNewMessage(msg));
+    useAppDispatch(receiveNewMessage(msg));
   });
 
   return socket;

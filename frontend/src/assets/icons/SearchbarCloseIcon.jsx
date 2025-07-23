@@ -10,7 +10,7 @@ export function SearchbarCloseIcon() {
         d="M15.7494 15L9.75 9M9.75064 15L15.75 9"
         stroke="currentColor"
         strokeWidth="1.4"
-        stroke-linecap="square"
+        strokeLinecap="square"
         strokeLinejoin="square"
       ></path>
       <path

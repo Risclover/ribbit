@@ -15,9 +15,9 @@ export function CommunitySelection({
   const [showDropdown, setShowDropdown] = useState(false);
   const [inputState, setInputState] = useState("choose");
 
-  const communities = useAppSelector((s) => s.communities);
+  const communities = useAppSelector((s) => s.communities.communities);
   const subscriptions = useAppSelector((s) => s.subscriptions);
-  const allCommunities = useAppSelector((s) => s.communities);
+  const allCommunities = useAppSelector((s) => s.communities.communities);
 
   useOutsideClick(wrapperRef, () => setShowDropdown(false));
 
