@@ -212,7 +212,7 @@ export default function communitiesReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_COMMUNITIES:
       const byId = {};
-      action.communities.communities.forEach((c) => {
+      action.communities.Communities.forEach((c) => {
         byId[c.id] = c;
       });
 

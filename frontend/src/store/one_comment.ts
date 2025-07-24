@@ -21,8 +21,6 @@ export const getSingleComment = (commentId) => async (dispatch) => {
   }
 };
 
-export const getCommentById = (id) => (state) => state.comments[id];
-
 /* ------------------------- REDUCER ------------------------- */
 
 const initialState = {};

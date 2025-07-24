@@ -193,30 +193,38 @@ export const searchPostComments = (postId, query) => async (dispatch) => {
 
 /* ------------------------- REDUCER ------------------------- */
 
-const initialState = {};
+const initialState = { loaded: false, comments: {} };
 
 const commentsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_COMMENT:
       return { ...state, [action.comment.id]: action.comment };
+    // case LOAD_COMMENTS:
+    //   const newState = {}; // Start with an empty state
+    //   action.comments.Comments.forEach((comment) => {
+    //     newState[comment.id] = comment;
+    //     // Recursively add children
+    //     const addChildren = (childComments) => {
+    //       childComments.forEach((child) => {
+    //         newState[child.id] = child;
+    //         if (child.children && child.children.length > 0) {
+    //           addChildren(child.children);
+    //         }
+    //       });
+    //     };
+    //     if (comment.children && comment.children.length > 0) {
+    //       addChildren(comment.children);
+    //     }
+    //   });
+    //   return newState; // Return the new state with only the current post's comments
+
     case LOAD_COMMENTS:
-      const newState = {}; // Start with an empty state
-      action.comments.Comments.forEach((comment) => {
-        newState[comment.id] = comment;
-        // Recursively add children
-        const addChildren = (childComments) => {
-          childComments.forEach((child) => {
-            newState[child.id] = child;
-            if (child.children && child.children.length > 0) {
-              addChildren(child.children);
-            }
-          });
-        };
-        if (comment.children && comment.children.length > 0) {
-          addChildren(comment.children);
-        }
+      const byId = {};
+      action.comments.Comments.forEach((c) => {
+        byId[c.id] = c;
       });
-      return newState; // Return the new state with only the current post's comments
+
+      return { ...state, comments: byId, loaded: true };
     case UPDATE_COMMENT:
       return { ...state, [action.comment.id]: action.comment };
     case ADD_COMMENT_VOTE:

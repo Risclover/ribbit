@@ -17,7 +17,7 @@ export function useComments({ post, triggerScroll, setTriggerScroll }) {
 
   const url = window.location.href;
 
-  const commentsState = useAppSelector((state) => state.comments);
+  const commentsState = useAppSelector((state) => state.comments.comments);
   const commentsArray = Object.values(commentsState);
 
   const [sortType, setSortType] = useState("Top");

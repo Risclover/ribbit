@@ -71,7 +71,7 @@ function App() {
   const searchbarRef = useRef();
   const users = useAppSelector((state) => state.users);
   const background = location.state && location.state.background;
-  const comments = useAppSelector((state) => Object.values(state.comments));
+  const comments = useAppSelector((state) => Object.values(state.comments.comments));
   const communities = useAppSelector((state) =>
     Object.values(state.communities.communities)
   );

@@ -19,7 +19,7 @@ export function useChatEmojis({ receiver, socket, setEmojisOverlay }) {
 
     const data = await dispatch(createChatMessage(payload));
     data.room = chatThreadId;
-    await socket.emit("chat", data);
+    socket.emit("chat", data);
     dispatch(getChatThread(chatThreadId));
     setEmojisOverlay(false);
   };
