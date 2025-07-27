@@ -197,8 +197,6 @@ const initialState = { loaded: false, comments: {} };
 
 const commentsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_COMMENT:
-      return { ...state, [action.comment.id]: action.comment };
     // case LOAD_COMMENTS:
     //   const newState = {}; // Start with an empty state
     //   action.comments.Comments.forEach((comment) => {
@@ -218,18 +216,34 @@ const commentsReducer = (state = initialState, action) => {
     //   });
     //   return newState; // Return the new state with only the current post's comments
 
-    case LOAD_COMMENTS:
+    case LOAD_COMMENTS: {
       const byId = {};
-      action.comments.Comments.forEach((c) => {
-        byId[c.id] = c;
-      });
+
+      const addRecursively = (comment) => {
+        byId[comment.id] = comment;
+        if (comment.children?.length) {
+          comment.children.forEach(addRecursively);
+        }
+      };
+
+      action.comments.Comments.forEach(addRecursively);
 
       return { ...state, comments: byId, loaded: true };
+    }
+
+    case ADD_COMMENT:
     case UPDATE_COMMENT:
-      return { ...state, [action.comment.id]: action.comment };
     case ADD_COMMENT_VOTE:
-    case REMOVE_COMMENT_VOTE:
-      return { ...state, [action.comment.id]: action.comment };
+    case REMOVE_COMMENT_VOTE: {
+      return {
+        ...state,
+        comments: {
+          // ← always inside comments
+          ...state.comments,
+          [action.comment.id]: action.comment,
+        },
+      };
+    }
     case SEARCH:
       const searchState = {};
       action.comments.SearchedComments.forEach((comment) => {

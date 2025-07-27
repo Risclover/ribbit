@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { CiSearch } from "react-icons/ci";
 import { SlClose } from "react-icons/sl";
-import { v4 as uuidv4 } from "uuid";
 import { useChatGifs } from "../../hooks/useChatGifs";
 import { useOutsideClick } from "@/hooks";
 
@@ -10,7 +10,6 @@ export function ChatGifs({
   setOpenGiphy,
   setGifIcon,
   GifIcon,
-  GifIconDark,
   socket,
 }) {
   const wrapperRef = useRef(null);

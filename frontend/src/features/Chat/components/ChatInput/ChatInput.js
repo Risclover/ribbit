@@ -168,7 +168,6 @@ export const ChatInput = ({
           }
           setGifIcon={setGifIcon}
           GifIcon={liveChatIcons.GifIcon}
-          GifIconDark={liveChatIcons.GifIconDark}
           setOpenGiphy={setOpenGiphy}
           socket={socket}
         />
