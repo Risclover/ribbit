@@ -26,6 +26,7 @@ import { useUserSearch } from "../../hooks";
 import { useChatSocket } from "../../hooks/useChatSocket";
 
 import "../../styles/index.css";
+import { getSocket } from "@/socket";
 
 export const OVERLAYS = {
   NONE: null,
@@ -55,7 +56,7 @@ export function Chat({
 }: ChatProps) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((s) => s.session.user);
-  const chatThreads = useAppSelector((s) => s.chatThreads);
+  const chatThreads = useAppSelector((s) => s.chatThreads.chatThreads);
 
   const { selectedChat, setSelectedChat } = useSelectedChat();
 
@@ -70,21 +71,19 @@ export function Chat({
   const { userFound } = useUserSearch(username);
 
   /* socket ----------------------------------------------------------- */
-  const socketRef = useRef<any>(null);
-  // useChatSocket({
-  //   socketRef,
-  //   user,
-  //   chatThreads,
-  //   selectedChat,
-  //   dispatch,
-  //   onDelete: () => {
-  //     if (selectedChat?.id) {
-  //       dispatch(getChatThread(selectedChat.id));
-  //     }
-  //   },
-  //   onReactionAdd: (d) => dispatch(addReaction(d)),
-  //   onReactionRemove: (d) => dispatch(removeReaction(d)),
-  // });
+  const socketRef = getSocket();
+  useChatSocket({
+    user,
+    chatThreads,
+    dispatch,
+    onDelete: () => {
+      if (selectedChat?.id) {
+        dispatch(getChatThread(selectedChat.id));
+      }
+    },
+    onReactionAdd: (d) => dispatch(addReaction(d)),
+    onReactionRemove: (d) => dispatch(removeReaction(d)),
+  });
 
   /* effects ---------------------------------------------------------- */
   useEffect(() => {
@@ -161,7 +160,6 @@ export function Chat({
         />
 
         <ChatInput
-          socket={socketRef.current}
           showMessageInviteOverlay={activeOverlay === OVERLAYS.INVITE}
           setActiveOverlay={setActiveOverlay}
           OVERLAYS={OVERLAYS}

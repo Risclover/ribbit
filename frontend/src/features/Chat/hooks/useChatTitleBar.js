@@ -8,6 +8,8 @@ export function useChatTitleBar() {
 
   const { selectedChat, pendingReceiver } = useSelectedChat();
 
+  // pendingReceiver: Flag that indicates whether the title bar should show the username or not
+  // For the 'Create Chat' overlay
   useEffect(() => {
     if (pendingReceiver !== null) {
       setReceiver(pendingReceiver);

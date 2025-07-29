@@ -1,8 +1,9 @@
 import React from "react";
+import { ChatWindowOverlayContainer } from "./ChatWindowOverlayContainer";
 
 export const DeleteMessageOverlay = ({ setActiveOverlay, handleDeleteMsg }) => {
   return (
-    <div className="overlay-container">
+    <ChatWindowOverlayContainer>
       <div className="delete-overlay">
         <div className="delete-overlay-text">
           <div className="delete-overlay-title">Delete this message?</div>
@@ -22,6 +23,6 @@ export const DeleteMessageOverlay = ({ setActiveOverlay, handleDeleteMsg }) => {
           </button>
         </div>
       </div>
-    </div>
+    </ChatWindowOverlayContainer>
   );
 };

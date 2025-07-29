@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useAppSelector } from "@/store";
 
 export const useSortedChatThreads = () => {
-  const chatThreads = useAppSelector((state) => state.chatThreads);
+  const chatThreads = useAppSelector((state) => state.chatThreads.chatThreads);
 
   const sortedChatThreads = useMemo(() => {
     return Object.values(chatThreads).sort((a, b) => {

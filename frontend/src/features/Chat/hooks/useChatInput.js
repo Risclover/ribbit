@@ -35,26 +35,27 @@ export function useChatInput({
   const sendMessage = async () => {
     if (!selectedChat) return;
 
+    const chatThreadId = selectedChat?.id;
     // Identify the "other user" in the thread
     const receiver = selectedChat?.users?.find((u) => u.id !== currentUser?.id);
 
     const payload = {
       content: inputText,
       receiverId: receiver?.id, // if you need this
-      chatThreadId: selectedChat.id,
+      chatThreadId: chatThreadId,
     };
 
     // Create the message via Redux
     const data = await dispatch(createChatMessage(payload));
-    data.room = selectedChat.id;
+    dispatch(getChatThread(chatThreadId));
+    data.room = chatThreadId;
 
     // Emit over socket
     socket.emit("chat", data);
 
     // Optionally fetch the thread again or do an optimistic update
-    dispatch(getChatThread(selectedChat.id));
 
-    clearInput(selectedChat.id);
+    clearInput(chatThreadId);
   };
 
   // 3) The actual submit handler

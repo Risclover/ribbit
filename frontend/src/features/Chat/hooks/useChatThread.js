@@ -13,7 +13,7 @@ export function useChatThread({
 
   const currentUser = useAppSelector((state) => state.session.user);
   const reactions = useAppSelector((state) => state.reactions);
-  const chatThreads = useAppSelector((state) => state.chatThreads);
+  const chatThreads = useAppSelector((state) => state.chatThreads.chatThreads);
   const user = useAppSelector((state) => state.session.user);
 
   const { selectedChat, setSelectedChat } = useSelectedChat();

@@ -1,64 +1,55 @@
-// useChatSocket.js
-import { io } from "socket.io-client";
-import { receiveNewMessage } from "@/store"; // <-- import your action
+// src/features/Chat/hooks/useChatSocket.js
 import { useEffect } from "react";
+import { initiateSocket } from "@/socket";
+import { receiveNewMessage } from "@/store";
 
+/**
+ * Hook that wires the single Socket.IO connection to the Redux store
+ * and keeps the user joined to all their chat‑thread rooms.
+ */
 export function useChatSocket({
-  socketRef,
-  user,
-  chatThreads,
-  selectedChat,
-  dispatch,
-  onDelete,
-  onReactionAdd,
-  onReactionRemove,
-  // onNewMessage, // We will no longer rely on an external callback
+  user, // current logged‑in user
+  chatThreads, // map of threadId → thread data
+  dispatch, // Redux dispatch
+  onDelete, // callback for “deleted” events
+  onReactionAdd, // callback for “reaction_added” events
+  onReactionRemove, // callback for “reaction_removed” events
 }) {
+  /* ------------------------------------------------------------------
+     1. Get (or create) the singleton socket.
+     ------------------------------------------------------------------ */
+  const socket = initiateSocket(user?.id);
+
+  /* ------------------------------------------------------------------
+     2. Attach one‑time event listeners.
+     ------------------------------------------------------------------ */
   useEffect(() => {
-    if (!socketRef.current) {
-      socketRef.current = io("http://localhost:5000");
-      socketRef.current.on("connect_error", (err) => {
-        console.error("Socket connect error:", err);
-      });
-      socketRef.current.on("connect", () => {
-        if (user && chatThreads) {
-          Object.values(chatThreads).forEach((thread) => {
-            socketRef.current.emit("join", { user: user.id, room: thread.id });
-          });
-        }
-      });
+    if (!socket) return;
 
-      // IMMEDIATELY dispatch receiveNewMessage when "chat" event arrives
-      socketRef.current.on("chat", (messageData) => {
-        dispatch(receiveNewMessage(messageData));
-      });
+    const handleNewMessage = (message) => dispatch(receiveNewMessage(message));
 
-      socketRef.current.on("reaction_added", onReactionAdd);
-      socketRef.current.on("reaction_removed", onReactionRemove);
-      socketRef.current.on("deleted", onDelete);
-    }
+    socket.on("chat", handleNewMessage);
+    socket.on("reaction_added", onReactionAdd);
+    socket.on("reaction_removed", onReactionRemove);
+    socket.on("deleted", onDelete);
 
-    // Re-join rooms if chatThreads changes
-    if (socketRef.current && user && chatThreads) {
-      Object.values(chatThreads).forEach((thread) => {
-        socketRef.current.emit("join", { user: user.id, room: thread.id });
-      });
-    }
-
+    // Clean‑up when the component unmounts
     return () => {
-      if (socketRef.current) {
-        socketRef.current.disconnect();
-        socketRef.current = null;
-      }
+      socket.off("chat", handleNewMessage);
+      socket.off("reaction_added", onReactionAdd);
+      socket.off("reaction_removed", onReactionRemove);
+      socket.off("deleted", onDelete);
     };
-  }, [
-    chatThreads,
-    user,
-    dispatch,
-    onDelete,
-    onReactionAdd,
-    onReactionRemove,
-    socketRef,
-    selectedChat?.id,
-  ]);
+  }, [socket, dispatch, onDelete, onReactionAdd, onReactionRemove]);
+
+  /* ------------------------------------------------------------------
+     3. Join every thread room whenever the list changes.
+     ------------------------------------------------------------------ */
+  useEffect(() => {
+    if (!socket || !user) return;
+
+    Object.values(chatThreads || {}).forEach((thread) => {
+      socket.emit("join", { user: user.id, room: thread.id });
+    });
+  }, [socket, user, chatThreads]);
 }

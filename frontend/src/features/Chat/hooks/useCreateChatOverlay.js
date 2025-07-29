@@ -13,7 +13,9 @@ export function useCreateChatOverlay({
   const [isChosen, setIsChosen] = useState(false);
   const [error, setError] = useState(false);
 
-  const userChats = useAppSelector((state) => Object.values(state.chatThreads));
+  const userChats = useAppSelector((state) =>
+    Object.values(state.chatThreads.chatThreads)
+  );
   const currentUser = useAppSelector((state) => state.session.user);
 
   const handleStartChat = (e) => {

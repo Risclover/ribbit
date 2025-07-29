@@ -10,7 +10,6 @@ export const ChatMessages = ({
   OVERLAYS,
 }) => {
   const decorated = useChatMessages({ messages });
-  console.log("decorated:", decorated);
   return (
     <div className="chat-messages">
       {decorated.map((message) => (

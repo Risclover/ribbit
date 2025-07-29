@@ -48,7 +48,9 @@ export function UserAboutBox({
   const userFollowers = useAppSelector(
     (state) => state.followers.userFollowers
   );
-  const userChats = useAppSelector((state) => Object.values(state.chatThreads));
+  const userChats = useAppSelector((state) =>
+    Object.values(state.chatThreads.chatThreads)
+  );
   const [showBannerModal, setShowBannerModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);

@@ -28,7 +28,9 @@ export function useUserProfileAboutBox({ user, currentUser }) {
   /* ───────── redux state ───────── */
   const followers = useAppSelector((s) => s.followers.followers);
   const follows = useAppSelector((s) => s.followers.follows);
-  const threads = useAppSelector((s) => Object.values(s.chatThreads));
+  const threads = useAppSelector((s) =>
+    Object.values(s.chatThreads.chatThreads)
+  );
 
   /* ───────── derived flags / numbers ───────── */
   const isMe = currentUser?.id === user?.id;

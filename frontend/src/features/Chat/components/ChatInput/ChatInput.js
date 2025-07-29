@@ -6,9 +6,9 @@ import { createChatThread, createChatMessage, getChatThread } from "@/store";
 import { liveChatIcons } from "@/assets";
 import { useSelectedChat } from "@/context";
 import { GifIcon, SendMessageIcon } from "@/assets";
+import { getSocket } from "@/socket";
 
 export const ChatInput = ({
-  socket,
   showMessageInviteOverlay,
   setActiveOverlay,
   OVERLAYS,
@@ -18,6 +18,7 @@ export const ChatInput = ({
   inputText,
   setPendingInputText,
 }) => {
+  const socket = getSocket();
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.session.user);
   const { selectedChat, setSelectedChat } = useSelectedChat();

@@ -40,7 +40,8 @@ interface NavBarProps {
 
 /* ----------  Local selectors  ---------- */
 
-const selectThreads = (s: RootState) => s.chatThreads as Record<string, Thread>;
+const selectThreads = (s: RootState) =>
+  s.chatThreads.chatThreads as Record<string, Thread>;
 const selectUser = (s: RootState) => s.session.user;
 const selectNotifs = (s: RootState) => Object.values(s.notifications);
 const selectMsgs = (s: RootState) => Object.values(s.messages);

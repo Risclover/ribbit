@@ -15,10 +15,6 @@ export function useChatMessage({ socket, messageId, content }) {
   const msgReactions = useAppSelector((state) => state.reactions);
 
   useEffect(() => {
-    dispatch(fetchReactionsForMessage(messageId));
-  }, [dispatch, messageId]);
-
-  useEffect(() => {
     if (typeof content === "string" && content.endsWith(".png")) {
       setMsgContent(
         `<div className="emoji-container"><img src=${content} className="emoji" /></div>`
@@ -33,8 +29,6 @@ export function useChatMessage({ socket, messageId, content }) {
   }, [content]);
 
   const messageReactions = msgReactions[messageId] || [];
-
-  console.log("messageReactions:", messageReactions);
 
   const extractImgUrl = (url) => {
     const parts = url.split("/");

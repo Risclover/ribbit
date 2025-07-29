@@ -3,36 +3,36 @@ import { receiveNewMessage, useAppDispatch } from "@/store";
 import { addNotification } from "@/store/notifications"; // if you want live notifs
 import { useDispatch } from "react-redux";
 
-let socket = null; // shared instance
+let socket;
 
-export const initiateSocket = (userId) => {
-  if (socket) return socket; // already connected
+/**
+ * Create (or reuse) the single Socket.IO connection for the whole app.
+ * You are running Flask‑SocketIO with **async_mode="threading"**,
+ * therefore the server only supports HTTP long‑polling; we explicitly
+ * disable WebSocket upgrades to prevent “Invalid frame header”.
+ */
+export function initiateSocket(userId, { forceNew = false } = {}) {
+  if (socket && !forceNew) return socket;
+
+  if (socket && forceNew) {
+    socket.disconnect();
+    socket = undefined;
+  }
 
   socket = io(
-    process.env.REACT_APP_BACKEND_URL || "/", // CRA env var or same-origin
-    { withCredentials: true } // keep session cookies
+    process.env.REACT_APP_BACKEND_URL || "/", //       dev proxy or prod same‑origin
+    {
+      withCredentials: true,
+      transports: ["polling"], // <‑‑ important: only long‑polling
+      upgrade: false, //        …and never try websocket
+    }
   );
 
-  socket.on("connect", () => {
-    console.log("Socket connected, id:", socket.id);
-    // No need to join a room — the server’s `on_connect` already did that.
-  });
-
-  // Chat messages pushed by the server
-  socket.on("new_chat_message", (msg) => {
-    useAppDispatch(receiveNewMessage(msg));
-  });
+  socket.on("connect", () =>
+    console.log("Socket connected:", socket.id, "(uid:", userId, ")")
+  );
 
   return socket;
-};
+}
 
-export const disconnectSocket = () => {
-  if (socket) {
-    socket.off("new_chat_message");
-    socket.off("new_notification");
-    socket.disconnect();
-    socket = null;
-  }
-};
-
-export const getSocket = () => socket; // handy accessor
+export const getSocket = () => socket;

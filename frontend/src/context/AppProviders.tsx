@@ -10,9 +10,9 @@ import {
   SelectedChatProvider,
   OpenChatProvider,
   PageTitleProvider,
+  AuthFlowProvider,
+  SkipLocationProvider,
 } from "@/context";
-import { AuthFlowProvider } from "@/context/AuthFlowContext";
-import { SkipLocationProvider } from "@/context/SkipLocationContext";
 
 interface AppProvidersProps {
   store: Store;
