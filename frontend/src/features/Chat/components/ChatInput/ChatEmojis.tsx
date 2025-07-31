@@ -1,18 +1,18 @@
 import React, { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useChatEmojis } from "../../hooks/useChatEmojis";
-import { useOutsideClick } from "@/hooks";
+import { useFocusTrap, useOutsideClick } from "@/hooks";
 import { ChatWindowEmojis } from "@/assets";
+import { getSocket } from "@/socket";
 
-export function ChatEmojis({ receiver, setEmojisOverlay, socket }) {
+export function ChatEmojis({ receiver, setOpenEmojis, openEmojis }) {
   const wrapperRef = useRef();
-
-  useOutsideClick(wrapperRef, () => setEmojisOverlay(false));
+  useOutsideClick(wrapperRef, () => setOpenEmojis(false));
+  useFocusTrap(openEmojis, wrapperRef);
 
   const { handleAddEmoji } = useChatEmojis({
     receiver,
-    socket,
-    setEmojisOverlay,
+    setOpenEmojis,
   });
 
   return (

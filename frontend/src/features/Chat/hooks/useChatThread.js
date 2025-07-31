@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/store";
 import { useSelectedChat } from "@/context";
-import { getUserChatThreads } from "@/store";
+import { useAppDispatch, useAppSelector, getUserChatThreads } from "@/store";
 
 export function useChatThread({
   containerRef,
@@ -46,6 +45,7 @@ export function useChatThread({
     }
   }, [selectedChat, chatThreads]);
 
+  // Logic for moving scroll to bottom of the chat thread window
   useEffect(() => {
     if (containerRef.current) {
       const containerElement = containerRef.current;

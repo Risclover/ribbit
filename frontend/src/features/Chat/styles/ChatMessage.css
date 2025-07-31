@@ -51,6 +51,11 @@
   background: #f8f8f8;
 }
 
+:root[data-theme="dark"] .chat-thread-message:hover,
+:root[data-theme="dark"] .chat-thread-message-compact:hover {
+  background: var(--main-input-bg-color);
+}
+
 .chat-thread-message-compact-time {
   display: none;
   position: absolute;
@@ -72,6 +77,10 @@
   display: block;
 }
 
+:root[data-theme="dark"] .chat-thread-message-compact-time {
+  color: var(--main-text-color);
+}
+
 .chat-thread-message-main {
   white-space: pre-wrap;
   word-break: break-word;
@@ -86,6 +95,10 @@
   align-items: center;
   justify-content: center;
   min-height: 250px;
+}
+
+:root[data-theme="dark"] .chat-thread-messages-user-info {
+  color: var(--main-text-color);
 }
 
 .chat-message-hover-component {
@@ -155,6 +168,11 @@
 .chat-message-reaction-btn:hover {
   background: #f2f2f2;
   border-radius: 0.5rem;
+}
+
+:root[data-theme="dark"] .chat-message-reaction-btn:hover,
+:root[data-theme="dark"] .chat-message-delete-btn:hover {
+  background: var(--main-input-bg-color);
 }
 
 .chat-message-reaction-btn span {

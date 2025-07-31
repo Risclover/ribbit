@@ -1,136 +1,132 @@
-import { useContext, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/store";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useSelectedChat } from "@/context";
-import { createChatMessage, getChatThread, createChatThread } from "@/store";
+import {
+  createChatMessage,
+  getChatThread,
+  createChatThread,
+  useAppDispatch,
+  useAppSelector,
+} from "@/store";
 import { liveChatIcons } from "@/assets";
+import { getSocket } from "@/socket";
+import { useAutosizeTextArea } from "@/hooks";
 
 export function useChatInput({
-  setUsername,
-  setShowMessageInviteOverlay,
-  showMessageInviteOverlay,
-  userFound,
-  onInputChange,
-  clearInput,
   inputText,
-  socket,
+  setUsername,
+  userFound,
+  setActiveOverlay,
+  showMessageInviteOverlay,
+  setPendingInputText,
+  textareaRef,
 }) {
+  const socket = getSocket();
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.session.user);
+  const { selectedChat, setSelectedChat } = useSelectedChat();
 
-  const { selectedChat, setSelectedChat, setPendingReceiver } =
-    useSelectedChat();
+  const [textValue, setTextValue] = useState("");
 
+  // Giphy & Emojis
   const [openGiphy, setOpenGiphy] = useState(false);
   const [gifIcon, setGifIcon] = useState(liveChatIcons.GifIcon);
-  const [receiver, setReceiver] = useState(null);
-  const [emojisOverlay, setEmojisOverlay] = useState(false);
-  const [newlyCreatedChatId, setNewlyCreatedChatId] = useState(null);
+  const [openEmojis, setOpenEmojis] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
-  useEffect(() => {
-    setReceiver(() =>
-      selectedChat?.users?.find((user) => user.id !== currentUser?.id)
-    );
-  }, [selectedChat?.users, currentUser?.id]);
+  useAutosizeTextArea(textareaRef.current, textValue || inputText);
 
-  const sendMessage = async () => {
-    if (!selectedChat) return;
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (selectedChat) {
+      setTextValue(value);
+    } else {
+      setPendingInputText(value);
+    }
+  };
 
-    const chatThreadId = selectedChat?.id;
-    // Identify the "other user" in the thread
-    const receiver = selectedChat?.users?.find((u) => u.id !== currentUser?.id);
+  const handleEnterPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
 
+  const sendMessage = async (threadId, messageContent, receiverId) => {
     const payload = {
-      content: inputText,
-      receiverId: receiver?.id, // if you need this
-      chatThreadId: chatThreadId,
+      content: messageContent,
+      receiverId,
+      chatThreadId: threadId,
     };
-
-    // Create the message via Redux
     const data = await dispatch(createChatMessage(payload));
-    dispatch(getChatThread(chatThreadId));
-    data.room = chatThreadId;
-
-    // Emit over socket
+    data.room = threadId;
     socket.emit("chat", data);
 
-    // Optionally fetch the thread again or do an optimistic update
-
-    clearInput(chatThreadId);
+    // (Optional) If you do not want to rely on re-fetching, you can remove this:
+    // dispatch(getChatThread(threadId));
   };
 
-  // 3) The actual submit handler
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // If we are in the invite flow, we must first create the thread, then send the first message
+  const handleSubmit = async () => {
+    const contentToSend = selectedChat ? textValue : inputText;
 
-    // If we’re currently in invite flow, create the new thread first
-    if (showMessageInviteOverlay) {
-      setShowMessageInviteOverlay(false);
-      await handleCreateNewThread();
-      // Note: We do NOT immediately call `sendMessage()` here
-      // We'll let the `useEffect` below detect when selectedChat is updated
-    } else {
-      // For an existing thread, we just send a message right away
-      sendMessage();
+    if (!contentToSend.trim()) return;
+
+    // 1) If we are in invite mode, create a new chat
+    if (showMessageInviteOverlay && userFound) {
+      // close the overlay
+      setActiveOverlay(null);
+
+      // create new thread with userFound
+      const newChat = await dispatch(createChatThread(userFound.id));
+      setSelectedChat(newChat);
+
+      // join the socket room
+      socket.emit("join", { user: currentUser.id, room: newChat.id });
+
+      // send first message
+      await sendMessage(newChat.id, contentToSend, userFound.id);
+
+      // reset states
+      setUsername("");
+      setPendingInputText("");
+      setTextValue("");
+      return;
+    }
+
+    // 2) Normal scenario: we already have a selectedChat
+    if (selectedChat) {
+      const otherUser = selectedChat.users.find((u) => u.id !== currentUser.id);
+      if (!otherUser) return;
+
+      await sendMessage(selectedChat.id, textValue, otherUser.id);
+      setTextValue("");
     }
   };
-
-  // 4) Once `selectedChat` is updated to the newly created thread, THEN send the first message
-  useEffect(() => {
-    // If we've just turned off invite mode,
-    // and selectedChat?.id now matches the newly created chat,
-    // we know the new thread is "in state" and can safely send the message.
-    if (
-      !showMessageInviteOverlay &&
-      selectedChat?.id === newlyCreatedChatId &&
-      newlyCreatedChatId != null
-    ) {
-      sendMessage();
-      // Clear it so we don't keep re-sending
-      setNewlyCreatedChatId(null);
-    }
-  }, [showMessageInviteOverlay, selectedChat?.id, newlyCreatedChatId]);
 
   const handleOpenGiphy = () => {
-    setEmojisOverlay(false);
+    setOpenEmojis(false);
     setGifIcon(openGiphy ? liveChatIcons.GifIcon : liveChatIcons.GifIconDark);
     setOpenGiphy(!openGiphy);
   };
 
-  const handleEnterPress = (e) => {
-    if (e.key === "Enter" && inputText.trim().length > 0) {
-      handleSubmit(e);
-    }
-  };
-
-  const handleChange = (e) => {
-    const val = e.target?.value;
-    onInputChange(val);
-  };
-
-  const handleCreateNewThread = async () => {
-    const newChat = await dispatch(createChatThread(userFound?.id));
-    setNewlyCreatedChatId(newChat.id);
-    setSelectedChat(newChat);
-    socket.emit("join", {
-      user: currentUser?.id,
-      room: newChat.id,
-    });
-    setPendingReceiver(null);
-    setUsername("");
-    return newChat;
-  };
+  useEffect(() => {
+    setDisabled((selectedChat ? textValue : inputText)?.trim().length === 0);
+  }, [inputText, textValue]);
 
   return {
-    handleChange,
     handleEnterPress,
+    selectedChat,
+    textValue,
+    handleChange,
     handleOpenGiphy,
-    gifIcon,
-    receiver,
-    emojisOverlay,
-    setEmojisOverlay,
-    openGiphy,
-    handleSubmit,
     setOpenGiphy,
+    setOpenEmojis,
+    openEmojis,
     setGifIcon,
+    openGiphy,
+    currentUser,
+    socket,
+    disabled,
+    handleSubmit,
   };
 }

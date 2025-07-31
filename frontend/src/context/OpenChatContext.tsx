@@ -32,8 +32,5 @@ export const OpenChatProvider = ({ children }: OpenChatProviderProps) => {
 
 export const useOpenChat = () => {
   const ctx = useContext(OpenChatContext);
-  if (!ctx) {
-    throw new Error("useOpenChat must be used within an OpenChatProvider");
-  }
   return ctx;
 };

@@ -1,7 +1,7 @@
 import { useCallback } from "react";
-import { useAppDispatch } from "@/store";
 import { GiphyFetch } from "@giphy/js-fetch-api";
-import { createChatMessage, getChatThread } from "@/store";
+import { useSelectedChat } from "@/context";
+import { createChatMessage, getChatThread, useAppDispatch } from "@/store";
 
 const giphy = new GiphyFetch(process.env.REACT_APP_GIPHY_KEY);
 
@@ -19,6 +19,7 @@ export function useChatGifs({
   setResults,
 }) {
   const dispatch = useAppDispatch();
+  const { selectedChat } = useSelectedChat();
 
   const loadTrending = useCallback(async () => {
     setResults([]);
@@ -80,15 +81,7 @@ export function useChatGifs({
 
   const sendGif = async (gifUrl) => {
     if (!receiver) return;
-    // “receiver” means we do have a selected chat
-    // The assumption is, you must have a selected chat to send a gif
-    const chatThreadId = receiver.chatThreads?.[0] || null;
-    // ^ or find your own logic for the threadId from context, etc.
-    // If you store the selectedChat in context, you can just read that ID directly.
-
-    // For simplicity, let's assume you have the selected chat from context if needed
-    // and pass it in as a prop. Or just do:
-    // const chatThreadId = selectedChat?.id;
+    const chatThreadId = selectedChat?.id;
 
     const payload = {
       content: gifUrl,
@@ -99,7 +92,6 @@ export function useChatGifs({
     const data = await dispatch(createChatMessage(payload));
     data.room = chatThreadId;
     socket.emit("chat", data);
-    dispatch(getChatThread(chatThreadId));
     setOpenGiphy(false);
     setGifIcon(GifIcon);
   };

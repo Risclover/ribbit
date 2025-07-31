@@ -9,6 +9,10 @@
   background: var(--ribbit-main);
 }
 
+:root[data-theme="dark"] .overlay-container {
+  background: var(--chat-background);
+}
+
 .overlay-btn-right {
   color: white;
   margin-left: 10px;
@@ -116,7 +120,7 @@
 }
 
 .new-chat-overlay {
-  background: var(--new-chat-overlay-background);
+  background: var(--chat-background);
   height: 100%;
   display: flex;
   flex-direction: column;

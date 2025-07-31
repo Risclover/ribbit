@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { useAppDispatch } from "@/store";
 import { useSelectedChat } from "@/context";
-import { createChatMessage, getChatThread } from "@/store";
+import { createChatMessage, getChatThread, useAppDispatch } from "@/store";
+import { getSocket } from "@/socket";
 
-export function useChatEmojis({ receiver, socket, setEmojisOverlay }) {
+export function useChatEmojis({ receiver, setOpenEmojis }) {
   const dispatch = useAppDispatch();
-
+  const socket = getSocket();
   const { selectedChat } = useSelectedChat();
 
   const handleAddEmoji = async (e, image) => {
@@ -20,8 +20,7 @@ export function useChatEmojis({ receiver, socket, setEmojisOverlay }) {
     const data = await dispatch(createChatMessage(payload));
     data.room = chatThreadId;
     socket.emit("chat", data);
-    dispatch(getChatThread(chatThreadId));
-    setEmojisOverlay(false);
+    setOpenEmojis(false);
   };
 
   return { handleAddEmoji };

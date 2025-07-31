@@ -23,7 +23,7 @@ export function useCreateChatOverlay({
 
     if (!userFound) return;
 
-    // If user is “you”, error out
+    // If user is "you", error out (can't start chat with self)
     if (userFound.id === currentUser.id) {
       setError(true);
       return;
@@ -40,7 +40,7 @@ export function useCreateChatOverlay({
       setSelectedChat(existingThread);
       setActiveOverlay(null);
     } else {
-      // No existing thread => show the “invite” overlay
+      // No existing thread => show the "invite" overlay
       setPendingReceiver(username);
       setActiveOverlay(OVERLAYS.INVITE);
     }

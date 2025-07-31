@@ -5,9 +5,11 @@ import { useAppSelector } from "@/store";
 export function useChatMinimized({ setMinimizeChat }) {
   const chatThreads = useAppSelector((state) => state.chatThreads.chatThreads);
   const { setOpenChat } = useOpenChat();
+
   const sortedThreads = Object.values(chatThreads).sort((a, b) => {
     const aMessages = a.messages;
     const bMessages = b.messages;
+
     if (aMessages && bMessages) {
       const aLastMessage = aMessages[aMessages?.length - 1];
       const bLastMessage = bMessages[bMessages?.length - 1];

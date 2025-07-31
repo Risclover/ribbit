@@ -39,7 +39,7 @@
   text-decoration: none;
   font-size: 12px;
   border: none;
-  background: var(--ribbit-main);
+  background: var(--chat-background);
   cursor: pointer;
 }
 
@@ -47,8 +47,16 @@
   background: #f8f8f8;
 }
 
+:root[data-theme="dark"] .chat-window-chatnav:hover {
+  background: var(--main-input-bg-color);
+}
+
 .chat-window-chatnav.chatnav-active {
   background: #f8f8f8;
+}
+
+:root[data-theme="dark"] .chat-window-chatnav.chatnav-active {
+  background: var(--main-input-bg-color);
 }
 
 .chat-window-chatnav-details {

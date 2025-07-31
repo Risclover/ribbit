@@ -25,17 +25,17 @@ export function AppProviders({ store, children }: AppProvidersProps) {
       <BrowserRouter>
         <SkipLocationProvider>
           <PageTitleProvider>
-            <AuthModalProvider>
-              <AuthFlowProvider>
-                <SelectedChatProvider>
-                  <OpenChatProvider>
+            <OpenChatProvider>
+              <AuthModalProvider>
+                <AuthFlowProvider>
+                  <SelectedChatProvider>
                     <PostModalProvider>
                       <ModalProvider>{children}</ModalProvider>
                     </PostModalProvider>
-                  </OpenChatProvider>
-                </SelectedChatProvider>
-              </AuthFlowProvider>
-            </AuthModalProvider>
+                  </SelectedChatProvider>
+                </AuthFlowProvider>
+              </AuthModalProvider>
+            </OpenChatProvider>
           </PageTitleProvider>
         </SkipLocationProvider>
       </BrowserRouter>

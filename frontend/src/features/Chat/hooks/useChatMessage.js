@@ -1,14 +1,19 @@
 import { useContext, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/store";
-import { fetchReactionsForMessage } from "@/store";
+import {
+  useAppDispatch,
+  useAppSelector,
+  fetchReactionsForMessage,
+  deleteReaction,
+  createReaction,
+} from "@/store";
 import { useSelectedChat } from "@/context";
-import { deleteReaction } from "@/store";
-import { createReaction } from "@/store";
 
 export function useChatMessage({ socket, messageId, content }) {
   const dispatch = useAppDispatch();
+
   const [openReactions, setOpenReactions] = useState(false);
   const [msgContent, setMsgContent] = useState(content);
+
   const { selectedChat } = useSelectedChat();
 
   const currentUser = useAppSelector((state) => state.session.user);
@@ -37,8 +42,10 @@ export function useChatMessage({ socket, messageId, content }) {
     return firstChar + ".gif";
   };
 
+  // On clicking a reaction: If the user has already reacted, delete; otherwise, create the reaction.
   const handleReactionClick = async (reactionData) => {
     const hasReacted = reactionData.users.includes(currentUser?.id);
+
     const payload = {
       messageId: messageId,
       reactionType: reactionData.reactionType,

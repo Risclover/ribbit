@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { useSelectedChat } from "@/context";
-import { useAppDispatch } from "@/store";
-import { createReaction } from "@/store";
-import { fetchReactionsForMessage } from "@/store";
+import {
+  useAppDispatch,
+  createReaction,
+  fetchReactionsForMessage,
+} from "@/store";
 
 export function useChatReactions({ setOpenReactions, message, socket }) {
   const { selectedChat } = useSelectedChat();
-
   const dispatch = useAppDispatch();
 
   const handleClickReaction = async (reaction) => {
@@ -15,9 +16,12 @@ export function useChatReactions({ setOpenReactions, message, socket }) {
       reactionType: reaction,
       room: selectedChat.id,
     };
+
     const data = await dispatch(createReaction(payload));
     dispatch(fetchReactionsForMessage(message?.id));
+
     socket.emit("add_reaction", payload);
+
     setOpenReactions(false);
   };
 

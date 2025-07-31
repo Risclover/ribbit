@@ -1,4 +1,3 @@
-// src/features/Chat/hooks/useChatSocket.js
 import { useEffect } from "react";
 import { initiateSocket } from "@/socket";
 import { receiveNewMessage } from "@/store";

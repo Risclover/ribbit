@@ -6,6 +6,7 @@ export function useChatNavBtn({ chatThread }) {
   const { selectedChat } = useSelectedChat();
 
   const currentUser = useAppSelector((state) => state.session.user);
+
   const [time, setTime] = useState("");
 
   const isActive = selectedChat?.id === chatThread.id;
@@ -15,6 +16,7 @@ export function useChatNavBtn({ chatThread }) {
 
   useEffect(() => {
     const lastMessage = chatThread.messages?.[chatThread.messages.length - 1];
+
     if (lastMessage) {
       const formattedTime = new Date(lastMessage.createdAt).toLocaleString(
         "en-US",

@@ -9,6 +9,10 @@
   background: var(--ribbit-main);
 }
 
+:root[data-theme="dark"] .overlay-container {
+  background: var(--chat-background);
+}
+
 .overlay-btn-right {
   color: white;
   margin-left: 10px;
@@ -69,6 +73,12 @@
 
 .delete-overlay-text {
   width: 290px;
+  height: 100%;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
 }
 
 .delete-overlay-title {
