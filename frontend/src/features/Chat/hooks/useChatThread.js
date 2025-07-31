@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import {useEffect, useRef, useState } from "react";
 import { useSelectedChat } from "@/context";
 import { useAppDispatch, useAppSelector, getUserChatThreads } from "@/store";
 
@@ -9,7 +9,7 @@ export function useChatThread({
   prevScrollHeightRef,
 }) {
   const dispatch = useAppDispatch();
-
+  const lastMsgRef = useRef(null);
   const currentUser = useAppSelector((state) => state.session.user);
   const reactions = useAppSelector((state) => state.reactions);
   const chatThreads = useAppSelector((state) => state.chatThreads.chatThreads);
@@ -69,5 +69,21 @@ export function useChatThread({
     }
   }, [messages, reactions]);
 
-  return { receiver };
+  useEffect(() => {
+    // scroll after the DOM is painted so that images have at least had
+    // one layout pass; we also attach 'load' listeners for late image loads
+    const scroll = () => lastMsgRef.current?.scrollIntoView({ block: "end" });
+
+    requestAnimationFrame(scroll);
+
+    const imgs = lastMsgRef.current?.querySelectorAll("img");
+    imgs?.forEach((img) => {
+      if (!img.complete) img.addEventListener("load", scroll, { once: true });
+    });
+
+    return () =>
+      imgs?.forEach((img) => img.removeEventListener("load", scroll));
+  }, [messages.length]); // ⚠️ depend only on length, not entire array
+
+  return { receiver, lastMsgRef };
 }

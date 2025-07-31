@@ -1,22 +1,27 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ChatMessages } from "./ChatMessages";
 import { useChatThread } from "../../hooks/useChatThread";
 import moment from "moment";
 
 export const ChatThread = ({
-  messages,
+  messages: initial,
   socket,
   setActiveOverlay,
   setMsgIdToDelete,
   OVERLAYS,
 }) => {
+  const [messages, setMessages] = useState(initial);
+
+  /* keep local copy in sync when parent replaces the array */
+  useEffect(() => setMessages(initial), [initial]);
   const containerRef = useRef(null);
   const prevScrollHeightRef = useRef(0);
 
-  const { receiver } = useChatThread({
+  const { receiver, lastMsgRef } = useChatThread({
     containerRef,
     messages,
     prevScrollHeightRef,
+    setMessages,
   });
 
   return (
@@ -64,8 +69,8 @@ export const ChatThread = ({
         setActiveOverlay={setActiveOverlay}
         setMsgIdToDelete={setMsgIdToDelete}
         OVERLAYS={OVERLAYS}
+        lastMsgRef={lastMsgRef}
       />
-      <div ref={containerRef} />
     </div>
   );
 };
