@@ -49,8 +49,8 @@ def seed_posts():
     community_map = {c.id: c for c in communities}
 
     # 2) DEFINE ALL POST DATA IN A LIST OF DICTS
-    #    Each dict includes the fields you need: title, content, img_url, link_url, etc.
-    #    The 'created_at' will be generated automatically below.
+    #    Each dict includes: title, content, img_url, link_url, etc.
+    #    The 'created_at' is generated automatically below.
     post_data = [
         # ----------------------- COMMUNITY: 'CATS' (ID=1) -----------------------#
         {
@@ -658,7 +658,6 @@ Maybe I’m just too much of a grumpy millennial but I did not jive with 99% of 
             user_id=p["user_id"],
             community_id=p["community_id"],
             created_at=created_at,
-            # Optional fields - only add if they exist in the dict
             img_url=p.get("img_url"),
             link_url=p.get("link_url"),
             content=p.get("content"),

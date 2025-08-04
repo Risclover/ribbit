@@ -27,7 +27,6 @@ class Community(db.Model):
             "description": self.description,
             "createdAt": self.created_at,
             'subscribers': {item.to_dict()["id"]: item.to_dict() for item in self.subscribers},
-            'usersWhoFavorited': {item.to_dict()["id"]: item.to_dict() for item in self.users_who_favorited},
             'members': len(self.subscribers),
             'communityPosts': {item.to_feed_dict()["id"]: item.to_feed_dict() for item in self.community_posts},
             'communityOwner': self.community_owner.to_dict(),

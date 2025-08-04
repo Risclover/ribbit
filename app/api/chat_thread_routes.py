@@ -1,7 +1,8 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import User, ChatMessageThread, ChatMessage, ThreadUser
-from app.extensions import db
+from app.extensions import db, socketio
+from app.socket import emit_unread_chat_count
 
 
 chat_thread_routes = Blueprint("chat_threads", __name__)
@@ -41,7 +42,7 @@ def get_user_chat(id):
                 message.read = True
 
         db.session.commit()
-
+        emit_unread_chat_count(current_user.get_id())
         return chat.to_dict()
     else:
         return { "error": "Chat not found" }
@@ -101,6 +102,8 @@ def create_message(id):
 
     db.session.add(message)
     db.session.commit()
+    emit_unread_chat_count(data["receiver_id"])
+
 
     return message.to_dict()
 
