@@ -487,7 +487,7 @@ Has anyone got any youtuber recommendations or websites to use because I have be
 Thank you ! :)
 
 Edit: Thank you everyone who has commented! I appreciate your help because now I can better my skills by a lot!!! Much appreciated""",
-            "user_id": 35,
+            "user_id": 36,
             "community_id": 18
         },
         {
@@ -495,7 +495,7 @@ Edit: Thank you everyone who has commented! I appreciate your help because now I
             "content": """I have 4YOE as a Python backend dev and just noticed we are lagging behind at work. For example, I wrote a validation library at the start and we have been using it for this whole time, but recently I saw Pydantic and although mine has most of the functionality, Pydantic is much, much better overall. I feel like im stagnating and I need to catch up. We don't even use Dataclasses. I recently learned about Poetry which we also don't use. We use pandas, but now I see there is polars. Pls help.
 
 Please share: TLDR - what are the most popular must know python libraries? Pydantic, poetry?""",
-            "user_id": 36,
+            "user_id": 37,
             "community_id": 18
         },
 
@@ -529,7 +529,7 @@ Edit: Thanks for all of the love. I’ll add one bonus tip below since everyone 
 <strong>The correct resource to learn from is what works for you</strong>
 
 I spent so many hours debating which course to take or which book to read. Because like everyone else, I wanted the ‘optimal’ way to learn and got decision paralysis. I’ve learned that what worked for others may not work for you, and that’s okay. Try out a few courses or books to see what best enables you to build the learning routine you want.""",
-            "user_id": 37,
+            "user_id": 38,
             "community_id": 19
         },
         {
@@ -537,13 +537,13 @@ I spent so many hours debating which course to take or which book to read. Becau
             "content": """I have been programming in Python for about 2 years know, I've gotten pretty comfortable with the language and I almost always find it a joy to work with. EXCEPT when trying to make a GUI.
 
 I've tried on several occasions now to develop a GUI using both tkinter and CustomTkinter. My experience has been pure pain. It has been super confusing and the docs will tell me one thing and then I'll try it exactly how they say and it doesn't work. I definitely am still in the learning process when it comes to developing a graphical interface, but my question is, does everyone else find building a GUI in python to be this painful? Are the other libraries out there any better or are there other tools that make GUI development easier? Because I am almost in disbelief at how unbelievably annoying and overwhelming it feels for me to try to implement a GUI that is anything beyond the simplest possible, to any program I write.""",
-            "user_id": 38,
+            "user_id": 39,
             "community_id": 19
         },
         {
             "title": "Something I just learned the hard way",
             "content": """Do NOT modify the list you are iterating through. Make a second list and apply changes to it instead. I spent 4 hours trying to understand why sometimes my code works and sometimes it doesn't. I felt equally stupid and smart when I finally got it. At least I doubt I'll quickly forget that lesson.""",
-            "user_id": 39,
+            "user_id": 40,
             "community_id": 19
         },
 
@@ -551,19 +551,19 @@ I've tried on several occasions now to develop a GUI using both tkinter and Cust
         {
             "title": "Hypocrisy anyone?",
             "img_url": "https://i.redd.it/v9p4fol59dde1.jpeg",
-            "user_id": 40,
+            "user_id": 41,
             "community_id": 20
         },
         {
             "title": "Stop the testing!",
             "img_url": "https://i.redd.it/4p3p6qekeefe1.jpeg",
-            "user_id": 41,
+            "user_id": 42,
             "community_id": 20
         },
         {
             "title": "That escalated quickly",
             "img_url": "https://i.redd.it/h7a9ub7es3ge1.png",
-            "user_id": 42,
+            "user_id": 43,
             "community_id": 20
         },
 
@@ -583,19 +583,19 @@ At this point only 3 years later learning a new language or framework is just an
 Current stack is react front end and .net backend, working on a couple of different projects. Mostly the same backend stack but Bau has me across vue, angular and react all at the same time. Pretty wild tbh but they are really old dog front ends with the react projects slowly taking over and replacing them all.
 
 Anyway, what I'm trying to say is if your just jumping into JS, don't give it up. It can be life changing if you stick to it and don't take shortcuts ( ie: abusing ai )""",
-            "user_id": 43,
+            "user_id": 44,
             "community_id": 21
         },
         {
             "title": "There are people, among them Zuckerberg, saying that AI will replace the need for programmers, and there are people saying it won't and that it'll be a good tool in the programmer's kit. I don't know who to believe. I'm really anxious because of it. I just started to learn JavaScript.",
             "content": "",
-            "user_id": 44,
+            "user_id": 45,
             "community_id": 21
         },
         {
             "title": "I started to like JavaScript. Is it really used only in web dev?",
             "content": """I began to like JavaScript as a beginner and wonder if I can translate the knowledge of it to other languages. I have no prior experience in coding. I’m just learning and doing CS50 and the Odin project.""",
-            "user_id": 45,
+            "user_id": 46,
             "community_id": 21
         },
 
@@ -607,7 +607,7 @@ Anyway, what I'm trying to say is if your just jumping into JS, don't give it up
 Edit to add:
 
 I tried telling him that there are dozens of people here saying they did something similar. He said, \"Yeah, but those are internet people.\"""",
-            "user_id": 46,
+            "user_id": 47,
             "community_id": 22
         },
         {
@@ -621,7 +621,7 @@ Had a rough day? Get home, slap on some home clothes, and boom—instant therapy
 To be clear, they're clean (ish). The stains are from noble pursuits like painting, hair dyeing, or accidentally wielding spaghetti sauce like it’s a Jackson Pollock piece.
 
 Anyone else have \"home clothes,\" or is my family just running a secret cult of comfort?""",
-            "user_id": 47,
+            "user_id": 48,
             "community_id": 22
         },
         {
@@ -631,7 +631,7 @@ Anyone else have \"home clothes,\" or is my family just running a secret cult of
 It’s hard to gauge the exact quality/experience from the outside, but I know it was a huge and popular app that millions of people enjoyed. Just wondering who else avoided it like a mind plague, and why if you feel like sharing.
 
 Maybe I’m just too much of a grumpy millennial but I did not jive with 99% of the content, delivery method, pretty much anything about. Got shown a lot of videos and don’t remember any worth so much as a chuckle on the humor scale.""",
-            "user_id": 48,
+            "user_id": 49,
             "community_id": 22
         }
     ]
