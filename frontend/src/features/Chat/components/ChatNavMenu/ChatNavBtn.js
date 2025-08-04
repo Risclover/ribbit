@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector } from "@/store";
 import { formatDate } from "../../utils/formatDate";
 import { useChatNavBtn } from "../../hooks/useChatNavBtn";
@@ -12,6 +12,13 @@ export const ChatNavBtn = ({
 }) => {
   const currentUser = useAppSelector((state) => state.session.user);
   const { isActive, recipient, time } = useChatNavBtn({ chatThread });
+  const unreadCount = useAppSelector((s) => s.chatThreads.unreadTotal);
+
+  const [unread, setUnread] = useState(unreadCount > 0);
+
+  useEffect(() => {
+    setUnread(unreadCount > 0);
+  }, [unreadCount]);
 
   return (
     <div
@@ -57,6 +64,7 @@ export const ChatNavBtn = ({
                 ? "🖼️"
                 : chatThread.messages[chatThread.messages.length - 1]?.content)
             : ""}
+          {unread && "hi"}
         </div>
       </div>
     </div>

@@ -850,6 +850,15 @@
 .chat-minimized-container:hover > .chat-minimized-btn {
   display: block;
 }
+
+.notification-circle-placement-minimized {
+  display: flex;
+  align-items: center;
+}
+
+.notification-circle-placement-minimized .notification-circle-container {
+  margin-left: 0.5rem;
+}
 @keyframes revealAndScaleUp {
   0% {
     opacity: 0;

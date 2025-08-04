@@ -288,3 +288,39 @@ a.blue-btn-filled {
 .chat-page .new-chat-overlay {
   width: 100%;
 }
+
+.notification-circle-container {
+  background: #d93900;
+  border-radius: 100%;
+  min-width: 16px;
+  min-height: 16px;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  text-align: center;
+  font-size: 0.625rem;
+  line-height: 1rem;
+  font-weight: 600;
+  color: #fff;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-circle {
+  color: #fff;
+  background: #d93900;
+  border-radius: 625rem;
+  pointer-events: none;
+  font-family: var(--font-family-noto);
+}
+
+.notification-circle-placement {
+  top: 0;
+  right: 0;
+  position: absolute;
+}
+
+.navbar-chat {
+  position: relative;
+}

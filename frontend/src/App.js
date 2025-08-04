@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
-import { getComments, useAppDispatch, useAppSelector } from "@/store";
+import {
+  addReaction,
+  getChatThread,
+  getComments,
+  removeReaction,
+  useAppDispatch,
+  useAppSelector,
+} from "@/store";
 import { AppRoutes } from "@/routes";
 
 import { ScrollToTop } from "./utils";
@@ -9,7 +16,7 @@ import { NavBar, NavSidebar, LoggedOutSidebar } from "./components";
 
 import { NotificationsPage } from "./pages";
 
-import { Modal } from "./context";
+import { Modal, useSelectedChat } from "./context";
 import {
   Messages,
   Unread,
@@ -63,6 +70,7 @@ import { MobileSearchbar } from "features/NewSearch/components/MobileSearchbar/M
 import { MobileNavBar } from "components/NavBar/MobileNavbar/MobileNavbar";
 import { useOpenChat } from "context/OpenChatContext";
 import { useIsSmallScreen, useScrollToTop } from "./hooks";
+import { useChatSocket } from "./features/Chat/hooks/useChatSocket";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -71,12 +79,15 @@ function App() {
   const searchbarRef = useRef();
   const users = useAppSelector((state) => state.users);
   const background = location.state && location.state.background;
-  const comments = useAppSelector((state) => Object.values(state.comments.comments));
+  const comments = useAppSelector((state) =>
+    Object.values(state.comments.comments)
+  );
   const communities = useAppSelector((state) =>
     Object.values(state.communities.communities)
   );
   const { openChat } = useOpenChat();
   const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
+  const chatThreads = useAppSelector((s) => s.chatThreads.chatThreads);
 
   const [loaded, setLoaded] = useState(false);
   const [, setShowLoginForm] = useState(false);
@@ -96,8 +107,20 @@ function App() {
   const [minimizeChat, setMinimizeChat] = useState(false);
   const [openUserDropdown, setOpenUserDropdown] = useState(false);
   const [showSearchScreen, setShowSearchScreen] = useState(false);
+  const { selectedChat } = useSelectedChat();
 
   useNotificationsSocket(user);
+  useChatSocket({
+    user,
+    chatThreads,
+    onDelete: () => {
+      if (selectedChat?.id) {
+        dispatch(getChatThread(selectedChat.id));
+      }
+    },
+    onReactionAdd: (d) => dispatch(addReaction(d)),
+    onReactionRemove: (d) => dispatch(removeReaction(d)),
+  });
 
   useEffect(() => {
     if (screenWidth <= 1250) {

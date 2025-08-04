@@ -72,18 +72,6 @@ export function Chat({
 
   /* socket ----------------------------------------------------------- */
   const socketRef = getSocket();
-  useChatSocket({
-    user,
-    chatThreads,
-    dispatch,
-    onDelete: () => {
-      if (selectedChat?.id) {
-        dispatch(getChatThread(selectedChat.id));
-      }
-    },
-    onReactionAdd: (d) => dispatch(addReaction(d)),
-    onReactionRemove: (d) => dispatch(removeReaction(d)),
-  });
 
   /* effects ---------------------------------------------------------- */
   useEffect(() => {

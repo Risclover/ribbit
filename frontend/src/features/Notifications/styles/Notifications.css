@@ -89,6 +89,12 @@
   margin-left: 5px;
 }
 
+.notification-number.alt {
+  position: relative;
+  left: 0;
+  margin-left: 0.5rem;
+}
+
 .notifications-dropdown::before {
   border-bottom: 8px solid var(--main-border-color);
   opacity: 0.5;

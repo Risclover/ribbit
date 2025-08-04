@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { useSelectedChat } from "@/context";
 import { useChatMinimized } from "../../hooks/useChatMinimized";
 import { useOpenChat } from "context/OpenChatContext";
+import { NotificationCircle } from "@/components/NotificationCircle";
+import { useAppSelector } from "@/store";
 
 export default function ChatMinimized({ setMinimizeChat }) {
   const { selectedChat, setSelectedChat } = useSelectedChat();
@@ -11,6 +13,7 @@ export default function ChatMinimized({ setMinimizeChat }) {
     setOpenChat,
     setMinimizeChat,
   });
+  const unread = useAppSelector((s) => s.chatThreads.unreadTotal);
 
   return (
     <div
@@ -22,7 +25,15 @@ export default function ChatMinimized({ setMinimizeChat }) {
       }}
       className="chat-minimized-container"
     >
-      Chat
+      <div className="notification-circle-placement-minimized">
+        Chat{" "}
+        {unread && unread > 0 ? (
+          <div className="notification-number alt">{unread}</div>
+        ) : (
+          ""
+        )}
+      </div>
+
       <button className="chat-minimized-btn" onClick={handleClose}>
         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <polygon

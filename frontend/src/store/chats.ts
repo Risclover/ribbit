@@ -8,9 +8,9 @@ const LOAD_CHAT_THREADS = "chat_threads/LOAD_CHAT_THREADS";
 const LOAD_CHAT_THREAD = "chat_threads/LOAD_CHAT_THREAD";
 const RECEIVE_NEW_MESSAGE = "chat_threads/RECEIVE_NEW_MESSAGE";
 const THREAD_UNREAD_UPDATE = "chat_threads/THREAD_UNREAD_UPDATE";
+const SET_UNREAD_TOTAL        = "chat_threads/SET_UNREAD_TOTAL";
 
 /* ------------------------- ACTION CREATORS ---------------------- */
-
 export const receiveNewMessage = (message) => ({
   type: RECEIVE_NEW_MESSAGE,
   payload: {
@@ -21,7 +21,7 @@ export const receiveNewMessage = (message) => ({
 
 const loadChatThreads = (chatThreads) => ({
   type: LOAD_CHAT_THREADS,
-  chatThreads, // must be an **array** – thunk guarantees this
+  chatThreads,
 });
 
 const loadChatThread = (chatThread) => ({
@@ -32,6 +32,11 @@ const loadChatThread = (chatThread) => ({
 export const threadUnreadUpdate = (threadId, hasUnread) => ({
   type: THREAD_UNREAD_UPDATE,
   payload: { threadId, hasUnread },
+});
+
+export const setUnreadTotal = (count: number) => ({
+  type : SET_UNREAD_TOTAL,
+  count,
 });
 
 /* ------------------------- THUNKS ------------------------------- */
@@ -114,46 +119,56 @@ export const readAllChatMessages = (threadId) => async () => {
 
 /* ------------------------- REDUCER ------------------------------ */
 
-const initialState = {
-  loaded: false,
-  chatThreads: {}, // Record<number, Thread>
+type ChatSliceState = {
+  loaded      : boolean;
+  chatThreads : Record<number, any>;
+  unreadTotal : number;
 };
 
-export default function chatThreadReducer(state = initialState, action) {
+const initialState: ChatSliceState = {
+  loaded      : false,
+  chatThreads : {},
+  unreadTotal : 0,
+};
+
+export default function chatThreadReducer(
+  state = initialState,
+  action: any,
+): ChatSliceState {
   switch (action.type) {
     /* ---------- bulk load ---------- */
     case LOAD_CHAT_THREADS: {
-      const byId = {};
+      const byId: Record<number, any> = {};
       action.chatThreads.forEach((t) => {
-        if (t && t.id != null) byId[t.id] = t; // skip malformed
+        if (t && t.id != null) byId[t.id] = t;
       });
-      return { ...state, chatThreads: byId, loaded: true };
+
+      const unreadTotal = Object.values(byId).filter((t: any) => t.hasUnread).length;
+      return { ...state, chatThreads: byId, unreadTotal, loaded: true };
     }
 
     /* ---------- single thread added / refreshed ---------- */
     case LOAD_CHAT_THREAD: {
       const t = action.chatThread;
-      return {
-        ...state,
-        chatThreads: { ...state.chatThreads, [t.id]: t },
-      };
+      const updated = { ...state.chatThreads, [t.id]: t };
+      const unreadTotal = Object.values(updated).filter((th: any) => th.hasUnread).length;
+      return { ...state, chatThreads: updated, unreadTotal };
     }
 
     /* ---------- new message pushed from socket ---------- */
     case RECEIVE_NEW_MESSAGE: {
       const { threadId, message } = action.payload;
       const thread = state.chatThreads[threadId];
-      if (!thread) return state; // unknown thread – ignore
-      return {
-        ...state,
-        chatThreads: {
-          ...state.chatThreads,
-          [threadId]: {
-            ...thread,
-            messages: [...(thread.messages || []), message],
-          },
-        },
+      if (!thread) return state;
+
+      const updatedThread = {
+        ...thread,
+        messages : [...(thread.messages ?? []), message],
       };
+
+      const updated        = { ...state.chatThreads, [threadId]: updatedThread };
+      /* do **NOT** mark unread here – let THREAD_UNREAD_UPDATE decide */
+      return { ...state, chatThreads: updated };
     }
 
     /* ---------- unread flag toggled ---------- */
@@ -161,16 +176,24 @@ export default function chatThreadReducer(state = initialState, action) {
       const { threadId, hasUnread } = action.payload;
       const thread = state.chatThreads[threadId];
       if (!thread) return state;
-      return {
-        ...state,
-        chatThreads: {
-          ...state.chatThreads,
-          [threadId]: { ...thread, hasUnread },
-        },
-      };
+
+      const updatedThread = { ...thread, hasUnread };
+      const updated       = { ...state.chatThreads, [threadId]: updatedThread };
+      const unreadTotal   = Object.values(updated).filter((t: any) => t.hasUnread).length;
+
+      return { ...state, chatThreads: updated, unreadTotal };
     }
+
+    /* ---------- server told us outright ---------- */
+    case SET_UNREAD_TOTAL:
+      return { ...state, unreadTotal: action.count };
 
     default:
       return state;
   }
 }
+
+/* ------------------------- SELECTORS ---------------------------- */
+export const selectChatThreads   = (s: any) => s.chatThreads.chatThreads;
+export const selectUnreadTotal   = (s: any) => s.chatThreads.unreadTotal;
+export const selectThreadById    = (id: number) => (s: any) => s.chatThreads.chatThreads[id];

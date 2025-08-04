@@ -5,6 +5,7 @@ import { BsChatDots } from "react-icons/bs";
 import { NotificationBell } from "@/features";
 import { useAppSelector } from "@/store";
 import { AllPostsIcon } from "@/assets";
+import { NotificationCircle } from "../NotificationCircle";
 
 interface NavBarBtnsProps {
   handleOpenChat: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -17,6 +18,7 @@ export function NavBarBtns({ handleOpenChat }: NavBarBtnsProps) {
 
   /* Delay tooltip so accidental hovers don’t flash it */
   const showLater = () => setTimeout(() => setShowTooltip(true), 500);
+  const unread = useAppSelector((s) => s.chatThreads.unreadTotal);
 
   return (
     <div className="navbar-buttons">
@@ -30,15 +32,23 @@ export function NavBarBtns({ handleOpenChat }: NavBarBtnsProps) {
         {showTooltip && <span className="navbtn-tooltiptext">/c/All</span>}
       </button>
 
-      <button
-        className="navbar-button"
-        onMouseEnter={showLater}
-        onMouseLeave={() => setShowTooltip(false)}
-        onClick={handleOpenChat}
-      >
-        <BsChatDots />
-        {showTooltip && <span className="navbtn-tooltiptext">Chat</span>}
-      </button>
+      <div className="navbar-chat">
+        <button
+          className="navbar-button navbar-chat"
+          onMouseEnter={showLater}
+          onMouseLeave={() => setShowTooltip(false)}
+          onClick={handleOpenChat}
+        >
+          <BsChatDots />
+
+          {showTooltip && <span className="navbtn-tooltiptext">Chat </span>}
+          {unread && unread > 0 ? (
+            <div className="notification-number">{unread}</div>
+          ) : (
+            ""
+          )}
+        </button>
+      </div>
 
       {user && (
         <div className="notification-wrapper">
@@ -53,6 +63,7 @@ export function NavBarBtns({ handleOpenChat }: NavBarBtnsProps) {
         onMouseLeave={() => setShowTooltip(false)}
       >
         <TfiPlus />
+        {unread}
         {showTooltip && (
           <span className="navbtn-tooltiptext text2">Create Post</span>
         )}
