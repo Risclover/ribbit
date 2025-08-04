@@ -53,6 +53,7 @@ const RecentlyViewedPost = ({ post, idx }) => {
 
   const metadataResult = metadata[post?.linkUrl];
 
+  console.log(post.commentNum);
   if (!post) return null;
   return (
     <li className={`recent-post-li ${idx === 4 ? "li-last" : ""}`}>
@@ -65,8 +66,8 @@ const RecentlyViewedPost = ({ post, idx }) => {
               {post?.votes}{" "}
               {post?.votes === 1 || post?.votes === -1 ? "point" : "points"}
               <span className="recent-post-dot-spacer"></span>
-              {Object.values(post?.commentNum) || 0}{" "}
-              {Object.values(post?.commentNum) === 1 ? "comment" : "comments"}
+              {post?.commentNum || 0}{" "}
+              {post?.commentNum === 1 ? "comment" : "comments"}
               <span className="recent-post-dot-spacer"></span>
               {moment(post?.createdAt).locale("en-cust").fromNow()}
             </div>

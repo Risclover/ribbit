@@ -174,7 +174,7 @@ a.blue-btn-filled {
   font-weight: 500;
   line-height: 22px;
   color: var(--main-text-color);
-  border: thin solid #ccc;
+  border: thin solid var(--main-border-color);
   text-align: center;
   display: flex;
   align-items: center;

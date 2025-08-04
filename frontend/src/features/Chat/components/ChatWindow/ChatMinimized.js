@@ -4,6 +4,7 @@ import { useChatMinimized } from "../../hooks/useChatMinimized";
 import { useOpenChat } from "context/OpenChatContext";
 import { NotificationCircle } from "@/components/NotificationCircle";
 import { useAppSelector } from "@/store";
+import { useIsSmallScreen } from "@/hooks";
 
 export default function ChatMinimized({ setMinimizeChat }) {
   const { selectedChat, setSelectedChat } = useSelectedChat();
@@ -15,6 +16,9 @@ export default function ChatMinimized({ setMinimizeChat }) {
   });
   const unread = useAppSelector((s) => s.chatThreads.unreadTotal);
 
+  const isSmall = useIsSmallScreen();
+
+  if (isSmall) return null;
   return (
     <div
       onClick={() => {
