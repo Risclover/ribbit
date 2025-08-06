@@ -15,6 +15,7 @@ import { usePosts } from "@/features/Posts/hooks/usePosts";
 import { usePageSettings } from "@/hooks";
 import { AllPostsIcon } from "@/assets";
 import "@/features/Posts/Posts.css";
+import { useAppSelector } from "@/store";
 
 /* ───────────── local helper type ───────────── */
 /* Keep it in-file so we don’t depend on an export
@@ -30,11 +31,13 @@ export function AllPostsFeed(): ReactElement {
     viewedPosts,
   } = usePosts(true);
 
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
+
   /* narrow raw string → SortKey (“new” is the default from the hook) */
   const sortMode = (
     ["new", "top"].includes(rawSortMode) ? rawSortMode : "new"
   ) as SortKey;
-
+  const isLoaded = useAppSelector((state) => state.posts.loaded);
   /* highlight colour (unchanged) */
   document.documentElement.style.setProperty(
     "--community-highlight",
@@ -55,9 +58,7 @@ export function AllPostsFeed(): ReactElement {
     <FeedContainer>
       <FeedLeftColContainer>
         {user && <CreatePostBar isCommunityPage={false} />}
-        {sortedPosts.length === 0 ? (
-          <NoPostsMessage type="all" />
-        ) : (
+        {
           <PostFeed
             posts={sortedPosts}
             sortMode={sortMode}
@@ -66,8 +67,10 @@ export function AllPostsFeed(): ReactElement {
             community={null}
             pageType="all"
             user={user}
+            isLoaded={postsLoaded}
+            feedType="all"
           />
-        )}
+        }
       </FeedLeftColContainer>
 
       <FeedRightColContainer>

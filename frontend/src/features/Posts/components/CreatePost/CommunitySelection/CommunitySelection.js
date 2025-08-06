@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useAppSelector } from "@/store";
 import { CommunitySelectionDropdown, CommunitySelectionInput } from ".";
-import { useOutsideClick } from "@/hooks";
+import { useFocusTrap, useOutsideClick } from "@/hooks";
 import "./CommunitySelection.css";
 
 export function CommunitySelection({
@@ -16,11 +16,11 @@ export function CommunitySelection({
   const [inputState, setInputState] = useState("choose");
 
   const communities = useAppSelector((s) => s.communities.communities);
-  const subscriptions = useAppSelector((s) => s.subscriptions);
+  const subscriptions = useAppSelector((s) => s.subscriptions.subscriptions);
   const allCommunities = useAppSelector((s) => s.communities.communities);
 
   useOutsideClick(wrapperRef, () => setShowDropdown(false));
-
+  useFocusTrap(showDropdown, wrapperRef);
   // keep search text in sync with outside changes to communityId
   useEffect(() => {
     const comm = Object.values(allCommunities).find(

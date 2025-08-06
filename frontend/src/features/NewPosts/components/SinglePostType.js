@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SinglePostSkeleton } from "./SinglePostSkeleton";
 import { SinglePost } from "@/features";
 import { NoPostsMessage } from "@/components";
 
-export function SinglePostType({ isLoading, posts, isPage, format }) {
+export function SinglePostType({
+  postsLoaded,
+  posts,
+  isPage,
+  format,
+  feedType,
+}) {
+  useEffect(() => {
+    console.log("loaded:", postsLoaded);
+  }, [postsLoaded]);
   // ① skeletons while loading
-  if (isLoading && posts.length === 0) {
+  if (!postsLoaded) {
     return (
       <>
         {Array.from({ length: 15 }, (_, i) => (
@@ -15,11 +24,8 @@ export function SinglePostType({ isLoading, posts, isPage, format }) {
     );
   }
 
-  // ② no-results after loading completes
-  if (posts.length === 0) {
-    return <NoPostsMessage />;
-  }
-
+  if (postsLoaded && posts.length === 0)
+    return <NoPostsMessage type={feedType} />;
   // ③ the real posts
   return (
     <>

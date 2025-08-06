@@ -117,7 +117,7 @@ export function CommunitySelectionInput({
           aria-label="Open communities dropdown"
           type="button"
           className="chevron-down-icon"
-          onClick={() => setShowDropdown(!showDropdown)}
+          tabIndex={-1}
         >
           <TbChevronDown />
         </button>

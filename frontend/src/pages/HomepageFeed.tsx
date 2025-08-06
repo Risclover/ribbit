@@ -21,7 +21,8 @@ import { useAppSelector, RootState } from "@/store";
 import "@/features/Posts/Posts.css";
 
 /* ---------- selector + types ---------- */
-const selectSubscriptions = (s: RootState) => Object.values(s.subscriptions);
+const selectSubscriptions = (s: RootState) =>
+  Object.values(s.subscriptions.subscriptions);
 type Subscriptions = ReturnType<typeof selectSubscriptions>;
 type ViewedPosts = Record<string, unknown[]>;
 
@@ -33,7 +34,8 @@ export function HomepageFeed(): JSX.Element {
   const { sortedPosts, sortMode, setSortMode, user, viewedPosts } =
     usePosts(false);
 
-  const [isLoading] = useState<boolean>(false);
+  const isLoaded = useAppSelector((state) => state.posts.loaded);
+  const subsLoaded = useAppSelector((state) => state.subscriptions.loaded);
 
   /* highlight colour */
   document.documentElement.style.setProperty(
@@ -54,24 +56,19 @@ export function HomepageFeed(): JSX.Element {
       <FeedLeftColContainer>
         <CreatePostBar isCommunityPage={false} />
 
-        {!isLoading &&
-        subscriptions.length === 0 &&
-        followerPosts.length === 0 ? (
-          <NoPostsMessage type="homepage" />
-        ) : (
-          sortedPosts.length > 0 && (
-            <PostFeed
-              posts={sortedPosts}
-              /* ✨ cast to the stricter union type expected by PostFeed */
-              sortMode={sortMode as SortKey}
-              setSortMode={setSortMode as (m: SortKey) => void}
-              isPage="feedpage"
-              community={undefined}
-              pageType="home"
-              user={user}
-            />
-          )
-        )}
+        {
+          <PostFeed
+            posts={sortedPosts}
+            /* ✨ cast to the stricter union type expected by PostFeed */
+            sortMode={sortMode as SortKey}
+            setSortMode={setSortMode as (m: SortKey) => void}
+            isPage="feedpage"
+            community={undefined}
+            pageType="home"
+            user={user}
+            isLoaded={isLoaded && subsLoaded}
+          />
+        }
       </FeedLeftColContainer>
 
       <FeedRightColContainer>

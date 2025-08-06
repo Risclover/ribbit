@@ -114,9 +114,6 @@ export const AppRoutes = ({ user, postType, setPostType, searchbarRef }) => {
         <Route path="/users/:userId/profile" exact>
           <UserProfile />
         </Route>
-        <Route>
-          <NotFound />
-        </Route>
         <Route path="*">
           <NotFound />
         </Route>

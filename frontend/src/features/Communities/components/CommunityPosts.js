@@ -4,11 +4,13 @@ import { sortPosts } from "@/utils";
 import { PostFeed } from "@/features/Posts/components";
 import { useHistory } from "react-router-dom";
 import { useAuthFlow } from "@/context";
+import { useAppSelector } from "@/store";
 
 export function CommunityPosts({ commPosts, communityName, user }) {
   const history = useHistory();
   const [sortMode, setSortMode] = useState("new");
-
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
+  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
   const posts = sortPosts(commPosts, sortMode);
 
   const { openLogin } = useAuthFlow();
@@ -17,7 +19,7 @@ export function CommunityPosts({ commPosts, communityName, user }) {
     <div>
       {user && <CreatePostBar isCommunityPage communityName={communityName} />}
 
-      {commPosts.length === 0 ? (
+      {postsLoaded && commPosts.length === 0 ? (
         <div className="community-no-posts-container">
           <div className="community-no-posts-div"></div>
           <div className="community-no-posts-notice">
@@ -48,6 +50,7 @@ export function CommunityPosts({ commPosts, communityName, user }) {
           posts={posts}
           sortMode={sortMode}
           isPage="community"
+          isLoaded={postsLoaded && communitiesLoaded}
         />
       )}
     </div>

@@ -61,12 +61,9 @@ export function CommunityPage(): JSX.Element {
     shallowEqual
   );
 
-  const communitiesLoaded = useAppSelector(
-    (s) => Object.keys(s.communities.communities).length > 0
-  );
+  const communitiesLoaded = useAppSelector((s) => s.communities.loaded);
 
   /* -------- local UI state -------- */
-  const [loading, setLoading] = useState<boolean>(true);
   const [showAbout, setShowAbout] = useState<boolean>(false);
 
   const postsLoaded = useAppSelector((state) => state.posts.loaded);
@@ -82,7 +79,6 @@ export function CommunityPage(): JSX.Element {
       if (!postsLoaded) {
         await dispatch(getPosts());
       }
-      setLoading(false);
     })();
   }, [communityId, dispatch, communityPosts.length]);
 
@@ -92,12 +88,12 @@ export function CommunityPage(): JSX.Element {
       const LOCAL_KEY = "recentCommunities";
       const stored: any[] = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]");
 
-      const filtered = stored.filter((c) => c.id !== community.id);
+      const filtered = stored.filter((c) => c.id !== community?.id);
       filtered.unshift({
-        id: community.id,
-        name: community.name,
-        icon: community.communitySettings[community.id].communityIcon,
-        iconBgColor: community.communitySettings[community.id].baseColor,
+        id: community?.id,
+        name: community?.name,
+        icon: community?.communitySettings[community?.id].communityIcon,
+        iconBgColor: community?.communitySettings[community?.id].baseColor,
       });
 
       localStorage.setItem(LOCAL_KEY, JSON.stringify(filtered.slice(0, 5)));
@@ -114,9 +110,10 @@ export function CommunityPage(): JSX.Element {
     icon: community ? (
       <CommunityImg
         imgStyle={{
-          backgroundColor: community.communitySettings[community.id].baseColor,
+          backgroundColor:
+            community?.communitySettings[community?.id].baseColor,
         }}
-        imgSrc={community.communitySettings[community.id].communityIcon}
+        imgSrc={community?.communitySettings[community?.id].communityIcon}
         imgClass="nav-left-dropdown-item-icon item-icon-circle"
         imgAlt="Community"
       />
@@ -130,7 +127,7 @@ export function CommunityPage(): JSX.Element {
       />
     ),
     pageTitle: community ? (
-      `c/${community.name}`
+      `c/${community?.name}`
     ) : (
       <Skeleton
         animation="wave"
@@ -141,7 +138,7 @@ export function CommunityPage(): JSX.Element {
   });
 
   /* -------- early exits -------- */
-  // if (loading) return <FrogLoader />;
+  if (!communitiesLoaded) return <FrogLoader />;
   if (!community) return <Redirect to="/404" />;
 
   /* -------- render -------- */
@@ -160,14 +157,14 @@ export function CommunityPage(): JSX.Element {
           {showAbout ? (
             <>
               <CommunityInfoBox community={community} user={user} />
-              {Object.values(community.communityRules).length > 0 && (
+              {Object.values(community?.communityRules).length > 0 && (
                 <CommunityRulesBox community={community} />
               )}
             </>
           ) : (
             <CommunityPosts
               commPosts={communityPosts}
-              communityName={community.name}
+              communityName={community?.name}
               user={user}
             />
           )}
@@ -176,7 +173,7 @@ export function CommunityPage(): JSX.Element {
         <FeedRightColContainer>
           <CommunityInfoBox user={user} community={community} />
 
-          {Object.values(community.communityRules).length > 0 && (
+          {Object.values(community?.communityRules).length > 0 && (
             <CommunityRulesBox community={community} />
           )}
 

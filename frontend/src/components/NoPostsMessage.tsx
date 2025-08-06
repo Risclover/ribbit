@@ -1,13 +1,13 @@
 type Props = {
-  type: string;
+  feedType: string;
 };
 
-export function NoPostsMessage({ type }: Props) {
+export function NoPostsMessage({ feedType }: Props) {
   return (
     <div className="no-posts-div-container">
       <div className="no-posts-div"></div>
       <div className="no-posts-div-txt">
-        {type === "all" ? (
+        {feedType === "all" ? (
           <>
             <p>Sorry - there are no posts on Ribbit right now!</p>
           </>

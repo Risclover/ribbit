@@ -13,7 +13,9 @@ export function CommunityJoinBtn({ community, isPage }) {
   const [subscribed, setSubscribed] = useState(false);
   const [btnWord, setBtnWord] = useState("Joined");
   const user = useAppSelector((state) => state.session.user);
-  const subscriptions = useAppSelector((state) => state.subscriptions);
+  const subscriptions = useAppSelector(
+    (state) => state.subscriptions.subscriptions
+  );
 
   useEffect(() => {
     if (subscriptions[community?.id]) setSubscribed(true);

@@ -14,6 +14,8 @@ interface PostFeedProps {
   community?: boolean;
   pageType?: string; // kept only if you still use it elsewhere
   user?: any;
+  isLoaded?: boolean;
+  feedType?: string;
 }
 
 export const PostFeed = ({
@@ -23,39 +25,28 @@ export const PostFeed = ({
   isPage,
   community,
   user,
+  isLoaded,
+  feedType,
 }: PostFeedProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const { format } = useContext(PostFormatContext);
+
+  /* ---------- derive loading from Redux ----------------- */
   const postsLoaded = useAppSelector((state) => state.posts.loaded);
 
-  /* ---------- loader flag ---------- */
-  const [isLoading, setIsLoading] = useState(true);
-
-  /* ---------- pagination state ----- */
+  /* ---------- pagination state --------------------------- */
   const [page, setPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  /* ---------- initial fetch ---------- */
+  /* ---------- initial fetch ------------------------------ */
   useEffect(() => {
-    let cancelled = false;
+    if (!postsLoaded) {
+      dispatch(getPosts({ limit: 200, offset: (page - 1) * 25 }));
+    }
+  }, [dispatch, page, postsLoaded]); // NEW dep
 
-    const fetchPosts = async () => {
-      setIsLoading(true);
-      try {
-        await dispatch(getPosts({ limit: 200, offset: (page - 1) * 25 }));
-      } finally {
-        if (!cancelled) setIsLoading(false);
-      }
-    };
-
-    if (!postsLoaded) fetchPosts();
-    return () => {
-      cancelled = true;
-    };
-  }, [dispatch, page]);
-
-  /* ---------- calculate virtualised batch size ---------- */
+  /* ---------- calculate virtualised batch size ----------- */
   const calculatePostsPerPage = useCallback(() => {
     const viewportHeight = window.innerHeight;
     const heights: Record<string, number> = { Compact: 44, Classic: 91 };
@@ -63,7 +54,7 @@ export const PostFeed = ({
     return Math.ceil(viewportHeight / postHeight) + 2;
   }, [format]);
 
-  /* initial + on-resize postsPerPage */
+  /* initial + on‑resize postsPerPage */
   useEffect(() => {
     setPostsPerPage(calculatePostsPerPage());
   }, [calculatePostsPerPage]);
@@ -74,13 +65,13 @@ export const PostFeed = ({
     return () => window.removeEventListener("resize", onResize);
   }, [calculatePostsPerPage]);
 
-  /* ---------- slice list ---------- */
+  /* ---------- slice list --------------------------------- */
   const items = useMemo(
     () => posts.slice(0, postsPerPage * page),
     [posts, postsPerPage, page]
   );
 
-  /* ---------- infinite scroll ---------- */
+  /* ---------- infinite scroll ---------------------------- */
   const loadMore = useCallback(() => {
     if (!loading && items.length < posts.length) {
       setLoading(true);
@@ -107,7 +98,7 @@ export const PostFeed = ({
     return () => window.removeEventListener("scroll", onScroll);
   }, [onScroll]);
 
-  /* special profile color */
+  /* ---------- special profile color ---------------------- */
   useEffect(() => {
     if (isPage === "profile") {
       document.documentElement.style.setProperty(
@@ -117,7 +108,7 @@ export const PostFeed = ({
     }
   }, [isPage]);
 
-  /* ---------- render ---------- */
+  /* ---------- render ------------------------------------- */
   const showSortingBar =
     isPage !== "profile" || (user?.userPosts && user.userPosts > 0);
 
@@ -136,7 +127,8 @@ export const PostFeed = ({
         posts={items}
         isPage={isPage}
         format={format}
-        isLoading={isLoading}
+        postsLoaded={isLoaded} /* ← drives skeleton / no‑posts logic */
+        feedType={feedType}
       />
     </>
   );

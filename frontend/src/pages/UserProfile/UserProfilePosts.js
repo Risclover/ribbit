@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { SortingBar } from "@/components";
 import { PostFeed } from "@/components";
 import { sortPosts } from "@/utils";
+import { useAppSelector } from "@/store";
 
 export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
   const [sortedPosts, setSortedPosts] = useState([]);
+  const postsLoaded = useAppSelector((state) => state.posts.loaded);
 
   useEffect(() => {
     const sorted = sortPosts(posts, sortMode);
@@ -35,6 +37,7 @@ export function UserProfilePosts({ user, posts, sortMode, setSortMode }) {
           format="Card"
           setSortMode={setSortMode}
           user={user}
+          isLoaded={postsLoaded}
         />
       )}
     </div>

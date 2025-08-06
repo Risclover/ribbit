@@ -36,6 +36,7 @@ import { PostFormatContext } from "@/context";
 import { usePageSettings } from "@/hooks/usePageSettings";
 import Skeleton from "@mui/material/Skeleton";
 import { useDarkMode } from "@/hooks";
+import { FrogLoader } from "@/components/FrogLoader/FrogLoader";
 
 /* ───────────────────────── Types ───────────────────────── */
 
@@ -88,12 +89,13 @@ export const SinglePostPage: FC = () => {
     if (!community?.id) return;
     setFormat("Card");
 
-    batch(() => {
-      if (!communitiesLoaded) dispatch(getCommunities());
-      if (!postsLoaded) dispatch(getPosts());
-      if (post) dispatch(addViewedPost(post.id));
-    });
+    if (post) dispatch(addViewedPost(post.id));
   }, [community, post, dispatch, setFormat]);
+
+  useEffect(() => {
+    if (!communitiesLoaded) dispatch(getCommunities());
+    if (!postsLoaded) dispatch(getPosts());
+  }, [dispatch, communitiesLoaded, postsLoaded]);
 
   /* scroll to #all-comments when hash is present */
   useEffect(() => {
@@ -142,7 +144,7 @@ export const SinglePostPage: FC = () => {
   });
 
   /* ----------------------- Early exits ------------------- */
-
+  if (!postsLoaded || !communitiesLoaded) return <FrogLoader />;
   if (!post || !community) return <Redirect to="/404" />;
 
   const hasCommunityRules =

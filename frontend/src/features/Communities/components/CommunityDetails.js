@@ -18,7 +18,9 @@ import { CakeIcon } from "@/assets";
 export function CommunityDetails({ post, community }) {
   const history = useHistory();
   const dispatch = useAppDispatch();
-  const subscriptions = useAppSelector((state) => state.subscriptions);
+  const subscriptions = useAppSelector(
+    (state) => state.subscriptions.subscriptions
+  );
   const user = useAppSelector((state) => state.session.user);
 
   const { openSignupPage1 } = useAuthFlow();

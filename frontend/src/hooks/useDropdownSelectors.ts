@@ -5,7 +5,7 @@ const alpha = (k) => (a, b) => a[k].toLowerCase() > b[k].toLowerCase() ? 1 : -1;
 
 /** Grabs Redux slices and returns memo-sorted arrays */
 export function useDropdownSelectors() {
-  const subs = useAppSelector((s) => s.subscriptions);
+  const subs = useAppSelector((s) => s.subscriptions.subscriptions);
   const follows = useAppSelector((s) => s.followers?.follows || {});
   const favComs = useAppSelector((s) => s.favoriteCommunities || {});
   const favUsers = useAppSelector((s) => s.favoriteUsers || {});

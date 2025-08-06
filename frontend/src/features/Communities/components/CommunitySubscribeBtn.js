@@ -17,7 +17,9 @@ export function CommunitySubscribeBtn({
   setShowLoginForm,
 }) {
   const dispatch = useAppDispatch();
-  const subscriptions = useAppSelector((state) => state.subscriptions);
+  const subscriptions = useAppSelector(
+    (state) => state.subscriptions.subscriptions
+  );
   const [subscribed, setSubscribed] = useState(false);
 
   const { openLogin } = useAuthFlow();

@@ -9,7 +9,7 @@ export function usePosts(isAllPosts) {
   const user = useAppSelector((state) => state.session.user);
   const userPosts = useAppSelector((state) => Object.values(state.posts.posts));
   const subscriptions = useAppSelector((state) =>
-    Object.values(state.subscriptions)
+    Object.values(state.subscriptions.subscriptions)
   );
   const follows = useAppSelector((state) => state.followers.posts);
   const viewedPosts = useAppSelector((state) => state.viewedPosts);

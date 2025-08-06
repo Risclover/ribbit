@@ -82,22 +82,21 @@ export const deleteSubscription = (communityId) => async (dispatch) => {
 
 /* ------------------------- REDUCER ------------------------- */
 
-const initialState = {};
+const initialState = {
+  loaded: false,
+  subscriptions: {},
+};
 
 const allSubscriptionsReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case LOAD_SUBSCRIPTIONS:
-      if (action.subscriptions && action.subscriptions.Subscriptions) {
-        return action.subscriptions.Subscriptions.reduce(
-          (subscriptions, subscription) => {
-            subscriptions[subscription.id] = subscription;
-            return subscriptions;
-          },
-          {}
-        );
-      }
-      return state;
+      const byId = {};
+      action.subscriptions.Subscriptions.forEach((s) => {
+        byId[s.id] = s;
+      });
+
+      return { ...state, subscriptions: byId, loaded: true };
 
     case LOAD_SUBSCRIBERS:
       if (action.subscriptions && action.subscriptions.Subscribers) {

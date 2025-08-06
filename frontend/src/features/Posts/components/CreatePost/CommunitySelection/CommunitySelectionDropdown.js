@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Modal } from "@/context";
 import {
   CreateCommunityModal,
   CommunitySelectionDropdownCommunity,
 } from "@/features";
 import "./CommunitySelection.css";
+import { useFocusTrap } from "@/hooks";
 
 export function CommunitySelectionDropdown({
   subscriptions,
@@ -22,10 +23,6 @@ export function CommunitySelectionDropdown({
   const [showCreateCommunityModal, setShowCreateCommunityModal] =
     useState(false);
 
-  useEffect(() => {
-    if (showDropdown) {
-    }
-  });
   return (
     <div className="community-selection-dropdown">
       <div className="community-selection-dropdown-topbar">
@@ -36,15 +33,6 @@ export function CommunitySelectionDropdown({
           .filter((community) =>
             community["name"].toLowerCase().includes(search?.toLowerCase())
           ).length > 0 && <h5>Your Communities</h5>}
-        {/* <button
-          className="community-selection-dropdown-new-community"
-          onClick={(e) => {
-            e.preventDefault();
-            handleOpenCreateCommunity();
-          }}
-        >
-          Create New
-        </button> */}
         {showCreateCommunityModal && (
           <Modal
             close={showCreateCommunityModal}
