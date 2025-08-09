@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store";
 import {
   addToSubscriptions,
   deleteSubscription,
   getSubscriptions,
   getFavoriteCommunities,
-  getSingleCommunity,
+  getCommunities,
 } from "@/store";
-import { getCommunities } from "@/store";
 import { useAuthFlow } from "@/context/AuthFlowContext";
 
 export function CommunitySubscribeBtn({
@@ -17,63 +16,100 @@ export function CommunitySubscribeBtn({
   setShowLoginForm,
 }) {
   const dispatch = useAppDispatch();
-  const subscriptions = useAppSelector(
-    (state) => state.subscriptions.subscriptions
-  );
-  const [subscribed, setSubscribed] = useState(false);
-
   const { openLogin } = useAuthFlow();
 
-  useEffect(() => {
-    if (subscriptions[community?.id]) setSubscribed(true);
-  }, [subscribed, subscriptions, community?.id]);
+  // 1) Read current state from Redux (single source of truth)
+  const subsById = useAppSelector((s) => s.subscriptions.subscriptions);
+  const subsLoaded = useAppSelector((s) => s.subscriptions.loaded);
+  const isSubscribed = !!subsById?.[community?.id];
 
-  useEffect(() => {
-    if (subscriptions[community?.id]) setSubscribed(true);
-  }, [subscribed, subscriptions, community?.id]);
+  // 2) Local "busy" flag for UX (prevents double clicks)
+  const [busy, setBusy] = useState(false);
+
+  const join = async (e) => {
+    e.preventDefault();
+    if (!community?.id || busy) return;
+
+    if (!user) {
+      openLogin();
+      setShowLoginForm?.(true);
+      return;
+    }
+
+    try {
+      setBusy(true);
+      await dispatch(addToSubscriptions(community.id));
+      // refresh whatever UI depends on it
+      await Promise.all([
+        dispatch(getSubscriptions(+communityId)),
+        dispatch(getCommunities()),
+        dispatch(getFavoriteCommunities()),
+      ]);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const leave = async (e) => {
+    e.preventDefault();
+    if (!community?.id || busy) return;
+
+    try {
+      setBusy(true);
+      await dispatch(deleteSubscription(community.id));
+      await Promise.all([
+        dispatch(getSubscriptions(+communityId)),
+        dispatch(getFavoriteCommunities()),
+        dispatch(getCommunities()),
+      ]);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  // 3) Avoid the "Join" flash while subscriptions are still loading.
+  //    Render a disabled button with the right shape, or nothing.
+  if (!subsLoaded) {
+    return (
+      <div className="community-header-info-details-right">
+        <div className="community-header-info-subscribe">
+          <button
+            className="blue-btn-filled btn-short join-btn community-btn-filled join"
+            disabled
+            aria-busy="true"
+          >
+            {/* skeleton / spinner optional */}
+            Join
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="community-header-info-details-right">
       <div className="community-header-info-subscribe">
-        {user && subscribed && (
+        {user && isSubscribed ? (
           <button
             className="blue-btn-unfilled btn-short join-btn community-btn joined"
-            onClick={async (e) => {
-              e.preventDefault();
-              await dispatch(deleteSubscription(community.id));
-              dispatch(getFavoriteCommunities());
-              dispatch(getCommunities());
-              dispatch(getSubscriptions(communityId));
-              setSubscribed(false);
-            }}
-            onMouseEnter={(e) => (e.target.textContent = "Leave")}
-            onMouseLeave={(e) => (e.target.textContent = "Joined")}
+            onClick={leave}
+            aria-pressed="true"
+            onMouseEnter={(e) => (e.currentTarget.textContent = "Leave")}
+            onMouseLeave={(e) => (e.currentTarget.textContent = "Joined")}
           >
             Joined
           </button>
-        )}
-        {(!user || !subscribed) && (
+        ) : (
           <button
             className="blue-btn-filled btn-short join-btn community-btn-filled join"
-            onClick={async (e) => {
-              e.preventDefault();
-              if (!user) {
-                openLogin();
-              } else if (user && !subscribed) {
-                await dispatch(addToSubscriptions(community.id));
-                dispatch(getSubscriptions(+communityId));
-                dispatch(getCommunities());
-
-                user && setSubscribed(true);
-                !user && setShowLoginForm(true);
-              }
-            }}
+            onClick={join}
+            aria-pressed="false"
           >
             Join
           </button>
         )}
       </div>
-      <div className="community-header-info-unsubscribe"></div>
+      <div className="community-header-info-unsubscribe" />
     </div>
   );
 }
