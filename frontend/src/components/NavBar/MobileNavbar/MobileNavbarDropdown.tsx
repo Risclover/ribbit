@@ -10,11 +10,15 @@ import { clsx } from "clsx";
 interface MobileNavbarDropdownProps {
   openUserDropdown: boolean;
   setOpenUserDropdown: (open: boolean) => void;
+  setShowNavSidebar: (open: boolean) => void;
+  showNavSidebar: boolean;
 }
 
 export function MobileNavbarDropdown({
   openUserDropdown,
   setOpenUserDropdown,
+  showNavSidebar,
+  setShowNavSidebar,
 }: MobileNavbarDropdownProps) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const portalRoot = document.body;
@@ -24,7 +28,7 @@ export function MobileNavbarDropdown({
   useEscapeKey(() => setOpenUserDropdown(false), openUserDropdown);
 
   useFocusTrap(openUserDropdown, wrapperRef);
-  useOutsideClick(wrapperRef, () => setOpenUserDropdown(false));
+  useOutsideClick(wrapperRef, () => setShowNavSidebar(false), showNavSidebar);
 
   if (!openUserDropdown) return null;
 

@@ -176,6 +176,7 @@
   overflow-y: auto;
   padding-bottom: 16px;
   height: 482px;
+  overscroll-behavior: contain;
 }
 
 .nav-left-normal {

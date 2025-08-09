@@ -15,7 +15,6 @@ interface MobileNavBarProps {
   setShowSearchScreen: (v: boolean) => void;
   setShowNavSidebar: (v: boolean | ((p: boolean) => boolean)) => void;
   showNavSidebar: boolean;
-  showSearchScreen: boolean;
 }
 
 const selectUser = (s: RootState) => s.session.user;
@@ -25,7 +24,6 @@ export function MobileNavBar({
   setShowSearchScreen,
   setShowNavSidebar,
   showNavSidebar,
-  showSearchScreen,
 }: MobileNavBarProps) {
   const user = useAppSelector(selectUser);
 
@@ -47,18 +45,32 @@ export function MobileNavBar({
   //   window.addEventListener("keydown", escListener);
   //   return () => window.removeEventListener("keydown", escListener);
   // }, [escListener]);
-
+  const toggleSidebar = useCallback(
+    () => setShowNavSidebar((p) => !p),
+    [setShowNavSidebar]
+  );
   useEscapeKey(() => setShowNavSidebar(false), showNavSidebar);
 
   return (
     <div className="navbar-nav">
       <div className="logged-out-navbar">
+        <div className="logged-out-navbar-left">
+          <button
+            className="navbar-button"
+            aria-label="Toggle navigation sidebar"
+            onClick={toggleSidebar}
+            data-outside-ignore
+            aria-expanded={showNavSidebar}
+          >
+            <HamburgerMenuIcon />
+          </button>
+
+          <NavLink to="/" exact>
+            <RandomLogo />
+          </NavLink>
+        </div>
         <div className="logged-out-navbar-right">
-          <MobileNavbarBtns
-            showSearchScreen={showSearchScreen}
-            setShowSearchScreen={setShowSearchScreen}
-            setShowNavSidebar={setShowNavSidebar}
-          />
+          <MobileNavbarBtns setShowSearchScreen={setShowSearchScreen} />
 
           {user ? (
             <button
