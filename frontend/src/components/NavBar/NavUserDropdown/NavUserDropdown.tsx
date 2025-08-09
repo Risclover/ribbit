@@ -17,8 +17,6 @@ interface User {
 export function NavUserDropdown(): JSX.Element {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
-
-  /* Redux                vvvvvvvvv */
   const currentUser = useAppSelector<User | null>(
     (state) => state.session.user
   );

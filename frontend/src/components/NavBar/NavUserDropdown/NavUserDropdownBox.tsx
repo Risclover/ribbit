@@ -4,7 +4,13 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import { SlLogin } from "react-icons/sl";
 
 import { CommunityThemeToggle } from "@/features";
-import { useDarkMode, useEscapeKey } from "@/hooks";
+import {
+  useDarkMode,
+  useEscapeKey,
+  useIsSmallScreen,
+  useScrollLock,
+  useScrollToTop,
+} from "@/hooks";
 import { logout, useAppDispatch } from "@/store";
 
 interface User {
@@ -27,6 +33,7 @@ export function NavUserDropdownBox({
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { toggleTheme, checked } = useDarkMode();
+  const isSmall = useIsSmallScreen();
 
   /* guard: auth state not ready yet */
 
@@ -46,6 +53,7 @@ export function NavUserDropdownBox({
     };
 
   useEscapeKey(() => setShowDropdown(false), showDropdown);
+  useScrollLock(showDropdown, isSmall);
 
   if (!cuser) return null;
   return (

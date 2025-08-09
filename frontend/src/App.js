@@ -210,6 +210,7 @@ function App() {
       <PopupProvider>
         <PostFormatContext.Provider value={{ format, setFormat }}>
           {previewPage && <PreviewCommunitySidebar />}
+
           {isSmall ? (
             <MobileNavBar
               setOpenUserDropdown={setOpenUserDropdown}

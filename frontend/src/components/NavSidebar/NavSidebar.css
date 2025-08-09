@@ -8,6 +8,7 @@
   display: block;
   width: 270px;
   z-index: 100;
+  overscroll-behavior: contain;
 }
 
 .main-padded {

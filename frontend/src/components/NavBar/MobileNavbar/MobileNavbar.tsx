@@ -32,10 +32,6 @@ export function MobileNavBar({
   /* lock background scroll when dropdown is open */
   // useScrollLock(openUserDropdown);
   /* stable callbacks ----------------------------------------------------- */
-  const toggleSidebar = useCallback(
-    () => setShowNavSidebar((p) => !p),
-    [setShowNavSidebar]
-  );
 
   const openDropdown = useCallback(
     () => setOpenUserDropdown(true),
@@ -57,24 +53,11 @@ export function MobileNavBar({
   return (
     <div className="navbar-nav">
       <div className="logged-out-navbar">
-        <div className="logged-out-navbar-left">
-          <button
-            className="navbar-button"
-            aria-label="Toggle navigation sidebar"
-            onClick={toggleSidebar}
-          >
-            <HamburgerMenuIcon />
-          </button>
-
-          <NavLink to="/" exact>
-            <RandomLogo />
-          </NavLink>
-        </div>
-
         <div className="logged-out-navbar-right">
           <MobileNavbarBtns
             showSearchScreen={showSearchScreen}
             setShowSearchScreen={setShowSearchScreen}
+            setShowNavSidebar={setShowNavSidebar}
           />
 
           {user ? (

@@ -182,6 +182,7 @@
   height: 100%;
   overflow-y: auto;
   background: var(--ribbit-main);
+  overscroll-behavior: contain;
 }
 
 .nav-left-dropdown-filter {
