@@ -14,7 +14,15 @@ const CommunityResult = ({ community }) => {
   };
   return (
     <div onClick={handleCommunityClick}>
-      <div className="search-results-community">
+      <div
+        className="search-results-community"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleCommunityClick(e);
+          }
+        }}
+      >
         <div className="search-results-page-community-left">
           <CommunityImg
             imgSrc={community?.communitySettings[community?.id].communityIcon}
@@ -55,45 +63,49 @@ const CommunitySkeleton = () => {
   return (
     <div className="search-results-community">
       <div className="communities-results-skeleton">
-        <div className="communities-results-skeleton-middle">
+        <div className="communities-results-skeleton-img">
           <Skeleton
             variant="circular"
-            width={36}
-            height={36}
+            width="100%"
+            height="100%"
             animation="wave"
             sx={{ bgcolor: theme === "dark" && "grey.500" }}
           />
-          <div className="communities-results-skeleton-text">
-            <Skeleton
-              variant="text"
-              sx={{
-                fontSize: "0.75rem",
-                bgcolor: theme === "dark" && "grey.500",
-              }}
-              width={170}
-              animation="wave"
-            />
-            <Skeleton
-              variant="text"
-              sx={{
-                fontSize: "0.75rem",
-                bgcolor: theme === "dark" && "grey.500",
-              }}
-              width={600}
-              animation="wave"
-            />
-          </div>
         </div>
-        <Skeleton
-          variant="rounded"
-          sx={{
-            borderRadius: "1000px",
-            bgcolor: theme === "dark" && "grey.500",
-          }}
-          height={32}
-          width={86}
-          animation="wave"
-        />
+        <div className="communities-results-skeleton-middle">
+          <Skeleton
+            variant="text"
+            sx={{
+              fontSize: "0.75rem",
+              bgcolor: theme === "dark" && "grey.500",
+              maxWidth: "170px",
+            }}
+            width="100%"
+            animation="wave"
+          />
+          <Skeleton
+            variant="text"
+            sx={{
+              fontSize: "0.75rem",
+              bgcolor: theme === "dark" && "grey.500",
+              maxWidth: "400px",
+            }}
+            width="100%"
+            animation="wave"
+          />
+        </div>
+        <div className="communities-results-skeleton-btn">
+          <Skeleton
+            variant="rounded"
+            sx={{
+              borderRadius: "1000px",
+              bgcolor: theme === "dark" && "grey.500",
+            }}
+            height={32}
+            width={86}
+            animation="wave"
+          />
+        </div>
       </div>
     </div>
   );

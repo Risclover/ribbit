@@ -54,6 +54,12 @@ export function CommentResult({ comment }) {
           <div
             className="search-results-comment-community"
             onClick={handleCommunityClick}
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleCommunityClick(e);
+              }
+            }}
           >
             c/{post.community.name}
           </div>

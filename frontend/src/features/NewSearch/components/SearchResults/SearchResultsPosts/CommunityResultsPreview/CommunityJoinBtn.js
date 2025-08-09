@@ -21,6 +21,25 @@ export function CommunityJoinBtn({ community, isPage }) {
     if (subscriptions[community?.id]) setSubscribed(true);
   }, [subscribed, community?.id, subscriptions]);
 
+  const toggleCommunityJoin = async (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    await dispatch(deleteSubscription(community?.id));
+    setSubscribed(false);
+    dispatch(getSubscriptions());
+    dispatch(getFavoriteCommunities());
+    dispatch(getCommunities());
+  };
+
+  const toggleCommunityLeave = async (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    await dispatch(addToSubscriptions(community?.id));
+    user && setSubscribed(true);
+    dispatch(getSubscriptions());
+    dispatch(getCommunities());
+  };
+
   return (
     <div>
       {user && subscribed && (
@@ -30,15 +49,12 @@ export function CommunityJoinBtn({ community, isPage }) {
               ? "community-btn btn-long blue-btn-unfilled"
               : "search-results-page-community-join"
           }
-          onClick={async (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            await dispatch(deleteSubscription(community?.id));
-            setSubscribed(false);
-            dispatch(getSubscriptions());
-            dispatch(getFavoriteCommunities());
-            dispatch(getCommunities());
+          onKeyDown={async (e) => {
+            if (e.key === "Enter") {
+              toggleCommunityJoin(e);
+            }
           }}
+          onClick={toggleCommunityJoin}
           onMouseEnter={() => setBtnWord("Leave")}
           onMouseLeave={() => setBtnWord("Joined")}
         >
@@ -52,14 +68,12 @@ export function CommunityJoinBtn({ community, isPage }) {
               ? "community-btn-filled btn-long blue-btn-filled"
               : "search-results-page-community-join"
           }
-          onClick={async (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            await dispatch(addToSubscriptions(community?.id));
-            user && setSubscribed(true);
-            dispatch(getSubscriptions());
-            dispatch(getCommunities());
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              toggleCommunityLeave(e);
+            }
           }}
+          onClick={toggleCommunityLeave}
         >
           Join
         </button>

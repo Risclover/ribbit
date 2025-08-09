@@ -55,6 +55,11 @@ export const UserFollowBtn = ({ user }) => {
       onClick={handleFollowClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onKeyDown={(e) => {
+        if(e.key === "Enter") {
+          handleFollowClick(e);
+        }
+      }}
     >
       {btnWord}
     </button>

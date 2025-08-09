@@ -46,7 +46,16 @@ const PostResult = ({ post }) => {
           imgAlt="Community"
           imgClick={handleCommunityClick}
         />
-        <div className="results-post-community" onClick={handleCommunityClick}>
+        <div
+          className="results-post-community"
+          tabIndex={0}
+          onClick={handleCommunityClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleCommunityClick(e);
+            }
+          }}
+        >
           c/{post?.community?.name}
         </div>{" "}
         <span className="topbar-dot">•</span>{" "}
