@@ -6,7 +6,7 @@ import {
   createChatThread,
   getUserChatThreads,
 } from "@/store";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 import { useOpenChat } from "context/OpenChatContext";
 
 /**
@@ -15,9 +15,7 @@ import { useOpenChat } from "context/OpenChatContext";
  */
 export function useUserProfileAboutBox({ user, currentUser }) {
   const dispatch = useAppDispatch();
-  const { setSelectedChat } = useSelectedChat();
-
-  const { setOpenChat } = useOpenChat();
+  const { setSelectedChat, setOpenChat, setOverlay } = useChat();
 
   /* ───────── local UI state ───────── */
   const [showFollowersModal, setShowFollowersModal] = useState(false);
@@ -58,11 +56,11 @@ export function useUserProfileAboutBox({ user, currentUser }) {
 
     if (existing) {
       setSelectedChat(existing);
-      return;
+      setOverlay("INVITE");
+    } else {
+      const newThread = await dispatch(createChatThread(user.id));
+      setSelectedChat(newThread);
     }
-
-    const newThread = await dispatch(createChatThread(user.id));
-    setSelectedChat(newThread);
   }, [threads, currentUser?.id, user?.id, dispatch]);
 
   return {

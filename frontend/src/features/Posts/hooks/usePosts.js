@@ -26,7 +26,7 @@ export function usePosts(isAllPosts) {
       ).then(({ nextOffset, hasMore }) => {
         nextPage.current = hasMore ? nextOffset / 25 + 1 : null;
       });
-  }, [page, sortMode, dispatch]);
+  }, [page, sortMode, dispatch, postsLoaded]);
 
   const sortedPosts = useMemo(() => {
     let posts = userPosts;

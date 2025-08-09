@@ -11,12 +11,14 @@ export function Messages() {
 
   const threads = useAppSelector((state) => Object.values(state.threads));
   const currentUser = useAppSelector((state) => state.session.user);
+  const usersLoaded = useAppSelector((state) => state.users.loaded);
 
   useEffect(() => {
     dispatch(getMessages());
     dispatch(getThreads());
-    dispatch(getUsers());
-  }, [dispatch]);
+    if (!usersLoaded) dispatch(getUsers());
+    console.log("users 3")
+  }, [dispatch, usersLoaded]);
 
   usePageSettings({
     documentTitle: "Messages: Messages",

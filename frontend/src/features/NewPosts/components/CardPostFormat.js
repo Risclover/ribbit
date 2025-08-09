@@ -13,7 +13,7 @@ export default function CardPostFormat({
   handleCommentsBtnClick,
 }) {
   const cuser = useAppSelector((state) => state.session.user);
-  const user = useAppSelector((state) => state.users?.[cuser?.id]);
+  const user = useAppSelector((state) => state.users.users?.[cuser?.id]);
   const community = useAppSelector(
     (state) => state.communities.communities[post?.community?.id]
   );

@@ -12,10 +12,12 @@ export function useNotificationsDropdown() {
   const notifications = useAppSelector((state) =>
     Object.values(state.notifications)
   );
+  const usersLoaded = useAppSelector((state) => state.users.loaded);
 
   useEffect(() => {
-    dispatch(getUsers());
-  }, []);
+    if (!usersLoaded) dispatch(getUsers());
+    console.log("users 4")
+  }, [dispatch, usersLoaded]);
 
   // Sort + group them
   const { sorted, today, earlier } = groupAndSortNotifications(notifications);

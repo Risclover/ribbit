@@ -30,13 +30,14 @@ import { usePageSettings } from "@/hooks/usePageSettings";
 import { useDarkMode } from "@/hooks";
 
 import { UserProfileMobile } from "./UserProfile/UserProfileMobile";
-import { UserProfileAboutBox } from "features/Users/components/UserProfileAboutBox/UserProfileAboutBox";
+import { UserProfileAboutBox } from "@/features/Users/components/UserProfileAboutBox/UserProfileAboutBox";
+import { FrogLoader } from "@/components/FrogLoader/FrogLoader";
 
 /* ───────────────────────── Types ───────────────────────── */
 
 type SortKey = "new" | "top" | string; // extend if you add more modes
 
-type User = RootState["users"][number];
+type User = RootState["users"];
 type Community = RootState["communities"][number];
 type Post = RootState["posts"][number];
 
@@ -55,11 +56,12 @@ export const UserProfilePage: FC = () => {
   const [showAbout, setShowAbout] = useState<boolean>(false);
 
   /* --- store selectors --- */
-  const user: User | undefined = useAppSelector((s) => s.users[Number(userId)]);
+  const user = useAppSelector((s) => s.users.users[Number(userId)]);
   const communities = useAppSelector((s) => s.communities.communities);
   const posts = useAppSelector((s) => Object.values<Post>(s.posts.posts));
   const postsLoaded = useAppSelector((state) => state.posts.loaded);
   const currentUser = useAppSelector((s) => s.session.user);
+  const usersLoaded = useAppSelector((state) => state.users.loaded);
 
   const profilePosts = posts.filter((p) => p?.author?.id === Number(userId));
   const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
@@ -69,7 +71,7 @@ export const UserProfilePage: FC = () => {
     if (!postsLoaded) dispatch(getPosts());
     if (!communitiesLoaded) dispatch(getCommunities());
     setFormat("Card"); // always Card on profile
-  }, [dispatch, posts.length, communities, setFormat]);
+  }, [dispatch, setFormat, postsLoaded, communitiesLoaded]);
 
   /* --- <head> meta + navbar state --- */
   usePageSettings({
@@ -102,6 +104,7 @@ export const UserProfilePage: FC = () => {
     ),
   });
 
+  if (!usersLoaded) return <FrogLoader />;
   /* ───────────────────── render ───────────────────── */
 
   return (

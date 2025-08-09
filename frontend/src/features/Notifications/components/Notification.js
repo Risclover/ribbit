@@ -17,7 +17,7 @@ import { FollowerIcon, CommentReplyIcon } from "@/assets";
  */
 export function Notification({ notification, onClick }) {
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.users);
+  const users = useAppSelector((state) => state.users.users);
   const actor = users[notification?.actorId];
 
   const [notificationMenu, setNotificationMenu] = useState(false);

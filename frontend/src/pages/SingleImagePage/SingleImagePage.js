@@ -11,7 +11,7 @@ export function SingleImagePage() {
 
   useEffect(() => {
     if (!postsLoaded) dispatch(getPosts());
-  }, [dispatch]);
+  }, [dispatch, postsLoaded]);
 
   const posts = useAppSelector((state) => state.posts.posts);
 

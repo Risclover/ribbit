@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { useAppSelector } from "@/store";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 
 export function useChatNavBtn({ chatThread }) {
-  const { selectedChat } = useSelectedChat();
+  const { selectedChat } = useChat();
 
   const currentUser = useAppSelector((state) => state.session.user);
 

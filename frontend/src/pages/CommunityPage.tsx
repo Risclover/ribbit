@@ -80,7 +80,13 @@ export function CommunityPage(): JSX.Element {
         await dispatch(getPosts());
       }
     })();
-  }, [communityId, dispatch, communityPosts.length]);
+  }, [
+    communityId,
+    dispatch,
+    communityPosts.length,
+    communitiesLoaded,
+    postsLoaded,
+  ]);
 
   /* -------- store recent communities for guests -------- */
   useEffect(() => {

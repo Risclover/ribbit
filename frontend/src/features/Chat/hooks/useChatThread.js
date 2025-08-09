@@ -1,5 +1,5 @@
-import {useEffect, useRef, useState } from "react";
-import { useSelectedChat } from "@/context";
+import { useEffect, useRef, useState } from "react";
+import { useChat } from "@/context";
 import { useAppDispatch, useAppSelector, getUserChatThreads } from "@/store";
 
 export function useChatThread({
@@ -15,7 +15,7 @@ export function useChatThread({
   const chatThreads = useAppSelector((state) => state.chatThreads.chatThreads);
   const user = useAppSelector((state) => state.session.user);
 
-  const { selectedChat, setSelectedChat } = useSelectedChat();
+  const { selectedChat, setSelectedChat } = useChat();
 
   const [receiver, setReceiver] = useState(null);
 

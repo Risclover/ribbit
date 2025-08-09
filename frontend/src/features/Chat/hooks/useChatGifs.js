@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { GiphyFetch } from "@giphy/js-fetch-api";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 import { createChatMessage, getChatThread, useAppDispatch } from "@/store";
 
 const giphy = new GiphyFetch(process.env.REACT_APP_GIPHY_KEY);
@@ -19,7 +19,7 @@ export function useChatGifs({
   setResults,
 }) {
   const dispatch = useAppDispatch();
-  const { selectedChat } = useSelectedChat();
+  const { selectedChat } = useChat();
 
   const loadTrending = useCallback(async () => {
     setResults([]);

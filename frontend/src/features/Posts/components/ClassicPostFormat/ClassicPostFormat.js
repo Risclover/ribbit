@@ -25,7 +25,7 @@ export function ClassicPostFormat({ isPage, id, post }) {
   const dispatch = useAppDispatch();
 
   const cuser = useAppSelector((state) => state.session.user);
-  const user = useAppSelector((state) => state.users[cuser?.id]);
+  const user = useAppSelector((state) => state.users.users[cuser?.id]);
   const community = useAppSelector(
     (state) => state.communities.communities[post?.community.id]
   );

@@ -15,13 +15,12 @@ import {
 } from "@/store";
 
 import { FollowBtn } from "@/components";
-import { Modal, useAuthFlow } from "@/context";
+import { Modal, useAuthFlow, useChat } from "@/context";
 import { UserProfileFollowers } from "@/features";
 import { SendMessage } from "@/pages";
 import { UserUploadModal } from "./UserUploadModal";
 import { KarmaIcon } from "@/assets";
 import { OVERLAYS } from "@/features/Chat/components/ChatWindow/Chat";
-import { useSelectedChat } from "context";
 import { useOpenChat } from "context/OpenChatContext";
 import { CommunityFeedAbout } from "features";
 import { UserProfileMobileMoreMenu } from "./UserProfileMobileMoreMenu";
@@ -36,7 +35,7 @@ export function UserAboutBox({
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { userId } = useParams();
-  const { setPendingReceiver } = useSelectedChat();
+  const { setPendingReceiver } = useChat();
   const { openLogin } = useAuthFlow();
 
   const [showFollowersModal, setShowFollowersModal] = useState(false);
@@ -59,9 +58,9 @@ export function UserAboutBox({
   const isFollowing = () => follows && user && follows[user.id];
   const [following, setFollowing] = useState(isFollowing);
 
-  const { setSelectedChat } = useSelectedChat();
+  const { setSelectedChat } = useChat();
 
-  const { setOpenChat } = useOpenChat();
+  const { setOpenChat } = useChat();
 
   useEffect(() => {
     dispatch(getUserChatThreads());

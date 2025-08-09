@@ -10,7 +10,7 @@ export function EditProfile() {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const user1 = useAppSelector((state) => state.session.user);
-  const user = useAppSelector((state) => state.users[user1.id]);
+  const user = useAppSelector((state) => state.users.users[user1.id]);
 
   const [display_name, setdisplay_name] = useState(user?.displayName);
   const [about, setAbout] = useState(user?.about);

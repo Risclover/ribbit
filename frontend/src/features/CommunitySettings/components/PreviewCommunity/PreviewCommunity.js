@@ -37,13 +37,14 @@ export function PreviewCommunity() {
   const postsLoaded = useAppSelector((state) => state.posts.loaded);
   // Filter posts for this community
   const commPosts = posts.filter((post) => post.community.id === communityId);
+  const subsLoaded = useAppSelector((state) => state.subscriptions.loaded);
 
   // Fetch data on mount (and/or when communityName changes)
   useEffect(() => {
     // Single effect to load what we need
-    dispatch(getSubscriptions());
+    if (!subsLoaded) dispatch(getSubscriptions());
     if (!postsLoaded) dispatch(getPosts());
-  }, [dispatch]);
+  }, [dispatch, subsLoaded, postsLoaded]);
 
   // If current user is not the community owner, redirect to actual community page
   useEffect(() => {

@@ -53,7 +53,7 @@ const RecentlyViewedPost = ({ post, idx }) => {
 
   const metadataResult = metadata[post?.linkUrl];
 
-  console.log(post.commentNum);
+  console.log("recent post:", post.commentNum);
   if (!post) return null;
   return (
     <li className={`recent-post-li ${idx === 4 ? "li-last" : ""}`}>

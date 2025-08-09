@@ -1,6 +1,6 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
 import { getSocket } from "@/socket";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 import { useAutosizeTextArea } from "@/hooks";
 import { ChatEmojis, ChatGifs } from "@/features";
 import {

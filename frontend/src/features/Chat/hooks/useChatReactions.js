@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 import {
   useAppDispatch,
   createReaction,
@@ -7,7 +7,7 @@ import {
 } from "@/store";
 
 export function useChatReactions({ setOpenReactions, message, socket }) {
-  const { selectedChat } = useSelectedChat();
+  const { selectedChat } = useChat();
   const dispatch = useAppDispatch();
 
   const handleClickReaction = async (reaction) => {

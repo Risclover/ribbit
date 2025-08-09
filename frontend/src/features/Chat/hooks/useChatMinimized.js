@@ -1,10 +1,11 @@
 import { useOpenChat } from "context/OpenChatContext";
 import { useContext } from "react";
 import { useAppSelector } from "@/store";
+import { useChat } from "@/context";
 
 export function useChatMinimized({ setMinimizeChat }) {
   const chatThreads = useAppSelector((state) => state.chatThreads.chatThreads);
-  const { setOpenChat } = useOpenChat();
+  const { setOpenChat } = useChat();
 
   const sortedThreads = Object.values(chatThreads).sort((a, b) => {
     const aMessages = a.messages;

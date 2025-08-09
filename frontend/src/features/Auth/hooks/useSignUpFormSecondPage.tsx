@@ -14,7 +14,7 @@ import { validatePassword, validateUsername, generateUsername } from "../utils";
 export function useSignUpFormSecondPage() {
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const allUsers = useAppSelector((state) => state.users);
+  const allUsers = useAppSelector((state) => state.users.users);
 
   const { signupFormData, setSignupFormData, openSignupPage1, closeModal } =
     useAuthFlow();

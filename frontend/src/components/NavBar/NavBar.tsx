@@ -10,7 +10,7 @@ import {
   NavLeftDropdownFace,
   LoggedOutDropdownWrapper,
 } from ".";
-import { useSelectedChat, useOpenChat, useAuthFlow } from "@/context";
+import { useAuthFlow, useChat } from "@/context";
 import { Searchbar } from "@/features";
 import { RandomLogo } from "../../layouts/RandomLogo";
 import { NavBarBtns } from "./NavBarBtns";
@@ -58,8 +58,8 @@ export function NavBar({
 }: NavBarProps) {
   const { openLogin } = useAuthFlow();
 
-  const { setSelectedChat } = useSelectedChat();
-  const { openChat, setOpenChat } = useOpenChat();
+  const { setSelectedChat } = useChat();
+  const { openChat, setOpenChat } = useChat();
 
   const chatThreads = useAppSelector(selectThreads);
   const user = useAppSelector(selectUser);
@@ -98,7 +98,7 @@ export function NavBar({
   const handleOpenChat = useCallback(
     (e: ReactMouseEvent) => {
       e.preventDefault();
-      if (!sortedThreads.length) return;
+      // if (!sortedThreads.length) return;
 
       setSelectedChat(sortedThreads[0]);
       minimizeChat ? setMinimizeChat(false) : setOpenChat(!openChat);

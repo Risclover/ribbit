@@ -16,7 +16,7 @@ export function UserProfileMobile({
 }) {
   const { userId } = useParams();
   const currentUser = useAppSelector((state) => state.session.user);
-  const user = useAppSelector((state) => state.users[userId]);
+  const user = useAppSelector((state) => state.users.users[userId]);
   return (
     <div className="user-profile-mobile-container">
       <UserAboutBox

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 import { useChatMinimized } from "../../hooks/useChatMinimized";
 import { useOpenChat } from "context/OpenChatContext";
 import { NotificationCircle } from "@/components/NotificationCircle";
@@ -7,9 +7,9 @@ import { useAppSelector } from "@/store";
 import { useIsSmallScreen } from "@/hooks";
 
 export default function ChatMinimized({ setMinimizeChat }) {
-  const { selectedChat, setSelectedChat } = useSelectedChat();
+  const { selectedChat, setSelectedChat } = useChat();
 
-  const { setOpenChat } = useOpenChat();
+  const { setOpenChat } = useChat();
   const { sortedThreads, handleClose } = useChatMinimized({
     setOpenChat,
     setMinimizeChat,

@@ -16,7 +16,7 @@ import { NavBar, NavSidebar, LoggedOutSidebar } from "./components";
 
 import { NotificationsPage } from "./pages";
 
-import { Modal, useSelectedChat } from "./context";
+import { Modal, useChat } from "./context";
 import {
   Messages,
   Unread,
@@ -71,21 +71,25 @@ import { MobileNavBar } from "components/NavBar/MobileNavbar/MobileNavbar";
 import { useOpenChat } from "context/OpenChatContext";
 import { useIsSmallScreen, useScrollToTop } from "./hooks";
 import { useChatSocket } from "./features/Chat/hooks/useChatSocket";
+import { bootstrapApp } from "./bootstrapApp";
 
 function App() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.session.user);
   const location = useLocation();
   const searchbarRef = useRef();
-  const users = useAppSelector((state) => state.users);
+  const users = useAppSelector((state) => state.users.users);
   const background = location.state && location.state.background;
   const comments = useAppSelector((state) => state.comments.comments);
   const communities = useAppSelector((state) =>
     Object.values(state.communities.communities)
   );
-  const { openChat } = useOpenChat();
+
+  const { openChat } = useChat();
   const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
   const chatThreads = useAppSelector((s) => s.chatThreads.chatThreads);
+  const usersLoaded = useAppSelector((s) => s.users.loaded);
+  const commentsLoaded = useAppSelector((s) => s.comments.comments);
 
   const [loaded, setLoaded] = useState(false);
   const [, setShowLoginForm] = useState(false);
@@ -105,7 +109,7 @@ function App() {
   const [minimizeChat, setMinimizeChat] = useState(false);
   const [openUserDropdown, setOpenUserDropdown] = useState(false);
   const [showSearchScreen, setShowSearchScreen] = useState(false);
-  const { selectedChat } = useSelectedChat();
+  const { selectedChat } = useChat();
 
   useNotificationsSocket(user);
   useChatSocket({
@@ -119,6 +123,10 @@ function App() {
     onReactionAdd: (d) => dispatch(addReaction(d)),
     onReactionRemove: (d) => dispatch(removeReaction(d)),
   });
+
+  useEffect(() => {
+    dispatch(bootstrapApp(dispatch)); // ← runs only on first mount
+  }, [dispatch]);
 
   useEffect(() => {
     if (screenWidth <= 1250) {
@@ -146,13 +154,6 @@ function App() {
       setLoaded(true);
     })();
   }, [dispatch]);
-
-  useEffect(() => {
-    if (!communitiesLoaded) dispatch(getCommunities());
-    dispatch(getUsers());
-    if (comments.length === 0) dispatch(getComments());
-    dispatch(getCommunitySettings());
-  }, []);
 
   useEffect(() => {
     if (user) {

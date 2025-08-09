@@ -40,7 +40,7 @@ export function useCommunityPage() {
     if (communityId) {
       dispatch(getCommunitySettings(communityId));
     }
-  }, [dispatch, communityId]);
+  }, [dispatch, communityId, postsLoaded, communitiesLoaded]);
 
   // 3) Filter posts for this community
   const communityPosts = community

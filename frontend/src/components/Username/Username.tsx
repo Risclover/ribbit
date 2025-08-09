@@ -35,7 +35,7 @@ export function Username({
   const history = useHistory();
   /* ------- Selectors ------- */
   const users = useAppSelector(
-    (s) => Object.values(s.users) as UserSummary[] // ⭐ cast once
+    (s) => Object.values(s.users.users) as UserSummary[] // ⭐ cast once
   );
   const currentUser = useAppSelector((s) => s.session.user);
 

@@ -4,7 +4,7 @@ import { useAuthFlow } from "@/context";
 import { handleEmailErrors } from "../utils";
 
 export function useSignUpForm() {
-  const users = useAppSelector((state) => state.users);
+  const users = useAppSelector((state) => state.users.users);
 
   const { signupFormData, setSignupFormData, openSignupPage2 } = useAuthFlow();
 

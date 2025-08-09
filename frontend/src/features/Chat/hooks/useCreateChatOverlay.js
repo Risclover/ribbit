@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useAppSelector } from "@/store";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 
 export function useCreateChatOverlay({
   username,
@@ -8,7 +8,7 @@ export function useCreateChatOverlay({
   setActiveOverlay,
   OVERLAYS,
 }) {
-  const { setSelectedChat, setPendingReceiver } = useSelectedChat();
+  const { setSelectedChat, setPendingReceiver, setOverlay } = useChat();
 
   const [isChosen, setIsChosen] = useState(false);
   const [error, setError] = useState(false);
@@ -38,11 +38,11 @@ export function useCreateChatOverlay({
 
     if (existingThread) {
       setSelectedChat(existingThread);
-      setActiveOverlay(null);
+      setOverlay(null);
     } else {
       // No existing thread => show the "invite" overlay
       setPendingReceiver(username);
-      setActiveOverlay(OVERLAYS.INVITE);
+      setOverlay("INVITE");
     }
   };
 

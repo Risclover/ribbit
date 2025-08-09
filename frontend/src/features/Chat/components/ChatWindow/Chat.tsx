@@ -21,7 +21,7 @@ import {
 } from "../ChatWindowOverlays";
 
 import { NewChatIcon } from "@/assets";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 import { useUserSearch } from "../../hooks";
 import { useChatSocket } from "../../hooks/useChatSocket";
 
@@ -58,7 +58,7 @@ export function Chat({
   const user = useAppSelector((s) => s.session.user);
   const chatThreads = useAppSelector((s) => s.chatThreads.chatThreads);
 
-  const { selectedChat, setSelectedChat } = useSelectedChat();
+  const { selectedChat, setSelectedChat } = useChat();
 
   /* local state ------------------------------------------------------ */
   const [activeOverlay, setActiveOverlay] = useState<

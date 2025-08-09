@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, Dispatch, SetStateAction } from "react";
 import { TfiClose } from "react-icons/tfi";
-import { useAppDispatch } from "@/store";
+import { getUsers, useAppDispatch, useAppSelector } from "@/store";
 import {
   getFavoriteCommunities,
   getFavoriteUsers,
@@ -39,20 +39,23 @@ export function NavSidebar({
   const dispatch = useAppDispatch();
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const isSmall = useIsSmallScreen(768);
+  const usersLoaded = useAppSelector((state) => state.users.loaded);
 
   /* ----------  Click outside closes the sidebar  ---------- */
   useOutsideClick(wrapperRef, () => setShowNavSidebar(false), isSmall);
 
   // local state for the “hamburger ↔ close” icon shown in <NavLeftDropdown>
   const [showIcon, setShowIcon] = useState(false);
-
+  const subsLoaded = useAppSelector((state) => state.subscriptions.loaded);
   /* ----------  Fetch user-specific data once  ---------- */
   useEffect(() => {
+    if (!usersLoaded) dispatch(getUsers());
+    console.log("users 2");
     dispatch(getFollowers());
     dispatch(getFavoriteUsers());
-    dispatch(getSubscriptions());
+    if (!subsLoaded) dispatch(getSubscriptions());
     dispatch(getFavoriteCommunities());
-  }, [dispatch]);
+  }, [dispatch, usersLoaded, subsLoaded]);
 
   useEscapeKey(() => setShowNavSidebar(false), showNavSidebar);
   // useScrollLock(showNavSidebar, isSmall);

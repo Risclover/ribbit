@@ -20,7 +20,7 @@ export default function useMessageModal({ username }) {
   const [messageError, setMessageError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  const allUsers = useAppSelector((state) => Object.values(state.users));
+  const allUsers = useAppSelector((state) => Object.values(state.users.users));
   const currentUser = useAppSelector((state) => state.session.user);
   const communities = useAppSelector((state) =>
     Object.values(state.communities.communities)

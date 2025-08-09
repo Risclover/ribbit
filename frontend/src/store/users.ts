@@ -63,6 +63,15 @@ const normalizeUser = (u: User): User => ({
 
 export const LOAD_USERS = "users/LOAD_USERS" as const;
 export const LOAD_USER = "users/LOAD_USER" as const;
+export const USERS_LOADING_START = "users/LOADING_START" as const;
+export const USERS_LOADING_END = "users/LOADING_END" as const;
+
+interface UsersLoadingStartAction {
+  type: typeof USERS_LOADING_START;
+}
+interface UsersLoadingEndAction {
+  type: typeof USERS_LOADING_END;
+}
 
 interface LoadUsersAction {
   type: typeof LOAD_USERS;
@@ -74,7 +83,11 @@ interface LoadUserAction {
   user: User;
 }
 
-type UsersAction = LoadUsersAction | LoadUserAction;
+type UsersAction =
+  | LoadUsersAction
+  | LoadUserAction
+  | UsersLoadingStartAction
+  | UsersLoadingEndAction;
 
 /* ────────────────────────────
    4. Action creators
@@ -96,15 +109,28 @@ export const loadUser = (user: User): LoadUserAction => ({
 
 type ThunkResult<R> = ThunkAction<R, RootState, unknown, UsersAction>;
 
-/** GET /api/users */
+// src/store/users.ts  –  only the thunk changed
 export const getUsers =
   (): ThunkResult<Promise<UsersListResponse | undefined>> =>
-  async (dispatch: AppDispatch) => {
-    const res = await fetch("/api/users");
-    if (res.ok) {
-      const list: UsersListResponse = await res.json();
-      dispatch(loadUsers(list));
-      return list;
+  async (dispatch: AppDispatch, getState) => {
+    /* ⛔ 1 – skip if data already in the slice */
+    if (getState().users.loaded) return;
+
+    /* ⛔ 2 – optional: skip while a previous call is still in‑flight */
+    if (getState().users.loading) return;
+
+    /* mark in‑flight so racing calls bail out */
+    dispatch({ type: "users/LOADING_START" });
+
+    try {
+      const res = await fetch("/api/users");
+      if (res.ok) {
+        const list: UsersListResponse = await res.json();
+        dispatch(loadUsers(list)); // sets loaded = true
+        return list;
+      }
+    } finally {
+      dispatch({ type: "users/LOADING_END" }); // loading = false
     }
   };
 
@@ -161,31 +187,43 @@ export const editProfile =
    6. Reducer
    ──────────────────────────── */
 
-const initialState: UsersState = {};
+export interface UsersSliceState {
+  loaded: boolean;
+  loading: boolean;
+  users: Record<User["id"], User>;
+}
+
+const initialState: UsersSliceState = {
+  loaded: false,
+  loading: false,
+  users: {},
+};
 
 export default function usersReducer(
-  state: UsersState = initialState,
+  state: UsersSliceState = initialState,
   action: UsersAction
-): UsersState {
+): UsersSliceState {
   switch (action.type) {
+    case USERS_LOADING_START:
+      return { ...state, loading: true };
+
+    case USERS_LOADING_END:
+      return { ...state, loading: false };
+
     case LOAD_USERS: {
-      const arr = action.users.users ?? action.users.Users ?? [];
-
-      if (!Array.isArray(arr)) {
-        console.error("Invalid users data structure:", action.users);
-        return state;
-      }
-
-      return arr.reduce<UsersState>((acc, raw) => {
-        const user = normalizeUser(raw as User);
-        acc[user.id] = user;
-        return acc;
-      }, {});
+      const byId: Record<User["id"], User> = {};
+      action.users.Users?.forEach((u) => {
+        byId[u.id] = normalizeUser(u);
+      });
+      return { ...state, users: byId, loaded: true, loading: false };
     }
 
     case LOAD_USER: {
       const user = normalizeUser(action.user);
-      return { ...state, [user.id]: user };
+      return {
+        ...state,
+        users: { ...state.users, [user.id]: user }, // <‑‑ store under .users
+      };
     }
 
     default:

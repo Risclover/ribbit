@@ -20,7 +20,7 @@ export function SearchDropdown({
   const allCommunities = useAppSelector(
     (state) => state.communities.communities
   );
-  const allUsers = useAppSelector((state) => state.users);
+  const allUsers = useAppSelector((state) => state.users.users);
   const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
 
   useEffect(() => {

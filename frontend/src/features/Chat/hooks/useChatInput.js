@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 import {
   createChatMessage,
   getChatThread,
@@ -23,7 +23,7 @@ export function useChatInput({
   const socket = getSocket();
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.session.user);
-  const { selectedChat, setSelectedChat } = useSelectedChat();
+  const { selectedChat, setSelectedChat } = useChat();
 
   const [textValue, setTextValue] = useState("");
 

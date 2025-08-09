@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { ChatNavBtn } from "./ChatNavBtn";
 import { useSortedChatThreads } from "../../hooks";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 
 export function ChatNavMenu({ setActiveOverlay, OVERLAYS }) {
   const sortedChatThreads = useSortedChatThreads();
-  const { selectedChat, setSelectedChat } = useSelectedChat();
+  const { selectedChat, setSelectedChat } = useChat();
 
   return (
     <div className="chat-window-chatnav-container">

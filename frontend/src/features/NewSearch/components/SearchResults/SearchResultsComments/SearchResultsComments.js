@@ -23,7 +23,7 @@ export function SearchResultsComments({ searchbarRef }) {
     setIsLoading(true);
     if (!postsLoaded) dispatch(getPosts());
     dispatch(searchComments(query)).finally(() => setIsLoading(false));
-  }, [query, dispatch]);
+  }, [query, dispatch, postsLoaded]);
 
   const focusSearchBox = () => {
     focusSearchbar(searchbarRef);

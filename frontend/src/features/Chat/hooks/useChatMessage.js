@@ -6,7 +6,7 @@ import {
   deleteReaction,
   createReaction,
 } from "@/store";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 
 export function useChatMessage({ socket, messageId, content }) {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ export function useChatMessage({ socket, messageId, content }) {
   const [openReactions, setOpenReactions] = useState(false);
   const [msgContent, setMsgContent] = useState(content);
 
-  const { selectedChat } = useSelectedChat();
+  const { selectedChat } = useChat();
 
   const currentUser = useAppSelector((state) => state.session.user);
   const msgReactions = useAppSelector((state) => state.reactions);

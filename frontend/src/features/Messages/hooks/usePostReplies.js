@@ -6,7 +6,7 @@ import { getPosts } from "@/store";
 export default function usePostReplies({ notification }) {
   const dispatch = useAppDispatch();
 
-  const users = useAppSelector((state) => state.users);
+  const users = useAppSelector((state) => state.users.users);
   const posts = useAppSelector((state) => state.posts.posts);
   const currentUser = useAppSelector((state) => state.session.user);
   const notifications = useAppSelector((state) =>
@@ -31,7 +31,7 @@ export default function usePostReplies({ notification }) {
 
   useEffect(() => {
     if (!postsLoaded) dispatch(getPosts());
-  }, [dispatch]);
+  }, [dispatch, postsLoaded]);
 
   return {
     markedUnread,

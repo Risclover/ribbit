@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useAppSelector } from "@/store";
-import { useSelectedChat } from "@/context";
+import { useChat } from "@/context";
 
 export function useChatTitleBar() {
   const currentUser = useAppSelector((state) => state.session.user);
   const [receiver, setReceiver] = useState(null);
 
-  const { selectedChat, pendingReceiver } = useSelectedChat();
+  const { selectedChat, pendingReceiver } = useChat();
 
   // pendingReceiver: Flag that indicates whether the title bar should show the username or not
   // For the 'Create Chat' overlay

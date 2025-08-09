@@ -3,7 +3,7 @@ import { useAppSelector } from "@/store";
 
 export const useUserSearch = (username) => {
   const [userFound, setUserFound] = useState(null);
-  const users = useAppSelector((state) => Object.values(state.users));
+  const users = useAppSelector((state) => Object.values(state.users.users));
 
   useEffect(() => {
     setUserFound(

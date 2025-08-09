@@ -7,6 +7,14 @@ import {
   ReactNode,
 } from "react";
 
+export const OVERLAYS = {
+  NONE: null,
+  WELCOME: "WELCOME",
+  CREATE: "CREATE",
+  INVITE: "INVITE",
+  DELETE: "DELETE",
+} as const;
+
 /* ----  Type that represents ONE chat thread in your store ---- */
 export interface ChatThread {
   id: number;
@@ -21,6 +29,11 @@ interface SelectedChatContextValue {
   setSelectedChat: Dispatch<SetStateAction<ChatThread | null>>;
   pendingReceiver: number | null;
   setPendingReceiver: Dispatch<SetStateAction<number | null>>;
+  openChat: boolean;
+  setOpenChat: Dispatch<SetStateAction<boolean>>;
+  overlay: string;
+  setOverlay: Dispatch<SetStateAction<string>>;
+  OVERLAYS: { NONE: null, WELCOME: string, CREATE: string, INVITE: string, DELETE: string}
 }
 
 /* ----  Create context with an *undefined* default so misuse is caught ---- */
@@ -32,6 +45,8 @@ const SelectedChatContext = createContext<SelectedChatContextValue | undefined>(
 export function SelectedChatProvider({ children }: { children: ReactNode }) {
   const [selectedChat, setSelectedChat] = useState<ChatThread | null>(null);
   const [pendingReceiver, setPendingReceiver] = useState<number | null>(null);
+  const [openChat, setOpenChat] = useState(false);
+  const [overlay, setOverlay] = useState(OVERLAYS.NONE);
 
   return (
     <SelectedChatContext.Provider
@@ -40,6 +55,11 @@ export function SelectedChatProvider({ children }: { children: ReactNode }) {
         setSelectedChat,
         pendingReceiver,
         setPendingReceiver,
+        openChat,
+        setOpenChat,
+        overlay,
+        setOverlay,
+        OVERLAYS
       }}
     >
       {children}
@@ -48,11 +68,9 @@ export function SelectedChatProvider({ children }: { children: ReactNode }) {
 }
 
 /* ----  Convenience hook ---- */
-export function useSelectedChat() {
+export function useChat() {
   const ctx = useContext(SelectedChatContext);
   if (!ctx)
-    throw new Error(
-      "useSelectedChat must be used inside <SelectedChatProvider />"
-    );
+    throw new Error("useChat must be used inside <SelectedChatProvider />");
   return ctx;
 }

@@ -43,6 +43,7 @@ export function CreatePostPage({
   const communities = useAppSelector((s) => s.communities.communities);
   const postsLoaded = useAppSelector((state) => state.posts.loaded);
   const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
+  const subsLoaded = useAppSelector((state) => state.subscriptions.loaded);
 
   /* ---------- helpers -------------- */
   /** Type-guard so TS knows each item really is a Community */
@@ -60,8 +61,8 @@ export function CreatePostPage({
   useEffect(() => {
     if (!postsLoaded) dispatch(getPosts());
     if (!communitiesLoaded) dispatch(getCommunities());
-    dispatch(getSubscriptions());
-  }, [dispatch]);
+    if (!subsLoaded) dispatch(getSubscriptions());
+  }, [dispatch, postsLoaded, communitiesLoaded, subsLoaded]);
 
   useEffect(() => setPostType(val), [val, setPostType]);
 

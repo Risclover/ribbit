@@ -17,7 +17,7 @@ export const CreatePostBar = ({
 }: CreatePostBarProps) => {
   const history = useHistory();
   const cuser = useAppSelector((state: any) => state.session.user);
-  const user = useAppSelector((state: any) => state.users[cuser?.id]);
+  const user = useAppSelector((state: any) => state.users.users[cuser?.id]);
   const navigate = (path: string) => () => history.push(path);
 
   const postBarButtons = [
