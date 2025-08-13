@@ -1,4 +1,4 @@
-import { useEffect, useState, MouseEvent } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -19,6 +19,57 @@ interface RouteParams {
   communityName?: string;
 }
 
+/* ---------- store data typing (matches your shape) ---------- */
+interface CommunitySettings {
+  baseColor?: string;
+  communityIcon?: string;
+  // (rest of fields exist but we only need these two here)
+}
+
+interface Community {
+  id: number;
+  name: string;
+  displayName?: string;
+  communitySettings?: Record<number, CommunitySettings>;
+}
+
+/* ---------- helper to reliably resolve a community ---------- */
+function useCommunityByRouteName(
+  communityName: string | undefined,
+  communities: Record<number, Community> | undefined
+) {
+  return useMemo(() => {
+    if (!communities || !communityName) return undefined;
+
+    // Try your helper first
+    const idFromHelper = getIdFromName(communityName, communities as any);
+    if (idFromHelper != null && communities[idFromHelper]) {
+      return communities[idFromHelper];
+    }
+
+    // Fallback: case-insensitive name match
+    const lower = communityName.toLowerCase();
+    return Object.values(communities).find(
+      (c) => c?.name?.toLowerCase() === lower
+    );
+  }, [communityName, communities]);
+}
+
+/* ---------- Bridge to force-update page header when community changes ---------- */
+function PageHeaderSync({
+  // When `key` of this component changes (e.g., community id), we remount and run the hook again
+  documentTitle,
+  icon,
+  pageTitle,
+}: {
+  documentTitle: string;
+  icon: ReactNode;
+  pageTitle: ReactNode;
+}) {
+  usePageSettings({ documentTitle, icon, pageTitle });
+  return null;
+}
+
 export const ImagePage = (): JSX.Element => {
   const { theme } = useDarkMode();
   const dispatch = useAppDispatch();
@@ -31,15 +82,25 @@ export const ImagePage = (): JSX.Element => {
   /* ---------- store ---------- */
   const communities = useAppSelector(
     (s: RootState) => s.communities.communities
+  ) as Record<number, Community> | undefined;
+
+  const communitiesLoaded = useAppSelector(
+    (s: RootState) => s.communities.loaded
   );
-  const communityId = getIdFromName(communityName, communities);
-  const community = communities[communityId];
+
+  const community = useCommunityByRouteName(communityName, communities);
+  const settings: CommunitySettings | undefined =
+    community?.communitySettings?.[community?.id ?? -1];
 
   /* ---------- local state ---------- */
   const [isZoomed, setIsZoomed] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
+
+  /* ---------- fetch communities once/when needed ---------- */
+  useEffect(() => {
+    if (!communitiesLoaded) dispatch(getCommunities());
+  }, [communitiesLoaded, dispatch]);
 
   /* ---------- handlers ---------- */
   const handleImageLoad = () => setLoading(false);
@@ -49,20 +110,12 @@ export const ImagePage = (): JSX.Element => {
   };
   const toggleZoom = () => setIsZoomed((z) => !z);
 
-  /* ---------- fetch communities once ---------- */
-  useEffect(() => {
-    if (!communitiesLoaded) dispatch(getCommunities());
-  }, [dispatch]);
-
-  /* ---------- <head> settings ---------- */
-  usePageSettings({
-    documentTitle: community?.displayName,
-    icon: community ? (
+  /* ---------- header nodes ---------- */
+  const headerIcon =
+    community && settings ? (
       <CommunityImg
-        imgStyle={{
-          backgroundColor: community.communitySettings[community.id].baseColor,
-        }}
-        imgSrc={community.communitySettings[community.id].communityIcon}
+        imgStyle={{ backgroundColor: settings?.baseColor }}
+        imgSrc={settings?.communityIcon}
         imgClass="nav-left-dropdown-item-icon item-icon-circle"
         imgAlt="Community"
       />
@@ -72,19 +125,21 @@ export const ImagePage = (): JSX.Element => {
         animation="wave"
         width={20}
         height={20}
-        sx={{ bgcolor: theme === "dark" && "grey.500" }}
+        sx={{ bgcolor: theme === "dark" ? "grey.800" : undefined }}
       />
-    ),
-    pageTitle: community ? (
-      `c/${community.name}`
-    ) : (
-      <Skeleton
-        animation="wave"
-        variant="text"
-        sx={{ bgcolor: theme === "dark" && "grey.500" }}
-      />
-    ),
-  });
+    );
+
+  const headerTitle: ReactNode = community ? (
+    `c/${community.name}`
+  ) : (
+    <Skeleton
+      animation="wave"
+      variant="text"
+      sx={{ bgcolor: theme === "dark" ? "grey.800" : undefined }}
+    />
+  );
+
+  const documentTitle = community?.displayName || "Image";
 
   /* ---------- early-out ---------- */
   if (!url) {
@@ -99,7 +154,13 @@ export const ImagePage = (): JSX.Element => {
   /* ---------- render ---------- */
   return (
     <div className={`media-container ${isZoomed ? "zoomed" : ""}`}>
-      {/* {loading && <div className="loader">Loading...</div>} */}
+      {/* Force the header hook to refresh when the community identity changes */}
+      <PageHeaderSync
+        key={community ? `community-${community.id}` : "skeleton"}
+        documentTitle={documentTitle}
+        icon={headerIcon}
+        pageTitle={headerTitle}
+      />
 
       {!error ? (
         <img

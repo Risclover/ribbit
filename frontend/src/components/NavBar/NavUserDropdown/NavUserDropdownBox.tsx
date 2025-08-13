@@ -67,7 +67,7 @@ export function NavUserDropdownBox({
         <NavLink
           to={`/users/${cuser.id}/profile`}
           className="nav-user-dropdown-btn"
-          onClick={() => setShowDropdown(false)}
+          onClick={() => isSmall && setShowDropdown(false)}
           onKeyDown={handleKeyNav(`/users/${cuser.id}/profile`)}
         >
           Profile
@@ -76,7 +76,7 @@ export function NavUserDropdownBox({
         <NavLink
           to="/directory"
           className="nav-user-dropdown-btn"
-          onClick={() => setShowDropdown(false)}
+          onClick={() => isSmall && setShowDropdown(false)}
           onKeyDown={handleKeyNav("/directory")}
         >
           Communities Directory
@@ -85,7 +85,7 @@ export function NavUserDropdownBox({
         <NavLink
           to="/settings/profile"
           className="nav-user-dropdown-btn"
-          onClick={() => setShowDropdown(false)}
+          onClick={() => isSmall && setShowDropdown(false)}
           onKeyDown={handleKeyNav("/settings/profile")}
         >
           User Settings

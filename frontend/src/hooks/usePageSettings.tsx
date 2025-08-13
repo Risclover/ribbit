@@ -2,12 +2,11 @@ import { useEffect, ReactNode, useMemo } from "react";
 import { usePageTitle } from "@/context/PageTitleContext";
 
 interface Params {
-  documentTitle?: string; // <title> tag
-  icon?: ReactNode | null; // little icon in the nav bar
-  pageTitle?: ReactNode | null; // visible page title
+  documentTitle?: string;
+  icon?: ReactNode | null;
+  pageTitle?: ReactNode | null;
 }
 
-/** Keep <title>, nav-bar icon and nav-bar title in sync. */
 export function usePageSettings({
   documentTitle,
   icon = null,
@@ -15,31 +14,29 @@ export function usePageSettings({
 }: Params): void {
   const { setPageIcon, setPageTitle } = usePageTitle();
 
-  const memoIcon = useMemo(() => icon, []); // icon almost never changes
-  const memoTitle = useMemo(
+  // Wrap pageTitle in the span structure - recompute when pageTitle changes
+  const wrappedTitle = useMemo(
     () =>
       pageTitle ? (
         <span className="nav-left-dropdown-item">{pageTitle}</span>
       ) : null,
-    [] // same here
+    [pageTitle]
   );
 
+  // Update <title> whenever documentTitle changes
   useEffect(() => {
     document.title = documentTitle ?? "Ribbit – Splash into anything";
-    setPageIcon(memoIcon);
-    setPageTitle(memoTitle);
+  }, [documentTitle]);
 
-    return () => {
-      setPageIcon(null);
-      setPageTitle(null);
-    };
-    // deps: only things that are actually allowed to change
-  }, [
-    documentTitle,
-    memoIcon,
-    memoTitle,
-    pageTitle,
-    setPageIcon,
-    setPageTitle,
-  ]);
+  // Update nav icon whenever icon changes
+  useEffect(() => {
+    setPageIcon(icon ?? null);
+    return () => setPageIcon(null);
+  }, [icon, setPageIcon]);
+
+  // Update nav title whenever wrappedTitle changes
+  useEffect(() => {
+    setPageTitle(wrappedTitle);
+    return () => setPageTitle(null);
+  }, [wrappedTitle, setPageTitle]);
 }

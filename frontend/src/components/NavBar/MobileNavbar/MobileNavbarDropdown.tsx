@@ -5,45 +5,51 @@ import { useEscapeKey, useFocusTrap, useOutsideClick } from "@/hooks";
 
 import { NavUserDropdownBox } from "../NavUserDropdown/NavUserDropdownBox";
 import { LoggedOutDropdown } from "../LoggedOutDropdown";
-import { clsx } from "clsx";
+import clsx from "clsx";
 
 interface MobileNavbarDropdownProps {
   openUserDropdown: boolean;
   setOpenUserDropdown: (open: boolean) => void;
-  setShowNavSidebar: (open: boolean) => void;
-  showNavSidebar: boolean;
 }
 
 export function MobileNavbarDropdown({
   openUserDropdown,
   setOpenUserDropdown,
-  showNavSidebar,
-  setShowNavSidebar,
 }: MobileNavbarDropdownProps) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const portalRoot = document.body;
 
   const user = useAppSelector((s) => s.session.user);
 
+  // Close on Esc only when open
   useEscapeKey(() => setOpenUserDropdown(false), openUserDropdown);
 
+  // Trap focus only when open
   useFocusTrap(openUserDropdown, wrapperRef);
-  useOutsideClick(wrapperRef, () => setShowNavSidebar(false), showNavSidebar);
 
-  if (!openUserDropdown) return null;
+  // Outside click active only when open
+  useOutsideClick(wrapperRef, () => setOpenUserDropdown(false), openUserDropdown);
 
   const dropdown = (
-    <div className="logged-out-user-dropdown-container">
+    <div
+      className={clsx("logged-out-user-dropdown-container", {
+        open: openUserDropdown,
+      })}
+    >
+      {/* Backdrop */}
       <div
         className="auth-modal-background"
         onClick={() => setOpenUserDropdown(false)}
       />
 
+      {/* Sheet wrapper that controls the slide animation */}
       <div
         ref={wrapperRef}
         role="dialog"
         aria-modal="true"
-        className={`logged-out-user-dropdown${openUserDropdown ? " open" : ""}`}
+        className={clsx("logged-out-user-dropdown", {
+          open: openUserDropdown,
+        })}
       >
         {user ? (
           <NavUserDropdownBox

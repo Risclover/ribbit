@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store";
-
+import ReactQuill from "react-quill";
 import { v4 as uuidv4 } from "uuid";
-
 import { putSinglePost } from "@/store";
 import "react-quill/dist/quill.snow.css";
 import "./CreatePost/PostForm.css";
 
-const ReactQuill = React.lazy(() => import("react-quill"));
+// keep toolbar identical to create form to avoid stripping formats
 const modules = {
   keyboard: {
     bindings: {
       tab: {
         key: 9,
-        handler: function (range, context) {
+        handler: function () {
           return true;
         },
       },
@@ -35,6 +34,21 @@ const modules = {
   ],
 };
 
+// (optional) explicit whitelist; keeps Quill from discarding formats on load
+const formats = [
+  "bold",
+  "italic",
+  "link",
+  "strike",
+  "code",
+  "script",
+  "header",
+  "list",
+  "bullet",
+  "blockquote",
+  "code-block",
+];
+
 export function UpdatePost() {
   const { postId } = useParams();
   const dispatch = useAppDispatch();
@@ -42,35 +56,49 @@ export function UpdatePost() {
 
   const post = useAppSelector((state) => state.posts.posts[+postId]);
 
-  const [title, setTitle] = useState(post ? post.title : "");
-  const [content, setContent] = useState(post ? post.content : "");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState(""); // HTML string from Quill
   const [titleErrors, setTitleErrors] = useState([]);
   const [contentErrors, setContentErrors] = useState([]);
   const [disabled, setDisabled] = useState(true);
 
+  // ⬅️ hydrate when the post finally arrives/changes
   useEffect(() => {
-    if (title?.trim().length === 0) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
+    if (post) {
+      setTitle(post.title ?? "");
+      // If you store Quill HTML: set it directly
+      setContent(post.content ?? "");
+
+      // If instead you store Quill Delta JSON, convert or pass it directly:
+      // const delta = typeof post.content === "string" ? JSON.parse(post.content) : post.content;
+      // setContent(delta);
     }
-  }, [dispatch, title, content]);
+  }, [post?.id, post?.title, post?.content]); // be explicit so it updates reliably
+
+  useEffect(() => {
+    setDisabled(!(title?.trim().length > 0));
+  }, [title]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let titles = [];
-    let contents = [];
+    const titles = [];
+    const contents = [];
 
-    if (title && title.trim().length < 1)
-      titles.push("Please give your post a title.");
-    if (titles.length > 0 || contents.length > 0) {
+    if (!title?.trim()) titles.push("Please give your post a title.");
+    // (optional) validate content if you require it
+
+    if (titles.length || contents.length) {
       setTitleErrors(titles);
       setContentErrors(contents);
-    } else {
-      dispatch(putSinglePost({ title: title, content: content }, post?.id));
-      history.push(`/posts/${postId}`);
+      return;
     }
+
+    await dispatch(putSinglePost({ title, content }, post?.id));
+    history.push(`/posts/${postId}`);
   };
+
+  // Show nothing (or a loader) until post is ready to avoid a flash of empty editor
+  if (!post) return null;
 
   return (
     <div className="update-post-form-container">
@@ -82,7 +110,7 @@ export function UpdatePost() {
             value={title}
             placeholder="Title"
             maxLength={300}
-          ></textarea>
+          />
           {titleErrors.length > 0 &&
             titleErrors.map((error) => (
               <div key={uuidv4()} className="update-post-errors">
@@ -91,13 +119,16 @@ export function UpdatePost() {
             ))}
           <div className="update-title-length">{title?.length}/300</div>
         </div>
+
         <div className="update-post-form-input">
           <ReactQuill
+            key={post.id} // forces a clean mount when switching posts
             theme="snow"
             modules={modules}
+            formats={formats} // keep formats consistent
+            value={content} // HTML string (or Delta if you store Delta)
             onChange={setContent}
             placeholder="Content"
-            value={content}
           />
           {contentErrors.length > 0 &&
             contentErrors.map((error) => (
@@ -106,9 +137,11 @@ export function UpdatePost() {
               </div>
             ))}
         </div>
+
         <div className="update-post-form-buttons">
           <button
             className="update-post-cancel"
+            type="button"
             onClick={() => history.push(`/posts/${postId}`)}
           >
             Cancel

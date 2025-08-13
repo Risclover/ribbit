@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { startTransition, useCallback, useEffect, useState } from "react";
 import { deletePost, getViewedPosts } from "@/store";
 import { useAppSelector } from "@/store";
 import { useParams } from "react-router-dom";
@@ -46,7 +46,9 @@ export const usePostButtonHandlers = ({
     (e) => {
       e.stopPropagation();
       e.preventDefault();
-      history.push(`/posts/${post?.id}/edit`);
+      startTransition(() => {
+        history.push(`/posts/${post?.id}/edit`);
+      });
     },
     [history, post?.id]
   );

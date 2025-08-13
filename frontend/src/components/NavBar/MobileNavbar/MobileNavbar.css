@@ -69,9 +69,6 @@
   pointer-events: auto;
 }
 
-.logged-out-user-dropdown-container:not(:has(.open)) {
-  display: none;
-}
 .logged-out-user-dropdown .nav-user-dropdown-box,
 .logged-out-user-dropdown.open .nav-user-dropdown-box,
 .logged-out-user-dropdown.open .logged-out-dropdown,
@@ -86,11 +83,134 @@
   transition: transform 0.3s ease; /* ⬅ keep the animation alive */
 }
 
+/* ──────────────────────────────────────────────────────────────
+   Container & backdrop
+   ────────────────────────────────────────────────────────────── */
+.logged-out-user-dropdown-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* disabled when closed */
+  z-index: 1000;
+}
+
+.logged-out-user-dropdown-container .auth-modal-background {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.logged-out-user-dropdown-container.open {
+  pointer-events: auto; /* clicks allowed when open */
+}
+
+.logged-out-user-dropdown-container.open .auth-modal-background {
+  opacity: 1;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Mobile sheet (the sliding panel)
+   The wrapper exists so .nav-user-dropdown-box (content) can
+   keep its own styles while the wrapper controls the transform.
+   ────────────────────────────────────────────────────────────── */
+.logged-out-user-dropdown {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: auto;
+  /* Keep the wrapper itself non-interactive; the inner panel handles clicks */
+  pointer-events: none;
+}
+
+.logged-out-user-dropdown .nav-user-dropdown-box,
+.logged-out-user-dropdown .logged-out-dropdown,
+.logged-out-user-dropdown .user-profile-mobile-menu {
+  width: 100%;
+  background-color: var(--ribbit-main);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+
+  /* Start off-screen */
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  will-change: transform;
+
+  /* Interactions go to the panel itself */
+  pointer-events: auto;
+
+  /* sensible scrolling */
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+}
+
+/* Slide up on open */
+.logged-out-user-dropdown.open .nav-user-dropdown-box,
+.logged-out-user-dropdown.open .logged-out-dropdown,
+.logged-out-user-dropdown.open .user-profile-mobile-menu {
+  transform: translateY(0);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Desktop popover overrides
+   (Keep your existing desktop styles, but scope them to desktop)
+   ────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .logged-out-user-dropdown-container {
-    height: 100vh;
     position: fixed;
-    z-index: 100;
-    display: block;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+  }
+  .logged-out-user-dropdown-container .auth-modal-background {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .logged-out-user-dropdown-container.open {
+    pointer-events: auto;
+  }
+  .logged-out-user-dropdown-container.open .auth-modal-background {
+    opacity: 1;
+  }
+
+  .logged-out-user-dropdown {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    pointer-events: none;
+  }
+
+  .logged-out-user-dropdown .nav-user-dropdown-box,
+  .logged-out-user-dropdown .logged-out-dropdown,
+  .logged-out-user-dropdown .user-profile-mobile-menu {
+    width: 100%;
+    background-color: var(--ribbit-main);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    transform: translateY(100%); /* closed */
+    transition: transform 0.3s ease;
+    will-change: transform;
+    pointer-events: auto;
+    max-height: calc(100vh - 40px);
+    overflow: auto;
+  }
+
+  .logged-out-user-dropdown.open .nav-user-dropdown-box,
+  .logged-out-user-dropdown.open .logged-out-dropdown,
+  .logged-out-user-dropdown.open .user-profile-mobile-menu {
+    transform: translateY(0); /* open */
+  }
+}
+
+/* Desktop: never show the mobile sheet container */
+@media (min-width: 769px) {
+  .logged-out-user-dropdown-container {
+    display: none !important;
   }
 }

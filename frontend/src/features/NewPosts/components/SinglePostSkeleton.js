@@ -61,8 +61,11 @@ export function SinglePostSkeleton() {
               <Skeleton
                 variant="text"
                 animation="wave"
-                sx={{ bgcolor: theme === "dark" && "grey.500" }}
-                width={300}
+                sx={{
+                  bgcolor: theme === "dark" && "grey.500",
+                  maxWidth: "300px",
+                }}
+                width="100%"
                 height={35}
               />
               <Skeleton
@@ -92,8 +95,9 @@ export function SinglePostSkeleton() {
                 sx={{
                   bgcolor: theme === "dark" && "grey.500",
                   marginRight: "8px",
+                  maxWidth: "150px",
                 }}
-                width={150}
+                width="100%"
                 height={23}
               />
               <Skeleton

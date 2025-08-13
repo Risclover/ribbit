@@ -63,7 +63,6 @@ export function NavBarBtns({ handleOpenChat }: NavBarBtnsProps) {
         onMouseLeave={() => setShowTooltip(false)}
       >
         <TfiPlus />
-        {unread}
         {showTooltip && (
           <span className="navbtn-tooltiptext text2">Create Post</span>
         )}
