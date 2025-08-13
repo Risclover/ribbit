@@ -73,7 +73,7 @@ def seed_communities():
                 "Things that make you go AWW! Like puppies, bunnies, babies, and so on... "
                 "A place for really cute pictures and videos!"
             ),
-            "display_name": "A subreddit for cute and cuddly pictures",
+            "display_name": "A community for cute and cuddly pictures",
             "user_id": marnie.id
         },
         {
@@ -166,7 +166,7 @@ def seed_communities():
         {
             "name": "Python",
             "description": (
-                "The official Python community for Reddit! Stay up to date with the latest news, packages, "
+                "The official Python community for Ribbit! Stay up to date with the latest news, packages, "
                 "and meta information relating to the Python programming language. If you have something "
                 "to teach others post here. If you have questions or are a newbie use c/learnpython"
             ),
@@ -176,7 +176,7 @@ def seed_communities():
         {
             "name": "learnpython",
             "description": (
-                "Subreddit for posting questions and asking for general advice about your python code."
+                "Community for posting questions and asking for general advice about your python code."
             ),
             "display_name": "Python Education",
             "user_id": demo.id
@@ -190,7 +190,7 @@ def seed_communities():
         {
             "name": "learnjavascript",
             "description": (
-                "This subreddit is for anyone who wants to learn JavaScript or help others do so. "
+                "This community is for anyone who wants to learn JavaScript or help others do so. "
                 "Questions and posts about frontend development in general are welcome..."
             ),
             "display_name": "Learn Javascript",
@@ -199,10 +199,10 @@ def seed_communities():
         {
             "name": "CasualConversation",
             "description": (
-                "The friendlier part of Reddit. Have a fun conversation about anything that is on your mind. "
+                "The friendlier part of Ribbit. Have a fun conversation about anything that is on your mind. "
                 "Ask a question or start a conversation about (almost) anything you desire..."
             ),
-            "display_name": "The friendlier part of Reddit.",
+            "display_name": "The friendlier part of Ribbit.",
             "user_id": user4.id
         }
     ]

@@ -612,25 +612,21 @@ I tried telling him that there are dozens of people here saying they did somethi
         },
         {
             "title": "Does anyone else’s family have 'home clothes,' or is it just us?",
-            "content": """Are we the only weird family that does this, or is it a universal thing?
+            "content": """<p>Are we the only weird family that does this, or is it a universal thing?</p>
 
-At home, we look... well, "homeless chic" is the vibe. We call it "home clothes." It’s basically my dad’s old shirts that are one step away from disintegrating—stained, torn, ridiculously oversized, but somehow the most comfortable things in existence.
+<p>At home, we look... well, "homeless chic" is the vibe. We call it "home clothes." It’s basically my dad’s old shirts that are one step away from disintegrating—stained, torn, ridiculously oversized, but somehow the most comfortable things in existence.</p>
 
-Had a rough day? Get home, slap on some home clothes, and boom—instant therapy. BUT, when people come over or stay the night, we have to scramble to look like we’re not living in a sitcom about struggling artists. As soon as they leave? Right back into the post-apocalyptic wardrobe.
+<p>Had a rough day? Get home, slap on some home clothes, and boom—instant therapy. BUT, when people come over or stay the night, we have to scramble to look like we’re not living in a sitcom about struggling artists. As soon as they leave? Right back into the post-apocalyptic wardrobe.</p>
 
-To be clear, they're clean (ish). The stains are from noble pursuits like painting, hair dyeing, or accidentally wielding spaghetti sauce like it’s a Jackson Pollock piece.
+<p>To be clear, they're clean (ish). The stains are from noble pursuits like painting, hair dyeing, or accidentally wielding spaghetti sauce like it’s a Jackson Pollock piece.</p>
 
-Anyone else have \"home clothes,\" or is my family just running a secret cult of comfort?""",
+<p>Anyone else have \"home clothes,\" or is my family just running a secret cult of comfort?</p>""",
             "user_id": 48,
             "community_id": 22
         },
         {
             "title": "Anyone else not ever use TikTok whatsoever?",
-            "content": """Not a moral judgement about those that did or anything, but I’ve never downloaded it, try to mute subreddits based on it, every bit of content I’ve seen from it was without my consent.
-
-It’s hard to gauge the exact quality/experience from the outside, but I know it was a huge and popular app that millions of people enjoyed. Just wondering who else avoided it like a mind plague, and why if you feel like sharing.
-
-Maybe I’m just too much of a grumpy millennial but I did not jive with 99% of the content, delivery method, pretty much anything about. Got shown a lot of videos and don’t remember any worth so much as a chuckle on the humor scale.""",
+            "content": "<p>Not a moral judgement about those that did or anything, but I’ve never downloaded it, try to mute communities based on it, every bit of content I’ve seen from it was without my consent.</p><p><br/></p><p>It's hard to gauge the exact quality/experience from the outside, but I know it was a huge and popular app that millions of people enjoyed. Just wondering who else avoided it like a mind plague, and why if you feel like sharing.</p><p><br/></p><p>Maybe I’m just too much of a grumpy millennial but I did not jive with 99\% of the content, delivery method, pretty much anything about. Got shown a lot of videos and don’t remember any worth so much as a chuckle on the humor scale.</p>",
             "user_id": 49,
             "community_id": 22
         }

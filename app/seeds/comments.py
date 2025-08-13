@@ -1562,7 +1562,7 @@ lol""",
 
     comment121_createdat=generate_comment_timestamp(user2.created_at, post22.created_at)
     comments_dict['121'] = Comment(
-        content = "This is what Reddit should be about. Cool stuff from weird corners of the internet. Hell yeah.",
+        content = "This is what Ribbit should be about. Cool stuff from weird corners of the internet. Hell yeah.",
         user_id=13,
         post_id=22,
         created_at=comment121_createdat,
