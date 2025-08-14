@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { DropBox } from "@/components";
 import { PreviewCommunityColorThemeColor, BodyBgFormat } from "@/features";
 import "../PreviewCommunity.css";
+import { useAppDispatch } from "@/store";
 
 export function PreviewCommunityColorTheme({
   setOpenAppearance,
@@ -22,12 +23,13 @@ export function PreviewCommunityColorTheme({
     setBackgroundImg,
     saveColorTheme,
   } = settingsState;
-
+  const dispatch = useAppDispatch();
   const [imageFile, setImageFile] = useState(null);
 
   const handleSave = async () => {
     await saveColorTheme(imageFile);
     setOpenAppearance(false);
+    
   };
 
   return (

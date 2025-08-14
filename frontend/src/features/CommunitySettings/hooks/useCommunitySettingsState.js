@@ -1,31 +1,28 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "@/store";
+import { getCommunities, useAppDispatch } from "@/store";
 import {
   getCommunitySettings,
-  getSingleCommunity,
-  getCommunities,
   resetToDefault,
   updateSettingsBanner,
   updateSettingsColorTheme,
   updateSettingsNameIcon,
 } from "@/store";
 
-// If your default color values belong in a config, move them there. Otherwise, keep inline.
+// Defaults
 const DEFAULT_BASE_COLOR = "#33a8ff";
 const DEFAULT_HIGHLIGHT = "#0079d3";
 const DEFAULT_BG_COLOR = "#f5f5f5";
 const DEFAULT_BANNER_HEIGHT = "80px";
 const DEFAULT_BANNER_COLOR = "#33a8ff";
+const DEFAULT_ICON_URL = "https://i.imgur.com/9CI9hiO.png";
 
 export function useCommunitySettingsState(community) {
   const dispatch = useAppDispatch();
 
-  // Safely extract the communitySettings object
+  // Safely extract the settings object for this community
   const communitySettings = community?.communitySettings?.[community?.id] || {};
 
-  // -------------------------------------------------------------------------
-  // LOCAL STATE
-  // -------------------------------------------------------------------------
+  // ---------------- Local state ----------------
   const [base, setBase] = useState(
     communitySettings.baseColor || DEFAULT_BASE_COLOR
   );
@@ -66,12 +63,9 @@ export function useCommunitySettingsState(community) {
     !!communitySettings.hideCommunityIcon
   );
 
-  // -------------------------------------------------------------------------
-  // RE-SYNC FROM STORE ANY TIME communitySettings UPDATES
-  // (Important for "deleted" images or other external changes)
-  // -------------------------------------------------------------------------
+  // ---------------- Re-sync from store ----------------
   useEffect(() => {
-    if (!community?.communitySettings?.[community.id]) return;
+    if (!community?.communitySettings?.[community?.id]) return;
 
     setBase(communitySettings.baseColor || DEFAULT_BASE_COLOR);
     setHighlight(communitySettings.highlight || DEFAULT_HIGHLIGHT);
@@ -90,11 +84,8 @@ export function useCommunitySettingsState(community) {
     setHideCommunityIcon(!!communitySettings.hideCommunityIcon);
   }, [community, communitySettings]);
 
-  // -------------------------------------------------------------------------
-  // LIVE PREVIEW EFFECT: Update CSS variables whenever local states change
-  // -------------------------------------------------------------------------
+  // ---------------- Live preview CSS ----------------
   useEffect(() => {
-    // Colors
     document.documentElement.style.setProperty(
       "--preview-community-color-theme-base",
       base
@@ -108,7 +99,6 @@ export function useCommunitySettingsState(community) {
       bgColor
     );
 
-    // Name format
     document.documentElement.style.setProperty(
       "--preview-community-name-format",
       nameFormat
@@ -136,17 +126,16 @@ export function useCommunitySettingsState(community) {
     );
 
     // Banner
+    const effectiveBannerColor = customBannerColor ? bannerColor : base;
     document.documentElement.style.setProperty(
       "--preview-community-banner-height",
       bannerHeight
     );
-    const effectiveBannerColor = customBannerColor ? bannerColor : base;
     document.documentElement.style.setProperty(
       "--preview-community-banner-color",
       effectiveBannerColor
     );
 
-    // Banner image
     if (bannerImg) {
       document.documentElement.style.setProperty(
         "--preview-community-banner-img",
@@ -171,148 +160,136 @@ export function useCommunitySettingsState(community) {
     nameFormat,
   ]);
 
-  // -------------------------------------------------------------------------
-  // ACTIONS: Updating settings & re-fetching
-  // -------------------------------------------------------------------------
-
-  const handleResetToDefault = async () => {
-    if (!community?.id) return;
-    await dispatch(resetToDefault(community.id));
-    // Re-fetch final settings
-    await dispatch(getCommunitySettings(community.id));
-    // If needed, also update the communities list
-    // await dispatch(getCommunities());
-  };
-
-  /**
-   * Upload & update color theme
-   */
-  const saveColorTheme = async (fileToUpload) => {
-    if (!community?.id) return;
-
-    // 1. Upload file if present
-    if (fileToUpload) {
-      await uploadBgImage(fileToUpload);
-    }
-
-    // 2. Update DB
-    const payload = {
-      settingsId: communitySettings.id,
-      baseColor: base,
-      highlight,
-      bgColor,
-      backgroundImgFormat,
-      backgroundImg,
-    };
-    const result = await dispatch(updateSettingsColorTheme(payload));
-
-    // 3. Re-fetch final data
-    if (result.ok) {
-      await dispatch(getCommunitySettings(community.id));
-      // If needed: await dispatch(getCommunities());
-    }
-  };
-
-  /**
-   * Upload background image only
-   */
-  const uploadBgImage = async (file) => {
-    if (!community?.id) return;
-    const formData = new FormData();
-    formData.append("image", file);
-
-    const res = await fetch(`/api/communities/${community.id}/bg_img`, {
+  // ---------------- Helpers: POST image -> S3 URL ----------------
+  const postImage = async (endpoint, file) => {
+    if (!community?.id || !file) return null;
+    const fd = new FormData();
+    fd.append("image", file);
+    const res = await fetch(endpoint, {
       method: "POST",
-      body: formData,
+      body: fd,
+      credentials: "same-origin",
     });
-    // We can re-fetch here or wait until after we do the final update
-    if (res.ok) {
-      // do nothing here, or if needed: await dispatch(getCommunitySettings(community.id));
+    const data = await res.json().catch(() => null);
+    if (!res.ok || !data?.url) {
+      const msg =
+        data?.errors || data?.error || `Upload failed (${res.status})`;
+      throw new Error(msg);
     }
+    return data.url; // S3 URL
   };
 
-  /**
-   * Upload & update banner
-   */
-  const saveBanner = async (fileToUpload) => {
-    if (!community?.id) return;
-
-    if (fileToUpload) {
-      await uploadBannerImg(fileToUpload);
-    }
-
-    const payload = {
-      settingsId: communitySettings.id,
-      bannerHeight,
-      bannerColor,
-      customBannerColor,
-      bannerImg,
-      bannerImgFormat,
-      secondaryBannerImg: communitySettings.secondaryBannerImg,
-      hoverBannerImg: communitySettings.hoverBannerImg,
-      secondaryBannerFormat: communitySettings.secondaryBannerFormat,
-      mobileBannerImg: communitySettings.mobileBannerImg,
-    };
-    await dispatch(updateSettingsBanner(payload));
+  const uploadBgImage = async (file) => {
+    const url = await postImage(
+      `/api/communities/${community.id}/bg_img`,
+      file
+    );
+    if (url) setBackgroundImg(url); // swap preview to S3 URL
+    return url;
   };
 
   const uploadBannerImg = async (file) => {
-    if (!community?.id) return;
-    const formData = new FormData();
-    formData.append("image", file);
-
-    const res = await fetch(`/api/communities/${community.id}/banner_img`, {
-      method: "POST",
-      body: formData,
-    });
-    if (res.ok) {
-      await res.json(); // If your endpoint returns new info, handle it or do nothing
-    }
-  };
-
-  /**
-   * Upload & update name/icon
-   */
-  const saveNameIcon = async (fileToUpload) => {
-    if (!community?.id) return;
-
-    if (fileToUpload) {
-      await uploadCommunityIcon(fileToUpload);
-    }
-
-    const payload = {
-      settingsId: communitySettings.id,
-      nameFormat,
-      communityIcon,
-      hideCommunityIcon,
-    };
-    const result = await dispatch(updateSettingsNameIcon(payload));
-    if (result.ok) {
-      await dispatch(getCommunitySettings(community.id));
-      // If you need the entire community list: await dispatch(getCommunities());
-    }
+    const url = await postImage(
+      `/api/communities/${community.id}/banner_img`,
+      file
+    );
+    if (url) setBannerImg(url);
+    return url;
   };
 
   const uploadCommunityIcon = async (file) => {
-    if (!community?.id) return;
-    const formData = new FormData();
-    formData.append("image", file);
-
-    const res = await fetch(`/api/communities/${community.id}/img`, {
-      method: "POST",
-      body: formData,
-    });
-    if (res.ok) {
-      // If needed: await dispatch(getCommunities()) or getCommunitySettings().
-      await res.json();
-    }
+    const url = await postImage(`/api/communities/${community.id}/img`, file);
+    if (url) setCommunityIcon(url);
+    return url;
   };
 
-  // -------------------------------------------------------------------------
-  // Return states and actions
-  // -------------------------------------------------------------------------
+  // ---------------- Actions: persist settings ----------------
+  const handleResetToDefault = async () => {
+    if (!community?.id) return;
+    await dispatch(resetToDefault(community.id));
+    await dispatch(getCommunitySettings(community.id));
+  };
+
+  /** Upload (optional) + persist color theme (includes background image URL) */
+  const saveColorTheme = async (fileToUpload) => {
+    if (!community?.id) return;
+
+    // Upload new background image if provided
+    let bgUrl = backgroundImg;
+    if (fileToUpload) {
+      bgUrl = await uploadBgImage(fileToUpload); // sets state + returns S3 URL
+    }
+
+    // Persist settings with final URL
+    await dispatch(
+      updateSettingsColorTheme({
+        settingsId: communitySettings.id,
+        baseColor: base,
+        highlight,
+        bgColor,
+        backgroundImgFormat,
+        backgroundImg: bgUrl || "", // never undefined
+      })
+    );
+
+    await dispatch(getCommunitySettings(community.id));
+    await dispatch(getCommunities());
+  };
+
+  /** Upload (optional) + persist banner (includes banner image URL) */
+  const saveBanner = async (fileToUpload) => {
+    if (!community?.id) return;
+
+    let bannerUrl = bannerImg;
+    if (fileToUpload) {
+      bannerUrl = await uploadBannerImg(fileToUpload);
+    }
+
+    await dispatch(
+      updateSettingsBanner({
+        settingsId: communitySettings.id,
+        bannerHeight,
+        bannerColor,
+        customBannerColor,
+        bannerImg: bannerUrl || "",
+        bannerImgFormat,
+        secondaryBannerImg: communitySettings.secondaryBannerImg,
+        hoverBannerImg: communitySettings.hoverBannerImg,
+        secondaryBannerFormat: communitySettings.secondaryBannerFormat,
+        mobileBannerImg: communitySettings.mobileBannerImg,
+      })
+    );
+
+    await dispatch(getCommunitySettings(community.id));
+    await dispatch(getCommunities());
+  };
+
+  /** Upload (optional) + persist name/icon */
+  const saveNameIcon = async (fileToUpload) => {
+    if (!community?.id) return;
+
+    let iconUrl = communityIcon || communitySettings.communityIcon || "";
+    if (fileToUpload) {
+      iconUrl = await uploadCommunityIcon(fileToUpload); // sets state + returns S3 URL
+    }
+    if (iconUrl === "") iconUrl = DEFAULT_ICON_URL; // policy: reset to default if cleared
+
+    await dispatch(
+      updateSettingsNameIcon({
+        settingsId: communitySettings.id,
+        nameFormat,
+        communityIcon: iconUrl,
+        hideCommunityIcon,
+      })
+    );
+
+    await dispatch(getCommunitySettings(community.id));
+    await dispatch(getCommunities());
+  };
+
+  // ---------------- Expose API ----------------
   return {
-    // Local states & their setters
+    // state + setters
     base,
     setBase,
     highlight,
@@ -340,15 +317,17 @@ export function useCommunitySettingsState(community) {
     hideCommunityIcon,
     setHideCommunityIcon,
 
-    // Original community & settings
+    // originals
     community,
     communitySettings,
 
-    // Actions
+    // actions
     handleResetToDefault,
     saveColorTheme,
     saveBanner,
     saveNameIcon,
-    uploadCommunityIcon,
+    uploadCommunityIcon, // still available if you want instant upload on pick
+    uploadBgImage, // exposed in case you need it
+    uploadBannerImg, // exposed in case you need it
   };
 }

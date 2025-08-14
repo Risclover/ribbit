@@ -1,11 +1,4 @@
-import {
-  useState,
-  useMemo,
-  useRef,
-  useEffect,
-  DragEvent,
-  KeyboardEvent,
-} from "react";
+import { useState, useMemo, useEffect, DragEvent } from "react";
 import { UploadZone } from "./UploadZone";
 import { PreviewBar } from "./PreviewBar";
 import { fileHandler } from "./fileHandler";
@@ -27,13 +20,18 @@ export const DropBox = ({
   handleErase,
 }: DropBoxProps) => {
   const [highlight, setHighlight] = useState(false);
-  const showBar = preview && preview !== defaultIcon;
+  const showBar = !!preview && preview !== defaultIcon;
 
-  // get both helpers from fileHandler
-  const { handleUpload, revokePreview } = fileHandler(setImage, setPreview);
+  // ⬅️ Create stable handlers once, so cleanup only runs on unmount
+  const { handleUpload, revokePreview } = useMemo(
+    () => fileHandler(setImage, setPreview),
+    [setImage, setPreview]
+  );
 
-  // clean up blob-URL when component unmounts
-  useEffect(() => () => revokePreview(), [revokePreview]);
+  // ⬅️ Revoke preview ONLY on unmount (not every render)
+  useEffect(() => {
+    return () => revokePreview();
+  }, []); // intentionally empty
 
   const dropBoxClass = useMemo(
     () =>
@@ -43,12 +41,6 @@ export const DropBox = ({
     [highlight, showBar]
   );
 
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const openFileDialog = () =>
-    containerRef.current
-      ?.querySelector<HTMLInputElement>('input[type="file"]')
-      ?.click();
-
   const handleDragEvents = (hl: boolean) => (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -57,7 +49,7 @@ export const DropBox = ({
 
   const onDrop = (e: DragEvent<HTMLDivElement>) => {
     handleDragEvents(false)(e);
-    handleUpload(e); // fileHandler now checks MIME + updates state
+    handleUpload(e);
   };
 
   const handleDelete = () => {
@@ -69,11 +61,6 @@ export const DropBox = ({
     <div className="dropbox">
       {!showBar && (
         <div
-          ref={containerRef}
-          tabIndex={0}
-          onKeyDown={(e: KeyboardEvent<HTMLDivElement>) =>
-            e.key === "Enter" && openFileDialog()
-          }
           onDragEnter={handleDragEvents(true)}
           onDragOver={handleDragEvents(true)}
           onDragLeave={handleDragEvents(false)}
@@ -81,7 +68,7 @@ export const DropBox = ({
           className={dropBoxClass}
           style={{ backgroundImage: defaultIcon ? "" : `url(${preview})` }}
         >
-          <UploadZone onFileSelect={handleUpload} accept="image/*" />
+          <UploadZone onFileSelect={handleUpload} />
         </div>
       )}
 

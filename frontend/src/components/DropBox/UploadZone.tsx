@@ -1,10 +1,10 @@
-import { ChangeEventHandler, KeyboardEvent, useRef, ReactNode } from "react";
+import { useId, useRef } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 
 interface UploadZoneProps {
-  onFileSelect: ChangeEventHandler<HTMLInputElement>;
+  onFileSelect: React.ChangeEventHandler<HTMLInputElement>;
   accept?: string;
-  label?: ReactNode;
+  label?: React.ReactNode;
 }
 
 export const UploadZone = ({
@@ -12,33 +12,40 @@ export const UploadZone = ({
   accept = "image/*",
   label = "Drag and Drop or Upload Image",
 }: UploadZoneProps) => {
+  const inputId = useId();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const openFileDialog = () => inputRef.current?.click();
-
   return (
-    <label
-      tabIndex={0}
-      aria-label="Upload image"
-      onKeyDown={(e: KeyboardEvent<HTMLLabelElement>) =>
-        e.key === "Enter" && openFileDialog()
-      }
-      onClick={openFileDialog}
-    >
-      <div className="preview-community-upload-icon">
-        <FaCloudUploadAlt />
-      </div>
-
-      <div className="preview-community-upload-txt">{label}</div>
-
+    <>
+      {/* Keep input in the tree; associate via htmlFor */}
       <input
+        id={inputId}
         ref={inputRef}
         type="file"
         className="upload-file"
         accept={accept}
         onChange={onFileSelect}
-        hidden
+        // visually hide but keep accessible
+        style={{
+          position: "absolute",
+          width: 1,
+          height: 1,
+          padding: 0,
+          margin: -1,
+          overflow: "hidden",
+          clip: "rect(0,0,0,0)",
+          whiteSpace: "nowrap",
+          border: 0,
+        }}
       />
-    </label>
+
+      {/* Clicking the label natively opens the file dialog via htmlFor */}
+      <label htmlFor={inputId} aria-label="Upload image">
+        <div className="preview-community-upload-icon">
+          <FaCloudUploadAlt />
+        </div>
+        <div className="preview-community-upload-txt">{label}</div>
+      </label>
+    </>
   );
 };
