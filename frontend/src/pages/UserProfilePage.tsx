@@ -102,6 +102,7 @@ export const UserProfilePage: FC = () => {
         sx={{ bgcolor: theme === "dark" && "grey.500" }}
       />
     ),
+    refreshKey: user?.id || "skeleton",
   });
 
   if (!usersLoaded) return <FrogLoader />;

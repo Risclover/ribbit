@@ -39,6 +39,12 @@ import { FrogLoader } from "@/components/FrogLoader/FrogLoader";
 type Community = RootState["communities"][number];
 type Post = RootState["posts"][number];
 
+interface CommunitySettings {
+  baseColor?: string;
+  communityIcon?: string;
+  // (rest of fields exist but we only need these two here)
+}
+
 /* ======================================================== */
 
 export function CommunityPage(): JSX.Element {
@@ -52,6 +58,8 @@ export function CommunityPage(): JSX.Element {
   const communities = useAppSelector((s) => s.communities.communities);
   const communityId = getIdFromName(communityName, communities);
   const community: Community | undefined = communities[communityId];
+  const settings: CommunitySettings =
+    community?.communitySettings[community?.id];
 
   const communityPosts = useAppSelector(
     (s) =>
@@ -113,25 +121,25 @@ export function CommunityPage(): JSX.Element {
   /* -------- document / favicon -------- */
   usePageSettings({
     documentTitle: community?.displayName,
-    icon: community ? (
-      <CommunityImg
-        imgStyle={{
-          backgroundColor:
-            community?.communitySettings[community?.id].baseColor,
-        }}
-        imgSrc={community?.communitySettings[community?.id].communityIcon}
-        imgClass="nav-left-dropdown-item-icon item-icon-circle"
-        imgAlt="Community"
-      />
-    ) : (
-      <Skeleton
-        variant="circular"
-        animation="wave"
-        width={20}
-        height={20}
-        sx={{ bgcolor: theme === "dark" && "grey.500" }}
-      />
-    ),
+    icon:
+      community && settings ? (
+        <CommunityImg
+          imgStyle={{
+            backgroundColor: settings?.baseColor,
+          }}
+          imgSrc={settings?.communityIcon}
+          imgClass="nav-left-dropdown-item-icon item-icon-circle"
+          imgAlt="Community"
+        />
+      ) : (
+        <Skeleton
+          variant="circular"
+          animation="wave"
+          width={20}
+          height={20}
+          sx={{ bgcolor: theme === "dark" && "grey.500" }}
+        />
+      ),
     pageTitle: community ? (
       `c/${community?.name}`
     ) : (
@@ -141,6 +149,7 @@ export function CommunityPage(): JSX.Element {
         sx={{ bgcolor: theme === "dark" && "grey.500" }}
       />
     ),
+    refreshKey: community?.id ?? "skeleton",
   });
 
   /* -------- early exits -------- */

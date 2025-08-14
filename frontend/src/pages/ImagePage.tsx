@@ -55,21 +55,6 @@ function useCommunityByRouteName(
   }, [communityName, communities]);
 }
 
-/* ---------- Bridge to force-update page header when community changes ---------- */
-function PageHeaderSync({
-  // When `key` of this component changes (e.g., community id), we remount and run the hook again
-  documentTitle,
-  icon,
-  pageTitle,
-}: {
-  documentTitle: string;
-  icon: ReactNode;
-  pageTitle: ReactNode;
-}) {
-  usePageSettings({ documentTitle, icon, pageTitle });
-  return null;
-}
-
 export const ImagePage = (): JSX.Element => {
   const { theme } = useDarkMode();
   const dispatch = useAppDispatch();
@@ -110,36 +95,38 @@ export const ImagePage = (): JSX.Element => {
   };
   const toggleZoom = () => setIsZoomed((z) => !z);
 
-  /* ---------- header nodes ---------- */
-  const headerIcon =
-    community && settings ? (
-      <CommunityImg
-        imgStyle={{ backgroundColor: settings?.baseColor }}
-        imgSrc={settings?.communityIcon}
-        imgClass="nav-left-dropdown-item-icon item-icon-circle"
-        imgAlt="Community"
-      />
+  usePageSettings({
+    documentTitle: community?.displayName,
+    icon:
+      community && settings ? (
+        <CommunityImg
+          imgStyle={{
+            backgroundColor: settings?.baseColor,
+          }}
+          imgSrc={settings?.communityIcon}
+          imgClass="nav-left-dropdown-item-icon item-icon-circle"
+          imgAlt="Community"
+        />
+      ) : (
+        <Skeleton
+          variant="circular"
+          animation="wave"
+          width={20}
+          height={20}
+          sx={{ bgcolor: theme === "dark" && "grey.500" }}
+        />
+      ),
+    pageTitle: community ? (
+      `c/${community?.name}`
     ) : (
       <Skeleton
-        variant="circular"
         animation="wave"
-        width={20}
-        height={20}
-        sx={{ bgcolor: theme === "dark" ? "grey.800" : undefined }}
+        variant="text"
+        sx={{ bgcolor: theme === "dark" && "grey.500" }}
       />
-    );
-
-  const headerTitle: ReactNode = community ? (
-    `c/${community.name}`
-  ) : (
-    <Skeleton
-      animation="wave"
-      variant="text"
-      sx={{ bgcolor: theme === "dark" ? "grey.800" : undefined }}
-    />
-  );
-
-  const documentTitle = community?.displayName || "Image";
+    ),
+    refreshKey: community?.id ?? "skeleton",
+  });
 
   /* ---------- early-out ---------- */
   if (!url) {
@@ -154,14 +141,6 @@ export const ImagePage = (): JSX.Element => {
   /* ---------- render ---------- */
   return (
     <div className={`media-container ${isZoomed ? "zoomed" : ""}`}>
-      {/* Force the header hook to refresh when the community identity changes */}
-      <PageHeaderSync
-        key={community ? `community-${community.id}` : "skeleton"}
-        documentTitle={documentTitle}
-        icon={headerIcon}
-        pageTitle={headerTitle}
-      />
-
       {!error ? (
         <img
           src={url}

@@ -12,10 +12,12 @@ import {
   getSubscriptions,
 } from "@/store";
 
-import { usePageSettings } from "@/hooks";
+import { useDarkMode, usePageSettings } from "@/hooks";
 import { CreatePostIcon } from "@/assets/icons/CreatePostIcon";
 
 import "@/features/Posts/components/CreatePost/PostForm.css";
+import { CommunityImg } from "@/components";
+import { Skeleton } from "@mui/material";
 
 /* ───────────────────────── Types ───────────────────────── */
 
@@ -38,13 +40,18 @@ export function CreatePostPage({
   val,
 }: CreatePostPageProps): JSX.Element {
   /* ---------- local hooks ---------- */
+  const { theme } = useDarkMode();
   const { communityName } = useParams<{ communityName?: string }>();
   const dispatch = useAppDispatch();
   const communities = useAppSelector((s) => s.communities.communities);
   const postsLoaded = useAppSelector((state) => state.posts.loaded);
   const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
   const subsLoaded = useAppSelector((state) => state.subscriptions.loaded);
-
+  interface CommunitySettings {
+    baseColor?: string;
+    communityIcon?: string;
+    // (rest of fields exist but we only need these two here)
+  }
   /* ---------- helpers -------------- */
   /** Type-guard so TS knows each item really is a Community */
   const isCommunity = (x: unknown): x is Community =>
@@ -56,7 +63,8 @@ export function CreatePostPage({
       .filter(isCommunity)
       .find((c) => c.name === communityName)
   );
-
+  const settings: CommunitySettings | undefined =
+    community?.communitySettings?.[community?.id ?? -1];
   /* ---------- effects (unchanged, but with type-guard) ---------- */
   useEffect(() => {
     if (!postsLoaded) dispatch(getPosts());
@@ -65,8 +73,21 @@ export function CreatePostPage({
   }, [dispatch, postsLoaded, communitiesLoaded, subsLoaded]);
 
   useEffect(() => setPostType(val), [val, setPostType]);
+  usePageSettings({
+    documentTitle: "Submit to Ribbit",
+    icon: <CreatePostIcon />,
+    pageTitle: "Create Post",
+  });
 
-  /* … usePageSettings & highlight-colour effect stay unchanged … */
+  /* set fallback highlight colour when creating outside a community */
+  useEffect(() => {
+    if (!communityName) {
+      document.documentElement.style.setProperty(
+        "--community-highlight",
+        "var(--highlight-color)"
+      );
+    }
+  }, [communityName]);
 
   /* keep local `community` synced with store */
   useEffect(() => {

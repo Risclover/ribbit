@@ -2,41 +2,49 @@ import { useEffect, ReactNode, useMemo } from "react";
 import { usePageTitle } from "@/context/PageTitleContext";
 
 interface Params {
-  documentTitle?: string;
-  icon?: ReactNode | null;
-  pageTitle?: ReactNode | null;
+  documentTitle?: string; // <title> tag
+  icon?: ReactNode | null; // little icon in the nav bar
+  pageTitle?: ReactNode | null; // visible page title
+  /** change this when you want icon/title to refresh (e.g., community.id) */
+  refreshKey?: unknown;
 }
 
+/** Keep <title>, nav-bar icon and nav-bar title in sync (without render loops). */
 export function usePageSettings({
   documentTitle,
   icon = null,
   pageTitle = null,
+  refreshKey,
 }: Params): void {
   const { setPageIcon, setPageTitle } = usePageTitle();
 
-  // Wrap pageTitle in the span structure - recompute when pageTitle changes
-  const wrappedTitle = useMemo(
+  // Only rebuild these nodes when refreshKey changes (not every render)
+  const memoIcon = useMemo(() => icon, [refreshKey]);
+  const memoTitle = useMemo(
     () =>
       pageTitle ? (
         <span className="nav-left-dropdown-item">{pageTitle}</span>
       ) : null,
-    [pageTitle]
+    [
+      refreshKey,
+      pageTitle && typeof pageTitle === "string" ? pageTitle : undefined,
+    ]
   );
 
-  // Update <title> whenever documentTitle changes
+  // <title> can update freely (primitive string)
   useEffect(() => {
     document.title = documentTitle ?? "Ribbit – Splash into anything";
   }, [documentTitle]);
 
-  // Update nav icon whenever icon changes
+  // Set/clear icon when its memoized value actually changes
   useEffect(() => {
-    setPageIcon(icon ?? null);
+    setPageIcon(memoIcon);
     return () => setPageIcon(null);
-  }, [icon, setPageIcon]);
+  }, [memoIcon, setPageIcon]);
 
-  // Update nav title whenever wrappedTitle changes
+  // Set/clear title when its memoized value actually changes
   useEffect(() => {
-    setPageTitle(wrappedTitle);
+    setPageTitle(memoTitle);
     return () => setPageTitle(null);
-  }, [wrappedTitle, setPageTitle]);
+  }, [memoTitle, setPageTitle]);
 }
