@@ -1,5 +1,5 @@
 // src/features/Chat/hooks/useChatSocket.js
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { initiateSocket } from "@/socket";
 
 /* ---- chat‑slice actions ---- */
@@ -35,6 +35,7 @@ export function useChatSocket({
   },
 }) {
   const dispatch = useAppDispatch();
+  const joinedRooms = useRef(new Set());
   /* ------------------------------------------------------------------
    * 1. (Re)create the singleton Socket.IO client when the user changes.
    * ------------------------------------------------------------------ */
@@ -77,13 +78,31 @@ export function useChatSocket({
   }, [socket, user, dispatch, onDelete, onReactionAdd, onReactionRemove]);
 
   /* ------------------------------------------------------------------
-   * 3. Join every thread room whenever the list of threads changes.
+   * 3. Join thread rooms efficiently - only join new rooms.
    * ------------------------------------------------------------------ */
   useEffect(() => {
     if (!socket || !user) return;
 
     Object.keys(chatThreads || {}).forEach((id) => {
-      socket.emit("join", { user: user.id, room: Number(id) });
+      const roomId = Number(id);
+      if (!joinedRooms.current.has(roomId)) {
+        socket.emit("join", { user: user.id, room: roomId });
+        joinedRooms.current.add(roomId);
+      }
     });
   }, [socket, user, chatThreads]);
+
+  /* ------------------------------------------------------------------
+   * 4. Clear joined rooms when socket reconnects
+   * ------------------------------------------------------------------ */
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleReconnect = () => {
+      joinedRooms.current.clear();
+    };
+
+    socket.on("connect", handleReconnect);
+    return () => socket.off("connect", handleReconnect);
+  }, [socket]);
 }

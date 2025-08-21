@@ -29,7 +29,7 @@ import notificationsReducer from "./notifications";
 import chatThreadReducer from "./chats";
 import communitySettingsReducer from "./community_settings";
 import reactionsReducer from "./reactions";
-import chat2Reducer from "./chats2";
+// Removed chat2Reducer to eliminate duplicate chat state management
 
 /* ─── Root reducer ─────────────────────────────────────────────────────── */
 export const rootReducer = combineReducers({
@@ -54,7 +54,6 @@ export const rootReducer = combineReducers({
   chatThreads: chatThreadReducer,
   communitySettings: communitySettingsReducer,
   reactions: reactionsReducer,
-  chat2: chat2Reducer,
 });
 
 /* ─── Middleware / enhancers ───────────────────────────────────────────── */
@@ -66,17 +65,30 @@ if (process.env.NODE_ENV === "production") {
 } else {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const logger = require("redux-logger").default;
+  const optimizedLogger = logger({
+    collapsed: true,
+    diff: false,  // Disable diff calculation for performance
+    duration: true,
+    timestamp: false,
+    predicate: (getState, action) => {
+      // Only log non-frequent actions to reduce noise
+      return !action.type.includes('RECEIVE_NEW_MESSAGE') && 
+             !action.type.includes('THREAD_UNREAD_UPDATE') &&
+             !action.type.includes('SET_UNREAD_TOTAL');
+    }
+  });
+  
   const composeEnhancers =
     (typeof window !== "undefined" &&
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore  Redux-devtools global
       window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?.({
-        trace: true,
-        traceLimit: 25,
+        trace: false,  // Disable tracing for performance
+        traceLimit: 10,
       })) ||
     compose;
 
-  enhancer = composeEnhancers(applyMiddleware(...baseMiddleware, logger));
+  enhancer = composeEnhancers(applyMiddleware(...baseMiddleware, optimizedLogger));
 }
 
 /* ─── Store creator ─────────────────────────────────────────────────────── */
@@ -110,5 +122,5 @@ export * from "./threads";
 export * from "./users";
 export * from "./viewed_posts";
 export * from "./compositeThunks";
-export * from "./chats2";
+// Removed chats2 export - using single chat store now
 export { useAppSelector, useAppDispatch } from "./hooks";
