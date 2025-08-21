@@ -40,11 +40,6 @@ export function MessageReply({
         receiverId: message.sender.id,
       };
       const msg = await dispatch(createMessage(payload));
-      const notificationsPayload = {
-        notificationType: "message",
-        id: msg.id,
-      };
-      dispatch(addNotification(notificationsPayload));
       dispatch(getThreads());
       setReply("");
       setShowReplyBox(false);

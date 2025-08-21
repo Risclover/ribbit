@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/store";
+import { selectThreadsLoaded, useAppDispatch, useAppSelector } from "@/store";
 import { getThreads } from "@/store";
 import { MessageHead, SentMessage } from "../..";
 import { usePageSettings } from "@/hooks/usePageSettings";
@@ -8,11 +8,14 @@ import "./Sent.css";
 export function Sent() {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.session.user);
-  const threads = useAppSelector((state) => Object.values(state.threads));
+  const threads = useAppSelector((state) =>
+    Object.values(state.threads.threads)
+  );
+  const loaded = useAppSelector((state) => state.threads.loaded);
 
   useEffect(() => {
-    dispatch(getThreads());
-  }, [dispatch]);
+    if (!loaded) dispatch(getThreads());
+  }, [loaded, dispatch]);
 
   usePageSettings({
     documentTitle: "Messages: Sent",

@@ -21,12 +21,8 @@ interface NotificationSummary {
   createdAt: string;
 }
 
-interface UseInboxParams {
-  message: MessageSummary;
-}
-
 /* ------------ Hook ----------------------------------------------------- */
-export function useInbox({ message }: UseInboxParams) {
+export function useInbox() {
   const dispatch = useAppDispatch();
 
   /* ---------- Redux state ---------- */
@@ -34,21 +30,13 @@ export function useInbox({ message }: UseInboxParams) {
   const messages = useAppSelector(
     (s) => Object.values(s.messages) as MessageSummary[]
   );
-  const threads = useAppSelector((s) => s.threads);
+  const threads = useAppSelector((s) => s.threads.threads);
   const notifications = useAppSelector(
     (s) => Object.values(s.notifications) as NotificationSummary[]
   );
 
   /* ---------- Local state ---------- */
   const [expanded, setExpanded] = useState(true);
-  const [markedUnread, setMarkedUnread] = useState(() => !message.read);
-
-  /* ---------- Handlers ------------- */
-  const handleRead = async (): Promise<void> => {
-    if (!markedUnread) return;
-    setMarkedUnread(false);
-    await dispatch(readMessage(message.id));
-  };
 
   /* ---------- Derived data --------- */
   const messageList = useMemo(() => {
@@ -85,8 +73,5 @@ export function useInbox({ message }: UseInboxParams) {
     expanded,
     setExpanded,
     messageList,
-    handleRead,
-    markedUnread,
-    setMarkedUnread,
   };
 }

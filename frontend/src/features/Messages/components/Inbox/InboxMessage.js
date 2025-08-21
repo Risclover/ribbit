@@ -4,11 +4,13 @@ import { NavLink } from "react-router-dom";
 import moment from "moment";
 import { MessageReply } from "../MessageReply";
 import { useInbox } from "../../hooks/useInbox";
+import useInboxMessage from "../../hooks/useInboxMessage";
 
 export function InboxMessage({ item, message, currentUser, expanded }) {
-  const { handleRead, markedUnread, setMarkedUnread } = useInbox({ message });
+  const { handleRead, markedUnread, setMarkedUnread } = useInboxMessage({
+    message,
+  });
 
-  if (!message) return null;
   return (
     <div className="inbox-message" onClick={handleRead}>
       <div className="inbox-message-subject">{message.subject}:</div>

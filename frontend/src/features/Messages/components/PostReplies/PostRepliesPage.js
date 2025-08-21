@@ -10,7 +10,7 @@ import usePostReplies from "@/features/Messages/hooks/usePostReplies";
 
 export function PostRepliesPage() {
   const { postRepliesList } = usePostReplies();
-  const currentUser = useAppSelector((state) => state.current.user);
+  const currentUser = useAppSelector((state) => state.current?.user);
 
   usePageSettings({
     documentTitle: "Messages: Post Replies",

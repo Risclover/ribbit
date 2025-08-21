@@ -3,24 +3,11 @@ import { NavGroup } from "./NavGroup";
 import { useNavLeftDropdown } from "@/hooks/useNavLeftDropdown";
 import { useIsMobile, useIsSmallScreen } from "@/hooks";
 
-interface NavLeftDropdownProps {
-  setShowIcon: (open: boolean) => void;
-  setShowDropdown: (open: boolean) => void;
-  setShowNavSidebar: (open: boolean) => void;
-}
-
-interface Section<T = unknown> {
-  title?: string | null;
-  items: T[];
-  /* render one row */
-  render: (item: T) => React.ReactNode;
-}
-
 export function NavLeftDropdown({
   setShowIcon,
   setShowDropdown,
   setShowNavSidebar,
-}: NavLeftDropdownProps) {
+}) {
   const isSmall = useIsSmallScreen(768);
   const isMobile = useIsMobile();
 
@@ -44,7 +31,7 @@ export function NavLeftDropdown({
         onChange={(e) => setFilter(e.target.value)}
       />
 
-      {sections.map((sec: Section, idx) => (
+      {sections.map((sec, idx) => (
         <NavGroup
           /* title can be null → use index fallback for React key     */
           key={sec.title ?? `section-${idx}`}

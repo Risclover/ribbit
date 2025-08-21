@@ -9,7 +9,7 @@ import "../styles/Messages.css";
 export function Messages() {
   const dispatch = useAppDispatch();
 
-  const threads = useAppSelector((state) => Object.values(state.threads));
+  const threads = useAppSelector((state) => Object.values(state.threads.threads));
   const currentUser = useAppSelector((state) => state.session.user);
   const usersLoaded = useAppSelector((state) => state.users.loaded);
 

@@ -65,10 +65,10 @@ export default function favoriteCommunitiesReducer(
       // Check if action.favoriteCommunities is defined
       if (
         action.favoriteCommunities &&
-        action.favoriteCommunities.communities.communities
+        action.favoriteCommunities.communities
       ) {
         // Use reduce only if action.favoriteCommunities.communities.communities is defined
-        return action.favoriteCommunities.communities.communities.reduce(
+        return action.favoriteCommunities.communities.reduce(
           (communities, community) => {
             communities[community.id] = community;
             return communities;

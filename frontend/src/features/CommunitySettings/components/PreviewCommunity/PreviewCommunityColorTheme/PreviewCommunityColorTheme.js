@@ -29,7 +29,6 @@ export function PreviewCommunityColorTheme({
   const handleSave = async () => {
     await saveColorTheme(imageFile);
     setOpenAppearance(false);
-    
   };
 
   return (

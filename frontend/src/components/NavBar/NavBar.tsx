@@ -57,14 +57,10 @@ export function NavBar({
   setMinimizeChat,
 }: NavBarProps) {
   const { openLogin } = useAuthFlow();
-
-  const { setSelectedChat } = useChat();
-  const { openChat, setOpenChat } = useChat();
+  const { setSelectedChat, setOpenChat } = useChat();
 
   const chatThreads = useAppSelector(selectThreads);
   const user = useAppSelector(selectUser);
-  const notifications = useAppSelector(selectNotifs);
-  const messages = useAppSelector(selectMsgs);
 
   /* ----------  Derived data ---------- */
 
@@ -101,16 +97,9 @@ export function NavBar({
       // if (!sortedThreads.length) return;
 
       setSelectedChat(sortedThreads[0]);
-      minimizeChat ? setMinimizeChat(false) : setOpenChat(!openChat);
+      minimizeChat ? setMinimizeChat(false) : setOpenChat((prev) => !prev);
     },
-    [
-      minimizeChat,
-      setMinimizeChat,
-      setOpenChat,
-      openChat,
-      setSelectedChat,
-      sortedThreads,
-    ]
+    [minimizeChat, setMinimizeChat, setOpenChat, setSelectedChat, sortedThreads]
   );
 
   /* ----------  Render ---------- */

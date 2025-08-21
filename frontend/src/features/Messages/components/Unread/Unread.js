@@ -14,7 +14,8 @@ export function Unread() {
   const unreadMsgs = messages.filter((message) => message.read === false);
 
   useEffect(() => {
-    dispatch(readAllMessages());
+    console.log("unread:", unreadMsgs);
+    console.log("unread 2:", unreadMsgs);
   }, [dispatch]);
 
   usePageSettings({

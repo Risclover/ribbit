@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/store";
+import { selectThreadsLoaded, useAppDispatch, useAppSelector } from "@/store";
 import { getThreads } from "@/store";
 import { Message } from "./Message";
 import { v4 as uuidv4 } from "uuid";
@@ -10,10 +10,11 @@ export function MessageThread({ item }) {
   const dispatch = useAppDispatch();
 
   const currentUser = useAppSelector((state) => state.session.user);
+  const loaded = useAppSelector((state) => state.threads.loaded);
 
   useEffect(() => {
-    dispatch(getThreads());
-  }, [dispatch]);
+    if (!loaded) dispatch(getThreads());
+  }, [loaded, dispatch]);
 
   if (!item) return null;
 
@@ -26,13 +27,13 @@ export function MessageThread({ item }) {
           <div className="messages-content-sender">
             <NavLink
               to={
-                users[0].id === currentUser?.id
-                  ? `/users/${parseInt(users[1].id)}/profile`
-                  : `/users/${parseInt(users[0].id)}/profile`
+                users[0]?.id === currentUser?.id
+                  ? `/users/${parseInt(users[1]?.id)}/profile`
+                  : `/users/${parseInt(users[0]?.id)}/profile`
               }
             >
               /u/
-              {users[0].id === currentUser?.id
+              {users[0]?.id === currentUser?.id
                 ? item.users?.[1]?.username
                 : item.users?.[0]?.username}
             </NavLink>
@@ -55,7 +56,7 @@ export function MessageThread({ item }) {
         </div>
       </div>
       <div className="messages-content-message-list">
-        {item.messages.map((message) => (
+        {item.messages?.map((message) => (
           <Message
             key={uuidv4()}
             message={message}

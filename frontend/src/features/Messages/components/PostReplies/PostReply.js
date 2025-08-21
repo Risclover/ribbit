@@ -4,11 +4,12 @@ import { NavLink } from "react-router-dom";
 import { HashLink as Link } from "react-router-hash-link";
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import moment from "moment";
-import usePostReplies from "@/features/Messages/hooks/usePostReplies";
+import usePostReply from "../../hooks/usePostReply";
 
 export function PostReply({ notification }) {
-  const { community, postReplySender, handleUnread, handleRead } =
-    usePostReplies({ notification });
+  const { community, postReplySender, handleUnread, handleRead } = usePostReply(
+    { notification }
+  );
 
   return (
     <div className="inbox-message" onClick={handleRead}>

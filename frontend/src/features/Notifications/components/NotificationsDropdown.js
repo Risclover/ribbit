@@ -6,7 +6,11 @@ import { v4 as uuidv4 } from "uuid";
 import { Notification } from "./Notification";
 import { NoNotifications } from "./NoNotifications";
 import { useNotificationsDropdown } from "../hooks/useNotificationsDropdown";
-import { useAppDispatch, useAppSelector } from "@/store";
+import {
+  selectMessageUnreadTotal,
+  useAppDispatch,
+  useAppSelector,
+} from "@/store";
 import { readAllNotifications } from "store";
 import { markAllSeen } from "store";
 
@@ -17,11 +21,7 @@ export function NotificationsDropdown({
 }) {
   const dispatch = useAppDispatch();
   const { notifications, markAllRead } = useNotificationsDropdown();
-  const selectUnreadMessageCount = (state) =>
-    Object.values(state.notifications).filter(
-      (n) => !n.isRead && n.notificationType === "message"
-    ).length;
-  const unread = useAppSelector(selectUnreadMessageCount);
+  const unreadTotal = useAppSelector((state) => state.threads.unreadTotal);
 
   useEffect(() => {
     if (showDropdown) dispatch(markAllSeen());
@@ -41,8 +41,10 @@ export function NotificationsDropdown({
               onClick={() => setShowDropdown(false)}
             >
               Messages{" "}
-              {msgNum > 0 && (
-                <div className="notification-number-messages">{unread}</div>
+              {unreadTotal > 0 && (
+                <div className="notification-number-messages">
+                  {unreadTotal}
+                </div>
               )}
             </NavLink>
           </div>

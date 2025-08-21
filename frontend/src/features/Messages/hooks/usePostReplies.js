@@ -3,18 +3,15 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import { getAllNotifications } from "@/store";
 import { getPosts } from "@/store";
 
-export default function usePostReplies({ notification }) {
+export default function usePostReplies() {
   const dispatch = useAppDispatch();
 
-  const users = useAppSelector((state) => state.users.users);
   const posts = useAppSelector((state) => state.posts.posts);
   const currentUser = useAppSelector((state) => state.session.user);
   const notifications = useAppSelector((state) =>
     Object.values(state.notifications)
   );
 
-  const community = posts[notification.postId]?.communityName;
-  const postReplySender = users[notification.senderId];
   const postRepliesList = notifications.filter(
     (notification) => notification.notificationType === "post-reply"
   );
@@ -34,10 +31,6 @@ export default function usePostReplies({ notification }) {
   }, [dispatch, postsLoaded]);
 
   return {
-    markedUnread,
-    setMarkedUnread,
     postRepliesList,
-    community,
-    postReplySender,
   };
 }

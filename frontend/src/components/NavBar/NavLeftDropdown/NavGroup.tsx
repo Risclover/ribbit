@@ -1,22 +1,6 @@
-import { memo, type ReactNode } from "react";
+import { memo } from "react";
 
-interface NavGroupProps<T = unknown> {
-  /** Optional heading shown above the group */
-  title?: string | null;
-  /** Items to pass to the render function */
-  items: T[];
-  /** Render-prop for the actual rows */
-  render: (items: T[]) => ReactNode;
-  /** Extra class(es) for outer wrapper (optional) */
-  className?: string;
-}
-
-function NavGroupInner<T = unknown>({
-  title,
-  items,
-  render,
-  className = "",
-}: NavGroupProps<T>) {
+function NavGroupInner({ title, items, render, className = "" }) {
   if (!items?.length) return null;
 
   return (
@@ -28,4 +12,4 @@ function NavGroupInner<T = unknown>({
 }
 
 /** Memoised to skip re-render unless props change */
-export const NavGroup = memo(NavGroupInner) as typeof NavGroupInner;
+export const NavGroup = memo(NavGroupInner);

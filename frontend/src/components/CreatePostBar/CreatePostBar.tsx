@@ -6,20 +6,25 @@ import { useAppSelector } from "@/store";
 import { PostBarBtn } from "./PostBarBtn";
 import "./CreatePostBar.css";
 
-interface CreatePostBarProps {
-  isCommunityPage?: boolean;
-  communityName?: string;
-}
-
-export const CreatePostBar = ({
-  isCommunityPage,
-  communityName = "",
-}: CreatePostBarProps) => {
+/**
+ * The 'Create Post' bar at the top of (most) post feeds
+ *
+ * @param isCommunityPage   Boolean; Whether this bar is on a community page or not
+ * @param communityName     If on a community page, the name of the community (for stitching button URLs together)
+ *
+ * @example
+ * <CreatePostBar
+ *   isCommunityPage
+ *   communityName="cats"
+ * />
+ */
+export const CreatePostBar = ({ isCommunityPage, communityName = "" }) => {
   const history = useHistory();
-  const cuser = useAppSelector((state: any) => state.session.user);
-  const user = useAppSelector((state: any) => state.users.users[cuser?.id]);
+  const cuser = useAppSelector((state) => state.session.user);
+  const user = useAppSelector((state) => state.users.users[cuser?.id]);
   const navigate = (path: string) => () => history.push(path);
 
+  // The "image post" and "link post" buttons on right side of bar
   const postBarButtons = [
     {
       icon: RxImage,

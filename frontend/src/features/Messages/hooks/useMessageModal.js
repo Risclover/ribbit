@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/store";
+import { selectThreadsLoaded, useAppDispatch, useAppSelector } from "@/store";
 import { getMessages } from "@/store";
 import { createThread } from "@/store";
 import { addNotification } from "@/store";
@@ -21,6 +21,7 @@ export default function useMessageModal({ username }) {
   const [successMsg, setSuccessMsg] = useState("");
 
   const allUsers = useAppSelector((state) => Object.values(state.users.users));
+  const threadsLoaded = useAppSelector((state) => state.threads.loaded);
   const currentUser = useAppSelector((state) => state.session.user);
   const communities = useAppSelector((state) =>
     Object.values(state.communities.communities)
@@ -50,9 +51,9 @@ export default function useMessageModal({ username }) {
   }, [recipient]);
 
   useEffect(() => {
-    dispatch(getThreads());
+    if (!threadsLoaded) dispatch(getThreads());
     if (!communitiesLoaded) dispatch(getCommunities());
-  }, [dispatch]);
+  }, [threadsLoaded, communitiesLoaded, dispatch]);
 
   useEffect(() => {
     for (let user of allUsers) {
@@ -124,12 +125,12 @@ export default function useMessageModal({ username }) {
 
         const threadData = await dispatch(createThread(threadPayload));
 
-        const thread = await dispatch(getThread(threadData.thread.id));
+        const thread = await dispatch(getThread(threadData?.thread.id));
 
         const payload = {
           content: message,
-          threadId: threadData.thread.id,
-          receiverId: thread.users[0].id,
+          threadId: threadData?.thread.id,
+          receiverId: thread?.users[0].id,
         };
         await dispatch(createMessage(payload));
         dispatch(getMessages());

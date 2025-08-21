@@ -4,6 +4,7 @@ import {
   addReaction,
   getChatThread,
   getComments,
+  getPosts,
   removeReaction,
   useAppDispatch,
   useAppSelector,
@@ -72,24 +73,17 @@ import { useOpenChat } from "context/OpenChatContext";
 import { useIsSmallScreen, useScrollToTop } from "./hooks";
 import { useChatSocket } from "./features/Chat/hooks/useChatSocket";
 import { bootstrapApp } from "./bootstrapApp";
+import { useMessageSocket } from "./features/Messages/hooks/useMessageSocket";
 
 function App() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.session.user);
   const location = useLocation();
   const searchbarRef = useRef();
-  const users = useAppSelector((state) => state.users.users);
-  const background = location.state && location.state.background;
-  const comments = useAppSelector((state) => state.comments.comments);
-  const communities = useAppSelector((state) =>
-    Object.values(state.communities.communities)
-  );
 
   const { openChat } = useChat();
-  const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
+
   const chatThreads = useAppSelector((s) => s.chatThreads.chatThreads);
-  const usersLoaded = useAppSelector((s) => s.users.loaded);
-  const commentsLoaded = useAppSelector((s) => s.comments.comments);
 
   const [loaded, setLoaded] = useState(false);
   const [, setShowLoginForm] = useState(false);
@@ -124,9 +118,7 @@ function App() {
     onReactionRemove: (d) => dispatch(removeReaction(d)),
   });
 
-  useEffect(() => {
-    dispatch(bootstrapApp(dispatch)); // ← runs only on first mount
-  }, [dispatch]);
+  useMessageSocket({ user });
 
   useEffect(() => {
     if (screenWidth <= 1250) {
@@ -152,6 +144,7 @@ function App() {
     (async () => {
       await dispatch(authenticate());
       setLoaded(true);
+      bootstrapApp();
     })();
   }, [dispatch]);
 

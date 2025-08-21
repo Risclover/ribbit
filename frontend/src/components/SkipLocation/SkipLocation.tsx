@@ -26,11 +26,11 @@ export function SkipLocation({
     <div className="skip-location" aria-label="Skip links">
       {showNavSidebar && (
         <a className="skip-link sr-only" href="#side-navigation">
-          Skip&nbsp;to&nbsp;Navigation
+          Skip to Navigation
         </a>
       )}
       <a className="skip-link sr-only" href="#sidebar">
-        Skip&nbsp;to&nbsp;Sidebar
+        Skip to Sidebar
       </a>
     </div>
   );

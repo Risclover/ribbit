@@ -12,7 +12,7 @@ import { useInbox } from "../../hooks/useInbox";
 
 export function Inbox() {
   const { threads, expanded, setExpanded, messageList, messages } = useInbox();
-  const currentUser = useAppSelector((state) => state.current.user);
+  const currentUser = useAppSelector((state) => state.current?.user);
   return (
     <div className="inbox-messages-page">
       <MessageHead />
@@ -35,7 +35,7 @@ export function Inbox() {
             )
           )}
         </div>
-        {messages.length === 0 && (
+        {messages?.length === 0 && (
           <div className="inbox-messages-content-nothing">
             there doesn't seem to be anything here
           </div>

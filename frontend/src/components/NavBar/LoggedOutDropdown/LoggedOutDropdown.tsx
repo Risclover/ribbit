@@ -49,7 +49,7 @@ export function LoggedOutDropdown({
       <div className="nav-user-top-section">
         <NavLink to="/directory" onClick={closeDropdown}>
           <div className="nav-user-dropdown-btn">
-            Communities&nbsp;Directory
+            Communities Directory
           </div>
         </NavLink>
 
@@ -59,7 +59,7 @@ export function LoggedOutDropdown({
           onClick={handleToggleTheme}
           aria-label="Toggle dark mode"
         >
-          Dark&nbsp;Mode{" "}
+          Dark Mode{" "}
           <CommunityThemeToggle
             checked={checked}
             handleThemeToggle={toggleTheme}
@@ -75,7 +75,7 @@ export function LoggedOutDropdown({
         <span className="door-icon">
           <SlLogin />
         </span>
-        Log&nbsp;In&nbsp;/&nbsp;Sign&nbsp;Up
+        Log In/Sign Up
       </button>
     </div>
   );

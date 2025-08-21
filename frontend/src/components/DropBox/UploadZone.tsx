@@ -7,6 +7,17 @@ interface UploadZoneProps {
   label?: React.ReactNode;
 }
 
+/**
+ * Zone of DropBox where user can drag/drop images to upload, or click to open file explorer
+ * @param onFileSelect - Image upload handler
+ * @param accept - `accept` parameter of file input
+ * @param label - Label
+ *
+ * @example
+ * <UploadZone
+ *    onFileSelect={handleUpload}
+ * />
+ */
 export const UploadZone = ({
   onFileSelect,
   accept = "image/*",

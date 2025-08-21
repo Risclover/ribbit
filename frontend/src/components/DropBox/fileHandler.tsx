@@ -5,27 +5,39 @@ interface FileHandlerOptions {
   devWarn?: boolean; // console.warn on reject
 }
 
+/**
+ * Handler for file uploaded in DropBox
+ *
+ * @param setImage - Setter for image uploaded
+ * @param setPreview - Setter for preview of image uploaded
+ *
+ * @example
+ * fileHandler(
+ *  setImage: setImage,
+ *  setPreview: setPreview
+ * )
+ */
 export const fileHandler = (
   setImage: Setter<File | null>,
   setPreview: Setter<string>,
   { accept = "image/*", devWarn = true }: FileHandlerOptions = {}
 ) => {
   // Lives for the lifetime of this handler (we memoize it in DropBox)
-  let currentUrl: string | null = null;
+  let currentUrl = null;
 
-  const extractFile = (evt: any): File | null => {
-    if (evt?.dataTransfer?.files?.[0]) return evt.dataTransfer.files[0];
-    if (evt?.target?.files?.[0]) return evt.target.files[0];
+  const extractFile = (e: any) => {
+    if (e?.dataTransfer?.files?.[0]) return e.dataTransfer.files[0];
+    if (e?.target?.files?.[0]) return e.target.files[0];
     return null;
   };
 
   const handleUpload = (
-    evt: React.DragEvent<HTMLElement> | React.ChangeEvent<HTMLInputElement>
+    e: React.DragEvent<HTMLElement> | React.ChangeEvent<HTMLInputElement>
   ) => {
     // Only prevent default for drag/drop (not for input change)
-    if ("dataTransfer" in evt) evt.preventDefault();
+    if ("dataTransfer" in e) e.preventDefault();
 
-    const file = extractFile(evt);
+    const file = extractFile(e);
     if (!file) return;
 
     // Basic MIME filter
@@ -34,20 +46,17 @@ export const fileHandler = (
       return;
     }
 
-    // Defer revoking the old URL until after the next paint
     const oldUrl = currentUrl;
-
     currentUrl = URL.createObjectURL(file);
+
     setImage(file);
     setPreview(currentUrl);
 
     if (oldUrl) {
-      // give React a tick to swap the CSS background before we revoke
       setTimeout(() => URL.revokeObjectURL(oldUrl), 0);
     }
   };
 
-  /** Release the current blob when the component unmounts. */
   const revokePreview = () => {
     if (currentUrl) URL.revokeObjectURL(currentUrl);
     currentUrl = null;
