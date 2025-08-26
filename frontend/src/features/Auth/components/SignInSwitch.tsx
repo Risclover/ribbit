@@ -2,9 +2,10 @@ import React from "react";
 import useSignInSwitch from "../hooks/useSignInSwitch";
 
 /**
- * A small link that toggles between "Log In" and "Sign Up", taking the user to the respective form when clicked.
- * - prompt: text prompt to display before link
- * - linkText: text link should display
+ * Link that toggles between "Log In" and "Sign Up", taking the user to the respective form when clicked.
+ *
+ * @param prompt: text prompt to accompany link
+ * @param linkText: link text
  */
 export const SignInSwitch = ({ prompt, linkText }) => {
   const { switchAuthForms } = useSignInSwitch({ linkText });

@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useMemo } from "react";
 
 /**
- * A child hook that:
- *  - Delegates onBlur, onRotate to the parent
- *  - Decides iconType based on parent's errors + parent's blurred states
+ * Hook containing logic for AuthFormInput
+ * - Delegates onBlur, onRotate to the parent
+ * - Decides iconType based on parent's errors + parent's blurred states
+ *
+ * @param inputProps: Input box props
+ * @param blurred: Whether or not the input box is blurred (aka not focused)
  */
 export function useAuthFormInput(inputProps, blurred) {
   const hasErrors = inputProps.errors.length > 0;

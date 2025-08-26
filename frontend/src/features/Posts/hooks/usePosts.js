@@ -35,10 +35,8 @@ export function usePosts(isAllPosts) {
       const subbedPostsIds = new Set();
 
       subscriptions.forEach((sub) => {
-        if (sub.subscribers[user?.id]) {
-          Object.values(sub.communityPosts).forEach((post) =>
-            subbedPostsIds.add(post.id)
-          );
+        if (sub.subscribers?.includes(user?.id)) {
+          sub.communityPostIds.forEach((postId) => subbedPostsIds.add(postId));
         }
       });
 

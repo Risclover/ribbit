@@ -44,7 +44,7 @@ export const useCommunitySettings = (community: any) => {
     return true;
   }, [id]);
 
-  const [checked, setChecked] = useState(initialChecked);
+  const [checked, setChecked] = useState<boolean>(initialChecked);
 
   /** Keep state in sync if the community id changes */
   useEffect(() => {

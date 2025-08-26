@@ -18,16 +18,16 @@ export function useChatInput({
   setActiveOverlay,
   showMessageInviteOverlay,
   setPendingInputText,
-  textareaRef,
 }) {
+  const textareaRef = useRef(null);
+
   const socket = getSocket();
-  const dispatch = useAppDispatch();
-  const currentUser = useAppSelector((state) => state.session.user);
   const { selectedChat, setSelectedChat } = useChat();
 
-  const [textValue, setTextValue] = useState("");
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.session.user);
 
-  // Giphy & Emojis
+  const [textValue, setTextValue] = useState("");
   const [openGiphy, setOpenGiphy] = useState(false);
   const [gifIcon, setGifIcon] = useState(liveChatIcons.GifIcon);
   const [openEmojis, setOpenEmojis] = useState(false);
@@ -125,8 +125,8 @@ export function useChatInput({
     setGifIcon,
     openGiphy,
     currentUser,
-    socket,
     disabled,
     handleSubmit,
+    textareaRef,
   };
 }

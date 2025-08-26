@@ -10,7 +10,7 @@ export const useCommentVote = (comment) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.session.user);
 
-  const voter = comment?.commentVoters?.[user?.id]; // vote's user
+  const voter = comment?.commentVotersIds[user?.id]; // vote's user
   const vote = voter ? (voter.isUpvote ? "upvote" : "downvote") : null; // vote type
 
   const handleVoteClick = async (e, voteType) => {

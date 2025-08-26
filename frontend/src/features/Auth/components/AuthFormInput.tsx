@@ -4,11 +4,12 @@ import { useAuthFormInput } from "../hooks";
 
 /**
  * A reusable input field with built-in error display and icons.
- * - handleLabelClick: what should happen when the user clicks on the label
- * - handleBlur: what should happen when the user unfocuses the input box
- * - pickRandomUsername: generate random username
- * - iconType: type of icon to show
- * - classValue: class value of the input box (mostly to control error styles)
+ *
+ * @param handleLabelClick: what should happen when the user clicks on the label
+ * @param handleBlur: what should happen when the user unfocuses the input box
+ * @param pickRandomUsername: generate random username
+ * @param iconType: type of icon to show
+ * @param classValue: class value of the input box (mostly to control error styles)
  */
 export function AuthFormInput({ props, icon = null, blurred }) {
   const {

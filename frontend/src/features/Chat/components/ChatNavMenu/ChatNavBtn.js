@@ -64,7 +64,7 @@ export const ChatNavBtn = ({
                 ? "🖼️"
                 : chatThread.messages[chatThread.messages.length - 1]?.content)
             : ""}
-          {unread && "hi"}
+          {unread}
         </div>
       </div>
     </div>

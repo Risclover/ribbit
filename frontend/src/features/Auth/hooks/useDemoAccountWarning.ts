@@ -6,8 +6,9 @@ import { login } from "@/store";
 import { demoAccountInfo } from "../data/demoAccountInfo";
 
 /**
- * Handles logic for the demo account warning component.
- * - setShowDemoWarning: State variable setter for whether or not the warning is visible
+ * Hook containing logic for DemonAccountWarning
+ * 
+ * @param setShowDemoWarning: State variable setter for whether or not the warning is visible
  */
 export function useDemoAccountWarning({ setShowDemoWarning }) {
   const dispatch = useAppDispatch();

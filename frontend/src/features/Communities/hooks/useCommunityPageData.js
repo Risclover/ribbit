@@ -44,7 +44,7 @@ export function useCommunityPage() {
 
   // 3) Filter posts for this community
   const communityPosts = community
-    ? posts.filter((post) => post.community.id === community.id)
+    ? posts.filter((post) => post.communityId === community.id)
     : [];
 
   // 4) Build dynamic title/icon

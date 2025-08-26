@@ -13,8 +13,16 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
     console.log();
   };
   const community = useAppSelector(
-    (state) => state.communities.communities[post?.community?.id]
+    (state) => state.communities.communities[post?.communityId]
   );
+  const postAuthor = useAppSelector(
+    (state) => state.users.users[post?.authorId]
+  );
+
+  useEffect(() => {
+    console.log("postAuthor:", postAuthor);
+    console.log("community:", community);
+  }, [postAuthor, community]);
   return (
     <div className="single-post-author-bar">
       {isPage !== "singlepage" && isPage !== "community" && (
@@ -31,10 +39,10 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
 
           <NavLink
             onClick={handleNavClick}
-            to={`c/${post?.community?.name}`}
+            to={`c/${community?.name}`}
             className="single-post-community-name"
           >
-            c/{post?.community?.name}
+            c/{community?.name}
           </NavLink>
 
           <span className="single-post-dot-spacer">•</span>
@@ -45,8 +53,8 @@ export function SinglePostAuthorBar({ communityPage, post, isPage }) {
         Posted by
         <Username
           community={communityPage}
-          username={post?.author?.username}
-          user={post?.author}
+          username={postAuthor.username}
+          user={postAuthor}
           source="singlepost"
         />
         <span className="post-time">

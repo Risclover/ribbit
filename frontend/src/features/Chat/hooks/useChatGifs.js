@@ -1,25 +1,58 @@
-import { useCallback } from "react";
+import { useCallback, useRef, useEffect, useState } from "react";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 import { useChat } from "@/context";
-import { createChatMessage, getChatThread, useAppDispatch } from "@/store";
+import {
+  createChatMessage,
+  getChatThread,
+  useAppDispatch,
+  useAppSelector,
+} from "@/store";
+import { getSocket } from "@/socket";
+import { useOutsideClick } from "@/hooks";
 
 const giphy = new GiphyFetch(process.env.REACT_APP_GIPHY_KEY);
 
-export function useChatGifs({
-  receiver,
-  setOpenGiphy,
-  setGifIcon,
-  GifIcon,
-  socket,
-  containerRef,
-  searchText,
-  setSearchText,
-  offset,
-  setOffset,
-  setResults,
-}) {
+export function useChatGifs({ setOpenGiphy, setGifIcon, GifIcon }) {
+  const wrapperRef = useRef(null);
+  const containerRef = useRef(null);
+
   const dispatch = useAppDispatch();
   const { selectedChat } = useChat();
+  const socket = getSocket();
+  const currentUser = useAppSelector((state) => state.session.user);
+
+  const [searchText, setSearchText] = useState("");
+  const [results, setResults] = useState([]);
+  const [closeBtn, setCloseBtn] = useState(false);
+  const [offset, setOffset] = useState(0);
+
+  const receiver = selectedChat.users.find((u) => u.id !== currentUser.id);
+
+  useOutsideClick(wrapperRef, () => setOpenGiphy(false));
+
+  // Load initial
+  useEffect(() => {
+    if (!searchText) {
+      loadTrending();
+    } else {
+      loadSearch();
+    }
+  }, [searchText]);
+
+  // Listen for scrolling
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const scrollHandler = () => handleScroll();
+    el.addEventListener("scroll", scrollHandler);
+    return () => el.removeEventListener("scroll", scrollHandler);
+  }, [handleScroll]);
+
+  // watch text to show/hide close button
+  useEffect(() => {
+    setCloseBtn(!!searchText);
+  }, [searchText]);
 
   const loadTrending = useCallback(async () => {
     setResults([]);
@@ -100,8 +133,11 @@ export function useChatGifs({
     handleClear,
     sendGif,
     handleEntry,
-    handleScroll,
-    loadTrending,
-    loadSearch,
+    searchText,
+    setSearchText,
+    closeBtn,
+    results,
+    wrapperRef,
+    containerRef,
   };
 }

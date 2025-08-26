@@ -63,7 +63,7 @@ export const SinglePostPage: FC = () => {
   );
   const user = useAppSelector((s) => s.session.user);
   const community: Community | undefined = useAppSelector((s) =>
-    post ? s.communities.communities[post.community?.id] : undefined
+    post ? s.communities.communities[post.communityId] : undefined
   );
   const postsLoaded = useAppSelector((state) => state.posts.loaded);
   const communitiesLoaded = useAppSelector((state) => state.communities.loaded);

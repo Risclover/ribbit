@@ -74,7 +74,7 @@ export function EditCommunity() {
   };
 
   useEffect(() => {
-    if (community?.communityOwner.id !== currentUser?.id) {
+    if (community?.communityOwnerId !== currentUser?.id) {
       history.push(`/c/${communityName}`);
     }
   }, []);

@@ -7,9 +7,13 @@ import { useUsernameTaken } from "./";
 import { validatePassword, validateUsername, generateUsername } from "../utils";
 
 /**
- * Custom hook for sign up form's second page.
- * - Logic for page's input boxes (username and password)
- * - Logic for page's submit button
+ * Logic for SignUpFormSecondPage
+ * - State variables (field errors, blurred states, disabled state)
+ * - Field setters for username and password fields
+ * - Validation logic for username and password fields
+ * - Input props for username and password fields
+ * - Form submission handler
+ * - Random username generator handler
  */
 export function useSignUpFormSecondPage() {
   const dispatch = useAppDispatch();

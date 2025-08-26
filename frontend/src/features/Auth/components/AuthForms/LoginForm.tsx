@@ -4,8 +4,9 @@ import { AuthFormInput, AuthModalLayout, FormHeader, SignInSwitch } from "../";
 import { useLoginForm } from "../../hooks";
 
 /**
- * Allows existing users to log in with their email and password.
- * - formType: type of form displayed; relevant for topbar button ("close", "back", or "go home")
+ * Login authentication form w/ email and password
+ *
+ * @param formType: type of form displayed (relevant for topbar button ("close", "back", or "go home"))
  */
 export const LoginForm = ({ formType }) => {
   const { closeModal, view } = useAuthFlow();

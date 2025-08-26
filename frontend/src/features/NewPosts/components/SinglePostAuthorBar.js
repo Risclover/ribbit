@@ -14,12 +14,14 @@ export default function SinglePostAuthorBar({
 }) {
   const history = useHistory();
   const community = useAppSelector(
-    (state) => state.communities.communities[post?.community?.id]
+    (state) => state.communities.communities[post?.communityId]
   );
-
+  const postAuthor = useAppSelector(
+    (state) => state.users.users[post?.authorId]
+  );
   const handleCommunityClick = (e) => {
     e.stopPropagation();
-    history.push(`/c/${post?.community?.name}`);
+    history.push(`/c/${community.name}`);
   };
   return (
     <div
@@ -32,7 +34,7 @@ export default function SinglePostAuthorBar({
           <div className="single-post-community-img">
             {format === "Card" && (
               <CommunityImg
-                imgSrc={post?.community.img}
+                imgSrc={post?.communityIcon}
                 imgAlt="Community"
                 imgStyle={{
                   backgroundColor: `${
@@ -53,7 +55,7 @@ export default function SinglePostAuthorBar({
                 }
               }}
             >
-              c/{post?.community?.name}
+              c/{community.name}
             </div>
           )}
 
@@ -65,8 +67,8 @@ export default function SinglePostAuthorBar({
         Posted by
         <Username
           community={communityPage}
-          username={post?.author?.username}
-          user={post?.author}
+          username={postAuthor.username}
+          user={postAuthor}
           source="singlepost"
         />
         <span className="post-time">

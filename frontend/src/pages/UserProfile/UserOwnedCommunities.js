@@ -16,7 +16,7 @@ export function UserOwnedCommunities({ communitiesList, userId }) {
       <div className="user-profile-owned-communities-box">
         {sortedCommunities.map(
           (community) =>
-            community.communityOwner.id === userId && (
+            community.communityOwnerId === userId && (
               <UserOwnedCommunity key={community.id} community={community} />
             )
         )}

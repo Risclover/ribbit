@@ -1,73 +1,24 @@
-import React, { useRef, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { CiSearch } from "react-icons/ci";
 import { SlClose } from "react-icons/sl";
 import { useChatGifs } from "../../hooks/useChatGifs";
-import { useOutsideClick } from "@/hooks";
 
-export function ChatGifs({
-  receiver,
-  setOpenGiphy,
-  setGifIcon,
-  GifIcon,
-  socket,
-}) {
-  const wrapperRef = useRef(null);
-  const containerRef = useRef(null);
-
-  // We manage search text locally here
-  const [searchText, setSearchText] = useState("");
-  const [results, setResults] = useState([]);
-  const [closeBtn, setCloseBtn] = useState(false);
-  const [offset, setOffset] = useState(0);
-
+export function ChatGifs({ setOpenGiphy, setGifIcon, GifIcon }) {
   const {
     handleClear,
     sendGif,
     handleEntry,
-    handleScroll,
-    loadTrending,
-    loadSearch,
+    searchText,
+    setSearchText,
+    closeBtn,
+    results,
+    wrapperRef,
+    containerRef,
   } = useChatGifs({
-    receiver,
     setOpenGiphy,
     setGifIcon,
     GifIcon,
-    socket,
-    containerRef,
-    searchText,
-    setSearchText,
-    offset,
-    setOffset,
-    setResults,
   });
-
-  // Clicking outside closes this
-  useOutsideClick(wrapperRef, () => setOpenGiphy(false));
-
-  // Load initial
-  useEffect(() => {
-    if (!searchText) {
-      loadTrending();
-    } else {
-      loadSearch();
-    }
-  }, [searchText]);
-
-  // Listen for scrolling
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const scrollHandler = () => handleScroll();
-    el.addEventListener("scroll", scrollHandler);
-    return () => el.removeEventListener("scroll", scrollHandler);
-  }, [handleScroll]);
-
-  // watch text to show/hide close button
-  useEffect(() => {
-    setCloseBtn(!!searchText);
-  }, [searchText]);
 
   return (
     <div className="giphy-box" ref={wrapperRef}>

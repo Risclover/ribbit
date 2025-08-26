@@ -5,9 +5,12 @@ import { login, getUsers } from "@/store";
 import { handleErrors } from "../utils";
 
 /**
- * Custom hook for login form
- * - Logic for form's input boxes (email and password)
- * - Logic for form's submit button
+ * Logic for LoginForm
+ * - State variables (field errors, blurred states, disabled states)
+ * - Field setters for email and password fields
+ * - Validation logic for email and password fields
+ * - Input props for email and password fields
+ * - Form submission handler
  */
 export function useLoginForm() {
   const dispatch = useAppDispatch();

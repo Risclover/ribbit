@@ -4,6 +4,16 @@ import { useAuthFlow } from "@/context";
 import { useModalScrollBorders } from "./useModalScrollBorders";
 import { AuthModalCloseBtn, AuthModalBackBtn } from "@/assets";
 
+/**
+ * Logic for AuthModalLayout
+ * - Sets class names for the topbar and footer of the auth modal
+ * - Determines what the topbar button is ("close" button, "back" button, etc)
+ *
+ * @param containerRef: Ref'd container
+ * @param topbarBtn: The button in the topbar
+ * @param onClose: Handler for closing the auth modal
+ * @returns
+ */
 export function useAuthModalLayout({ containerRef, topbarBtn, onClose }) {
   const history = useHistory();
 

@@ -4,8 +4,9 @@ import { AuthFormInput, AuthModalLayout } from "../";
 import { useSignUpFormSecondPage } from "../../hooks";
 
 /**
- * Allows new users to set username & password to complete sign-up.
- * - formType: The type of form; controls the topmost form button ('close', 'back', or 'go home')
+ * Second page of the sign-up authentication form (username and password)
+ *
+ * @param formType: type of form displayed (relevant for topbar button ("close", "back", or "go home"))
  */
 
 export function SignUpFormSecondPage({ formType }) {

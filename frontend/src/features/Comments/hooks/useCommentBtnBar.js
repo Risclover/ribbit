@@ -19,11 +19,11 @@ export function useCommentBtnBar({
   const currentUser = useAppSelector((state) => state.session.user);
   const post = useAppSelector((state) => state.posts.posts[postId]);
   const communities = useAppSelector((state) => state.communities.communities);
-  const communityId = post.community.id;
+  const communityId = post.communityId;
 
   const isAuthor = comment?.commentAuthor?.id === currentUser?.id;
   const isCommunityOwner =
-    communities[communityId].communityOwner.id === currentUser?.id;
+    communities[communityId].communityOwnerId === currentUser?.id;
   const canEditOrDelete = isAuthor || isCommunityOwner;
 
   const handleDeleteClick = async (e) => {

@@ -63,7 +63,7 @@ export const UserProfilePage: FC = () => {
   const currentUser = useAppSelector((s) => s.session.user);
   const usersLoaded = useAppSelector((state) => state.users.loaded);
 
-  const profilePosts = posts.filter((p) => p?.author?.id === Number(userId));
+  const profilePosts = posts.filter((p) => p?.authorId === Number(userId));
   const communitiesLoaded = useAppSelector((state) => state.communities.loaded);
 
   /* --- initial fetches / format init --- */
@@ -126,7 +126,7 @@ export const UserProfilePage: FC = () => {
             showAbout={showAbout}
             setShowAbout={setShowAbout}
             communitiesList={Object.values(communities).filter(
-              (c: Community) => c.communityOwner.id === Number(userId)
+              (c: Community) => c.communityOwnerId === Number(userId)
             )}
             posts={profilePosts}
             sortMode={sortMode}
@@ -147,7 +147,7 @@ export const UserProfilePage: FC = () => {
         {currentUser?.id === Number(userId) && (
           <UserOwnedCommunities
             communitiesList={Object.values(communities).filter(
-              (c: Community) => c.communityOwner.id === Number(userId)
+              (c: Community) => c.communityOwnerId === Number(userId)
             )}
             userId={Number(userId)}
           />

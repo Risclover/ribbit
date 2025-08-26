@@ -3,6 +3,14 @@ import { useAppSelector } from "@/store";
 import { useAuthFlow } from "@/context";
 import { handleEmailErrors } from "../utils";
 
+/**
+ * Logic for SignUpForm (first page)
+ * - State variables (field errors, blurred and focused states, disabled state)
+ * - Field setter for email field
+ * - Validation logic for email field
+ * - Input props for email field
+ * - Form submission handler ("Continue" button)
+ */
 export function useSignUpForm() {
   const users = useAppSelector((state) => state.users.users);
 

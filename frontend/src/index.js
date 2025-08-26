@@ -6,8 +6,13 @@ import "./assets/styles/index.css";
 import "./assets/styles/variables.css";
 import "isomorphic-fetch";
 import { AppProviders } from "@/context";
+import { apiSlice } from "./redux/api";
 
-const store = configureStore();
+const store = configureStore({
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>

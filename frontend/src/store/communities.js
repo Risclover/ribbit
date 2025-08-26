@@ -48,16 +48,6 @@ export const getCommunities = () => async (dispatch) => {
   }
 };
 
-export const getCommunitySubscribers = (communityId) => async (dispatch) => {
-  const response = await fetch(`/api/communities/${communityId}/subscribers`);
-
-  if (response.ok) {
-    const subscribers = await response.json();
-    dispatch(loadSubscribers(subscribers));
-    return subscribers;
-  }
-};
-
 export const addCommunity = (payload) => async (dispatch) => {
   const { name, description } = payload;
 
@@ -117,72 +107,6 @@ export const deleteCommunity = (communityId) => async (dispatch) => {
     const deleted = await response.json();
     dispatch(removeCommunity(communityId));
     return deleted;
-  }
-};
-
-export const editCommunityTheme = (payload) => async (dispatch) => {
-  const {
-    communityId,
-    baseColor,
-    highlight,
-    bodyBg,
-    bodyBgImgFormat,
-    nameFormat,
-  } = payload;
-  const response = await fetch(`/api/communities/${communityId}/appearance`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      baseColor,
-      highlight,
-      bodyBg,
-      bodyBgImgFormat,
-      nameFormat,
-    }),
-  });
-
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(loadCommunity(data));
-    return data;
-  }
-};
-
-export const getCommunityPreview = (communityId) => async (dispatch) => {
-  const response = await fetch(`/api/communities/${communityId}/style`);
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(loadCommunity(data));
-    return data;
-  }
-};
-
-export const updateCommunityPreview = (payload) => async (dispatch) => {
-  const { communityId, baseColor, highlight, bodyBg, bodyBgImgFormat } =
-    payload;
-
-  const response = await fetch(`/api/communities/${communityId}/style/edit`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ baseColor, highlight, bodyBg, bodyBgImgFormat }),
-  });
-
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(loadCommunity(data));
-    return data;
-  }
-};
-
-export const defaultCommunityImg = (communityId) => async (dispatch) => {
-  const response = await fetch(`/api/communities/${communityId}/default-img`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-  });
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(loadCommunity(data));
-    return data;
   }
 };
 

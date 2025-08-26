@@ -1,17 +1,24 @@
-export function sortPostResults(posts, mode = "Top") {
+export function sortPostResults(
+  posts,
+  mode = "Top",
+  postVotersById: Record<number, { userID: number; isUpvote: boolean }> = {}
+) {
   const comments = (p) => p.commentNum ?? p.comments?.length ?? 0;
   const timestamp = (p) => new Date(p.createdAt).getTime();
 
-  // “controversy” → 1 when up = down, 0 when only ups or downs
   const getVoteCounts = (p) => {
-    const voters = Object.values(p.postVoters ?? {});
     let up = 0;
     let down = 0;
 
-    for (const v of voters) {
-      if (v.isUpvote) up++;
-      else down++;
+    if (p.postVoterIds?.length) {
+      for (const voterId of p.postVoterIds) {
+        const voter = postVotersById[voterId];
+        if (!voter) continue;
+        if (voter.isUpvote) up++;
+        else down++;
+      }
     }
+
     return { up, down };
   };
 
@@ -23,7 +30,7 @@ export function sortPostResults(posts, mode = "Top") {
   const controversial = (p) => {
     const { up, down } = getVoteCounts(p);
     const total = up + down;
-    return total ? 1 - Math.abs(up - down) / total : 0; // 1 ↔ most controversial
+    return total ? 1 - Math.abs(up - down) / total : 0;
   };
 
   const compare =

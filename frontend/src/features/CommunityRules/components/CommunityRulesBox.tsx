@@ -23,12 +23,12 @@ export function CommunityRulesBox({
 
   /* derive community name & rules safely, memoised */
   const { communityName, rules } = useMemo(() => {
-    const cName = community?.name ?? post?.community?.name ?? "";
+    const cName = community?.name ?? "";
 
     const ruleList: Rule[] = community
       ? Object.values(community.communityRules ?? {})
       : post
-      ? Object.values(communities[post.community.id]?.communityRules ?? {})
+      ? Object.values(communities[post.communityId]?.communityRules ?? {})
       : [];
 
     return { communityName: cName, rules: ruleList };

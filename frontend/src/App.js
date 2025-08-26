@@ -72,7 +72,6 @@ import { MobileNavBar } from "components/NavBar/MobileNavbar/MobileNavbar";
 import { useOpenChat } from "context/OpenChatContext";
 import { useIsSmallScreen, useScrollToTop } from "./hooks";
 import { useChatSocket } from "./features/Chat/hooks/useChatSocket";
-import { bootstrapApp } from "./bootstrapApp";
 import { useMessageSocket } from "./features/Messages/hooks/useMessageSocket";
 
 function App() {
@@ -144,7 +143,6 @@ function App() {
     (async () => {
       await dispatch(authenticate());
       setLoaded(true);
-      bootstrapApp();
     })();
   }, [dispatch]);
 

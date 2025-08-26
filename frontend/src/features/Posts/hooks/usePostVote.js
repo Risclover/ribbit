@@ -11,7 +11,7 @@ export const usePostVote = (post) => {
   const [vote, setVote] = useState(null);
 
   useEffect(() => {
-    const voter = post?.postVoters[user?.id];
+    const voter = post?.postVoterIds[user?.id];
 
     if (voter) {
       setVote(voter.isUpvote ? "upvote" : "downvote");

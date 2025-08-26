@@ -4,8 +4,9 @@ import { AuthFormInput, FormHeader, SignInSwitch, AuthModalLayout } from "../";
 import { useSignUpForm } from "../../hooks";
 
 /**
- * Allows users to enter an email to start sign-up.
- * - formType: The type of form it is; controls the topmost form button ('close', 'back', or 'go home')
+ * Sign-up authentication form (email)
+ *
+ * @param formType: type of form displayed (relevant for topbar button ("close", "back", or "go home"))
  */
 
 export const SignUpForm = ({ formType }) => {

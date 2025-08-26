@@ -1,13 +1,7 @@
 import { MouseEvent } from "react";
 import { PiArrowFatUpFill, PiArrowFatDownFill } from "react-icons/pi";
 import { usePostVote } from "../../hooks/usePostVote";
-
-export interface Post {
-  id: number | string;
-  votes: number;
-  postVoters: Record<string, unknown>;
-}
-
+import type { Post } from "@/types";
 interface SinglePostKarmabarProps {
   post: Post;
   /** Visual style of the bar; "single" is default. */
@@ -51,7 +45,7 @@ export function SinglePostKarmabar({
       >
         {post.votes === 0 && vote !== null
           ? 0
-          : vote === null && Object.keys(post.postVoters).length === 0
+          : vote === null && Object.keys(post.postVoterIds).length === 0
           ? "Vote"
           : post.votes}
       </span>

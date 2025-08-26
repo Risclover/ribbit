@@ -7,6 +7,7 @@ import LazyLoad from "react-lazyload";
 import { useMetadata } from "@/context";
 import { Text } from "@/features/Comments/components/Comment/Text";
 import { sliceUrl } from "@/utils";
+import { useAppSelector } from "@/store";
 
 export function SinglePostContent({ link, post, isPage }) {
   const history = useHistory();
@@ -32,11 +33,16 @@ export function SinglePostContent({ link, post, isPage }) {
     e.preventDefault();
     window.open(post.linkUrl, "_blank", "noopener,noreferrer");
   };
-
+  const community = useAppSelector(
+    (state) => state.communities.communities[post?.communityId]
+  );
+  const postAuthor = useAppSelector(
+    (state) => state.users.users[post?.authorId]
+  );
   const openMediaViewer = () => {
     if (isPage === "singlepage") {
       const encodedUrl = encodeURIComponent(post.imgUrl);
-      const mediaUrl = `${window.location.origin}/c/${post.community.name}/media?url=${encodedUrl}`;
+      const mediaUrl = `${window.location.origin}/c/${community.name}/media?url=${encodedUrl}`;
       window.open(mediaUrl, "_blank", "noopener,noreferrer");
     }
   };

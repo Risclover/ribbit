@@ -19,10 +19,10 @@ export const loadSubscribers = (subscriptions) => {
   };
 };
 
-export const createSubscription = (subscription) => {
+export const createSubscription = (communityId) => {
   return {
     type: CREATE_SUBSCRIPTION,
-    subscription,
+    communityId,
   };
 };
 
@@ -35,35 +35,36 @@ export const removeSubscription = (communityId) => {
 
 /* ------------------------- THUNKS ------------------------- */
 
-export const addToSubscriptions = (communityId) => async () => {
+export const addToSubscriptions = (communityId) => async (dispatch) => {
   const response = await fetch("/api/subscriptions", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      communityId: communityId,
-    }),
+    body: JSON.stringify({ communityId }),
   });
 
-  return response;
+  if (response.ok) {
+    // Dispatch the new subscription ID to the reducer
+    dispatch(createSubscription(communityId));
+    const data = await response.json();
+    return data;
+  }
 };
 
 export const getSubscribers = (communityId) => async (dispatch) => {
   const response = await fetch(`/api/subscriptions/${communityId}`);
-
   if (response.ok) {
-    const subscriptions = await response.json();
-    dispatch(loadSubscriptions(subscriptions));
-    return subscriptions;
+    const data = await response.json(); // { subscribers: [...] }
+    dispatch(loadSubscribers(data.subscribers));
+    return data;
   }
 };
-
 export const getSubscriptions = () => async (dispatch) => {
   const response = await fetch(`/api/subscriptions`);
 
   if (response.ok) {
-    const subscriptions = await response.json();
-    dispatch(loadSubscriptions(subscriptions));
-    return subscriptions;
+    const data = await response.json(); // { subscriptions: [1,2,5] }
+    dispatch(loadSubscriptions(data.subscriptions)); // send only the array
+    return data;
   }
 };
 
@@ -84,36 +85,38 @@ export const deleteSubscription = (communityId) => async (dispatch) => {
 
 const initialState = {
   loaded: false,
-  subscriptions: {},
+  subscriptions: [], // store as array of IDs
 };
 
 const allSubscriptionsReducer = (state = initialState, action) => {
-  const newState = { ...state };
   switch (action.type) {
     case LOAD_SUBSCRIPTIONS:
-      const byId = {};
-      action.subscriptions.Subscriptions.forEach((s) => {
-        byId[s.id] = s;
-      });
-
-      return { ...state, subscriptions: byId, loaded: true };
-
+      return {
+        ...state,
+        subscriptions: action.subscriptions, // array of IDs
+        loaded: true,
+      };
+    case CREATE_SUBSCRIPTION:
+      return {
+        ...state,
+        subscriptions: state.subscriptions.includes(action.communityId)
+          ? state.subscriptions
+          : [...state.subscriptions, action.communityId],
+      };
     case LOAD_SUBSCRIBERS:
-      if (action.subscriptions && action.subscriptions.Subscribers) {
-        return action.subscriptions.Subscribers.reduce(
-          (subscribers, subscriber) => {
-            subscribers[subscriber.id] = subscriber;
-            return subscriber;
-          },
-          {}
-        );
-      }
-
-      return state;
+      return {
+        ...state,
+        subscribers: action.subscriptions, // array of subscriber objects
+      };
 
     case DELETE_SUBSCRIPTION:
-      delete newState[action.communityId];
-      return newState;
+      return {
+        ...state,
+        subscriptions: state.subscriptions.filter(
+          (id) => id !== action.communityId
+        ),
+      };
+
     default:
       return state;
   }

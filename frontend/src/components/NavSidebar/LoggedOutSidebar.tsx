@@ -58,7 +58,7 @@ export function LoggedOutSidebar({
   // fetch popular communities once
   useEffect(() => {
     if (!communitiesLoaded) dispatch(getCommunities());
-  }, [dispatch, communities.length]);
+  }, [dispatch, communitiesLoaded]);
 
   // read “recent communities” from localStorage
   useEffect(() => {

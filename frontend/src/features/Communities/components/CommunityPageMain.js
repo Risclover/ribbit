@@ -12,9 +12,11 @@ export function CommunityPageMain({ community }) {
   const communities = useAppSelector((state) =>
     Object.values(state.communities.communities)
   );
-  const communityPosts = Object.values(
-    communities[community.id].communityPosts
-  );
+
+  const posts = useAppSelector((state) => Object.values(state.posts.posts));
+  const communityPosts = community
+    ? posts.filter((post) => post.communityId === community.id)
+    : [];
   const user = useAppSelector((state) => state.session.user);
 
   return (

@@ -2,6 +2,12 @@ import { useEffect, useState, useCallback } from "react";
 import { useAppDispatch } from "@/store";
 import { checkUsername } from "@/store";
 
+/**
+ * Logic for UsernameTaken
+ * - Checks if the given username is already in the database
+ *
+ * @param username: the username to check
+ */
 export const useUsernameTaken = (username) => {
   const dispatch = useAppDispatch();
   const [usernameTaken, setUsernameTaken] = useState(false);

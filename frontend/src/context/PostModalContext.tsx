@@ -16,27 +16,15 @@ import { bootstrapPostModal, useAppDispatch } from "@/store";
 import { PostPopup } from "@/components";
 import { useFocusTrap, useScrollLock } from "@/hooks";
 import "./PostModalContext.css";
+import { PostVoter, Post } from "@/types";
 
 /* ──────────────────────────────── Types ──────────────────────────────── */
-export interface Post {
-  readonly id: number | string;
-  readonly title?: string;
-  readonly votes: number;
-  readonly postVoters: Record<string, unknown>;
-
-  /** Added so PostPopup receives the field it expects */
-  readonly community: {
-    id: number | string;
-    name?: string;
-  };
-}
-
 interface ProviderProps {
   children: ReactNode;
 }
 
 interface ModalProps {
-  post: Readonly<Post>;
+  post: Post;
   onClose(): void;
   format?: "full" | "compact";
 }

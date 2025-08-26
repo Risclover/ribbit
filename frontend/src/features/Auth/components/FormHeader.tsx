@@ -3,8 +3,7 @@ import { DemoAccountWarning } from "./DemoAccountWarning";
 import { GoogleSymbol } from "@/assets";
 
 /**
- * Renders a user agreement text and a “Demo account” button at the top of the auth forms.
- * - displays general user agreement + demo account usage button
+ * Renders a user agreement text and a "Demo account" button at the top of the auth forms.
  */
 export function FormHeader() {
   const [showDemoWarning, setShowDemoWarning] = useState(false);

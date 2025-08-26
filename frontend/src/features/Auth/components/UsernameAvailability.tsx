@@ -5,6 +5,10 @@ import React from "react";
  * - user must not be focused on the box
  * - there must be no errors
  * - there is something in the input box (it isn't empty)
+ *
+ * @param errors:
+ * @param blurred:
+ * @param value:
  */
 export function UsernameAvailability({ errors, blurred, value }) {
   if (blurred && errors.length === 0 && value.trim() !== "") {

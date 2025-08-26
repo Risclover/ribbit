@@ -1,8 +1,9 @@
 import { useState, useCallback } from "react";
 
 /**
- * A small hook that toggles `headerBorder` and `footerBorder`
- * based on scroll position of a ref'd container.
+ * Toggles headerBorder and footerBorder based on scroll position of a ref'd container
+ *
+ * @param containerRef: Ref'd container
  */
 export function useModalScrollBorders(containerRef) {
   const [headerBorder, setHeaderBorder] = useState(false);

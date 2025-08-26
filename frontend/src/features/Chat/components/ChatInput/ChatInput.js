@@ -1,15 +1,4 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
-import { getSocket } from "@/socket";
-import { useChat } from "@/context";
-import { useAutosizeTextArea } from "@/hooks";
 import { ChatEmojis, ChatGifs } from "@/features";
-import {
-  useAppSelector,
-  useAppDispatch,
-  createChatThread,
-  createChatMessage,
-  getChatThread,
-} from "@/store";
 import { GifIcon, SendMessageIcon, liveChatIcons } from "@/assets";
 import { useChatInput } from "../../hooks/useChatInput";
 
@@ -23,8 +12,6 @@ export const ChatInput = ({
   inputText,
   setPendingInputText,
 }) => {
-  const textareaRef = useRef(null);
-
   const {
     handleEnterPress,
     selectedChat,
@@ -37,9 +24,9 @@ export const ChatInput = ({
     setGifIcon,
     openGiphy,
     currentUser,
-    socket,
     disabled,
     handleSubmit,
+    textareaRef,
   } = useChatInput({
     inputText,
     setUsername,
@@ -47,7 +34,6 @@ export const ChatInput = ({
     setActiveOverlay,
     showMessageInviteOverlay,
     setPendingInputText,
-    textareaRef,
   });
 
   return (
@@ -88,15 +74,9 @@ export const ChatInput = ({
 
       {openGiphy && (
         <ChatGifs
-          receiver={
-            selectedChat
-              ? selectedChat.users.find((u) => u.id !== currentUser.id)
-              : null
-          }
           setGifIcon={setGifIcon}
           GifIcon={liveChatIcons.GifIcon}
           setOpenGiphy={setOpenGiphy}
-          socket={socket}
         />
       )}
 
